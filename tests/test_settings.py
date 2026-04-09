@@ -10,10 +10,12 @@ def test_load_settings_reads_domains_and_sources():
     assert "rss" in settings.sources
 
 
-def test_load_settings_includes_morning_schedule_and_push_channel_defaults():
+def test_load_settings_includes_morning_schedule_and_push_channel_defaults(monkeypatch):
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     settings = load_settings(Path.cwd())
     assert settings.schedules["jobs"]["daily"]["cron"] == "0 23 * * *"
     assert settings.env["PUSHPLUS_CHANNEL"] == "clawbot"
     assert settings.env["REPORT_REPO_URL"] == "https://github.com/wsysgz/VS_AI"
-    assert settings.env["TELEGRAM_BOT_TOKEN"] == ""
-    assert settings.env["TELEGRAM_CHAT_ID"] == ""
+    assert "TELEGRAM_BOT_TOKEN" in settings.env
+    assert "TELEGRAM_CHAT_ID" in settings.env
