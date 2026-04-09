@@ -10,8 +10,20 @@
 
 - `origin = git@github.com:wsysgz/VS_AI.git`
 - 验证命令：`ssh -T git@github.com`
+- 本机 GitHub 认证主钥匙：`ssh-blog`
+- 对应公钥：`C:\Users\24160\.ssh\id_ed25519.pub`
+- 指纹：`SHA256:5PsPPHvqPDYP7X15wLGZlQakseS8wmWYYqIYisx1Ixg`
+- 便捷测试命令：`ssh -T ssh-blog`
 
 如果后续 AI 接手，优先沿用当前 SSH 方式，不要为了“先跑起来”再切回 HTTPS。
+
+当前机器也已安装 GitHub CLI：
+
+- 可执行文件：`C:\Program Files\GitHub CLI\gh.exe`
+- 推荐认证检查：`& 'C:\Program Files\GitHub CLI\gh.exe' auth status`
+- 推荐仓库检查：`& 'C:\Program Files\GitHub CLI\gh.exe' repo view wsysgz/VS_AI`
+- 推荐 Actions 检查：`& 'C:\Program Files\GitHub CLI\gh.exe' run list --repo wsysgz/VS_AI --limit 5`
+- 当前 `gh` 已导入本机本地凭据；不要把 PAT 明文再次写入仓库。
 
 ## 给后续 AI / 开发者的规则
 
@@ -59,6 +71,8 @@ python -m auto_report.cli run-once
 git status --short
 git remote -v
 ssh -T git@github.com
+ssh -T ssh-blog
+& 'C:\Program Files\GitHub CLI\gh.exe' auth status
 ```
 
 如果修改了通知逻辑，再额外核对：

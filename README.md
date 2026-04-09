@@ -26,6 +26,10 @@ AI 情报采集与分析系统。
 - 主本地目录：`D:\GitHub\auto`
 - 主远端仓库：`git@github.com:wsysgz/VS_AI.git`
 - SSH 连通性验证：`ssh -T git@github.com`
+- `ssh-blog` 对应本机 `C:\Users\24160\.ssh\id_ed25519.pub`，指纹：`SHA256:5PsPPHvqPDYP7X15wLGZlQakseS8wmWYYqIYisx1Ixg`
+- 也可以直接验证：`ssh -T ssh-blog`
+- GitHub CLI：`C:\Program Files\GitHub CLI\gh.exe`
+- GitHub CLI 登录状态检查：`& 'C:\Program Files\GitHub CLI\gh.exe' auth status`
 - 推荐验证顺序：
   - `python -m pytest -q`
   - `python -m auto_report.cli run-once`
@@ -33,6 +37,7 @@ AI 情报采集与分析系统。
   - 再推送到 `main`
 
 仓库根目录已经补充了 `AGENTS.md`，后续 AI / 开发者接手时优先读取它，可以更快恢复上下文。
+当前 PAT 已接入本机 `gh auth` 的本地凭据存储，仓库文档不会保存 PAT 明文。
 
 ## 本地运行
 
