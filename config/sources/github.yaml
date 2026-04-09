@@ -1,13 +1,19 @@
 sources:
-  - id: github-ai-search
+  - id: curated-agent-repos
     enabled: true
-    mode: repository_search
-    query: topic:llm stars:>200 archived:false
+    mode: curated_repositories
     category_hint: ai-llm-agent
-    max_items: 8
-  - id: github-edge-ai-search
+    repositories:
+      - langchain-ai/langgraph
+      - vllm-project/vllm
+      - ollama/ollama
+    max_items: 3
+  - id: curated-edge-repos
     enabled: true
-    mode: repository_search
-    query: "edge ai accelerator OR npu stars:>50 archived:false"
+    mode: curated_repositories
     category_hint: ai-x-electronics
-    max_items: 8
+    repositories:
+      - pytorch/executorch
+      - alibaba/MNN
+      - tenstorrent/tt-metal
+    max_items: 3

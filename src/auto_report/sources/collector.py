@@ -6,7 +6,7 @@ import requests
 
 from auto_report.models.records import CollectedItem
 from auto_report.settings import Settings
-from auto_report.sources.github import normalize_github_repositories
+from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.rss import parse_rss_content
 from auto_report.sources.websites import extract_listing_items
 
@@ -52,30 +52,28 @@ def _collect_github(settings: Settings) -> tuple[list[CollectedItem], list[str]]
     for source in settings.sources.get("github", {}).get("sources", []):
         if not source.get("enabled", False):
             continue
-        query = str(source.get("query", "")).strip()
-        if not query:
+        if source.get("mode") != "curated_repositories":
             continue
         try:
-            response = requests.get(
-                "https://api.github.com/search/repositories",
-                timeout=20,
-                headers=headers,
-                params={
-                    "q": query,
-                    "per_page": int(source.get("max_items", 8)),
-                    "sort": "updated",
-                    "order": "desc",
-                },
-            )
-            response.raise_for_status()
-            payload = response.json()
-            items.extend(
-                normalize_github_repositories(
+            repositories = [
+                str(repository).strip()
+                for repository in source.get("repositories", [])
+                if str(repository).strip()
+            ]
+            for full_name in repositories[: int(source.get("max_items", len(repositories) or 0))]:
+                response = requests.get(
+                    f"https://api.github.com/repos/{full_name}",
+                    timeout=20,
+                    headers=headers,
+                )
+                response.raise_for_status()
+                item = normalize_github_repository_detail(
                     source_id=str(source["id"]),
-                    payload=payload,
+                    payload=response.json(),
                     category_hint=str(source.get("category_hint", "")),
                 )
-            )
+                if item is not None:
+                    items.append(item)
         except Exception as exc:
             diagnostics.append(f"GitHub source failed: {source.get('id')} -> {exc}")
     return items, diagnostics
@@ -89,12 +87,7 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
             continue
         try:
             html = _fetch_text(str(source["url"]))
-            extracted = extract_listing_items(
-                source_id=str(source["id"]),
-                html=html,
-                page_url=str(source["url"]),
-                category_hint=str(source.get("category_hint", "")),
-            )
+            extracted = extract_listing_items(source, html)
             items.extend(extracted[: int(source.get("max_items", 12))])
         except Exception as exc:
             diagnostics.append(f"Website source failed: {source.get('id')} -> {exc}")

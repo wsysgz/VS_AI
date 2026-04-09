@@ -1,13 +1,71 @@
 sources:
-  - id: semiengineering-ai
+  - id: anthropic-news
     enabled: true
-    mode: listing
-    url: https://semiengineering.com/knowledge_centers/artificial-intelligence/
-    category_hint: ai-x-electronics
-    max_items: 12
-  - id: deepseek-news
-    enabled: true
-    mode: listing
-    url: https://api-docs.deepseek.com/
+    mode: article_listing
+    url: https://www.anthropic.com/news
     category_hint: ai-llm-agent
-    max_items: 12
+    max_items: 8
+    link_selector: "a[href^='/news/']"
+    include_url_patterns:
+      - /news/
+    exclude_url_patterns:
+      - /jobs
+      - /about
+      - "#"
+  - id: deepseek-updates
+    enabled: true
+    mode: article_listing
+    url: https://api-docs.deepseek.com/news/news
+    category_hint: ai-llm-agent
+    max_items: 8
+    link_selector: "a[href*='/news/']"
+    include_url_patterns:
+      - /news/
+    exclude_url_patterns:
+      - "#"
+  - id: qwen-blog
+    enabled: true
+    mode: article_listing
+    url: https://qwenlm.github.io/blog/
+    category_hint: ai-llm-agent
+    max_items: 6
+    link_selector: "a[href*='/blog/']"
+    include_url_patterns:
+      - /blog/
+    exclude_url_patterns:
+      - "#"
+  - id: moonshot-blog
+    enabled: true
+    mode: article_listing
+    url: https://platform.moonshot.cn/blog/posts/
+    category_hint: ai-llm-agent
+    max_items: 6
+    link_selector: "a[href*='/blog/posts/']"
+    include_url_patterns:
+      - /blog/posts/
+    exclude_url_patterns:
+      - "#"
+  - id: arm-news
+    enabled: true
+    mode: article_listing
+    url: https://newsroom.arm.com/news
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a[href*='/news/']"
+    include_url_patterns:
+      - /news/
+    exclude_url_patterns:
+      - /about
+      - "#"
+  - id: qualcomm-onq
+    enabled: true
+    mode: article_listing
+    url: https://www.qualcomm.com/news/onq
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a[href*='/news/onq/']"
+    include_url_patterns:
+      - /news/onq/
+    exclude_url_patterns:
+      - /support
+      - "#"

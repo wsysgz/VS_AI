@@ -1,3 +1,5 @@
+from auto_report.pipeline.source_filters import should_keep_candidate
+from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.github import normalize_github_repositories
 from auto_report.sources.rss import parse_rss_content
 from auto_report.sources.websites import extract_listing_items
@@ -71,21 +73,59 @@ def test_normalize_github_repositories_maps_repo_payload():
     assert "llm" in items[0].tags
 
 
-def test_extract_listing_items_reads_anchor_links():
+def test_normalize_github_repository_detail_maps_single_repository():
+    item = normalize_github_repository_detail(
+        source_id="curated-agent-repos",
+        payload={
+            "full_name": "langchain-ai/langgraph",
+            "html_url": "https://github.com/langchain-ai/langgraph",
+            "description": "Agent orchestration library",
+            "topics": ["agent", "workflow"],
+            "language": "Python",
+            "stargazers_count": 9999,
+            "updated_at": "2026-04-10T00:00:00Z",
+        },
+        category_hint="ai-llm-agent",
+    )
+
+    assert item is not None
+    assert item.title == "langchain-ai/langgraph"
+    assert item.metadata["stars"] == 9999
+
+
+def test_should_keep_candidate_drops_navigation_noise():
+    source = {
+        "include_url_patterns": ["/news/"],
+        "exclude_url_patterns": ["/jobs", "/about", "#"],
+    }
+
+    assert should_keep_candidate("Anthropic launches X", "https://example.com/news/x", source) is True
+    assert should_keep_candidate("Home", "https://example.com/", source) is False
+    assert should_keep_candidate("Subscribe", "https://example.com/newsletter", source) is False
+    assert should_keep_candidate("Skip to main content", "https://example.com/#content", source) is False
+
+
+def test_extract_listing_items_uses_selectors_and_filters():
     html = """
     <html><body>
-      <a href="/post-a">AI 芯片发布</a>
-      <a href="https://example.com/post-b">多模态边缘设备</a>
+      <a href="/news/release-a">Anthropic launches release A</a>
+      <a href="/about">About</a>
+      <a href="#content">Skip to main content</a>
     </body></html>
     """
 
     items = extract_listing_items(
-        source_id="semi-list",
-        html=html,
-        page_url="https://example.com/news",
-        category_hint="ai-x-electronics",
+        {
+            "id": "anthropic-news",
+            "url": "https://example.com/news",
+            "category_hint": "ai-llm-agent",
+            "link_selector": "a",
+            "include_url_patterns": ["/news/"],
+            "exclude_url_patterns": ["/about", "#"],
+        },
+        html,
     )
 
-    assert len(items) == 2
-    assert items[0].url == "https://example.com/post-a"
-    assert items[1].title == "多模态边缘设备"
+    assert len(items) == 1
+    assert items[0].title == "Anthropic launches release A"
+    assert items[0].url == "https://example.com/news/release-a"
