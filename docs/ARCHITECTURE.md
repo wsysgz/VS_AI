@@ -2,9 +2,9 @@
 
 ## 当前执行链路
 
-当前 V1 的执行路径是：
+当前第一轮升级后的执行路径是：
 
-`cli.py` -> `app.py` -> `settings.py` -> `sources/` -> `pipeline/` -> `outputs/` -> `integrations/` -> `data/`
+`cli.py` -> `app.py` -> `settings.py` -> `sources/` -> `pipeline/source_filters.py` -> `pipeline/topic_builder.py` -> `pipeline/ai_pipeline.py` -> `outputs/` -> `integrations/` -> `data/`
 
 ## 当前分层
 
@@ -15,7 +15,7 @@
 - `src/auto_report/sources/`
   放 RSS、GitHub、网页列表等采集适配器。
 - `src/auto_report/pipeline/`
-  放去重、分类、评分、分析、执行主流程。
+  放去重、分类、评分、主题构建、分析、总结、预测和执行主流程。
 - `src/auto_report/domains/`
   放领域判定规则。
 - `src/auto_report/outputs/`

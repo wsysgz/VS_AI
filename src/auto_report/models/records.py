@@ -23,3 +23,16 @@ class TopicGroup:
     canonical_title: str
     canonical_url: str
     evidence_items: list[CollectedItem] = field(default_factory=list)
+
+
+@dataclass(slots=True)
+class TopicCandidate:
+    topic_id: str
+    title: str
+    url: str
+    primary_domain: str
+    matched_domains: list[str]
+    evidence_count: int
+    source_ids: list[str]
+    tags: list[str]
+    evidence_snippets: list[str]

@@ -5,7 +5,8 @@ from auto_report.pipeline.analysis import build_report_package
 from auto_report.settings import load_settings
 
 
-def test_build_report_package_generates_domain_signals():
+def test_build_report_package_generates_domain_signals(monkeypatch):
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
     settings = load_settings(Path.cwd())
     items = [
         CollectedItem(
@@ -38,5 +39,6 @@ def test_build_report_package_generates_domain_signals():
 
     assert len(package.signals) == 2
     assert package.summary_payload["meta"]["total_topics"] == 2
+    assert package.summary_payload["signals"][0]["evidence_count"] >= 1
     assert "ai-llm-agent" in package.domain_payloads
     assert "ai-x-electronics" in package.domain_payloads

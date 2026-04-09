@@ -1,3 +1,5 @@
+from auto_report.pipeline.source_filters import should_keep_candidate
+from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.github import normalize_github_repositories
 from auto_report.sources.rss import parse_rss_content
 from auto_report.sources.websites import extract_listing_items
@@ -44,6 +46,37 @@ def test_parse_rss_content_respects_max_items():
     assert len(items) == 1
 
 
+def test_parse_rss_content_respects_excluded_title_patterns():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>Sample Feed</title>
+        <item>
+          <title>OpenAI Full Fan Mode Contest: Terms &amp; Conditions</title>
+          <link>https://example.com/contest</link>
+          <description>Low-signal legal post</description>
+        </item>
+        <item>
+          <title>The next phase of enterprise AI</title>
+          <link>https://example.com/enterprise-ai</link>
+          <description>High-signal product and adoption update</description>
+        </item>
+      </channel>
+    </rss>
+    """
+
+    items = parse_rss_content(
+        source_id="sample-feed",
+        content=content,
+        category_hint="ai-llm-agent",
+        source_rules={
+            "exclude_title_patterns": ["contest", "terms & conditions"],
+        },
+    )
+
+    assert [item.title for item in items] == ["The next phase of enterprise AI"]
+
+
 def test_normalize_github_repositories_maps_repo_payload():
     payload = {
         "items": [
@@ -71,21 +104,94 @@ def test_normalize_github_repositories_maps_repo_payload():
     assert "llm" in items[0].tags
 
 
-def test_extract_listing_items_reads_anchor_links():
+def test_normalize_github_repository_detail_maps_single_repository():
+    item = normalize_github_repository_detail(
+        source_id="curated-agent-repos",
+        payload={
+            "full_name": "langchain-ai/langgraph",
+            "html_url": "https://github.com/langchain-ai/langgraph",
+            "description": "Agent orchestration library",
+            "topics": ["agent", "workflow"],
+            "language": "Python",
+            "stargazers_count": 9999,
+            "updated_at": "2026-04-10T00:00:00Z",
+        },
+        category_hint="ai-llm-agent",
+    )
+
+    assert item is not None
+    assert item.title == "langchain-ai/langgraph"
+    assert item.metadata["stars"] == 9999
+
+
+def test_should_keep_candidate_drops_navigation_noise():
+    source = {
+        "include_url_patterns": ["/news/"],
+        "exclude_url_patterns": ["/jobs", "/about", "#"],
+    }
+
+    assert should_keep_candidate("Anthropic launches X", "https://example.com/news/x", source) is True
+    assert should_keep_candidate("Home", "https://example.com/", source) is False
+    assert should_keep_candidate("Subscribe", "https://example.com/newsletter", source) is False
+    assert should_keep_candidate("Skip to main content", "https://example.com/#content", source) is False
+
+
+def test_extract_listing_items_uses_selectors_and_filters():
     html = """
     <html><body>
-      <a href="/post-a">AI 芯片发布</a>
-      <a href="https://example.com/post-b">多模态边缘设备</a>
+      <a href="/news/release-a">Anthropic launches release A</a>
+      <a href="/about">About</a>
+      <a href="#content">Skip to main content</a>
     </body></html>
     """
 
     items = extract_listing_items(
-        source_id="semi-list",
-        html=html,
-        page_url="https://example.com/news",
-        category_hint="ai-x-electronics",
+        {
+            "id": "anthropic-news",
+            "url": "https://example.com/news",
+            "category_hint": "ai-llm-agent",
+            "link_selector": "a",
+            "include_url_patterns": ["/news/"],
+            "exclude_url_patterns": ["/about", "#"],
+        },
+        html,
     )
 
-    assert len(items) == 2
-    assert items[0].url == "https://example.com/post-a"
-    assert items[1].title == "多模态边缘设备"
+    assert len(items) == 1
+    assert items[0].title == "Anthropic launches release A"
+    assert items[0].url == "https://example.com/news/release-a"
+
+
+def test_extract_listing_items_prefers_heading_text_and_strips_card_noise():
+    html = """
+    <html><body>
+      <a href="/news/release-a">
+        <div>Product</div>
+        <time>Feb 17, 2026</time>
+        <h4>Introducing Claude Sonnet 4.6</h4>
+        <p>Frontier performance across coding and agent work.</p>
+      </a>
+      <a href="/news/release-b">
+        <div>Apr 6, 2026</div>
+        <div>Announcements</div>
+        <span>Anthropic expands partnership with Google and Broadcom</span>
+      </a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "anthropic-news",
+            "url": "https://www.anthropic.com/news",
+            "category_hint": "ai-llm-agent",
+            "link_selector": "a[href^='/news/']",
+            "include_url_patterns": ["/news/"],
+            "exclude_url_patterns": ["/about", "#"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == [
+        "Introducing Claude Sonnet 4.6",
+        "Anthropic expands partnership with Google and Broadcom",
+    ]

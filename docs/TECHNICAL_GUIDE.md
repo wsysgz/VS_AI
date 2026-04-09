@@ -29,6 +29,7 @@
 
 - 先读取仓库根目录 `AGENTS.md`，再开始动代码。
 - 优先在 `D:\GitHub\auto` 主工作区开发；如果要用 worktree，最终仍要回到主工作区复核、合并、推送。
+- 当前第一轮升级后的 AI 规则文件位于 `config/ai_reading/`，不要再依赖桌面路径。
 - 先改 `config/sources/*.yaml`，再决定是否需要改采集代码。
 - 领域规则尽量放在 `src/auto_report/domains/`，不要散落到各处。
 - 归档输出统一留在 `src/auto_report/outputs/`。
@@ -43,6 +44,29 @@
 - 如果后续要回退到其他渠道，必须显式配置，不要做静默回退。
 - `collect-report.yml` 已对 `data/**` 使用 `paths-ignore`，后续如果继续扩展自动提交范围，必须先检查是否会造成工作流自触发回环。
 - 当前 GitHub Actions 主任务 `timeout-minutes: 25`，保持每天自动运行总时长不超过 `60` 分钟。
+
+## 新的 AI 执行链路
+
+当前第一轮升级后的主链路是：
+
+1. `collector.py` 采集精选来源
+2. `source_filters.py` 去除网页噪音
+3. `topic_builder.py` 构建主题候选
+4. `ai_pipeline.py` 依次运行分析、总结、预测
+5. `renderers.py` 输出微信短报与 Telegram 全文
+
+## 回退策略
+
+- 分析失败：主题级规则回退
+- 总结失败：总报级规则回退
+- 预测失败：仅保留事实与总结，不输出强预测
+
+## 运行状态
+
+`data/state/run-status.json` 现在除了推送信息，还会记录：
+
+- `stage_status`
+- `source_stats`
 
 ## 推送通道边界
 

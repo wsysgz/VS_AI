@@ -18,6 +18,12 @@ AI 情报采集与分析系统。
 - PushPlus 当前优先尝试 `ClawBot`，并使用 `txt` 短摘要 + GitHub 详情链接
 - 如果配置了 Telegram，会同步发送“完整报告正文 + GitHub 详情链接”，并自动按长度分段
 - 本地优先开发，确认通过后再推送到仓库自动运行
+- 当前第一轮升级后的主流程是：
+  - `精选采集 -> 去噪过滤 -> 主题归并 -> 分析 -> 总结 -> 预测 -> 微信/Telegram 渲染 -> 归档/推送`
+- 三份 AI 底层逻辑文件现在内置在仓库：
+  - `config/ai_reading/analysis-before.md`
+  - `config/ai_reading/summary-before.md`
+  - `config/ai_reading/forecast-before.md`
 
 ## 快速接管
 
@@ -49,11 +55,19 @@ pip install -e .
 python -m auto_report.cli run-once
 ```
 
+本地运行前建议先准备 `.env`：
+
+- 把 `.env.example` 复制为 `.env`
+- 把真实 `DEEPSEEK_API_KEY` 只写入本地 `.env` 或 GitHub Actions Secrets，不要写进仓库 Markdown 或提交进 git
+- 默认 `AI_MAX_ANALYSIS_TOPICS=6`，表示每轮只对优先级最高的 `6` 个主题走真实 AI 分析，兼顾质量、成本和耗时
+
 ## 当前能力
 
 - 支持本地运行和 GitHub Actions 定时运行
 - 支持推送到 `main` 后自动执行一次 GitHub Actions 验证和归档
 - 生成综合总报和两个领域快报
+- 在运行时读取仓库内置的分析 / 总结 / 预测前阅读文件
+- 通过 staged AI 管线生成结构化分析、总结和预测
 - 本地留档到 `data/`
 - 预置 PushPlus 推送接口
 - 预置 Telegram Bot 推送接口

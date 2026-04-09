@@ -4,8 +4,11 @@ from dataclasses import asdict, dataclass
 
 from auto_report.domains.classifier import classify_topic
 from auto_report.models.records import CollectedItem, TopicGroup
+from auto_report.pipeline.ai_pipeline import run_staged_ai_pipeline
 from auto_report.pipeline.dedup import deduplicate_items
+from auto_report.pipeline.prompt_loader import load_ai_readings
 from auto_report.pipeline.scoring import score_topic
+from auto_report.pipeline.topic_builder import build_topic_candidates
 from auto_report.settings import Settings
 
 
@@ -41,6 +44,7 @@ def build_report_package(
     items: list[CollectedItem],
     diagnostics: list[str],
 ) -> ReportPackage:
+    topic_candidates = build_topic_candidates(items)
     topics = deduplicate_items(items)
     signals: list[SignalRecord] = []
 
@@ -58,39 +62,80 @@ def build_report_package(
                 evidence_count=len(topic.evidence_items),
                 tags=tags,
             )
-        )
+    )
 
     signals.sort(key=lambda signal: signal.score, reverse=True)
+    signal_scores = {(signal.title, signal.url): signal.score for signal in signals}
+    topic_candidates.sort(
+        key=lambda candidate: signal_scores.get((candidate.title, candidate.url), 0.0),
+        reverse=True,
+    )
+
+    ai_outputs = run_staged_ai_pipeline(
+        candidates=topic_candidates,
+        ai_readings=load_ai_readings(settings.root_dir),
+        ai_enabled=bool(settings.env["DEEPSEEK_API_KEY"]),
+        max_candidates=int(settings.env["AI_MAX_ANALYSIS_TOPICS"]),
+    )
 
     summary_payload = {
         "meta": {
             "generated_at": "",
             "timezone": settings.env["AUTO_TIMEZONE"],
             "total_items": len(items),
-            "total_topics": len(signals),
+            "total_topics": len(topic_candidates),
         },
+        "one_line_core": ai_outputs["summary"]["one_line_core"],
+        "executive_summary": ai_outputs["summary"]["executive_summary"],
+        "key_points": ai_outputs["summary"]["key_points"],
+        "key_insights": ai_outputs["summary"]["key_insights"],
+        "limitations": ai_outputs["summary"]["limitations"] + diagnostics,
+        "actions": ai_outputs["summary"]["actions"],
+        "analyses": ai_outputs["analyses"],
+        "forecast": ai_outputs["forecast"],
+        "stage_status": ai_outputs["stage_status"],
         "highlights": [
+            ai_outputs["summary"]["one_line_core"],
             f"本轮共采集到 {len(items)} 条原始信息，去重后保留 {len(signals)} 个主题。",
             f"当前覆盖 {len(settings.domains)} 个领域，启用了 {len(settings.sources)} 组来源配置。",
         ],
         "risks": diagnostics,
         "signals": [asdict(signal) for signal in signals],
-        "predictions": [
-            "热点主题会继续按跨源出现频次、关键词匹配和后续 AI 摘要结果动态调整。",
-        ],
+        "predictions": [str(ai_outputs["forecast"].get("forecast_conclusion", "暂无趋势提示"))],
         "sources": settings.sources,
     }
 
     domain_payloads: dict[str, dict[str, object]] = {}
     for domain_key, domain in settings.domains.items():
         matched = [asdict(signal) for signal in signals if signal.primary_domain == domain_key]
+        matched_analyses = [
+            analysis
+            for analysis in ai_outputs["analyses"]
+            if analysis.get("primary_domain") == domain_key
+        ]
         domain_payloads[domain_key] = {
             "title": domain.get("title", domain_key),
-            "highlights": [
-                f"本领域当前命中 {len(matched)} 个主题。",
+            "one_line_core": summary_payload["one_line_core"],
+            "executive_summary": [f"本领域当前命中 {len(matched)} 个主题。"],
+            "key_points": [
+                {
+                    "title": str(analysis.get("title", "未命名主题")),
+                    "why_it_matters": str(analysis.get("core_insight", "需要继续观察。")),
+                }
+                for analysis in matched_analyses[:2]
             ],
+            "key_insights": [
+                str(analysis.get("core_insight", "需要继续观察。"))
+                for analysis in matched_analyses[:3]
+            ],
+            "limitations": summary_payload["limitations"],
+            "actions": summary_payload["actions"],
+            "analyses": matched_analyses,
+            "forecast": summary_payload["forecast"],
+            "highlights": [f"本领域当前命中 {len(matched)} 个主题。"],
             "signals": matched,
             "risks": diagnostics,
+            "predictions": summary_payload["predictions"],
         }
 
     dedup_state = {
