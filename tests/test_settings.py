@@ -19,3 +19,10 @@ def test_load_settings_includes_morning_schedule_and_push_channel_defaults(monke
     assert settings.env["REPORT_REPO_URL"] == "https://github.com/wsysgz/VS_AI"
     assert "TELEGRAM_BOT_TOKEN" in settings.env
     assert "TELEGRAM_CHAT_ID" in settings.env
+
+
+def test_load_settings_exposes_ai_reading_paths():
+    settings = load_settings(Path.cwd())
+    assert settings.ai_reading["analysis"].name == "analysis-before.md"
+    assert settings.ai_reading["summary"].name == "summary-before.md"
+    assert settings.ai_reading["forecast"].name == "forecast-before.md"

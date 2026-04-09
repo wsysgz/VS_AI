@@ -17,6 +17,7 @@ class Settings:
     sources: dict[str, dict[str, Any]]
     schedules: dict[str, Any]
     env: dict[str, str] = field(default_factory=dict)
+    ai_reading: dict[str, Path] = field(default_factory=dict)
 
     @property
     def data_dir(self) -> Path:
@@ -44,6 +45,11 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         path.stem: _read_yaml(path)
         for path in sorted(sources_dir.glob("*.yaml"))
     }
+    ai_reading = {
+        "analysis": config_dir / "ai_reading" / "analysis-before.md",
+        "summary": config_dir / "ai_reading" / "summary-before.md",
+        "forecast": config_dir / "ai_reading" / "forecast-before.md",
+    }
 
     env = {
         "DEEPSEEK_API_KEY": os.environ.get("DEEPSEEK_API_KEY", ""),
@@ -69,4 +75,5 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         sources=sources,
         schedules=_read_yaml(config_dir / "schedules.yaml"),
         env=env,
+        ai_reading=ai_reading,
     )
