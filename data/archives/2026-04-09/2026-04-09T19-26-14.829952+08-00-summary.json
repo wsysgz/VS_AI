@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "generated_at": "2026-04-09T19:26:14.829952+08:00",
+    "timezone": "Asia/Shanghai",
+    "domains": [
+      "AI / LLM / Agent",
+      "AI x Electronics"
+    ]
+  },
+  "highlights": [
+    "Configured domains: 2",
+    "Configured source groups: 3",
+    "Configured individual sources: 6"
+  ],
+  "risks": [
+    "DeepSeek API key is not configured yet, so AI analysis is running in scaffold mode.",
+    "PushPlus token is not configured yet, so push delivery is skipped."
+  ],
+  "signals": [],
+  "predictions": [
+    "Once live sources are connected, this framework will rank and summarize cross-source signals."
+  ],
+  "sources": {
+    "github": {
+      "sources": [
+        {
+          "id": "github-ai-search",
+          "enabled": true,
+          "mode": "repository_search",
+          "query": "topic:llm stars:>200 archived:false",
+          "category_hint": "ai-llm-agent"
+        },
+        {
+          "id": "github-edge-ai-search",
+          "enabled": true,
+          "mode": "repository_search",
+          "query": "edge ai accelerator OR npu stars:>50 archived:false",
+          "category_hint": "ai-x-electronics"
+        }
+      ]
+    },
+    "rss": {
+      "sources": [
+        {
+          "id": "huggingface-blog",
+          "enabled": true,
+          "url": "https://huggingface.co/blog/feed.xml",
+          "category_hint": "ai-llm-agent"
+        },
+        {
+          "id": "openai-news",
+          "enabled": true,
+          "url": "https://openai.com/news/rss.xml",
+          "category_hint": "ai-llm-agent"
+        }
+      ]
+    },
+    "websites": {
+      "sources": [
+        {
+          "id": "semiengineering-ai",
+          "enabled": true,
+          "mode": "listing",
+          "url": "https://semiengineering.com/category/artificial-intelligence/",
+          "category_hint": "ai-x-electronics"
+        },
+        {
+          "id": "deepseek-news",
+          "enabled": true,
+          "mode": "listing",
+          "url": "https://api-docs.deepseek.com/news/news",
+          "category_hint": "ai-llm-agent"
+        }
+      ]
+    }
+  }
+}
