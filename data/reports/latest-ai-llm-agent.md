@@ -1,21 +1,21 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-04-09T22:02:19.523563+08:00
+生成时间：2026-04-09T14:06:02.678923+00:00
 
 ## 核心看点
-- 本领域当前命中 63 个主题。
+- 本领域当前命中 62 个主题。
 
 ## 风险与备注
-- 未配置 DeepSeek API，当前使用规则摘要模式。
+- None
 
 ## 主题信号
 
 ### 1. DeepSeek API Docs
 - 主领域：ai-llm-agent
-- 证据数：4
-- 评分：4.0
+- 证据数：5
+- 评分：5.0
 - 标签：ai-llm-agent
-- 摘要：来源共 4 条，等待后续 AI 深度摘要。
+- 摘要：来源共 5 条，等待后续 AI 深度摘要。
 - 链接：https://api-docs.deepseek.com/
 
 ### 2. ALTK‑Evolve: On‑the‑Job Learning for AI Agents
@@ -42,23 +42,7 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/Hcompany/holotron-12b
 
-### 5. mamei16/LLM_Web_search
-- 主领域：ai-llm-agent
-- 证据数：1
-- 评分：2.0
-- 标签：ai-llm-agent、chatgpt、duckduckgo、faiss、gpt、llm、llms、oobabooga、rag、text-generation-webui
-- 摘要：An extension for  oobabooga/text-generation-webui that enables the LLM to search the web
-- 链接：https://github.com/mamei16/LLM_Web_search
-
-### 6. liquidos-ai/AutoAgents
-- 主领域：ai-llm-agent
-- 证据数：1
-- 评分：2.0
-- 标签：agents、ai、ai-agents、ai-agents-framework、ai-llm-agent、llm
-- 摘要：A  multi-agent framework written in Rust that enables you to build, deploy, and coordinate multiple intelligent agents
-- 链接：https://github.com/liquidos-ai/AutoAgents
-
-### 7. Multimodal Embedding & Reranker Models with Sentence Transformers
+### 5. Multimodal Embedding & Reranker Models with Sentence Transformers
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
@@ -66,13 +50,29 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/multimodal-sentence-transformers
 
-### 8. Safetensors is Joining the PyTorch Foundation
+### 6. Safetensors is Joining the PyTorch Foundation
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
 - 标签：ai-llm-agent
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/safetensors-joins-pytorch-foundation
+
+### 7. Welcome Gemma 4: Frontier multimodal intelligence on device
+- 主领域：ai-llm-agent
+- 证据数：1
+- 评分：1.0
+- 标签：ai-llm-agent
+- 摘要：来源共 1 条，等待后续 AI 深度摘要。
+- 链接：https://huggingface.co/blog/gemma4
+
+### 8. Holo3: Breaking the Computer Use Frontier
+- 主领域：ai-llm-agent
+- 证据数：1
+- 评分：1.0
+- 标签：ai-llm-agent
+- 摘要：来源共 1 条，等待后续 AI 深度摘要。
+- 链接：https://huggingface.co/blog/Hcompany/holo3
 
 ## 趋势提示
 - 暂无趋势提示
