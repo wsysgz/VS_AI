@@ -17,6 +17,51 @@ def test_build_run_status_tracks_generated_outputs():
     assert status["pushed"] is False
 
 
+def test_build_run_status_summarizes_push_responses():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=True,
+        push_channel="clawbot",
+        push_response={
+            "pushplus": {
+                "code": 200,
+                "msg": "执行成功",
+                "data": "pushplus-id",
+                "extra": "should-not-be-copied",
+            },
+            "telegram": [
+                {
+                    "ok": True,
+                    "result": {
+                        "message_id": 7,
+                        "text": "# 自动情报快报",
+                        "chat": {"id": 8566057843, "username": "wsysgz"},
+                    },
+                },
+                {
+                    "ok": True,
+                    "result": {
+                        "message_id": 8,
+                        "text": "详情链接",
+                        "chat": {"id": 8566057843, "username": "wsysgz"},
+                    },
+                },
+            ],
+        },
+    )
+
+    assert status["push_response"]["pushplus"] == {
+        "code": 200,
+        "msg": "执行成功",
+        "data": "pushplus-id",
+    }
+    assert status["push_response"]["telegram"] == {
+        "ok": True,
+        "messages_sent": 2,
+        "message_ids": [7, 8],
+    }
+
+
 def test_render_reports_writes_chinese_summary_files(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
