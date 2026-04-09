@@ -76,11 +76,16 @@ python -m auto_report.cli run-once
 至少新增下面这些：
 
 - `DEEPSEEK_API_KEY`
+
+如果你希望手机收到推送，再额外新增：
+
 - `PUSHPLUS_TOKEN`
 
-如果你需要使用自定义 GitHub Token，也可以再加：
+说明：
 
-- `GITHUB_TOKEN`
+- `DEEPSEEK_API_KEY` 建议配置，这样 GitHub 上生成的报告会带 AI 分析增强。
+- `PUSHPLUS_TOKEN` 是可选项，不配置也能正常产出报告，只是不推送到手机。
+- `GITHUB_TOKEN` 不需要手动新建，GitHub Actions 会自动提供默认值。
 
 ### 第三步：启用 GitHub Actions
 
@@ -96,6 +101,8 @@ python -m auto_report.cli run-once
 
 `Run workflow`
 
+后续只要你再向 `main` 分支推送代码，`Collect And Report` 也会自动执行一次，不需要每次手动点。
+
 ### 第五步：核对执行结果
 
 检查这几项：
@@ -103,7 +110,7 @@ python -m auto_report.cli run-once
 - 工作流日志是否成功结束
 - 是否生成了名为 `auto-report-data` 的 artifact
 - 仓库里的 `data/` 文件是否更新
-- 手机是否收到 PushPlus 推送
+- 如果配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 推送
 
 ## 4. 手动补生成
 

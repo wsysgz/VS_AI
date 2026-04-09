@@ -11,6 +11,8 @@
 - 归档输出统一留在 `src/auto_report/outputs/`。
 - 推送和模型供应商适配器统一放在 `src/auto_report/integrations/`。
 - 博客同步必须保持“可选扩展”，不要反向耦合进 `run-once`。
+- GitHub Actions 主工作流是 `.github/workflows/collect-report.yml`，当前支持 `push + workflow_dispatch + schedule` 三种触发。
+- `collect-report.yml` 已对 `data/**` 使用 `paths-ignore`，后续如果继续扩展自动提交范围，必须先检查是否会造成工作流自触发回环。
 
 ## 当前主要命令
 

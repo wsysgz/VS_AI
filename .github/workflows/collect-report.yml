@@ -1,9 +1,18 @@
 name: Collect And Report
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "data/**"
   workflow_dispatch:
   schedule:
     - cron: "17 1,5,9,13 * * *"
+
+concurrency:
+  group: collect-report-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   collect:
@@ -54,4 +63,3 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "chore: update auto reports"
           git push
-

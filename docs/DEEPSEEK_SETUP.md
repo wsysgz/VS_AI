@@ -27,6 +27,9 @@
 新增：
 
 - `DEEPSEEK_API_KEY`
+
+如果你还想同时启用手机推送，再额外新增：
+
 - `PUSHPLUS_TOKEN`
 
 ## 4. 本地验证
@@ -46,5 +49,7 @@ python -c "from auto_report.integrations.deepseek import build_deepseek_payload;
 - 一个可用的 `DEEPSEEK_API_KEY`
 - 本地 `.env` 配置
 - GitHub Actions Secrets 配置
+
+当你把代码推送到 `main`，或者手动运行 `Collect And Report` 时，GitHub Actions 就会读取这个 Secret 来生成 AI 分析补充。
 
 如果你还没申请 Key，可以先把框架跑起来，系统会自动回退到规则摘要模式，不会因为缺少 DeepSeek 而完全跑不动。

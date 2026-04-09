@@ -20,8 +20,19 @@ python -m auto_report.cli run-once
 ## 当前能力
 
 - 支持本地运行和 GitHub Actions 定时运行
+- 支持推送到 `main` 后自动执行一次 GitHub Actions
 - 生成综合总报和两个领域快报
 - 本地留档到 `data/`
 - 预置 PushPlus 推送接口
 - 预置 DeepSeek 分析接口
 - 预留后续博客同步扩展点
+
+## GitHub 自动运行说明
+
+`Collect And Report` 现在支持三种触发方式：
+
+- 手动触发 `workflow_dispatch`
+- 定时触发 `schedule`
+- 推送到 `main` 后自动触发 `push`
+
+为了避免工作流在提交 `data/` 归档后反复触发自己，`data/**` 已经被排除在 `push` 触发范围之外。
