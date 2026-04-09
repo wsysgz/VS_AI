@@ -14,3 +14,6 @@ def test_load_settings_includes_morning_schedule_and_push_channel_defaults():
     settings = load_settings(Path.cwd())
     assert settings.schedules["jobs"]["daily"]["cron"] == "0 23 * * *"
     assert settings.env["PUSHPLUS_CHANNEL"] == "clawbot"
+    assert settings.env["REPORT_REPO_URL"] == "https://github.com/wsysgz/VS_AI"
+    assert settings.env["TELEGRAM_BOT_TOKEN"] == ""
+    assert settings.env["TELEGRAM_CHAT_ID"] == ""

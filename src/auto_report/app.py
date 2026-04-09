@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from pathlib import Path
 
 from auto_report.integrations.deepseek import summarize_with_deepseek
 from auto_report.integrations.pushplus import send_pushplus
+from auto_report.integrations.telegram import send_telegram_message
 from auto_report.outputs.archive import write_text
-from auto_report.outputs.renderers import render_json_report, render_markdown_report
+from auto_report.outputs.renderers import render_json_report, render_markdown_report, render_text_notification
 from auto_report.pipeline.analysis import ReportPackage, build_report_package
 from auto_report.pipeline.run_once import build_run_status
 from auto_report.settings import Settings, load_settings
@@ -103,6 +105,27 @@ def _write_domain_briefs(root_dir: Path, generated_at: str, package: ReportPacka
     return generated
 
 
+def _load_summary_payload(root_dir: Path) -> dict[str, object]:
+    summary_json_path = root_dir / "data" / "reports" / "latest-summary.json"
+    return json.loads(summary_json_path.read_text(encoding="utf-8"))
+
+
+def _build_detail_url(settings: Settings) -> str:
+    base_url = settings.env["REPORT_REPO_URL"].rstrip("/")
+    return f"{base_url}/blob/main/data/reports/latest-summary.md"
+
+
+def _build_text_notification(root_dir: Path, settings: Settings) -> str:
+    payload = _load_summary_payload(root_dir)
+    generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
+    return render_text_notification(
+        title="自动情报快报",
+        generated_at=generated_at,
+        payload=payload,
+        detail_url=_build_detail_url(settings),
+    )
+
+
 def render_reports(root_dir: Path) -> list[str]:
     settings = load_settings(root_dir)
     generated_at = datetime.now().astimezone().isoformat()
@@ -152,18 +175,31 @@ def run_once(root_dir: Path) -> list[str]:
     push_channel = ""
     push_response: dict[str, object] = {}
 
-    if (
-        settings.env["AUTO_PUSH_ENABLED"].lower() == "true"
-        and settings.env["PUSHPLUS_TOKEN"]
-    ):
-        push_channel = settings.env["PUSHPLUS_CHANNEL"]
-        push_response = send_pushplus(
-            settings.env["PUSHPLUS_TOKEN"],
-            "自动情报快报",
-            (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
-            channel=push_channel,
-        )
-        pushed = True
+    if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
+        text_notification = _build_text_notification(root_dir, settings)
+        notification_results: dict[str, object] = {}
+
+        if settings.env["PUSHPLUS_TOKEN"]:
+            push_channel = settings.env["PUSHPLUS_CHANNEL"]
+            push_response = send_pushplus(
+                settings.env["PUSHPLUS_TOKEN"],
+                "自动情报快报",
+                text_notification if push_channel == "clawbot" else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
+                channel=push_channel,
+                template="txt" if push_channel == "clawbot" else "markdown",
+            )
+            notification_results["pushplus"] = push_response
+
+        if settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]:
+            notification_results["telegram"] = send_telegram_message(
+                settings.env["TELEGRAM_BOT_TOKEN"],
+                settings.env["TELEGRAM_CHAT_ID"],
+                text_notification,
+            )
+
+        if notification_results:
+            push_response = notification_results
+            pushed = True
 
     status = build_run_status(
         generated_files=generated_files,

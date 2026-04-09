@@ -17,7 +17,9 @@
 - 官方用户通知目前只保留北京时间 `07:00` 的综合总报。
 - `push` 和 `workflow_dispatch` 触发默认用于验证与归档，默认 `AUTO_PUSH_ENABLED=false`。
 - `workflow_dispatch` 可通过输入参数显式打开推送，用于仓库侧受控验证。
-- PushPlus 当前优先走 `clawbot` 渠道；如果后续要回退到其他渠道，必须显式配置，不要做静默回退。
+- PushPlus 当前优先走 `clawbot` 渠道，并发送 `txt` 短摘要 + GitHub 详情链接。
+- Telegram 当前作为可选同步通道，发送与 ClawBot 同一份纯文本短摘要。
+- 如果后续要回退到其他渠道，必须显式配置，不要做静默回退。
 - `collect-report.yml` 已对 `data/**` 使用 `paths-ignore`，后续如果继续扩展自动提交范围，必须先检查是否会造成工作流自触发回环。
 
 ## 当前主要命令

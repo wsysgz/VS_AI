@@ -8,7 +8,8 @@
 - 同时生成 `AI / 大模型 / Agent` 与 `AI × 电子信息` 两份领域快报供归档
 - 把报告留档到本地 `data/` 目录
 - 在 GitHub Actions 中执行并保存产物
-- 通过 PushPlus 把摘要推送到手机，当前优先尝试 `ClawBot`
+- 通过 PushPlus 把摘要推送到微信，当前优先尝试 `ClawBot`
+- 可选同步到 Telegram Bot
 
 ## 2. 本地运行
 
@@ -40,7 +41,14 @@ pip install -e .
 
 - `DEEPSEEK_API_KEY`
 - `PUSHPLUS_TOKEN`
+- `PUSHPLUS_CHANNEL=clawbot`
+- `REPORT_REPO_URL=https://github.com/wsysgz/VS_AI`
 - `AI_MODEL`
+
+如果你也想同步到 Telegram，再额外填写：
+
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
 
 如果你暂时还没有 DeepSeek Key，也可以先不填，系统会用规则摘要模式继续运行。
 
@@ -86,11 +94,14 @@ python -m auto_report.cli run-once
 如果你希望手机收到推送，再额外新增：
 
 - `PUSHPLUS_TOKEN`
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
 
 说明：
 
 - `DEEPSEEK_API_KEY` 建议配置，这样 GitHub 上生成的报告会带 AI 分析增强。
-- `PUSHPLUS_TOKEN` 是可选项，不配置也能正常产出报告，只是不推送到手机。
+- `PUSHPLUS_TOKEN` 是微信推送所需的 Token。
+- `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID` 配齐后，可同步推送到 Telegram。
 - `GITHUB_TOKEN` 不需要手动新建，GitHub Actions 会自动提供默认值。
 
 ### 第三步：启用 GitHub Actions
@@ -123,6 +134,7 @@ python -m auto_report.cli run-once
 - 是否生成了名为 `auto-report-data` 的 artifact
 - 仓库里的 `data/` 文件是否更新
 - 如果这是北京时间 `07:00` 的定时运行，且配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 推送
+- 如果配置了 Telegram，Telegram 对话是否也收到短摘要消息
 
 ## 4. 手动补生成
 
@@ -154,3 +166,21 @@ python -m auto_report.cli run-once
 - 更多信息源
 - 更强的分析能力
 - 版面与阅读体验优化
+
+## 7. Telegram 设置说明
+
+如果你已经从 `@BotFather` 获得：
+
+- Bot Token
+- Chat ID
+
+那么项目里需要配置的就是：
+
+- 本地 `.env`
+  - `TELEGRAM_BOT_TOKEN=你的 Bot Token`
+  - `TELEGRAM_CHAT_ID=你的 Chat ID`
+- GitHub Secrets
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
+
+只要 Bot 已经和你的账号建立过会话，之后定时运行就能把短摘要推过去。

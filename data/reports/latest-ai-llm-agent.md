@@ -1,21 +1,21 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-04-09T14:06:02.678923+00:00
+生成时间：2026-04-09T23:54:40.261330+08:00
 
 ## 核心看点
-- 本领域当前命中 62 个主题。
+- 本领域当前命中 63 个主题。
 
 ## 风险与备注
-- None
+- 未配置 DeepSeek API，当前使用规则摘要模式。
 
 ## 主题信号
 
 ### 1. DeepSeek API Docs
 - 主领域：ai-llm-agent
-- 证据数：5
-- 评分：5.0
+- 证据数：4
+- 评分：4.0
 - 标签：ai-llm-agent
-- 摘要：来源共 5 条，等待后续 AI 深度摘要。
+- 摘要：来源共 4 条，等待后续 AI 深度摘要。
 - 链接：https://api-docs.deepseek.com/
 
 ### 2. ALTK‑Evolve: On‑the‑Job Learning for AI Agents
@@ -42,7 +42,15 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/Hcompany/holotron-12b
 
-### 5. Multimodal Embedding & Reranker Models with Sentence Transformers
+### 5. vllm-project/vllm
+- 主领域：ai-llm-agent
+- 证据数：1
+- 评分：2.0
+- 标签：ai-llm-agent、amd、blackwell、cuda、deepseek、deepseek-v3、gpt、gpt-oss、inference、kimi、llama、llm、llm-serving、model-serving、moe、openai、pytorch、qwen、qwen3、tpu、transformer
+- 摘要：A high-throughput and memory-efficient inference and serving engine for LLMs
+- 链接：https://github.com/vllm-project/vllm
+
+### 6. Multimodal Embedding & Reranker Models with Sentence Transformers
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
@@ -50,7 +58,7 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/multimodal-sentence-transformers
 
-### 6. Safetensors is Joining the PyTorch Foundation
+### 7. Safetensors is Joining the PyTorch Foundation
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
@@ -58,21 +66,13 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/safetensors-joins-pytorch-foundation
 
-### 7. Welcome Gemma 4: Frontier multimodal intelligence on device
+### 8. Welcome Gemma 4: Frontier multimodal intelligence on device
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
 - 标签：ai-llm-agent
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/gemma4
-
-### 8. Holo3: Breaking the Computer Use Frontier
-- 主领域：ai-llm-agent
-- 证据数：1
-- 评分：1.0
-- 标签：ai-llm-agent
-- 摘要：来源共 1 条，等待后续 AI 深度摘要。
-- 链接：https://huggingface.co/blog/Hcompany/holo3
 
 ## 趋势提示
 - 暂无趋势提示
