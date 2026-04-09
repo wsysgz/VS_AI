@@ -6,6 +6,7 @@ from auto_report.domains.classifier import classify_topic
 from auto_report.models.records import CollectedItem, TopicGroup
 from auto_report.pipeline.dedup import deduplicate_items
 from auto_report.pipeline.scoring import score_topic
+from auto_report.pipeline.topic_builder import build_topic_candidates
 from auto_report.settings import Settings
 
 
@@ -41,6 +42,7 @@ def build_report_package(
     items: list[CollectedItem],
     diagnostics: list[str],
 ) -> ReportPackage:
+    topic_candidates = build_topic_candidates(items)
     topics = deduplicate_items(items)
     signals: list[SignalRecord] = []
 
@@ -67,7 +69,7 @@ def build_report_package(
             "generated_at": "",
             "timezone": settings.env["AUTO_TIMEZONE"],
             "total_items": len(items),
-            "total_topics": len(signals),
+            "total_topics": len(topic_candidates),
         },
         "highlights": [
             f"本轮共采集到 {len(items)} 条原始信息，去重后保留 {len(signals)} 个主题。",
