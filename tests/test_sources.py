@@ -46,6 +46,37 @@ def test_parse_rss_content_respects_max_items():
     assert len(items) == 1
 
 
+def test_parse_rss_content_respects_excluded_title_patterns():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>Sample Feed</title>
+        <item>
+          <title>OpenAI Full Fan Mode Contest: Terms &amp; Conditions</title>
+          <link>https://example.com/contest</link>
+          <description>Low-signal legal post</description>
+        </item>
+        <item>
+          <title>The next phase of enterprise AI</title>
+          <link>https://example.com/enterprise-ai</link>
+          <description>High-signal product and adoption update</description>
+        </item>
+      </channel>
+    </rss>
+    """
+
+    items = parse_rss_content(
+        source_id="sample-feed",
+        content=content,
+        category_hint="ai-llm-agent",
+        source_rules={
+            "exclude_title_patterns": ["contest", "terms & conditions"],
+        },
+    )
+
+    assert [item.title for item in items] == ["The next phase of enterprise AI"]
+
+
 def test_normalize_github_repositories_maps_repo_payload():
     payload = {
         "items": [
@@ -129,3 +160,38 @@ def test_extract_listing_items_uses_selectors_and_filters():
     assert len(items) == 1
     assert items[0].title == "Anthropic launches release A"
     assert items[0].url == "https://example.com/news/release-a"
+
+
+def test_extract_listing_items_prefers_heading_text_and_strips_card_noise():
+    html = """
+    <html><body>
+      <a href="/news/release-a">
+        <div>Product</div>
+        <time>Feb 17, 2026</time>
+        <h4>Introducing Claude Sonnet 4.6</h4>
+        <p>Frontier performance across coding and agent work.</p>
+      </a>
+      <a href="/news/release-b">
+        <div>Apr 6, 2026</div>
+        <div>Announcements</div>
+        <span>Anthropic expands partnership with Google and Broadcom</span>
+      </a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "anthropic-news",
+            "url": "https://www.anthropic.com/news",
+            "category_hint": "ai-llm-agent",
+            "link_selector": "a[href^='/news/']",
+            "include_url_patterns": ["/news/"],
+            "exclude_url_patterns": ["/about", "#"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == [
+        "Introducing Claude Sonnet 4.6",
+        "Anthropic expands partnership with Google and Broadcom",
+    ]

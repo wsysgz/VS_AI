@@ -15,10 +15,10 @@ sources:
   - id: deepseek-updates
     enabled: true
     mode: article_listing
-    url: https://api-docs.deepseek.com/news/news
+    url: https://api-docs.deepseek.com/updates/
     category_hint: ai-llm-agent
     max_items: 8
-    link_selector: "a[href*='/news/']"
+    link_selector: "nav.menu a[href^='/news/']"
     include_url_patterns:
       - /news/
     exclude_url_patterns:
@@ -37,10 +37,10 @@ sources:
   - id: moonshot-blog
     enabled: true
     mode: article_listing
-    url: https://platform.moonshot.cn/blog/posts/
+    url: https://platform.moonshot.cn/blog
     category_hint: ai-llm-agent
     max_items: 6
-    link_selector: "a[href*='/blog/posts/']"
+    link_selector: "div.post-item a[href^='/blog/posts/']"
     include_url_patterns:
       - /blog/posts/
     exclude_url_patterns:

@@ -1,12 +1,30 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import re
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.source_filters import should_keep_candidate
+
+CARD_PREFIX_PATTERN = re.compile(
+    r"^(?:(?:Announcements?|Product|Policy|Research|Company|Press|News)\s+)?"
+    r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}\s+"
+    r"(?:(?:Announcements?|Product|Policy|Research|Company|Press|News)\s+)?",
+    re.IGNORECASE,
+)
+
+
+def _extract_title(anchor: object) -> str:
+    heading = anchor.select_one("h1, h2, h3, h4, h5, h6")
+    if heading is not None:
+        return heading.get_text(" ", strip=True)
+
+    title = anchor.get_text(" ", strip=True)
+    title = CARD_PREFIX_PATTERN.sub("", title).strip()
+    return " ".join(title.split())
 
 
 def extract_listing_items(source: dict[str, object], html: str) -> list[CollectedItem]:
@@ -19,7 +37,7 @@ def extract_listing_items(source: dict[str, object], html: str) -> list[Collecte
     items: list[CollectedItem] = []
 
     for index, anchor in enumerate(soup.select(selector)):
-        title = anchor.get_text(" ", strip=True)
+        title = _extract_title(anchor)
         href = anchor.get("href")
         if not href:
             continue

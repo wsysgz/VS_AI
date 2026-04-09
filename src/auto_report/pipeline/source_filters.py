@@ -23,9 +23,15 @@ def should_keep_candidate(title: str, url: str, source: dict[str, object]) -> bo
 
     include_patterns = [str(item).lower() for item in source.get("include_url_patterns", [])]
     exclude_patterns = [str(item).lower() for item in source.get("exclude_url_patterns", [])]
+    include_title_patterns = [str(item).lower() for item in source.get("include_title_patterns", [])]
+    exclude_title_patterns = [str(item).lower() for item in source.get("exclude_title_patterns", [])]
 
     if include_patterns and not any(pattern in normalized_url for pattern in include_patterns):
         return False
     if any(pattern in normalized_url for pattern in exclude_patterns):
+        return False
+    if include_title_patterns and not any(pattern in normalized_title for pattern in include_title_patterns):
+        return False
+    if any(pattern in normalized_title for pattern in exclude_title_patterns):
         return False
     return True

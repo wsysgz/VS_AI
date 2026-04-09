@@ -35,6 +35,7 @@ def _collect_rss(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
                     content=content,
                     category_hint=str(source.get("category_hint", "")),
                     max_items=int(source.get("max_items", 20)),
+                    source_rules=source,
                 )
             )
         except Exception as exc:
