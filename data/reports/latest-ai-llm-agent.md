@@ -1,9 +1,9 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-04-09T16:41:45.035913+00:00
+生成时间：2026-04-09T17:04:36.745730+00:00
 
 ## 核心看点
-- 本领域当前命中 61 个主题。
+- 本领域当前命中 62 个主题。
 
 ## 风险与备注
 - None
@@ -42,15 +42,7 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/Hcompany/holotron-12b
 
-### 5. NousResearch/hermes-agent
-- 主领域：ai-llm-agent
-- 证据数：1
-- 评分：2.0
-- 标签：ai、ai-agent、ai-agents、ai-llm-agent、anthropic、chatgpt、claude、claude-code、clawdbot、codex、hermes、hermes-agent、llm、moltbot、nous-research、openai、openclaw
-- 摘要：The agent that grows with you
-- 链接：https://github.com/NousResearch/hermes-agent
-
-### 6. Multimodal Embedding & Reranker Models with Sentence Transformers
+### 5. Multimodal Embedding & Reranker Models with Sentence Transformers
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
@@ -58,7 +50,7 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/multimodal-sentence-transformers
 
-### 7. Safetensors is Joining the PyTorch Foundation
+### 6. Safetensors is Joining the PyTorch Foundation
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
@@ -66,13 +58,21 @@
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/safetensors-joins-pytorch-foundation
 
-### 8. Welcome Gemma 4: Frontier multimodal intelligence on device
+### 7. Welcome Gemma 4: Frontier multimodal intelligence on device
 - 主领域：ai-llm-agent
 - 证据数：1
 - 评分：1.0
 - 标签：ai-llm-agent
 - 摘要：来源共 1 条，等待后续 AI 深度摘要。
 - 链接：https://huggingface.co/blog/gemma4
+
+### 8. Holo3: Breaking the Computer Use Frontier
+- 主领域：ai-llm-agent
+- 证据数：1
+- 评分：1.0
+- 标签：ai-llm-agent
+- 摘要：来源共 1 条，等待后续 AI 深度摘要。
+- 链接：https://huggingface.co/blog/Hcompany/holo3
 
 ## 趋势提示
 - 暂无趋势提示
