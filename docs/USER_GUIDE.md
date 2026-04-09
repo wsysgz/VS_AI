@@ -4,12 +4,11 @@
 
 这个项目当前可以：
 
-- 按计划定时生成 `AI / 大模型 / Agent` 快报
-- 按计划定时生成 `AI × 电子信息` 快报
-- 生成综合总报
+- 每天北京时间 `07:00` 自动生成并推送 `1` 条综合总报
+- 同时生成 `AI / 大模型 / Agent` 与 `AI × 电子信息` 两份领域快报供归档
 - 把报告留档到本地 `data/` 目录
 - 在 GitHub Actions 中执行并保存产物
-- 通过 PushPlus 把摘要推送到手机
+- 通过 PushPlus 把摘要推送到手机，当前优先尝试 `ClawBot`
 
 ## 2. 本地运行
 
@@ -50,6 +49,13 @@ pip install -e .
 ```powershell
 python -m auto_report.cli run-once
 ```
+
+建议默认开发流程：
+
+1. 先在 `D:\GitHub\auto` 本地修改
+2. 本地执行 `python -m auto_report.cli run-once`
+3. 确认输出与推送符合预期
+4. 再推送到仓库触发 GitHub Actions 自动验证和归档
 
 ### 第五步：检查输出结果
 
@@ -103,6 +109,12 @@ python -m auto_report.cli run-once
 
 后续只要你再向 `main` 分支推送代码，`Collect And Report` 也会自动执行一次，不需要每次手动点。
 
+说明：
+
+- 每天北京时间 `07:00` 的 `schedule` 运行，是正式自动推送到微信的那一轮
+- 推送到 `main` 触发的运行，默认用于验证和归档，不主动发送微信消息
+- 手动 `Run workflow` 时，可以按需要显式打开推送，用来做一次受控测试
+
 ### 第五步：核对执行结果
 
 检查这几项：
@@ -110,7 +122,7 @@ python -m auto_report.cli run-once
 - 工作流日志是否成功结束
 - 是否生成了名为 `auto-report-data` 的 artifact
 - 仓库里的 `data/` 文件是否更新
-- 如果配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 推送
+- 如果这是北京时间 `07:00` 的定时运行，且配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 推送
 
 ## 4. 手动补生成
 
@@ -132,3 +144,13 @@ python -m auto_report.cli run-once
 - `config/sources/rss.yaml`
 - `config/sources/github.yaml`
 - `config/sources/websites.yaml`
+
+## 6. 后续扩展方向
+
+当前项目已经为这些方向预留了扩展空间：
+
+- 周报
+- 月报
+- 更多信息源
+- 更强的分析能力
+- 版面与阅读体验优化

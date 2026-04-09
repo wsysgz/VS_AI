@@ -149,19 +149,28 @@ def run_once(root_dir: Path) -> list[str]:
     settings = load_settings(root_dir)
     generated_files = render_reports(root_dir)
     pushed = False
+    push_channel = ""
+    push_response: dict[str, object] = {}
 
     if (
         settings.env["AUTO_PUSH_ENABLED"].lower() == "true"
         and settings.env["PUSHPLUS_TOKEN"]
     ):
-        send_pushplus(
+        push_channel = settings.env["PUSHPLUS_CHANNEL"]
+        push_response = send_pushplus(
             settings.env["PUSHPLUS_TOKEN"],
             "自动情报快报",
             (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
+            channel=push_channel,
         )
         pushed = True
 
-    status = build_run_status(generated_files=generated_files, pushed=pushed)
+    status = build_run_status(
+        generated_files=generated_files,
+        pushed=pushed,
+        push_channel=push_channel,
+        push_response=push_response,
+    )
     status_path = root_dir / "data" / "state" / "run-status.json"
     write_text(status_path, render_json_report(status))
     generated_files.append(str(status_path))

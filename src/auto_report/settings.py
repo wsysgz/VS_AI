@@ -51,6 +51,8 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "AI_BASE_URL": os.environ.get("AI_BASE_URL", "https://api.deepseek.com"),
         "AI_MODEL": os.environ.get("AI_MODEL", "deepseek-chat"),
         "PUSHPLUS_TOKEN": os.environ.get("PUSHPLUS_TOKEN", ""),
+        "PUSHPLUS_CHANNEL": os.environ.get("PUSHPLUS_CHANNEL", "clawbot"),
+        "PUSHPLUS_FALLBACK_CHANNEL": os.environ.get("PUSHPLUS_FALLBACK_CHANNEL", ""),
         "GITHUB_TOKEN": os.environ.get("GITHUB_TOKEN", ""),
         "AUTO_TIMEZONE": os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai"),
         "AUTO_PUSH_ENABLED": os.environ.get("AUTO_PUSH_ENABLED", "true"),

@@ -7,8 +7,14 @@ on:
     paths-ignore:
       - "data/**"
   workflow_dispatch:
+    inputs:
+      push_enabled:
+        description: "Send PushPlus notification for this manual run"
+        required: false
+        default: false
+        type: boolean
   schedule:
-    - cron: "17 1,5,9,13 * * *"
+    - cron: "0 23 * * *"
 
 concurrency:
   group: collect-report-${{ github.ref }}
@@ -17,6 +23,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: write
     steps:
@@ -44,9 +51,10 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          PUSHPLUS_CHANNEL: clawbot
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AUTO_TIMEZONE: Asia/Shanghai
-          AUTO_PUSH_ENABLED: true
+          AUTO_PUSH_ENABLED: ${{ github.event_name == 'schedule' || inputs.push_enabled == true }}
         run: python -m auto_report.cli run-once
 
       - name: Upload artifacts
