@@ -5,7 +5,8 @@ from auto_report.pipeline.analysis import build_report_package
 from auto_report.settings import load_settings
 
 
-def test_build_report_package_generates_domain_signals():
+def test_build_report_package_generates_domain_signals(monkeypatch):
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
     settings = load_settings(Path.cwd())
     items = [
         CollectedItem(

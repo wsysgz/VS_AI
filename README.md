@@ -55,6 +55,12 @@ pip install -e .
 python -m auto_report.cli run-once
 ```
 
+本地运行前建议先准备 `.env`：
+
+- 把 `.env.example` 复制为 `.env`
+- 把真实 `DEEPSEEK_API_KEY` 只写入本地 `.env` 或 GitHub Actions Secrets，不要写进仓库 Markdown 或提交进 git
+- 默认 `AI_MAX_ANALYSIS_TOPICS=6`，表示每轮只对优先级最高的 `6` 个主题走真实 AI 分析，兼顾质量、成本和耗时
+
 ## 当前能力
 
 - 支持本地运行和 GitHub Actions 定时运行

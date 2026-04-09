@@ -56,6 +56,7 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "AI_PROVIDER": os.environ.get("AI_PROVIDER", "deepseek"),
         "AI_BASE_URL": os.environ.get("AI_BASE_URL", "https://api.deepseek.com"),
         "AI_MODEL": os.environ.get("AI_MODEL", "deepseek-chat"),
+        "AI_MAX_ANALYSIS_TOPICS": os.environ.get("AI_MAX_ANALYSIS_TOPICS", "6"),
         "PUSHPLUS_TOKEN": os.environ.get("PUSHPLUS_TOKEN", ""),
         "PUSHPLUS_CHANNEL": os.environ.get("PUSHPLUS_CHANNEL", "clawbot"),
         "PUSHPLUS_FALLBACK_CHANNEL": os.environ.get("PUSHPLUS_FALLBACK_CHANNEL", ""),

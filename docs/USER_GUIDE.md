@@ -46,6 +46,7 @@ pip install -e .
 - `PUSHPLUS_CHANNEL=clawbot`
 - `REPORT_REPO_URL=https://github.com/wsysgz/VS_AI`
 - `AI_MODEL`
+- `AI_MAX_ANALYSIS_TOPICS=6`
 
 如果你也想同步到 Telegram，再额外填写：
 
@@ -53,6 +54,11 @@ pip install -e .
 - `TELEGRAM_CHAT_ID`
 
 如果你暂时还没有 DeepSeek Key，也可以先不填，系统会用规则摘要模式继续运行。
+
+注意：
+
+- 真实 `DEEPSEEK_API_KEY` 只放在本地 `.env` 和 GitHub Secrets 中，不要写进仓库文档或提交到 git
+- 当前默认 `AI_MAX_ANALYSIS_TOPICS=6`，用于控制每轮进入真实 AI 分析的主题数量，避免本地和 GitHub Actions 超时
 
 系统会在运行时自动读取：
 
@@ -92,6 +98,7 @@ python -m auto_report.cli run-once
 - `run-status.json` 是否出现：
   - `stage_status`
   - `source_stats`
+- 如果已经配置 `DEEPSEEK_API_KEY`，`run-status.json` 里的 `analysis` / `summary` / `forecast` 是否为 `ok`
 
 ## 3. 部署到 GitHub
 

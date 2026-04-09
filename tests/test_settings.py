@@ -26,6 +26,7 @@ def test_load_settings_exposes_ai_reading_paths():
     assert settings.ai_reading["analysis"].name == "analysis-before.md"
     assert settings.ai_reading["summary"].name == "summary-before.md"
     assert settings.ai_reading["forecast"].name == "forecast-before.md"
+    assert settings.env["AI_MAX_ANALYSIS_TOPICS"] == "6"
 
 
 def test_load_settings_uses_curated_live_website_entry_points():

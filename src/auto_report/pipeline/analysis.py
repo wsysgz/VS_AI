@@ -65,11 +65,17 @@ def build_report_package(
     )
 
     signals.sort(key=lambda signal: signal.score, reverse=True)
+    signal_scores = {(signal.title, signal.url): signal.score for signal in signals}
+    topic_candidates.sort(
+        key=lambda candidate: signal_scores.get((candidate.title, candidate.url), 0.0),
+        reverse=True,
+    )
 
     ai_outputs = run_staged_ai_pipeline(
         candidates=topic_candidates,
         ai_readings=load_ai_readings(settings.root_dir),
         ai_enabled=bool(settings.env["DEEPSEEK_API_KEY"]),
+        max_candidates=int(settings.env["AI_MAX_ANALYSIS_TOPICS"]),
     )
 
     summary_payload = {

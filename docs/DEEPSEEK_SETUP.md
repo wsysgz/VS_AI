@@ -6,6 +6,11 @@
 2. 登录账号后创建 API Key。
 3. 这个 Key 后面要同时填到本地 `.env` 和 GitHub Secrets 里。
 
+注意：
+
+- 真实 Key 不要写进仓库里的 Markdown、代码文件或提交记录
+- 推荐做法是：本地写入 `.env`，云端写入 GitHub Actions Secrets
+
 ## 2. 本地配置
 
 把 `.env.example` 复制成 `.env`，然后填写：
@@ -13,10 +18,20 @@
 - `DEEPSEEK_API_KEY`
 - `AI_BASE_URL`
 - `AI_MODEL`
+- `AI_MAX_ANALYSIS_TOPICS`
 
 默认推荐模型：
 
 - `deepseek-chat`
+
+默认推荐主题上限：
+
+- `AI_MAX_ANALYSIS_TOPICS=6`
+
+含义：
+
+- 每轮只对优先级最高的 `6` 个主题做真实 AI 分析 / 总结 / 预测
+- 这样可以显著降低本地运行和 GitHub Actions 的超时风险，也更符合当前“稳准少而精”的策略
 
 ## 3. GitHub 配置
 
@@ -41,6 +56,18 @@ python -c "from auto_report.integrations.deepseek import build_deepseek_payload;
 ```
 
 如果输出的是 `deepseek-chat`，说明本地配置链路已经正常。
+
+如果你想确认 staged AI 真实启用了，再执行：
+
+```powershell
+python -m auto_report.cli run-once
+```
+
+然后检查：
+
+- `data/state/run-status.json`
+
+如果其中 `analysis` / `summary` / `forecast` 都是 `ok`，说明真实 AI 分析链路已经跑通。
 
 ## 5. 你后面实际要准备的东西
 
