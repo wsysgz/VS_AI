@@ -10,6 +10,8 @@
 - 在 GitHub Actions 中执行并保存产物
 - 通过 PushPlus 把摘要推送到微信，当前优先尝试 `ClawBot`
 - 可选同步到 Telegram Bot，并发送完整报告正文
+- 在运行时自动读取仓库内置的分析 / 总结 / 预测规则文件
+- 当 AI 某个阶段失败时自动回退，不让整轮快报中断
 
 ## 2. 本地运行
 
@@ -52,6 +54,12 @@ pip install -e .
 
 如果你暂时还没有 DeepSeek Key，也可以先不填，系统会用规则摘要模式继续运行。
 
+系统会在运行时自动读取：
+
+- `config/ai_reading/analysis-before.md`
+- `config/ai_reading/summary-before.md`
+- `config/ai_reading/forecast-before.md`
+
 ### 第四步：本地执行一次
 
 ```powershell
@@ -74,6 +82,16 @@ python -m auto_report.cli run-once
 - `data/reports/latest-ai-llm-agent.md`
 - `data/reports/latest-ai-x-electronics.md`
 - `data/state/run-status.json`
+
+升级后建议额外检查：
+
+- `latest-summary.md` 是否出现：
+  - `## 一句话核心`
+  - `## 执行摘要`
+  - `## 短期预测`
+- `run-status.json` 是否出现：
+  - `stage_status`
+  - `source_stats`
 
 ## 3. 部署到 GitHub
 
