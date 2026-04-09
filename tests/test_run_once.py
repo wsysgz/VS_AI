@@ -128,7 +128,7 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
     assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md" in captured["content"]
 
 
-def test_run_once_sends_telegram_when_configured(tmp_path, monkeypatch):
+def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
 
@@ -158,13 +158,13 @@ def test_run_once_sends_telegram_when_configured(tmp_path, monkeypatch):
         lambda *args, **kwargs: {"code": 200},
     )
 
-    def fake_send_telegram_message(token, chat_id, text):
+    def fake_send_telegram_messages(token, chat_id, text):
         captured["token"] = token
         captured["chat_id"] = chat_id
         captured["text"] = text
-        return {"ok": True}
+        return [{"ok": True}]
 
-    monkeypatch.setattr("auto_report.app.send_telegram_message", fake_send_telegram_message)
+    monkeypatch.setattr("auto_report.app.send_telegram_messages", fake_send_telegram_messages)
     monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
     monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
@@ -175,4 +175,6 @@ def test_run_once_sends_telegram_when_configured(tmp_path, monkeypatch):
 
     assert captured["token"] == "telegram-token"
     assert captured["chat_id"] == "8566057843"
+    assert captured["text"].startswith("# 自动情报快报")
+    assert "## 核心看点" in captured["text"]
     assert "详情链接：" in captured["text"]

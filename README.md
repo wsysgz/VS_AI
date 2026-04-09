@@ -16,8 +16,23 @@ AI 情报采集与分析系统。
 - 每天北京时间 `07:00` 自动生成并推送 `1` 条综合总报
 - `push` 到 `main` 会自动触发 GitHub Actions 做验证和归档，但默认不发微信消息
 - PushPlus 当前优先尝试 `ClawBot`，并使用 `txt` 短摘要 + GitHub 详情链接
-- 如果配置了 Telegram，也会同步发送同一份短摘要 + GitHub 详情链接
+- 如果配置了 Telegram，会同步发送“完整报告正文 + GitHub 详情链接”，并自动按长度分段
 - 本地优先开发，确认通过后再推送到仓库自动运行
+
+## 快速接管
+
+推荐把这个仓库当作一个“本地先验证，再交给 GitHub 自动运行”的长期项目来维护。
+
+- 主本地目录：`D:\GitHub\auto`
+- 主远端仓库：`git@github.com:wsysgz/VS_AI.git`
+- SSH 连通性验证：`ssh -T git@github.com`
+- 推荐验证顺序：
+  - `python -m pytest -q`
+  - `python -m auto_report.cli run-once`
+  - 确认 `data/reports/latest-summary.md` 与推送内容
+  - 再推送到 `main`
+
+仓库根目录已经补充了 `AGENTS.md`，后续 AI / 开发者接手时优先读取它，可以更快恢复上下文。
 
 ## 本地运行
 
@@ -58,6 +73,12 @@ python -m auto_report.cli run-once
 可选消息通道：
 
 - PushPlus ClawBot：发送 `txt` 短摘要 + GitHub 详情链接
-- Telegram Bot：发送同一份短摘要 + GitHub 详情链接
+- Telegram Bot：发送完整报告正文，并自动切分为 `<=4096` 字符的多条纯文本消息，末尾附 GitHub 详情链接
+
+当前自动化约束：
+
+- 每天正式自动推送只有 `1` 次
+- GitHub Actions 主任务 `timeout-minutes: 25`
+- 因此日常自动运行时间被限制在 `60` 分钟以内
 
 为了避免工作流在提交 `data/` 归档后反复触发自己，`data/**` 已经被排除在 `push` 触发范围之外。

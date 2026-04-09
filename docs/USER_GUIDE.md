@@ -9,7 +9,7 @@
 - 把报告留档到本地 `data/` 目录
 - 在 GitHub Actions 中执行并保存产物
 - 通过 PushPlus 把摘要推送到微信，当前优先尝试 `ClawBot`
-- 可选同步到 Telegram Bot
+- 可选同步到 Telegram Bot，并发送完整报告正文
 
 ## 2. 本地运行
 
@@ -125,6 +125,7 @@ python -m auto_report.cli run-once
 - 每天北京时间 `07:00` 的 `schedule` 运行，是正式自动推送到微信的那一轮
 - 推送到 `main` 触发的运行，默认用于验证和归档，不主动发送微信消息
 - 手动 `Run workflow` 时，可以按需要显式打开推送，用来做一次受控测试
+- 主工作流 `timeout-minutes: 25`，因此日常自动运行不会超过 `60` 分钟
 
 ### 第五步：核对执行结果
 
@@ -133,8 +134,8 @@ python -m auto_report.cli run-once
 - 工作流日志是否成功结束
 - 是否生成了名为 `auto-report-data` 的 artifact
 - 仓库里的 `data/` 文件是否更新
-- 如果这是北京时间 `07:00` 的定时运行，且配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 推送
-- 如果配置了 Telegram，Telegram 对话是否也收到短摘要消息
+- 如果这是北京时间 `07:00` 的定时运行，且配置了 `PUSHPLUS_TOKEN`，手机是否收到 PushPlus 短摘要
+- 如果配置了 Telegram，Telegram 对话是否收到完整报告正文 + GitHub 详情链接
 
 ## 4. 手动补生成
 
@@ -184,3 +185,31 @@ python -m auto_report.cli run-once
   - `TELEGRAM_CHAT_ID`
 
 只要 Bot 已经和你的账号建立过会话，之后定时运行就能把短摘要推过去。
+
+现在 Telegram 的默认行为是：
+
+- 发送完整报告正文
+- 如果太长，会自动拆成多条纯文本消息
+- 最后附 GitHub 详情链接
+
+首次配置时建议手动做这几步：
+
+1. 在 Telegram 中打开 bot 对话
+2. 先发送一次 `/start`
+3. 本地运行 `python -m auto_report.cli run-once`
+4. 确认 Telegram 是否收到完整报告
+
+## 8. 微信 ClawBot 说明
+
+当前微信侧默认使用 PushPlus 的 `ClawBot` 渠道。
+
+为了提高稳定性，项目默认只向微信发送：
+
+- 短摘要
+- GitHub 详情链接
+
+如果微信侧后续收不到消息，优先检查：
+
+1. PushPlus Token 是否仍有效
+2. ClawBot 会话是否仍处于可接收状态
+3. 是否需要重新激活 / 刷新会话

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from auto_report.integrations.deepseek import summarize_with_deepseek
 from auto_report.integrations.pushplus import send_pushplus
-from auto_report.integrations.telegram import send_telegram_message
+from auto_report.integrations.telegram import send_telegram_messages
 from auto_report.outputs.archive import write_text
 from auto_report.outputs.renderers import render_json_report, render_markdown_report, render_text_notification
 from auto_report.pipeline.analysis import ReportPackage, build_report_package
@@ -126,6 +126,13 @@ def _build_text_notification(root_dir: Path, settings: Settings) -> str:
     )
 
 
+def _build_telegram_notification(root_dir: Path, settings: Settings) -> str:
+    report_path = root_dir / "data" / "reports" / "latest-summary.md"
+    detail_url = _build_detail_url(settings)
+    report_text = report_path.read_text(encoding="utf-8").rstrip()
+    return f"{report_text}\n\n详情链接：\n{detail_url}"
+
+
 def render_reports(root_dir: Path) -> list[str]:
     settings = load_settings(root_dir)
     generated_at = datetime.now().astimezone().isoformat()
@@ -191,10 +198,10 @@ def run_once(root_dir: Path) -> list[str]:
             notification_results["pushplus"] = push_response
 
         if settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]:
-            notification_results["telegram"] = send_telegram_message(
+            notification_results["telegram"] = send_telegram_messages(
                 settings.env["TELEGRAM_BOT_TOKEN"],
                 settings.env["TELEGRAM_CHAT_ID"],
-                text_notification,
+                _build_telegram_notification(root_dir, settings),
             )
 
         if notification_results:

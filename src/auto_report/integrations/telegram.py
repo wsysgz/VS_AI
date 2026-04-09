@@ -4,6 +4,8 @@ from typing import Any
 
 import requests
 
+TELEGRAM_MAX_TEXT_LENGTH = 4096
+
 
 def build_telegram_payload(chat_id: str, text: str) -> dict[str, object]:
     return {
@@ -11,6 +13,33 @@ def build_telegram_payload(chat_id: str, text: str) -> dict[str, object]:
         "text": text,
         "disable_web_page_preview": True,
     }
+
+
+def split_telegram_text(text: str, max_length: int = TELEGRAM_MAX_TEXT_LENGTH) -> list[str]:
+    if len(text) <= max_length:
+        return [text]
+
+    chunks: list[str] = []
+    start = 0
+
+    while start < len(text):
+        end = min(start + max_length, len(text))
+        split_at = end
+
+        if end < len(text):
+            for separator in ("\n\n", "\n", " "):
+                candidate = text.rfind(separator, start, end)
+                if candidate > start:
+                    split_at = candidate + len(separator)
+                    break
+
+        if split_at <= start:
+            split_at = end
+
+        chunks.append(text[start:split_at])
+        start = split_at
+
+    return chunks
 
 
 def send_telegram_message(token: str, chat_id: str, text: str) -> dict[str, Any]:
@@ -21,3 +50,10 @@ def send_telegram_message(token: str, chat_id: str, text: str) -> dict[str, Any]
     )
     response.raise_for_status()
     return response.json()
+
+
+def send_telegram_messages(token: str, chat_id: str, text: str) -> list[dict[str, Any]]:
+    return [
+        send_telegram_message(token, chat_id, chunk)
+        for chunk in split_telegram_text(text)
+    ]
