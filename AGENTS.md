@@ -2,38 +2,51 @@
 
 ## Workspace And Remote
 
-- Primary local workspace: `D:\GitHub\auto`
-- Temporary feature work can use `D:\GitHub\worktrees\auto\<branch-name>`, but merge back into `D:\GitHub\auto` before the final push.
+- Primary local workspace: `D:\AI\workbuddy\auto\auto`
+- Temporary feature work can use `D:\GitHub\worktrees\auto\<branch-name>`, but merge back into `D:\AI\workbuddy\auto\auto` before the final push.
 - Canonical Git remote: `origin = git@github.com:wsysgz/VS_AI.git`
 - Preferred auth path is SSH. Verify with `ssh -T git@github.com`; the expected result is successful authentication as `wsysgz`.
 - The GitHub key labeled `ssh-blog` is available locally as `C:\Users\24160\.ssh\id_ed25519.pub` with fingerprint `SHA256:5PsPPHvqPDYP7X15wLGZlQakseS8wmWYYqIYisx1Ixg`.
 - A convenience SSH alias is available: `ssh -T ssh-blog`.
 - Do not switch the remote back to HTTPS unless the user explicitly asks for it.
-- `github-vsai-codex` is only a local备用 key alias. The primary working path for this repo is still the `ssh-blog` / default GitHub key.
+- `github-vsai-codex` is only a local backup key alias. The primary working path for this repo is still the `ssh-blog` / default GitHub key.
+
+## Project Status (2026-04-11)
+
+- **V6 Phase 0~4 全部完成**, Phase 5 暂缓
+- **测试**: 91 passed, 0 failed
+- **CI**: 5-job 流水线（test → collect → analyze → report → deploy-pages）
+- **数据源**: RSS(6) + GitHub(4组) + Websites + Hacker News + ArXiv
+- **LLM**: 统一客户端（DeepSeek / OpenAI 兼容），Analysis 5路并行
+- **推送**: PushPlus(ClawBot) + Telegram + 飞书 三通道
+
+## 接手入口
+
+1. **完整接手手册**: `docs/HANDOFF.md` ← **优先读这个**
+2. **快速启动**: README.md → 3 步跑起来
+3. **V6 升级全貌**: `docs/upgrade-plan-v6/升级计划_V6_全面增强方案.md`
 
 ## Local-First Workflow
 
-- Change code locally first, then verify locally, then push to GitHub.
+- Change code locally first, verify locally, then push to GitHub.
 - Default verification flow:
-  - `python -m pytest -q`
-  - `python -m auto_report.cli run-once`
-  - `git status --short`
-  - `git remote -v`
+  ```powershell
+  cd D:\AI\workbuddy\auto\auto
+  $env:PYTHONPATH = "src"
+  python -m pytest tests -q           # 预期 91 passed
+  python -m auto_report.cli run-once   # 完整运行一次
+  cat data/state/run-status.json       # 检查状态
+  ```
 - GitHub CLI is installed locally at `C:\Program Files\GitHub CLI\gh.exe`.
-- Preferred GitHub CLI checks:
-  - `& 'C:\Program Files\GitHub CLI\gh.exe' auth status`
-  - `& 'C:\Program Files\GitHub CLI\gh.exe' repo view wsysgz/VS_AI`
-  - `& 'C:\Program Files\GitHub CLI\gh.exe' run list --repo wsysgz/VS_AI --limit 5`
 - If the change touches delivery channels, verify message shape locally before pushing.
 - Never commit real tokens, chat IDs, or screenshots containing secrets.
-- A fine-grained PAT has already been imported into local `gh auth`; keep using the local credential store instead of writing PAT values into repo files.
 
 ## Automation Rules
 
 - User-facing scheduled delivery is one daily comprehensive report at Beijing `07:00`.
 - The GitHub Actions cron is `0 23 * * *` in UTC, which maps to Beijing `07:00`.
 - `push` to `main` and `workflow_dispatch` are primarily for verification and archiving; they should not become noisy user-notification channels by default.
-- Keep daily automated runtime under `60` minutes. The current `Collect And Report` workflow enforces `timeout-minutes: 25`.
+- Keep daily automated runtime under `60` minutes. Current 5-job pipeline enforces per-job timeouts (test=5min, collect=15min, analyze=35min, report=10min, pages=5min).
 
 ## Channel Rules
 
@@ -46,21 +59,31 @@
   - send the complete report as plain text chunks of at most `4096` characters each
   - append the GitHub detail link
   - keep link previews disabled
+- Feishu is the tertiary channel (configured but optional).
 
 ## Repo Layout
 
-- Workflow entry: `.github/workflows/collect-report.yml`
-- App orchestration: `src/auto_report/app.py`
+- Workflow entry: `.github/workflows/collect-report.yml` (5 jobs)
+- App orchestration: `src/auto_report/app.py` (StageTimer + run_once/render_reports)
+- Pipeline core: `src/auto_report/pipeline/analysis.py` (build_report_package)
+- AI pipeline: `src/auto_report/pipeline/ai_pipeline.py` (staged 3-phase AI)
+- LLM client: `src/auto_report/integrations/llm_client.py` (unified DeepSeek/OpenAI)
+- Data sources: `src/auto_report/sources/collector.py` (4-source parallel collection)
 - Delivery integrations: `src/auto_report/integrations/`
 - Rendering and archives: `src/auto_report/outputs/`
-- User and handoff docs: `README.md`, `docs/USER_GUIDE.md`, `docs/TECHNICAL_GUIDE.md`
+- Test suite: `tests/` (91 cases across 8 files)
+- Handoff docs: `docs/HANDOFF.md`, `AGENTS.md`, `README.md`
+- Upgrade plan: `docs/upgrade-plan-v6/`
+
+## Key Gotchas for Developers
+
+1. **render_reports() 返回 tuple**: `(list[str], dict[str,float])` — 调用方必须解包
+2. **AI 不要外部重复调**：`build_report_package()` 内部已完成 AI 三阶段，不要在 app.py 再调 `run_staged_ai_pipeline()`
+3. **Windows 路径坑**：`_to_relative_paths()` 已处理，新增路径处理代码记得统一正斜杠
+4. **data/ 不用手动提交**：CI 的 `git-auto-commit-action` 会自动归档
+5. **新增数据源**：改 collector.py + config YAML + 对应 source 文件，三处联动
 
 ## Extension Priorities
 
 - Future additions should layer on top of the daily report instead of fragmenting it into multiple daily pushes.
-- Preferred next milestones:
-  - weekly report
-  - monthly report
-  - more data sources
-  - stronger analysis
-  - better layout and reading experience
+- Phase 5 candidates (not started): MCP Server, email subscription, bilingual reports, knowledge enrichment, weekly/monthly reports.

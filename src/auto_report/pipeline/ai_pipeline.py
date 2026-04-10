@@ -5,7 +5,7 @@ import json
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from auto_report.integrations.deepseek import summarize_with_deepseek
+from auto_report.integrations.llm_client import call_llm as summarize_with_deepseek
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)

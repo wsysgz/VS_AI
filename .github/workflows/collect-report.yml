@@ -22,6 +22,53 @@ concurrency:
 
 jobs:
   # ════════════════════════════════════════
+  # JOB 0: 测试验证 (Phase 4 可观测性)
+  # 与采集并行，不阻塞主流程但结果可见
+  # ════════════════════════════════════════
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            .venv
+          key: ${{ runner.os }}-pip-test-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+          pip install pytest
+
+      - name: Run tests
+        timeout-minutes: 3
+        env:
+          PYTHONPATH: src
+        run: pytest tests --junitxml=test-results.xml -q --tb=short
+
+      - name: Publish test results
+        if: always()
+        uses: dorny/test-results-action@v1
+        with:
+          files: test-results.xml
+
+  # ════════════════════════════════════════
   # JOB 1: 采集 + 预处理 (无AI)
   # ════════════════════════════════════════
   collect:
@@ -186,7 +233,6 @@ jobs:
     needs: report
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: github.event_name == 'schedule'
     steps:
       - name: Checkout
         uses: actions/checkout@v4

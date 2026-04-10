@@ -98,7 +98,7 @@ def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
         lambda settings: (sample_items, ["测试诊断"]),
     )
 
-    generated_files = render_reports(tmp_path)
+    generated_files, _ = render_reports(tmp_path)
 
     assert any(path.endswith("latest-summary.md") for path in generated_files)
     content = (tmp_path / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8")

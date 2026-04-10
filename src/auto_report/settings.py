@@ -67,6 +67,7 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "FEISHU_APP_SECRET": os.environ.get("FEISHU_APP_SECRET", ""),
         "FEISHU_CHAT_ID": os.environ.get("FEISHU_CHAT_ID", ""),
         "GITHUB_TOKEN": os.environ.get("GITHUB_TOKEN", ""),
+        "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY", ""),
         "REPORT_REPO_URL": os.environ.get("REPORT_REPO_URL", "https://github.com/wsysgz/VS_AI"),
         "AUTO_TIMEZONE": os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai"),
         "AUTO_PUSH_ENABLED": os.environ.get("AUTO_PUSH_ENABLED", "true"),

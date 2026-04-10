@@ -17,7 +17,7 @@ from auto_report.outputs.renderers import (
     render_text_notification,
 )
 from auto_report.pipeline.analysis import build_report_package
-from auto_report.pipeline.run_once import build_run_status
+from auto_report.pipeline.run_once import build_run_status, _to_relative_paths
 from auto_report.settings import load_settings
 from auto_report.sources.collector import collect_all_items
 
@@ -151,112 +151,134 @@ def _build_feishu_notification(root_dir: Path, settings) -> str:
     )
 
 
-def render_reports(root_dir: Path) -> list[str]:
+def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
     settings = load_settings(root_dir)
     generated_at = datetime.now().astimezone().isoformat()
     reports_dir = root_dir / "data" / "reports"
     state_dir = root_dir / "data" / "state"
     archive_dir = root_dir / "data" / "archives" / generated_at[:10]
+    timings: dict[str, float] = {}
 
-    items, diagnostics = collect_all_items(settings)
-    package = build_report_package(settings, items, diagnostics)
-    package.summary_payload["meta"]["generated_at"] = generated_at
+    with StageTimer("collection") as t:
+        items, diagnostics = collect_all_items(settings)
+    timings["collection"] = t.elapsed
 
-    summary_markdown = _compose_report_markdown(
-        title="自动情报快报",
-        generated_at=generated_at,
-        payload=package.summary_payload,
-    )
-    summary_json = render_json_report(package.summary_payload)
-    summary_html = render_html_report(
-        title="自动情报快报",
-        generated_at=generated_at,
-        payload=package.summary_payload,
-    )
+    with StageTimer("dedup_score") as t:
+        package = build_report_package(settings, items, diagnostics)
+        # dedup + classify + score + AI pipeline 全部在 build_report_package 内完成
+        package.summary_payload["meta"]["generated_at"] = generated_at
+    timings["dedup_score"] = t.elapsed
 
-    summary_md_path = reports_dir / "latest-summary.md"
-    summary_json_path = reports_dir / "latest-summary.json"
-    summary_html_path = reports_dir / "latest-summary.html"
-    archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
-    archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
-    archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
-    dedup_state_path = state_dir / "dedup-index.json"
+    # 从 package 中提取 AI 阶段耗时（如果 ai_pipeline 有内部计时）
+    timings["ai_total"] = 0.0  # 占位，AI 耗时已包含在 dedup_score 中（build_report_package 内部整体计时）
 
-    write_text(summary_md_path, summary_markdown)
-    write_text(summary_json_path, summary_json)
-    write_text(summary_html_path, summary_html)
-    write_text(archive_md_path, summary_markdown)
-    write_text(archive_json_path, summary_json)
-    write_text(archive_html_path, summary_html)
-    write_text(dedup_state_path, render_json_report(package.dedup_state))
+    with StageTimer("rendering") as t:
+        summary_markdown = _compose_report_markdown(
+            title="自动情报快报",
+            generated_at=generated_at,
+            payload=package.summary_payload,
+        )
+        summary_json = render_json_report(package.summary_payload)
+        summary_html = render_html_report(
+            title="自动情报快报",
+            generated_at=generated_at,
+            payload=package.summary_payload,
+        )
 
-    generated_files = [
-        str(summary_md_path),
-        str(summary_json_path),
-        str(summary_html_path),
-        str(archive_md_path),
-        str(archive_json_path),
-        str(archive_html_path),
-        str(dedup_state_path),
-    ]
-    generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
-    return generated_files
+        summary_md_path = reports_dir / "latest-summary.md"
+        summary_json_path = reports_dir / "latest-summary.json"
+        summary_html_path = reports_dir / "latest-summary.html"
+        archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
+        archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
+        archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
+        dedup_state_path = state_dir / "dedup-index.json"
+
+        write_text(summary_md_path, summary_markdown)
+        write_text(summary_json_path, summary_json)
+        write_text(summary_html_path, summary_html)
+        write_text(archive_md_path, summary_markdown)
+        write_text(archive_json_path, summary_json)
+        write_text(archive_html_path, summary_html)
+        write_text(dedup_state_path, render_json_report(package.dedup_state))
+
+        generated_files = [
+            str(summary_md_path),
+            str(summary_json_path),
+            str(summary_html_path),
+            str(archive_md_path),
+            str(archive_json_path),
+            str(archive_html_path),
+            str(dedup_state_path),
+        ]
+        generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
+    timings["rendering"] = t.elapsed
+
+    return generated_files, timings
 
 
 def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
     settings = load_settings(root_dir)
     generated_at = datetime.now().astimezone().isoformat()
+    timings: dict[str, float] = {}
 
     archive_date = target_date.strip() if target_date.strip() else generated_at[:10]
     reports_dir = root_dir / "data" / "reports"
     state_dir = root_dir / "data" / "state"
     archive_dir = root_dir / "data" / "archives" / archive_date
 
-    items, diagnostics = collect_all_items(settings)
-    package = build_report_package(settings, items, diagnostics)
-    package.summary_payload["meta"]["generated_at"] = generated_at
+    with StageTimer("collection") as t:
+        items, diagnostics = collect_all_items(settings)
+    timings["collection"] = t.elapsed
 
-    summary_markdown = _compose_report_markdown(
-        title="自动情报快报（补报）",
-        generated_at=generated_at,
-        payload=package.summary_payload,
-    )
-    summary_json = render_json_report(package.summary_payload)
-    summary_html = render_html_report(
-        title="自动情报快报（补报）",
-        generated_at=generated_at,
-        payload=package.summary_payload,
-    )
+    with StageTimer("dedup_score") as t:
+        package = build_report_package(settings, items, diagnostics)
+        package.summary_payload["meta"]["generated_at"] = generated_at
+    timings["dedup_score"] = t.elapsed
+    timings["ai_total"] = 0.0  # AI pipeline 已在 build_report_package 内完成
 
-    summary_md_path = reports_dir / "latest-summary.md"
-    summary_json_path = reports_dir / "latest-summary.json"
-    summary_html_path = reports_dir / "latest-summary.html"
-    archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
-    archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
-    archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
-    dedup_state_path = state_dir / "dedup-index.json"
+    with StageTimer("rendering") as t:
+        summary_markdown = _compose_report_markdown(
+            title="自动情报快报（补报）",
+            generated_at=generated_at,
+            payload=package.summary_payload,
+        )
+        summary_json = render_json_report(package.summary_payload)
+        summary_html = render_html_report(
+            title="自动情报快报（补报）",
+            generated_at=generated_at,
+            payload=package.summary_payload,
+        )
 
-    write_text(summary_md_path, summary_markdown)
-    write_text(summary_json_path, summary_json)
-    write_text(summary_html_path, summary_html)
-    write_text(archive_md_path, summary_markdown)
-    write_text(archive_json_path, summary_json)
-    write_text(archive_html_path, summary_html)
-    write_text(dedup_state_path, render_json_report(package.dedup_state))
+        summary_md_path = reports_dir / "latest-summary.md"
+        summary_json_path = reports_dir / "latest-summary.json"
+        summary_html_path = reports_dir / "latest-summary.html"
+        archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
+        archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
+        archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
+        dedup_state_path = state_dir / "dedup-index.json"
 
-    generated_files = [
-        str(summary_md_path),
-        str(summary_json_path),
-        str(summary_html_path),
-        str(archive_md_path),
-        str(archive_json_path),
-        str(archive_html_path),
-        str(dedup_state_path),
-    ]
-    generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
+        write_text(summary_md_path, summary_markdown)
+        write_text(summary_json_path, summary_json)
+        write_text(summary_html_path, summary_html)
+        write_text(archive_md_path, summary_markdown)
+        write_text(archive_json_path, summary_json)
+        write_text(archive_html_path, summary_html)
+        write_text(dedup_state_path, render_json_report(package.dedup_state))
+
+        generated_files = [
+            str(summary_md_path),
+            str(summary_json_path),
+            str(summary_html_path),
+            str(archive_md_path),
+            str(archive_json_path),
+            str(archive_html_path),
+            str(dedup_state_path),
+        ]
+        generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
+    timings["rendering"] = t.elapsed
 
     status = build_run_status(
-        generated_files=generated_files,
+        generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=False,
         push_channel="",
         push_response={},
@@ -265,6 +287,7 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
             "collected_items": int(package.summary_payload.get("meta", {}).get("total_items", 0)),
             "filtered_topics": int(package.summary_payload.get("meta", {}).get("total_topics", 0)),
         },
+        timings=timings,
     )
     status_path = root_dir / "data" / "state" / "run-status.json"
     write_text(status_path, render_json_report(status))
@@ -274,58 +297,66 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
 
 def run_once(root_dir: Path) -> list[str]:
     settings = load_settings(root_dir)
-    generated_files = render_reports(root_dir)
-    summary_payload = _load_summary_payload(root_dir)
-    pushed = False
-    push_channel = ""
-    push_response: dict[str, object] = {}
+    all_timings: dict[str, float] = {}
 
-    if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
-        text_notification = _build_text_notification(root_dir, settings)
-        notification_results: dict[str, object] = {}
+    with StageTimer("total") as total_timer:
+        generated_files, render_timings = render_reports(root_dir)
+        all_timings.update(render_timings)
 
-        if settings.env["PUSHPLUS_TOKEN"]:
-            try:
-                push_channel = settings.env["PUSHPLUS_CHANNEL"]
-                push_response = send_pushplus(
-                    settings.env["PUSHPLUS_TOKEN"],
-                    "自动情报快报",
-                    text_notification if push_channel == "clawbot" else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
-                    channel=push_channel,
-                    template="txt" if push_channel == "clawbot" else "markdown",
-                    secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
-                )
-                notification_results["pushplus"] = push_response
-            except Exception as e:
-                notification_results["pushplus"] = {"error": str(e)}
+        summary_payload = _load_summary_payload(root_dir)
+        pushed = False
+        push_channel = ""
+        push_response: dict[str, object] = {}
 
-        if settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]:
-            try:
-                notification_results["telegram"] = send_telegram_messages(
-                    settings.env["TELEGRAM_BOT_TOKEN"],
-                    settings.env["TELEGRAM_CHAT_ID"],
-                    _build_telegram_notification(root_dir, settings),
-                )
-            except Exception as e:
-                notification_results["telegram"] = {"error": str(e)}
+        with StageTimer("push_total") as push_timer:
+            if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
+                text_notification = _build_text_notification(root_dir, settings)
+                notification_results: dict[str, object] = {}
 
-        if settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]:
-            try:
-                notification_results["feishu"] = send_feishu_messages(
-                    settings.env["FEISHU_APP_ID"],
-                    settings.env["FEISHU_APP_SECRET"],
-                    settings.env["FEISHU_CHAT_ID"],
-                    _build_feishu_notification(root_dir, settings),
-                )
-            except Exception as e:
-                notification_results["feishu"] = {"error": str(e)}
+                if settings.env["PUSHPLUS_TOKEN"]:
+                    try:
+                        push_channel = settings.env["PUSHPLUS_CHANNEL"]
+                        push_response = send_pushplus(
+                            settings.env["PUSHPLUS_TOKEN"],
+                            "自动情报快报",
+                            text_notification if push_channel == "clawbot" else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
+                            channel=push_channel,
+                            template="txt" if push_channel == "clawbot" else "markdown",
+                            secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
+                        )
+                        notification_results["pushplus"] = push_response
+                    except Exception as e:
+                        notification_results["pushplus"] = {"error": str(e)}
 
-        if notification_results:
-            push_response = notification_results
-            pushed = True
+                if settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]:
+                    try:
+                        notification_results["telegram"] = send_telegram_messages(
+                            settings.env["TELEGRAM_BOT_TOKEN"],
+                            settings.env["TELEGRAM_CHAT_ID"],
+                            _build_telegram_notification(root_dir, settings),
+                        )
+                    except Exception as e:
+                        notification_results["telegram"] = {"error": str(e)}
+
+                if settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]:
+                    try:
+                        notification_results["feishu"] = send_feishu_messages(
+                            settings.env["FEISHU_APP_ID"],
+                            settings.env["FEISHU_APP_SECRET"],
+                            settings.env["FEISHU_CHAT_ID"],
+                            _build_feishu_notification(root_dir, settings),
+                        )
+                    except Exception as e:
+                        notification_results["feishu"] = {"error": str(e)}
+
+                if notification_results:
+                    push_response = notification_results
+                    pushed = True
+
+        all_timings["push_total"] = push_timer.elapsed
 
     status = build_run_status(
-        generated_files=generated_files,
+        generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=pushed,
         push_channel=push_channel,
         push_response=push_response,
@@ -334,6 +365,7 @@ def run_once(root_dir: Path) -> list[str]:
             "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
             "filtered_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
         },
+        timings=all_timings,
     )
     status_path = root_dir / "data" / "state" / "run-status.json"
     write_text(status_path, render_json_report(status))
