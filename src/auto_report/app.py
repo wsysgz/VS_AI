@@ -7,7 +7,12 @@ from pathlib import Path
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
 from auto_report.outputs.archive import write_text
-from auto_report.outputs.renderers import render_json_report, render_markdown_report, render_text_notification
+from auto_report.outputs.renderers import (
+    render_json_report,
+    render_markdown_report,
+    render_telegram_notification,
+    render_text_notification,
+)
 from auto_report.pipeline.analysis import build_report_package
 from auto_report.pipeline.run_once import build_run_status
 from auto_report.settings import load_settings
@@ -65,10 +70,16 @@ def _build_text_notification(root_dir: Path, settings) -> str:
 
 
 def _build_telegram_notification(root_dir: Path, settings) -> str:
-    report_path = root_dir / "data" / "reports" / "latest-summary.md"
+    payload = _load_summary_payload(root_dir)
+    generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
+    local_date = generated_at[:10]
     detail_url = _build_detail_url(settings)
-    report_text = report_path.read_text(encoding="utf-8").rstrip()
-    return f"{report_text}\n\n详情链接：\n{detail_url}"
+    return render_telegram_notification(
+        title=f"AI情报完整简报 | {local_date} | 北京时间 07:00",
+        generated_at=generated_at,
+        payload=payload,
+        detail_url=detail_url,
+    )
 
 
 def render_reports(root_dir: Path) -> list[str]:

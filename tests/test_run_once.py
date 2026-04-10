@@ -74,7 +74,7 @@ def test_build_run_status_summarizes_push_responses():
     }
 
 
-def test_render_reports_writes_chinese_summary_files(tmp_path, monkeypatch):
+def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
 
@@ -103,8 +103,9 @@ def test_render_reports_writes_chinese_summary_files(tmp_path, monkeypatch):
     assert any(path.endswith("latest-summary.md") for path in generated_files)
     content = (tmp_path / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8")
     assert "自动情报快报" in content
-    assert "## 一句话核心" in content
-    assert "## 短期预测" in content
+    assert "## 一句话判断" in content
+    assert "## 重点主线" in content
+    assert "## 行动建议" in content
 
 
 def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
@@ -185,6 +186,8 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
 
     assert captured["channel"] == "clawbot"
     assert captured["template"] == "txt"
+    assert "今日判断：" in captured["content"]
+    assert "三条主线：" in captured["content"]
     assert "详情链接：" in captured["content"]
     assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md" in captured["content"]
 
@@ -236,6 +239,8 @@ def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypat
 
     assert captured["token"] == "telegram-token"
     assert captured["chat_id"] == "8566057843"
-    assert captured["text"].startswith("# 自动情报快报")
-    assert "## 一句话核心" in captured["text"]
+    assert captured["text"].startswith("AI情报完整简报 |")
+    assert "执行摘要" in captured["text"]
+    assert "关键主线" in captured["text"]
+    assert "重点主题" in captured["text"]
     assert "详情链接：" in captured["text"]
