@@ -2,25 +2,31 @@ from __future__ import annotations
 
 import json
 
+from auto_report.pipeline.briefing import compose_executive_brief
+
 
 def render_markdown_report(
     title: str,
     generated_at: str,
     payload: dict[str, object],
 ) -> str:
-    executive_summary = "\n".join(f"- {item}" for item in payload.get("executive_summary", [])) or "- 暂无"
-    key_insights = "\n".join(f"- {item}" for item in payload.get("key_insights", [])) or "- 暂无"
-    limitations = "\n".join(f"- {item}" for item in payload.get("limitations", [])) or "- 暂无"
-    forecast = payload.get("forecast", {})
-    analyses = payload.get("analyses", [])
+    brief = compose_executive_brief(title, generated_at, payload)
+    executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"]) or "- 暂无"
+    key_insights = "\n".join(f"- {item}" for item in brief["key_insights"]) or "- 暂无"
+    mainlines = "\n".join(
+        f"- {item['title']}：{item['why_it_matters']}"
+        for item in brief["mainlines"]
+    ) or "- 暂无"
+    limitations = "\n".join(f"- {item}" for item in brief["limitations"]) or "- 暂无"
+    actions = "\n".join(f"- {item}" for item in brief["actions"]) or "- 暂无"
 
     lines = [
         f"# {title}",
         "",
         f"生成时间：{generated_at}",
         "",
-        "## 一句话核心",
-        str(payload.get("one_line_core", "暂无核心判断")),
+        "## 一句话判断",
+        str(brief["judgment"]),
         "",
         "## 执行摘要",
         executive_summary,
@@ -28,30 +34,36 @@ def render_markdown_report(
         "## 关键洞察",
         key_insights,
         "",
-        "## 主题分析",
+        "## 重点主线",
+        mainlines,
+        "",
+        "## 重点主题分析",
     ]
 
-    for analysis in analyses[:6]:
+    for topic in brief["topic_briefs"]:
         lines.extend(
             [
-                f"### {analysis.get('title', '未命名主题')}",
-                f"- 主领域：{analysis.get('primary_domain', 'unknown')}",
-                f"- 主要矛盾：{analysis.get('primary_contradiction', '待补充')}",
-                f"- 核心洞察：{analysis.get('core_insight', '待补充')}",
-                f"- 置信度：{analysis.get('confidence', 'low')}",
-                f"- 链接：{analysis.get('url', '')}",
+                f"### {topic['title']}",
+                f"- 主领域：{topic['primary_domain']}",
+                f"- 主要矛盾：{topic['primary_contradiction']}",
+                f"- 核心洞察：{topic['core_insight']}",
+                f"- 置信度：{topic['confidence']}",
+                f"- 链接：{topic['url']}",
                 "",
             ]
         )
 
     lines.extend(
         [
-            "## 短期预测",
-            f"- 最可能：{forecast.get('most_likely_case', '暂无')}",
-            f"- 结论：{forecast.get('forecast_conclusion', '暂无')}",
+            "## 短期推演",
+            f"- 观察：{brief['watchlist']}",
+            f"- 结论：{brief['forecast_conclusion'] or '暂无'}",
             "",
             "## 局限性",
             limitations,
+            "",
+            "## 行动建议",
+            actions,
         ]
     )
     return "\n".join(lines).strip() + "\n"
@@ -67,25 +79,64 @@ def render_text_notification(
     payload: dict[str, object],
     detail_url: str,
 ) -> str:
+    brief = compose_executive_brief(title, generated_at, payload)
     lines = [
         title,
         f"生成时间：{generated_at}",
-        "今日一句话：",
-        str(payload.get("one_line_core", "暂无核心判断")),
-        "今日三点：",
+        "今日判断：",
+        str(brief["judgment"]),
+        "三条主线：",
     ]
 
-    for point in payload.get("key_points", [])[:3]:
-        lines.append(f"【主线】{point.get('title', '未命名要点')}")
-        lines.append(f"【影响】{point.get('why_it_matters', '需要继续观察')}")
+    for index, item in enumerate(brief["mainlines"], start=1):
+        lines.append(f"{index}. {item['title']}：{item['why_it_matters']}")
 
-    limitations = payload.get("limitations", [])
-    if limitations:
-        lines.append(f"【提醒】{limitations[0]}")
+    if brief["risk_note"]:
+        lines.extend(["提醒：", brief["risk_note"]])
 
-    forecast = payload.get("forecast", {})
-    lines.append(f"【观察】{forecast.get('most_likely_case', '暂无趋势提示')}")
+    lines.extend(["观察：", brief["watchlist"], "详情链接：", detail_url])
+    return "\n".join(lines)
 
-    lines.append("详情链接：")
-    lines.append(detail_url)
+
+def render_telegram_notification(
+    title: str,
+    generated_at: str,
+    payload: dict[str, object],
+    detail_url: str,
+) -> str:
+    brief = compose_executive_brief(title, generated_at, payload)
+    executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"]) or "- 暂无"
+    mainlines = "\n".join(
+        f"- {item['title']}：{item['why_it_matters']}"
+        for item in brief["mainlines"]
+    ) or "- 暂无"
+    topics = "\n".join(
+        f"- {item['title']}：{item['core_insight']}"
+        for item in brief["topic_briefs"]
+    ) or "- 暂无"
+
+    lines = [
+        title,
+        f"生成时间：{generated_at}",
+        "",
+        "今日判断：",
+        str(brief["judgment"]),
+        "",
+        "执行摘要",
+        executive_summary,
+        "",
+        "关键主线",
+        mainlines,
+        "",
+        "重点主题",
+        topics,
+        "",
+        "短期观察",
+        f"- {brief['watchlist']}",
+    ]
+
+    if brief["risk_note"]:
+        lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
+
+    lines.extend(["", "详情链接：", detail_url])
     return "\n".join(lines)
