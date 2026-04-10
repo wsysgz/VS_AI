@@ -42,7 +42,8 @@ AI 情报采集与分析系统。
   - 确认 `data/reports/latest-summary.md` 与推送内容
   - 再推送到 `main`
 - 阶段性交接入口：
-  - `docs/superpowers/status/2026-04-10-stage1-handoff.md`
+  - 最新：`docs/superpowers/status/2026-04-10-stage2-handoff.md`
+  - 第一轮基础交接：`docs/superpowers/status/2026-04-10-stage1-handoff.md`
 
 仓库根目录已经补充了 `AGENTS.md`，后续 AI / 开发者接手时优先读取它，可以更快恢复上下文。
 当前 PAT 已接入本机 `gh auth` 的本地凭据存储，仓库文档不会保存 PAT 明文。
