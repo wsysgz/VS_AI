@@ -178,8 +178,14 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
         return {"code": 200}
 
     monkeypatch.setattr("auto_report.app.send_pushplus", fake_send_pushplus)
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should be skipped")),
+    )
     monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
     monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
 
     run_once(tmp_path)
