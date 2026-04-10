@@ -11,11 +11,16 @@ def build_topic_candidates(items: list[CollectedItem]) -> list[TopicCandidate]:
 
     for topic in topics:
         domain_match = classify_topic(topic)
-        evidence_snippets = [
-            item.summary.strip()
-            for item in topic.evidence_items
-            if item.summary.strip()
-        ][:4]
+
+        # Build enriched evidence snippets with source attribution and more context
+        snippets: list[str] = []
+        for item in topic.evidence_items:
+            text = item.summary.strip()
+            if text:
+                # Prepend source ID so AI can assess cross-source corroboration
+                src_label = f"[{item.source_id}]"
+                snippets.append(f"{src_label} {text}")
+
         candidates.append(
             TopicCandidate(
                 topic_id=topic.group_id,
@@ -26,7 +31,7 @@ def build_topic_candidates(items: list[CollectedItem]) -> list[TopicCandidate]:
                 evidence_count=len(topic.evidence_items),
                 source_ids=sorted({item.source_id for item in topic.evidence_items}),
                 tags=sorted({tag for item in topic.evidence_items for tag in item.tags if tag}),
-                evidence_snippets=evidence_snippets,
+                evidence_snippets=snippets[:8],
             )
         )
 

@@ -35,4 +35,9 @@ def test_build_topic_candidates_merges_source_ids_and_summaries():
     assert len(candidates) == 1
     assert candidates[0].evidence_count == 2
     assert candidates[0].source_ids == ["anthropic-news", "openai-news"]
-    assert "OpenAI launched feature A" in candidates[0].evidence_snippets
+    # evidence_snippets now include source ID prefix: [source_id] text
+    assert any("OpenAI launched feature A" in s for s in candidates[0].evidence_snippets)
+    assert any("Independent confirmation of feature A" in s for s in candidates[0].evidence_snippets)
+    # Verify source attribution prefix exists
+    assert any(s.startswith("[openai-news]") for s in candidates[0].evidence_snippets)
+    assert any(s.startswith("[anthropic-news]") for s in candidates[0].evidence_snippets)

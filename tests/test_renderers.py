@@ -1,4 +1,5 @@
 from auto_report.outputs.renderers import (
+    render_html_report,
     render_markdown_report,
     render_telegram_notification,
     render_text_notification,
@@ -76,3 +77,53 @@ def test_render_markdown_report_uses_formal_brief_sections():
     assert "## 重点主线" in report
     assert "## 重点主题分析" in report
     assert "## 行动建议" in report
+
+
+def test_render_html_report_produces_valid_document():
+    html = render_html_report(
+        title="自动情报快报",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=_sample_payload(),
+    )
+
+    assert "<!DOCTYPE html>" in html
+    assert "<html" in html
+    assert "</html>" in html
+    assert "自动情报快报" in html
+    assert "2026-04-10" in html
+
+
+def test_render_html_report_contains_key_sections():
+    html = render_html_report(
+        title="自动情报快报",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=_sample_payload(),
+    )
+
+    assert "执行摘要" in html
+    assert "关键洞察" in html
+    assert "重点主线" in html
+    assert "Signal A" in html
+    assert "评估框架增加" in html
+    assert "继续看真实落地反馈" in html
+
+
+def test_render_html_report_escapes_special_characters():
+    payload = _sample_payload()
+    payload["one_line_core"] = 'Test with <script>alert("xss")</script> & "quotes"'
+    html = render_html_report(title="Test", generated_at="2026-04-10", payload=payload)
+
+    assert "<script>" not in html or "&lt;script&gt;" in html
+    assert "&amp;" in html or "&" not in html.split("<body")[1].split("</body>")[0]
+
+
+def test_render_html_report_includes_stage_badges_and_stats():
+    html = render_html_report(
+        title="自动情报快报",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=_sample_payload(),
+    )
+
+    assert "12 条原始信息" in html
+    assert "5 个主题" in html
+    assert "analysis: ok" in html

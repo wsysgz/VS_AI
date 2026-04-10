@@ -171,7 +171,7 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
         lambda settings: (sample_items, ["测试诊断"]),
     )
 
-    def fake_send_pushplus(token, title, content, channel="", template="markdown"):
+    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key=""):
         captured["channel"] = channel
         captured["template"] = template
         captured["content"] = content

@@ -167,3 +167,78 @@ sources:
       - event
       - register
       - white paper
+  # --- Round 4 expansion: AI × Electronics high-quality official sources ---
+  - id: st-blog
+    enabled: true
+    mode: article_listing
+    url: https://blog.st.com/artificial-intelligence/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "article.post-item a[href*='/artificial-intelligence/']"
+    include_url_patterns:
+      - /artificial-intelligence/
+    include_title_patterns:
+      - ai
+      - stm32
+      - mpu
+      - neural
+      - inference
+      - edge
+      - microcontroller
+    exclude_url_patterns:
+      - "#"
+      - /page/
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - white paper
+  - id: infineon-blog
+    enabled: true
+    mode: article_listing
+    url: https://www.infineon.com/cms/en/about-infineon/press/press-releases/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a[href*='/press/press-releases/']"
+    include_url_patterns:
+      - /press/press-releases/
+    include_title_patterns:
+      - ai
+      - machine learning
+      - semiconductor
+      - power management
+      - sensor
+      - automotive
+      - iot
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - invitation
+  - id: ti-e2e-blog
+    enabled: true
+    mode: article_listing
+    url: https://e2e.ti.com/blogs_/artificial-intelligence
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "article.ti-blog-post a[href]"
+
+    include_url_patterns:
+      - e2e.ti.com/blogs_
+    include_title_patterns:
+      - ai
+      - ml
+      - tda4
+      - jacinto
+      - am62
+      - processor
+      - edge
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - training

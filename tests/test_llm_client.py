@@ -1,0 +1,124 @@
+"""通用 LLM 客户端测试 — 多模型支持架构"""
+
+import os
+from unittest.mock import MagicMock, patch
+
+import pytest
+
+from auto_report.integrations.llm_client import (
+    _resolve_provider_config,
+    build_llm_payload,
+    call_llm,
+    _PROVIDER_DEFAULTS,
+)
+
+
+class TestProviderConfigResolution:
+    def test_deepseek_default(self):
+        """默认 provider 是 deepseek"""
+        with patch.dict(os.environ, {}, clear=True):
+            config = _resolve_provider_config()
+            assert config["provider"] == "deepseek"
+            assert "deepseek.com" in config["base_url"]
+            assert config["model"] == "deepseek-chat"
+
+    def test_openai_provider(self):
+        with patch.dict(os.environ, {"AI_PROVIDER": "openai", "AI_BASE_URL": "", "AI_MODEL": ""}, clear=False):
+            config = _resolve_provider_config()
+            assert config["provider"] == "openai"
+            assert "openai.com" in config["base_url"]
+
+    def test_env_override_base_url(self):
+        with patch.dict(os.environ, {"AI_BASE_URL": "https://custom.api/v1"}, clear=False):
+            config = _resolve_provider_config()
+            assert config["base_url"] == "https://custom.api/v1"
+
+    def test_env_override_model(self):
+        with patch.dict(os.environ, {"AI_MODEL": "gpt-4o"}, clear=False):
+            payload = build_llm_payload("test")
+            assert payload["model"] == "gpt-4o"
+
+    def test_temperature_default(self):
+        with patch.dict(os.environ, {}, clear=True):
+            payload = build_llm_payload("test")
+            assert payload["temperature"] == 0.2
+
+    def test_temperature_custom(self):
+        with patch.dict(os.environ, {"AI_TEMPERATURE": "0.7"}, clear=False):
+            payload = build_llm_payload("test")
+            assert payload["temperature"] == 0.7
+
+    def test_unknown_provider_falls_back_to_manual(self):
+        """未知 provider 需要手动配置所有参数"""
+        # 不设 AI_PROVIDER，只设 AI_BASE_URL 和 AI_MODEL
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "my-custom",
+                "AI_BASE_URL": "https://my-api.example.com",
+                "AI_MODEL": "my-model-v1",
+                "DEEPSEEK_API_KEY": "dummy-key",  # fallback key
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config()
+            assert config["provider"] == "my-custom"
+            assert config["base_url"] == "https://my-api.example.com"
+
+
+class TestBuildPayload:
+    def test_basic_structure(self):
+        payload = build_llm_payload("Analyze this topic")
+        assert "model" in payload
+        assert "messages" in payload
+        assert len(payload["messages"]) == 1
+        assert payload["messages"][0]["role"] == "user"
+        assert payload["messages"][0]["content"] == "Analyze this topic"
+
+
+class TestCallLlm:
+    @patch("auto_report.integrations.llm_client._session")
+    def test_successful_call(self, mock_session):
+        with patch.dict(os.environ, {"DEEPSEEK_API_KEY": "test-key"}, clear=False):
+            mock_resp = MagicMock()
+            mock_resp.json.return_value = {
+                "choices": [{"message": {"content": "AI is evolving fast"}}]
+            }
+            mock_resp.raise_for_status = MagicMock()
+            mock_session.post.return_value = mock_resp
+
+            result = call_llm("What's happening in AI?")
+            assert result == "AI is evolving fast"
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_api_key_missing_raises(self, mock_session):
+        with patch.dict(os.environ, {"DEEPSEEK_API_KEY": "", "OPENAI_API_KEY": ""}, clear=False):
+            with pytest.raises(RuntimeError, match="API key not configured"):
+                call_llm("test")
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_retry_on_timeout_then_success(self, mock_session):
+        """第一次超时，第二次成功"""
+        with patch.dict(os.environ, {"DEEPSEEK_API_KEY": "test-key"}, clear=False):
+            import requests.exceptions
+            success_resp = MagicMock()
+            success_resp.json.return_value = {
+                "choices": [{"message": {"content": "finally works"}}]
+            }
+            success_resp.raise_for_status = MagicMock()
+
+            mock_session.post.side_effect = [
+                requests.exceptions.Timeout("timeout"),  # 第一次：超时异常
+                success_resp,                            # 第二次：成功
+            ]
+
+            result = call_llm("retry me")
+            assert result == "finally works"
+            assert mock_session.post.call_count == 2
+
+
+class TestBackwardCompatibility:
+    def test_summarize_alias_exists(self):
+        """向后兼容别名存在且指向同一个函数"""
+        from auto_report.integrations.llm_client import summarize_with_deepseek
+        assert summarize_with_deepseek is call_llm

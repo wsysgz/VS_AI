@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from auto_report.models.records import CollectedItem
 from auto_report.settings import Settings
@@ -50,6 +51,21 @@ def _collect_github(settings: Settings) -> tuple[list[CollectedItem], list[str]]
     headers: dict[str, str] = {"Accept": "application/vnd.github+json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
+
+    def _fetch_one_repo(full_name: str) -> CollectedItem | None:
+        response = requests.get(
+            f"https://api.github.com/repos/{full_name}",
+            timeout=20,
+            headers=headers,
+        )
+        response.raise_for_status()
+        item = normalize_github_repository_detail(
+            source_id="curated-repos",
+            payload=response.json(),
+            category_hint="ai-llm-agent",
+        )
+        return item
+
     for source in settings.sources.get("github", {}).get("sources", []):
         if not source.get("enabled", False):
             continue
@@ -61,20 +77,20 @@ def _collect_github(settings: Settings) -> tuple[list[CollectedItem], list[str]]
                 for repository in source.get("repositories", [])
                 if str(repository).strip()
             ]
-            for full_name in repositories[: int(source.get("max_items", len(repositories) or 0))]:
-                response = requests.get(
-                    f"https://api.github.com/repos/{full_name}",
-                    timeout=20,
-                    headers=headers,
-                )
-                response.raise_for_status()
-                item = normalize_github_repository_detail(
-                    source_id=str(source["id"]),
-                    payload=response.json(),
-                    category_hint=str(source.get("category_hint", "")),
-                )
-                if item is not None:
-                    items.append(item)
+
+            # 并发抓取所有仓库 (最多5路)
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                futures = {
+                    executor.submit(_fetch_one_repo, repo): repo
+                    for repo in repositories[: int(source.get("max_items", len(repositories) or 0))]
+                }
+                for future in as_completed(futures, timeout=60):
+                    try:
+                        item = future.result(timeout=30)
+                        if item is not None:
+                            items.append(item)
+                    except Exception as exc:
+                        diagnostics.append(f"GitHub repo failed: {futures[future]} -> {exc}")
         except Exception as exc:
             diagnostics.append(f"GitHub source failed: {source.get('id')} -> {exc}")
     return items, diagnostics
@@ -83,9 +99,18 @@ def _collect_github(settings: Settings) -> tuple[list[CollectedItem], list[str]]
 def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
     items: list[CollectedItem] = []
     diagnostics: list[str] = []
+
+    def _fetch_one_site(source: dict) -> list[CollectedItem]:
+        url = str(source["url"])
+        html = _fetch_text(url)
+        extracted = extract_listing_items(source, html)
+        return extracted[: int(source.get("max_items", 12))]
+
     for source in settings.sources.get("websites", {}).get("sources", []):
         if not source.get("enabled", False):
             continue
+        # 单个网站抓取保持同步（每个网站内部可能有复杂解析逻辑）
+        # 但如果源很多，可以用线程池
         try:
             html = _fetch_text(str(source["url"]))
             extracted = extract_listing_items(source, html)
@@ -96,10 +121,24 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
 
 
 def collect_all_items(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
+    """并发采集所有数据源：RSS / GitHub / Website 三大类并行启动"""
     all_items: list[CollectedItem] = []
     diagnostics: list[str] = []
-    for collector in (_collect_rss, _collect_github, _collect_websites):
-        items, messages = collector(settings)
-        all_items.extend(items)
-        diagnostics.extend(messages)
+
+    collectors = [_collect_rss, _collect_github, _collect_websites]
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        future_to_name = {
+            executor.submit(collector, settings): collector.__name__
+            for collector in collectors
+        }
+        for future in as_completed(future_to_name, timeout=120):
+            name = future_to_name[future]
+            try:
+                items, messages = future.result(timeout=90)
+                all_items.extend(items)
+                diagnostics.extend(messages)
+            except Exception as exc:
+                diagnostics.append(f"{name} collection timeout or error: {exc}")
+
     return all_items, diagnostics

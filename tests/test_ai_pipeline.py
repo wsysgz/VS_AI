@@ -63,7 +63,10 @@ def test_run_staged_ai_pipeline_falls_back_when_ai_errors(monkeypatch):
         ai_enabled=True,
     )
 
-    assert outputs["stage_status"]["analysis"] == "fallback"
+    # Phase 1.1 并行化后：单个候选失败走 fallback 补充，整体分析状态仍为 ok
+    assert outputs["stage_status"]["analysis"] == "ok"
+    assert len(outputs["analyses"]) == 1
+    # 但后续 summary/forecast 调用仍会失败(DeepSeek 被 mock 为抛异常)
     assert outputs["stage_status"]["summary"] == "fallback"
     assert outputs["stage_status"]["forecast"] == "fallback"
 
