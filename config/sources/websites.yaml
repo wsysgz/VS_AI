@@ -69,3 +69,101 @@ sources:
     exclude_url_patterns:
       - /support
       - "#"
+  - id: nvidia-embedded
+    enabled: true
+    mode: article_listing
+    url: https://developer.nvidia.com/blog/tag/jetson/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a.carousel-row-slide__link[href*='/blog/']"
+    include_url_patterns:
+      - /blog/
+    include_title_patterns:
+      - jetson
+      - edge
+      - embedded
+      - tensorrt
+      - robotics
+      - orin
+      - jetpack
+      - on-device
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+  - id: google-ai-edge
+    enabled: true
+    mode: article_listing
+    url: https://developers.googleblog.com/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "div.glue-carousel__post-list a.glue-card[href^='/']"
+    include_url_patterns:
+      - developers.googleblog.com/
+    include_title_patterns:
+      - litert
+      - on-device
+      - google ai edge
+      - npu
+      - edge ai
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - event
+      - register
+      - partner
+  - id: openvino-blog
+    enabled: true
+    mode: article_listing
+    url: https://blog.openvino.ai/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a.blog_heading-wrapper[href^='/blog-posts/']"
+    include_url_patterns:
+      - /blog-posts/
+    include_title_patterns:
+      - openvino
+      - npu
+      - ai pc
+      - inference
+      - deployment
+      - optimization
+      - edge
+      - hardware
+      - genai
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - white paper
+  # Keep the approved NXP slot visible, but do not enable it until
+  # the public listing page exposes a stable, non-404 entry point for
+  # the simple requests-based collector used in this pipeline.
+  - id: nxp-edge-ai
+    enabled: false
+    mode: article_listing
+    url: https://www.nxp.com/company/about-nxp/smarter-world-blog
+    category_hint: ai-x-electronics
+    max_items: 4
+    link_selector: "a[href*='/smarter-world-blog/']"
+    include_url_patterns:
+      - /smarter-world-blog/
+    include_title_patterns:
+      - edge ai
+      - generative ai
+      - eiq
+      - genai flow
+      - imx
+      - embedded ai
+      - npu
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - white paper

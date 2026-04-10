@@ -37,3 +37,15 @@ def test_load_settings_uses_curated_live_website_entry_points():
 
     assert website_sources["deepseek-updates"]["url"] == "https://api-docs.deepseek.com/updates/"
     assert website_sources["moonshot-blog"]["url"] == "https://platform.moonshot.cn/blog"
+
+
+def test_load_settings_includes_edge_infra_source_pack():
+    settings = load_settings(Path.cwd())
+    website_sources = {
+        source["id"]: source for source in settings.sources["websites"]["sources"]
+    }
+
+    assert "nvidia-embedded" in website_sources
+    assert "google-ai-edge" in website_sources
+    assert "openvino-blog" in website_sources
+    assert "nxp-edge-ai" in website_sources
