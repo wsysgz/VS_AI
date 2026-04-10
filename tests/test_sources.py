@@ -195,3 +195,55 @@ def test_extract_listing_items_prefers_heading_text_and_strips_card_noise():
         "Introducing Claude Sonnet 4.6",
         "Anthropic expands partnership with Google and Broadcom",
     ]
+
+
+def test_should_keep_candidate_drops_webinar_and_event_noise_by_default():
+    source = {
+        "include_url_patterns": ["/blog/", "/edge/", "/embedded/"],
+    }
+
+    assert should_keep_candidate(
+        "Jetson embedded edge inference update",
+        "https://developer.nvidia.com/blog/jetson-embedded-edge-inference",
+        source,
+    ) is True
+    assert should_keep_candidate(
+        "Register for our Edge AI Webinar",
+        "https://example.com/blog/edge-ai-guide",
+        source,
+    ) is False
+    assert should_keep_candidate(
+        "OpenVINO event for developers",
+        "https://example.com/blog/openvino-runtime-update",
+        source,
+    ) is False
+
+
+def test_extract_listing_items_drops_white_paper_and_webinar_cards():
+    html = """
+    <html><body>
+      <a href="/blog/jetson-edge-ai">
+        <h3>Jetson edge AI pipeline update</h3>
+      </a>
+      <a href="/blog/edge-ai-webinar">
+        <h3>Edge AI webinar for developers</h3>
+      </a>
+      <a href="/blog/openvino-white-paper">
+        <h3>OpenVINO white paper for AI PCs</h3>
+      </a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "nvidia-embedded",
+            "url": "https://developer.nvidia.com/blog",
+            "category_hint": "ai-x-electronics",
+            "link_selector": "a",
+            "include_url_patterns": ["/blog/"],
+            "include_title_patterns": ["jetson", "edge", "embedded", "openvino"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == ["Jetson edge AI pipeline update"]

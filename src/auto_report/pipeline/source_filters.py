@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 
 NOISE_TITLES = {
     "home",
@@ -11,12 +13,33 @@ NOISE_TITLES = {
     "skip to main content",
 }
 
+NOISE_TITLE_PATTERNS = {
+    "webinar",
+    "register",
+    "event",
+    "ebook",
+    "white paper",
+    "press release",
+    "partner",
+    "sponsor",
+}
+
+
+def _matches_noise_title_pattern(title: str) -> bool:
+    for pattern in NOISE_TITLE_PATTERNS:
+        escaped = re.escape(pattern).replace(r"\ ", r"\s+")
+        if re.search(rf"\b{escaped}\b", title):
+            return True
+    return False
+
 
 def should_keep_candidate(title: str, url: str, source: dict[str, object]) -> bool:
     normalized_title = title.strip().lower()
     normalized_url = url.strip().lower()
 
     if not normalized_title or normalized_title in NOISE_TITLES or len(normalized_title) < 8:
+        return False
+    if _matches_noise_title_pattern(normalized_title):
         return False
     if normalized_url.endswith("#") or "#content" in normalized_url:
         return False
