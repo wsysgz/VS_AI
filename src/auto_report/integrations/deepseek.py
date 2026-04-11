@@ -20,7 +20,7 @@ _session.headers.update({"Content-Type": "application/json"})
 
 def summarize_with_deepseek(prompt: str) -> str:
     """带重试和指数退避的 DeepSeek 调用
-    
+
     重试策略：
     - 最多 3 次重试
     - 网络超时/连接错误: 指数退避 1s -> 2s -> 4s
