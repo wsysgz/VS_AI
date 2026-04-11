@@ -1,154 +1,69 @@
 {
-  "generated_at": "2026-04-11T19:25:07.516330+00:00",
+  "generated_at": "2026-04-11T19:38:46.411863+00:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
     "data/reports/latest-summary.html",
-    "data/reports/latest-summary-reviewed.md",
-    "data/reports/latest-summary-reviewed.json",
-    "data/reports/latest-summary-reviewed.html",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary.md",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary.json",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary.html",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary-reviewed.md",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary-reviewed.json",
-    "data/archives/2026-04-11/2026-04-11T19-23-37.450782+00-00-summary-reviewed.html",
+    "data/reports/latest-summary-auto.md",
+    "data/reports/latest-summary-auto.json",
+    "data/reports/latest-summary-auto.html",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary.md",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary.json",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary.html",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary-auto.md",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary-auto.json",
+    "data/archives/2026-04-11/2026-04-11T19-37-17.275914+00-00-summary-auto.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
-  "pushed": true,
-  "push_channel": "pushplus,telegram,feishu",
-  "publication_mode": "reviewed",
-  "push_response": {
-    "pushplus": {
-      "code": 200,
-      "msg": "执行成功",
-      "data": "51188ad2b7074670a8232500a3e8485b"
-    },
-    "telegram": {
-      "ok": true,
-      "messages_sent": 1,
-      "message_ids": [
-        25
-      ]
-    },
-    "feishu": {
-      "ok": true,
-      "messages_sent": 1,
-      "message_ids": [
-        "om_x100b529e4ffcdca4b30954109f2db7a"
-      ],
-      "description": "success"
-    }
-  },
+  "pushed": false,
+  "push_channel": "",
+  "publication_mode": "auto",
+  "push_response": {},
   "delivery_results": {
     "channels": {
       "pushplus": {
         "name": "pushplus",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "code=200 执行成功",
-        "response": {
-          "code": 200,
-          "msg": "执行成功",
-          "data": "51188ad2b7074670a8232500a3e8485b"
-        },
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-11T19:25:02+00:00"
+        "attempted_at": null
       },
       "telegram": {
         "name": "telegram",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "1 message(s)",
-        "response": [
-          {
-            "ok": true,
-            "result": {
-              "message_id": 25,
-              "from": {
-                "id": 8650164336,
-                "is_bot": true,
-                "first_name": "wsysgz",
-                "username": "xfl888bot"
-              },
-              "chat": {
-                "id": 8566057843,
-                "first_name": "Christi",
-                "last_name": "Card",
-                "username": "wsysgz",
-                "type": "private"
-              },
-              "date": 1775935504,
-              "text": "AI情报完整简报（人工复核版） | 2026-04-11 | 北京时间 07:00\n生成时间：2026-04-11T19:23:37.450782+00:00\n\n今日判断：\nAI agent 领域正面临两大核心瓶颈——记忆效率与调试透明度，同时开源推理引擎 vLLM 持续演进以平衡规模与效率，但部分新兴项目信息尚不充分。\n\n执行摘要\n- 微软研究提出两大框架：PlugMem 旨在解决 AI 代理因记忆数据增长而性能下降的问题，通过结构化知识提升记忆效率；AgentRx 则针对日益复杂的自主代理，提供系统性调试方案以弥补其失败时的透明度鸿沟。\n- 开源推理服务引擎 vLLM 通过系统级创新（如 PagedAttention）持续应对大模型规模与生产环境高效推理之间的根本矛盾，并广泛适配主流硬件与模型。\n- 谷歌 LiteRT 框架及 Twill.ai、WireGuard 等主题虽有信号，但当前可用信息深度不足，需进一步验证其具体技术细节与市场影响。\n\n关键主线\n- AI 代理的“记忆悖论”：数据增长反成负担：这揭示了当前 AI 代理扩展性的关键瓶颈并非存储容量，而是缺乏将原始交互转化为可检索、结构化知识的机制。若不解决，代理的自主性和长期任务能力将受根本性限制。\n- 自主性提升伴随“调试鸿沟”：随着 AI 代理承担更复杂、关键的任务（如云事故管理），其决策失败变得难以追溯和理解。AgentRx 等框架的出现，是确保高自主性系统可靠性与可信度的必要基础设施，否则将阻碍其在生产环境中的广泛部署。\n- vLLM 平衡规模与效率的持续挑战：vLLM 的成功在于缓解了大模型推理的根本矛盾，但其作为开源项目，需在广泛支持多种硬件/模型与为每种组合进行深度优化之间保持平衡。这决定了它能否持续成为 LLM 生产部署的默认选择。\n\n重点主题\n- PlugMem: Transforming raw agent interactions into reusable knowledge：The fundamental bottleneck for AI agent scalability is not memory capacity itself, but the lack of a mechanism to distill raw experiences into structured, retrievable knowledge, turning data growth from a liability into an asset.\n- Systematic debugging for AI agents: Introducing the AgentRx framework：The advancement of AI agent capabilities is creating a critical 'debuggability gap' where their failures become less understandable just as their operational stakes increase, necessitating new diagnostic frameworks like AgentRx to restore oversight and trust.\n- LiteRT: The Universal Framework for On-Device AI：在证据片段完全缺失的情况下，任何关于LiteRT框架的技术分析、竞争定位或市场影响判断都缺乏事实基础，强行输出将构成无根据的推测，违背分析框架的'诚实底线'和'现实锚定规则'。当前状态仅能确认该主题的存在及其元数据，但无法进行实质性内容分析。\n\n短期观察\n- PlugMem和AgentRx所代表的研究方向（记忆结构化、可调试性）获得学术界和部分领先企业的积极关注与跟进，出现多个开源原型或初步集成方案，但距离成为稳定、易用的生产级工具仍有距离。vLLM凭借其成熟生态和持续迭代，在中短期仍是大多数开源LLM生产部署的首选之一，但竞争加剧。关于LiteRT等新框架的具体信息将逐步释放，但其实际影响和市场接受度需要更长时间（6个月以上）验证。整体而言，AI代理领域在短期将继续呈现‘概念热、落地缓’的特点，核心瓶颈的解决方案处于早期探索和原型验证阶段。\n\n局限与提醒\n- 关于谷歌 LiteRT、Twill.ai 及 WireGuard 的信息主要基于标题和元数据，缺乏具体技术细节、性能数据或应用案例，因此对其技术优势、市场定位和实际影响的判断受限。\n\n详情链接：\nhttps://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-reviewed.md",
-              "entities": [
-                {
-                  "offset": 1849,
-                  "length": 15,
-                  "type": "url"
-                },
-                {
-                  "offset": 1942,
-                  "length": 81,
-                  "type": "url"
-                }
-              ],
-              "link_preview_options": {
-                "is_disabled": true
-              }
-            }
-          }
-        ],
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-11T19:25:04+00:00"
+        "attempted_at": null
       },
       "feishu": {
         "name": "feishu",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "success",
-        "response": [
-          {
-            "code": 0,
-            "data": {
-              "body": {
-                "content": "{\"text\":\"AI情报飞书简报（人工复核版） | 2026-04-11 | 北京时间 07:00\\n生成时间：2026-04-11T19:23:37.450782+00:00\\n\\n今日判断：\\nAI agent 领域正面临两大核心瓶颈——记忆效率与调试透明度，同时开源推理引擎 vLLM 持续演进以平衡规模与效率，但部分新兴项目信息尚不充分。\\n\\n执行摘要\\n- 微软研究提出两大框架：PlugMem 旨在解决 AI 代理因记忆数据增长而性能下降的问题，通过结构化知识提升记忆效率；AgentRx 则针对日益复杂的自主代理，提供系统性调试方案以弥补其失败时的透明度鸿沟。\\n- 开源推理服务引擎 vLLM 通过系统级创新（如 PagedAttention）持续应对大模型规模与生产环境高效推理之间的根本矛盾，并广泛适配主流硬件与模型。\\n\\n关键主线\\n- AI 代理的“记忆悖论”：数据增长反成负担：这揭示了当前 AI 代理扩展性的关键瓶颈并非存储容量，而是缺乏将原始交互转化为可检索、结构化知识的机制。若不解决，代理的自主性和长期任务能力将受根本性限制。\\n- 自主性提升伴随“调试鸿沟”：随着 AI 代理承担更复杂、关键的任务（如云事故管理），其决策失败变得难以追溯和理解。AgentRx 等框架的出现，是确保高自主性系统可靠性与可信度的必要基础设施，否则将阻碍其在生产环境中的广泛部署。\\n- vLLM 平衡规模与效率的持续挑战：vLLM 的成功在于缓解了大模型推理的根本矛盾，但其作为开源项目，需在广泛支持多种硬件/模型与为每种组合进行深度优化之间保持平衡。这决定了它能否持续成为 LLM 生产部署的默认选择。\\n\\n局限与提醒\\n- 关于谷歌 LiteRT、Twill.ai 及 WireGuard 的信息主要基于标题和元数据，缺乏具体技术细节、性能数据或应用案例，因此对其技术优势、市场定位和实际影响的判断受限。\\n\\n行动建议\\n- 技术选型者应优先评估 AI 代理项目的记忆管理策略和调试支持能力，而不仅是其任务完成能力，这对长期稳定运行至关重要。\\n- 关注 vLLM 对新兴硬件（如 Blackwell）和模型架构（如 MoE）的适配进度，这是判断其能否维持“通用”定位的关键指标。\\n\\n详情链接：\\nhttps://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-reviewed.md\"}"
-              },
-              "chat_id": "oc_1e327a2c66bc7eca3fe914414117c13c",
-              "create_time": "1775935507333",
-              "deleted": false,
-              "message_id": "om_x100b529e4ffcdca4b30954109f2db7a",
-              "msg_type": "text",
-              "sender": {
-                "id": "cli_a953a33ee3b99cce",
-                "id_type": "app_id",
-                "sender_type": "app",
-                "tenant_key": "1a4d8a64161ddb94"
-              },
-              "update_time": "1775935507333",
-              "updated": false
-            },
-            "msg": "success"
-          }
-        ],
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-11T19:25:04+00:00"
+        "attempted_at": null
       }
     },
-    "successful_channels": [
+    "successful_channels": [],
+    "failed_channels": [],
+    "skipped_channels": [
       "pushplus",
       "telegram",
       "feishu"
-    ],
-    "failed_channels": [],
-    "skipped_channels": []
+    ]
   },
   "stage_status": {
     "analysis": "ok",
@@ -172,8 +87,8 @@
     "circuit_open": false,
     "reasons": [
       "below-threshold: LiteRT: The Universal Framework for On-Device AI",
-      "below-threshold: Launch HN: Twill.ai (YC S25) – Delegate to cloud agents, get back PRs",
       "below-threshold: vllm-project/vllm",
+      "below-threshold: Launch HN: Twill.ai (YC S25) – Delegate to cloud agents, get back PRs",
       "below-threshold: PlugMem: Transforming raw agent interactions into reusable knowledge",
       "below-threshold: WireGuard makes new Windows release following Microsoft signing resolution",
       "below-threshold: ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
@@ -195,15 +110,6 @@
       "below-threshold: DeepSeek-R1-0528 Release 2025/05/28",
       "below-threshold: DeepSeek-V3-0324 Release 2025/03/25",
       "below-threshold: DeepSeek-R1 Release 2025/01/20",
-      "below-threshold: AI assistance when contributing to the Linux kernel",
-      "below-threshold: Small models also found the vulnerabilities that Mythos found",
-      "below-threshold: Show HN: Pardonned.com – A searchable database of US Pardons",
-      "below-threshold: 20 years on AWS and never not my job",
-      "below-threshold: Cirrus Labs to join OpenAI",
-      "below-threshold: Italo Calvino: A traveller in a world of uncertainty",
-      "below-threshold: Surelock: Deadlock-Free Mutexes for Rust",
-      "below-threshold: Rockstar Games Hacked, Hackers Threaten a Massive Data Leak If Not Paid Ransom",
-      "below-threshold: Borges' cartographers and the tacit skill of reading LM output",
       "below-threshold: langchain-ai/langgraph",
       "below-threshold: ollama/ollama",
       "below-threshold: pytorch/executorch",
@@ -214,6 +120,15 @@
       "below-threshold: anthropics/claude-cookbooks",
       "below-threshold: onnx/onnx",
       "below-threshold: jax-ml/jax",
+      "below-threshold: AI assistance when contributing to the Linux kernel",
+      "below-threshold: Small models also found the vulnerabilities that Mythos found",
+      "below-threshold: Show HN: Pardonned.com – A searchable database of US Pardons",
+      "below-threshold: 20 years on AWS and never not my job",
+      "below-threshold: Cirrus Labs to join OpenAI",
+      "below-threshold: Italo Calvino: A traveller in a world of uncertainty",
+      "below-threshold: Surelock: Deadlock-Free Mutexes for Rust",
+      "below-threshold: Rockstar Games Hacked, Hackers Threaten a Massive Data Leak If Not Paid Ransom",
+      "below-threshold: Borges' cartographers and the tacit skill of reading LM output",
       "below-threshold: Responsible and safe use of AI",
       "below-threshold: Analyzing data with ChatGPT",
       "below-threshold: Getting started with ChatGPT",
@@ -261,15 +176,15 @@
     ]
   },
   "scheduler": {
-    "trigger_kind": "manual",
+    "trigger_kind": "push",
     "compensation_run": false
   },
   "timings": {
-    "collection": 21.77,
-    "dedup_score": 63.75,
+    "collection": 21.02,
+    "dedup_score": 68.1,
     "ai_total": 0.0,
     "rendering": 0.01,
-    "push_total": 4.53
+    "push_total": 0.0
   },
-  "total_elapsed": 90.06
+  "total_elapsed": 89.13
 }
