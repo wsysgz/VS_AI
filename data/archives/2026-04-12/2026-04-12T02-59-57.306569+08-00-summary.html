@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报（人工复核版）</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报（人工复核版）</h1>
+    <div class="meta">生成时间：2026-04-12T02:59:57.306569+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 83 条原始信息</span>
+      <span class="stat-pill">🎯 83 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">AI Agent与推理技术正加速向边缘、开源和性能优化演进，但多数进展缺乏深度验证，生态构建与商业化的矛盾凸显。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>Moonshot AI开源K2 Thinking模型，旨在通过技术开放换取生态影响力，但其商业成功仍需后续验证。</li><li>NVIDIA与Google分别发布Gemma 4和LiteRT框架，显示边缘/端侧AI成为巨头布局重点，但具体技术细节尚不明确。</li><li>vLLM项目通过极致性能优化，试图确立LLM推理服务的事实标准，其挑战在于平衡性能领先与部署普适性。</li><li>新兴项目如Twill.ai展示了AI Agent在具体工作流（如生成PR）中的应用探索，而WireGuard的更新则反映了基础软件与商业平台（微软）的复杂互动。</li><li>整体而言，行业处于快速发布与概念验证阶段，多数信息缺乏第三方基准或深度细节，实际落地效果与商业闭环有待观察。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>AI竞争进入‘生态构建’与‘性能基准’双轨制：头部玩家一方面通过开源或发布框架争夺开发者和标准制定权（如Moonshot、Google、NVIDIA），另一方面在关键瓶颈（如推理性能）上追求极致以建立事实标准（如vLLM）。</li><li>信息‘标题党’与‘深度缺失’并存：多数高关注度发布（边缘AI框架、新模型）缺乏可验证的基准测试和详细技术白皮书，行业宣传节奏快于实质信息透明化，增加了市场判断的噪音和风险。</li><li>从模型中心到栈层专业化：产业注意力正从单一的模型能力竞赛，扩散到推理服务、边缘部署、Agent工作流等栈层的关键环节，专业化工具和优化框架的价值凸显。</li><li>商业闭环仍是未解难题：无论是开源模型、边缘框架还是Agent应用，清晰的盈利模式和可持续的商业闭环仍未得到充分验证，技术繁荣与商业可行性之间存在断层。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>开源模型策略：以开放换生态，但商业路径存疑</strong> Moonshot AI开源K2 Thinking模型，揭示了AI公司一种新竞争策略——通过开源核心模型快速建立开发者生态和行业标准影响力，但这与其通过技术壁垒维持长期商业优势的内在需求存在根本矛盾，成功与否取决于能否将生态优势转化为可持续的商业模式。</li>
+<li><strong>边缘AI竞赛升温，巨头押注通用框架</strong> NVIDIA的Gemma 4和Google的LiteRT均瞄准“边缘/端侧AI通用框架”，表明降低AI部署门槛、让模型更贴近数据源已成为明确的产业趋势。然而，当前信息仅限于标题和标签，缺乏性能对比和差异化细节，实际技术实力和市场接受度仍是未知数。</li>
+<li><strong>推理性能成为关键瓶颈，vLLM瞄准“事实标准”</strong> vLLM项目专注于提升LLM推理的吞吐量和内存效率，并广泛支持前沿模型架构。其核心矛盾在于追求极致性能与保障广泛硬件兼容性及部署简便性之间的平衡。它的目标是成为推理层的默认选择，其成败将直接影响整个LLM应用生态的效率和成本。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>LiteRT: The Universal Framework for On-Device AI</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 3 天 · 1 source(s) | official | 3 related support</li><li><strong>vllm-project/vllm</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 3 天 · 1 source(s) | repo</li><li><strong>Launch HN: Twill.ai (YC S25) – Delegate to cloud agents, get back PRs</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 3 天 · 1 source(s) | community | 2 related support</li><li><strong>WireGuard makes new Windows release following Microsoft signing resolution</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 3 天 · 1 source(s) | community</li><li><strong>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 3 天 · 1 source(s) | official | 3 related support</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>开源模型以建立生态与商业公司通过技术壁垒维持竞争优势之间的矛盾</p>
+                  <p><strong>核心洞察：</strong>Moonshot AI 通过开源 K2 Thinking 模型，试图以技术开放换取开发者生态和行业标准影响力，但其商业成功最终仍需依赖由此构建的实际应用壁垒或后续商业化产品。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://platform.moonshot.cn/blog/posts/k2-turbo-discount" target="_blank" rel="noopener">Kimi K2 Turbo API 价格调整通知</a></li><li>official | <a href="https://platform.moonshot.cn/blog/posts/k2-turbo-enhance" target="_blank" rel="noopener">Kimi K2 又又又提速了</a></li><li>official | <a href="https://platform.moonshot.cn/blog/posts/k2-prom" target="_blank" rel="noopener">Kimi K2 官方高速版 API 开启 5 折特惠</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>LiteRT: The Universal Framework for On-Device AI</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>分析任务要求（基于证据进行事实与矛盾分析）与输入信息（证据片段为空，缺乏分析所需的实质性内容）之间的矛盾。</p>
+                  <p><strong>核心洞察：</strong>当前输入信息严重不足，仅凭标题和元数据无法进行有效的技术趋势或市场影响分析。任何超出标题字面含义的&#x27;分析&#x27;都将是缺乏事实基础的猜测，不符合框架要求的&#x27;现实锚定&#x27;原则。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/" target="_blank" rel="noopener">MediaTek NPU and LiteRT: Powering the next generation of on-device AI</a></li><li>official | <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">Bringing AI Closer to the Edge and On-Device with Gemma 4</a></li><li>official | <a href="https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/" target="_blank" rel="noopener">On-Device Function Calling in Google AI Edge Gallery</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>分析任务对实质性内容输出的要求与核心信息（证据片段）完全缺失之间的矛盾。</p>
+                  <p><strong>核心洞察：</strong>当前输入仅为一个缺乏内容支撑的主题框架（标题、标签、空证据），不具备进行有效产业或技术分析的基本条件。任何超出该框架的实质性断言都将是缺乏事实基础的猜测。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/" target="_blank" rel="noopener">On-Device Function Calling in Google AI Edge Gallery</a></li><li>official | <a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics</a></li><li>official | <a href="https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/" target="_blank" rel="noopener">Google AI Edge Gallery: Now with audio and on Google Play</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+
+      <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>Kimi K2 Thinking 模型在开源后迅速获得开发者社区采纳，其宣称的 Agent 与推理能力提升在特定基准测试中得到初步验证，带动 Moonshot AI 生态初步形成。vLLM 持续优化，巩固其作为高性能推理服务事实标准的地位。NVIDIA Gemma 4 与 Google LiteRT 的细节公布后，被证实为有效的边缘 AI 开发框架，加速轻量级 Agent 的端侧部署。Twill.ai 等应用型 Agent 展示出明确的早期用户价值，推动市场对 Agent 实用性的认可度提升。整体上，开源、边缘化、性能优化与应用探索四股趋势形成良性共振，行业在 3-6 个月内出现多个可验证的成功用例。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>Kimi K2 Thinking 模型开源后反响平平，社区发现其实际能力与宣传存在差距，或与现有主流模型生态兼容性不佳，未能有效建立生态。vLLM 在支持最新复杂模型（如 MOE）时出现性能或稳定性问题，削弱其“事实标准”地位。Gemma 4 与 LiteRT 公布细节后，被证明仅是现有技术的重新包装或存在严重使用限制，边缘 AI 部署门槛并未实质性降低。Twill.ai 等应用暴露出可靠性低、成本高的问题，早期热度迅速消退。市场因缺乏实质进展和商业闭环验证，在 3-6 个月内对 Agent 赛道产生“炒作降温”的失望情绪，投资与关注度转向其他 AI 子领域。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>行业延续“高发布频率、低验证深度”的现状。Kimi K2 Thinking 模型会吸引部分开发者尝试，但其能力提升需要更长时间和更多场景验证，生态效应短期内不明显。vLLM 保持其在云上推理场景的技术领先性，但边缘/端侧部署的挑战依然存在。Gemma 4 和 LiteRT 的发布将引发更多关于边缘 AI 框架的讨论，但实际采用和性能优势需要 6 个月以上才能清晰。Twill.ai 等应用型 Agent 会获得早期采用者，但规模化、可靠性和商业模式仍是普遍挑战。整体上，未来 3-6 个月将是概念验证、技术探索和生态卡位期，不会出现颠覆性格局变化，但技术路线竞争会更加白热化。关键风险在于市场期望与落地速度之间的落差可能引发短期调整。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>Kimi K2 Thinking 模型的第三方基准测试结果与社区采用度</li><li>vLLM 对前沿模型（特别是 MOE）的优化效率与稳定性</li><li>NVIDIA Gemma 4 与 Google LiteRT 框架的具体性能数据与易用性反馈</li><li>Twill.ai 等应用型 Agent 的早期用户留存率与付费转化率</li><li>资本市场对 Agent 赛道（特别是开源模型与边缘计算）的持续投资热度</li></ul>
+        <p><strong>结论：</strong>基于当前信息，短期（未来3-6个月）AI Agent与推理领域最可能的发展路径是“多线并行探索，但实质整合与商业突破有限”。行业核心矛盾（生态开放 vs. 商业壁垒、性能极致 vs. 部署简便）不会迅速解决，而是通过更多项目发布和试点得以暴露和细化。建议采取“观察关键变量，优先验证应用价值”的谨慎策略。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>输入信息深度不均：关于Kimi K2 Thinking和vLLM的分析相对具体，而关于Gemma 4、LiteRT、Twill.ai和WireGuard的信息极为有限，主要基于标题和元数据，缺乏实质性技术细节或市场反馈。</li><li>缺乏第三方验证：所有提及的技术发布和能力宣称，均缺少独立的基准测试、学术论文或广泛的用户实践报告作为佐证，分析置信度普遍标注为‘low’或‘medium’。</li><li>分析基于初步主题列表：本摘要是对上游“主题分析列表”的二次加工，而非直接基于原始文章或数据，因此受限于上游分析的质量和视角。</li><li>趋势预判基于有限样本：仅凭六个主题难以全面描绘AI Agent领域的全貌，可能遗漏其他重要趋势或玩家。</li><li>GitHub repo failed: NVIDIA/cuda-cmake -&gt; 404 Client Error: Not Found for url: https://api.github.com/repos/NVIDIA/cuda-cmake</li><li>HN: fetched 59 raw, filtered to 12 relevant (min_score=10)</li><li>Website source failed: st-blog -&gt; 404 Client Error: Not Found for url: https://blog.st.com/artificial-intelligence/</li><li>Website source failed: ti-e2e-blog -&gt; HTTPSConnectionPool(host=&#x27;e2e.ti.com&#x27;, port=443): Read timed out. (read timeout=20)</li><li>RSS source failed: meta-ai-blog -&gt; 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/</li><li>RSS source failed: microsoft-research -&gt; HTTPSConnectionPool(host=&#x27;www.microsoft.com&#x27;, port=443): Read timed out. (read timeout=20)</li><li>RSS source failed: arxiv-cs-ai -&gt; 404 Client Error: Not Found for url: https://rss.arxiv.org/cs.AI</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ 输入信息深度不均：关于Kimi K2 Thinking和vLLM的分析相对具体，而关于Gemma 4、LiteRT、Twill.ai和WireGuard的信息极为有限，主要基于标题和元数据，缺乏实质性技术细节或市场反馈。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>对Gemma 4和LiteRT进行深度追踪：检索其官方博客全文、技术文档及任何已发布的性能数据，以评估其技术实质性和对边缘AI格局的实际影响。</li><li>验证Kimi K2 Thinking的实际能力：寻找并关注第三方机构或社区对该开源模型的评测结果，特别是其宣称的Agent和推理能力提升是否在具体任务中得以体现。</li><li>监控vLLM的采用情况：关注其在新模型（特别是MOE架构）上的适配速度、大型云厂商的集成动态以及社区关于部署复杂性的反馈。</li><li>考察Twill.ai等应用型Agent的早期用户反馈：通过Hacker News等社区评论，了解其产品解决实际问题的有效性、可靠性及用户接受度。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>LiteRT: The Universal Framework for On-Device AI<span class="domain-tag">ai-llm-agent</span></td><td>2.6</td><td>1</td><td><a href="https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Launch HN: Twill.ai (YC S25) – Delegate to cloud agents, get back PRs<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://twill.ai" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>WireGuard makes new Windows release following Microsoft signing resolution<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://lists.zx2c4.com/pipermail/wireguard/2026-April/009561.html" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>1.8</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>1.8</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics<span class="domain-tag">ai-x-electronics</span></td><td>1.8</td><td>1</td><td><a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>On-Device Function Calling in Google AI Edge Gallery<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>MediaTek NPU and LiteRT: Powering the next generation of on-device AI<span class="domain-tag">ai-x-electronics</span></td><td>1.8</td><td>1</td><td><a href="https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Unlocking Peak Performance on Qualcomm NPU with LiteRT<span class="domain-tag">ai-x-electronics</span></td><td>1.8</td><td>1</td><td><a href="https://developers.googleblog.com/unlocking-peak-performance-on-qualcomm-npu-with-litert/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>On-device GenAI in Chrome, Chromebook Plus, and Pixel Watch with LiteRT-LM<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://developers.googleblog.com/on-device-genai-in-chrome-chromebook-plus-and-pixel-watch-with-litert-lm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Q3&#x27;25: Technology Update – Low Precision and Model Optimization<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://blog.openvino.ai/blog-posts/q325-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Q2&#x27;25: Technology Update – Low Precision and Model Optimization<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://blog.openvino.ai/blog-posts/q225-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>

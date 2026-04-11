@@ -36,6 +36,8 @@
 - `data/state/run-status.json` 记录所有通道的 `delivery_results`，其中 `successful_channels`、`failed_channels`、`skipped_channels` 是验收三端是否真正送达的第一手日志。
 - 当一个 channel 缺少凭据时，系统会跳过相关推送并在 run-status 里写入 `skipped`（例如缺少 `PUSHPLUS_TOKEN` 时会提示“PushPlus not configured”）。
 - 在 GitHub Actions 中，优先查看 `report` job 是否成功，再读取远端 `data/state/run-status.json`；这样可以区分“消息送达失败”和“后续提交 Pages 失败”。
+- 2026-04-12 的本地 reviewed 实跑已经验证三端真送达：PushPlus 返回 `code=200`，Telegram/Feishu 各发送 `1` 条消息。后续做线上对照时，仍要以同一次运行回写的 `run-status.json` 为准，不要只看聊天工具里“像是收到了”。
+- 比较线下与线上送达结果时，记得先看 `external_enrichment.enabled`。本地默认关闭，CI / 主 workflow 默认开启，报告正文和风险判断可能因此产生差异。
 
 ## 备用手段
 

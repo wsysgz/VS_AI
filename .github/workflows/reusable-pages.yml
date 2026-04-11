@@ -23,8 +23,8 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt && pip install -e .
 
-      - name: Sync latest main before pages build
-        run: git pull --rebase origin main
+      - name: Sync latest branch state before pages build
+        run: git pull --rebase origin "$GITHUB_REF_NAME"
 
       - name: Download final data
         uses: actions/download-artifact@v4
@@ -39,6 +39,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html docs/archives/ docs/.nojekyll
-          git diff --cached --quiet && echo "No changes to deploy" || git commit -m "chore: update pages site [skip ci]"
+          git add docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll
+          if git diff --cached --quiet; then
+            echo "No changes to deploy"
+          else
+            git commit -m "chore: update pages site [skip ci]"
+          fi
           git push

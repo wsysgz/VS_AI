@@ -62,7 +62,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: backfill report for ${{ inputs.target_date || 'latest' }} [skip ci]"
-          file_pattern: "data/** docs/index.html docs/archives/** docs/.nojekyll"
+          file_pattern: "data/** docs/index.html docs/archives/** docs/weekly/** docs/special/** docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll"
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
 
@@ -74,5 +74,10 @@ jobs:
             data
             docs/index.html
             docs/archives
+            docs/weekly
+            docs/special
+            docs/search-index.json
+            docs/feed.json
+            docs/rss.xml
             docs/.nojekyll
             out/ops-dashboard

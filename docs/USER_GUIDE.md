@@ -11,6 +11,7 @@
 - `Collect And Report` workflow 每天北京时间 07:00 触发综合总报，PushPlus 发送微信短摘要，Feishu 发送中长度结构化摘要，Telegram 发送完整长文报告（分别通过 `push-channels-guide` 详细说明）。
 - 默认发布轨为 `auto`；如需补发人工复核版，可在本地命令或 GitHub 手动 workflow 中指定 `publication_mode=reviewed`，系统会保留 `latest-summary-auto.*` 和 `latest-summary-reviewed.*` 两套输出。
 - 本地开发时先在仓库根目录准备环境、跑一遍 `run-once`，再确认 `data/reports/latest-summary.md` 与 `data/state/run-status.json` 结果，再推送 `main`。
+- 如果要把刚刚本地跑出来的结果对照到公开站页面，记得在 `run-once` 之后补执行一次 `python -m auto_report.cli build-pages`；`run-once` 本身不会改写 `docs/`。
 - 无论是工作日还是排查问题，始终以 `README → USER_GUIDE → TECHNICAL_GUIDE → ARCHITECTURE → push-channels-guide` 的顺序获取上下文，避免读到过时内容。
 
 ## 环境准备
@@ -63,10 +64,11 @@
 1. 在 GitHub 仓库中确认 `Actions > General > Workflow permissions` 为 `Read and write permissions`，否则自动回写报表和 Pages 会失败。
 2. 在 GitHub Secrets 中补齐 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`。
 3. 手动触发 `Collect And Report` 时，如果需要真实推送，把 workflow input `push_enabled` 设为 `true`；如果需要人工复核轨，同时把 `publication_mode` 设为 `reviewed`。
-4. 手动触发 `Backfill Report` 时，workflow 会先执行 `backfill`，再执行 `build-pages` 与 `build-ops-dashboard`；同样可以把 `publication_mode` 设为 `reviewed`。自动提交范围保持为 `data/**`、`docs/index.html`、`docs/archives/`、`docs/.nojekyll`，私有 ops dashboard 只进 artifact 不公开。
+4. 手动触发 `Backfill Report` 时，workflow 会先执行 `backfill`，再执行 `build-pages` 与 `build-ops-dashboard`；同样可以把 `publication_mode` 设为 `reviewed`。Pages 相关 workflow / backfill / compensation 会回写完整公开面：`docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`、`docs/.nojekyll`；私有 ops dashboard 只进 artifact 不公开。
 5. 远端验证优先看 `data/state/run-status.json` 中的 `delivery_results.successful_channels`，不要只看 workflow 页面是否是绿色。
 6. 当前远端 reliability issue 会覆盖三类场景：`all delivery channels failed`、`consecutive canary failures`、`high risk report detected`。
 7. 本地默认仍关闭外部补证；如需手动启用，可在运行前设置 `EXTERNAL_ENRICHMENT_ENABLED=true`。CI / 主 workflow 已默认开启，并限流为前 `2` 个高价值主题、单请求超时 `8` 秒。
+8. GitHub Actions 的 `workflow_dispatch` 总是运行“已推送到远端的 ref”；本地未推送的修复不会参与线上验收。
 
 ## 失败与回滚
 

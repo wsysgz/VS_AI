@@ -124,6 +124,38 @@
 4. 确认 `docs/index.html`、`docs/weekly/`、`docs/special/`、`docs/feed.json`、`docs/rss.xml` 已更新；同日双轨同时存在时，公开页应优先显示 reviewed
 5. 如果存在 review queue，确认 `[V7 review]` issue 是否按预期创建
 6. 如果是风险告警，确认 reliability issue 是否包含通道、阶段、调度与风险摘要
+7. 手动 `workflow_dispatch` 始终只会运行“已推送到目标分支”的版本；本地修复没有推送前，线上复跑不会带上这些改动
+
+## 2026-04-12 真实验收记录
+
+### 线下真实运行
+
+- 命令：`$env:PYTHONPATH='src'; python -m auto_report.cli run-once --publication-mode reviewed`
+- 结果：`data/state/run-status.json` 显示三端全部成功，`pushplus=code 200`、`telegram=1 message`、`feishu=1 message`
+- 附带产物：生成了 `latest-summary-reviewed.*`，`out/review-queue/review-issues.json` 产出 1 条 `[V7 review]` 候选 issue
+- 差异提醒：本地 `run-once` 只会刷新 `data/`；如果要让 `docs/index.html`、`docs/weekly/`、`docs/special/`、`docs/feed.json`、`docs/rss.xml` 跟上最新结果，必须额外执行 `python -m auto_report.cli build-pages`
+
+### 线上真实运行
+
+- 运行：GitHub Actions `Collect And Report`，run id `24289432310`，分支 `integrate-v7`，输入 `push_enabled=true`、`publication_mode=reviewed`
+- 首次结果：失败于 `workflow-guard`
+- 根因：`reusable-pages.yml` 的提交脚本使用了 `A && B || C` 写法，被远端 `actionlint` / shellcheck 以 `SC2015` 拦截
+- 连带暴露：`reliability-issue` 与 `review-issue` 在上游失败时仍尝试下载不存在的 artifact，导致额外噪声红点
+- 当前本地已补的修复：改为显式 `if` 提交脚本、Pages 构建前同步当前触发分支而不是硬拉 `main`、提交完整 Pages 产物、后置 issue job 仅在上游 artifact 存在时运行
+- 后续动作：若要验证修复后的线上真实结果，需要先把当前分支推上远端，再重新触发 workflow
+
+### 本轮内容质量改进项
+
+- `source_stats.filtered_topics` 当前与 `collected_items` 同为 `83`，命名语义容易误导，建议后续改成更明确的口径
+- `latest-summary-reviewed.md` 的“局限性”段落混入了采集器原始诊断（404/timeout/HN 过滤计数），可读性不够，建议与编辑性限制分栏
+- 本轮真实采集中有多路源失效或超时：
+  - `NVIDIA/cuda-cmake` -> 404
+  - `st-blog` -> 404
+  - `meta-ai-blog` RSS -> 404
+  - `arxiv-cs-ai` RSS -> 404
+  - `ti-e2e-blog` -> timeout
+  - `microsoft-research` -> timeout
+- 本地默认 `external_enrichment.enabled=false`，而 CI / workflow 默认开启；比较线下与线上结果时，要先确认是不是补证开关导致差异
 
 ## 失败排查顺序
 
@@ -147,7 +179,7 @@
 ### 3. 报告生成了，但 Pages 没更新
 
 - 先跑 `python -m auto_report.cli build-pages`
-- 检查 `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`
+- 检查 `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`
 - 若是补报场景，优先改走 `backfill-report.yml` 或 `backfill --target-date`
 
 ### 4. 出现高风险报告或人工复核需求
