@@ -109,6 +109,14 @@ def test_collect_report_workflow_creates_issue_for_high_risk_report_with_run_sta
     assert "Failed channels:" in content
 
 
+def test_collect_report_reliability_issue_downloads_run_status_into_data_directory():
+    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
+
+    assert 'name: final-report' in content
+    assert 'path: data/' in content
+    assert 'fs.readFileSync("data/state/run-status.json", "utf8")' in content
+
+
 def test_collect_report_workflow_creates_review_issues_from_review_queue_artifact():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
