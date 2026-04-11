@@ -24,6 +24,13 @@
 - 确保每日 07:00 的自动推送按计划执行：`Collect And Report` workflow 的 `schedule` 触发会调用 PushPlus（短摘要）和其他通道（完整报告），详见 push-channels guide。
 - 运行 `python -m pytest tests -q` 以确认测试通过；更多测试组合也写在 USER_GUIDE。
 
+## 对接检查清单
+
+- GitHub 仓库 `Actions > General > Workflow permissions` 必须为 `Read and write permissions`，否则 `report` / `deploy-pages` 无法自动回写 `data/` 与 `docs/`。
+- GitHub Secrets 至少补齐 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`。
+- 首次接手先执行 `python -m auto_report.cli diagnose-delivery`，确认三端配置被识别；需要实发时再执行 `python -m auto_report.cli diagnose-delivery --send`。
+- 远端验收以 `data/state/run-status.json` 中的 `delivery_results` 为准，不要只看 workflow 是否没有抛异常。
+
 ## 审计与历史记录
 
 - `docs/superpowers/` 保留 Stage 1~V6 的状态与审计材料，不要以文档形式重复其内容。

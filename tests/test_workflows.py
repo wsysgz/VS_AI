@@ -16,6 +16,20 @@ def test_collect_report_workflow_commits_docs_nojekyll_file():
     assert "git add docs/index.html docs/archives/ docs/.nojekyll" in content
 
 
+def test_collect_report_workflow_does_not_depend_on_missing_test_results_action():
+    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
+
+    assert "dorny/test-results-action" not in content
+    assert "name: Upload test results artifact" in content
+    assert "path: test-results.xml" in content
+
+
+def test_collect_report_workflow_rebases_pages_commit_before_push():
+    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
+
+    assert "git pull --rebase origin main" in content
+
+
 def test_backfill_workflow_runs_backfill_cli():
     content = (ROOT_DIR / ".github" / "workflows" / "backfill-report.yml").read_text(encoding="utf-8")
 

@@ -15,9 +15,10 @@
 | `AI_MAX_ANALYSIS_TOPICS` | `6` | 每轮最多送给 AI 处理的主题数，用于平衡成本与时间。 | 可选 |
 | `AUTO_PUSH_ENABLED` | `true` | 控制是否让 `Collect And Report` workflow 在 schedule/dispatch 触发推送。 | 可选 |
 | `AUTO_TIMEZONE` | `Asia/Shanghai` | 时区，Dispatcher 用来计算北京时间 07:00。 | 可选 |
-| `PUSHPLUS_TOKEN` | *(空)* | PushPlus 推送令牌；需要时在 push-channels-guide 里检查。 | 可选 |
-| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | *(空)* | Telegram bot 和目标 chat，详见 push-channels-guide。 | 可选 |
-| `FEISHU_APP_ID`, `FEISHU_APP_SECRET`, `FEISHU_CHAT_ID` | *(空)* | 飞书机器人凭据，同样在 push-channels-guide 说明。 | 可选 |
+| `PUSHPLUS_TOKEN`, `PUSHPLUS_BASE_URL`, `PUSHPLUS_SECRETKEY`, `PUSHPLUS_CHANNEL` | *(空)* / `https://www.pushplus.plus` / *(空)* / `clawbot` | PushPlus 令牌、端点、可选签名 secret 和通道名。 | 可选 |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TELEGRAM_API_BASE_URL` | *(空)* / *(空)* / `https://api.telegram.org` | Telegram bot、目标 chat 与可覆盖的 API 域名。 | 可选 |
+| `FEISHU_APP_ID`, `FEISHU_APP_SECRET`, `FEISHU_CHAT_ID`, `FEISHU_API_BASE_URL` | *(空)* / *(空)* / *(空)* / `https://open.feishu.cn` | 飞书机器人凭据与 API 域名。 | 可选 |
+| `DELIVERY_REQUEST_TIMEOUT` | `20` | 三端推送 HTTP 超时时间（秒）。 | 可选 |
 
 更多变量（`GITHUB_TOKEN`、`REPORT_REPO_URL` 等）也可以在 `.env.example` 找到，真正上线前务必确认 `.env` 与 GitHub Secrets 中的名称一致。
 
@@ -30,6 +31,13 @@
 - `AI_MAX_ANALYSIS_TOPICS`：限制每轮交给 AI 的主题数量，默认值为 `6`。
 
 如果没有 AI Key，系统必须回退到规则摘要模式而不是中断。
+
+## 交付与仓库设置
+
+1. `Actions > General > Workflow permissions` 必须设置为 `Read and write permissions`，否则 workflow 无法自动提交 `data/**` 与 `docs/**`。
+2. `PUSHPLUS_SECRETKEY` 只有在 PushPlus 端确实启用了配套签名时才应填写；错误的 secret 会把 token 签坏，直接导致 `code=903`。
+3. 如果本机网络无法直连 Telegram，可通过 `TELEGRAM_API_BASE_URL` 指向代理域名；默认仍为 `https://api.telegram.org`。
+4. `diagnose-delivery` 与 `run_once` 都会把逐通道结果写入 `data/state/run-status.json > delivery_results`，这是判断送达是否真实成功的权威字段。
 
 ## AI 提供商切换与降级机制
 

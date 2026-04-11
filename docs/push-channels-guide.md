@@ -7,33 +7,34 @@
 - 定时 workflow `Collect And Report` (`.github/workflows/collect-report.yml`) 的 `schedule` 触发会按北京时间 07:00 执行一次完整 pipeline。
 - 该 workflow 生成文件后依次调用 PushPlus、Telegram、Feishu，默认只推送一次，`push` 型 trigger 仅用于 CI 验证。
 - `AUTO_PUSH_ENABLED=true` 时，dispatch/cron 自动触发时默认打开推送；可通过 `--push-enabled=false` 或 GitHub workflow input `push_enabled=false` 暂时禁用。
+- GitHub 仓库需要把 `Workflow permissions` 设为 `Read and write permissions`，否则 `report` 与 `deploy-pages` 不能自动回写结果。
 
 ## PushPlus (WeChat 短摘要)
 
-- 环境变量：`PUSHPLUS_TOKEN`、`PUSHPLUS_CHANNEL`（默认 `clawbot`）。
+- 环境变量：`PUSHPLUS_TOKEN`、`PUSHPLUS_CHANNEL`（默认 `clawbot`）、`PUSHPLUS_BASE_URL`、可选 `PUSHPLUS_SECRETKEY`。
 - 消息内容：`pushplus` render 输出 `txt` 短摘要 + GitHub 详情链接；详见 `integrations/pushplus.py`。
-- 验证方式：运行 `auto_report.cli run-once` → 检查 WeChat 是否收到“每日综合报短摘要”；重复验证请观察 `data/state/run-status.json` 中 `pushplus.status` 字段。
-- 常见问题：token 失效/通道被禁用会在 `pushplus` 日志中记录 HTTP 401/403，推送逻辑会继续但记录 `pushes` 中的 `failed` 条目。
+- 验证方式：先运行 `python -m auto_report.cli diagnose-delivery` 确认配置生效，再运行 `python -m auto_report.cli diagnose-delivery --send` 或 `run-once`；重复验证请观察 `data/state/run-status.json` 中 `delivery_results.channels.pushplus`。
+- 常见问题：token 失效/通道被禁用会在 `pushplus` 日志中记录失败详情；如果配置了错误的 `PUSHPLUS_SECRETKEY`，PushPlus 通常会返回 `code=903`。
 
 ## Telegram (完整报告)
 
-- 环境变量：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`。
+- 环境变量：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、可选 `TELEGRAM_API_BASE_URL`。
 - 系统自动将完整 Markdown 报告拆成 `<=4096` 字符段落并顺序发送，确保最终一条消息附带 GitHub 报告链接。
-- 验证方式：运行 `python -m auto_report.cli run-once`，观察目标群/频道是否接收多段文本；`run-status.json` 中有 `telegram.status` 与 `telegram.chunks`。
-- 失败排查：检查 bot 是否被禁用、chat_id 是否正确，或是否有网络限制；可在 `tests/test_telegram.py` 中找到模拟格式参考。
+- 验证方式：运行 `python -m auto_report.cli diagnose-delivery --send` 或 `run-once`，观察目标群/频道是否接收完整文本；`run-status.json` 中看 `delivery_results.channels.telegram`。
+- 失败排查：检查 bot 是否被禁用、chat_id 是否正确、本机是否能连通 `api.telegram.org`。如果本机网络受限，可改用 `TELEGRAM_API_BASE_URL` 代理，或以 GitHub Actions 回写的 `run-status.json` 作为远端验收证据。
 
 ## Feishu (完整报告)
 
-- 环境变量：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`。
+- 环境变量：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`、可选 `FEISHU_API_BASE_URL`。
 - Feishu 机器人通过 Webhook 接收内容，默认发送完整正文及附件链接；格式在 `integrations/feishu.py` 中可调。
-- 验证方式：同样依赖 `run-once` → 查收飞书群/应用 → 检查 `run-status.json` 中的 `feishu.status`。
+- 验证方式：同样依赖 `diagnose-delivery --send` 或 `run-once` → 查收飞书群/应用 → 检查 `run-status.json` 中 `delivery_results.channels.feishu`。
 - 失败排查：确认机器人被添加到 chat 中且有“发送消息”权限；如果飞书拒绝请求，可在日志中看到 `msg` 与 `code`。
 
 ## 观测与复核
 
-- `data/state/run-status.json` 记录所有通道的 `status` 与 `failures`，是验证每次 run 是否完成推送的第一手日志。
+- `data/state/run-status.json` 记录所有通道的 `delivery_results`，其中 `successful_channels`、`failed_channels`、`skipped_channels` 是验收三端是否真正送达的第一手日志。
 - 当一个 channel 缺少凭据时，系统会跳过相关推送并在 run-status 里写入 `skipped`（例如缺少 `PUSHPLUS_TOKEN` 时会提示“PushPlus not configured”）。
-- 日志中 `pushes` 数组按顺序记录每个通道执行结果；在 GitHub Actions 的 `render-and-push` job 也会输出类似细节。
+- 在 GitHub Actions 中，优先查看 `report` job 是否成功，再读取远端 `data/state/run-status.json`；这样可以区分“消息送达失败”和“后续提交 Pages 失败”。
 
 ## 备用手段
 

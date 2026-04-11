@@ -62,11 +62,13 @@ jobs:
           PYTHONPATH: src
         run: pytest tests --junitxml=test-results.xml -q --tb=short
 
-      - name: Publish test results
+      - name: Upload test results artifact
         if: always()
-        uses: dorny/test-results-action@v1
+        uses: actions/upload-artifact@v4
         with:
-          files: test-results.xml
+          name: test-results
+          path: test-results.xml
+          retention-days: 7
 
   # ════════════════════════════════════════
   # JOB 1: 采集 + 预处理 (无AI)
@@ -262,4 +264,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/index.html docs/archives/ docs/.nojekyll
           git diff --cached --quiet && echo "No changes to deploy" || git commit -m "chore: update pages site [skip ci]"
+          git pull --rebase origin main
           git push
