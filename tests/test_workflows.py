@@ -30,6 +30,24 @@ def test_collect_report_workflow_rebases_pages_commit_before_push():
     assert "git pull --rebase origin main" in content
 
 
+def test_collect_report_workflow_pulls_main_before_staging_pages_changes():
+    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
+
+    pull_index = content.index("git pull --rebase origin main")
+    add_index = content.index("git add docs/index.html docs/archives/ docs/.nojekyll")
+
+    assert pull_index < add_index
+
+
+def test_collect_report_workflow_pulls_main_before_downloading_final_data():
+    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
+
+    pull_index = content.index("git pull --rebase origin main")
+    download_index = content.index("- name: Download final data")
+
+    assert pull_index < download_index
+
+
 def test_backfill_workflow_runs_backfill_cli():
     content = (ROOT_DIR / ".github" / "workflows" / "backfill-report.yml").read_text(encoding="utf-8")
 
