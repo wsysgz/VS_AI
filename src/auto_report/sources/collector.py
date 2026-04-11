@@ -100,6 +100,11 @@ def _collect_github(settings: Settings) -> tuple[list[CollectedItem], list[str]]
 def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
     items: list[CollectedItem] = []
     diagnostics: list[str] = []
+    enabled_sources = [
+        source
+        for source in settings.sources.get("websites", {}).get("sources", [])
+        if source.get("enabled", False)
+    ]
 
     def _fetch_one_site(source: dict) -> list[CollectedItem]:
         url = str(source["url"])
@@ -107,17 +112,42 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
         extracted = extract_listing_items(source, html)
         return extracted[: int(source.get("max_items", 12))]
 
-    for source in settings.sources.get("websites", {}).get("sources", []):
-        if not source.get("enabled", False):
-            continue
-        # 单个网站抓取保持同步（每个网站内部可能有复杂解析逻辑）
-        # 但如果源很多，可以用线程池
+    if not enabled_sources:
+        return items, diagnostics
+
+    results_by_index: dict[int, list[CollectedItem]] = {}
+    max_workers = min(6, len(enabled_sources))
+
+    completed_futures: set[Any] = set()
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_meta = {
+            executor.submit(_fetch_one_site, source): (index, source)
+            for index, source in enumerate(enabled_sources)
+        }
         try:
-            html = _fetch_text(str(source["url"]))
-            extracted = extract_listing_items(source, html)
-            items.extend(extracted[: int(source.get("max_items", 12))])
-        except Exception as exc:
-            diagnostics.append(f"Website source failed: {source.get('id')} -> {exc}")
+            for future in as_completed(future_to_meta, timeout=60):
+                completed_futures.add(future)
+                index, source = future_to_meta[future]
+                try:
+                    results_by_index[index] = future.result(timeout=25)
+                except Exception as exc:
+                    diagnostics.append(f"Website source failed: {source.get('id')} -> {exc}")
+        except FuturesTimeoutError:
+            pending_sources = [
+                str(source.get("id"))
+                for future, (_, source) in future_to_meta.items()
+                if future not in completed_futures and not future.done()
+            ]
+            if pending_sources:
+                diagnostics.append(f"Website collectors timed out: {', '.join(pending_sources)}")
+            for future in future_to_meta:
+                if not future.done():
+                    future.cancel()
+
+    for index in range(len(enabled_sources)):
+        items.extend(results_by_index.get(index, []))
+
     return items, diagnostics
 
 

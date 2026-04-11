@@ -1,0 +1,78 @@
+name: Reusable Backfill
+
+on:
+  workflow_call:
+    inputs:
+      target_date:
+        required: false
+        type: string
+      skip_push:
+        required: true
+        type: boolean
+      publication_mode:
+        required: true
+        type: string
+      scheduler_trigger_kind:
+        required: true
+        type: string
+      scheduler_compensation_run:
+        required: true
+        type: boolean
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run backfill report
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          AUTO_PUSH_ENABLED: ${{ inputs.skip_push && 'false' || 'true' }}
+          PUBLICATION_MODE: ${{ inputs.publication_mode }}
+          SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}
+          SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}
+          EXTERNAL_ENRICHMENT_ENABLED: "true"
+          EXTERNAL_ENRICHMENT_MAX_SIGNALS: "2"
+          EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS: "8"
+        run: python -m auto_report.cli backfill --target-date "${{ inputs.target_date }}"
+
+      - name: Build Pages site
+        run: python -m auto_report.cli build-pages
+
+      - name: Build private ops dashboard
+        run: python -m auto_report.cli build-ops-dashboard
+
+      - name: Auto commit backfill outputs
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: backfill report for ${{ inputs.target_date || 'latest' }} [skip ci]"
+          file_pattern: "data/** docs/index.html docs/archives/** docs/.nojekyll"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-report-backfill-data
+          path: |
+            data
+            docs/index.html
+            docs/archives
+            docs/.nojekyll
+            out/ops-dashboard

@@ -1,0 +1,52 @@
+name: Reusable Analyze
+
+on:
+  workflow_call:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt && pip install -e .
+
+      - name: Download collected data
+        uses: actions/download-artifact@v4
+        with:
+          name: collected-data
+          path: data/
+
+      - name: Run AI analysis
+        timeout-minutes: 32
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          AI_MODEL: deepseek-chat
+          AI_TEMPERATURE: "0.2"
+          AUTO_TIMEZONE: Asia/Shanghai
+        run: python -m auto_report.cli analyze-only
+
+      - name: Upload analyzed data
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyzed-data
+          path: data/
+          retention-days: 1

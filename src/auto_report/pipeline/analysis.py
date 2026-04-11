@@ -7,10 +7,14 @@ from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.models.records import CollectedItem, TopicGroup
 from auto_report.pipeline.ai_pipeline import run_staged_ai_pipeline
 from auto_report.pipeline.dedup import deduplicate_items
+from auto_report.pipeline.intelligence import apply_intelligence_layer, fetch_external_support_evidence
 from auto_report.pipeline.prompt_loader import load_ai_readings
 from auto_report.pipeline.scoring import score_topic
 from auto_report.pipeline.topic_builder import build_topic_candidates
 from auto_report.settings import Settings
+
+
+RISK_ORDER = {"low": 0, "medium": 1, "high": 2}
 
 
 @dataclass(slots=True)
@@ -22,6 +26,7 @@ class SignalRecord:
     matched_domains: list[str]
     score: float
     evidence_count: int
+    source_ids: list[str]
     tags: list[str]
 
 
@@ -31,6 +36,7 @@ class ReportPackage:
     summary_payload: dict[str, object]
     domain_payloads: dict[str, dict[str, object]]
     dedup_state: dict[str, object]
+    external_enrichment: dict[str, object]
 
 
 def _topic_summary(topic: TopicGroup) -> str:
@@ -61,6 +67,7 @@ def build_report_package(
                 matched_domains=domain_match.matched_domains,
                 score=score_topic(topic),
                 evidence_count=len(topic.evidence_items),
+                source_ids=sorted({item.source_id for item in topic.evidence_items}),
                 tags=tags,
             )
     )
@@ -79,6 +86,30 @@ def build_report_package(
         max_candidates=int(settings.env["AI_MAX_ANALYSIS_TOPICS"]),
     )
 
+    enriched_signals = [asdict(signal) for signal in signals]
+    external_enrichment_fetcher = None
+    external_enrichment_max_signals = int(settings.env.get("EXTERNAL_ENRICHMENT_MAX_SIGNALS", "2"))
+    if settings.env.get("EXTERNAL_ENRICHMENT_ENABLED", "false").lower() == "true":
+        timeout_seconds = int(settings.env.get("EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS", "8"))
+
+        def external_enrichment_fetcher(root_dir, signal):
+            return fetch_external_support_evidence(root_dir, signal, timeout_seconds=timeout_seconds)
+
+    intelligence = apply_intelligence_layer(
+        root_dir=settings.root_dir,
+        signals=enriched_signals,
+        analyses=ai_outputs["analyses"],
+        items=items,
+        diagnostics=diagnostics,
+        external_enrichment_fetcher=external_enrichment_fetcher,
+        external_enrichment_max_signals=external_enrichment_max_signals,
+    )
+
+    risk_level = intelligence["risk_level"]
+    if any(status == "fallback" for status in ai_outputs["stage_status"].values()):
+        stage_risk = "high" if ai_outputs["stage_status"].get("analysis") == "fallback" else "medium"
+        risk_level = max((risk_level, stage_risk), key=lambda item: RISK_ORDER.get(item, -1))
+
     summary_payload = {
         "meta": {
             "generated_at": "",
@@ -92,26 +123,29 @@ def build_report_package(
         "key_insights": ai_outputs["summary"]["key_insights"],
         "limitations": ai_outputs["summary"]["limitations"] + diagnostics,
         "actions": ai_outputs["summary"]["actions"],
-        "analyses": ai_outputs["analyses"],
+        "analyses": intelligence["analyses"],
         "forecast": ai_outputs["forecast"],
         "stage_status": ai_outputs["stage_status"],
+        "mainline_memory": intelligence["mainline_memory"],
+        "lifecycle_summary": intelligence["lifecycle_summary"],
+        "risk_level": risk_level,
         "highlights": [
             ai_outputs["summary"]["one_line_core"],
             f"本轮共采集到 {len(items)} 条原始信息，去重后保留 {len(signals)} 个主题。",
             f"当前覆盖 {len(settings.domains)} 个领域，启用了 {len(settings.sources)} 组来源配置。",
         ],
         "risks": diagnostics,
-        "signals": [asdict(signal) for signal in signals],
+        "signals": intelligence["signals"],
         "predictions": [str(ai_outputs["forecast"].get("forecast_conclusion", "暂无趋势提示"))],
         "sources": settings.sources,
     }
 
     domain_payloads: dict[str, dict[str, object]] = {}
     for domain_key, domain in settings.domains.items():
-        matched = [asdict(signal) for signal in signals if signal.primary_domain == domain_key]
+        matched = [signal for signal in intelligence["signals"] if signal.get("primary_domain") == domain_key]
         matched_analyses = [
             analysis
-            for analysis in ai_outputs["analyses"]
+            for analysis in intelligence["analyses"]
             if analysis.get("primary_domain") == domain_key
         ]
         domain_payloads[domain_key] = {
@@ -137,17 +171,20 @@ def build_report_package(
             "signals": matched,
             "risks": diagnostics,
             "predictions": summary_payload["predictions"],
+            "risk_level": risk_level,
         }
 
     dedup_state = {
         "topics": [
             {
-                "url": signal.url,
-                "title": signal.title,
-                "primary_domain": signal.primary_domain,
-                "score": signal.score,
+                "url": signal["url"],
+                "title": signal["title"],
+                "primary_domain": signal["primary_domain"],
+                "score": signal["score"],
+                "lifecycle_state": signal.get("lifecycle_state", "new"),
+                "risk_level": signal.get("risk_level", "low"),
             }
-            for signal in signals
+            for signal in intelligence["signals"]
         ]
     }
 
@@ -156,4 +193,5 @@ def build_report_package(
         summary_payload=summary_payload,
         domain_payloads=domain_payloads,
         dedup_state=dedup_state,
+        external_enrichment=intelligence.get("external_enrichment", {}),
     )

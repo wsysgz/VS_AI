@@ -1,9 +1,11 @@
 from concurrent.futures import TimeoutError
 from pathlib import Path
+import threading
 
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.source_filters import should_keep_candidate
 from auto_report.settings import load_settings
+from auto_report.sources import collector as collector_module
 from auto_report.sources.collector import collect_all_items
 from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.github import normalize_github_repositories
@@ -253,6 +255,119 @@ def test_extract_listing_items_drops_white_paper_and_webinar_cards():
     )
 
     assert [item.title for item in items] == ["Jetson edge AI pipeline update"]
+
+
+def test_collect_websites_aggregates_enabled_sites(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {"id": "site-a", "url": "https://example.com/a", "enabled": True, "max_items": 2},
+            {"id": "site-b", "url": "https://example.com/b", "enabled": True, "max_items": 2},
+            {"id": "site-c", "url": "https://example.com/c", "enabled": False, "max_items": 2},
+        ]
+    }
+
+    barrier = threading.Barrier(2)
+    lock = threading.Lock()
+    active_calls = 0
+    max_active_calls = 0
+
+    def fake_fetch(url: str, timeout: int = 20) -> str:
+        nonlocal active_calls, max_active_calls
+        with lock:
+            active_calls += 1
+            max_active_calls = max(max_active_calls, active_calls)
+        try:
+            barrier.wait(timeout=0.1)
+        except threading.BrokenBarrierError:
+            pass
+        finally:
+            with lock:
+                active_calls -= 1
+        return f"<html>{url}</html>"
+
+    def fake_extract(source: dict, html: str) -> list[CollectedItem]:
+        return [
+            CollectedItem(
+                source_id=str(source["id"]),
+                item_id=str(source["id"]),
+                title=f'{source["id"]}-headline',
+                url=str(source["url"]),
+                summary=html,
+                published_at="2026-04-09T08:00:00+00:00",
+                collected_at="2026-04-09T08:05:00+00:00",
+                tags=["site"],
+                language="en",
+                metadata={},
+            )
+        ]
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_text", fake_fetch)
+    monkeypatch.setattr("auto_report.sources.collector.extract_listing_items", fake_extract)
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert [item.title for item in items] == ["site-a-headline", "site-b-headline"]
+    assert diagnostics == []
+    assert max_active_calls == 2
+
+
+def test_collect_websites_keeps_other_results_when_one_site_fails(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {"id": "site-a", "url": "https://example.com/a", "enabled": True, "max_items": 2},
+            {"id": "site-b", "url": "https://example.com/b", "enabled": True, "max_items": 2},
+        ]
+    }
+
+    def fake_fetch(url: str, timeout: int = 20) -> str:
+        if url.endswith("/b"):
+            raise RuntimeError("boom")
+        return f"<html>{url}</html>"
+
+    def fake_extract(source: dict, html: str) -> list[CollectedItem]:
+        return [
+            CollectedItem(
+                source_id=str(source["id"]),
+                item_id=str(source["id"]),
+                title=f'{source["id"]}-headline',
+                url=str(source["url"]),
+                summary=html,
+                published_at="2026-04-09T08:00:00+00:00",
+                collected_at="2026-04-09T08:05:00+00:00",
+                tags=["site"],
+                language="en",
+                metadata={},
+            )
+        ]
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_text", fake_fetch)
+    monkeypatch.setattr("auto_report.sources.collector.extract_listing_items", fake_extract)
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert [item.title for item in items] == ["site-a-headline"]
+    assert diagnostics == ["Website source failed: site-b -> boom"]
+
+
+def test_collect_websites_records_timeout_errors_as_diagnostics(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {"id": "site-a", "url": "https://example.com/a", "enabled": True, "max_items": 2},
+        ]
+    }
+
+    monkeypatch.setattr(
+        "auto_report.sources.collector._fetch_text",
+        lambda url, timeout=20: (_ for _ in ()).throw(TimeoutError("slow site")),
+    )
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert items == []
+    assert diagnostics == ["Website source failed: site-a -> slow site"]
 
 
 def test_collect_all_items_records_timeout_as_diagnostic(monkeypatch):

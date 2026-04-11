@@ -34,9 +34,43 @@ def _build_topic_briefs(payload: dict[str, object]) -> list[dict[str, str]]:
                 "primary_contradiction": str(analysis.get("primary_contradiction", "待补充")).strip() or "待补充",
                 "confidence": str(analysis.get("confidence", "low")).strip() or "low",
                 "url": str(analysis.get("url", "")).strip(),
+                "lifecycle_state": str(analysis.get("lifecycle_state", "new")).strip() or "new",
+                "risk_level": str(analysis.get("risk_level", "low")).strip() or "low",
+                "enrichment_summary": str(
+                    (analysis.get("enrichment") or {}).get("summary", "")
+                ).strip(),
+                "support_evidence": [
+                    {
+                        "source_type": str(item.get("source_type", "")).strip(),
+                        "title": str(item.get("title", "")).strip(),
+                        "url": str(item.get("url", "")).strip(),
+                    }
+                    for item in analysis.get("support_evidence", [])[:3]
+                    if str(item.get("title", "")).strip()
+                ],
             }
         )
     return briefs
+
+
+def _build_mainline_memory(payload: dict[str, object]) -> list[dict[str, object]]:
+    lines: list[dict[str, object]] = []
+    for item in payload.get("mainline_memory", [])[:5]:
+        title = str(item.get("title", "")).strip()
+        if not title:
+            continue
+        lines.append(
+            {
+                "title": title,
+                "lifecycle_state": str(item.get("lifecycle_state", "new")).strip() or "new",
+                "risk_level": str(item.get("risk_level", "low")).strip() or "low",
+                "days_seen": int(item.get("days_seen", 1)),
+                "first_seen": str(item.get("first_seen", "")).strip(),
+                "last_seen": str(item.get("last_seen", "")).strip(),
+                "enrichment_summary": str(item.get("enrichment_summary", "")).strip(),
+            }
+        )
+    return lines
 
 
 def compose_executive_brief(
@@ -63,11 +97,13 @@ def compose_executive_brief(
             if str(item).strip()
         ],
         "mainlines": _build_mainlines(payload),
+        "mainline_memory": _build_mainline_memory(payload),
         "topic_briefs": _build_topic_briefs(payload),
         "watchlist": str(forecast.get("most_likely_case", "")).strip() or "本轮先保持观察，等待更多高置信度信号。",
         "forecast_conclusion": str(forecast.get("forecast_conclusion", "")).strip(),
         "risk_note": limitations[0] if limitations else "",
         "action_note": actions[0] if actions else "",
+        "risk_level": str(payload.get("risk_level", "low")).strip() or "low",
         "limitations": limitations,
         "actions": actions,
         "stage_status": payload.get("stage_status", {}),

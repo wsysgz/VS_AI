@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS_AI Archives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #eef4fb;
+    --muted: #9fb2c8;
+    --line: rgba(255,255,255,0.10);
+    --surface: rgba(6, 18, 31, 0.78);
+    --surface-strong: #08192a;
+    --accent: #7be0d6;
+    --accent-2: #f3b562;
+    --accent-3: #7ca6ff;
+    --bg: #03101d;
+    --hero: linear-gradient(135deg, #061c31 0%, #0f3a52 42%, #174a49 72%, #80603a 100%);
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+    font-family: "Space Grotesk", "IBM Plex Sans", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 12% 0%, rgba(123, 224, 214, 0.18), transparent 24%),
+      radial-gradient(circle at 100% 20%, rgba(243, 181, 98, 0.14), transparent 28%),
+      linear-gradient(180deg, #020b14 0%, var(--bg) 100%);
+  }
+  a { color: inherit; }
+  .site-shell { max-width: 1200px; margin: 0 auto; padding: 0 20px 56px; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 18px rgba(123, 224, 214, 0.55);
+  }
+  .nav-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 72px);
+    display: grid;
+    align-items: end;
+    padding: 72px 28px 36px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background: var(--hero);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(130deg, rgba(255,255,255,0.04), transparent 35%),
+      linear-gradient(0deg, rgba(2,11,20,0.58), rgba(2,11,20,0.18));
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 24px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(238,244,251,0.72);
+  }
+  .hero h1 {
+    margin: 0;
+    max-width: 9ch;
+    font-size: clamp(42px, 9vw, 96px);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+  }
+  .hero-copy {
+    max-width: 620px;
+    color: rgba(238,244,251,0.84);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,11,20,0.18);
+    color: rgba(238,244,251,0.78);
+    font-size: 13px;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+  .chip:hover { background: rgba(2,11,20,0.28); }
+  .section {
+    margin-top: 28px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+  }
+  .section-title {
+    margin: 0 0 18px;
+    font-size: 21px;
+    letter-spacing: -0.02em;
+  }
+  .subtle { color: var(--muted); }
+  .stats-grid,
+  .signal-grid,
+  .archive-grid,
+  .summary-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .stats-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .summary-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .signal-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .archive-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .stat, .signal, .archive-card, .summary-card, .topic-card {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(4, 15, 28, 0.54);
+  }
+  .stat strong, .summary-card strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 30px;
+    letter-spacing: -0.04em;
+  }
+  .signal h3, .archive-card h3, .topic-card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .signal p, .archive-card p, .summary-card p, .topic-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .signal-tags, .filter-group, .archive-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(123, 224, 214, 0.08);
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .tag.alt {
+    background: rgba(124, 166, 255, 0.10);
+    color: #9bb7ff;
+  }
+  .tag.warm {
+    background: rgba(243, 181, 98, 0.10);
+    color: #ffd089;
+  }
+  .signal-footer, .archive-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .signal a, .archive-card a, .feed-links a {
+    text-decoration: none;
+  }
+  .signal a:hover, .archive-card a:hover, .feed-links a:hover {
+    color: var(--accent);
+  }
+  .search-shell {
+    display: grid;
+    gap: 16px;
+  }
+  .search-shell input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: rgba(1, 9, 17, 0.56);
+    color: var(--ink);
+    font: inherit;
+  }
+  .search-results {
+    display: grid;
+    gap: 12px;
+  }
+  .search-hit {
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(4, 15, 28, 0.48);
+  }
+  .search-hit h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .search-hit p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .feed-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .archive-filters {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .filter-group button {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+  }
+  .filter-group button.is-active,
+  .filter-group button:hover {
+    color: var(--ink);
+    border-color: rgba(123, 224, 214, 0.32);
+    background: rgba(123, 224, 214, 0.08);
+  }
+  .footer {
+    margin-top: 28px;
+    padding: 24px 0 8px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+  }
+  @media (max-width: 760px) {
+    .site-shell { padding: 0 14px 40px; }
+    .hero { min-height: auto; padding: 56px 18px 24px; border-radius: 24px; }
+    .section { padding: 18px; border-radius: 20px; }
+    .topbar { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">Home</a>
+        <a href="../weekly/">Weekly</a>
+        <a href="../special/">Special</a>
+        <a href="../feed.json">JSON Feed</a>
+        <a href="../rss.xml">RSS</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h1 class="section-title">Archives</h1>
+      <p class="subtle">按日期、领域、来源浏览过去的每日情报摘要。</p>
+    </section>
+
+    <section class="section archive-filters">
+      <div>
+        <h2 class="section-title">按领域浏览</h2>
+        <div class="filter-group">
+          <button type="button" class="is-active" data-kind="domain" data-value="">全部</button>
+          <button type="button" data-kind="domain" data-value="AI / Agent">AI / Agent</button><button type="button" data-kind="domain" data-value="AI × Electronics">AI × Electronics</button>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">按来源浏览</h2>
+        <div class="filter-group">
+          <button type="button" class="is-active" data-kind="source" data-value="">全部</button>
+          <button type="button" data-kind="source" data-value="andonlabs.com">andonlabs.com</button><button type="button" data-kind="source" data-value="anthropic.com">anthropic.com</button><button type="button" data-kind="source" data-value="api-docs.deepseek.com">api-docs.deepseek.com</button><button type="button" data-kind="source" data-value="blog.gitbutler.com">blog.gitbutler.com</button><button type="button" data-kind="source" data-value="blog.openvino.ai">blog.openvino.ai</button><button type="button" data-kind="source" data-value="blog.samaltman.com">blog.samaltman.com</button><button type="button" data-kind="source" data-value="codeberg.org">codeberg.org</button><button type="button" data-kind="source" data-value="daemonology.net">daemonology.net</button><button type="button" data-kind="source" data-value="developer.nvidia.com">developer.nvidia.com</button><button type="button" data-kind="source" data-value="developers.googleblog.com">developers.googleblog.com</button><button type="button" data-kind="source" data-value="dfarq.homeip.net">dfarq.homeip.net</button><button type="button" data-kind="source" data-value="eclecticlight.co">eclecticlight.co</button><button type="button" data-kind="source" data-value="github.com">github.com</button><button type="button" data-kind="source" data-value="historytoday.com">historytoday.com</button><button type="button" data-kind="source" data-value="huggingface.co">huggingface.co</button><button type="button" data-kind="source" data-value="lists.zx2c4.com">lists.zx2c4.com</button><button type="button" data-kind="source" data-value="microsoft.com">microsoft.com</button><button type="button" data-kind="source" data-value="nytimes.com">nytimes.com</button><button type="button" data-kind="source" data-value="openai.com">openai.com</button><button type="button" data-kind="source" data-value="platform.moonshot.cn">platform.moonshot.cn</button><button type="button" data-kind="source" data-value="twill.ai">twill.ai</button><button type="button" data-kind="source" data-value="ubuntu.com">ubuntu.com</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div id="archive-grid" class="archive-grid">
+        <article class="archive-card" data-domain="AI / Agent AI × Electronics" data-source="github.com huggingface.co api-docs.deepseek.com openai.com anthropic.com microsoft.com developers.googleblog.com platform.moonshot.cn developer.nvidia.com blog.openvino.ai twill.ai lists.zx2c4.com eclecticlight.co blog.gitbutler.com blog.samaltman.com nytimes.com dfarq.homeip.net daemonology.net ubuntu.com historytoday.com codeberg.org andonlabs.com">
+  <span class="eyebrow">2026.04.11</span>
+  <h3>AI Agent领域正从单纯的能力扩展转向解决规模化瓶颈，核心矛盾集中在记忆效率、系统透明度和部署成本三大关键挑战上。</h3>
+  <p>AI Agent的发展焦点正从模型能力竞赛转向解决实际部署中的系统性瓶颈。 微软研究提出两大框架：PlugMem旨在将海量、杂乱的交互日志转化为结构化知识以解决“记忆悖论”；AgentRx则试图为日益复杂的自主Agent建立系统化的调试机制以应对“透明度危机”。 同时，vLLM等项目致力于在推理吞吐量和内存效率之间取得平衡，以降低大规模部署的成本门槛。</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI / Agent</span><span class="tag alt">AI × Electronics</span><span class="tag warm">github.com</span><span class="tag warm">huggingface.co</span><span class="tag">自动版</span></div>
+  <div class="archive-footer">
+    <span>90 topics · 90 items</span>
+    <a href="archives/2026-04-11/">打开日报</a>
+  </div>
+</article><article class="archive-card" data-domain="AI / Agent AI × Electronics" data-source="github.com huggingface.co api-docs.deepseek.com openai.com anthropic.com microsoft.com developers.googleblog.com platform.moonshot.cn developer.nvidia.com blog.openvino.ai twill.ai lists.zx2c4.com eclecticlight.co blog.gitbutler.com blog.samaltman.com nytimes.com dfarq.homeip.net daemonology.net ubuntu.com historytoday.com codeberg.org andonlabs.com">
+  <span class="eyebrow">2026.04.09</span>
+  <h3>AI Agent领域正从单纯的能力扩展转向解决规模化瓶颈，核心矛盾集中在记忆效率、系统透明度和部署成本三大关键挑战上。</h3>
+  <p>AI Agent的发展焦点正从模型能力竞赛转向解决实际部署中的系统性瓶颈。 微软研究提出两大框架：PlugMem旨在将海量、杂乱的交互日志转化为结构化知识以解决“记忆悖论”；AgentRx则试图为日益复杂的自主Agent建立系统化的调试机制以应对“透明度危机”。 同时，vLLM等项目致力于在推理吞吐量和内存效率之间取得平衡，以降低大规模部署的成本门槛。</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI / Agent</span><span class="tag alt">AI × Electronics</span><span class="tag warm">github.com</span><span class="tag warm">huggingface.co</span><span class="tag">自动版</span></div>
+  <div class="archive-footer">
+    <span>90 topics · 90 items</span>
+    <a href="archives/2026-04-09/">打开日报</a>
+  </div>
+</article>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const archiveCards = [...document.querySelectorAll(".archive-card")];
+    const filters = { domain: "", source: "" };
+    document.querySelectorAll(".filter-group button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const kind = button.dataset.kind;
+        filters[kind] = button.dataset.value || "";
+        document.querySelectorAll(`button[data-kind="${kind}"]`).forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+        archiveCards.forEach((card) => {
+          const domainOk = !filters.domain || (card.dataset.domain || "").includes(filters.domain);
+          const sourceOk = !filters.source || (card.dataset.source || "").includes(filters.source);
+          card.style.display = domainOk && sourceOk ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

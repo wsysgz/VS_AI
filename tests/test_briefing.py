@@ -22,6 +22,27 @@ def test_compose_executive_brief_builds_mainlines_topics_and_notes():
                     "core_insight": "评估开始前置。",
                     "confidence": "medium",
                     "url": "https://example.com/a",
+                    "lifecycle_state": "verified",
+                    "risk_level": "low",
+                    "enrichment": {"summary": "2 source(s) | official / repo"},
+                    "support_evidence": [
+                        {
+                            "source_type": "official",
+                            "title": "OpenAI launches agent debugger",
+                            "url": "https://openai.com/news/agent-debugger",
+                        }
+                    ],
+                }
+            ],
+            "mainline_memory": [
+                {
+                    "title": "Signal A",
+                    "lifecycle_state": "verified",
+                    "risk_level": "low",
+                    "days_seen": 3,
+                    "first_seen": "2026-04-08",
+                    "last_seen": "2026-04-10",
+                    "enrichment_summary": "2 source(s) | official / repo",
                 }
             ],
             "forecast": {
@@ -37,6 +58,10 @@ def test_compose_executive_brief_builds_mainlines_topics_and_notes():
     assert brief["judgment"] == "Agent 工具链继续向专业化和评估化收敛。"
     assert brief["mainlines"][0]["title"] == "评估框架增加"
     assert brief["topic_briefs"][0]["title"] == "Signal A"
+    assert brief["topic_briefs"][0]["lifecycle_state"] == "verified"
+    assert brief["topic_briefs"][0]["risk_level"] == "low"
+    assert brief["topic_briefs"][0]["support_evidence"][0]["source_type"] == "official"
+    assert brief["mainline_memory"][0]["days_seen"] == 3
     assert brief["watchlist"] == "短期继续围绕评估与部署演进"
     assert brief["risk_note"] == "部分信号仍需复核"
     assert brief["action_note"] == "继续跟踪评估框架"
@@ -62,6 +87,7 @@ def test_compose_executive_brief_degrades_gracefully_with_sparse_payload():
 
     assert brief["judgment"] == "暂无核心判断"
     assert brief["mainlines"] == []
+    assert brief["mainline_memory"] == []
     assert brief["topic_briefs"] == []
     assert brief["watchlist"] == "本轮先保持观察，等待更多高置信度信号。"
     assert brief["risk_note"] == ""

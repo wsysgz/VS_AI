@@ -14,11 +14,30 @@ def test_load_settings_includes_morning_schedule_and_push_channel_defaults(monke
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     settings = load_settings(Path.cwd())
-    assert settings.schedules["jobs"]["daily"]["cron"] == "0 23 * * *"
+    assert settings.schedules["jobs"]["daily"]["cron"] == "13 23 * * *"
     assert settings.env["PUSHPLUS_CHANNEL"] == "clawbot"
     assert settings.env["REPORT_REPO_URL"] == "https://github.com/wsysgz/VS_AI"
     assert "TELEGRAM_BOT_TOKEN" in settings.env
     assert "TELEGRAM_CHAT_ID" in settings.env
+
+
+def test_load_settings_exposes_scheduler_defaults():
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["SCHEDULER_TRIGGER_KIND"] == "manual"
+    assert settings.env["SCHEDULER_COMPENSATION_RUN"] == "false"
+    assert settings.env["PUBLICATION_MODE"] == "auto"
+    assert settings.env["EXTERNAL_ENRICHMENT_ENABLED"] == "false"
+    assert settings.env["EXTERNAL_ENRICHMENT_MAX_SIGNALS"] == "2"
+    assert settings.env["EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS"] == "8"
+
+
+def test_load_settings_allows_publication_mode_override(monkeypatch):
+    monkeypatch.setenv("PUBLICATION_MODE", "reviewed")
+
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["PUBLICATION_MODE"] == "reviewed"
 
 
 def test_load_settings_exposes_ai_reading_paths():

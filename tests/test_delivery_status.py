@@ -1,5 +1,6 @@
 from auto_report.integrations.delivery_status import (
     build_channel_result,
+    classify_channel_error,
     channel_response_succeeded,
     describe_channel_response,
     summarize_delivery_results,
@@ -34,3 +35,27 @@ def test_channel_response_helpers_detect_success_and_descriptions():
     assert describe_channel_response(
         "feishu", [{"code": 0, "msg": "success"}]
     ) == "success"
+
+
+def test_build_channel_result_preserves_error_type_and_attempted_at():
+    result = build_channel_result(
+        "telegram",
+        configured=True,
+        attempted=True,
+        ok=False,
+        detail="Read timed out",
+        error_type="network",
+        attempted_at="2026-04-11T07:01:00+08:00",
+    )
+
+    assert result["status"] == "error"
+    assert result["error_type"] == "network"
+    assert result["attempted_at"] == "2026-04-11T07:01:00+08:00"
+
+
+def test_classify_channel_error_uses_delivery_categories():
+    assert classify_channel_error("telegram", [{"description": "Unauthorized"}], "Unauthorized") == "auth"
+    assert classify_channel_error("pushplus", {"msg": "forbidden"}, "forbidden") == "permission"
+    assert classify_channel_error("telegram", [{"description": "Bad Request: message is too long"}], "message is too long") == "format"
+    assert classify_channel_error("feishu", {"error": "Read timed out"}, "Read timed out") == "network"
+    assert classify_channel_error("pushplus", {"msg": "weird"}, "weird") == "unknown"

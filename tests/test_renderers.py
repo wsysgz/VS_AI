@@ -1,6 +1,8 @@
 from auto_report.outputs.renderers import (
+    render_feishu_notification,
     render_html_report,
     render_markdown_report,
+    render_pushplus_notification,
     render_telegram_notification,
     render_text_notification,
 )
@@ -23,6 +25,27 @@ def _sample_payload() -> dict[str, object]:
                 "core_insight": "评估开始前置。",
                 "confidence": "medium",
                 "url": "https://example.com/a",
+                "lifecycle_state": "verified",
+                "risk_level": "low",
+                "enrichment": {"summary": "2 source(s) | official / repo"},
+                "support_evidence": [
+                    {
+                        "source_type": "official",
+                        "title": "OpenAI launches agent debugger",
+                        "url": "https://openai.com/news/agent-debugger",
+                    }
+                ],
+            }
+        ],
+        "mainline_memory": [
+            {
+                "title": "Signal A",
+                "lifecycle_state": "verified",
+                "risk_level": "low",
+                "days_seen": 3,
+                "first_seen": "2026-04-08",
+                "last_seen": "2026-04-10",
+                "enrichment_summary": "2 source(s) | official / repo",
             }
         ],
         "forecast": {
@@ -51,6 +74,22 @@ def test_render_text_notification_uses_executive_brief_short_shape():
     assert "观察：" in text
 
 
+def test_render_pushplus_notification_uses_short_shape():
+    text = render_pushplus_notification(
+        title="AI情报早报 | 2026-04-10 | 北京时间 07:00",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=_sample_payload(),
+        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+    )
+
+    assert text.startswith("AI情报早报 |")
+    assert "今日判断：" in text
+    assert "三条主线：" in text
+    assert "详情链接：" in text
+    assert "执行摘要" not in text
+    assert "重点主题" not in text
+
+
 def test_render_telegram_notification_uses_full_brief_shape():
     text = render_telegram_notification(
         title="AI情报完整简报 | 2026-04-10 | 北京时间 07:00",
@@ -65,6 +104,22 @@ def test_render_telegram_notification_uses_full_brief_shape():
     assert "局限与提醒" in text
 
 
+def test_render_feishu_notification_uses_mid_brief_shape():
+    text = render_feishu_notification(
+        title="AI情报飞书简报 | 2026-04-10 | 北京时间 07:00",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=_sample_payload(),
+        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+    )
+
+    assert text.startswith("AI情报飞书简报 |")
+    assert "执行摘要" in text
+    assert "关键主线" in text
+    assert "行动建议" in text
+    assert "重点主题" not in text
+    assert "详情链接：" in text
+
+
 def test_render_markdown_report_uses_formal_brief_sections():
     report = render_markdown_report(
         title="自动情报快报",
@@ -75,8 +130,12 @@ def test_render_markdown_report_uses_formal_brief_sections():
     assert "# 自动情报快报" in report
     assert "## 一句话判断" in report
     assert "## 重点主线" in report
+    assert "## 跨日主线记忆" in report
     assert "## 重点主题分析" in report
     assert "## 行动建议" in report
+    assert "生命周期：verified" in report
+    assert "风险等级：low" in report
+    assert "OpenAI launches agent debugger" in report
 
 
 def test_render_html_report_produces_valid_document():
@@ -103,9 +162,11 @@ def test_render_html_report_contains_key_sections():
     assert "执行摘要" in html
     assert "关键洞察" in html
     assert "重点主线" in html
+    assert "跨日主线记忆" in html
     assert "Signal A" in html
     assert "评估框架增加" in html
     assert "继续看真实落地反馈" in html
+    assert "OpenAI launches agent debugger" in html
 
 
 def test_render_html_report_escapes_special_characters():

@@ -1,0 +1,80 @@
+name: Reusable Report
+
+on:
+  workflow_call:
+    inputs:
+      auto_push_enabled:
+        required: true
+        type: boolean
+      publication_mode:
+        required: true
+        type: string
+      scheduler_trigger_kind:
+        required: true
+        type: string
+      scheduler_compensation_run:
+        required: true
+        type: boolean
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt && pip install -e .
+
+      - name: Download analyzed data
+        uses: actions/download-artifact@v4
+        with:
+          name: analyzed-data
+          path: data/
+
+      - name: Render and push
+        timeout-minutes: 8
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          PUSHPLUS_CHANNEL: clawbot
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_CHAT_ID: ${{ secrets.FEISHU_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT_REPO_URL: https://github.com/wsysgz/VS_AI
+          AUTO_TIMEZONE: Asia/Shanghai
+          AUTO_PUSH_ENABLED: ${{ inputs.auto_push_enabled }}
+          PUBLICATION_MODE: ${{ inputs.publication_mode }}
+          SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}
+          SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}
+          EXTERNAL_ENRICHMENT_ENABLED: "true"
+          EXTERNAL_ENRICHMENT_MAX_SIGNALS: "2"
+          EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS: "8"
+        run: python -m auto_report.cli render-and-push
+
+      - name: Auto commit reports
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: update auto reports [skip ci]"
+          file_pattern: "data/**"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Upload final artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-report
+          path: data/

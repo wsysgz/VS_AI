@@ -1,6 +1,39 @@
 from __future__ import annotations
 
 
+AUTH_KEYWORDS = (
+    "unauthorized",
+    "invalid token",
+    "auth failed",
+    "401",
+)
+PERMISSION_KEYWORDS = (
+    "forbidden",
+    "permission denied",
+    "insufficient permission",
+    "not enough rights",
+    "403",
+)
+NETWORK_KEYWORDS = (
+    "timeout",
+    "timed out",
+    "connection",
+    "network",
+    "dns",
+    "ssl",
+    "temporarily unavailable",
+)
+FORMAT_KEYWORDS = (
+    "bad request",
+    "message is too long",
+    "can't parse",
+    "invalid markdown",
+    "invalid payload",
+    "400",
+    "422",
+)
+
+
 def _response_items(response: object) -> list[dict[str, object]]:
     if isinstance(response, dict):
         return [response]
@@ -52,6 +85,42 @@ def describe_channel_response(name: str, response: object) -> str:
     return ""
 
 
+def _collect_error_text(response: object, detail: str = "") -> str:
+    texts: list[str] = []
+    if detail:
+        texts.append(detail)
+
+    for item in _response_items(response):
+        for key in ("error", "description", "msg", "message"):
+            value = item.get(key)
+            if isinstance(value, str) and value:
+                texts.append(value)
+        code = item.get("code")
+        if code is not None:
+            texts.append(str(code))
+        status_code = item.get("status_code")
+        if status_code is not None:
+            texts.append(str(status_code))
+
+    return " ".join(texts).lower()
+
+
+def classify_channel_error(name: str, response: object, detail: str = "") -> str:
+    text = _collect_error_text(response, detail=detail)
+    if not text:
+        return "unknown"
+
+    if any(keyword in text for keyword in AUTH_KEYWORDS):
+        return "auth"
+    if any(keyword in text for keyword in PERMISSION_KEYWORDS):
+        return "permission"
+    if any(keyword in text for keyword in NETWORK_KEYWORDS):
+        return "network"
+    if any(keyword in text for keyword in FORMAT_KEYWORDS):
+        return "format"
+    return "unknown"
+
+
 def build_channel_result(
     name: str,
     configured: bool,
@@ -59,6 +128,8 @@ def build_channel_result(
     ok: bool,
     detail: str = "",
     response: object | None = None,
+    error_type: str | None = None,
+    attempted_at: str | None = None,
 ) -> dict[str, object]:
     status = "skipped"
     if configured and attempted and ok:
@@ -75,6 +146,8 @@ def build_channel_result(
         "status": status,
         "detail": detail,
         "response": response,
+        "error_type": error_type,
+        "attempted_at": attempted_at,
     }
 
 

@@ -13,258 +13,192 @@ on:
         required: false
         default: false
         type: boolean
+      publication_mode:
+        description: "Publication track for this manual run"
+        required: false
+        default: auto
+        type: choice
+        options:
+          - auto
+          - reviewed
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "13 23 * * *"
 
 concurrency:
   group: collect-report-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  # ════════════════════════════════════════
-  # JOB 0: 测试验证 (Phase 4 可观测性)
-  # 与采集并行，不阻塞主流程但结果可见
-  # ════════════════════════════════════════
+  workflow-guard:
+    uses: ./.github/workflows/reusable-workflow-guard.yml
+
   test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+    needs: workflow-guard
+    uses: ./.github/workflows/reusable-python-test.yml
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pip
-            .venv
-          key: ${{ runner.os }}-pip-test-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e .
-          pip install pytest
-
-      - name: Run tests
-        timeout-minutes: 3
-        env:
-          PYTHONPATH: src
-        run: pytest tests --junitxml=test-results.xml -q --tb=short
-
-      - name: Upload test results artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results.xml
-          retention-days: 7
-
-  # ════════════════════════════════════════
-  # JOB 1: 采集 + 预处理 (无AI)
-  # ════════════════════════════════════════
   collect:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+    needs: workflow-guard
+    uses: ./.github/workflows/reusable-collect.yml
+    secrets: inherit
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pip
-            .venv
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -e .
-
-      - name: Collect data
-        timeout-minutes: 12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AUTO_TIMEZONE: Asia/Shanghai
-        run: python -m auto_report.cli collect-only
-
-      - name: Upload collected data
-        uses: actions/upload-artifact@v4
-        with:
-          name: collected-data
-          path: |
-            data/reports/
-            data/state/
-          retention-days: 1
-
-  # ════════════════════════════════════════
-  # JOB 2: AI 分析 (最耗时)
-  # ════════════════════════════════════════
   analyze:
     needs: collect
-    runs-on: ubuntu-latest
-    timeout-minutes: 35
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+    uses: ./.github/workflows/reusable-analyze.yml
+    secrets: inherit
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt && pip install -e .
-
-      - name: Download collected data
-        uses: actions/download-artifact@v4
-        with:
-          name: collected-data
-          path: data/
-
-      - name: Run AI analysis
-        timeout-minutes: 32
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          AI_MODEL: deepseek-chat
-          AI_TEMPERATURE: "0.2"
-          AUTO_TIMEZONE: Asia/Shanghai
-        run: python -m auto_report.cli analyze-only
-
-      - name: Upload analyzed data
-        uses: actions/upload-artifact@v4
-        with:
-          name: analyzed-data
-          path: data/
-          retention-days: 1
-
-  # ════════════════════════════════════════
-  # JOB 3: 渲染 + 推送 + 归档
-  # ════════════════════════════════════════
   report:
     needs: analyze
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+    uses: ./.github/workflows/reusable-report.yml
+    with:
+      auto_push_enabled: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.push_enabled == true) }}
+      publication_mode: ${{ github.event_name == 'workflow_dispatch' && inputs.publication_mode || 'auto' }}
+      scheduler_trigger_kind: ${{ github.event_name == 'schedule' && 'schedule' || github.event_name == 'workflow_dispatch' && 'manual' || 'push' }}
+      scheduler_compensation_run: false
+    secrets: inherit
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt && pip install -e .
-
-      - name: Download analyzed data
-        uses: actions/download-artifact@v4
-        with:
-          name: analyzed-data
-          path: data/
-
-      - name: Render and push
-        timeout-minutes: 8
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
-          PUSHPLUS_CHANNEL: clawbot
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-          FEISHU_CHAT_ID: ${{ secrets.FEISHU_CHAT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPORT_REPO_URL: https://github.com/wsysgz/VS_AI
-          AUTO_TIMEZONE: Asia/Shanghai
-          AUTO_PUSH_ENABLED: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.push_enabled == true) }}
-        run: python -m auto_report.cli render-and-push
-
-      - name: Auto commit reports
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: update auto reports [skip ci]"
-          file_pattern: "data/**"
-          commit_user_name: github-actions[bot]
-          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
-
-      - name: Upload final artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: final-report
-          path: data/
-
-  # ════════════════════════════════════════
-  # JOB 4: 构建并部署 GitHub Pages 站点
-  # ════════════════════════════════════════
   deploy-pages:
     needs: report
+    uses: ./.github/workflows/reusable-pages.yml
+    secrets: inherit
+
+  ops-dashboard:
+    needs: report
+    uses: ./.github/workflows/reusable-ops-dashboard.yml
+    secrets: inherit
+
+  review-queue:
+    needs: report
+    uses: ./.github/workflows/reusable-review-queue.yml
+    secrets: inherit
+
+  reliability-issue:
+    needs: report
+    if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install
-        run: pip install -r requirements.txt && pip install -e .
-
-      - name: Sync latest main before pages build
-        run: git pull --rebase origin main
-
-      - name: Download final data
+      - name: Download final report artifact
         uses: actions/download-artifact@v4
         with:
           name: final-report
-          path: data/
+          path: .
 
-      - name: Build Pages site (outputs to docs/)
-        run: python -m auto_report.cli build-pages
+      - name: Open issue for reliability regressions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const status = JSON.parse(fs.readFileSync("data/state/run-status.json", "utf8"));
+            const failed = status.delivery_results?.failed_channels || [];
+            const successful = status.delivery_results?.successful_channels || [];
+            const skipped = status.delivery_results?.skipped_channels || [];
+            const riskLevel = String(status.risk_level || "low");
+            const stageStatus = status.stage_status || {};
+            const allChannelsFailed = failed.length > 0 && successful.length === 0;
+            const highRiskReport = riskLevel === "high";
+            if (!allChannelsFailed && !highRiskReport) {
+              core.info("No reliability issue needed");
+              return;
+            }
 
-      - name: Commit and push docs/
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html docs/archives/ docs/.nojekyll
-          git diff --cached --quiet && echo "No changes to deploy" || git commit -m "chore: update pages site [skip ci]"
-          git push
+            const reasons = [];
+            if (allChannelsFailed) reasons.push("all delivery channels failed");
+            if (highRiskReport) reasons.push("high risk report detected");
+            const stageSummary = Object.entries(stageStatus)
+              .map(([stage, value]) => `${stage}=${value}`)
+              .join(", ") || "-";
+            const title = `[V7 reliability] ${reasons.join(" + ")} (${status.generated_at || "unknown"})`;
+            const body = [
+              `Detected ${reasons.join(" and ")}.`,
+              "",
+              `Generated at: ${status.generated_at || "unknown"}`,
+              `Trigger: ${status.scheduler?.trigger_kind || "unknown"}`,
+              `Compensation run: ${status.scheduler?.compensation_run ? "true" : "false"}`,
+              `Risk level: ${riskLevel}`,
+              `Successful channels: ${successful.join(", ") || "-"}`,
+              `Failed channels: ${failed.join(", ") || "-"}`,
+              `Skipped channels: ${skipped.join(", ") || "-"}`,
+              `Stage status: ${stageSummary}`,
+            ].join("\n");
+
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo,
+              state: "open",
+              creator: "github-actions[bot]",
+            });
+            if (openIssues.some((issue) => issue.title === title)) {
+              core.info("Issue already exists");
+              return;
+            }
+
+            await github.rest.issues.create({
+              ...context.repo,
+              title,
+              body,
+              labels: [
+                "reliability",
+                ...(allChannelsFailed ? ["delivery-failure"] : []),
+                ...(highRiskReport ? ["risk-high"] : []),
+              ],
+            });
+
+  review-issue:
+    needs: review-queue
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Download review queue artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: review-queue
+          path: out/review-queue/
+
+      - name: Open issues for high-value review queue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const path = "out/review-queue/review-issues.json";
+            if (!fs.existsSync(path)) {
+              core.info("No review queue artifact found");
+              return;
+            }
+
+            const payload = JSON.parse(fs.readFileSync(path, "utf8"));
+            const issues = Array.isArray(payload.issues) ? payload.issues : [];
+            if (issues.length === 0) {
+              core.info("No review queue issues needed");
+              return;
+            }
+
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo,
+              state: "open",
+            });
+
+            for (const candidate of issues) {
+              const title = String(candidate.title || "").trim();
+              if (!title) {
+                continue;
+              }
+              if (!title.startsWith("[V7 review]")) {
+                core.info(`Skip non-review issue payload: ${title}`);
+                continue;
+              }
+              if (openIssues.some((issue) => issue.title === title)) {
+                core.info(`Issue already exists: ${title}`);
+                continue;
+              }
+
+              await github.rest.issues.create({
+                ...context.repo,
+                title,
+                body: String(candidate.body || ""),
+                labels: Array.isArray(candidate.labels) ? candidate.labels : ["review", "high-value"],
+              });
+            }

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations Dashboard</title>
+<style>
+  :root {
+    --bg: #07111f;
+    --panel: rgba(10, 24, 41, 0.82);
+    --panel-strong: #11213a;
+    --text: #e8eef5;
+    --muted: #9db1c7;
+    --line: rgba(157, 177, 199, 0.18);
+    --accent: #79d0ff;
+    --ok: #53d79c;
+    --warn: #ffd36a;
+    --error: #ff7d7d;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(121, 208, 255, 0.18), transparent 28%),
+      radial-gradient(circle at top right, rgba(83, 215, 156, 0.14), transparent 24%),
+      linear-gradient(180deg, #050b15 0%, var(--bg) 100%);
+  }
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 20px 56px;
+  }
+  .hero {
+    display: grid;
+    gap: 18px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(17, 33, 58, 0.96), rgba(7, 17, 31, 0.92));
+    box-shadow: var(--shadow);
+  }
+  .eyebrow {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(32px, 6vw, 54px);
+    line-height: 0.98;
+  }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    backdrop-filter: blur(12px);
+  }
+  .card span {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .card strong {
+    font-size: 30px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 19px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+  }
+  th {
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  .badge {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .badge-ok {
+    color: #052612;
+    background: var(--ok);
+  }
+  .badge-error {
+    color: #350707;
+    background: var(--error);
+  }
+  .badge-muted {
+    color: #122538;
+    background: var(--warn);
+  }
+  .kv {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .kv span {
+    color: var(--muted);
+  }
+  .empty {
+    color: var(--muted);
+  }
+  .footnote {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .reason-list {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text);
+    display: grid;
+    gap: 8px;
+  }
+  .reason-list li {
+    line-height: 1.45;
+  }
+  .metric-negative {
+    color: var(--error);
+    font-weight: 700;
+  }
+  .metric-positive {
+    color: var(--ok);
+    font-weight: 700;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Private Ops View</div>
+    <h1>Operations Dashboard</h1>
+    <div class="footnote">Generated at 2026-04-11T09:36:36.918207+00:00</div>
+    <div class="summary">
+      <div class="card"><span>Push State</span><strong>False</strong></div>
+      <div class="card"><span>Success</span><strong>0</strong></div>
+      <div class="card"><span>Failed</span><strong>0</strong></div>
+      <div class="card"><span>Skipped</span><strong>0</strong></div>
+      <div class="card"><span>Risk Level</span><strong>low</strong></div>
+      <div class="card"><span>Delivery Rate</span><strong>-</strong></div>
+      <div class="card"><span>Prompt Eval Runs</span><strong>1</strong></div>
+      <div class="card"><span>Latest Eval Cases</span><strong>1</strong></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Delivery Channels</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Status</th>
+            <th>Error Type</th>
+            <th>Attempted At</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5" class="empty">No delivery data</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Scheduler</h2>
+      <div class="kv empty">No data</div>
+      <h2 class="section-title" style="margin-top: 22px;">Stage Status</h2>
+      <div class="kv"><span>analysis</span><strong>ok</strong></div>
+<div class="kv"><span>summary</span><strong>ok</strong></div>
+<div class="kv"><span>forecast</span><strong>ok</strong></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Source Stats</h2>
+      <div class="kv"><span>collected_items</span><strong>90</strong></div>
+<div class="kv"><span>filtered_topics</span><strong>90</strong></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title">Timings</h2>
+      <div class="kv"><span>collection</span><strong>13.6</strong></div>
+<div class="kv"><span>dedup_score</span><strong>78.48</strong></div>
+<div class="kv"><span>ai_total</span><strong>0.0</strong></div>
+<div class="kv"><span>rendering</span><strong>0.01</strong></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">External Enrichment</h2>
+      <div class="kv"><span>enabled</span><strong>off</strong></div>
+<div class="kv"><span>max_signals</span><strong>0</strong></div>
+<div class="kv"><span>attempted</span><strong>0</strong></div>
+<div class="kv"><span>succeeded</span><strong>0</strong></div>
+<div class="kv"><span>failed</span><strong>0</strong></div>
+<div class="kv"><span>skipped</span><strong>0</strong></div>
+<div class="kv"><span>budget_used</span><strong>0</strong></div>
+<div class="kv"><span>success_rate</span><strong>-</strong></div>
+<div class="kv"><span>circuit</span><strong>closed</strong></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title">Enrichment Reasons</h2>
+      <div class="empty">No enrichment diagnostics</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Prompt Evaluation Trend</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Generated At</th>
+            <th>Dataset</th>
+            <th>Cases</th>
+            <th>Evaluations</th>
+            <th>Top Prompt</th>
+            <th>Top Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-04-11T18:48:40.610819+08:00</td><td>C:\Users\24160\AppData\Local\Temp\vsai-prompt-eval-smoke.json</td><td>1</td><td>1</td><td>summary-legacy / legacy</td><td>1.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Prompt Regression Watch</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Prompt</th>
+            <th>Latest Version</th>
+            <th>Previous Version</th>
+            <th>Model</th>
+            <th>Latest Score</th>
+            <th>Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="7" class="empty">No comparable prompt regression history</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>

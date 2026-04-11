@@ -1,0 +1,142 @@
+name: Compensate Report
+
+on:
+  schedule:
+    - cron: "43 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    outputs:
+      should_compensate: ${{ steps.inspect.outputs.should_compensate }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Decide whether compensation is needed
+        id: inspect
+        shell: pwsh
+        run: |
+          $today = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId((Get-Date), "China Standard Time").ToString("yyyy-MM-dd")
+          $archiveDir = Join-Path $PWD "data/archives/$today"
+          $shouldCompensate = $true
+          if (Test-Path $archiveDir) {
+            $existing = Get-ChildItem -Path $archiveDir -Filter *.html -ErrorAction SilentlyContinue
+            if ($existing) {
+              $shouldCompensate = $false
+            }
+          }
+          $runStatusPath = Join-Path $PWD "data/state/run-status.json"
+          if (Test-Path $runStatusPath) {
+            $status = Get-Content -Raw $runStatusPath | ConvertFrom-Json
+            $isTodayStatus = $status.generated_at -like "$today*"
+            $allChannelsFailed = ($status.delivery_results.failed_channels.Count -gt 0) -and ($status.delivery_results.successful_channels.Count -eq 0)
+            if ($isTodayStatus -and $allChannelsFailed) {
+              $shouldCompensate = $true
+            }
+          }
+          "should_compensate=$($shouldCompensate.ToString().ToLower())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+  compensate:
+    needs: inspect
+    if: needs.inspect.outputs.should_compensate == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run compensation report
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_CHAT_ID: ${{ secrets.FEISHU_CHAT_ID }}
+          REPORT_REPO_URL: https://github.com/wsysgz/VS_AI
+          AUTO_PUSH_ENABLED: "true"
+          SCHEDULER_TRIGGER_KIND: compensation
+          SCHEDULER_COMPENSATION_RUN: "true"
+        run: python -m auto_report.cli run-once
+
+      - name: Build Pages site
+        run: python -m auto_report.cli build-pages
+
+      - name: Build private ops dashboard
+        run: python -m auto_report.cli build-ops-dashboard
+
+      - name: Auto commit compensation outputs
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: compensate daily report [skip ci]"
+          file_pattern: "data/** docs/index.html docs/archives/** docs/.nojekyll"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Upload ops dashboard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compensation-ops-dashboard
+          path: out/ops-dashboard/
+          retention-days: 7
+
+  reliability-issue:
+    needs:
+      - inspect
+      - compensate
+    if: always() && needs.inspect.outputs.should_compensate == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      issues: write
+    steps:
+      - name: Open issue on consecutive compensation failures
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflowFile = "compensate-report.yml";
+            const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
+              ...context.repo,
+              workflow_id: workflowFile,
+              per_page: 5,
+            });
+            const recent = runs
+              .filter((run) => run.status === "completed")
+              .slice(0, 2);
+            if (recent.length < 2 || !recent.every((run) => run.conclusion === "failure")) {
+              core.info("No consecutive compensation failures detected");
+              return;
+            }
+
+            const title = "[V7 reliability] consecutive compensation failures";
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo,
+              state: "open",
+              creator: "github-actions[bot]",
+            });
+            if (openIssues.some((issue) => issue.title === title)) {
+              core.info("Issue already exists");
+              return;
+            }
+
+            await github.rest.issues.create({
+              ...context.repo,
+              title,
+              body: "Detected consecutive compensation failures in the same-day recovery chain.",
+              labels: ["reliability"],
+            });

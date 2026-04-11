@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 
@@ -109,15 +110,34 @@ def _to_relative_paths(files: list[str], root_dir: Path) -> list[str]:
     return result
 
 
+def _default_external_enrichment_status() -> dict[str, object]:
+    return {
+        "enabled": False,
+        "max_signals": 0,
+        "attempted": 0,
+        "succeeded": 0,
+        "failed": 0,
+        "skipped": 0,
+        "budget_used": 0,
+        "success_rate": 0.0,
+        "circuit_open": False,
+        "reasons": [],
+    }
+
+
 def build_run_status(
     generated_files: list[str],
     pushed: bool,
     push_channel: str = "",
+    publication_mode: str = "auto",
     push_response: dict[str, Any] | None = None,
     delivery_results: dict[str, Any] | None = None,
     stage_status: dict[str, str] | None = None,
     source_stats: dict[str, int] | None = None,
+    scheduler: dict[str, Any] | None = None,
     timings: dict[str, float] | None = None,
+    risk_level: str = "low",
+    external_enrichment: dict[str, Any] | None = None,
     error: str | None = None,
 ) -> dict[str, object]:
     payload: dict[str, object] = {
@@ -125,6 +145,7 @@ def build_run_status(
         "generated_files": generated_files,
         "pushed": pushed,
         "push_channel": push_channel,
+        "publication_mode": "reviewed" if str(publication_mode).strip().lower() == "reviewed" else "auto",
         "push_response": _summarize_push_response(push_response),
         "delivery_results": delivery_results or {
             "channels": {},
@@ -134,6 +155,12 @@ def build_run_status(
         },
         "stage_status": stage_status or {},
         "source_stats": source_stats or {},
+        "risk_level": risk_level,
+        "external_enrichment": external_enrichment or _default_external_enrichment_status(),
+        "scheduler": scheduler or {
+            "trigger_kind": "manual",
+            "compensation_run": False,
+        },
     }
     if timings:
         payload["timings"] = timings

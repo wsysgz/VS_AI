@@ -4,21 +4,44 @@ import argparse
 from pathlib import Path
 
 
+def _add_publication_mode_argument(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--publication-mode",
+        choices=("auto", "reviewed"),
+        default="",
+        help="Select publication track for this run; defaults to env PUBLICATION_MODE or auto",
+    )
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="auto-report")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("run-once", help="Collect, analyze, render, and archive reports once")
+    run_once_parser = subparsers.add_parser("run-once", help="Collect, analyze, render, and archive reports once")
+    _add_publication_mode_argument(run_once_parser)
     backfill_parser = subparsers.add_parser("backfill", help="Rerun the report pipeline for a specific target date")
     backfill_parser.add_argument("--target-date", default="", help="Target date in YYYY-MM-DD format, defaults to today")
-    subparsers.add_parser("render-report", help="Render reports from current state without recollecting")
+    _add_publication_mode_argument(backfill_parser)
+    render_report_parser = subparsers.add_parser("render-report", help="Render reports from current state without recollecting")
+    _add_publication_mode_argument(render_report_parser)
     diagnose_parser = subparsers.add_parser("diagnose-delivery", help="Inspect or send delivery test messages")
+    diagnose_parser.add_argument(
+        "--mode",
+        choices=("canary", "full-report"),
+        default="canary",
+        help="Delivery diagnostic mode",
+    )
     diagnose_parser.add_argument("--send", action="store_true", help="Actually send test messages to configured channels")
 
     # CI 专用命令 — Phase 0: 拆分为三个独立阶段供多 job workflow 使用
     subparsers.add_parser("collect-only", help="[CI] Collect + dedup + classify + score, save intermediate result")
     subparsers.add_parser("analyze-only", help="[CI] Run AI 3-stage pipeline on collected data")
-    subparsers.add_parser("render-and-push", help="[CI] Render MD/JSON/HTML + push to all channels + archive")
+    render_and_push_parser = subparsers.add_parser("render-and-push", help="[CI] Render MD/JSON/HTML + push to all channels + archive")
+    _add_publication_mode_argument(render_and_push_parser)
     subparsers.add_parser("build-pages", help="[CI] Build GitHub Pages site (index + archives)")
+    subparsers.add_parser("build-ops-dashboard", help="[CI] Build private ops dashboard artifact")
+    subparsers.add_parser("build-review-queue", help="[CI] Build human review issue payloads from latest report")
+    eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
+    eval_parser.add_argument("--dataset", required=True, help="Path to offline prompt evaluation dataset JSON")
 
     return parser
 
@@ -31,27 +54,35 @@ def main() -> int:
     if args.command == "run-once":
         from auto_report.app import run_once
 
-        run_once(root_dir)
+        run_once(root_dir, publication_mode=getattr(args, "publication_mode", ""))
         return 0
 
     if args.command == "render-report":
         from auto_report.app import render_reports
 
-        render_reports(root_dir)
+        render_reports(root_dir, publication_mode=getattr(args, "publication_mode", ""))
         return 0
 
     if args.command == "backfill":
         from auto_report.app import run_backfill
 
         target_date = getattr(args, "target_date", None) or ""
-        run_backfill(root_dir, target_date=target_date)
+        run_backfill(
+            root_dir,
+            target_date=target_date,
+            publication_mode=getattr(args, "publication_mode", ""),
+        )
         return 0
 
     if args.command == "diagnose-delivery":
         from auto_report.app import cmd_diagnose_delivery
 
-        cmd_diagnose_delivery(root_dir, send=getattr(args, "send", False))
-        return 0
+        summary = cmd_diagnose_delivery(
+            root_dir,
+            send=getattr(args, "send", False),
+            mode=getattr(args, "mode", "canary"),
+        )
+        return 1 if summary["failed_channels"] else 0
 
     # ===== CI 专用命令 =====
     if args.command == "collect-only":
@@ -69,13 +100,31 @@ def main() -> int:
     if args.command == "render-and-push":
         from auto_report.app import cmd_render_and_push
 
-        cmd_render_and_push(root_dir)
+        cmd_render_and_push(root_dir, publication_mode=getattr(args, "publication_mode", ""))
         return 0
 
     if args.command == "build-pages":
         from auto_report.outputs.pages_builder import build_pages_site
 
         build_pages_site(root_dir)
+        return 0
+
+    if args.command == "build-ops-dashboard":
+        from auto_report.outputs.ops_dashboard import build_ops_dashboard
+
+        build_ops_dashboard(root_dir)
+        return 0
+
+    if args.command == "build-review-queue":
+        from auto_report.app import cmd_build_review_queue
+
+        cmd_build_review_queue(root_dir)
+        return 0
+
+    if args.command == "evaluate-prompts":
+        from auto_report.app import cmd_evaluate_prompts
+
+        cmd_evaluate_prompts(root_dir, dataset_path=getattr(args, "dataset", ""))
         return 0
 
     return 0

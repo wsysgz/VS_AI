@@ -30,6 +30,19 @@ def test_build_run_status_includes_stage_status_and_source_counts():
     assert status["source_stats"]["filtered_topics"] == 5
 
 
+def test_build_run_status_includes_scheduler_context():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        scheduler={"trigger_kind": "compensation", "compensation_run": True},
+    )
+
+    assert status["scheduler"] == {
+        "trigger_kind": "compensation",
+        "compensation_run": True,
+    }
+
+
 def test_build_run_status_summarizes_push_responses():
     status = build_run_status(
         generated_files=["data/reports/latest-summary.md"],
@@ -103,6 +116,38 @@ def test_build_run_status_summarizes_feishu_responses():
     }
 
 
+def test_build_run_status_includes_external_enrichment_metrics():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        external_enrichment={
+            "enabled": True,
+            "max_signals": 2,
+            "attempted": 2,
+            "succeeded": 1,
+            "failed": 1,
+            "skipped": 0,
+            "budget_used": 2,
+            "success_rate": 0.5,
+            "circuit_open": False,
+            "reasons": ["empty-result: Topic B"],
+        },
+    )
+
+    assert status["external_enrichment"]["attempted"] == 2
+    assert status["external_enrichment"]["success_rate"] == 0.5
+
+
+def test_build_run_status_includes_publication_mode():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary-reviewed.md"],
+        pushed=False,
+        publication_mode="reviewed",
+    )
+
+    assert status["publication_mode"] == "reviewed"
+
+
 def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
@@ -127,7 +172,7 @@ def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
         lambda settings: (sample_items, ["测试诊断"]),
     )
 
-    generated_files, _ = render_reports(tmp_path)
+    generated_files, _, _ = render_reports(tmp_path)
 
     assert any(path.endswith("latest-summary.md") for path in generated_files)
     content = (tmp_path / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8")
@@ -135,6 +180,39 @@ def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
     assert "## 一句话判断" in content
     assert "## 重点主线" in content
     assert "## 行动建议" in content
+
+
+def test_render_reports_writes_reviewed_track_outputs(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+
+    generated_files, _, _ = render_reports(tmp_path, publication_mode="reviewed")
+
+    reviewed_json = tmp_path / "data" / "reports" / "latest-summary-reviewed.json"
+    payload = json.loads(reviewed_json.read_text(encoding="utf-8"))
+
+    assert any(path.endswith("latest-summary-reviewed.json") for path in generated_files)
+    assert payload["meta"]["publication_mode"] == "reviewed"
 
 
 def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
@@ -172,6 +250,52 @@ def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
     assert '"pushed": false' in status
     assert '"stage_status"' in status
     assert '"source_stats"' in status
+    assert '"risk_level"' in status
+
+
+def test_run_once_records_reviewed_publication_mode_and_detail_link(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    captured: dict[str, str] = {}
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+
+    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key="", **kwargs):
+        captured["title"] = title
+        captured["content"] = content
+        return {"code": 200}
+
+    monkeypatch.setattr("auto_report.app.send_pushplus", fake_send_pushplus)
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+
+    run_once(tmp_path, publication_mode="reviewed")
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+
+    assert status["publication_mode"] == "reviewed"
+    assert any(path.endswith("latest-summary-reviewed.md") for path in status["generated_files"])
+    assert "latest-summary-reviewed.md" in captured["content"]
 
 
 def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
@@ -219,12 +343,14 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
 
     run_once(tmp_path)
 
+    assert captured["content"].startswith("AI情报早报 |")
     assert captured["channel"] == "clawbot"
     assert captured["template"] == "txt"
     assert "今日判断：" in captured["content"]
     assert "三条主线：" in captured["content"]
     assert "详情链接：" in captured["content"]
-    assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md" in captured["content"]
+    assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md" in captured["content"]
+    assert "执行摘要" not in captured["content"]
 
 
 def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypatch):
@@ -278,6 +404,68 @@ def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypat
     assert "执行摘要" in captured["text"]
     assert "关键主线" in captured["text"]
     assert "重点主题" in captured["text"]
+    assert "详情链接：" in captured["text"]
+
+
+def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    captured: dict[str, str] = {}
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: {"code": 200},
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}],
+    )
+
+    def fake_send_feishu_messages(app_id, app_secret, chat_id, text, **kwargs):
+        captured["app_id"] = app_id
+        captured["chat_id"] = chat_id
+        captured["text"] = text
+        return [{"code": 0, "data": {"message_id": "om_1"}}]
+
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "8566057843")
+    monkeypatch.setenv("FEISHU_APP_ID", "feishu-app")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "feishu-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "oc_xxx")
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+
+    run_once(tmp_path)
+
+    assert captured["app_id"] == "feishu-app"
+    assert captured["chat_id"] == "oc_xxx"
+    assert captured["text"].startswith("AI情报飞书简报 |")
+    assert "执行摘要" in captured["text"]
+    assert "关键主线" in captured["text"]
+    assert "行动建议" in captured["text"]
+    assert "重点主题" not in captured["text"]
     assert "详情链接：" in captured["text"]
 
 
@@ -372,6 +560,100 @@ def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monke
     assert status["push_channel"] == "pushplus,telegram"
     assert status["delivery_results"]["successful_channels"] == ["pushplus", "telegram"]
     assert status["delivery_results"]["failed_channels"] == ["feishu"]
+
+
+def test_run_once_persists_scheduler_and_delivery_error_metadata(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("request timed out")),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}],
+    )
+    monkeypatch.delenv("FEISHU_APP_ID", raising=False)
+    monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
+    monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("SCHEDULER_TRIGGER_KIND", "compensation")
+    monkeypatch.setenv("SCHEDULER_COMPENSATION_RUN", "true")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    pushplus = status["delivery_results"]["channels"]["pushplus"]
+
+    assert status["scheduler"] == {
+        "trigger_kind": "compensation",
+        "compensation_run": True,
+    }
+    assert pushplus["error_type"] == "network"
+    assert pushplus["attempted_at"]
+    assert status["delivery_results"]["channels"]["telegram"]["attempted_at"]
+
+
+def test_run_once_writes_external_enrichment_metrics_into_run_status(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: {"code": 200},
+    )
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "false")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+
+    assert "external_enrichment" in status
+    assert status["external_enrichment"]["enabled"] in {True, False}
+    assert "success_rate" in status["external_enrichment"]
 
 
 def test_cmd_analyze_only_enables_ai_for_openai_provider(tmp_path, monkeypatch):

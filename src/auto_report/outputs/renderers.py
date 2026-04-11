@@ -26,6 +26,14 @@ def render_markdown_report(
         f"- {item['title']}：{item['why_it_matters']}"
         for item in brief["mainlines"]
     ) or "- 暂无"
+    mainline_memory = "\n".join(
+        (
+            f"- {item['title']}：{item['lifecycle_state']} / {item['risk_level']} / "
+            f"已持续 {item['days_seen']} 天"
+            + (f" / {item['enrichment_summary']}" if item.get("enrichment_summary") else "")
+        )
+        for item in brief["mainline_memory"]
+    ) or "- 暂无"
     limitations = "\n".join(f"- {item}" for item in brief["limitations"]) or "- 暂无"
     actions = "\n".join(f"- {item}" for item in brief["actions"]) or "- 暂无"
 
@@ -46,6 +54,9 @@ def render_markdown_report(
         "## 重点主线",
         mainlines,
         "",
+        "## 跨日主线记忆",
+        mainline_memory,
+        "",
         "## 重点主题分析",
     ]
 
@@ -57,10 +68,21 @@ def render_markdown_report(
                 f"- 主要矛盾：{topic['primary_contradiction']}",
                 f"- 核心洞察：{topic['core_insight']}",
                 f"- 置信度：{topic['confidence']}",
+                f"- 生命周期：{topic['lifecycle_state']}",
+                f"- 风险等级：{topic['risk_level']}",
+                f"- 交叉印证：{topic['enrichment_summary'] or '暂无'}",
                 f"- 链接：{topic['url']}",
                 "",
             ]
         )
+        for evidence in topic.get("support_evidence", []):
+            lines.extend(
+                [
+                    f"- 佐证：{evidence['source_type']} | {evidence['title']} | {evidence['url']}",
+                ]
+            )
+        if topic.get("support_evidence"):
+            lines.append("")
 
     lines.extend(
         [
@@ -82,7 +104,7 @@ def render_json_report(payload: dict[str, object]) -> str:
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
 
-def render_text_notification(
+def render_pushplus_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
@@ -105,6 +127,20 @@ def render_text_notification(
 
     lines.extend(["观察：", brief["watchlist"], "详情链接：", detail_url])
     return "\n".join(lines)
+
+
+def render_text_notification(
+    title: str,
+    generated_at: str,
+    payload: dict[str, object],
+    detail_url: str,
+) -> str:
+    return render_pushplus_notification(
+        title=title,
+        generated_at=generated_at,
+        payload=payload,
+        detail_url=detail_url,
+    )
 
 
 def render_telegram_notification(
@@ -151,6 +187,41 @@ def render_telegram_notification(
     return "\n".join(lines)
 
 
+def render_feishu_notification(
+    title: str,
+    generated_at: str,
+    payload: dict[str, object],
+    detail_url: str,
+) -> str:
+    brief = compose_executive_brief(title, generated_at, payload)
+    executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"][:2]) or "- 暂无"
+    mainlines = "\n".join(
+        f"- {item['title']}：{item['why_it_matters']}"
+        for item in brief["mainlines"][:3]
+    ) or "- 暂无"
+    actions = "\n".join(f"- {item}" for item in brief["actions"][:2]) or "- 暂无"
+
+    lines = [
+        title,
+        f"生成时间：{generated_at}",
+        "",
+        "今日判断：",
+        str(brief["judgment"]),
+        "",
+        "执行摘要",
+        executive_summary,
+        "",
+        "关键主线",
+        mainlines,
+    ]
+
+    if brief["risk_note"]:
+        lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
+
+    lines.extend(["", "行动建议", actions, "", "详情链接：", detail_url])
+    return "\n".join(lines)
+
+
 def render_html_report(
     title: str,
     generated_at: str,
@@ -168,8 +239,19 @@ def render_html_report(
             contradiction = _escape(t.get("primary_contradiction", ""))
             insight = _escape(t.get("core_insight", ""))
             confidence = _escape(str(t.get("confidence", "")))
+            lifecycle_state = _escape(str(t.get("lifecycle_state", "")))
+            risk_level = _escape(str(t.get("risk_level", "")))
+            enrichment_summary = _escape(str(t.get("enrichment_summary", "")))
+            support_evidence = t.get("support_evidence", [])
             url = _escape(t.get("url", ""))
             t_title = _escape(t.get("title", "未命名主题"))
+            support_html = "".join(
+                f"<li>{_escape(str(item.get('source_type', '')))} | "
+                f"<a href=\"{_escape(str(item.get('url', '')))}\" target=\"_blank\" rel=\"noopener\">"
+                f"{_escape(str(item.get('title', '')))}</a></li>"
+                for item in support_evidence
+                if str(item.get("title", "")).strip()
+            ) or "<li>暂无</li>"
             cards.append(
                 f"""<div class="signal-card">
                 <div class="signal-header">
@@ -180,6 +262,11 @@ def render_html_report(
                   <p><strong>主领域：</strong>{domain}</p>
                   <p><strong>主要矛盾：</strong>{contradiction}</p>
                   <p><strong>核心洞察：</strong>{insight}</p>
+                  <p><strong>生命周期：</strong>{lifecycle_state or 'new'}</p>
+                  <p><strong>风险等级：</strong>{risk_level or 'low'}</p>
+                  <p><strong>交叉印证：</strong>{enrichment_summary or '暂无'}</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul>{support_html}</ul>
                 </div>
                 <a class="signal-link" href="{url}" target="_blank" rel="noopener">查看原文 →</a>
               </div>"""
@@ -196,6 +283,21 @@ def render_html_report(
         return "\n".join(items) or "<li>暂无</li>"
 
     mainline_items = _key_points(brief["mainlines"])
+    mainline_memory_items = "".join(
+        (
+            f"<li><strong>{_escape(item['title'])}</strong> "
+            f"<span class=\"domain-tag\">{_escape(item['lifecycle_state'])}</span> "
+            f"<span class=\"domain-tag\">{_escape(item['risk_level'])}</span> "
+            f"已持续 {_escape(item['days_seen'])} 天"
+            + (
+                f" · {_escape(item['enrichment_summary'])}"
+                if item.get("enrichment_summary")
+                else ""
+            )
+            + "</li>"
+        )
+        for item in brief["mainline_memory"]
+    ) or "<li>暂无</li>"
     topic_cards_html = _topic_cards(brief["topic_briefs"])
     exec_summary_li = _li(brief["executive_summary"])
     key_insights_li = _li(brief["key_insights"])
@@ -349,6 +451,11 @@ def render_html_report(
   <section id="mainlines" class="section">
     <h2 class="section-title">重点主线</h2>
     <ul style="padding-left:20px;">{mainline_items}</ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;">{mainline_memory_items}</ul>
   </section>
 
   <section id="topics" class="section">

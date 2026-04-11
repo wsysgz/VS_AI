@@ -14,6 +14,9 @@ def test_cli_exposes_all_commands():
     assert "analyze-only" in choices
     assert "render-and-push" in choices
     assert "build-pages" in choices
+    assert "build-ops-dashboard" in choices
+    assert "build-review-queue" in choices
+    assert "evaluate-prompts" in choices
 
 
 def test_ci_commands_exist():
@@ -33,10 +36,47 @@ def test_ci_commands_exist():
             sys.argv = old_argv
 
 
-def test_diagnose_delivery_command_accepts_send_flag():
+def test_diagnose_delivery_command_accepts_mode_and_send_flag():
     parser = build_parser()
 
-    args = parser.parse_args(["diagnose-delivery", "--send"])
+    args = parser.parse_args(["diagnose-delivery", "--mode", "full-report", "--send"])
 
     assert args.command == "diagnose-delivery"
+    assert args.mode == "full-report"
     assert args.send is True
+
+
+def test_diagnose_delivery_defaults_to_canary_mode():
+    parser = build_parser()
+
+    args = parser.parse_args(["diagnose-delivery"])
+
+    assert args.command == "diagnose-delivery"
+    assert args.mode == "canary"
+
+
+def test_run_once_command_accepts_publication_mode():
+    parser = build_parser()
+
+    args = parser.parse_args(["run-once", "--publication-mode", "reviewed"])
+
+    assert args.command == "run-once"
+    assert args.publication_mode == "reviewed"
+
+
+def test_backfill_command_accepts_publication_mode():
+    parser = build_parser()
+
+    args = parser.parse_args(["backfill", "--publication-mode", "reviewed"])
+
+    assert args.command == "backfill"
+    assert args.publication_mode == "reviewed"
+
+
+def test_evaluate_prompts_command_accepts_dataset_path():
+    parser = build_parser()
+
+    args = parser.parse_args(["evaluate-prompts", "--dataset", "data/evals/sample.json"])
+
+    assert args.command == "evaluate-prompts"
+    assert args.dataset == "data/evals/sample.json"

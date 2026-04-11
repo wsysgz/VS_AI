@@ -1,54 +1,168 @@
 from pathlib import Path
 
+import yaml
+
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
 
-def test_collect_report_workflow_uses_schedule_or_dispatch_push_toggle():
+def _load_workflow(name: str) -> dict[str, object]:
+    return yaml.safe_load((ROOT_DIR / ".github" / "workflows" / name).read_text(encoding="utf-8"))
+
+
+def _workflow_on(workflow: dict[str, object]) -> dict[str, object]:
+    return workflow.get("on", workflow.get(True, {}))
+
+
+def test_collect_report_workflow_uses_offset_schedule():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
-    assert "AUTO_PUSH_ENABLED: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.push_enabled == true) }}" in content
+    assert '- cron: "13 23 * * *"' in content
 
 
-def test_collect_report_workflow_commits_docs_nojekyll_file():
+def test_collect_report_workflow_calls_reusable_foundation_jobs():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
-    assert "git add docs/index.html docs/archives/ docs/.nojekyll" in content
+    assert "uses: ./.github/workflows/reusable-workflow-guard.yml" in content
+    assert "uses: ./.github/workflows/reusable-python-test.yml" in content
+    assert "uses: ./.github/workflows/reusable-collect.yml" in content
+    assert "uses: ./.github/workflows/reusable-analyze.yml" in content
+    assert "uses: ./.github/workflows/reusable-report.yml" in content
+    assert "uses: ./.github/workflows/reusable-pages.yml" in content
+    assert "uses: ./.github/workflows/reusable-ops-dashboard.yml" in content
+    assert "uses: ./.github/workflows/reusable-review-queue.yml" in content
 
 
-def test_collect_report_workflow_does_not_depend_on_missing_test_results_action():
+def test_collect_report_workflow_keeps_schedule_and_dispatch_push_toggle():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
+
+    assert "AUTO_PUSH_ENABLED: ${{ inputs.auto_push_enabled }}" in content
+    assert "PUBLICATION_MODE: ${{ inputs.publication_mode }}" in content
+    assert "SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}" in content
+    assert "SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}" in content
+    assert 'EXTERNAL_ENRICHMENT_ENABLED: "true"' in content
+    assert 'EXTERNAL_ENRICHMENT_MAX_SIGNALS: "2"' in content
+    assert 'EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS: "8"' in content
+
+
+def test_reusable_report_workflow_accepts_boolean_scheduler_flags():
+    workflow = _load_workflow("reusable-report.yml")
+    inputs = _workflow_on(workflow)["workflow_call"]["inputs"]
+
+    assert inputs["auto_push_enabled"]["type"] == "boolean"
+    assert inputs["publication_mode"]["type"] == "string"
+    assert inputs["scheduler_compensation_run"]["type"] == "boolean"
+
+
+def test_reusable_backfill_workflow_accepts_boolean_compensation_flag():
+    workflow = _load_workflow("reusable-backfill.yml")
+    inputs = _workflow_on(workflow)["workflow_call"]["inputs"]
+
+    assert inputs["publication_mode"]["type"] == "string"
+    assert inputs["skip_push"]["type"] == "boolean"
+    assert inputs["scheduler_compensation_run"]["type"] == "boolean"
+
+
+def test_collect_and_backfill_workflows_pass_boolean_compensation_values():
+    collect_workflow = _load_workflow("collect-report.yml")
+    backfill_workflow = _load_workflow("backfill-report.yml")
+
+    collect_with = collect_workflow["jobs"]["report"]["with"]
+    backfill_with = backfill_workflow["jobs"]["backfill"]["with"]
+
+    assert collect_with["publication_mode"] == "${{ github.event_name == 'workflow_dispatch' && inputs.publication_mode || 'auto' }}"
+    assert backfill_with["publication_mode"] == "${{ inputs.publication_mode }}"
+    assert collect_with["scheduler_compensation_run"] is False
+    assert backfill_with["scheduler_compensation_run"] is False
+
+
+def test_reusable_workflow_guard_runs_local_validation_script():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-workflow-guard.yml").read_text(encoding="utf-8")
+
+    assert "scripts/check-workflows.ps1" in content
+
+
+def test_reusable_python_test_workflow_uses_matrix_and_max_parallel():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-python-test.yml").read_text(encoding="utf-8")
+
+    assert "strategy:" in content
+    assert "max-parallel:" in content
+    assert "matrix:" in content
+    assert "python-version:" in content
+
+
+def test_collect_report_workflow_creates_issue_for_all_channel_delivery_failure():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
-    assert "dorny/test-results-action" not in content
-    assert "name: Upload test results artifact" in content
-    assert "path: test-results.xml" in content
+    assert "actions/github-script@v7" in content
+    assert "all delivery channels failed" in content
 
 
-def test_collect_report_workflow_rebases_pages_commit_before_push():
+def test_collect_report_workflow_creates_issue_for_high_risk_report_with_run_status_summary():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
-    assert "git pull --rebase origin main" in content
+    assert "high risk report detected" in content
+    assert "risk_level" in content
+    assert "Stage status:" in content
+    assert "Compensation run:" in content
+    assert "Successful channels:" in content
+    assert "Failed channels:" in content
 
 
-def test_collect_report_workflow_pulls_main_before_staging_pages_changes():
+def test_collect_report_workflow_creates_review_issues_from_review_queue_artifact():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
-    pull_index = content.index("git pull --rebase origin main")
-    add_index = content.index("git add docs/index.html docs/archives/ docs/.nojekyll")
-
-    assert pull_index < add_index
-
-
-def test_collect_report_workflow_pulls_main_before_downloading_final_data():
-    content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
-
-    pull_index = content.index("git pull --rebase origin main")
-    download_index = content.index("- name: Download final data")
-
-    assert pull_index < download_index
+    assert "review-queue" in content
+    assert "review-issues.json" in content
+    assert "[V7 review]" in content
+    assert "high-value" in content
+    assert "Issue already exists" in content
 
 
-def test_backfill_workflow_runs_backfill_cli():
+def test_backfill_workflow_calls_reusable_backfill_pipeline():
     content = (ROOT_DIR / ".github" / "workflows" / "backfill-report.yml").read_text(encoding="utf-8")
 
+    assert "uses: ./.github/workflows/reusable-backfill.yml" in content
+
+
+def test_reusable_backfill_workflow_builds_pages_and_ops_dashboard():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
+
     assert 'run: python -m auto_report.cli backfill --target-date "${{ inputs.target_date }}"' in content
+    assert "run: python -m auto_report.cli build-pages" in content
+    assert "run: python -m auto_report.cli build-ops-dashboard" in content
+    assert 'EXTERNAL_ENRICHMENT_ENABLED: "true"' in content
+    assert 'EXTERNAL_ENRICHMENT_MAX_SIGNALS: "2"' in content
+    assert 'EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS: "8"' in content
+
+
+def test_reusable_review_queue_workflow_builds_review_queue_artifact():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-review-queue.yml").read_text(encoding="utf-8")
+
+    assert "name: final-report" in content
+    assert "python -m auto_report.cli build-review-queue" in content
+    assert "name: review-queue" in content
+
+
+def test_reusable_backfill_workflow_commits_data_pages_and_ops_artifacts():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
+
+    assert 'file_pattern: "data/** docs/index.html docs/archives/** docs/.nojekyll"' in content
+    assert 'commit_message: "chore: backfill report for ${{ inputs.target_date || \'latest\' }} [skip ci]"' in content
+
+
+def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
+    content = (ROOT_DIR / ".github" / "workflows" / "compensate-report.yml").read_text(encoding="utf-8")
+
+    assert "SCHEDULER_TRIGGER_KIND: compensation" in content
+    assert "SCHEDULER_COMPENSATION_RUN: \"true\"" in content
+    assert "actions/github-script@v7" in content
+    assert "consecutive compensation failures" in content
+
+
+def test_canary_workflow_uses_canary_mode_and_issue_rule():
+    content = (ROOT_DIR / ".github" / "workflows" / "delivery-canary.yml").read_text(encoding="utf-8")
+
+    assert "--mode canary --send" in content
+    assert "actions/github-script@v7" in content
+    assert "consecutive canary failures" in content

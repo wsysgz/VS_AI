@@ -1,0 +1,44 @@
+name: Reusable Pages
+
+on:
+  workflow_call:
+
+jobs:
+  deploy-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install -r requirements.txt && pip install -e .
+
+      - name: Sync latest main before pages build
+        run: git pull --rebase origin main
+
+      - name: Download final data
+        uses: actions/download-artifact@v4
+        with:
+          name: final-report
+          path: data/
+
+      - name: Build Pages site (outputs to docs/)
+        run: python -m auto_report.cli build-pages
+
+      - name: Commit and push docs/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html docs/archives/ docs/.nojekyll
+          git diff --cached --quiet && echo "No changes to deploy" || git commit -m "chore: update pages site [skip ci]"
+          git push

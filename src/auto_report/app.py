@@ -7,6 +7,7 @@ from pathlib import Path
 
 from auto_report.integrations.delivery_status import (
     build_channel_result,
+    classify_channel_error,
     channel_response_succeeded,
     describe_channel_response,
     summarize_delivery_results,
@@ -16,12 +17,14 @@ from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
 from auto_report.outputs.archive import write_text
+from auto_report.outputs.ops_dashboard import build_ops_dashboard
 from auto_report.outputs.renderers import (
+    render_feishu_notification,
     render_html_report,
     render_json_report,
     render_markdown_report,
+    render_pushplus_notification,
     render_telegram_notification,
-    render_text_notification,
 )
 from auto_report.pipeline.analysis import build_report_package
 from auto_report.pipeline.run_once import build_run_status, _to_relative_paths
@@ -47,6 +50,36 @@ class StageTimer:
 
     def __exit__(self, *_args):
         self.elapsed = round(time.perf_counter() - self.start, 2)
+
+
+def _normalize_publication_mode(value: str) -> str:
+    return "reviewed" if str(value).strip().lower() == "reviewed" else "auto"
+
+
+def _resolve_publication_mode(settings, publication_mode: str = "") -> str:
+    requested = publication_mode or settings.env.get("PUBLICATION_MODE", "auto")
+    return _normalize_publication_mode(requested)
+
+
+def _summary_track_stem(publication_mode: str) -> str:
+    return f"latest-summary-{_normalize_publication_mode(publication_mode)}"
+
+
+def _archive_track_stem(generated_at: str, publication_mode: str) -> str:
+    return f"{generated_at.replace(':', '-')}-summary-{_normalize_publication_mode(publication_mode)}"
+
+
+def _report_title(publication_mode: str, backfill: bool = False) -> str:
+    title = "自动情报快报（人工复核版）" if _normalize_publication_mode(publication_mode) == "reviewed" else "自动情报快报"
+    if backfill:
+        return f"{title}（补报）"
+    return title
+
+
+def _notification_title(prefix: str, publication_mode: str, local_date: str) -> str:
+    if _normalize_publication_mode(publication_mode) == "reviewed":
+        return f"{prefix}（人工复核版） | {local_date} | 北京时间 07:00"
+    return f"{prefix} | {local_date} | 北京时间 07:00"
 
 
 def _save_intermediate(root_dir: Path, data: dict) -> str:
@@ -110,48 +143,55 @@ def _write_domain_briefs(root_dir: Path, generated_at: str, package, settings) -
     return generated
 
 
-def _load_summary_payload(root_dir: Path) -> dict[str, object]:
-    summary_json_path = root_dir / "data" / "reports" / "latest-summary.json"
-    return json.loads(summary_json_path.read_text(encoding="utf-8"))
+def _load_summary_payload(root_dir: Path, publication_mode: str = "auto") -> dict[str, object]:
+    reports_dir = root_dir / "data" / "reports"
+    candidates = [
+        reports_dir / f"{_summary_track_stem(publication_mode)}.json",
+        reports_dir / "latest-summary.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    raise FileNotFoundError(f"Summary payload not found in {reports_dir}")
 
 
-def _build_detail_url(settings) -> str:
+def _build_detail_url(settings, publication_mode: str) -> str:
     base_url = settings.env["REPORT_REPO_URL"].rstrip("/")
-    return f"{base_url}/blob/main/data/reports/latest-summary.md"
+    return f"{base_url}/blob/main/data/reports/{_summary_track_stem(publication_mode)}.md"
 
 
-def _build_text_notification(root_dir: Path, settings) -> str:
-    payload = _load_summary_payload(root_dir)
+def _build_text_notification(root_dir: Path, settings, publication_mode: str) -> str:
+    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
-    return render_text_notification(
-        title=f"AI情报早报 | {local_date} | 北京时间 07:00",
+    return render_pushplus_notification(
+        title=_notification_title("AI情报早报", publication_mode, local_date),
         generated_at=generated_at,
         payload=payload,
-        detail_url=_build_detail_url(settings),
+        detail_url=_build_detail_url(settings, publication_mode),
     )
 
 
-def _build_telegram_notification(root_dir: Path, settings) -> str:
-    payload = _load_summary_payload(root_dir)
+def _build_telegram_notification(root_dir: Path, settings, publication_mode: str) -> str:
+    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
-    detail_url = _build_detail_url(settings)
+    detail_url = _build_detail_url(settings, publication_mode)
     return render_telegram_notification(
-        title=f"AI情报完整简报 | {local_date} | 北京时间 07:00",
+        title=_notification_title("AI情报完整简报", publication_mode, local_date),
         generated_at=generated_at,
         payload=payload,
         detail_url=detail_url,
     )
 
 
-def _build_feishu_notification(root_dir: Path, settings) -> str:
-    payload = _load_summary_payload(root_dir)
+def _build_feishu_notification(root_dir: Path, settings, publication_mode: str) -> str:
+    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
-    detail_url = _build_detail_url(settings)
-    return render_telegram_notification(
-        title=f"AI情报完整简报 | {local_date} | 北京时间 07:00",
+    detail_url = _build_detail_url(settings, publication_mode)
+    return render_feishu_notification(
+        title=_notification_title("AI情报飞书简报", publication_mode, local_date),
         generated_at=generated_at,
         payload=payload,
         detail_url=detail_url,
@@ -174,20 +214,48 @@ def _build_delivery_probe_messages() -> dict[str, dict[str, str]]:
     }
 
 
-def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: bool = False) -> tuple[dict[str, object], dict[str, object]]:
+def _empty_delivery_results() -> dict[str, object]:
+    return {
+        "channels": {},
+        "successful_channels": [],
+        "failed_channels": [],
+        "skipped_channels": [],
+    }
+
+
+def _scheduler_context(settings) -> dict[str, object]:
+    return {
+        "trigger_kind": settings.env.get("SCHEDULER_TRIGGER_KIND", "manual") or "manual",
+        "compensation_run": settings.env.get("SCHEDULER_COMPENSATION_RUN", "false").lower() == "true",
+    }
+
+
+def _collect_delivery_results(
+    root_dir: Path,
+    settings,
+    send: bool,
+    mode: str = "full-report",
+    publication_mode: str = "auto",
+) -> tuple[dict[str, object], dict[str, object]]:
     responses: dict[str, object] = {}
     results: dict[str, dict[str, object]] = {}
     request_timeout = int(settings.env.get("DELIVERY_REQUEST_TIMEOUT", "20"))
+    probe_messages = _build_delivery_probe_messages()
 
-    if diagnostic:
-        probe_messages = _build_delivery_probe_messages()
-        pushplus_content = probe_messages["pushplus"]["content"]
-        telegram_content = probe_messages["telegram"]["text"]
-        feishu_content = probe_messages["feishu"]["text"]
-    else:
-        pushplus_content = _build_text_notification(root_dir, settings)
-        telegram_content = _build_telegram_notification(root_dir, settings)
-        feishu_content = _build_feishu_notification(root_dir, settings)
+    pushplus_title = _report_title(publication_mode)
+    pushplus_content = ""
+    telegram_content = ""
+    feishu_content = ""
+    if send:
+        if mode == "canary":
+            pushplus_title = probe_messages["pushplus"]["title"]
+            pushplus_content = probe_messages["pushplus"]["content"]
+            telegram_content = probe_messages["telegram"]["text"]
+            feishu_content = probe_messages["feishu"]["text"]
+        else:
+            pushplus_content = _build_text_notification(root_dir, settings, publication_mode)
+            telegram_content = _build_telegram_notification(root_dir, settings, publication_mode)
+            feishu_content = _build_feishu_notification(root_dir, settings, publication_mode)
 
     delivery_plan = [
         (
@@ -195,10 +263,12 @@ def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: 
             bool(settings.env["PUSHPLUS_TOKEN"]),
             lambda: send_pushplus(
                 settings.env["PUSHPLUS_TOKEN"],
-                "自动情报快报" if not diagnostic else probe_messages["pushplus"]["title"],
-                pushplus_content if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or diagnostic else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
+                pushplus_title,
+                pushplus_content
+                if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or mode == "canary"
+                else (root_dir / "data" / "reports" / f"{_summary_track_stem(publication_mode)}.md").read_text(encoding="utf-8"),
                 channel=settings.env["PUSHPLUS_CHANNEL"],
-                template="txt" if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or diagnostic else "markdown",
+                template="txt" if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or mode == "canary" else "markdown",
                 secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
                 base_url=settings.env["PUSHPLUS_BASE_URL"],
                 timeout=request_timeout,
@@ -249,15 +319,20 @@ def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: 
             )
             continue
         try:
+            attempted_at = datetime.now().astimezone().isoformat(timespec="seconds")
             response = sender()
+            ok = channel_response_succeeded(channel_name, response)
+            detail = describe_channel_response(channel_name, response)
             responses[channel_name] = response
             results[channel_name] = build_channel_result(
                 channel_name,
                 configured=True,
                 attempted=True,
-                ok=channel_response_succeeded(channel_name, response),
-                detail=describe_channel_response(channel_name, response),
+                ok=ok,
+                detail=detail,
                 response=response,
+                error_type=None if ok else classify_channel_error(channel_name, response, detail),
+                attempted_at=attempted_at,
             )
         except Exception as exc:
             error_response = {"error": str(exc)}
@@ -269,13 +344,16 @@ def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: 
                 ok=False,
                 detail=str(exc),
                 response=error_response,
+                error_type=classify_channel_error(channel_name, error_response, str(exc)),
+                attempted_at=datetime.now().astimezone().isoformat(timespec="seconds"),
             )
 
     return summarize_delivery_results(results), responses
 
 
-def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
+def render_reports(root_dir: Path, publication_mode: str = "") -> tuple[list[str], dict[str, float], dict[str, object]]:
     settings = load_settings(root_dir)
+    resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
     generated_at = datetime.now().astimezone().isoformat()
     reports_dir = root_dir / "data" / "reports"
     state_dir = root_dir / "data" / "state"
@@ -290,6 +368,7 @@ def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
         package = build_report_package(settings, items, diagnostics)
         # dedup + classify + score + AI pipeline 全部在 build_report_package 内完成
         package.summary_payload["meta"]["generated_at"] = generated_at
+        package.summary_payload["meta"]["publication_mode"] = resolved_publication_mode
     timings["dedup_score"] = t.elapsed
 
     # 从 package 中提取 AI 阶段耗时（如果 ai_pipeline 有内部计时）
@@ -297,13 +376,13 @@ def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
 
     with StageTimer("rendering") as t:
         summary_markdown = _compose_report_markdown(
-            title="自动情报快报",
+            title=_report_title(resolved_publication_mode),
             generated_at=generated_at,
             payload=package.summary_payload,
         )
         summary_json = render_json_report(package.summary_payload)
         summary_html = render_html_report(
-            title="自动情报快报",
+            title=_report_title(resolved_publication_mode),
             generated_at=generated_at,
             payload=package.summary_payload,
         )
@@ -311,36 +390,55 @@ def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
         summary_md_path = reports_dir / "latest-summary.md"
         summary_json_path = reports_dir / "latest-summary.json"
         summary_html_path = reports_dir / "latest-summary.html"
+        track_md_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.md"
+        track_json_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.json"
+        track_html_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.html"
         archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
         archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
         archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
+        track_archive_md_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.md"
+        track_archive_json_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.json"
+        track_archive_html_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.html"
         dedup_state_path = state_dir / "dedup-index.json"
 
         write_text(summary_md_path, summary_markdown)
         write_text(summary_json_path, summary_json)
         write_text(summary_html_path, summary_html)
+        write_text(track_md_path, summary_markdown)
+        write_text(track_json_path, summary_json)
+        write_text(track_html_path, summary_html)
         write_text(archive_md_path, summary_markdown)
         write_text(archive_json_path, summary_json)
         write_text(archive_html_path, summary_html)
+        write_text(track_archive_md_path, summary_markdown)
+        write_text(track_archive_json_path, summary_json)
+        write_text(track_archive_html_path, summary_html)
         write_text(dedup_state_path, render_json_report(package.dedup_state))
 
         generated_files = [
             str(summary_md_path),
             str(summary_json_path),
             str(summary_html_path),
+            str(track_md_path),
+            str(track_json_path),
+            str(track_html_path),
             str(archive_md_path),
             str(archive_json_path),
             str(archive_html_path),
+            str(track_archive_md_path),
+            str(track_archive_json_path),
+            str(track_archive_html_path),
             str(dedup_state_path),
         ]
         generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
     timings["rendering"] = t.elapsed
 
-    return generated_files, timings
+    return generated_files, timings, package.external_enrichment
 
 
-def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
+def run_backfill(root_dir: Path, target_date: str = "", publication_mode: str = "") -> list[str]:
     settings = load_settings(root_dir)
+    resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
     generated_at = datetime.now().astimezone().isoformat()
     timings: dict[str, float] = {}
 
@@ -356,18 +454,19 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
     with StageTimer("dedup_score") as t:
         package = build_report_package(settings, items, diagnostics)
         package.summary_payload["meta"]["generated_at"] = generated_at
+        package.summary_payload["meta"]["publication_mode"] = resolved_publication_mode
     timings["dedup_score"] = t.elapsed
     timings["ai_total"] = 0.0  # AI pipeline 已在 build_report_package 内完成
 
     with StageTimer("rendering") as t:
         summary_markdown = _compose_report_markdown(
-            title="自动情报快报（补报）",
+            title=_report_title(resolved_publication_mode, backfill=True),
             generated_at=generated_at,
             payload=package.summary_payload,
         )
         summary_json = render_json_report(package.summary_payload)
         summary_html = render_html_report(
-            title="自动情报快报（补报）",
+            title=_report_title(resolved_publication_mode, backfill=True),
             generated_at=generated_at,
             payload=package.summary_payload,
         )
@@ -375,26 +474,44 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
         summary_md_path = reports_dir / "latest-summary.md"
         summary_json_path = reports_dir / "latest-summary.json"
         summary_html_path = reports_dir / "latest-summary.html"
+        track_md_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.md"
+        track_json_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.json"
+        track_html_path = reports_dir / f"{_summary_track_stem(resolved_publication_mode)}.html"
         archive_md_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.md"
         archive_json_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.json"
         archive_html_path = archive_dir / f"{generated_at.replace(':', '-')}-summary.html"
+        track_archive_md_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.md"
+        track_archive_json_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.json"
+        track_archive_html_path = archive_dir / f"{_archive_track_stem(generated_at, resolved_publication_mode)}.html"
         dedup_state_path = state_dir / "dedup-index.json"
 
         write_text(summary_md_path, summary_markdown)
         write_text(summary_json_path, summary_json)
         write_text(summary_html_path, summary_html)
+        write_text(track_md_path, summary_markdown)
+        write_text(track_json_path, summary_json)
+        write_text(track_html_path, summary_html)
         write_text(archive_md_path, summary_markdown)
         write_text(archive_json_path, summary_json)
         write_text(archive_html_path, summary_html)
+        write_text(track_archive_md_path, summary_markdown)
+        write_text(track_archive_json_path, summary_json)
+        write_text(track_archive_html_path, summary_html)
         write_text(dedup_state_path, render_json_report(package.dedup_state))
 
         generated_files = [
             str(summary_md_path),
             str(summary_json_path),
             str(summary_html_path),
+            str(track_md_path),
+            str(track_json_path),
+            str(track_html_path),
             str(archive_md_path),
             str(archive_json_path),
             str(archive_html_path),
+            str(track_archive_md_path),
+            str(track_archive_json_path),
+            str(track_archive_html_path),
             str(dedup_state_path),
         ]
         generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
@@ -404,18 +521,17 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
         generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=False,
         push_channel="",
+        publication_mode=resolved_publication_mode,
         push_response={},
-        delivery_results={
-            "channels": {},
-            "successful_channels": [],
-            "failed_channels": [],
-            "skipped_channels": [],
-        },
+        delivery_results=_empty_delivery_results(),
         stage_status=package.summary_payload.get("stage_status", {}),
         source_stats={
             "collected_items": int(package.summary_payload.get("meta", {}).get("total_items", 0)),
             "filtered_topics": int(package.summary_payload.get("meta", {}).get("total_topics", 0)),
         },
+        risk_level=str(package.summary_payload.get("risk_level", "low")),
+        external_enrichment=package.external_enrichment,
+        scheduler=_scheduler_context(settings),
         timings=timings,
     )
     status_path = root_dir / "data" / "state" / "run-status.json"
@@ -424,32 +540,43 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
     return generated_files
 
 
-def run_once(root_dir: Path) -> list[str]:
+def run_once(root_dir: Path, publication_mode: str = "") -> list[str]:
     settings = load_settings(root_dir)
+    resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
     all_timings: dict[str, float] = {}
-    delivery_results = {
-        "channels": {},
-        "successful_channels": [],
-        "failed_channels": [],
-        "skipped_channels": [],
-    }
+    delivery_results = _empty_delivery_results()
 
     with StageTimer("total") as total_timer:
-        generated_files, render_timings = render_reports(root_dir)
+        generated_files, render_timings, external_enrichment = render_reports(
+            root_dir,
+            publication_mode=resolved_publication_mode,
+        )
         all_timings.update(render_timings)
 
-        summary_payload = _load_summary_payload(root_dir)
+        summary_payload = _load_summary_payload(root_dir, publication_mode=resolved_publication_mode)
         pushed = False
         push_channel = ""
         push_response: dict[str, object] = {}
 
         with StageTimer("push_total") as push_timer:
             if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
-                delivery_results, push_response = _collect_delivery_results(root_dir, settings, send=True)
+                delivery_results, push_response = _collect_delivery_results(
+                    root_dir,
+                    settings,
+                    send=True,
+                    mode="full-report",
+                    publication_mode=resolved_publication_mode,
+                )
                 pushed = bool(delivery_results["successful_channels"])
                 push_channel = ",".join(delivery_results["successful_channels"])
             else:
-                delivery_results, _ = _collect_delivery_results(root_dir, settings, send=False)
+                delivery_results, _ = _collect_delivery_results(
+                    root_dir,
+                    settings,
+                    send=False,
+                    mode="full-report",
+                    publication_mode=resolved_publication_mode,
+                )
 
         all_timings["push_total"] = push_timer.elapsed
 
@@ -457,6 +584,7 @@ def run_once(root_dir: Path) -> list[str]:
         generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=pushed,
         push_channel=push_channel,
+        publication_mode=resolved_publication_mode,
         push_response=push_response,
         delivery_results=delivery_results,
         stage_status=summary_payload.get("stage_status", {}),
@@ -464,6 +592,9 @@ def run_once(root_dir: Path) -> list[str]:
             "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
             "filtered_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
         },
+        risk_level=str(summary_payload.get("risk_level", "low")),
+        external_enrichment=external_enrichment,
+        scheduler=_scheduler_context(settings),
         timings=all_timings,
     )
     status_path = root_dir / "data" / "state" / "run-status.json"
@@ -579,17 +710,54 @@ def cmd_analyze_only(root_dir: Path) -> list[str]:
     return [path]
 
 
-def cmd_render_and_push(root_dir: Path) -> list[str]:
+def cmd_render_and_push(root_dir: Path, publication_mode: str = "") -> list[str]:
     """CI Job 3: 渲染 MD+JSON+HTML -> 三通道推送 -> 归档"""
-    return run_once(root_dir)
+    return run_once(root_dir, publication_mode=publication_mode)
 
 
-def cmd_diagnose_delivery(root_dir: Path, send: bool = False) -> dict[str, object]:
+def cmd_diagnose_delivery(root_dir: Path, send: bool = False, mode: str = "canary") -> dict[str, object]:
     settings = load_settings(root_dir)
-    summary, _ = _collect_delivery_results(root_dir, settings, send=send, diagnostic=True)
+    summary, _ = _collect_delivery_results(root_dir, settings, send=send, mode=mode)
     for name, item in summary["channels"].items():
-        print(f"[{name}] status={item['status']} configured={item['configured']} attempted={item['attempted']} detail={item['detail']}")
+        print(
+            f"[{name}] status={item['status']} configured={item['configured']} "
+            f"attempted={item['attempted']} error_type={item['error_type']} detail={item['detail']}"
+        )
     return summary
+
+
+def cmd_build_ops_dashboard(root_dir: Path) -> Path:
+    return build_ops_dashboard(root_dir)
+
+
+def cmd_build_review_queue(root_dir: Path) -> Path:
+    from auto_report.pipeline.review_queue import build_review_issue_candidates
+
+    payload = _load_summary_payload(root_dir)
+    issues = build_review_issue_candidates(payload)
+    output_dir = root_dir / "out" / "review-queue"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / "review-issues.json"
+    output_path.write_text(
+        json.dumps(
+            {
+                "generated_at": datetime.now().astimezone().isoformat(),
+                "count": len(issues),
+                "issues": issues,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    print(f"[ReviewQueue] Built at {output_path}")
+    return output_path
+
+
+def cmd_evaluate_prompts(root_dir: Path, dataset_path: str) -> Path:
+    from auto_report.pipeline.prompt_evaluator import evaluate_prompt_dataset
+
+    return evaluate_prompt_dataset(root_dir, Path(dataset_path))
 
 
 # ════════════════════════════════════════

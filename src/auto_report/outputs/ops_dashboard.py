@@ -1,0 +1,544 @@
+from __future__ import annotations
+
+import json
+from html import escape
+from pathlib import Path
+
+
+def _coerce_float(value: object) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _format_metric(value: object, *, signed: bool = False, suffix: str = "") -> str:
+    number = _coerce_float(value)
+    if number is None:
+        return "-"
+    if signed:
+        return f"{number:+.2f}{suffix}"
+    return f"{number:.2f}{suffix}"
+
+
+def _status_badge(status: str) -> str:
+    tone = {
+        "ok": "ok",
+        "error": "error",
+        "skipped": "muted",
+    }.get(status, "muted")
+    return f'<span class="badge badge-{tone}">{escape(status)}</span>'
+
+
+def _render_channels(delivery_results: dict[str, object]) -> str:
+    channels = delivery_results.get("channels", {})
+    if not isinstance(channels, dict) or not channels:
+        return '<tr><td colspan="5" class="empty">No delivery data</td></tr>'
+
+    rows: list[str] = []
+    for name, raw_item in channels.items():
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(name))}</td>"
+            f"<td>{_status_badge(str(item.get('status', 'unknown')))}</td>"
+            f"<td>{escape(str(item.get('error_type') or '-'))}</td>"
+            f"<td>{escape(str(item.get('attempted_at') or '-'))}</td>"
+            f"<td>{escape(str(item.get('detail') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _render_key_values(data: dict[str, object]) -> str:
+    if not data:
+        return '<div class="kv empty">No data</div>'
+
+    items: list[str] = []
+    for key, value in data.items():
+        items.append(
+            f'<div class="kv"><span>{escape(str(key))}</span><strong>{escape(str(value))}</strong></div>'
+        )
+    return "\n".join(items)
+
+
+def _render_reason_list(reasons: list[object]) -> str:
+    if not reasons:
+        return '<div class="empty">No enrichment diagnostics</div>'
+
+    items: list[str] = []
+    for reason in reasons:
+        items.append(f"<li>{escape(str(reason))}</li>")
+    return f"<ul class=\"reason-list\">{''.join(items)}</ul>"
+
+
+def _load_recent_prompt_evals(root_dir: Path, limit: int = 5) -> list[dict[str, object]]:
+    eval_dir = root_dir / "out" / "evals"
+    if not eval_dir.exists():
+        return []
+
+    runs: list[dict[str, object]] = []
+    for path in sorted(eval_dir.glob("prompt-eval-*.json"), reverse=True):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(payload, dict):
+            continue
+
+        leaderboard_rows: list[dict[str, object]] = []
+        raw_leaderboard = payload.get("leaderboard", [])
+        if isinstance(raw_leaderboard, list):
+            for raw_item in raw_leaderboard:
+                if not isinstance(raw_item, dict):
+                    continue
+                metrics = raw_item.get("metrics", {})
+                leaderboard_rows.append(
+                    {
+                        "stage": str(raw_item.get("stage", "-")),
+                        "prompt_id": str(raw_item.get("prompt_id", "-")),
+                        "version": str(raw_item.get("version", "-")),
+                        "model": str(raw_item.get("model", "-")),
+                        "overall_score_avg": _coerce_float(
+                            metrics.get("overall_score_avg") if isinstance(metrics, dict) else None
+                        ),
+                    }
+                )
+
+        runs.append(
+            {
+                "generated_at": str(payload.get("generated_at", path.stem)),
+                "dataset_path": str(payload.get("dataset_path", path.name)),
+                "summary": payload.get("summary", {}),
+                "leaderboard": leaderboard_rows,
+            }
+        )
+
+    runs.sort(key=lambda item: str(item.get("generated_at", "")), reverse=True)
+    return runs[:limit]
+
+
+def _build_prompt_regressions(prompt_eval_runs: list[dict[str, object]]) -> list[dict[str, object]]:
+    if len(prompt_eval_runs) < 2:
+        return []
+
+    latest = prompt_eval_runs[0]
+    previous_lookup: dict[tuple[str, str, str], dict[str, object]] = {}
+    for run in prompt_eval_runs[1:]:
+        for entry in run.get("leaderboard", []):
+            if not isinstance(entry, dict):
+                continue
+            key = (
+                str(entry.get("stage", "-")),
+                str(entry.get("prompt_id", "-")),
+                str(entry.get("model", "-")),
+            )
+            previous_lookup.setdefault(key, entry)
+
+    regressions: list[dict[str, object]] = []
+    for entry in latest.get("leaderboard", []):
+        if not isinstance(entry, dict):
+            continue
+        key = (
+            str(entry.get("stage", "-")),
+            str(entry.get("prompt_id", "-")),
+            str(entry.get("model", "-")),
+        )
+        previous = previous_lookup.get(key)
+        if previous is None:
+            continue
+
+        latest_score = _coerce_float(entry.get("overall_score_avg"))
+        previous_score = _coerce_float(previous.get("overall_score_avg"))
+        if latest_score is None or previous_score is None:
+            continue
+
+        regressions.append(
+            {
+                "stage": str(entry.get("stage", "-")),
+                "prompt_id": str(entry.get("prompt_id", "-")),
+                "latest_version": str(entry.get("version", "-")),
+                "previous_version": str(previous.get("version", "-")),
+                "model": str(entry.get("model", "-")),
+                "latest_score": latest_score,
+                "previous_score": previous_score,
+                "delta": round(latest_score - previous_score, 2),
+            }
+        )
+
+    regressions.sort(key=lambda item: float(item["delta"]))
+    return regressions[:8]
+
+
+def _render_prompt_eval_runs(prompt_eval_runs: list[dict[str, object]]) -> str:
+    if not prompt_eval_runs:
+        return '<tr><td colspan="6" class="empty">No prompt evaluation history</td></tr>'
+
+    rows: list[str] = []
+    for run in prompt_eval_runs:
+        summary = run.get("summary", {})
+        summary_dict = summary if isinstance(summary, dict) else {}
+        leaderboard = run.get("leaderboard", [])
+        top_entry = leaderboard[0] if isinstance(leaderboard, list) and leaderboard else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(run.get('generated_at', '-')))}</td>"
+            f"<td>{escape(str(run.get('dataset_path', '-')))}</td>"
+            f"<td>{escape(str(summary_dict.get('case_count', '-')))}</td>"
+            f"<td>{escape(str(summary_dict.get('evaluation_count', '-')))}</td>"
+            f"<td>{escape(str(top_entry.get('prompt_id', '-')))} / {escape(str(top_entry.get('version', '-')))}</td>"
+            f"<td>{_format_metric(top_entry.get('overall_score_avg'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _render_prompt_regressions(regressions: list[dict[str, object]]) -> str:
+    if not regressions:
+        return '<tr><td colspan="7" class="empty">No comparable prompt regression history</td></tr>'
+
+    rows: list[str] = []
+    for item in regressions:
+        delta_class = "metric-negative" if float(item["delta"]) < 0 else "metric-positive"
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item['stage']))}</td>"
+            f"<td>{escape(str(item['prompt_id']))}</td>"
+            f"<td>{escape(str(item['latest_version']))}</td>"
+            f"<td>{escape(str(item['previous_version']))}</td>"
+            f"<td>{escape(str(item['model']))}</td>"
+            f"<td>{_format_metric(item['latest_score'])}</td>"
+            f'<td class="{delta_class}">{_format_metric(item["delta"], signed=True)}</td>'
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict[str, object]]) -> str:
+    delivery_results = status.get("delivery_results", {})
+    scheduler = status.get("scheduler", {})
+    source_stats = status.get("source_stats", {})
+    timings = status.get("timings", {})
+    stage_status = status.get("stage_status", {})
+    external_enrichment = status.get("external_enrichment", {})
+    regressions = _build_prompt_regressions(prompt_eval_runs)
+
+    successful = len(delivery_results.get("successful_channels", []))
+    failed = len(delivery_results.get("failed_channels", []))
+    skipped = len(delivery_results.get("skipped_channels", []))
+    attempted = successful + failed
+    delivery_rate = (successful / attempted * 100) if attempted else None
+    latest_eval = prompt_eval_runs[0] if prompt_eval_runs else {}
+    latest_eval_summary = latest_eval.get("summary", {}) if isinstance(latest_eval, dict) else {}
+    external_dict = external_enrichment if isinstance(external_enrichment, dict) else {}
+    external_view = {
+        "enabled": "on" if bool(external_dict.get("enabled", False)) else "off",
+        "max_signals": external_dict.get("max_signals", 0),
+        "attempted": external_dict.get("attempted", 0),
+        "succeeded": external_dict.get("succeeded", 0),
+        "failed": external_dict.get("failed", 0),
+        "skipped": external_dict.get("skipped", 0),
+        "budget_used": external_dict.get("budget_used", 0),
+        "success_rate": _format_metric(external_dict.get("success_rate")),
+        "circuit": "open" if bool(external_dict.get("circuit_open", False)) else "closed",
+    }
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations Dashboard</title>
+<style>
+  :root {{
+    --bg: #07111f;
+    --panel: rgba(10, 24, 41, 0.82);
+    --panel-strong: #11213a;
+    --text: #e8eef5;
+    --muted: #9db1c7;
+    --line: rgba(157, 177, 199, 0.18);
+    --accent: #79d0ff;
+    --ok: #53d79c;
+    --warn: #ffd36a;
+    --error: #ff7d7d;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  }}
+  * {{ box-sizing: border-box; }}
+  body {{
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(121, 208, 255, 0.18), transparent 28%),
+      radial-gradient(circle at top right, rgba(83, 215, 156, 0.14), transparent 24%),
+      linear-gradient(180deg, #050b15 0%, var(--bg) 100%);
+  }}
+  main {{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 20px 56px;
+  }}
+  .hero {{
+    display: grid;
+    gap: 18px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(17, 33, 58, 0.96), rgba(7, 17, 31, 0.92));
+    box-shadow: var(--shadow);
+  }}
+  .eyebrow {{
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+  }}
+  h1 {{
+    margin: 0;
+    font-size: clamp(32px, 6vw, 54px);
+    line-height: 0.98;
+  }}
+  .summary {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }}
+  .card {{
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    backdrop-filter: blur(12px);
+  }}
+  .card span {{
+    display: block;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }}
+  .card strong {{
+    font-size: 30px;
+  }}
+  .grid {{
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    margin-top: 18px;
+  }}
+  .section-title {{
+    margin: 0 0 14px;
+    font-size: 19px;
+  }}
+  table {{
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+  }}
+  th, td {{
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+  }}
+  th {{
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }}
+  .badge {{
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }}
+  .badge-ok {{
+    color: #052612;
+    background: var(--ok);
+  }}
+  .badge-error {{
+    color: #350707;
+    background: var(--error);
+  }}
+  .badge-muted {{
+    color: #122538;
+    background: var(--warn);
+  }}
+  .kv {{
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }}
+  .kv span {{
+    color: var(--muted);
+  }}
+  .empty {{
+    color: var(--muted);
+  }}
+  .footnote {{
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }}
+  .reason-list {{
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text);
+    display: grid;
+    gap: 8px;
+  }}
+  .reason-list li {{
+    line-height: 1.45;
+  }}
+  .metric-negative {{
+    color: var(--error);
+    font-weight: 700;
+  }}
+  .metric-positive {{
+    color: var(--ok);
+    font-weight: 700;
+  }}
+  @media (max-width: 900px) {{
+    .grid {{
+      grid-template-columns: 1fr;
+    }}
+  }}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Private Ops View</div>
+    <h1>Operations Dashboard</h1>
+    <div class="footnote">Generated at {escape(str(status.get("generated_at", "-")))}</div>
+    <div class="summary">
+      <div class="card"><span>Push State</span><strong>{escape(str(status.get("pushed", False)))}</strong></div>
+      <div class="card"><span>Success</span><strong>{successful}</strong></div>
+      <div class="card"><span>Failed</span><strong>{failed}</strong></div>
+      <div class="card"><span>Skipped</span><strong>{skipped}</strong></div>
+      <div class="card"><span>Risk Level</span><strong>{escape(str(status.get("risk_level", "low")))}</strong></div>
+      <div class="card"><span>Delivery Rate</span><strong>{_format_metric(delivery_rate, suffix="%")}</strong></div>
+      <div class="card"><span>Prompt Eval Runs</span><strong>{len(prompt_eval_runs)}</strong></div>
+      <div class="card"><span>Latest Eval Cases</span><strong>{escape(str(latest_eval_summary.get("case_count", "-")))}</strong></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Delivery Channels</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Status</th>
+            <th>Error Type</th>
+            <th>Attempted At</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_channels(delivery_results if isinstance(delivery_results, dict) else {})}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Scheduler</h2>
+      {_render_key_values(scheduler if isinstance(scheduler, dict) else {})}
+      <h2 class="section-title" style="margin-top: 22px;">Stage Status</h2>
+      {_render_key_values(stage_status if isinstance(stage_status, dict) else {})}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Source Stats</h2>
+      {_render_key_values(source_stats if isinstance(source_stats, dict) else {})}
+    </div>
+    <div class="card">
+      <h2 class="section-title">Timings</h2>
+      {_render_key_values(timings if isinstance(timings, dict) else {})}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">External Enrichment</h2>
+      {_render_key_values(external_view)}
+    </div>
+    <div class="card">
+      <h2 class="section-title">Enrichment Reasons</h2>
+      {_render_reason_list(
+          external_dict.get("reasons", [])
+          if isinstance(external_dict, dict)
+          else []
+      )}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Prompt Evaluation Trend</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Generated At</th>
+            <th>Dataset</th>
+            <th>Cases</th>
+            <th>Evaluations</th>
+            <th>Top Prompt</th>
+            <th>Top Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_prompt_eval_runs(prompt_eval_runs)}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Prompt Regression Watch</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Prompt</th>
+            <th>Latest Version</th>
+            <th>Previous Version</th>
+            <th>Model</th>
+            <th>Latest Score</th>
+            <th>Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_prompt_regressions(regressions)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>"""
+
+
+def build_ops_dashboard(root_dir: Path) -> Path:
+    status_path = root_dir / "data" / "state" / "run-status.json"
+    if not status_path.exists():
+        raise FileNotFoundError(f"Run status not found: {status_path}")
+
+    status = json.loads(status_path.read_text(encoding="utf-8"))
+    prompt_eval_runs = _load_recent_prompt_evals(root_dir)
+    output_dir = root_dir / "out" / "ops-dashboard"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / "index.html"
+    output_path.write_text(_build_dashboard_html(status, prompt_eval_runs), encoding="utf-8")
+    print(f"[OpsDashboard] Built at {output_path}")
+    return output_path

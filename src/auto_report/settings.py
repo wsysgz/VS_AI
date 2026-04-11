@@ -76,6 +76,12 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "AUTO_TIMEZONE": os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai"),
         "AUTO_PUSH_ENABLED": os.environ.get("AUTO_PUSH_ENABLED", "true"),
         "AUTO_ARCHIVE_TO_GITHUB": os.environ.get("AUTO_ARCHIVE_TO_GITHUB", "true"),
+        "PUBLICATION_MODE": os.environ.get("PUBLICATION_MODE", "auto"),
+        "SCHEDULER_TRIGGER_KIND": os.environ.get("SCHEDULER_TRIGGER_KIND", "manual"),
+        "SCHEDULER_COMPENSATION_RUN": os.environ.get("SCHEDULER_COMPENSATION_RUN", "false"),
+        "EXTERNAL_ENRICHMENT_ENABLED": os.environ.get("EXTERNAL_ENRICHMENT_ENABLED", "false"),
+        "EXTERNAL_ENRICHMENT_MAX_SIGNALS": os.environ.get("EXTERNAL_ENRICHMENT_MAX_SIGNALS", "2"),
+        "EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS": os.environ.get("EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS", "8"),
     }
 
     return Settings(
