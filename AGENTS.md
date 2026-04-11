@@ -2,8 +2,9 @@
 
 ## Workspace And Remote
 
-- Primary local workspace: `D:\AI\workbuddy\auto\auto`
-- Temporary feature work can use `D:\GitHub\worktrees\auto\<branch-name>`, but merge back into `D:\AI\workbuddy\auto\auto` before the final push.
+- Primary local workspace: `D:\GitHub\auto`
+- Reference mirror for takeover comparison: `D:\AI\workbuddy\auto\auto`
+- Temporary feature work can use `D:\GitHub\worktrees\auto\<branch-name>`, but final verification and release decisions should be based on `D:\GitHub\auto`.
 - Canonical Git remote: `origin = git@github.com:wsysgz/VS_AI.git`
 - Preferred auth path is SSH. Verify with `ssh -T git@github.com`; the expected result is successful authentication as `wsysgz`.
 - The GitHub key labeled `ssh-blog` is available locally as `C:\Users\24160\.ssh\id_ed25519.pub` with fingerprint `SHA256:5PsPPHvqPDYP7X15wLGZlQakseS8wmWYYqIYisx1Ixg`.
@@ -14,7 +15,7 @@
 ## Project Status (2026-04-11)
 
 - **V6 Phase 0~4 全部完成**, Phase 5 暂缓
-- **测试**: 91 passed, 0 failed
+- **测试**: 116 passed, 0 failed
 - **CI**: 5-job 流水线（test → collect → analyze → report → deploy-pages）
 - **数据源**: RSS(6) + GitHub(4组) + Websites + Hacker News + ArXiv
 - **LLM**: 统一客户端（DeepSeek / OpenAI 兼容），Analysis 5路并行
@@ -24,16 +25,16 @@
 
 1. **完整接手手册**: `docs/HANDOFF.md` ← **优先读这个**
 2. **快速启动**: README.md → 3 步跑起来
-3. **V6 升级全貌**: `docs/upgrade-plan-v6/升级计划_V6_全面增强方案.md`
+3. **升级与审计资料**: `docs/upgrade-plan/README.md`
 
 ## Local-First Workflow
 
 - Change code locally first, verify locally, then push to GitHub.
 - Default verification flow:
   ```powershell
-  cd D:\AI\workbuddy\auto\auto
+  cd D:\GitHub\auto
   $env:PYTHONPATH = "src"
-  python -m pytest tests -q           # 预期 91 passed
+  python -m pytest tests -q           # 预期 116 passed
   python -m auto_report.cli run-once   # 完整运行一次
   cat data/state/run-status.json       # 检查状态
   ```
@@ -73,7 +74,7 @@
 - Rendering and archives: `src/auto_report/outputs/`
 - Test suite: `tests/` (91 cases across 8 files)
 - Handoff docs: `docs/HANDOFF.md`, `AGENTS.md`, `README.md`
-- Upgrade plan: `docs/upgrade-plan-v6/`
+- Upgrade plan: `docs/upgrade-plan/`
 
 ## Key Gotchas for Developers
 

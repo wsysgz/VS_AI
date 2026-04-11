@@ -40,6 +40,6 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
 
 ## 5. 拓展点与可观察性
 
-- `docs/upgrade-plan-v6/` 提供了 Phase 0~5 的升级背景，可在需要扩展（如 MCP、邮件、双语）时作为参考。
+- `docs/upgrade-plan/` 提供了 V6/V7 的升级背景与对齐资料，可在需要扩展（如 MCP、邮件、双语）时作为参考入口。
 - `docs/superpowers/` 下的历史状态记录帮助追踪每次 handoff、stage 的进行状态。
 - 任何新增模块应先保证 `StageTimer` 和 `run-status` 仍然能追踪到。

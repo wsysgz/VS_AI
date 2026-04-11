@@ -14,7 +14,7 @@
 ## 审计资料
 
 - `docs/superpowers/`
-- `docs/upgrade-plan-v6/`
+- `docs/upgrade-plan/`
 
 ## 维护流程（执行顺序）
 
@@ -34,7 +34,7 @@
 ## 审计与历史记录
 
 - `docs/superpowers/` 保留 Stage 1~V6 的状态与审计材料，不要以文档形式重复其内容。
-- `docs/upgrade-plan-v6/` 仍保存升级计划与阶段总结，当需要回顾规划背景时再查阅。
+- `docs/upgrade-plan/` 统一保存升级计划、实现对齐审计与下一阶段续篇；回顾规划背景时优先从这里进入。
 - 不要改写 audit 目录下的文件；如果需要复核历史决策，提升为新文档或注释即可。
 
 ## 需要关注的问题

@@ -62,4 +62,4 @@
 ## 附录
 
 - 若需排查 `DeepSeek` 或其他 provider 连接，检查 `integrations/llm_client.py` 中的 `call_llm()` 配置解析与实际报错，确认 `AI_PROVIDER`、`AI_BASE_URL`、`AI_MODEL`、对应 API key 匹配。
-- `docs/upgrade-plan-v6/` 中的升级记录（Phase 0~4）也包含更早的 DeepSeek 加固笔记，可作为参考但不作为正式指南。
+- `docs/upgrade-plan/` 中的升级记录与对齐审计也包含更早的 DeepSeek 加固笔记，可作为参考但不作为正式指南。
