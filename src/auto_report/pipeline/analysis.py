@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 from auto_report.domains.classifier import classify_topic
+from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.models.records import CollectedItem, TopicGroup
 from auto_report.pipeline.ai_pipeline import run_staged_ai_pipeline
 from auto_report.pipeline.dedup import deduplicate_items
@@ -74,7 +75,7 @@ def build_report_package(
     ai_outputs = run_staged_ai_pipeline(
         candidates=topic_candidates,
         ai_readings=load_ai_readings(settings.root_dir),
-        ai_enabled=bool(settings.env["DEEPSEEK_API_KEY"]),
+        ai_enabled=is_llm_enabled(),
         max_candidates=int(settings.env["AI_MAX_ANALYSIS_TOPICS"]),
     )
 

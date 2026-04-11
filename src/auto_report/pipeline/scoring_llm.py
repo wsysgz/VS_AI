@@ -12,12 +12,28 @@ import logging
 
 from auto_report.integrations.llm_client import call_llm as summarize_with_deepseek
 from auto_report.models.records import TopicCandidate
-from auto_report.pipeline.ai_pipeline import _fallback_analysis, _parse_json_block
 
 logger = logging.getLogger(__name__)
 
 # 默认阈值：低于此分数的主题不进入深度 AI 分析（走 fallback）
 DEFAULT_SCORE_THRESHOLD = 5.0
+
+
+def _parse_score_items(text: str) -> list[dict[str, object]]:
+    cleaned = text.strip()
+    if cleaned.startswith("```json"):
+        cleaned = cleaned.removeprefix("```json").strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.removeprefix("```").strip()
+    if cleaned.endswith("```"):
+        cleaned = cleaned.removesuffix("```").strip()
+
+    payload = json.loads(cleaned)
+    if isinstance(payload, dict):
+        payload = payload.get("scores") or payload.get("items") or payload.get("results")
+    if not isinstance(payload, list):
+        raise ValueError("AI response must be a JSON array")
+    return [item for item in payload if isinstance(item, dict)]
 
 
 def batch_score_candidates(
@@ -64,7 +80,7 @@ def batch_score_candidates(
 
     try:
         raw = summarize_with_deepseek(prompt)
-        result = _parse_json_block(raw)
+        result = _parse_score_items(raw)
 
         scores: dict[int, float] = {}
         for item in result:

@@ -35,6 +35,37 @@ def _summarize_telegram_response(push_response: object) -> dict[str, object]:
     return summary
 
 
+def _summarize_feishu_response(push_response: object) -> dict[str, object]:
+    if isinstance(push_response, dict):
+        responses = [push_response]
+    elif isinstance(push_response, list):
+        responses = [item for item in push_response if isinstance(item, dict)]
+    else:
+        return {}
+
+    message_ids: list[str] = []
+    all_ok = True
+    description = ""
+
+    for item in responses:
+        all_ok = all_ok and item.get("code") == 0
+        if not description and isinstance(item.get("msg"), str):
+            description = item["msg"]
+
+        data = item.get("data")
+        if isinstance(data, dict) and isinstance(data.get("message_id"), str):
+            message_ids.append(data["message_id"])
+
+    summary: dict[str, object] = {
+        "ok": all_ok,
+        "messages_sent": len(responses),
+        "message_ids": message_ids,
+    }
+    if description:
+        summary["description"] = description
+    return summary
+
+
 def _summarize_push_response(push_response: dict[str, Any] | None) -> dict[str, object]:
     if not push_response:
         return {}
@@ -52,6 +83,11 @@ def _summarize_push_response(push_response: dict[str, Any] | None) -> dict[str, 
     telegram_summary = _summarize_telegram_response(telegram_response)
     if telegram_summary:
         summary["telegram"] = telegram_summary
+
+    feishu_response = push_response.get("feishu")
+    feishu_summary = _summarize_feishu_response(feishu_response)
+    if feishu_summary:
+        summary["feishu"] = feishu_summary
 
     return summary
 

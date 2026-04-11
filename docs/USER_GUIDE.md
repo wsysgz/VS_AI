@@ -11,7 +11,7 @@
 ## 环境准备
 
 1. `python -m venv .venv`；执行 `.venv\Scripts\Activate.ps1` 后，`pip install -r requirements.txt` + `pip install -e .`。
-2. 复制 `.env.example` 为 `.env`（如果已有则跳过），填写 `DEEPSEEK_API_KEY`、`AI_PROVIDER`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID`、`FEISHU_APP_ID / FEISHU_APP_SECRET / FEISHU_CHAT_ID`，更多变量详见 [Technical Guide](TECHNICAL_GUIDE.md)。
+2. 复制 `.env.example` 为 `.env`（如果已有则跳过），填写 `DEEPSEEK_API_KEY` 或 `OPENAI_API_KEY` / `AI_API_KEY`（按 `AI_PROVIDER` 选择）、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID`、`FEISHU_APP_ID / FEISHU_APP_SECRET / FEISHU_CHAT_ID`，更多变量详见 [Technical Guide](TECHNICAL_GUIDE.md)。
 3. `python -m auto_report.cli run-once` 触发一次完整流程。首次运行前建议先跑 `python -m pytest tests -q` 确保基础功能正常。
 
 ## 常用命令
@@ -23,13 +23,15 @@
 | `python -m auto_report.cli diagnose-delivery --send` | 向三端发送一条诊断消息 | 上线前验收、怀疑某个通道失联时 |
 | `python -m auto_report.cli collect-only` | 只采集 + 预处理 | 调试数据源或减少 AI 调用 |
 | `python -m auto_report.cli analyze-only` | 用已有中间数据跑 AI | 跟踪分析错误、重跑 AI |
-| `python -m auto_report.cli render-report` | 只渲染报告文件 | 检查模板、推送前复核 |
+| `python -m auto_report.cli render-report` | 全流程采集→分析→渲染，但不推送 | 检查模板、重新生成报告但不发通知 |
+| `python -m auto_report.cli build-pages` | 只重建 `docs/index.html` 与 `docs/archives/` | 验证 Pages 站点生成逻辑 |
 | `python -m auto_report.cli backfill --target-date YYYY-MM-DD` | 补报单日历史日期 | 手动修补某天缺报 |
 
 ## 验证输出
 
 - 查看 `data/reports/latest-summary.md` 与 `data/reports/latest-summary.html` 确认内容；`data/state/run-status.json` 记录 `generated_files`、`timings`、`stage_status` 与 `delivery_results`。
 - 如果本地跑出错误，先检查 `logs/`（可通过 `auto_report.cli` 添加日志）以及 `data/state/run-status.json` 的最后一次 `stage` 记录，再根据 `push-channels-guide` 验证各通知通道。
+- 如只想确认推送配置是否就绪，不必每次都跑完整 pipeline，可先执行 `python -m auto_report.cli diagnose-delivery`。
 - 运行完毕后再 `git status` 查看 `data/` 变化是否按 CI 预期被忽略，确保本地临时输出未误提交。
 
 ## 仓库对接

@@ -6,10 +6,10 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from auto_report.integrations.llm_client import (
+    _PROVIDER_DEFAULTS,
     _resolve_provider_config,
     build_llm_payload,
     call_llm,
-    _PROVIDER_DEFAULTS,
 )
 
 
@@ -65,6 +65,23 @@ class TestProviderConfigResolution:
             assert config["provider"] == "my-custom"
             assert config["base_url"] == "https://my-api.example.com"
 
+    def test_unknown_provider_uses_generic_ai_api_key(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "my-custom",
+                "AI_BASE_URL": "https://my-api.example.com",
+                "AI_MODEL": "my-model-v1",
+                "AI_API_KEY": "generic-key",
+                "DEEPSEEK_API_KEY": "",
+                "OPENAI_API_KEY": "",
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config()
+            assert config["api_key"] == "generic-key"
+            assert config["api_key_env"] == "AI_API_KEY"
+
 
 class TestBuildPayload:
     def test_basic_structure(self):
@@ -115,6 +132,33 @@ class TestCallLlm:
             result = call_llm("retry me")
             assert result == "finally works"
             assert mock_session.post.call_count == 2
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_custom_provider_uses_generic_ai_api_key(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "my-custom",
+                "AI_BASE_URL": "https://my-api.example.com",
+                "AI_MODEL": "my-model-v1",
+                "AI_API_KEY": "generic-key",
+                "DEEPSEEK_API_KEY": "",
+                "OPENAI_API_KEY": "",
+            },
+            clear=False,
+        ):
+            mock_resp = MagicMock()
+            mock_resp.json.return_value = {
+                "choices": [{"message": {"content": "custom provider works"}}]
+            }
+            mock_resp.raise_for_status = MagicMock()
+            mock_session.post.return_value = mock_resp
+
+            result = call_llm("test")
+
+            assert result == "custom provider works"
+            headers = mock_session.post.call_args.kwargs["headers"]
+            assert headers["Authorization"] == "Bearer generic-key"
 
 
 class TestBackwardCompatibility:

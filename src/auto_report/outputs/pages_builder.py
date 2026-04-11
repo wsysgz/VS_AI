@@ -2,13 +2,9 @@
 
 from __future__ import annotations
 
-import json
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
-
-from auto_report.outputs.renderers import render_html_report
-
 
 def _read_archives(archives_dir: Path) -> list[dict[str, str]]:
     """读取历史归档 HTML 文件，按日期倒序排列（递归搜索日期子目录）"""
@@ -184,17 +180,15 @@ def build_pages_site(root_dir: Path) -> Path:
     archives_dir = root_dir / "data" / "archives"
     dist_dir = root_dir / "docs"
     archives_dist = dist_dir / "archives"
+    index_path = dist_dir / "index.html"
 
-    # 清理旧的构建输出
-    if dist_dir.exists():
-        # 只清理生成的文件，保留 docs 目录本身可能存在的其他文件（如 .nojekyll）
-        for item in dist_dir.iterdir():
-            if item.name != ".nojekyll":
-                if item.is_dir():
-                    shutil.rmtree(item)
-                else:
-                    item.unlink()
+    dist_dir.mkdir(parents=True, exist_ok=True)
 
+    # 只清理 Pages 生成物，避免误删手册和交接资料
+    if archives_dist.exists():
+        shutil.rmtree(archives_dist)
+    if index_path.exists():
+        index_path.unlink()
     archives_dist.mkdir(parents=True, exist_ok=True)
 
     # 确保 .nojekyll 存在（让 GitHub Pages 正确处理 _ 开头的目录/文件）
@@ -238,11 +232,11 @@ def build_pages_site(root_dir: Path) -> Path:
     # 构建首页
     index_html = _build_site_index(latest_html_content, archives, generated_at)
 
-    with open(dist_dir / "index.html", "w", encoding="utf-8") as f:
+    with open(index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
 
     print(f"[Pages] Site built at {dist_dir}")
-    print(f"[Pages] Index: {dist_dir / 'index.html'}")
-    print(f"[Pages] Archives: {len(list(archives_dist.glob('*.html')))} files")
+    print(f"[Pages] Index: {index_path}")
+    print(f"[Pages] Archives: {len(list(archives_dist.rglob('*.html')))} files")
     
     return dist_dir

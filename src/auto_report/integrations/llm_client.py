@@ -33,6 +33,19 @@ _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
 }
 
 
+def _resolve_api_key(provider: str, defaults: dict[str, str]) -> tuple[str, str]:
+    if provider in _PROVIDER_DEFAULTS:
+        env_candidates = [defaults["key_env"], "AI_API_KEY"]
+    else:
+        env_candidates = ["AI_API_KEY", "OPENAI_API_KEY", "DEEPSEEK_API_KEY"]
+
+    for env_name in env_candidates:
+        if env_name and os.environ.get(env_name):
+            return os.environ.get(env_name, ""), env_name
+
+    return "", env_candidates[0]
+
+
 def _resolve_provider_config() -> dict[str, str]:
     """从环境变量解析当前 provider 配置"""
     provider = os.environ.get("AI_PROVIDER", "deepseek").lower()
@@ -41,12 +54,15 @@ def _resolve_provider_config() -> dict[str, str]:
         defaults = _PROVIDER_DEFAULTS[provider]
     else:
         # 自定义 provider：必须手动设置所有参数
-        defaults = {"base_url": "", "model": "", "key_env": ""}
+        defaults = {"base_url": "", "model": "", "key_env": "AI_API_KEY"}
+
+    api_key, api_key_env = _resolve_api_key(provider, defaults)
 
     return {
         "base_url": (os.environ.get("AI_BASE_URL") or "").rstrip("/") or defaults["base_url"],
         "model": os.environ.get("AI_MODEL", "") or defaults["model"],
-        "api_key": os.environ.get(defaults["key_env"], ""),
+        "api_key": api_key,
+        "api_key_env": api_key_env,
         "provider": provider,
     }
 
@@ -64,6 +80,10 @@ def build_llm_payload(prompt: str) -> dict[str, object]:
 # Session 复用 — TCP 连接保持，减少每次 ~100ms 握手开销
 _session = requests.Session()
 _session.headers.update({"Content-Type": "application/json"})
+
+
+def is_llm_enabled() -> bool:
+    return bool(_resolve_provider_config().get("api_key"))
 
 
 def call_llm(prompt: str) -> str:
@@ -88,7 +108,7 @@ def call_llm(prompt: str) -> str:
     if not api_key:
         raise RuntimeError(
             f"API key not configured for provider '{config['provider']}'. "
-            f"Set {config['base_url']} environment variable."
+            f"Set {config['api_key_env']} environment variable."
         )
     if not base_url:
         raise RuntimeError(

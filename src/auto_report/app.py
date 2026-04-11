@@ -5,8 +5,14 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from auto_report.integrations.delivery_status import build_channel_result, summarize_delivery_results
+from auto_report.integrations.delivery_status import (
+    build_channel_result,
+    channel_response_succeeded,
+    describe_channel_response,
+    summarize_delivery_results,
+)
 from auto_report.integrations.feishu import send_feishu_messages
+from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
 from auto_report.outputs.archive import write_text
@@ -249,17 +255,20 @@ def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: 
                 channel_name,
                 configured=True,
                 attempted=True,
-                ok=True,
-                detail="sent",
+                ok=channel_response_succeeded(channel_name, response),
+                detail=describe_channel_response(channel_name, response),
                 response=response,
             )
         except Exception as exc:
+            error_response = {"error": str(exc)}
+            responses[channel_name] = error_response
             results[channel_name] = build_channel_result(
                 channel_name,
                 configured=True,
                 attempted=True,
                 ok=False,
                 detail=str(exc),
+                response=error_response,
             )
 
     return summarize_delivery_results(results), responses
@@ -544,7 +553,7 @@ def cmd_analyze_only(root_dir: Path) -> list[str]:
     raw_candidates = intermediate.get("candidates", [])
     candidates = [TopicCandidate(**c) for c in raw_candidates]
 
-    ai_enabled = bool(settings.env.get("DEEPSEEK_API_KEY"))
+    ai_enabled = is_llm_enabled()
     ai_readings = load_ai_readings(root_dir)
 
     with StageTimer("ai_total") as t:

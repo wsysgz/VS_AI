@@ -20,7 +20,7 @@
 
 - 阅读 `AGENTS.md` 以掌握快速查阅要点（认证、验证顺序、主要脚本）。
 - 按照 README 和 USER_GUIDE 的指引设置 `.venv`、依赖、`.env`（关键变量包含 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`FEISHU_*`，更多详情在 Technical Guide）。
-- 本地运行 `python -m auto_report.cli run-once`，检查 `data/reports/latest-summary.md`、`data/state/run-status.json` 是否包含期望输出，再推送或触发 Actions。
+- 先运行 `python -m auto_report.cli diagnose-delivery` 检查三端配置，再执行 `python -m auto_report.cli run-once`，检查 `data/reports/latest-summary.md`、`data/state/run-status.json` 是否包含期望输出。
 - 确保每日 07:00 的自动推送按计划执行：`Collect And Report` workflow 的 `schedule` 触发会调用 PushPlus（短摘要）和其他通道（完整报告），详见 push-channels guide。
 - 运行 `python -m pytest tests -q` 以确认测试通过；更多测试组合也写在 USER_GUIDE。
 
@@ -28,7 +28,7 @@
 
 - GitHub 仓库 `Actions > General > Workflow permissions` 必须为 `Read and write permissions`，否则 `report` / `deploy-pages` 无法自动回写 `data/` 与 `docs/`。
 - GitHub Secrets 至少补齐 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`。
-- 首次接手先执行 `python -m auto_report.cli diagnose-delivery`，确认三端配置被识别；需要实发时再执行 `python -m auto_report.cli diagnose-delivery --send`。
+- 首次接手先执行 `python -m auto_report.cli diagnose-delivery`，确认三端配置被识别；需要实发时再执行 `python -m auto_report.cli diagnose-delivery --send` 或 `AUTO_PUSH_ENABLED=true python -m auto_report.cli run-once`。
 - 远端验收以 `data/state/run-status.json` 中的 `delivery_results` 为准，不要只看 workflow 是否没有抛异常。
 
 ## 审计与历史记录

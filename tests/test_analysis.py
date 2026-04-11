@@ -42,3 +42,57 @@ def test_build_report_package_generates_domain_signals(monkeypatch):
     assert package.summary_payload["signals"][0]["evidence_count"] >= 1
     assert "ai-llm-agent" in package.domain_payloads
     assert "ai-x-electronics" in package.domain_payloads
+
+
+def test_build_report_package_enables_ai_for_openai_provider(monkeypatch):
+    monkeypatch.setenv("AI_PROVIDER", "openai")
+    monkeypatch.setenv("OPENAI_API_KEY", "openai-test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
+
+    captured: dict[str, object] = {}
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.load_ai_readings",
+        lambda root_dir: {"analysis": "a", "summary": "s", "forecast": "f"},
+    )
+
+    def fake_run_staged_ai_pipeline(**kwargs):
+        captured.update(kwargs)
+        return {
+            "analyses": [],
+            "summary": {
+                "one_line_core": "core",
+                "executive_summary": [],
+                "key_points": [],
+                "key_insights": [],
+                "limitations": [],
+                "actions": [],
+            },
+            "forecast": {"forecast_conclusion": "watch"},
+            "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+        }
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.run_staged_ai_pipeline",
+        fake_run_staged_ai_pipeline,
+    )
+
+    settings = load_settings(Path.cwd())
+    items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    build_report_package(settings, items, diagnostics=[])
+
+    assert captured["ai_enabled"] is True
