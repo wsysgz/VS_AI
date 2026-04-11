@@ -21,13 +21,23 @@
 
 更多变量（`GITHUB_TOKEN`、`REPORT_REPO_URL` 等）也可以在 `.env.example` 找到，真正上线前务必确认 `.env` 与 GitHub Secrets 中的名称一致。
 
-## AI 配置与降级
+## AI 配置
+
+- `DEEPSEEK_API_KEY`：默认 DeepSeek 的 API key，控制 AI 分析、总结、预测。
+- `AI_PROVIDER`：选择 `deepseek` 或 `openai`，决定 `integrations/llm_client.call_llm` 走哪套适配器。
+- `AI_BASE_URL`：覆盖默认服务端点，适用于代理或私有部署。
+- `AI_MODEL`：指定 DeepSeek/OpenAI 请求使用的模型名称。
+- `AI_MAX_ANALYSIS_TOPICS`：限制每轮交给 AI 的主题数量，默认值为 `6`。
+
+如果没有 AI Key，系统必须回退到规则摘要模式而不是中断。
+
+## AI 提供商切换与降级机制
 
 1. 默认情况下 `AI_PROVIDER=deepseek`，`integrations/llm_client.call_llm` 会用 `DEEPSEEK_API_KEY` 与 `AI_BASE_URL`/`AI_MODEL` 组合向 DeepSeek 发送请求。
 2. 如果需要切换到 OpenAI，将 `AI_PROVIDER=openai` 并提供 `OPENAI_API_KEY`：客户端会在内部选择 `deepseek` 或 `openai` 适配器，仍然尊重 `AI_MODEL`（可换成 `gpt-4o-mini` 等）。
 3. `AI_MAX_ANALYSIS_TOPICS` 为 6 时意味着 pipeline 只把优先级最高的 6 个主题送到 AI，避免耗时过长。调整此值需对分析时长和成本进行权衡。
-4. 如果 `DEEPSEEK_API_KEY`（或其他 key）缺失），或 DeepSeek/OpenAI 多次调用失败，管线会降级为“规则摘要”模式：AI 阶段跳过，仍然写出结构化主题、要点和预测，并继续推送；日志会提醒 `rule summary` 被启用。
-5. `AI_BASE_URL` 可指向私有部署或旁路代理，务必确认该主机可访问，且符合 TLS 证书标准，否则拉链会落到第四步的规则摘要模式。
+4. 如果 `DEEPSEEK_API_KEY`（或其他 key）缺失，或 DeepSeek/OpenAI 多次调用失败，管线会降级为“规则摘要”模式：AI 阶段跳过，仍然写出结构化主题、要点和预测，并继续推送；日志会提醒 `rule summary` 被启用。
+5. `AI_BASE_URL` 可指向私有部署或旁路代理，务必确认该主机可访问，且符合 TLS 证书标准，否则流程会落到第四步的规则摘要模式。
 
 `settings.py` 会把这些变量封装进 `Settings` dataclass，`ai_pipeline.py` 里的 `run_staged_ai_pipeline()` 依赖 `StageTimer` 记录每一步，`integrations/llm_client.py` 负责低耦合的 API 调用；修改配置后记得同步更新这些文件。
 

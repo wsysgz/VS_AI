@@ -48,11 +48,16 @@ def send_pushplus(
     channel: str = "",
     template: str = "markdown",
     secret_key: str = "",
+    base_url: str = "https://www.pushplus.plus",
+    timeout: int = 20,
 ) -> dict[str, Any]:
     response = requests.post(
-        "https://www.pushplus.plus/send",
+        f"{base_url.rstrip('/')}/send",
         json=build_pushplus_payload(token, title, content, channel=channel, template=template, secret_key=secret_key),
-        timeout=20,
+        timeout=timeout,
     )
     response.raise_for_status()
-    return response.json()
+    data = response.json()
+    if data.get("code") not in (0, 200):
+        raise RuntimeError(f"PushPlus send failed: {data}")
+    return data

@@ -3,13 +3,20 @@
 > **最后更新**: 2026-04-11  
 > **目标**: 为每天北京时间 07:00 的综合报道提供一个清晰的路径图，确保接手者可以迅速恢复系统运行。
 
-## 1. 开始之前
+## 接手入口
 
-1. 从仓库根目录开始（见 [README](../README.md)）：阅读项目概述、快速启动步骤、以及新的文档权责说明。
-2. 阅读 [docs/USER_GUIDE.md](USER_GUIDE.md) 以掌握日常操作与验证流程，接着看 [docs/TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md) 理解环境变量与 AI 配置。
-3. 如果需要代码或系统结构背景，请阅读 [docs/ARCHITECTURE.md](ARCHITECTURE.md)，再查看 [docs/push-channels-guide.md](push-channels-guide.md) 了解如何保持 PushPlus/Telegram/Feishu 同步。
+1. `README.md`
+2. `docs/USER_GUIDE.md`
+3. `docs/TECHNICAL_GUIDE.md`
+4. `docs/ARCHITECTURE.md`
+5. `docs/push-channels-guide.md`
 
-## 2. 维护流程（执行顺序）
+## 审计资料
+
+- `docs/superpowers/`
+- `docs/upgrade-plan-v6/`
+
+## 维护流程（执行顺序）
 
 - 阅读 `AGENTS.md` 以掌握快速查阅要点（认证、验证顺序、主要脚本）。
 - 按照 README 和 USER_GUIDE 的指引设置 `.venv`、依赖、`.env`（关键变量包含 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`FEISHU_*`，更多详情在 Technical Guide）。
@@ -17,13 +24,13 @@
 - 确保每日 07:00 的自动推送按计划执行：`Collect And Report` workflow 的 `schedule` 触发会调用 PushPlus（短摘要）和其他通道（完整报告），详见 push-channels guide。
 - 运行 `python -m pytest tests -q` 以确认测试通过；更多测试组合也写在 USER_GUIDE。
 
-## 3. 审计与历史记录
+## 审计与历史记录
 
 - `docs/superpowers/` 保留 Stage 1~V6 的状态与审计材料，不要以文档形式重复其内容。
 - `docs/upgrade-plan-v6/` 仍保存升级计划与阶段总结，当需要回顾规划背景时再查阅。
 - 不要改写 audit 目录下的文件；如果需要复核历史决策，提升为新文档或注释即可。
 
-## 4. 需要关注的问题
+## 需要关注的问题
 
 - 保持 README → USER_GUIDE → TECHNICAL_GUIDE → ARCHITECTURE → push-channels-guide 的阅读顺序，防止内容散落。
 - 任何新的配置（如 AI 提供商切换、推送新渠道）先在 Technical Guide 记录，再在对应运营或架构文档更新引用。

@@ -1,9 +1,12 @@
+import pytest
 from auto_report.integrations.feishu import (
     FEISHU_MAX_TEXT_LENGTH,
     build_feishu_payload,
+    send_feishu_message,
     split_feishu_text,
 )
 import json
+import requests
 
 
 def test_build_feishu_payload_has_correct_structure():
@@ -43,3 +46,25 @@ def test_split_feishu_text_preserves_all_content():
 def test_split_feishu_text_empty_string():
     chunks = split_feishu_text("")
     assert chunks == [""]
+
+
+def test_send_feishu_message_rejects_non_zero_send_code(monkeypatch):
+    class FakeResponse:
+        def __init__(self, payload):
+            self._payload = payload
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return self._payload
+
+    payloads = iter([
+        {"code": 0, "tenant_access_token": "token"},
+        {"code": 99991663, "msg": "chat not found"},
+    ])
+
+    monkeypatch.setattr(requests, "post", lambda *args, **kwargs: FakeResponse(next(payloads)))
+
+    with pytest.raises(RuntimeError, match="chat not found"):
+        send_feishu_message("app", "secret", "oc_xxx", "text")

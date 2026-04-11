@@ -51,16 +51,19 @@ def send_feishu_message(
     app_secret: str,
     receive_id: str,
     text: str,
+    api_base_url: str = "https://open.feishu.cn",
+    timeout: int = 20,
 ) -> dict[str, Any]:
     """Send a single message to a Feishu group chat via bot API."""
+    base_url = api_base_url.rstrip("/")
     # 1. Get tenant_access_token
     token_resp = requests.post(
-        "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
+        f"{base_url}/open-apis/auth/v3/tenant_access_token/internal",
         json={
             "app_id": app_id,
             "app_secret": app_secret,
         },
-        timeout=20,
+        timeout=timeout,
     )
     token_resp.raise_for_status()
     token_data = token_resp.json()
@@ -70,13 +73,16 @@ def send_feishu_message(
 
     # 2. Send message
     response = requests.post(
-        "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id",
+        f"{base_url}/open-apis/im/v1/messages?receive_id_type=chat_id",
         headers={"Authorization": f"Bearer {access_token}"},
         json=build_feishu_payload(receive_id, text),
-        timeout=20,
+        timeout=timeout,
     )
     response.raise_for_status()
-    return response.json()
+    send_data = response.json()
+    if send_data.get("code") != 0:
+        raise RuntimeError(f"Feishu send failed: {send_data}")
+    return send_data
 
 
 def send_feishu_messages(
@@ -84,9 +90,18 @@ def send_feishu_messages(
     app_secret: str,
     receive_id: str,
     text: str,
+    api_base_url: str = "https://open.feishu.cn",
+    timeout: int = 20,
 ) -> list[dict[str, Any]]:
     """Send possibly long text as multiple messages (auto-split)."""
     return [
-        send_feishu_message(app_id, app_secret, receive_id, chunk)
+        send_feishu_message(
+            app_id,
+            app_secret,
+            receive_id,
+            chunk,
+            api_base_url=api_base_url,
+            timeout=timeout,
+        )
         for chunk in split_feishu_text(text)
     ]

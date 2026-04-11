@@ -78,6 +78,7 @@ def build_run_status(
     pushed: bool,
     push_channel: str = "",
     push_response: dict[str, Any] | None = None,
+    delivery_results: dict[str, Any] | None = None,
     stage_status: dict[str, str] | None = None,
     source_stats: dict[str, int] | None = None,
     timings: dict[str, float] | None = None,
@@ -89,6 +90,12 @@ def build_run_status(
         "pushed": pushed,
         "push_channel": push_channel,
         "push_response": _summarize_push_response(push_response),
+        "delivery_results": delivery_results or {
+            "channels": {},
+            "successful_channels": [],
+            "failed_channels": [],
+            "skipped_channels": [],
+        },
         "stage_status": stage_status or {},
         "source_stats": source_stats or {},
     }

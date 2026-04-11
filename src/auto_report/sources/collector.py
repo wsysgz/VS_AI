@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
 
 from auto_report.models.records import CollectedItem
 from auto_report.settings import Settings
@@ -148,18 +148,35 @@ def collect_all_items(settings: Settings) -> tuple[list[CollectedItem], list[str
 
     collectors = [_collect_rss, _collect_github, _collect_websites, _collect_hn]
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    executor = ThreadPoolExecutor(max_workers=4)
+    completed_futures: set[Any] = set()
+    try:
         future_to_name = {
             executor.submit(collector, settings): collector.__name__
             for collector in collectors
         }
-        for future in as_completed(future_to_name, timeout=120):
-            name = future_to_name[future]
-            try:
-                items, messages = future.result(timeout=90)
-                all_items.extend(items)
-                diagnostics.extend(messages)
-            except Exception as exc:
-                diagnostics.append(f"{name} collection timeout or error: {exc}")
+        try:
+            for future in as_completed(future_to_name, timeout=120):
+                completed_futures.add(future)
+                name = future_to_name[future]
+                try:
+                    items, messages = future.result()
+                    all_items.extend(items)
+                    diagnostics.extend(messages)
+                except Exception as exc:
+                    diagnostics.append(f"{name} collection timeout or error: {exc}")
+        except FuturesTimeoutError:
+            pending_names = [
+                future_to_name[future]
+                for future in future_to_name
+                if future not in completed_futures
+            ]
+            if pending_names:
+                diagnostics.append(f"Collectors timed out: {', '.join(pending_names)}")
+            for future in future_to_name:
+                if future not in completed_futures and not future.done():
+                    future.cancel()
+    finally:
+        executor.shutdown(wait=False, cancel_futures=True)
 
     return all_items, diagnostics

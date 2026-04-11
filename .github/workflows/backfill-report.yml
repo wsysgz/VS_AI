@@ -33,12 +33,12 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
-      - name: Run render-only backfill scaffold
+      - name: Run backfill report
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           AUTO_PUSH_ENABLED: ${{ inputs.skip_push && 'false' || 'true' }}
-        run: python -m auto_report.cli render-report
+        run: python -m auto_report.cli backfill --target-date "${{ inputs.target_date }}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

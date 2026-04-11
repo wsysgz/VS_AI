@@ -1,3 +1,4 @@
+import json
 import shutil
 from pathlib import Path
 
@@ -72,6 +73,22 @@ def test_build_run_status_summarizes_push_responses():
         "messages_sent": 2,
         "message_ids": [7, 8],
     }
+
+
+def test_build_run_status_includes_delivery_results():
+    delivery_results = {
+        "successful_channels": ["pushplus"],
+        "failed_channels": ["telegram"],
+        "skipped_channels": ["feishu"],
+    }
+
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=True,
+        delivery_results=delivery_results,
+    )
+
+    assert status["delivery_results"] == delivery_results
 
 
 def test_render_reports_writes_executive_brief_markdown(tmp_path, monkeypatch):
@@ -171,7 +188,7 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
         lambda settings: (sample_items, ["测试诊断"]),
     )
 
-    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key=""):
+    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key="", **kwargs):
         captured["channel"] = channel
         captured["template"] = template
         captured["content"] = content
@@ -228,7 +245,7 @@ def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypat
         lambda *args, **kwargs: {"code": 200},
     )
 
-    def fake_send_telegram_messages(token, chat_id, text):
+    def fake_send_telegram_messages(token, chat_id, text, **kwargs):
         captured["token"] = token
         captured["chat_id"] = chat_id
         captured["text"] = text
@@ -250,3 +267,90 @@ def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypat
     assert "关键主线" in captured["text"]
     assert "重点主题" in captured["text"]
     assert "详情链接：" in captured["text"]
+
+
+def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    monkeypatch.setattr("auto_report.app.collect_all_items", lambda settings: ([], []))
+    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("pushplus down")))
+    monkeypatch.setattr("auto_report.app.send_telegram_messages", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("telegram down")))
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("feishu down")))
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    assert status["pushed"] is False
+    assert status["delivery_results"]["failed_channels"] == ["pushplus", "telegram", "feishu"]
+
+
+def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    monkeypatch.setattr("auto_report.app.collect_all_items", lambda settings: ([], []))
+    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
+    monkeypatch.setattr("auto_report.app.send_telegram_messages", lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}])
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("feishu down")))
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    assert status["push_channel"] == "pushplus,telegram"
+
+
+def test_run_once_passes_delivery_endpoint_settings_to_senders(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    captured: dict[str, object] = {}
+
+    monkeypatch.setattr("auto_report.app.collect_all_items", lambda settings: ([], []))
+
+    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key="", **kwargs):
+        captured["pushplus"] = kwargs
+        return {"code": 200}
+
+    def fake_send_telegram_messages(token, chat_id, text, **kwargs):
+        captured["telegram"] = kwargs
+        return [{"ok": True, "result": {"message_id": 1}}]
+
+    def fake_send_feishu_messages(app_id, app_secret, receive_id, text, **kwargs):
+        captured["feishu"] = kwargs
+        return [{"code": 0, "msg": "success"}]
+
+    monkeypatch.setattr("auto_report.app.send_pushplus", fake_send_pushplus)
+    monkeypatch.setattr("auto_report.app.send_telegram_messages", fake_send_telegram_messages)
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_BASE_URL", "https://pushplus-proxy.example")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("TELEGRAM_API_BASE_URL", "https://telegram-proxy.example")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_API_BASE_URL", "https://feishu-proxy.example")
+    monkeypatch.setenv("DELIVERY_REQUEST_TIMEOUT", "33")
+
+    run_once(tmp_path)
+
+    assert captured["pushplus"] == {"base_url": "https://pushplus-proxy.example", "timeout": 33}
+    assert captured["telegram"] == {"api_base_url": "https://telegram-proxy.example", "timeout": 33}
+    assert captured["feishu"] == {"api_base_url": "https://feishu-proxy.example", "timeout": 33}

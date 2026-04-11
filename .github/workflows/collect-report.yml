@@ -209,7 +209,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPORT_REPO_URL: https://github.com/wsysgz/VS_AI
           AUTO_TIMEZONE: Asia/Shanghai
-          AUTO_PUSH_ENABLED: ${{ github.event_name == 'schedule' || inputs.push_enabled == true }}
+          AUTO_PUSH_ENABLED: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.push_enabled == true) }}
         run: python -m auto_report.cli render-and-push
 
       - name: Auto commit reports
@@ -260,6 +260,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html docs/archives/ .nojekyll
+          git add docs/index.html docs/archives/ docs/.nojekyll
           git diff --cached --quiet && echo "No changes to deploy" || git commit -m "chore: update pages site [skip ci]"
           git push

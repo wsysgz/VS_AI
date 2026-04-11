@@ -11,6 +11,8 @@ def build_parser() -> argparse.ArgumentParser:
     backfill_parser = subparsers.add_parser("backfill", help="Rerun the report pipeline for a specific target date")
     backfill_parser.add_argument("--target-date", default="", help="Target date in YYYY-MM-DD format, defaults to today")
     subparsers.add_parser("render-report", help="Render reports from current state without recollecting")
+    diagnose_parser = subparsers.add_parser("diagnose-delivery", help="Inspect or send delivery test messages")
+    diagnose_parser.add_argument("--send", action="store_true", help="Actually send test messages to configured channels")
 
     # CI 专用命令 — Phase 0: 拆分为三个独立阶段供多 job workflow 使用
     subparsers.add_parser("collect-only", help="[CI] Collect + dedup + classify + score, save intermediate result")
@@ -43,6 +45,12 @@ def main() -> int:
 
         target_date = getattr(args, "target_date", None) or ""
         run_backfill(root_dir, target_date=target_date)
+        return 0
+
+    if args.command == "diagnose-delivery":
+        from auto_report.app import cmd_diagnose_delivery
+
+        cmd_diagnose_delivery(root_dir, send=getattr(args, "send", False))
         return 0
 
     # ===== CI 专用命令 =====

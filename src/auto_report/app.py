@@ -5,6 +5,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from auto_report.integrations.delivery_status import build_channel_result, summarize_delivery_results
 from auto_report.integrations.feishu import send_feishu_messages
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
@@ -151,6 +152,119 @@ def _build_feishu_notification(root_dir: Path, settings) -> str:
     )
 
 
+def _build_delivery_probe_messages() -> dict[str, dict[str, str]]:
+    timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
+    return {
+        "pushplus": {
+            "title": "VS_AI delivery diagnostic",
+            "content": f"VS_AI delivery diagnostic\n{timestamp}\nPushPlus/WeChat channel check.",
+        },
+        "telegram": {
+            "text": f"VS_AI delivery diagnostic\n{timestamp}\nTelegram channel check.",
+        },
+        "feishu": {
+            "text": f"VS_AI delivery diagnostic\n{timestamp}\nFeishu channel check.",
+        },
+    }
+
+
+def _collect_delivery_results(root_dir: Path, settings, send: bool, diagnostic: bool = False) -> tuple[dict[str, object], dict[str, object]]:
+    responses: dict[str, object] = {}
+    results: dict[str, dict[str, object]] = {}
+    request_timeout = int(settings.env.get("DELIVERY_REQUEST_TIMEOUT", "20"))
+
+    if diagnostic:
+        probe_messages = _build_delivery_probe_messages()
+        pushplus_content = probe_messages["pushplus"]["content"]
+        telegram_content = probe_messages["telegram"]["text"]
+        feishu_content = probe_messages["feishu"]["text"]
+    else:
+        pushplus_content = _build_text_notification(root_dir, settings)
+        telegram_content = _build_telegram_notification(root_dir, settings)
+        feishu_content = _build_feishu_notification(root_dir, settings)
+
+    delivery_plan = [
+        (
+            "pushplus",
+            bool(settings.env["PUSHPLUS_TOKEN"]),
+            lambda: send_pushplus(
+                settings.env["PUSHPLUS_TOKEN"],
+                "自动情报快报" if not diagnostic else probe_messages["pushplus"]["title"],
+                pushplus_content if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or diagnostic else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
+                channel=settings.env["PUSHPLUS_CHANNEL"],
+                template="txt" if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or diagnostic else "markdown",
+                secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
+                base_url=settings.env["PUSHPLUS_BASE_URL"],
+                timeout=request_timeout,
+            ),
+        ),
+        (
+            "telegram",
+            bool(settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]),
+            lambda: send_telegram_messages(
+                settings.env["TELEGRAM_BOT_TOKEN"],
+                settings.env["TELEGRAM_CHAT_ID"],
+                telegram_content,
+                api_base_url=settings.env["TELEGRAM_API_BASE_URL"],
+                timeout=request_timeout,
+            ),
+        ),
+        (
+            "feishu",
+            bool(settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]),
+            lambda: send_feishu_messages(
+                settings.env["FEISHU_APP_ID"],
+                settings.env["FEISHU_APP_SECRET"],
+                settings.env["FEISHU_CHAT_ID"],
+                feishu_content,
+                api_base_url=settings.env["FEISHU_API_BASE_URL"],
+                timeout=request_timeout,
+            ),
+        ),
+    ]
+
+    for channel_name, configured, sender in delivery_plan:
+        if not configured:
+            results[channel_name] = build_channel_result(
+                channel_name,
+                configured=False,
+                attempted=False,
+                ok=False,
+                detail="missing config",
+            )
+            continue
+        if not send:
+            results[channel_name] = build_channel_result(
+                channel_name,
+                configured=True,
+                attempted=False,
+                ok=False,
+                detail="configured",
+            )
+            continue
+        try:
+            response = sender()
+            responses[channel_name] = response
+            results[channel_name] = build_channel_result(
+                channel_name,
+                configured=True,
+                attempted=True,
+                ok=True,
+                detail="sent",
+                response=response,
+            )
+        except Exception as exc:
+            results[channel_name] = build_channel_result(
+                channel_name,
+                configured=True,
+                attempted=True,
+                ok=False,
+                detail=str(exc),
+            )
+
+    return summarize_delivery_results(results), responses
+
+
 def render_reports(root_dir: Path) -> tuple[list[str], dict[str, float]]:
     settings = load_settings(root_dir)
     generated_at = datetime.now().astimezone().isoformat()
@@ -282,6 +396,12 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
         pushed=False,
         push_channel="",
         push_response={},
+        delivery_results={
+            "channels": {},
+            "successful_channels": [],
+            "failed_channels": [],
+            "skipped_channels": [],
+        },
         stage_status=package.summary_payload.get("stage_status", {}),
         source_stats={
             "collected_items": int(package.summary_payload.get("meta", {}).get("total_items", 0)),
@@ -298,6 +418,12 @@ def run_backfill(root_dir: Path, target_date: str = "") -> list[str]:
 def run_once(root_dir: Path) -> list[str]:
     settings = load_settings(root_dir)
     all_timings: dict[str, float] = {}
+    delivery_results = {
+        "channels": {},
+        "successful_channels": [],
+        "failed_channels": [],
+        "skipped_channels": [],
+    }
 
     with StageTimer("total") as total_timer:
         generated_files, render_timings = render_reports(root_dir)
@@ -310,48 +436,11 @@ def run_once(root_dir: Path) -> list[str]:
 
         with StageTimer("push_total") as push_timer:
             if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
-                text_notification = _build_text_notification(root_dir, settings)
-                notification_results: dict[str, object] = {}
-
-                if settings.env["PUSHPLUS_TOKEN"]:
-                    try:
-                        push_channel = settings.env["PUSHPLUS_CHANNEL"]
-                        push_response = send_pushplus(
-                            settings.env["PUSHPLUS_TOKEN"],
-                            "自动情报快报",
-                            text_notification if push_channel == "clawbot" else (root_dir / "data" / "reports" / "latest-summary.md").read_text(encoding="utf-8"),
-                            channel=push_channel,
-                            template="txt" if push_channel == "clawbot" else "markdown",
-                            secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
-                        )
-                        notification_results["pushplus"] = push_response
-                    except Exception as e:
-                        notification_results["pushplus"] = {"error": str(e)}
-
-                if settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]:
-                    try:
-                        notification_results["telegram"] = send_telegram_messages(
-                            settings.env["TELEGRAM_BOT_TOKEN"],
-                            settings.env["TELEGRAM_CHAT_ID"],
-                            _build_telegram_notification(root_dir, settings),
-                        )
-                    except Exception as e:
-                        notification_results["telegram"] = {"error": str(e)}
-
-                if settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]:
-                    try:
-                        notification_results["feishu"] = send_feishu_messages(
-                            settings.env["FEISHU_APP_ID"],
-                            settings.env["FEISHU_APP_SECRET"],
-                            settings.env["FEISHU_CHAT_ID"],
-                            _build_feishu_notification(root_dir, settings),
-                        )
-                    except Exception as e:
-                        notification_results["feishu"] = {"error": str(e)}
-
-                if notification_results:
-                    push_response = notification_results
-                    pushed = True
+                delivery_results, push_response = _collect_delivery_results(root_dir, settings, send=True)
+                pushed = bool(delivery_results["successful_channels"])
+                push_channel = ",".join(delivery_results["successful_channels"])
+            else:
+                delivery_results, _ = _collect_delivery_results(root_dir, settings, send=False)
 
         all_timings["push_total"] = push_timer.elapsed
 
@@ -360,6 +449,7 @@ def run_once(root_dir: Path) -> list[str]:
         pushed=pushed,
         push_channel=push_channel,
         push_response=push_response,
+        delivery_results=delivery_results,
         stage_status=summary_payload.get("stage_status", {}),
         source_stats={
             "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
@@ -483,6 +573,14 @@ def cmd_analyze_only(root_dir: Path) -> list[str]:
 def cmd_render_and_push(root_dir: Path) -> list[str]:
     """CI Job 3: 渲染 MD+JSON+HTML -> 三通道推送 -> 归档"""
     return run_once(root_dir)
+
+
+def cmd_diagnose_delivery(root_dir: Path, send: bool = False) -> dict[str, object]:
+    settings = load_settings(root_dir)
+    summary, _ = _collect_delivery_results(root_dir, settings, send=send, diagnostic=True)
+    for name, item in summary["channels"].items():
+        print(f"[{name}] status={item['status']} configured={item['configured']} attempted={item['attempted']} detail={item['detail']}")
+    return summary
 
 
 # ════════════════════════════════════════

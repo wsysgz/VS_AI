@@ -29,6 +29,14 @@ def test_load_settings_exposes_ai_reading_paths():
     assert settings.env["AI_MAX_ANALYSIS_TOPICS"] == "6"
 
 
+def test_load_settings_includes_delivery_endpoint_defaults():
+    settings = load_settings(Path.cwd())
+    assert settings.env["PUSHPLUS_BASE_URL"] == "https://www.pushplus.plus"
+    assert settings.env["TELEGRAM_API_BASE_URL"] == "https://api.telegram.org"
+    assert settings.env["FEISHU_API_BASE_URL"] == "https://open.feishu.cn"
+    assert settings.env["DELIVERY_REQUEST_TIMEOUT"] == "20"
+
+
 def test_load_settings_uses_curated_live_website_entry_points():
     settings = load_settings(Path.cwd())
     website_sources = {

@@ -8,6 +8,7 @@ def test_cli_exposes_all_commands():
     assert "run-once" in choices
     assert "backfill" in choices
     assert "render-report" in choices
+    assert "diagnose-delivery" in choices
     # CI 专用命令 (Phase 0)
     assert "collect-only" in choices
     assert "analyze-only" in choices
@@ -30,3 +31,12 @@ def test_ci_commands_exist():
             assert args.command == cmd, f"Expected command '{cmd}', got '{args.command}'"
         finally:
             sys.argv = old_argv
+
+
+def test_diagnose_delivery_command_accepts_send_flag():
+    parser = build_parser()
+
+    args = parser.parse_args(["diagnose-delivery", "--send"])
+
+    assert args.command == "diagnose-delivery"
+    assert args.send is True

@@ -42,18 +42,33 @@ def split_telegram_text(text: str, max_length: int = TELEGRAM_MAX_TEXT_LENGTH) -
     return chunks
 
 
-def send_telegram_message(token: str, chat_id: str, text: str) -> dict[str, Any]:
+def send_telegram_message(
+    token: str,
+    chat_id: str,
+    text: str,
+    api_base_url: str = "https://api.telegram.org",
+    timeout: int = 20,
+) -> dict[str, Any]:
     response = requests.post(
-        f"https://api.telegram.org/bot{token}/sendMessage",
+        f"{api_base_url.rstrip('/')}/bot{token}/sendMessage",
         json=build_telegram_payload(chat_id, text),
-        timeout=20,
+        timeout=timeout,
     )
     response.raise_for_status()
-    return response.json()
+    data = response.json()
+    if not data.get("ok", False):
+        raise RuntimeError(str(data.get("description", "telegram send failed")))
+    return data
 
 
-def send_telegram_messages(token: str, chat_id: str, text: str) -> list[dict[str, Any]]:
+def send_telegram_messages(
+    token: str,
+    chat_id: str,
+    text: str,
+    api_base_url: str = "https://api.telegram.org",
+    timeout: int = 20,
+) -> list[dict[str, Any]]:
     return [
-        send_telegram_message(token, chat_id, chunk)
+        send_telegram_message(token, chat_id, chunk, api_base_url=api_base_url, timeout=timeout)
         for chunk in split_telegram_text(text)
     ]

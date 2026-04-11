@@ -1,4 +1,7 @@
-from auto_report.integrations.pushplus import build_pushplus_payload
+import pytest
+import requests
+
+from auto_report.integrations.pushplus import build_pushplus_payload, send_pushplus
 
 
 def test_build_pushplus_payload_defaults_to_markdown():
@@ -30,3 +33,17 @@ def test_build_pushplus_payload_without_secret_key_unchanged():
     """无 secret_key 时保持原 token 不变"""
     payload = build_pushplus_payload("plaintext-token", "Title", "Content")
     assert payload["token"] == "plaintext-token"
+
+
+def test_send_pushplus_rejects_non_success_code(monkeypatch):
+    class FakeResponse:
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> dict[str, object]:
+            return {"code": 500, "msg": "invalid token"}
+
+    monkeypatch.setattr(requests, "post", lambda *args, **kwargs: FakeResponse())
+
+    with pytest.raises(RuntimeError, match="PushPlus send failed"):
+        send_pushplus("token", "AI Daily", "Summary")

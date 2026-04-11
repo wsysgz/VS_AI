@@ -1,7 +1,9 @@
+import pytest
 import requests
 
 from auto_report.integrations.telegram import (
     build_telegram_payload,
+    send_telegram_message,
     send_telegram_messages,
     split_telegram_text,
 )
@@ -59,3 +61,17 @@ def test_send_telegram_messages_posts_each_chunk(monkeypatch):
     assert len(responses) == 2
     assert all(entry["url"] == "https://api.telegram.org/bottelegram-token/sendMessage" for entry in captured)
     assert all(len(str(entry["json"]["text"])) <= 4096 for entry in captured)
+
+
+def test_send_telegram_message_rejects_non_ok_response(monkeypatch):
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"ok": False, "description": "chat not found"}
+
+    monkeypatch.setattr(requests, "post", lambda *args, **kwargs: FakeResponse())
+
+    with pytest.raises(RuntimeError, match="chat not found"):
+        send_telegram_message("token", "chat", "text")

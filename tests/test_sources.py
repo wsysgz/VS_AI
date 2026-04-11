@@ -1,4 +1,10 @@
+from concurrent.futures import TimeoutError
+from pathlib import Path
+
+from auto_report.models.records import CollectedItem
 from auto_report.pipeline.source_filters import should_keep_candidate
+from auto_report.settings import load_settings
+from auto_report.sources.collector import collect_all_items
 from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.github import normalize_github_repositories
 from auto_report.sources.rss import parse_rss_content
@@ -247,3 +253,36 @@ def test_extract_listing_items_drops_white_paper_and_webinar_cards():
     )
 
     assert [item.title for item in items] == ["Jetson edge AI pipeline update"]
+
+
+def test_collect_all_items_records_timeout_as_diagnostic(monkeypatch):
+    settings = load_settings(Path.cwd())
+    sample_item = CollectedItem(
+        source_id="rss",
+        item_id="1",
+        title="Agent breakthrough",
+        url="https://example.com/agent-breakthrough",
+        summary="Reasoning agent with multimodal support",
+        published_at="2026-04-09T08:00:00+00:00",
+        collected_at="2026-04-09T08:05:00+00:00",
+        tags=["agent"],
+        language="en",
+        metadata={},
+    )
+
+    monkeypatch.setattr("auto_report.sources.collector._collect_rss", lambda settings: ([sample_item], ["rss ok"]))
+    monkeypatch.setattr("auto_report.sources.collector._collect_github", lambda settings: ([], ["github ok"]))
+    monkeypatch.setattr("auto_report.sources.collector._collect_websites", lambda settings: ([], ["web ok"]))
+    monkeypatch.setattr("auto_report.sources.collector._collect_hn", lambda settings: ([], ["hn ok"]))
+
+    def fake_as_completed(futures, timeout=None):
+        futures = list(futures)
+        yield futures[0]
+        raise TimeoutError("1 (of 4) futures unfinished")
+
+    monkeypatch.setattr("auto_report.sources.collector.as_completed", fake_as_completed)
+
+    items, diagnostics = collect_all_items(settings)
+
+    assert [item.title for item in items] == ["Agent breakthrough"]
+    assert any("timed out" in message for message in diagnostics)
