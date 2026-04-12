@@ -1,75 +1,73 @@
 {
   "meta": {
-    "generated_at": "2026-04-12T10:43:38.285798+00:00",
+    "generated_at": "2026-04-12T23:58:14.515408+00:00",
     "timezone": "Asia/Shanghai",
-    "total_items": 89,
-    "total_topics": 89,
+    "total_items": 93,
+    "total_topics": 93,
     "publication_mode": "auto",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI智能体领域正从追求基准测试分数转向解决实际部署中的核心瓶颈：记忆结构化、系统化调试和持续学习能力，这标志着行业进入追求可靠性与实用性的新阶段。",
+  "one_line_core": "AI智能体领域正从追求原始能力转向解决规模化应用的核心瓶颈：结构化记忆、系统化调试和持续学习能力，这标志着行业进入“可靠性优先”的成熟阶段。",
   "executive_summary": [
-    "当前AI智能体发展的焦点已从单纯提升基准测试分数，转向解决在复杂、动态环境中可靠运行的实际挑战。",
-    "三大核心瓶颈凸显：如何将海量交互日志转化为可检索的结构化知识（PlugMem），如何系统化诊断和修复智能体错误（AgentRx），以及如何让智能体在部署后持续自我改进（ALTK-Evolve）。",
-    "这些进展共同指向一个趋势：智能体的价值评估正从封闭的基准测试转向开放环境的适应性与可维护性，但自主演化带来的可控性风险是下一阶段的主要矛盾。",
-    "同时，一个关于顶级基准被“破解”的讨论，尖锐地揭示了现有评估体系在衡量智能体真实泛化能力上的局限性。"
+    "微软研究的两项工作揭示了当前AI智能体规模化部署的关键障碍：PlugMem旨在解决非结构化记忆导致的效率下降问题，将原始交互转化为可检索知识；AgentRx则针对智能体日益复杂和自主化带来的“黑箱”故障，提供系统化调试框架。",
+    "IBM的ALTK-Evolve框架代表了另一重要方向，即让智能体在执行任务中持续学习和进化，从静态执行转向动态适应，但其成功取决于在可靠性与自主学习间找到平衡。",
+    "同时，社区关注点正转向基础设施效率（如vLLM推理引擎）和评估体系的可靠性（如对基准测试被“攻破”的讨论），表明生态建设进入深水区。",
+    "综合来看，智能体发展的主要矛盾已从“能否做”转向“能否可靠、透明、高效地持续做”，解决这些工程与系统级挑战是下一阶段竞争的关键。"
   ],
   "key_points": [
     {
-      "title": "记忆瓶颈在于知识结构化，而非存储容量",
-      "why_it_matters": "智能体积累的原始交互日志会因信息过载和检索困难而降低效能，PlugMem等方案旨在将“数据坟墓”转化为可用的“知识库”，这是智能体实现长期连贯性和情境理解的基础。"
+      "title": "记忆瓶颈在于结构而非容量",
+      "why_it_matters": "PlugMem揭示，单纯增加记忆容量会因信息过载和检索困难而降低智能体效能。关键在于将原始交互日志转化为结构化、可重用的知识。这指向一个根本性转变：智能体持久学习能力取决于知识转化架构，而非存储硬件。"
     },
     {
-      "title": "系统化调试成为智能体可靠部署的关键",
-      "why_it_matters": "随着智能体承担更复杂（如云运维）的任务，其失败模式变得不透明且难以追溯。AgentRx框架将软件工程的系统化调试理念引入AI领域，是智能体进入生产环境所必需的可观测性与可维护性保障。"
+      "title": "透明度与可调试性成为新瓶颈",
+      "why_it_matters": "随着智能体承担云运维、多步骤API工作流等关键任务，其故障（如工具调用幻觉）的调试变得异常困难。AgentRx框架的提出，标志着行业意识到系统化调试工具与透明化操作是复杂智能体可靠部署的前提，否则将阻碍其在生产环境的应用。"
     },
     {
-      "title": "智能体需从“一次训练”转向“终身学习”",
-      "why_it_matters": "静态模型无法适应动态环境。ALTK-Evolve让智能体利用运行时失败案例进行自主在线学习，试图解决“知识保鲜期”过短的问题，但这也引发了关于自主演化可控性与安全性的新挑战。"
+      "title": "从静态执行到动态进化的范式转移",
+      "why_it_matters": "ALTK-Evolve框架让智能体通过反思行动结果来动态调整长期记忆，实现“在职学习”。这挑战了依赖固定训练数据的传统范式，其核心洞察在于：智能体的终极价值在于适应与进化能力，但这必须在可控的范围内进行，以平衡学习探索与任务可靠性。"
     },
     {
-      "title": "基准测试的公信力危机凸显评估体系短板",
-      "why_it_matters": "“破解”顶级基准的事件表明，当前评估容易过拟合，无法有效衡量智能体在真实场景中的泛化能力。这警示行业，下一阶段的突破可能依赖于评估方法论本身的革新，而非在现有基准上刷分。"
+      "title": "生态关注点转向基础设施与评估可信度",
+      "why_it_matters": "vLLM等高吞吐推理引擎的流行，以及对主流智能体基准测试可能被“攻破”的社区讨论，共同表明领域焦点正从算法原型转向生产就绪的工程效率和可信评估。这是技术成熟和规模化应用的必然要求，也预示着竞争壁垒将从模型能力转向全栈系统工程能力。"
     }
   ],
   "key_insights": [
-    "智能体发展的主要矛盾已从“能力上限”转向“可靠性下限”。行业正集体攻关记忆、调试、学习等支撑长期可靠运行的基础设施问题。",
-    "“自主性”与“可控性”构成新的核心张力。无论是自主记忆整理、自主调试还是自主学习，在提升效率的同时都引入了不可预测的风险，平衡二者是未来架构设计的关键。",
-    "评估体系的进化滞后于智能体能力的进化。当智能体能够“破解”基准时，意味着评估标准已失效，建立能反映真实世界复杂性和泛化需求的评估体系是推动领域健康发展的前提。",
-    "智能体正从“功能模块”演变为“数字员工”，其研发范式随之向软件工程和系统工程靠拢，强调可观测性、可维护性和生命周期管理。"
+    "智能体发展的主要矛盾已发生转移：从“能力有无”转向“能力能否被可靠地组织、诊断和进化”。PlugMem（记忆结构）、AgentRx（调试透明）和ALTK-Evolve（持续学习）分别从不同维度回应了这一新矛盾。",
+    "未来智能体架构的竞争将是“系统级”的：胜出者很可能不是拥有最强基础模型的一方，而是能最佳整合结构化记忆、系统化调试、持续学习框架以及高效推理基础设施，形成正向反馈闭环的生态体系。",
+    "当前存在“概念验证”与“生产部署”之间的断层：许多前沿框架（如ALTK-Evolve）仍处于实验室概念阶段，其从可控环境走向复杂、开放的真实世界应用，将面临学习稳定性、安全边界和评估标准等一系列尚未解决的挑战。",
+    "社区对基准测试的质疑反映了一种健康的反思：它标志着领域开始严肃对待评估的鲁棒性和泛化性，这是任何技术从炒作走向成熟的必经之路，也将倒逼更严谨、更贴近实际场景的评估方法诞生。"
   ],
   "limitations": [
-    "关于LiteRT框架和vLLM项目的分析基于有限信息，其具体技术实质、性能优势及市场影响有待进一步验证。",
-    "所有提及的研究框架（PlugMem、AgentRx、ALTK-Evolve）均处于早期发布或研究阶段，其在实际大规模生产环境中的有效性、可扩展性和成本效益尚未得到充分证明。",
-    "分析主要基于技术提供方（微软、IBM、伯克利）的视角，缺乏来自实际终端用户或独立第三方的实施反馈与效能数据。",
-    "对基准测试“公信力危机”的洞察主要源于一篇带有宣传性质的文章，需要更广泛的行业讨论和数据来佐证这一趋势的普遍性。"
+    "本摘要基于有限的主题分析列表，其中两个主题（LiteRT框架、基准测试讨论）因证据深度不足，分析置信度较低，可能遗漏关键细节或存在偏差。",
+    "分析主要聚焦于微软和IBM的研究，未能涵盖其他重要玩家（如OpenAI、Anthropic等）在智能体领域的近期进展，视角可能不够全面。",
+    "对“在职学习”（如ALTK-Evolve）等前沿概念的潜在风险（如目标漂移、安全失控）讨论不足，这些是影响其实际落地的重要制约因素。",
+    "摘要将不同层面（研究框架、基础设施、社区讨论）的主题并列分析，可能模糊了它们各自所处的发展阶段和直接可比性。"
   ],
   "actions": [
-    "对于智能体开发者：在架构设计中优先考虑可观测性和调试接口，借鉴AgentRx等系统化思路，而非仅关注任务完成率。",
-    "对于技术选型者：评估智能体解决方案时，应超越基准测试分数，重点考察其记忆管理、错误处理机制和持续学习能力在实际场景中的表现。",
-    "对于研究人员：投身于设计更能反映开放域、长周期、多模态交互复杂性的新一代智能体评估基准与方法论。",
-    "关注并验证PlugMem、AgentRx等新兴框架的开源实现与案例研究，以评估其解决实际工程痛点的成熟度。"
+    "对于智能体开发者：应优先评估并集成类似PlugMem的结构化记忆方案，以应对长期运行中的性能衰减问题；同时，在复杂任务流程中引入类似AgentRx的调试和可观测性工具。",
+    "对于技术决策者：在评估智能体解决方案时，需将“系统化调试支持”、“记忆管理架构”和“持续学习能力”纳入关键考量维度，而不仅仅是任务完成率。",
+    "对于研究者：应关注并参与构建更鲁棒、更难以被“攻破”的智能体评估基准，推动领域建立更可信的性能衡量标准。",
+    "建议后续情报收集增加对智能体系统工程、测试验证框架以及实际部署案例的追踪，以弥补当前分析中“概念”与“实践”之间的信息缺口。"
   ],
   "analyses": [
     {
       "facts": [
-        "AI agents accumulate large, unstructured interaction logs over time.",
-        "More memory can paradoxically reduce agent effectiveness due to increased search difficulty.",
-        "Irrelevant content in logs dilutes the utility of stored information.",
-        "PlugMem is a proposed system to transform raw interactions into structured, reusable knowledge."
+        "AI agents with more unstructured memory can become less effective due to information overload and retrieval difficulty.",
+        "Raw interaction logs accumulate irrelevant content and lack structure, hindering efficient use.",
+        "Microsoft Research proposes PlugMem to transform raw interactions into structured, reusable knowledge."
       ],
       "contradictions": [
-        "Increasing memory capacity vs. decreasing agent effectiveness due to search overhead.",
-        "Accumulation of raw interaction data vs. need for structured, relevant knowledge.",
-        "Desire for comprehensive historical records vs. operational efficiency in current tasks.",
-        "Potential of large-scale memory storage vs. practical limitations in retrieval and relevance filtering."
+        "Increasing memory capacity vs. decreasing agent effectiveness due to retrieval overhead",
+        "Accumulation of raw interaction data vs. need for structured, relevant knowledge",
+        "Goal of persistent learning from experience vs. challenge of organizing and accessing that experience efficiently"
       ],
-      "primary_contradiction": "Accumulation of raw interaction data vs. need for structured, relevant knowledge.",
-      "core_insight": "The fundamental bottleneck for AI agent memory is not storage capacity, but the transformation of raw, unstructured interactions into organized, retrievable knowledge that maintains relevance over time.",
-      "confidence": "medium",
+      "primary_contradiction": "The accumulation of raw, unstructured interaction data (enabling persistent memory) vs. the need for efficient, task-relevant retrieval (maintaining agent effectiveness).",
+      "core_insight": "The fundamental bottleneck for AI agent memory is not storage capacity, but the transformation of raw experiences into structured, retrievable knowledge; solving this structural problem is key to unlocking scalable, persistent learning.",
+      "confidence": "high",
       "title": "PlugMem: Transforming raw agent interactions into reusable knowledge",
       "url": "https://www.microsoft.com/en-us/research/blog/from-raw-interaction-to-reusable-knowledge-rethinking-memory-for-ai-agents/",
       "primary_domain": "ai-llm-agent",
@@ -106,114 +104,20 @@
     },
     {
       "facts": [
-        "主题候选来自Google开发者博客，标题为'LiteRT: The Universal Framework for On-Device AI'，涉及AI-LLM-Agent领域，并带有'AI-x-Electronics'标签。证据片段列表为空，表明当前没有提供具体的文章内容或技术细节。"
+        "AI agents are transitioning from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows.",
+        "A new challenge of transparency has emerged with this transition.",
+        "When a human makes a mistake, the logic can usually be traced.",
+        "When an AI agent fails (e.g., by hallucinating a tool output), the debugging process is not as straightforward.",
+        "Microsoft Research is introducing the AgentRx framework, positioned as a solution for systematic debugging of AI agents."
       ],
       "contradictions": [
-        "1. 主题宣称'通用框架'的雄心与证据片段缺失导致无法评估其实际通用性之间的矛盾。",
-        "2. 标题暗示的'端侧AI'技术突破与当前缺乏具体技术细节、性能数据或应用案例之间的矛盾。",
-        "3. 信息来源（Google官方博客）的权威性与分析所需的具体、可验证技术事实缺失之间的矛盾。"
+        "Increasing autonomy and complexity of AI agents vs. the need for transparent, debuggable operation.",
+        "The expectation for AI agents to perform critical, multi-step tasks reliably vs. their current propensity for opaque failures (e.g., hallucinations).",
+        "The established, traceable debugging paradigm for human/software errors vs. the lack of a systematic framework for AI agent failures.",
+        "The rapid deployment of advanced AI agents into production environments vs. the immature state of tools for diagnosing their operational issues."
       ],
-      "primary_contradiction": "分析任务要求（基于证据进行结构化输出）与输入条件（证据片段为空）之间的矛盾。",
-      "core_insight": "当前输入信息严重不足，仅凭标题和元数据无法对LiteRT框架的技术实质、市场定位或行业影响进行有效分析。任何超出标题字面含义的推断都缺乏事实基础。",
-      "confidence": "low",
-      "title": "LiteRT: The Universal Framework for On-Device AI",
-      "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "google-ai-edge"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-            "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "On-Device Function Calling in Google AI Edge Gallery",
-            "url": "https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 3,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-12",
-        "previous_score": 2.6,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "google-ai-edge",
-          "source_type": "official",
-          "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-          "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "nvidia-embedded",
-          "source_type": "official",
-          "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-          "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "google-ai-edge",
-          "source_type": "official",
-          "title": "On-Device Function Calling in Google AI Edge Gallery",
-          "url": "https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "AI agents are evolving from simple chatbots to autonomous systems handling complex tasks like cloud incident management and multi-step API workflows.",
-        "A key challenge with AI agent failures is lack of transparency; unlike human errors, AI agent logic is often difficult to trace.",
-        "Microsoft Research has introduced the AgentRx framework, which is presented as a systematic debugging approach for AI agents."
-      ],
-      "contradictions": [
-        "Increasing AI agent autonomy and task complexity vs. the need for operational transparency and debuggability.",
-        "The demand for reliable, production-ready AI agents vs. the current opaque nature of their failure modes (e.g., hallucinating tool outputs).",
-        "The promise of autonomous AI systems vs. the practical barrier of diagnosing and fixing their errors systematically."
-      ],
-      "primary_contradiction": "The increasing deployment of AI agents into complex, critical operational environments vs. the lack of systematic, transparent methods to diagnose and debug their failures.",
-      "core_insight": "The advancement of AI agent capabilities is creating a critical operational bottleneck: the inability to efficiently understand and fix their errors, which AgentRx aims to address by applying systematic debugging principles.",
+      "primary_contradiction": "The increasing deployment of complex, autonomous AI agents into critical operational roles vs. the lack of systematic, transparent methods to diagnose and debug their failures.",
+      "core_insight": "The core bottleneck for reliable, scalable AI agent deployment is shifting from raw capability to operational transparency and debuggability, necessitating a new class of diagnostic frameworks like AgentRx.",
       "confidence": "medium",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
@@ -303,18 +207,111 @@
     },
     {
       "facts": [
-        "IBM Research发布了ALTK-Evolve框架，这是一个让AI智能体在部署后持续学习的方法。该框架旨在解决智能体在动态环境中性能下降的问题，通过持续学习来适应新任务和变化。",
-        "ALTK-Evolve的核心机制是让智能体在运行时收集失败案例，并利用这些案例进行自我改进，而无需人工重新训练或干预。",
-        "该方法被定位为迈向更自主、适应性更强的AI系统的一步，特别是在需要长期部署和应对不可预见情况的场景中。"
+        "主题候选为Google开发者博客发布的关于LiteRT框架的文章，标题为'LiteRT: The Universal Framework for On-Device AI'。该主题被归类于'ai-llm-agent'领域，并带有'ai-x-electronics'标签。证据片段列表为空，未提供任何关于LiteRT框架的具体技术细节、发布时间、性能指标、应用场景或与其他框架对比的信息。"
       ],
       "contradictions": [
-        "智能体部署后的静态知识 vs 动态变化的环境需求",
-        "传统智能体需要人工重新训练以改进 vs ALTK-Evolve追求自主的在线学习",
-        "在线学习对计算和存储资源的持续消耗 vs 对智能体轻量化和高效运行的期望",
-        "自主改进的潜在不可控性与风险 vs 对AI系统安全性和可靠性的要求"
+        "1. 分析任务要求（基于证据片段输出结构化分析） vs 可用信息（证据片段为空，缺乏分析基础）。2. 主题标题暗示一个'通用'的端侧AI框架 vs 缺乏证据证明其通用性、性能或生态支持。3. 主题候选来自官方信源（Google开发者博客）具有权威性 vs 缺乏具体内容证据，无法验证其宣称的'通用'框架地位或实际价值。"
       ],
-      "primary_contradiction": "智能体部署后的静态知识 vs 动态变化的环境需求",
-      "core_insight": "ALTK-Evolve标志着AI智能体研发重点从‘一次性训练部署’转向‘终身学习与适应’，其核心价值在于试图用算法自动化解决智能体在真实世界中的‘知识保鲜期’过短问题，但自主演化的可控性是实现这一愿景的最大挑战。",
+      "primary_contradiction": "分析任务要求（必须基于证据进行事实与矛盾分析） vs 可用信息（证据片段为空，无法进行实质性分析）。",
+      "core_insight": "当前输入仅为一个缺乏实质内容证据的主题元数据，无法进行符合框架要求的、基于事实的因果链分析。任何关于该技术框架的分析结论都将缺乏事实支撑，属于无源之水。",
+      "confidence": "low",
+      "title": "LiteRT: The Universal Framework for On-Device AI",
+      "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "google-ai-edge"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
+            "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "On-Device Function Calling in Google AI Edge Gallery",
+            "url": "https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 3,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-12",
+        "previous_score": 2.6,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "google-ai-edge",
+          "source_type": "official",
+          "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
+          "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "nvidia-embedded",
+          "source_type": "official",
+          "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+          "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "google-ai-edge",
+          "source_type": "official",
+          "title": "On-Device Function Calling in Google AI Edge Gallery",
+          "url": "https://developers.googleblog.com/on-device-function-calling-in-google-ai-edge-gallery/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        }
+      ]
+    },
+    {
+      "facts": [
+        "IBM Research发布了ALTK-Evolve框架，这是一个针对AI智能体的在职学习系统。该系统旨在让智能体在执行任务过程中持续学习和进化，而非依赖固定的训练数据集。框架的核心是让智能体通过反思过去的行动和结果，动态地调整其长期记忆（ALTK），从而改进未来的决策和表现。这代表了AI智能体从静态执行向动态适应能力发展的重要方向。"
+      ],
+      "contradictions": [
+        "静态知识库与动态环境需求之间的矛盾：传统智能体依赖预训练知识，难以适应新任务或环境变化；而ALTK-Evolve追求持续学习，但可能面临学习稳定性与探索风险之间的平衡问题。",
+        "集中式训练与分布式在线学习之间的矛盾：典型AI模型需集中大量数据训练；而ALTK-Evolve强调个体智能体在任务中实时学习，这对学习效率、知识泛化及避免偏见积累提出了挑战。",
+        "学习自主性与任务可靠性之间的矛盾：高度自主的学习可能导致智能体行为不可预测或偏离原始任务目标；而过度约束又会限制其适应和进化能力。",
+        "短期任务表现与长期能力进化之间的矛盾：优化即时任务成功率可能抑制探索性学习；而优先学习可能牺牲短期性能，影响用户信任和实用价值。"
+      ],
+      "primary_contradiction": "AI智能体固化的初始能力与开放环境持续适应需求之间的矛盾。",
+      "core_insight": "ALTK-Evolve的本质是将AI智能体的核心范式从“执行预设能力”转向“在任务中进化能力”，其成功关键在于能否在可靠执行与自主学习之间找到可控的平衡点，这决定了此类系统能否从实验室概念走向实际应用。",
       "confidence": "medium",
       "title": "ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
       "url": "https://huggingface.co/blog/ibm-research/altk-evolve",
@@ -402,121 +399,6 @@
       ]
     },
     {
-      "facts": [
-        "文章标题为《How We Broke Top AI Agent Benchmarks: And What Comes Next》，来自伯克利RDI博客，主题为AI智能体基准测试。该话题在Hacker News上获得386分和97条评论，表明其在技术社区引发了高度关注和讨论。文章核心内容暗示作者团队在顶级AI智能体基准测试中取得了突破性成绩（‘Broke’），并计划探讨后续发展方向。"
-      ],
-      "contradictions": [
-        "1. 基准测试的‘可破解性’（Broke） vs 基准测试作为可靠评估工具的公信力与目的。",
-        "2. 追求在特定基准上取得高分（优化） vs 开发具有泛化能力的、真正实用的AI智能体（泛化）。",
-        "3. 研究团队展示突破性成果的动机 vs 整个AI社区对基准测试健康生态和可信度的需求。",
-        "4. 短期内在排行榜上获得关注 vs 长期推动领域实质进步。",
-        "5. 基准测试设计者的意图（衡量能力） vs 参与者的意图（获得高分）。"
-      ],
-      "primary_contradiction": "AI智能体基准测试作为衡量和推动进步的工具性目的，与其在实践中容易被针对性‘破解’（过拟合）而丧失可信度和指导意义之间的矛盾。",
-      "core_insight": "当前AI智能体领域的核心瓶颈可能并非纯粹的技术能力上限，而是缺乏能够有效衡量其真实、泛化性能的评估体系；‘刷榜’行为凸显了现有基准的脆弱性，下一阶段的关键突破点可能在于基准测试方法论本身的革新。",
-      "confidence": "medium",
-      "title": "How We Broke Top AI Agent Benchmarks: And What Comes Next",
-      "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
-            "url": "https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-            "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "ADeLe: Predicting and explaining AI performance across tasks",
-            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
-            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
-          },
-          {
-            "source_id": "arxiv-search",
-            "source_type": "paper",
-            "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
-            "url": "https://arxiv.org/abs/2507.21504v1",
-            "summary": "The rise of LLM-based agents has opened new frontiers in AI applications, yet evaluating these agents remains a complex and underdeveloped area. This survey provides an in-depth overview of the emerging field of LLM agent evaluation, introducing a two-dimensional taxonomy that organizes existing work along (1) evaluation objectives -- what to evaluate, such as agent behavior, capabilities, reliability, and safety -- and (2) evaluation process -- how to evaluate, including interaction modes, datasets and benchmarks, metric computation methods, and tooling. In addition to taxonomy, we highlight enterprise-specific challenges, such as role-based access to data, the need for reliability guarantees, dynamic and long-horizon interactions, and compliance, which are often overlooked in current research. We also identify future research directions, including holistic, more realistic, and scalable evaluation. This work aims to bring clarity to the fragmented landscape of agent evaluation and provide a framework for systematic assessment, enabling researchers and practitioners to evaluate LLM agents for real-world deployment.",
-            "evidence_scope": "external"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support",
-          "external-support"
-        ],
-        "summary": "1 source(s) | community | 4 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
-        "last_seen": "2026-04-12",
-        "previous_score": 3.3,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-11",
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "nvidia-embedded",
-          "source_type": "official",
-          "title": "Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
-          "url": "https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "google-ai-edge",
-          "source_type": "official",
-          "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-          "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "ADeLe: Predicting and explaining AI performance across tasks",
-          "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
-          "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "external"
-        },
-        {
-          "source_id": "arxiv-search",
-          "source_type": "paper",
-          "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
-          "url": "https://arxiv.org/abs/2507.21504v1",
-          "summary": "The rise of LLM-based agents has opened new frontiers in AI applications, yet evaluating these agents remains a complex and underdeveloped area. This survey provides an in-depth overview of the emerging field of LLM agent evaluation, introducing a two-dimensional taxonomy that organizes existing work along (1) evaluation objectives -- what to evaluate, such as agent behavior, capabilities, reliability, and safety -- and (2) evaluation process -- how to evaluate, including interaction modes, datasets and benchmarks, metric computation methods, and tooling. In addition to taxonomy, we highlight enterprise-specific challenges, such as role-based access to data, the need for reliability guarantees, dynamic and long-horizon interactions, and compliance, which are often overlooked in current research. We also identify future research directions, including holistic, more realistic, and scalable evaluation. This work aims to bring clarity to the fragmented landscape of agent evaluation and provide a framework for systematic assessment, enabling researchers and practitioners to evaluate LLM agents for real-world deployment.",
-          "evidence_scope": "external"
-        }
-      ]
-    },
-    {
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
@@ -560,19 +442,99 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "support_evidence": []
+    },
+    {
+      "title": "Exploiting the most prominent AI agent benchmarks",
+      "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 488 | Comments: 124"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "Exploiting the most prominent AI agent benchmarks appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "ADeLe: Predicting and explaining AI performance across tasks",
+            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
+            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
+          },
+          {
+            "source_id": "arxiv-search",
+            "source_type": "paper",
+            "title": "Exploiting Spatial Invariance for Scalable Unsupervised Object Tracking",
+            "url": "https://arxiv.org/abs/1911.09033v1",
+            "summary": "The ability to detect and track objects in the visual world is a crucial skill for any intelligent agent, as it is a necessary precursor to any object-level reasoning process. Moreover, it is important that agents learn to track objects without supervision (i.e. without access to annotated training videos) since this will allow agents to begin operating in new environments with minimal human assistance. The task of learning to discover and track objects in videos, which we call \\textit{unsupervised object tracking}, has grown in prominence in recent years; however, most architectures that address it still struggle to deal with large scenes containing many objects. In the current work, we propose an architecture that scales well to the large-scene, many-object setting by employing spatially invariant computations (convolutions and spatial attention) and representations (a spatially local object specification scheme). In a series of experiments, we demonstrate a number of attractive features of our architecture; most notably, that it outperforms competing methods at tracking objects in cluttered scenes with many objects, and that it can generalize well to videos that are larger and/or contain more objects than videos encountered during training.",
+            "evidence_scope": "external"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support",
+          "external-support"
+        ],
+        "summary": "1 source(s) | community | 2 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "ADeLe: Predicting and explaining AI performance across tasks",
+          "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
+          "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "external"
+        },
+        {
+          "source_id": "arxiv-search",
+          "source_type": "paper",
+          "title": "Exploiting Spatial Invariance for Scalable Unsupervised Object Tracking",
+          "url": "https://arxiv.org/abs/1911.09033v1",
+          "summary": "The ability to detect and track objects in the visual world is a crucial skill for any intelligent agent, as it is a necessary precursor to any object-level reasoning process. Moreover, it is important that agents learn to track objects without supervision (i.e. without access to annotated training videos) since this will allow agents to begin operating in new environments with minimal human assistance. The task of learning to discover and track objects in videos, which we call \\textit{unsupervised object tracking}, has grown in prominence in recent years; however, most architectures that address it still struggle to deal with large scenes containing many objects. In the current work, we propose an architecture that scales well to the large-scene, many-object setting by employing spatially invariant computations (convolutions and spatial attention) and representations (a spatially local object specification scheme). In a series of experiments, we demonstrate a number of attractive features of our architecture; most notably, that it outperforms competing methods at tracking objects in cluttered scenes with many objects, and that it can generalize well to videos that are larger and/or contain more objects than videos encountered during training.",
+          "evidence_scope": "external"
+        }
+      ]
     }
   ],
   "forecast": {
-    "best_case": "在6个月内，AI智能体领域的研究重点将快速从基准测试竞赛转向解决实际部署瓶颈。PlugMem、AgentRx等框架的开源版本或早期应用案例出现，初步验证了结构化记忆和系统化调试在特定垂直场景（如客服、内部运维）中的价值。行业形成共识，即下一阶段智能体的竞争力在于可靠性基础设施，而非基准分数，推动更多资源投入相关工具链开发。",
-    "worst_case": "在6个月内，由于PlugMem、AgentRx、ALTK-Evolve等框架均处于早期研究阶段，其工程复杂性和计算成本被低估，未能产生可大规模应用的成熟方案。同时，对基准测试“公信力危机”的讨论未能催生新的评估标准，行业陷入“旧基准失效，新标准缺位”的迷茫期。市场对智能体实用性的质疑增加，投资热度在短期内降温，部分创业公司因无法证明其智能体在真实环境中的可靠性与成本效益而面临压力。",
-    "most_likely_case": "未来3-6个月，AI智能体领域将呈现“研究热、落地缓”的态势。学术界和头部企业（如微软、IBM）会持续发布关于记忆、调试、持续学习的研究进展和框架更新，但转化为稳定、易用的生产级工具仍需更长时间。行业讨论将聚焦于“自主性与可控性的平衡”以及“如何设计下一代评估体系”。短期内，不会有单一框架解决所有瓶颈，但开发者社区会开始尝试组合使用现有工具（如vLLM用于推理，结合自定义记忆模块）来缓解具体痛点。基准测试的权威性进一步下降，但替代性评估标准尚未确立。",
+    "best_case": "在6个月内，AI智能体领域的研究框架（如PlugMem、AgentRx、ALTK-Evolve）在概念验证上取得显著进展，并与vLLM等高效推理引擎初步整合，形成早期“系统级”智能体开发范式。社区对基准测试的讨论推动更鲁棒的评估标准出现，加速了技术从实验室原型向工程化解决方案的过渡。主要研究机构（微软、IBM）发布更成熟的框架版本，吸引开发者社区广泛关注和初步采用。",
+    "worst_case": "在6个月内，提出的研究框架（PlugMem、AgentRx、ALTK-Evolve）被证明在真实复杂场景下面临严峻挑战：结构化记忆的构建成本过高、系统化调试难以处理智能体决策的模糊性、在职学习导致行为不稳定或目标漂移。同时，基础设施（如vLLM）与上层智能体框架的集成进展缓慢，生态碎片化加剧。社区对基准的质疑未能催生新标准，反而导致评估混乱，延缓了投资和应用部署决策，领域陷入“概念热、落地难”的瓶颈期。",
+    "most_likely_case": "在6个月内，AI智能体领域将呈现“研究活跃、工程追赶”的态势。PlugMem、AgentRx等解决核心瓶颈（记忆、调试）的框架将在学术和工业研发场景中获得更多验证性应用，但大规模生产部署仍有限。ALTK-Evolve等持续学习框架主要停留在研究论文和可控环境演示阶段。vLLM等推理引擎的优化继续，但与智能体框架的深度集成尚未成为主流。社区关于基准测试的讨论将促使部分团队发布更具挑战性的评估任务，但统一的可靠标准短期内难以建立。整体上，领域共识进一步强化——可靠性、透明度和系统工程是下一阶段关键，但将这些研究洞见转化为稳定、易用的工具链仍需更长时间。",
     "key_variables": [
-      "PlugMem/AgentRx/ALTK-Evolve等框架的开源进度与社区采用情况",
-      "是否有主要云厂商或平台将相关内存/调试功能集成为其托管智能体服务的标准组件",
-      "针对智能体泛化能力的新评估基准或方法论是否被提出并获得认可",
-      "宏观经济与AI投资环境对需要长期投入的基础设施研发的影响"
+      "结构化记忆框架（如PlugMem）的早期采用者反馈与实际性能数据",
+      "AgentRx类调试工具在复杂真实任务中的故障诊断成功率",
+      "在职学习框架（如ALTK-Evolve）在开放环境中表现出的稳定性与安全边界",
+      "高效推理引擎（如vLLM）与智能体框架的集成进展与性能提升幅度",
+      "主流学术会议和工业界对智能体评估新基准的提出与接受程度"
     ],
-    "forecast_conclusion": "短期（3-6个月）内，AI智能体领域将处于一个“范式转换的阵痛期”。核心矛盾从提升能力上限转向夯实可靠性下限，这一趋势明确，但解决这些瓶颈所需的基础设施（结构化记忆、系统调试、持续学习）尚不成熟。因此，行业的主要活动将是框架提案、技术讨论和早期概念验证，而非大规模商业落地。市场对智能体的期望会趋于理性，更关注具体场景下的鲁棒性和总拥有成本。",
+    "forecast_conclusion": "短期（未来6个月）内，AI智能体领域的发展将验证一个核心假设：解决“可靠性瓶颈”（记忆、调试、学习）的研究框架能否从概念走向初步的工程实践。最可能的情况是，这些框架在受控环境和特定用例中证明其价值，但尚未能彻底改变智能体开发的主流范式。领域的焦点将从“提出新概念”转向“验证概念的有效性及集成难度”，为下一阶段（6-18个月）可能出现的平台化解决方案奠定基础。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -583,13 +545,13 @@
   "ai_metrics": {
     "provider": "deepseek",
     "model": "deepseek-chat",
-    "calls": 8,
+    "calls": 7,
     "token_usage": {
-      "prompt": 24854,
-      "completion": 3194,
-      "total": 28048
+      "prompt": 22319,
+      "completion": 3276,
+      "total": 25595
     },
-    "latency_seconds": 87.26,
+    "latency_seconds": 89.21,
     "fallback_stages": []
   },
   "mainline_memory": [
@@ -655,30 +617,30 @@
     }
   ],
   "lifecycle_summary": {
-    "new": 8,
-    "rising": 80,
+    "new": 17,
+    "rising": 75,
     "verified": 1,
     "fading": 0
   },
   "risk_level": "medium",
   "highlights": [
-    "AI智能体领域正从追求基准测试分数转向解决实际部署中的核心瓶颈：记忆结构化、系统化调试和持续学习能力，这标志着行业进入追求可靠性与实用性的新阶段。",
-    "本轮共采集到 89 条原始信息，去重后保留 89 个主题。",
+    "AI智能体领域正从追求原始能力转向解决规模化应用的核心瓶颈：结构化记忆、系统化调试和持续学习能力，这标志着行业进入“可靠性优先”的成熟阶段。",
+    "本轮共采集到 93 条原始信息，去重后保留 93 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
   "risks": [
-    "HN: fetched 60 raw, filtered to 12 relevant (min_score=10)",
+    "HN: fetched 59 raw, filtered to 16 relevant (min_score=10)",
     "GitHub repo failed: NVIDIA/cuda-cmake -> 404 Client Error: Not Found for url: https://api.github.com/repos/NVIDIA/cuda-cmake",
     "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/",
     "RSS source failed: arxiv-cs-ai -> 404 Client Error: Not Found for url: https://rss.arxiv.org/cs.AI",
-    "Website source failed: st-blog -> 404 Client Error: Not Found for url: https://blog.st.com/artificial-intelligence/",
-    "Website source failed: ti-e2e-blog -> 410 Client Error: Gone for url: https://e2e.ti.com/blogs_/artificial-intelligence"
+    "Website source failed: ti-e2e-blog -> 410 Client Error: Gone for url: https://e2e.ti.com/blogs_/artificial-intelligence",
+    "Website source failed: st-blog -> 404 Client Error: Not Found for url: https://blog.st.com/artificial-intelligence/"
   ],
   "signals": [
     {
-      "title": "How We Broke Top AI Agent Benchmarks: And What Comes Next",
+      "title": "Exploiting the most prominent AI agent benchmarks",
       "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
-      "summary": "Score: 386 | Comments: 97",
+      "summary": "Score: 488 | Comments: 124",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -702,22 +664,6 @@
         ],
         "support_evidence": [
           {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
-            "url": "https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-            "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
             "source_id": "microsoft-research",
             "source_type": "official",
             "title": "ADeLe: Predicting and explaining AI performance across tasks",
@@ -728,9 +674,9 @@
           {
             "source_id": "arxiv-search",
             "source_type": "paper",
-            "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
-            "url": "https://arxiv.org/abs/2507.21504v1",
-            "summary": "The rise of LLM-based agents has opened new frontiers in AI applications, yet evaluating these agents remains a complex and underdeveloped area. This survey provides an in-depth overview of the emerging field of LLM agent evaluation, introducing a two-dimensional taxonomy that organizes existing work along (1) evaluation objectives -- what to evaluate, such as agent behavior, capabilities, reliability, and safety -- and (2) evaluation process -- how to evaluate, including interaction modes, datasets and benchmarks, metric computation methods, and tooling. In addition to taxonomy, we highlight enterprise-specific challenges, such as role-based access to data, the need for reliability guarantees, dynamic and long-horizon interactions, and compliance, which are often overlooked in current research. We also identify future research directions, including holistic, more realistic, and scalable evaluation. This work aims to bring clarity to the fragmented landscape of agent evaluation and provide a framework for systematic assessment, enabling researchers and practitioners to evaluate LLM agents for real-world deployment.",
+            "title": "Exploiting Spatial Invariance for Scalable Unsupervised Object Tracking",
+            "url": "https://arxiv.org/abs/1911.09033v1",
+            "summary": "The ability to detect and track objects in the visual world is a crucial skill for any intelligent agent, as it is a necessary precursor to any object-level reasoning process. Moreover, it is important that agents learn to track objects without supervision (i.e. without access to annotated training videos) since this will allow agents to begin operating in new environments with minimal human assistance. The task of learning to discover and track objects in videos, which we call \\textit{unsupervised object tracking}, has grown in prominence in recent years; however, most architectures that address it still struggle to deal with large scenes containing many objects. In the current work, we propose an architecture that scales well to the large-scene, many-object setting by employing spatially invariant computations (convolutions and spatial attention) and representations (a spatially local object specification scheme). In a series of experiments, we demonstrate a number of attractive features of our architecture; most notably, that it outperforms competing methods at tracking objects in cluttered scenes with many objects, and that it can generalize well to videos that are larger and/or contain more objects than videos encountered during training.",
             "evidence_scope": "external"
           }
         ],
@@ -739,21 +685,20 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | community | 4 related support"
+        "summary": "1 source(s) | community | 2 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
         "last_seen": "2026-04-12",
-        "previous_score": 3.3,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-11",
           "2026-04-12"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
@@ -2360,7 +2305,7 @@
     {
       "title": "Small models also found the vulnerabilities that Mythos found",
       "url": "https://aisle.com/blog/ai-cybersecurity-after-mythos-the-jagged-frontier",
-      "summary": "Score: 1117 | Comments: 298",
+      "summary": "Score: 1228 | Comments: 322",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2405,9 +2350,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Show HN: Pardonned.com – A searchable database of US Pardons",
-      "url": "https://news.ycombinator.com/item?id=47727960",
-      "summary": "Score: 436 | Comments: 240 | Text: <a href=\"https:&#x2F;&#x2F;pardonned.com\" rel=\"nofollow\">https:&#x2F;&#x2F;pardonned.com</a><p>Inspired by the videos of Liz Oyer, I wanted to be able to verify her claims and just look up all the pardons more easily.<p>Tech Stack: \n Playwright - to sccrape the DOJ website\n SQLite - local database",
+      "title": "Tell HN: docker pull fails in spain due to football cloudflare block",
+      "url": "https://news.ycombinator.com/item?id=47738883",
+      "summary": "Score: 631 | Comments: 246 | Text: I just spent 1h+ debugging why my locally-hosted gitlab runner would fail to create pipelines. The gitlab job output would just display weird TLS errors when trying to pull a docker images. After debugging gitlab and the runner, I realized after a while I could not even run &quot;docker pull &lt;ima",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2419,7 +2364,7 @@
       ],
       "tags": [
         "hacker-news",
-        "show-hn",
+        "hot",
         "trending"
       ],
       "enrichment": {
@@ -2437,162 +2382,123 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
         "last_seen": "2026-04-12",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-11",
           "2026-04-12"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
-      "title": "Cirrus Labs to join OpenAI",
-      "url": "https://cirruslabs.org/",
-      "summary": "Score: 267 | Comments: 128",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
-        "last_seen": "2026-04-12",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-11",
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Surelock: Deadlock-Free Mutexes for Rust",
-      "url": "https://notes.brooklynzelenka.com/Blog/Surelock",
-      "summary": "Score: 217 | Comments: 71",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
-        "last_seen": "2026-04-12",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-11",
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Apple Silicon and Virtual Machines: Beating the 2 VM Limit (2023)",
-      "url": "https://khronokernel.com/macos/2023/08/08/AS-VM.html",
-      "summary": "Score: 204 | Comments: 141",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-11",
-        "last_seen": "2026-04-12",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-11",
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Anthropic silently downgraded cache TTL from 1h → 5M on March 6th",
+      "title": "Anthropic downgraded cache TTL on March 6th",
       "url": "https://github.com/anthropics/claude-code/issues/46829",
-      "summary": "Score: 115 | Comments: 90",
+      "summary": "Score: 461 | Comments: 354",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Google removes \"Doki Doki Literature Club\" from Google Play",
+      "url": "https://bsky.app/profile/serenityforge.com/post/3mj3r4nbiws2t",
+      "summary": "Score: 238 | Comments: 99",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "Google AI Edge Gallery: Now with audio and on Google Play",
+            "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "I gave every train in New York an instrument",
+      "url": "https://www.trainjazz.com/",
+      "summary": "Score: 184 | Comments: 36",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2634,53 +2540,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Apple update looks like Czech mate for locked-out iPhone user",
-      "url": "https://www.theregister.com/2026/04/12/ios_passcode_bug/",
-      "summary": "Score: 103 | Comments: 50",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-12",
-        "last_seen": "2026-04-12",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-12"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "AI Will Be Met with Violence, and Nothing Good Will Come of It",
-      "url": "https://www.thealgorithmicbridge.com/p/ai-will-be-met-with-violence-and",
-      "summary": "Score: 65 | Comments: 81",
+      "title": "Building a SaaS in 2026 Using Only EU Infrastructure",
+      "url": "https://eualternative.eu/guides/building-saas-eu-stack/",
+      "summary": "Score: 170 | Comments: 56",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2703,19 +2565,11 @@
         ],
         "support_evidence": [
           {
-            "source_id": "google-ai-edge",
+            "source_id": "openai-news",
             "source_type": "official",
-            "title": "MediaTek NPU and LiteRT: Powering the next generation of on-device AI",
-            "url": "https://developers.googleblog.com/mediatek-npu-and-litert-powering-the-next-generation-of-on-device-ai/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "title": "Using projects in ChatGPT",
+            "url": "https://openai.com/academy/projects",
+            "summary": "Learn how to use orojects in ChatGPT to organize chats, files, and instructions, manage ongoing work, and collaborate more effectively.",
             "evidence_scope": "current-run"
           }
         ],
@@ -2723,7 +2577,7 @@
           "community",
           "related-support"
         ],
-        "summary": "1 source(s) | community | 2 related support"
+        "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
         "days_seen": 1,
@@ -2740,9 +2594,9 @@
       "risk_level": "low"
     },
     {
-      "title": "How a dancer with ALS used brainwaves to perform live",
-      "url": "https://www.electronicspecifier.com/products/sensors/how-a-dancer-with-als-used-brainwaves-to-perform-live/",
-      "summary": "Score: 46 | Comments: 8",
+      "title": "Tell HN: OpenAI silently removed Study Mode from ChatGPT",
+      "url": "https://news.ycombinator.com/item?id=47739305",
+      "summary": "Score: 164 | Comments: 67 | Text: Here&#x27;s hoping that it will return soon, as I really liked it.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2784,9 +2638,162 @@
       "risk_level": "low"
     },
     {
-      "title": "Midnight Captain – A midnight commander inspired file manager",
-      "url": "https://github.com/duguyue100/midnight-captain",
-      "summary": "Score: 32 | Comments: 27",
+      "title": "European AI. A playbook to own it",
+      "url": "https://europe.mistral.ai/",
+      "summary": "Score: 132 | Comments: 65",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Show HN: Claudraband – Claude Code for the Power User",
+      "url": "https://github.com/halfwhey/claudraband",
+      "summary": "Score: 82 | Comments: 23 | Text: Hello everyone.<p>Claudraband wraps a Claude Code TUI in a controlled terminal to enable extended workflows. It uses tmux for visible controlled sessions or xterm.js for headless sessions (a little slower), but everything is mediated by an actual Claude Code TUI.<p>One example of a workflow I use no",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "show-hn"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Tech valuations are back to pre-AI boom levels",
+      "url": "https://www.apollo.com/wealth/the-daily-spark/tech-valuations-back-to-pre-ai-boom-levels",
+      "summary": "Score: 70 | Comments: 9",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "What have been the greatest intellectual achievements? (2017)",
+      "url": "https://www.thinkingcomplete.com/2017/09/what-have-been-greatest-intellectual.html",
+      "summary": "Score: 42 | Comments: 70",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2828,9 +2835,79 @@
       "risk_level": "low"
     },
     {
-      "title": "Brocards for Vulnerability Triage",
-      "url": "https://blog.yossarian.net/2026/04/11/Brocards-for-vulnerability-triage",
-      "summary": "Score: 17 | Comments: 0",
+      "title": "Claude Opus 4.6 accuracy on BridgeBench hallucination test drops from 83% to 68%",
+      "url": "https://twitter.com/bridgemindai/status/2043321284113670594",
+      "summary": "Score: 30 | Comments: 1",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Claude is a space to think",
+            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Introducing Claude Opus 4.6",
+            "url": "https://www.anthropic.com/news/claude-opus-4-6",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Intel Xpress Resurrection: Reviving a Forgotten EISA Beast",
+      "url": "https://x86.fr/intel-xpress-resurrection-reviving-a-forgotten-eisa-beast/",
+      "summary": "Score: 21 | Comments: 0",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2856,6 +2933,104 @@
           "community"
         ],
         "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Navy to use underwater drones to help clear Iranian mines from Strait of Hormuz",
+      "url": "https://defensescoop.com/2026/04/11/strait-of-hormuz-mine-clearance-navy-centcom-underwater-drones/",
+      "summary": "Score: 18 | Comments: 2",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-12",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-12"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Microsoft engineer says original Task Manager was only 80KB to run on 90s comps",
+      "url": "https://www.tomshardware.com/software/windows/veteran-microsoft-engineer-says-original-task-manager-was-only-80kb-so-it-could-run-smoothly-on-90s-computers-original-utility-used-a-smart-technique-to-determine-whether-it-was-the-only-running-instance",
+      "summary": "Score: 12 | Comments: 5",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
         "days_seen": 1,
@@ -2997,9 +3172,9 @@
       "risk_level": "low"
     },
     {
-      "title": "alibaba/MNN",
-      "url": "https://github.com/alibaba/MNN",
-      "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+      "title": "pytorch/executorch",
+      "url": "https://github.com/pytorch/executorch",
+      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -3012,17 +3187,13 @@
       ],
       "tags": [
         "ai-llm-agent",
-        "arm",
-        "convolution",
         "deep-learning",
-        "embedded-devices",
-        "llm",
+        "embedded",
+        "gpu",
         "machine-learning",
-        "ml",
-        "mnn",
-        "transformer",
-        "vulkan",
-        "winograd-algorithm"
+        "mobile",
+        "neural-network",
+        "tensor"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3055,9 +3226,9 @@
       "risk_level": "low"
     },
     {
-      "title": "pytorch/executorch",
-      "url": "https://github.com/pytorch/executorch",
-      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
+      "title": "alibaba/MNN",
+      "url": "https://github.com/alibaba/MNN",
+      "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -3070,13 +3241,17 @@
       ],
       "tags": [
         "ai-llm-agent",
+        "arm",
+        "convolution",
         "deep-learning",
-        "embedded",
-        "gpu",
+        "embedded-devices",
+        "llm",
         "machine-learning",
-        "mobile",
-        "neural-network",
-        "tensor"
+        "ml",
+        "mnn",
+        "transformer",
+        "vulkan",
+        "winograd-algorithm"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3170,9 +3345,9 @@
       "risk_level": "low"
     },
     {
-      "title": "openai/swarm",
-      "url": "https://github.com/openai/swarm",
-      "summary": "Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.",
+      "title": "mem0ai/mem0",
+      "url": "https://github.com/mem0ai/mem0",
+      "summary": "Universal memory layer for AI Agents",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3183,7 +3358,21 @@
         "curated-repos"
       ],
       "tags": [
-        "ai-llm-agent"
+        "agents",
+        "ai",
+        "ai-agents",
+        "ai-llm-agent",
+        "application",
+        "chatbots",
+        "chatgpt",
+        "genai",
+        "llm",
+        "long-term-memory",
+        "memory",
+        "memory-management",
+        "python",
+        "rag",
+        "state-management"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3216,9 +3405,9 @@
       "risk_level": "low"
     },
     {
-      "title": "mem0ai/mem0",
-      "url": "https://github.com/mem0ai/mem0",
-      "summary": "Universal memory layer for AI Agents",
+      "title": "openai/swarm",
+      "url": "https://github.com/openai/swarm",
+      "summary": "Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3229,21 +3418,7 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
-        "ai",
-        "ai-agents",
-        "ai-llm-agent",
-        "application",
-        "chatbots",
-        "chatgpt",
-        "genai",
-        "llm",
-        "long-term-memory",
-        "memory",
-        "memory-management",
-        "python",
-        "rag",
-        "state-management"
+        "ai-llm-agent"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -5809,7 +5984,7 @@
     }
   ],
   "predictions": [
-    "短期（3-6个月）内，AI智能体领域将处于一个“范式转换的阵痛期”。核心矛盾从提升能力上限转向夯实可靠性下限，这一趋势明确，但解决这些瓶颈所需的基础设施（结构化记忆、系统调试、持续学习）尚不成熟。因此，行业的主要活动将是框架提案、技术讨论和早期概念验证，而非大规模商业落地。市场对智能体的期望会趋于理性，更关注具体场景下的鲁棒性和总拥有成本。"
+    "短期（未来6个月）内，AI智能体领域的发展将验证一个核心假设：解决“可靠性瓶颈”（记忆、调试、学习）的研究框架能否从概念走向初步的工程实践。最可能的情况是，这些框架在受控环境和特定用例中证明其价值，但尚未能彻底改变智能体开发的主流范式。领域的焦点将从“提出新概念”转向“验证概念的有效性及集成难度”，为下一阶段（6-18个月）可能出现的平台化解决方案奠定基础。"
   ],
   "sources": {
     "github": {
