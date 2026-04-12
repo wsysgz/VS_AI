@@ -1,88 +1,267 @@
-# VS_AI 用户指南
+# VS_AI 用户手册
 
-本指南帮助维护者以日常运营为中心：本地跑 pipeline、确认每日 07:00 报告、验证推送通道，并快速定位常见的操作面板。
+这份手册面向“使用系统的人”，重点回答三个问题：
 
-接手优先顺序建议为：`README.md` → `docs/HANDOFF.md` → `docs/OPS_RUNBOOK.md` → 本文；如果你现在的目标是“先恢复运维能力”，先看 `OPS_RUNBOOK` 会更快。
+- 怎么把系统跑起来
+- 怎么生成和查看日报
+- 怎么完成日常使用中最常见的几个动作
 
-在这台机器上建议先执行 `$env:PYTHONPATH='src'` 再跑本地 Python 命令。当前存在多个 `auto_report` worktree / 安装源时，裸跑 `python -m pytest` 或 `python -m auto_report.cli` 可能导入到错误路径。
+如果你负责值班、验收、排障，请优先看 [OPS_RUNBOOK.md](OPS_RUNBOOK.md)。
+如果你要接手开发和维护，请看 [HANDOFF.md](HANDOFF.md)。
 
-## 每日节奏
+## 1. 5 分钟启动
 
-- `Collect And Report` workflow 每天北京时间 07:00 触发综合总报，PushPlus 发送微信短摘要，Feishu 发送中长度结构化摘要，Telegram 发送完整长文报告（分别通过 `push-channels-guide` 详细说明）。
-- 默认发布轨为 `auto`；如需补发人工复核版，可在本地命令或 GitHub 手动 workflow 中指定 `publication_mode=reviewed`，并可选补充 `reviewer / review_note`，系统会保留 `latest-summary-auto.*` 和 `latest-summary-reviewed.*` 两套输出。
-- 三条推送正文都会同时包含公开站入口 `https://wsysgz.github.io/VS_AI/` 和当前 GitHub 原文链接，公开站入口始终固定为站点首页。
-- 本地开发时先在仓库根目录准备环境、跑一遍 `run-once`，再确认 `data/reports/latest-summary.md` 与 `data/state/run-status.json` 结果，再推送 `main`。
-- 如果要把刚刚本地跑出来的结果对照到公开站页面，记得在 `run-once` 之后补执行一次 `python -m auto_report.cli build-pages`；`run-once` 本身不会改写 `docs/`。
-- 无论是工作日还是排查问题，始终以 `README → USER_GUIDE → TECHNICAL_GUIDE → ARCHITECTURE → push-channels-guide` 的顺序获取上下文，避免读到过时内容。
+在仓库根目录执行：
 
-## 环境准备
+```powershell
+cd D:\GitHub\auto
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pip install -e .
+Copy-Item .env.example .env
+```
 
-1. `python -m venv .venv`；执行 `.venv\Scripts\Activate.ps1` 后，`pip install -r requirements.txt` + `pip install -e .`。
-2. 复制 `.env.example` 为 `.env`（如果已有则跳过），填写 `DEEPSEEK_API_KEY` 或 `OPENAI_API_KEY` / `AI_API_KEY`（按 `AI_PROVIDER` 选择）、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID`、`FEISHU_APP_ID / FEISHU_APP_SECRET / FEISHU_CHAT_ID`，更多变量详见 [Technical Guide](TECHNICAL_GUIDE.md)。
-3. `python -m auto_report.cli run-once` 触发一次完整流程。若要生成人工复核版，可用 `python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>`。首次运行前建议先跑 `$env:PYTHONPATH='src'; python -m pytest tests -q` 确保基础功能正常。
+在 `.env` 中填写至少以下配置：
 
-## 常用命令
+- AI：
+  - `DEEPSEEK_API_KEY`
+  - 或 `OPENAI_API_KEY` / `AI_API_KEY`
+- 推送：
+  - `PUSHPLUS_TOKEN`
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
+  - `FEISHU_APP_ID`
+  - `FEISHU_APP_SECRET`
+  - `FEISHU_CHAT_ID`
 
-| 命令 | 用途 | 何时使用 |
-|------|------|----------|
-| `python -m auto_report.cli run-once [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 全流程采集→分析→渲染→推送 | 本地验证、部署前检查、人工复核版重发 |
-| `python -m auto_report.cli diagnose-delivery --mode canary` | 检查三端配置，不实际发送 | 首次对接、排查 secrets / `.env` |
-| `python -m auto_report.cli diagnose-delivery --mode canary --send` | 向三端发送一条 canary 诊断消息 | 上线前验收、怀疑某个通道失联时 |
-| `python -m auto_report.cli diagnose-delivery --mode full-report --send` | 用各渠道生产模板做实发验证 | 怀疑正文格式、分段或模板异常时 |
-| `python -m auto_report.cli collect-only` | 只采集 + 预处理 | 调试数据源或减少 AI 调用 |
-| `python -m auto_report.cli analyze-only` | 用已有中间数据跑 AI | 跟踪分析错误、重跑 AI |
-| `python -m auto_report.cli render-report [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 全流程采集→分析→渲染，但不推送 | 检查模板、重建 auto/reviewed 报告但不发通知 |
-| `python -m auto_report.cli build-pages` | 重建公开站 `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml` | 验证 Pages 站点、周报页与专题页生成逻辑 |
-| `python -m auto_report.cli build-ops-dashboard` | 生成私有运营视图到 `out/ops-dashboard/index.html` | 检查送达/调度/阶段状态，以及最近 prompt-eval 趋势与回归降分，不公开发布 |
-| `python -m auto_report.cli build-review-queue` | 从 `latest-summary.json` 生成人工复核 issue payload 到 `out/review-queue/review-issues.json` | 准备高价值主题的 GitHub Issue 复核入口 |
-| `python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json` | 运行离线 Prompt/Eval，对比 prompt/version/model/metrics 组合 | 做本地 prompt 回归、比较不同版本输出质量 |
-| `python -m auto_report.cli backfill --target-date YYYY-MM-DD [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 补报单日历史日期并刷新 Pages 输出 | 手动修补某天缺报，或补发 reviewed 版本 |
+然后在当前 PowerShell 会话中执行：
 
-## 本地快验顺序
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once
+```
 
-1. `pwsh ./scripts/check-workflows.ps1 -Profile full`：执行 workflow guard，覆盖 `actionlint`、`act` 与本地 workflow 校验脚本。日常快验可切换到 `-Profile daily`，补偿链路排查可切换到 `-Profile recovery`。
-2. `$env:PYTHONPATH='src'; python -m pytest tests -q`：确认 Python 主流程、workflow 契约、PromptOps 与 intelligence 相关测试通过。
-3. `$env:PYTHONPATH='src'; python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json`：确认正式 benchmark dataset 可被离线评测。
-4. `$env:PYTHONPATH='src'; python -m auto_report.cli build-ops-dashboard`：检查私有 dashboard 是否能读到最新 `run-status.json` 与 `out/evals/`。
-5. 需要准备人工复核议题时执行 `$env:PYTHONPATH='src'; python -m auto_report.cli build-review-queue`。
+## 2. 你会得到什么
 
-## 验证输出
+一次完整运行后，最常看的结果是：
 
-- 查看 `data/reports/latest-summary.md` 与 `data/reports/latest-summary.html` 确认内容；双轨发布时还要同时检查 `data/reports/latest-summary-auto.*`、`data/reports/latest-summary-reviewed.*`。`data/state/run-status.json` 记录 `generated_files`、`publication_mode`、`review`、`timings`、`stage_status`、`delivery_results`、`scheduler`、`external_enrichment`、`ai_metrics`、`source_health` 与 `source_stats.report_topics`。
-- `build-pages` 之后可直接检查 `docs/weekly/index.html` 与 `docs/weekly/<year-week>/index.html`，确认周报页是否按 ISO 周正确聚合。
-- 专题页当前默认输出到 `docs/special/`，可直接检查 `docs/special/index.html`、`docs/special/verified/index.html`、`docs/special/emerging/index.html`、`docs/special/risk-watch/index.html`。
-- 离线 Prompt/Eval 结果默认写到 `out/evals/`，可直接比对不同 `prompt_id` / `version` / `model` 的 `overall_score_avg`、`required_fields_score_avg`、`keyword_recall_avg`。
-- 私有 ops dashboard 会合并展示 `run-status.json` 与最近的 `out/evals/prompt-eval-*.json`，方便快速判断“哪次 prompt 更新开始降分”。
-- 当启用外部补证时，私有 ops dashboard 还会展示 `attempted / succeeded / failed / skipped / success_rate / circuit`，用于判断 enrichment 是否命中或已经熔断。
-- 人工复核队列默认写到 `out/review-queue/review-issues.json`；每条记录都已带 title/body/labels，可直接交给后续 workflow 或手工建 issue。
-- `Collect And Report` workflow 现在会自动构建并消费 review queue，对符合条件的高价值主题创建 `[V7 review]` issue。
-- 如果本地跑出错误，先检查 `logs/`（可通过 `auto_report.cli` 添加日志）以及 `data/state/run-status.json` 的最后一次 `stage` 记录，再根据 `push-channels-guide` 验证各通知通道。
-- 如只想确认推送配置是否就绪，不必每次都跑完整 pipeline，可先执行 `python -m auto_report.cli diagnose-delivery --mode canary`。
-- 运行完毕后再 `git status` 查看 `data/` 变化是否按 CI 预期被忽略，确保本地临时输出未误提交。
+- `data/reports/latest-summary.md`
+  - 最新 Markdown 报告
+- `data/reports/latest-summary.html`
+  - 最新 HTML 报告
+- `data/reports/latest-summary.json`
+  - 结构化结果
+- `data/state/run-status.json`
+  - 本次运行状态、推送结果、风险等级、AI 指标
 
-## 仓库对接
+如果你运行的是人工复核版，还会看到：
 
-1. 在 GitHub 仓库中确认 `Actions > General > Workflow permissions` 为 `Read and write permissions`，否则自动回写报表和 Pages 会失败。
-2. 在 GitHub Secrets 中补齐 `DEEPSEEK_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`。
-3. 手动触发 `Collect And Report` 时，如果需要真实推送，把 workflow input `push_enabled` 设为 `true`；如果需要人工复核轨，同时把 `publication_mode` 设为 `reviewed`，并可选填写 `reviewer` / `review_note`。
-4. 手动触发 `Backfill Report` 时，workflow 会先执行 `backfill`，再执行 `build-pages` 与 `build-ops-dashboard`；同样可以把 `publication_mode` 设为 `reviewed`，并可选填写 `reviewer` / `review_note`。Pages 相关 workflow / backfill / compensation 会回写完整公开面：`docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`、`docs/.nojekyll`；私有 ops dashboard 只进 artifact 不公开。
-5. 远端验证优先看 `data/state/run-status.json` 中的 `delivery_results.successful_channels`，不要只看 workflow 页面是否是绿色。
-6. 当前远端 reliability issue 会覆盖三类场景：`all delivery channels failed`、`consecutive canary failures`、`high risk report detected`。
-7. 本地默认仍关闭外部补证；如需手动启用，可在运行前设置 `EXTERNAL_ENRICHMENT_ENABLED=true`。CI / 主 workflow 已默认开启，并限流为前 `2` 个高价值主题、单请求超时 `8` 秒。
-8. GitHub Actions 的 `workflow_dispatch` 总是运行“已推送到远端的 ref”；本地未推送的修复不会参与线上验收。
+- `data/reports/latest-summary-reviewed.md`
+- `data/reports/latest-summary-reviewed.html`
+- `data/reports/latest-summary-reviewed.json`
 
-## 失败与回滚
+## 3. 最常用的 6 个场景
 
-- 如果某个阶段（采集、AI、渲染、推送）失败，先定位对应子命令（collect/analysis/render），捕获异常和 `run-status` 中的 `error` 信息。
-- 某些失败源于配置问题（如缺少 `DEEPSEEK_API_KEY`、Telegram token、Feishu secrets，或 PushPlus secret 签名错误），请参考 `docs/TECHNICAL_GUIDE.md` 和 `docs/push-channels-guide.md`，修复 `.env` 或 Secrets。
-- 需要回滚数据时，可 `git checkout -- data/reports data/state`（谨慎操作），因为 `data/` 在流水线中由 CI 自动归档，不应在本地提交。
+### 场景 A：生成当天日报
 
-## AI Key 缺失时的降级行为
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once
+```
 
-无 `DEEPSEEK_API_KEY` 时，系统自动启用规则摘要（rule summary）模式，只保留结构化的标题、链接、来源和手工编写的规则评论。虽然 AI 分析与总结被跳过，但全流程仍然可以生成报告、推送多通道，便于快速恢复。
+适合：
 
-## 参考
+- 本地功能确认
+- 看今天会生成什么内容
+- 检查推送是否正常
 
-- 详细 AI/环境配置与降级行为：`docs/TECHNICAL_GUIDE.md`。
-- 系统结构分析与数据流：`docs/ARCHITECTURE.md`。
-- 推送通道配置与验证：`docs/push-channels-guide.md`。
+### 场景 B：生成人工复核版
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>
+```
+
+适合：
+
+- 需要保留 reviewed 轨输出
+- 需要在通知和页面中显示复核信息
+
+如果暂时不想填写复核信息，也可以只指定：
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once --publication-mode reviewed
+```
+
+### 场景 C：只重建公开站
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli build-pages
+```
+
+适合：
+
+- `data/` 已经是新的，只想刷新 `docs/`
+- 想检查首页、归档页、周报页、专题页
+
+### 场景 D：补跑某一天
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli backfill --target-date YYYY-MM-DD
+```
+
+如果需要补一条 reviewed 版本：
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli backfill --target-date YYYY-MM-DD --publication-mode reviewed --reviewer <name> --review-note <text>
+```
+
+### 场景 E：检查推送配置，不实际发送
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli diagnose-delivery --mode canary
+```
+
+适合：
+
+- 首次配置完成后的连通性检查
+- 怀疑某个通道配置不完整
+
+### 场景 F：做一次完整发布前验收
+
+```powershell
+$env:PYTHONPATH='src'
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m pytest tests -q
+python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+python -m auto_report.cli run-once --publication-mode reviewed
+python -m auto_report.cli build-pages
+```
+
+当前测试基线：`191 passed`
+
+## 4. 报告和页面怎么看
+
+### 本地报告
+
+优先看：
+
+- `data/reports/latest-summary.md`
+- `data/reports/latest-summary-reviewed.md`
+- `data/state/run-status.json`
+
+### 公开站
+
+首页入口固定为：
+
+- `https://wsysgz.github.io/VS_AI/`
+
+本地重建后可直接看：
+
+- `docs/index.html`
+- `docs/archives/index.html`
+- `docs/weekly/index.html`
+- `docs/special/index.html`
+
+### 推送消息
+
+三条推送正文都会同时带两个阅读入口：
+
+- `公开阅读： https://wsysgz.github.io/VS_AI/`
+- `GitHub 原文： 当前 latest-summary 对应链接`
+
+## 5. run-status.json 怎么看
+
+`data/state/run-status.json` 是最重要的状态文件。
+
+重点字段：
+
+- `publication_mode`
+  - 当前是 `auto` 还是 `reviewed`
+- `delivery_results`
+  - 哪些通道成功、失败、跳过
+- `review`
+  - `reviewer` 和 `review_note`
+- `ai_metrics`
+  - provider、model、calls、token_usage、latency_seconds
+- `source_health`
+  - 来源异常统计
+- `source_stats.report_topics`
+  - 本轮入报主题数
+- `risk_level`
+  - 风险等级
+
+如果你只想判断“这次到底发没发出去”，先看：
+
+- `delivery_results.successful_channels`
+- `delivery_results.failed_channels`
+
+## 6. 常见问题
+
+### 1. 运行成功了，但公开站没更新
+
+`run-once` 不会自动刷新 `docs/`。
+
+需要补执行：
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli build-pages
+```
+
+### 2. workflow 是绿的，但我不确定消息有没有真正送达
+
+不要只看 GitHub Actions 颜色。
+
+直接看：
+
+- `data/state/run-status.json`
+
+以 `delivery_results` 为准。
+
+### 3. 我本地改好了，为什么线上 rerun 没带上修复
+
+因为 `workflow_dispatch` 只运行已经推到远端的版本。
+
+先 push，再在线上手动触发。
+
+### 4. 没填 AI Key 能不能跑
+
+可以。
+
+系统会降级到规则摘要模式，仍然生成报告和状态文件，但 AI 分析深度会下降。
+
+### 5. 我只想先看推送配置有没有通
+
+优先跑：
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli diagnose-delivery --mode canary
+```
+
+## 7. 建议阅读顺序
+
+### 如果你只是要用起来
+
+1. `README.md`
+2. 本文
+
+### 如果你要值班和排障
+
+1. `README.md`
+2. `OPS_RUNBOOK.md`
+3. 本文
+
+### 如果你要接手维护
+
+1. `README.md`
+2. `HANDOFF.md`
+3. `OPS_RUNBOOK.md`
+4. 本文

@@ -1,228 +1,234 @@
-# VS_AI 运维接手 Runbook
+# VS_AI 运维操作手册
 
-> 最后更新：2026-04-12
-> 目标：让新的维护者在 30 分钟内恢复日常运维能力，并知道从哪里看 V7 当前真实进度。
+这份手册面向值班、验收、上线和故障排查。
 
-## 一页接手
+目标只有一个：让维护者在最短时间内判断系统是否健康，并知道下一步该做什么。
 
-- 仓库根目录：`D:\GitHub\auto`
-- 每日主链路：北京时间 `07:00` 由 `Collect And Report` workflow 生成日报并推送
+## 1. 一页总览
+
+- 仓库目录：`D:\GitHub\auto`
+- 每日主链路：北京时间 `07:00`
+- 主 workflow：`.github/workflows/collect-report.yml`
 - 状态权威文件：`data/state/run-status.json`
-- 公开产物目录：`docs/`
-- 私有运维产物目录：`out/`
-- 当前 V7 进度权威文档：`docs/upgrade-plan/V7_状态矩阵_2026-04-11.md`
+- 公开站目录：`docs/`
+- 报告目录：`data/reports/`
+- 当前测试基线：`191 passed`
 
-建议接手顺序：
+## 2. 每日值班检查
 
-1. 先读 `README.md`
-2. 再读 `docs/HANDOFF.md`
-3. 然后直接用本文件执行接手与排障
-4. 需要详细命令时再读 `docs/USER_GUIDE.md`
-5. 需要变量和渠道细节时再读 `docs/TECHNICAL_GUIDE.md` 与 `docs/push-channels-guide.md`
+每天建议按这个顺序检查：
 
-## 首次接手 30 分钟清单
+1. 看 GitHub Actions 中最新的 `Collect And Report` 是否成功
+2. 看 `data/state/run-status.json` 中的：
+   - `publication_mode`
+   - `delivery_results`
+   - `risk_level`
+   - `source_health`
+   - `ai_metrics`
+3. 看公开站首页是否可访问：
+   - `https://wsysgz.github.io/VS_AI/`
+4. 抽查至少一个推送渠道的实际消息
 
-1. 确认本地环境可用：`python -m venv .venv`、激活虚拟环境、`pip install -r requirements.txt`、`pip install -e .`
-2. 检查 `.env` 或 GitHub Secrets 是否包含 `DEEPSEEK_API_KEY` 或 `OPENAI_API_KEY` / `AI_API_KEY`、`PUSHPLUS_TOKEN`、`TELEGRAM_*`、`FEISHU_*`
-3. 跑 `python -m auto_report.cli diagnose-delivery --mode canary`
-4. 跑 `python -m pytest tests -q`
-5. 跑 `python -m auto_report.cli run-once`
-6. 检查 `data/state/run-status.json`、`data/reports/latest-summary.md`
-7. 跑 `python -m auto_report.cli build-pages`
-8. 检查 `docs/index.html`、`docs/weekly/index.html`、`docs/special/index.html`
+如果第 2 步正常，说明这次运行结果基本可信。
 
-如果上面 8 步都通过，说明本地接手已经恢复到可运营状态。
+## 3. 上传前本地验收
 
-进入本地验证前，建议先在当前 PowerShell 会话执行一次：`$env:PYTHONPATH='src'`。这台机器存在多 worktree / 多安装源时，裸跑 `python -m pytest` 或 `python -m auto_report.cli` 可能会导入到错误的 `auto_report` 路径。
+上传前统一执行：
 
-## 命令入口
+```powershell
+cd D:\GitHub\auto
+$env:PYTHONPATH='src'
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m pytest tests -q
+python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+python -m auto_report.cli run-once --publication-mode reviewed
+python -m auto_report.cli build-pages
+python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-review-queue
+git status --short
+```
 
-| 命令 | 用途 | 关键输出 |
-|------|------|----------|
-| `python -m auto_report.cli run-once [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 本地跑完整采集、分析、渲染、推送 | `data/reports/latest-summary.*`、`latest-summary-auto.*` / `latest-summary-reviewed.*`、`data/state/run-status.json` |
-| `python -m auto_report.cli backfill --target-date YYYY-MM-DD [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 补跑指定日期，并刷新归档与站点 | `data/archives/`、`docs/archives/` |
-| `python -m auto_report.cli diagnose-delivery --mode canary` | 只检查三端配置，不实发 | `run-status.json` 中的 delivery 诊断 |
-| `python -m auto_report.cli diagnose-delivery --mode canary --send` | 发送 canary 消息 | 各通道实发结果 |
-| `python -m auto_report.cli diagnose-delivery --mode full-report --send` | 用各渠道生产模板做实发诊断 | 各通道正文送达结果 |
-| `python -m auto_report.cli collect-only` | 只做采集和预处理 | 中间态数据 |
-| `python -m auto_report.cli analyze-only` | 基于已有数据执行分析 | 新的报告 payload |
-| `python -m auto_report.cli render-report` | 重新渲染报告但不重采集 | 最新报告文件 |
-| `python -m auto_report.cli build-pages` | 重建公开 Pages 站点、周报页与专题页 | `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、feeds |
-| `python -m auto_report.cli build-ops-dashboard` | 重建私有运营看板 | `out/ops-dashboard/index.html` |
-| `python -m auto_report.cli build-review-queue` | 为高价值主题生成人工复核 issue payload | `out/review-queue/review-issues.json` |
-| `python -m auto_report.cli evaluate-prompts --dataset <path>` | 做离线 Prompt/Eval 回归 | `out/evals/prompt-eval-*.json` |
-| `pwsh ./scripts/check-workflows.ps1 -Profile daily|recovery|full` | 跑 workflow guard、本地 workflow 快验 | 本地 workflow 校验结果 |
+验收标准：
 
-## 产物地图
+- workflow guard 通过
+- `pytest` 通过
+- 本地 `reviewed` 跑通
+- Pages 可重建
+- 工作区没有异常未跟踪文件
 
-### 公开产物
+## 4. 远端验收
 
-- `docs/index.html`：公开首页
-- `docs/archives/`：日报归档页
-- `docs/weekly/`：周报索引与周详情页
-- `docs/special/`：专题聚合页，当前包含 `verified`、`emerging` 与 `risk-watch`
-- `docs/search-index.json`：站内搜索数据
-- `docs/feed.json`：JSON Feed
-- `docs/rss.xml`：RSS
+常规远端验收顺序：
 
-### 运行态与日报文件
+1. 推送代码
+2. 手动触发 `Collect And Report`
+3. 等待 run 完成
+4. 核对远端产物
+5. 抽查实际消息
 
-- `data/reports/latest-summary.md`：最新日报 Markdown
-- `data/reports/latest-summary.html`：最新日报 HTML
-- `data/reports/latest-summary.json`：最新日报结构化 payload
-- `data/reports/latest-summary-auto.*` / `latest-summary-reviewed.*`：双轨发布的轨道化最新文件
-- `data/archives/YYYY-MM-DD/`：历史归档原始文件
-- `data/state/run-status.json`：阶段状态、风险、调度来源、送达状态、`publication_mode`、`review`、`ai_metrics`、`source_health`、`source_stats.report_topics`，以及 external enrichment 运行指标的权威记录
+典型命令：
 
-### 私有运维产物
+```powershell
+git push origin HEAD:main
+gh workflow run "Collect And Report" -R wsysgz/VS_AI -f push_enabled=true -f publication_mode=reviewed
+gh run watch --exit-status
+```
 
-- `out/ops-dashboard/index.html`：私有 dashboard，聚合运行状态与 prompt-eval 趋势
-- `out/evals/prompt-eval-*.json`：离线评测历史结果
-- `out/review-queue/review-issues.json`：人工复核 issue 草稿 payload
+远端必须核对：
 
-### 审计与规划材料
+- `data/state/run-status.json`
+- `docs/index.html`
+- `docs/weekly/`
+- `docs/special/`
+- `docs/feed.json`
+- `docs/rss.xml`
 
-- `docs/upgrade-plan/V7_状态矩阵_2026-04-11.md`：V7 当前进度权威视图
-- `docs/upgrade-plan/`：升级计划、对齐矩阵、后续收口材料
-- `docs/superpowers/`：历史审计与 handoff 资料，只读参考，不作为运维入口
+注意：
 
-## Workflow 对应关系
+- `workflow_dispatch` 运行的是远端代码，不是你本地未推送的修改
+- workflow 页面为绿色，不代表消息一定送达
+- 真正的送达结果仍以 `run-status.json > delivery_results` 为准
 
-| Workflow | 作用 | 何时看它 |
-|----------|------|----------|
-| `collect-report.yml` | 主日报 workflow，含定时与手动触发 | 每日 07:00 主链路、人工手动补跑主流程 |
-| `backfill-report.yml` | 单日补报并刷新站点 | 某天缺报或历史回填 |
-| `delivery-canary.yml` | 定时或手动做通道 canary 检测 | 怀疑推送通道失联、排查 secrets |
-| `compensate-report.yml` | 错峰补偿运行 | 主日报因调度问题缺失时 |
-| `reusable-collect.yml` | 采集子流程 | 排查数据源或预处理异常 |
-| `reusable-analyze.yml` | 分析子流程 | 排查 AI 分析、intelligence、prompt 相关问题 |
-| `reusable-report.yml` | 渲染与推送主子流程 | 排查报告生成、送达失败、风险写回 |
-| `reusable-pages.yml` | Pages 构建子流程 | 排查首页、归档、周报、feeds |
-| `reusable-ops-dashboard.yml` | dashboard 构建子流程 | 排查私有运营看板 |
-| `reusable-review-queue.yml` | 复核 issue payload 与 issue 创建链路 | 排查 `[V7 review]` issue 未创建 |
-| `reusable-python-test.yml` | Python 测试矩阵 | 排查 CI 测试失败 |
-| `reusable-workflow-guard.yml` | workflow guard、actionlint、act | 排查 workflow 结构变更导致的问题 |
+## 5. workflow 对照表
 
-## 建议验收顺序
+| Workflow | 作用 | 出问题时看什么 |
+|---|---|---|
+| `collect-report.yml` | 每日主链路 | 全链路是否正常 |
+| `backfill-report.yml` | 指定日期补报 | 历史补跑、归档刷新 |
+| `compensate-report.yml` | 主链路失败后的补偿 | 是否完成缺口补发 |
+| `delivery-canary.yml` | 通道健康探测 | 通道配置、网络、凭据 |
+| `reusable-workflow-guard.yml` | workflow 本地与 CI 校验 | YAML、shell、动作契约 |
+| `reusable-python-test.yml` | Python 测试矩阵 | 代码逻辑回归 |
+| `reusable-report.yml` | 渲染与推送 | 报告生成、消息送达、数据回写 |
+| `reusable-pages.yml` | Pages 站点构建 | 首页、周报、专题、feeds |
+| `reusable-ops-dashboard.yml` | 私有看板构建 | ops artifact |
+| `reusable-review-queue.yml` | 复核队列构建 | review issue payload |
 
-### 本地最小验收
+## 6. 核心产物说明
 
-1. `pwsh ./scripts/check-workflows.ps1 -Profile full`
-2. `$env:PYTHONPATH='src'; python -m pytest tests -q`
-3. `$env:PYTHONPATH='src'; python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json`
-4. `$env:PYTHONPATH='src'; python -m auto_report.cli diagnose-delivery --mode canary`
-5. `$env:PYTHONPATH='src'; python -m auto_report.cli run-once --publication-mode reviewed`
-6. `$env:PYTHONPATH='src'; python -m auto_report.cli build-pages`
-7. `$env:PYTHONPATH='src'; python -m auto_report.cli build-ops-dashboard`
-8. `$env:PYTHONPATH='src'; python -m auto_report.cli build-review-queue`
+### 运行状态
 
-### 远端验收
+- `data/state/run-status.json`
 
-1. 看 workflow 是否成功
-2. 读 `data/state/run-status.json`，确认 `stage_status`、`delivery_results`、`risk_level`、`scheduler`、`external_enrichment`
-3. 如果本轮不是默认自动轨，再确认 `publication_mode` 与 `generated_files` 中的 `latest-summary-auto.*` / `latest-summary-reviewed.*` 是否一致
-4. 确认 `docs/index.html`、`docs/weekly/`、`docs/special/`、`docs/feed.json`、`docs/rss.xml` 已更新；同日双轨同时存在时，公开页应优先显示 reviewed
-5. 如果存在 review queue，确认 `[V7 review]` issue 是否按预期创建
-6. 如果是风险告警，确认 reliability issue 是否包含通道、阶段、调度与风险摘要
-7. 手动 `workflow_dispatch` 始终只会运行“已推送到目标分支”的版本；本地修复没有推送前，线上复跑不会带上这些改动
+关键字段：
 
-## 2026-04-12 真实验收记录
+- `publication_mode`
+- `review`
+- `delivery_results`
+- `risk_level`
+- `source_health`
+- `ai_metrics`
+- `source_stats.report_topics`
+- `external_enrichment`
 
-### 线下真实运行
+### 报告结果
 
-- 命令：`$env:PYTHONPATH='src'; python -m auto_report.cli run-once --publication-mode reviewed`
-- 结果：`data/state/run-status.json` 显示三端全部成功，`pushplus=code 200`、`telegram=1 message`、`feishu=1 message`
-- 附带产物：生成了 `latest-summary-reviewed.*`，`out/review-queue/review-issues.json` 产出 1 条 `[V7 review]` 候选 issue
-- 差异提醒：本地 `run-once` 只会刷新 `data/`；如果要让 `docs/index.html`、`docs/weekly/`、`docs/special/`、`docs/feed.json`、`docs/rss.xml` 跟上最新结果，必须额外执行 `python -m auto_report.cli build-pages`
+- `data/reports/latest-summary.*`
+- `data/reports/latest-summary-auto.*`
+- `data/reports/latest-summary-reviewed.*`
 
-### 线上真实运行
+### 页面结果
 
-- 运行：GitHub Actions `Collect And Report`，run id `24289432310`，分支 `integrate-v7`，输入 `push_enabled=true`、`publication_mode=reviewed`
-- 首次结果：失败于 `workflow-guard`
-- 根因：`reusable-pages.yml` 的提交脚本使用了 `A && B || C` 写法，被远端 `actionlint` / shellcheck 以 `SC2015` 拦截
-- 连带暴露：`reliability-issue` 与 `review-issue` 在上游失败时仍尝试下载不存在的 artifact，导致额外噪声红点
-- 当前本地已补的修复：改为显式 `if` 提交脚本、Pages 构建前同步当前触发分支而不是硬拉 `main`、提交完整 Pages 产物、后置 issue job 仅在上游 artifact 存在时运行
-- 后续动作：若要验证修复后的线上真实结果，需要先把当前分支推上远端，再重新触发 workflow
+- `docs/index.html`
+- `docs/archives/`
+- `docs/weekly/`
+- `docs/special/`
+- `docs/feed.json`
+- `docs/rss.xml`
 
-### 本轮收口结果
+## 7. 故障排查顺序
 
-- `source_stats.filtered_topics` 已统一收口为 `source_stats.report_topics`
-- 公开报告中的 `limitations` 已只保留编辑性限制，来源异常改由 `run-status.source_health` 与私有 ops dashboard 展示
-- `run-status.json` 已统一包含 `ai_metrics`、`source_health`、`review`，用于观察 AI 调用、来源健康度和 reviewed 元数据
-- 本地默认 `external_enrichment.enabled=false`，而 CI / workflow 默认开启；比较线下与线上结果时，仍要先确认是不是补证开关导致差异
+### 场景 A：workflow 直接失败
 
-## 失败排查顺序
+先判断失败在哪一层：
 
-### 1. workflow 红了
+1. `workflow-guard`
+2. `test`
+3. `collect`
+4. `analyze`
+5. `report`
+6. `deploy-pages`
 
-- 先看是 `workflow guard` / `python test` / `report` / `pages` 哪个 job 失败
-- 如果是 workflow 结构问题，先跑 `pwsh ./scripts/check-workflows.ps1`
-- 如果是 Python 逻辑问题，优先用 `$env:PYTHONPATH='src'; python -m pytest tests -q`
+对应本地动作：
 
-### 2. workflow 绿了，但消息没送达
+```powershell
+$env:PYTHONPATH='src'
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m pytest tests -q
+```
 
-- 不要只看 workflow 绿色状态
-- 直接打开 `data/state/run-status.json`
-- 重点看 `delivery_results.successful_channels`、`failed_channels`、各 channel 的错误摘要
-- 本地复现优先用：
-  - `python -m auto_report.cli diagnose-delivery --mode canary`
-  - `python -m auto_report.cli diagnose-delivery --mode canary --send`
-  - `python -m auto_report.cli diagnose-delivery --mode full-report --send`
-  - reviewed 轨排查时，加跑 `python -m auto_report.cli run-once --publication-mode reviewed`
+### 场景 B：workflow 成功，但消息没送达
 
-### 3. 报告生成了，但 Pages 没更新
+直接看：
 
-- 先跑 `python -m auto_report.cli build-pages`
-- 检查 `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`
-- 若是补报场景，优先改走 `backfill-report.yml` 或 `backfill --target-date`
-- 公开站首页始终固定为 `https://wsysgz.github.io/VS_AI/`；通知里不会切到 archive URL
+- `data/state/run-status.json > delivery_results`
 
-### 4. 出现高风险报告或人工复核需求
+排查命令：
 
-- 先看 `data/state/run-status.json` 里的 `risk_level`
-- 再看 `data/state/run-status.json` 里的 `external_enrichment`，确认 `success_rate`、`failed`、`skipped`、`circuit_open`
-- 再看 `out/review-queue/review-issues.json`
-- 主 workflow 已会自动消费 review queue 并创建 `[V7 review]` issue
-- 本地默认关闭外部补证；如需手工复现，设置 `EXTERNAL_ENRICHMENT_ENABLED=true`
-- 正式 workflow 中外部补证默认开启，但已限流为前 `2` 个高价值主题、单请求超时 `8s`
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli diagnose-delivery --mode canary
+python -m auto_report.cli diagnose-delivery --mode canary --send
+python -m auto_report.cli diagnose-delivery --mode full-report --send
+```
 
-### 5. Prompt 变更后质量下降
+### 场景 C：报告更新了，但页面没更新
 
-- 跑 `python -m auto_report.cli evaluate-prompts --dataset <path>`
-- 对比 `out/evals/` 中最近几次结果
-- 再打开 `out/ops-dashboard/index.html` 看最近 prompt-eval 趋势
+先本地重建：
 
-## V7 当前进度与未完项
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli build-pages
+```
 
-### 已稳定落地
+再看：
 
-- Phase 6：workflow engineering 主体完成，已具备 reusable workflows、workflow guard、Python matrix、`max-parallel`
-- Phase 7：delivery reliability 主体完成，已覆盖 canary、full-report、三类 reliability issue
-- Phase 8：prompt registry、legacy prompt 兼容、离线 prompt eval、dashboard 趋势视图已完成
-- Phase 9：跨日主线记忆、生命周期、`risk_level`、support evidence、review queue 已完成主链路
-- Phase 10：公开站首页、归档、搜索、feeds、周报页已落地
+- `docs/index.html`
+- `docs/weekly/index.html`
+- `docs/special/index.html`
+- `docs/feed.json`
+- `docs/rss.xml`
 
-### 进入维护观察
+### 场景 D：需要补发或补档
 
-- Phase 8：继续观察 `baseline-v1` 是否需要扩容样例，而不是重新设计 PromptOps 入口
-- Phase 9：继续观察外部 enrichment 命中率与 source budget 是否需要细调
-- Phase 10：继续观察周报/专题策展表达是否需要优化，但本轮 `weekly + special + reviewed metadata + dual links` 已完成收口
+本地：
 
-接手时不要按“从零重做”理解 V7；当前更适合按“现有基线稳定化 + 缺口逐个收口”推进。
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli backfill --target-date YYYY-MM-DD
+```
 
-## 接手人注意事项
+或远端：
 
-- 不要改写 `docs/superpowers/` 中的历史审计文件
-- 任何新的正式操作说明，优先写回 `README.md`、`docs/HANDOFF.md`、`docs/USER_GUIDE.md`、本文件
-- 不要把私有运维产物发布到公开 Pages
-- 远端判断送达成功时，以 `run-status.json` 为准，而不是只看 workflow 页面
-- 如果只想确认当前完成度，先看 `docs/upgrade-plan/V7_状态矩阵_2026-04-11.md`
+- 触发 `Backfill Report`
 
-## 关联文档
+### 场景 E：高风险或复核议题出现
 
-- [HANDOFF.md](HANDOFF.md)
-- [USER_GUIDE.md](USER_GUIDE.md)
-- [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md)
-- [ARCHITECTURE.md](ARCHITECTURE.md)
-- [push-channels-guide.md](push-channels-guide.md)
-- [upgrade-plan/V7_状态矩阵_2026-04-11.md](upgrade-plan/V7_状态矩阵_2026-04-11.md)
+重点看：
+
+- `risk_level`
+- `external_enrichment`
+- `out/review-queue/review-issues.json`
+
+主 workflow 会自动消费 review queue 并创建复核 issue。
+
+## 8. 三个重要的操作习惯
+
+### 1. 先看状态文件，再看页面
+
+`run-status.json` 比页面更接近真实运行结果。
+
+### 2. 先本地过，再推远端
+
+本地流程通过后再 push，可以显著降低线上试错成本。
+
+### 3. 线上复跑前必须先推送
+
+这是 GitHub Actions 最容易踩的坑之一。
+
+## 9. 推荐阅读顺序
+
+1. `README.md`
+2. 本文
+3. `USER_GUIDE.md`
+4. `HANDOFF.md`

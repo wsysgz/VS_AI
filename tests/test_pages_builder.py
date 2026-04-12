@@ -130,7 +130,7 @@ def _write_track_report_set(root: Path, archive_date: str, payload: dict[str, ob
     (archives_dir / f"{report_name}.html").write_text(html_stub, encoding="utf-8")
 
 
-def test_build_pages_site_preserves_existing_docs_content(tmp_path: Path):
+def test_build_pages_site_preserves_existing_manuals(tmp_path: Path):
     payload = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
     _write_report_set(tmp_path, "2026-04-11", payload)
 
@@ -138,16 +138,14 @@ def test_build_pages_site_preserves_existing_docs_content(tmp_path: Path):
     docs_dir.mkdir()
     (docs_dir / ".nojekyll").write_text("", encoding="utf-8")
     (docs_dir / "HANDOFF.md").write_text("# handoff", encoding="utf-8")
-    (docs_dir / "TECHNICAL_GUIDE.md").write_text("# guide", encoding="utf-8")
-    superpowers_dir = docs_dir / "superpowers" / "status"
-    superpowers_dir.mkdir(parents=True)
-    (superpowers_dir / "session.md").write_text("keep me", encoding="utf-8")
+    (docs_dir / "OPS_RUNBOOK.md").write_text("# runbook", encoding="utf-8")
+    (docs_dir / "USER_GUIDE.md").write_text("# guide", encoding="utf-8")
 
     build_pages_site(tmp_path)
 
     assert (docs_dir / "HANDOFF.md").exists()
-    assert (docs_dir / "TECHNICAL_GUIDE.md").exists()
-    assert (superpowers_dir / "session.md").exists()
+    assert (docs_dir / "OPS_RUNBOOK.md").exists()
+    assert (docs_dir / "USER_GUIDE.md").exists()
     assert (docs_dir / "index.html").exists()
     assert (docs_dir / "archives" / "2026-04-11" / "index.html").exists()
 
