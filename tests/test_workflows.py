@@ -164,11 +164,16 @@ def test_reusable_review_queue_workflow_builds_review_queue_artifact():
     assert "name: review-queue" in content
 
 
-def test_reusable_report_workflow_rebases_before_pushing_data_outputs():
+def test_reusable_report_workflow_replays_rendered_data_on_latest_branch_before_pushing():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
 
     assert "stefanzweifel/git-auto-commit-action@v4" not in content
-    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
+    assert "mktemp -d" in content
+    assert "for attempt in 1 2 3; do" in content
+    assert 'git fetch origin "$GITHUB_REF_NAME"' in content
+    assert 'git reset --hard "origin/$GITHUB_REF_NAME"' in content
+    assert 'git clean -fd data/' in content
+    assert 'cp -R "$rendered_data_dir"/. data/' in content
     assert 'git add data/' in content or 'git add data' in content
     assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
@@ -192,13 +197,19 @@ def test_collect_report_followup_issue_jobs_only_run_when_artifacts_exist():
     assert "if: always() && needs.review-queue.result == 'success'" in content
 
 
-def test_reusable_backfill_workflow_rebases_before_pushing_outputs():
+def test_reusable_backfill_workflow_replays_rendered_outputs_on_latest_branch_before_pushing():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
 
     assert "stefanzweifel/git-auto-commit-action@v4" not in content
+    assert "mktemp -d" in content
+    assert "for attempt in 1 2 3; do" in content
+    assert 'git fetch origin "$GITHUB_REF_NAME"' in content
+    assert 'git reset --hard "origin/$GITHUB_REF_NAME"' in content
+    assert 'git clean -fd data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
+    assert 'cp -R "$rendered_artifacts_dir/data"/. data/' in content
+    assert 'cp -R "$rendered_artifacts_dir/docs/archives"/. docs/archives/' in content
     assert 'git add data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
     assert 'git commit -m "chore: backfill report for ${{ inputs.target_date || \'latest\' }} [skip ci]"' in content
-    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
     assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
@@ -210,9 +221,15 @@ def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
     assert "actions/github-script@v7" in content
     assert "consecutive compensation failures" in content
     assert "stefanzweifel/git-auto-commit-action@v4" not in content
+    assert "mktemp -d" in content
+    assert "for attempt in 1 2 3; do" in content
+    assert 'git fetch origin "$GITHUB_REF_NAME"' in content
+    assert 'git reset --hard "origin/$GITHUB_REF_NAME"' in content
+    assert 'git clean -fd data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
+    assert 'cp -R "$rendered_artifacts_dir/data"/. data/' in content
+    assert 'cp -R "$rendered_artifacts_dir/docs/special"/. docs/special/' in content
     assert 'git add data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
     assert 'git commit -m "chore: compensate daily report [skip ci]"' in content
-    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
     assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
