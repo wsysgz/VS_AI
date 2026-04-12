@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "dataset_id": "baseline-v1",
+    "version": "2026-04-12",
+    "description": "Repo managed offline benchmark for summary, forecast, and domain brief prompts."
+  },
+  "cases": [
+    {
+      "id": "summary-baseline-case",
+      "stage": "summary",
+      "reference": {
+        "one_line_core": "工程化能力正在成为日报系统的核心竞争力。",
+        "executive_summary": [
+          "workflow 快验开始固定成 daily / recovery / full 三档。",
+          "公开站与三端推送正在统一阅读入口。"
+        ],
+        "key_points": [
+          {
+            "title": "workflow profile 固化",
+            "why_it_matters": "减少上线前验证漂移"
+          },
+          {
+            "title": "双链接通知",
+            "why_it_matters": "降低读者回溯成本"
+          }
+        ],
+        "key_insights": [
+          "工程化与内容分发的边界正在被统一管理。"
+        ],
+        "limitations": [
+          "部分外部来源仍需继续验证稳定性。"
+        ],
+        "actions": [
+          "继续跟踪 workflow 与通知模板的稳定性。"
+        ]
+      },
+      "outputs": [
+        {
+          "prompt_id": "summary-v7-baseline",
+          "version": "2026-04-12",
+          "model": "offline-dataset",
+          "content": {
+            "one_line_core": "工程化能力正在成为日报系统的核心竞争力。",
+            "executive_summary": [
+              "workflow 快验开始固定成 daily / recovery / full 三档。",
+              "公开站与三端推送正在统一阅读入口。"
+            ],
+            "key_points": [
+              {
+                "title": "workflow profile 固化",
+                "why_it_matters": "减少上线前验证漂移"
+              },
+              {
+                "title": "双链接通知",
+                "why_it_matters": "降低读者回溯成本"
+              }
+            ],
+            "key_insights": [
+              "工程化与内容分发的边界正在被统一管理。"
+            ],
+            "limitations": [
+              "部分外部来源仍需继续验证稳定性。"
+            ],
+            "actions": [
+              "继续跟踪 workflow 与通知模板的稳定性。"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "forecast-baseline-case",
+      "stage": "forecast",
+      "reference": {
+        "best_case": "固定验收链和双链接通知同时稳定，发布面摩擦继续下降。",
+        "worst_case": "workflow 或外部来源再次波动，导致当日内容和推送口径不一致。",
+        "most_likely_case": "后续几轮将继续围绕 reliability 与 public surface 做小步收口。",
+        "key_variables": [
+          "workflow guard 稳定性",
+          "外部来源可用性",
+          "reviewed 轨使用频率"
+        ],
+        "forecast_conclusion": "短期内应继续把验证、通知和公开站视为同一条发布链。",
+        "confidence": "medium"
+      },
+      "outputs": [
+        {
+          "prompt_id": "forecast-v7-baseline",
+          "version": "2026-04-12",
+          "model": "offline-dataset",
+          "content": {
+            "best_case": "固定验收链和双链接通知同时稳定，发布面摩擦继续下降。",
+            "worst_case": "workflow 或外部来源再次波动，导致当日内容和推送口径不一致。",
+            "most_likely_case": "后续几轮将继续围绕 reliability 与 public surface 做小步收口。",
+            "key_variables": [
+              "workflow guard 稳定性",
+              "外部来源可用性",
+              "reviewed 轨使用频率"
+            ],
+            "forecast_conclusion": "短期内应继续把验证、通知和公开站视为同一条发布链。",
+            "confidence": "medium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "domain-brief-baseline-case",
+      "stage": "domain_briefs",
+      "reference": {
+        "title": "AI / Agent",
+        "one_line_core": "AI / Agent 领域仍由工程闭环与发布可靠性主导。",
+        "executive_summary": [
+          "workflow 和通知模板正在统一。",
+          "reviewed 轨增强了公开阅读的一致性。"
+        ],
+        "signals": [
+          {
+            "title": "Workflow Engineering 收口",
+            "why_it_matters": "本地与远端验收更可预测"
+          }
+        ]
+      },
+      "outputs": [
+        {
+          "prompt_id": "domain-briefs-v1",
+          "version": "2026-04-12",
+          "model": "offline-dataset",
+          "content": {
+            "title": "AI / Agent",
+            "one_line_core": "AI / Agent 领域仍由工程闭环与发布可靠性主导。",
+            "executive_summary": [
+              "workflow 和通知模板正在统一。",
+              "reviewed 轨增强了公开阅读的一致性。"
+            ],
+            "signals": [
+              {
+                "title": "Workflow Engineering 收口",
+                "why_it_matters": "本地与远端验收更可预测"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

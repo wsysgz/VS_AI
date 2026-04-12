@@ -38,6 +38,8 @@ def test_collect_report_workflow_keeps_schedule_and_dispatch_push_toggle():
 
     assert "AUTO_PUSH_ENABLED: ${{ inputs.auto_push_enabled }}" in content
     assert "PUBLICATION_MODE: ${{ inputs.publication_mode }}" in content
+    assert "REPORT_REVIEWER: ${{ inputs.reviewer }}" in content
+    assert "REPORT_REVIEW_NOTE: ${{ inputs.review_note }}" in content
     assert "SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}" in content
     assert "SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}" in content
     assert 'EXTERNAL_ENRICHMENT_ENABLED: "true"' in content
@@ -51,6 +53,8 @@ def test_reusable_report_workflow_accepts_boolean_scheduler_flags():
 
     assert inputs["auto_push_enabled"]["type"] == "boolean"
     assert inputs["publication_mode"]["type"] == "string"
+    assert inputs["reviewer"]["type"] == "string"
+    assert inputs["review_note"]["type"] == "string"
     assert inputs["scheduler_compensation_run"]["type"] == "boolean"
 
 
@@ -59,6 +63,8 @@ def test_reusable_backfill_workflow_accepts_boolean_compensation_flag():
     inputs = _workflow_on(workflow)["workflow_call"]["inputs"]
 
     assert inputs["publication_mode"]["type"] == "string"
+    assert inputs["reviewer"]["type"] == "string"
+    assert inputs["review_note"]["type"] == "string"
     assert inputs["skip_push"]["type"] == "boolean"
     assert inputs["scheduler_compensation_run"]["type"] == "boolean"
 
@@ -71,7 +77,11 @@ def test_collect_and_backfill_workflows_pass_boolean_compensation_values():
     backfill_with = backfill_workflow["jobs"]["backfill"]["with"]
 
     assert collect_with["publication_mode"] == "${{ github.event_name == 'workflow_dispatch' && inputs.publication_mode || 'auto' }}"
+    assert collect_with["reviewer"] == "${{ github.event_name == 'workflow_dispatch' && inputs.reviewer || '' }}"
+    assert collect_with["review_note"] == "${{ github.event_name == 'workflow_dispatch' && inputs.review_note || '' }}"
     assert backfill_with["publication_mode"] == "${{ inputs.publication_mode }}"
+    assert backfill_with["reviewer"] == "${{ inputs.reviewer }}"
+    assert backfill_with["review_note"] == "${{ inputs.review_note }}"
     assert collect_with["scheduler_compensation_run"] is False
     assert backfill_with["scheduler_compensation_run"] is False
 
@@ -137,6 +147,8 @@ def test_reusable_backfill_workflow_builds_pages_and_ops_dashboard():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
 
     assert 'run: python -m auto_report.cli backfill --target-date "${{ inputs.target_date }}"' in content
+    assert "REPORT_REVIEWER: ${{ inputs.reviewer }}" in content
+    assert "REPORT_REVIEW_NOTE: ${{ inputs.review_note }}" in content
     assert "run: python -m auto_report.cli build-pages" in content
     assert "run: python -m auto_report.cli build-ops-dashboard" in content
     assert 'EXTERNAL_ENRICHMENT_ENABLED: "true"' in content

@@ -10,6 +10,8 @@ def _sample_payload(
     host_title: str,
     publication_mode: str = "auto",
     one_line_core: str | None = None,
+    reviewer: str = "",
+    review_note: str = "",
 ) -> dict[str, object]:
     return {
         "meta": {
@@ -18,6 +20,10 @@ def _sample_payload(
             "total_items": 12,
             "total_topics": 4,
             "publication_mode": publication_mode,
+            "review": {
+                "reviewer": reviewer,
+                "review_note": review_note,
+            },
         },
         "one_line_core": one_line_core or f"{host_title} 成为本轮最强主线。",
         "executive_summary": [
@@ -304,3 +310,40 @@ def test_build_pages_site_prefers_reviewed_track_when_both_exist(tmp_path: Path)
 
     assert "OpenAI reviewed judgment" in index_html
     assert "人工复核版" in index_html
+
+
+def test_build_pages_site_surfaces_review_metadata_and_emerging_specials(tmp_path: Path):
+    reviewed = _sample_payload(
+        "2026-04-11",
+        "ai-llm-agent",
+        "OpenAI",
+        publication_mode="reviewed",
+        reviewer="Alice",
+        review_note="checked key sources",
+    )
+    previous = _sample_payload(
+        "2026-04-10",
+        "ai-llm-agent",
+        "Anthropic",
+        publication_mode="auto",
+    )
+
+    _write_track_report_set(tmp_path, "2026-04-11", reviewed, "reviewed")
+    _write_track_report_set(tmp_path, "2026-04-10", previous, "auto")
+    (tmp_path / "data" / "reports" / "latest-summary.json").write_text(
+        json.dumps(reviewed, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    build_pages_site(tmp_path)
+
+    weekly_page = (tmp_path / "docs" / "weekly" / "2026-W15" / "index.html").read_text(encoding="utf-8")
+    special_index = (tmp_path / "docs" / "special" / "index.html").read_text(encoding="utf-8")
+    emerging_page = (tmp_path / "docs" / "special" / "emerging" / "index.html").read_text(encoding="utf-8")
+
+    assert "持续主线" in weekly_page
+    assert "Alice" in weekly_page
+    assert "人工复核版" in weekly_page
+    assert "Emerging Themes" in special_index
+    assert "OpenAI 推出归档检索" in emerging_page
+    assert "Alice" in emerging_page

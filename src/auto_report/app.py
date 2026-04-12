@@ -32,6 +32,9 @@ from auto_report.settings import load_settings
 from auto_report.sources.collector import collect_all_items
 
 
+PUBLIC_SITE_URL = "https://wsysgz.github.io/VS_AI/"
+
+
 # ════════════════════════════════════════
 # 阶段计时器 (Phase 4 可观测性前置)
 # ════════════════════════════════════════
@@ -61,6 +64,20 @@ def _resolve_publication_mode(settings, publication_mode: str = "") -> str:
     return _normalize_publication_mode(requested)
 
 
+def _resolve_review_metadata(
+    settings,
+    publication_mode: str,
+    reviewer: str = "",
+    review_note: str = "",
+) -> dict[str, str]:
+    if _normalize_publication_mode(publication_mode) != "reviewed":
+        return {"reviewer": "", "review_note": ""}
+    return {
+        "reviewer": str(reviewer or settings.env.get("REPORT_REVIEWER", "")).strip(),
+        "review_note": str(review_note or settings.env.get("REPORT_REVIEW_NOTE", "")).strip(),
+    }
+
+
 def _summary_track_stem(publication_mode: str) -> str:
     return f"latest-summary-{_normalize_publication_mode(publication_mode)}"
 
@@ -76,9 +93,45 @@ def _report_title(publication_mode: str, backfill: bool = False) -> str:
     return title
 
 
-def _notification_title(prefix: str, publication_mode: str, local_date: str) -> str:
+def _classify_source_diagnostic(message: str) -> str:
+    normalized = str(message or "").lower()
+    if "404" in normalized or "not found" in normalized:
+        return "not_found"
+    if "timed out" in normalized or "timeout" in normalized:
+        return "timeout"
+    if any(token in normalized for token in ("request failed", "connection", "network", "http error", "api request failed")):
+        return "request_error"
+    if "failed:" in normalized or " failed" in normalized or "error" in normalized:
+        return "request_error"
+    return "other"
+
+
+def _summarize_source_health(diagnostics: list[str]) -> dict[str, object]:
+    summary = {
+        "total": 0,
+        "not_found": 0,
+        "timeout": 0,
+        "request_error": 0,
+        "other": 0,
+        "samples": [],
+    }
+    for message in diagnostics:
+        text = str(message).strip()
+        if not text:
+            continue
+        category = _classify_source_diagnostic(text)
+        summary["total"] = int(summary["total"]) + 1
+        summary[category] = int(summary[category]) + 1
+        if len(summary["samples"]) < 6:
+            summary["samples"].append(text)
+    return summary
+
+
+def _notification_title(prefix: str, publication_mode: str, local_date: str, review: dict[str, str] | None = None) -> str:
     if _normalize_publication_mode(publication_mode) == "reviewed":
-        return f"{prefix}（人工复核版） | {local_date} | 北京时间 07:00"
+        reviewer = str((review or {}).get("reviewer", "")).strip()
+        review_suffix = f" / {reviewer}" if reviewer else ""
+        return f"{prefix}（人工复核版{review_suffix}） | {local_date} | 北京时间 07:00"
     return f"{prefix} | {local_date} | 北京时间 07:00"
 
 
@@ -155,8 +208,8 @@ def _load_summary_payload(root_dir: Path, publication_mode: str = "auto") -> dic
     raise FileNotFoundError(f"Summary payload not found in {reports_dir}")
 
 
-def _build_detail_url(settings, publication_mode: str) -> str:
-    base_url = settings.env["REPORT_REPO_URL"].rstrip("/")
+def _build_raw_report_url(settings, publication_mode: str) -> str:
+    base_url = settings.env.get("REPORT_REPO_URL", "https://github.com/wsysgz/VS_AI").rstrip("/")
     return f"{base_url}/blob/main/data/reports/{_summary_track_stem(publication_mode)}.md"
 
 
@@ -164,11 +217,15 @@ def _build_text_notification(root_dir: Path, settings, publication_mode: str) ->
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
+    review = payload.get("meta", {}).get("review", {})
+    if not isinstance(review, dict):
+        review = {}
     return render_pushplus_notification(
-        title=_notification_title("AI情报早报", publication_mode, local_date),
+        title=_notification_title("AI情报早报", publication_mode, local_date, review=review),
         generated_at=generated_at,
         payload=payload,
-        detail_url=_build_detail_url(settings, publication_mode),
+        public_site_url=PUBLIC_SITE_URL,
+        raw_report_url=_build_raw_report_url(settings, publication_mode),
     )
 
 
@@ -176,12 +233,15 @@ def _build_telegram_notification(root_dir: Path, settings, publication_mode: str
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
-    detail_url = _build_detail_url(settings, publication_mode)
+    review = payload.get("meta", {}).get("review", {})
+    if not isinstance(review, dict):
+        review = {}
     return render_telegram_notification(
-        title=_notification_title("AI情报完整简报", publication_mode, local_date),
+        title=_notification_title("AI情报完整简报", publication_mode, local_date, review=review),
         generated_at=generated_at,
         payload=payload,
-        detail_url=detail_url,
+        public_site_url=PUBLIC_SITE_URL,
+        raw_report_url=_build_raw_report_url(settings, publication_mode),
     )
 
 
@@ -189,12 +249,15 @@ def _build_feishu_notification(root_dir: Path, settings, publication_mode: str) 
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
     local_date = generated_at[:10]
-    detail_url = _build_detail_url(settings, publication_mode)
+    review = payload.get("meta", {}).get("review", {})
+    if not isinstance(review, dict):
+        review = {}
     return render_feishu_notification(
-        title=_notification_title("AI情报飞书简报", publication_mode, local_date),
+        title=_notification_title("AI情报飞书简报", publication_mode, local_date, review=review),
         generated_at=generated_at,
         payload=payload,
-        detail_url=detail_url,
+        public_site_url=PUBLIC_SITE_URL,
+        raw_report_url=_build_raw_report_url(settings, publication_mode),
     )
 
 
@@ -264,11 +327,9 @@ def _collect_delivery_results(
             lambda: send_pushplus(
                 settings.env["PUSHPLUS_TOKEN"],
                 pushplus_title,
-                pushplus_content
-                if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or mode == "canary"
-                else (root_dir / "data" / "reports" / f"{_summary_track_stem(publication_mode)}.md").read_text(encoding="utf-8"),
+                pushplus_content,
                 channel=settings.env["PUSHPLUS_CHANNEL"],
-                template="txt" if settings.env["PUSHPLUS_CHANNEL"] == "clawbot" or mode == "canary" else "markdown",
+                template="txt",
                 secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
                 base_url=settings.env["PUSHPLUS_BASE_URL"],
                 timeout=request_timeout,
@@ -351,9 +412,20 @@ def _collect_delivery_results(
     return summarize_delivery_results(results), responses
 
 
-def render_reports(root_dir: Path, publication_mode: str = "") -> tuple[list[str], dict[str, float], dict[str, object]]:
+def render_reports(
+    root_dir: Path,
+    publication_mode: str = "",
+    reviewer: str = "",
+    review_note: str = "",
+) -> tuple[list[str], dict[str, float], dict[str, object]]:
     settings = load_settings(root_dir)
     resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
+    review = _resolve_review_metadata(
+        settings,
+        resolved_publication_mode,
+        reviewer=reviewer,
+        review_note=review_note,
+    )
     generated_at = datetime.now().astimezone().isoformat()
     reports_dir = root_dir / "data" / "reports"
     state_dir = root_dir / "data" / "state"
@@ -369,6 +441,7 @@ def render_reports(root_dir: Path, publication_mode: str = "") -> tuple[list[str
         # dedup + classify + score + AI pipeline 全部在 build_report_package 内完成
         package.summary_payload["meta"]["generated_at"] = generated_at
         package.summary_payload["meta"]["publication_mode"] = resolved_publication_mode
+        package.summary_payload["meta"]["review"] = review
     timings["dedup_score"] = t.elapsed
 
     # 从 package 中提取 AI 阶段耗时（如果 ai_pipeline 有内部计时）
@@ -433,12 +506,28 @@ def render_reports(root_dir: Path, publication_mode: str = "") -> tuple[list[str
         generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
     timings["rendering"] = t.elapsed
 
-    return generated_files, timings, package.external_enrichment
+    return generated_files, timings, {
+        "external_enrichment": package.external_enrichment,
+        "source_health": _summarize_source_health(diagnostics),
+        "review": review,
+    }
 
 
-def run_backfill(root_dir: Path, target_date: str = "", publication_mode: str = "") -> list[str]:
+def run_backfill(
+    root_dir: Path,
+    target_date: str = "",
+    publication_mode: str = "",
+    reviewer: str = "",
+    review_note: str = "",
+) -> list[str]:
     settings = load_settings(root_dir)
     resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
+    review = _resolve_review_metadata(
+        settings,
+        resolved_publication_mode,
+        reviewer=reviewer,
+        review_note=review_note,
+    )
     generated_at = datetime.now().astimezone().isoformat()
     timings: dict[str, float] = {}
 
@@ -455,6 +544,7 @@ def run_backfill(root_dir: Path, target_date: str = "", publication_mode: str = 
         package = build_report_package(settings, items, diagnostics)
         package.summary_payload["meta"]["generated_at"] = generated_at
         package.summary_payload["meta"]["publication_mode"] = resolved_publication_mode
+        package.summary_payload["meta"]["review"] = review
     timings["dedup_score"] = t.elapsed
     timings["ai_total"] = 0.0  # AI pipeline 已在 build_report_package 内完成
 
@@ -527,10 +617,13 @@ def run_backfill(root_dir: Path, target_date: str = "", publication_mode: str = 
         stage_status=package.summary_payload.get("stage_status", {}),
         source_stats={
             "collected_items": int(package.summary_payload.get("meta", {}).get("total_items", 0)),
-            "filtered_topics": int(package.summary_payload.get("meta", {}).get("total_topics", 0)),
+            "report_topics": int(package.summary_payload.get("meta", {}).get("total_topics", 0)),
         },
         risk_level=str(package.summary_payload.get("risk_level", "low")),
         external_enrichment=package.external_enrichment,
+        ai_metrics=package.summary_payload.get("ai_metrics", {}),
+        source_health=_summarize_source_health(diagnostics),
+        review=review,
         scheduler=_scheduler_context(settings),
         timings=timings,
     )
@@ -540,18 +633,28 @@ def run_backfill(root_dir: Path, target_date: str = "", publication_mode: str = 
     return generated_files
 
 
-def run_once(root_dir: Path, publication_mode: str = "") -> list[str]:
+def run_once(
+    root_dir: Path,
+    publication_mode: str = "",
+    reviewer: str = "",
+    review_note: str = "",
+) -> list[str]:
     settings = load_settings(root_dir)
     resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
     all_timings: dict[str, float] = {}
     delivery_results = _empty_delivery_results()
 
     with StageTimer("total") as total_timer:
-        generated_files, render_timings, external_enrichment = render_reports(
+        generated_files, render_timings, runtime_status = render_reports(
             root_dir,
             publication_mode=resolved_publication_mode,
+            reviewer=reviewer,
+            review_note=review_note,
         )
         all_timings.update(render_timings)
+        external_enrichment = runtime_status.get("external_enrichment", {})
+        source_health = runtime_status.get("source_health", {})
+        review = runtime_status.get("review", {})
 
         summary_payload = _load_summary_payload(root_dir, publication_mode=resolved_publication_mode)
         pushed = False
@@ -590,10 +693,13 @@ def run_once(root_dir: Path, publication_mode: str = "") -> list[str]:
         stage_status=summary_payload.get("stage_status", {}),
         source_stats={
             "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
-            "filtered_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
+            "report_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
         },
         risk_level=str(summary_payload.get("risk_level", "low")),
         external_enrichment=external_enrichment,
+        ai_metrics=summary_payload.get("ai_metrics", {}),
+        source_health=source_health,
+        review=review if isinstance(review, dict) else {},
         scheduler=_scheduler_context(settings),
         timings=all_timings,
     )
@@ -710,9 +816,19 @@ def cmd_analyze_only(root_dir: Path) -> list[str]:
     return [path]
 
 
-def cmd_render_and_push(root_dir: Path, publication_mode: str = "") -> list[str]:
+def cmd_render_and_push(
+    root_dir: Path,
+    publication_mode: str = "",
+    reviewer: str = "",
+    review_note: str = "",
+) -> list[str]:
     """CI Job 3: 渲染 MD+JSON+HTML -> 三通道推送 -> 归档"""
-    return run_once(root_dir, publication_mode=publication_mode)
+    return run_once(
+        root_dir,
+        publication_mode=publication_mode,
+        reviewer=reviewer,
+        review_note=review_note,
+    )
 
 
 def cmd_diagnose_delivery(root_dir: Path, send: bool = False, mode: str = "canary") -> dict[str, object]:

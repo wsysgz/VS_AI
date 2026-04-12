@@ -21,6 +21,16 @@ on:
         options:
           - auto
           - reviewed
+      reviewer:
+        description: "Optional reviewer name for reviewed publication"
+        required: false
+        default: ""
+        type: string
+      review_note:
+        description: "Optional review note for reviewed publication"
+        required: false
+        default: ""
+        type: string
   schedule:
     - cron: "13 23 * * *"
 
@@ -52,6 +62,8 @@ jobs:
     with:
       auto_push_enabled: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.push_enabled == true) }}
       publication_mode: ${{ github.event_name == 'workflow_dispatch' && inputs.publication_mode || 'auto' }}
+      reviewer: ${{ github.event_name == 'workflow_dispatch' && inputs.reviewer || '' }}
+      review_note: ${{ github.event_name == 'workflow_dispatch' && inputs.review_note || '' }}
       scheduler_trigger_kind: ${{ github.event_name == 'schedule' && 'schedule' || github.event_name == 'workflow_dispatch' && 'manual' || 'push' }}
       scheduler_compensation_run: false
     secrets: inherit

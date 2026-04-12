@@ -5,7 +5,11 @@ import json
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from auto_report.integrations.llm_client import call_llm as summarize_with_deepseek
+from auto_report.integrations.llm_client import (
+    call_llm as summarize_with_deepseek,
+    get_llm_metrics,
+    reset_llm_metrics,
+)
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)
@@ -204,6 +208,7 @@ def run_staged_ai_pipeline(
     max_candidates: int | None = None,
     enable_pre_filter: bool = True,
 ) -> dict[str, object]:
+    reset_llm_metrics()
     if max_candidates is not None and max_candidates > 0:
         selected_candidates = candidates[:max_candidates]
     else:
@@ -296,9 +301,17 @@ def run_staged_ai_pipeline(
         forecast = _fallback_forecast(summary)
         stage_status["forecast"] = "fallback"
 
+    ai_metrics = get_llm_metrics()
+    ai_metrics["fallback_stages"] = [
+        stage
+        for stage, status in stage_status.items()
+        if status == "fallback"
+    ]
+
     return {
         "analyses": all_analyses,
         "summary": summary,
         "forecast": forecast,
         "stage_status": stage_status,
+        "ai_metrics": ai_metrics,
     }

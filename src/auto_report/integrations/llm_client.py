@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import os
+import threading
 import time
 
 import requests
@@ -80,6 +81,78 @@ def build_llm_payload(prompt: str) -> dict[str, object]:
 # Session 复用 — TCP 连接保持，减少每次 ~100ms 握手开销
 _session = requests.Session()
 _session.headers.update({"Content-Type": "application/json"})
+_metrics_lock = threading.Lock()
+
+
+def _empty_token_usage() -> dict[str, int]:
+    return {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0,
+    }
+
+
+def _default_llm_metrics(config: dict[str, str] | None = None) -> dict[str, object]:
+    resolved = config or _resolve_provider_config()
+    return {
+        "provider": resolved.get("provider", ""),
+        "model": resolved.get("model", ""),
+        "calls": 0,
+        "token_usage": _empty_token_usage(),
+        "latency_seconds": 0.0,
+    }
+
+
+_llm_metrics = _default_llm_metrics()
+
+
+def reset_llm_metrics() -> None:
+    global _llm_metrics
+    with _metrics_lock:
+        _llm_metrics = _default_llm_metrics()
+
+
+def get_llm_metrics() -> dict[str, object]:
+    with _metrics_lock:
+        usage = _llm_metrics.get("token_usage", {})
+        usage_dict = usage if isinstance(usage, dict) else {}
+        return {
+            "provider": str(_llm_metrics.get("provider", "")),
+            "model": str(_llm_metrics.get("model", "")),
+            "calls": int(_llm_metrics.get("calls", 0)),
+            "token_usage": {
+                "prompt": int(usage_dict.get("prompt", 0)),
+                "completion": int(usage_dict.get("completion", 0)),
+                "total": int(usage_dict.get("total", 0)),
+            },
+            "latency_seconds": round(float(_llm_metrics.get("latency_seconds", 0.0)), 2),
+        }
+
+
+def _record_llm_metrics(config: dict[str, str], data: dict[str, object], elapsed_seconds: float) -> None:
+    usage = data.get("usage", {})
+    usage_dict = usage if isinstance(usage, dict) else {}
+    prompt_tokens = int(usage_dict.get("prompt_tokens", 0) or 0)
+    completion_tokens = int(usage_dict.get("completion_tokens", 0) or 0)
+    total_tokens = int(
+        usage_dict.get("total_tokens", prompt_tokens + completion_tokens) or (prompt_tokens + completion_tokens)
+    )
+
+    with _metrics_lock:
+        _llm_metrics["provider"] = config.get("provider", "")
+        _llm_metrics["model"] = config.get("model", "")
+        _llm_metrics["calls"] = int(_llm_metrics.get("calls", 0)) + 1
+        current_usage = _llm_metrics.get("token_usage", {})
+        current_usage_dict = current_usage if isinstance(current_usage, dict) else _empty_token_usage()
+        _llm_metrics["token_usage"] = {
+            "prompt": int(current_usage_dict.get("prompt", 0)) + prompt_tokens,
+            "completion": int(current_usage_dict.get("completion", 0)) + completion_tokens,
+            "total": int(current_usage_dict.get("total", 0)) + total_tokens,
+        }
+        _llm_metrics["latency_seconds"] = round(
+            float(_llm_metrics.get("latency_seconds", 0.0)) + float(elapsed_seconds),
+            2,
+        )
 
 
 def is_llm_enabled() -> bool:
@@ -125,6 +198,7 @@ def call_llm(prompt: str) -> str:
 
     for attempt in range(max_retries):
         try:
+            started_at = time.perf_counter()
             base_timeout = 45 + attempt * 10  # 45s, 55s, 65s
             response = _session.post(
                 endpoint,
@@ -136,6 +210,7 @@ def call_llm(prompt: str) -> str:
             )
             response.raise_for_status()
             data = response.json()
+            _record_llm_metrics(config, data, time.perf_counter() - started_at)
             return data["choices"][0]["message"]["content"]
 
         except requests.exceptions.Timeout as exc:

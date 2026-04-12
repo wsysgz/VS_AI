@@ -9,6 +9,12 @@ on:
       publication_mode:
         required: true
         type: string
+      reviewer:
+        required: false
+        type: string
+      review_note:
+        required: false
+        type: string
       scheduler_trigger_kind:
         required: true
         type: string
@@ -58,6 +64,8 @@ jobs:
           AUTO_TIMEZONE: Asia/Shanghai
           AUTO_PUSH_ENABLED: ${{ inputs.auto_push_enabled }}
           PUBLICATION_MODE: ${{ inputs.publication_mode }}
+          REPORT_REVIEWER: ${{ inputs.reviewer }}
+          REPORT_REVIEW_NOTE: ${{ inputs.review_note }}
           SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}
           SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}
           EXTERNAL_ENRICHMENT_ENABLED: "true"

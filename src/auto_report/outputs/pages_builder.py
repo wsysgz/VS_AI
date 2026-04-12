@@ -73,6 +73,18 @@ def _parse_date(date_text: str) -> date:
     return datetime.strptime(date_text, "%Y-%m-%d").date()
 
 
+def _normalize_review(meta: object) -> dict[str, str]:
+    if not isinstance(meta, dict):
+        return {"reviewer": "", "review_note": ""}
+    review = meta.get("review", {})
+    if not isinstance(review, dict):
+        review = {}
+    return {
+        "reviewer": _safe_text(review.get("reviewer")),
+        "review_note": _safe_text(review.get("review_note")),
+    }
+
+
 def _read_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -112,6 +124,7 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
     meta = payload.get("meta", {})
     generated_at = _safe_text(meta.get("generated_at"))
     publication_mode = _normalize_publication_mode(meta.get("publication_mode"))
+    review = _normalize_review(meta)
     brief = compose_executive_brief("自动情报快报", generated_at, payload)
     date_text = archive_date or (generated_at[:10] if generated_at else "unknown")
     signals = payload.get("signals", [])
@@ -160,6 +173,7 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         "forecast_conclusion": brief["forecast_conclusion"],
         "publication_mode": publication_mode,
         "publication_label": _publication_label(publication_mode),
+        "review": review,
         "signals": normalized_signals,
         "top_signals": normalized_signals[:6],
         "source_counts": dict(source_counts.most_common()),
@@ -210,12 +224,24 @@ def _build_weekly_reports(reports: list[dict[str, object]]) -> list[dict[str, ob
             for signal in report["signals"]:
                 signal_key = f"{signal['title']}|{signal['url']}"
                 if signal_key not in signal_lookup:
-                    signal_lookup[signal_key] = signal
+                    signal_lookup[signal_key] = {
+                        **signal,
+                        "appearances": 1,
+                        "publication_mode": report["publication_mode"],
+                        "publication_label": report["publication_label"],
+                        "review": report["review"],
+                    }
+                    continue
+                signal_lookup[signal_key]["appearances"] = int(signal_lookup[signal_key]["appearances"]) + 1
 
         top_signals = sorted(
             signal_lookup.values(),
             key=lambda item: (-float(item["score"]), item["title"]),
         )[:8]
+        persistent_mainlines = sorted(
+            signal_lookup.values(),
+            key=lambda item: (-int(item.get("appearances", 0)), -float(item.get("score", 0.0)), item["title"]),
+        )[:4]
         start_date = min(_parse_date(str(report["date"])) for report in week_reports)
         end_date = max(_parse_date(str(report["date"])) for report in week_reports)
         weekly_reports.append(
@@ -230,6 +256,7 @@ def _build_weekly_reports(reports: list[dict[str, object]]) -> list[dict[str, ob
                 "source_counts": dict(source_counts.most_common()),
                 "reports": week_reports,
                 "top_signals": top_signals,
+                "persistent_mainlines": persistent_mainlines,
                 "archive_url": f"weekly/{week_key}/",
                 "generated_at": week_reports[0]["generated_at"],
             }
@@ -245,6 +272,12 @@ def _build_special_collections(reports: list[dict[str, object]]) -> list[dict[st
             "Verified Themes",
             "聚合跨日持续和多源印证后已经形成确认主线的主题。",
             lambda signal: str(signal.get("lifecycle_state", "new")) == "verified",
+        ),
+        (
+            "emerging",
+            "Emerging Themes",
+            "聚合仍在抬升中的新主题，方便提前观察后续是否进入持续主线。",
+            lambda signal: str(signal.get("lifecycle_state", "new")) in {"new", "rising"},
         ),
         (
             "risk-watch",
@@ -278,6 +311,9 @@ def _build_special_collections(reports: list[dict[str, object]]) -> list[dict[st
                         "last_date": report["date"],
                         "appearances": 1,
                         "archive_url": report["archive_url"],
+                        "publication_mode": report["publication_mode"],
+                        "publication_label": report["publication_label"],
+                        "review": report["review"],
                     }
                     continue
 
@@ -290,6 +326,9 @@ def _build_special_collections(reports: list[dict[str, object]]) -> list[dict[st
                     entry["risk_level"] = signal["risk_level"]
                     entry["enrichment_summary"] = signal["enrichment_summary"]
                     entry["archive_url"] = report["archive_url"]
+                    entry["publication_mode"] = report["publication_mode"]
+                    entry["publication_label"] = report["publication_label"]
+                    entry["review"] = report["review"]
                 if str(report["date"]) < str(entry["first_date"]):
                     entry["first_date"] = report["date"]
 
@@ -684,6 +723,18 @@ def _summary_cards(report: dict[str, object]) -> str:
     return "".join(cards) or '<article class="summary-card"><h3>暂无主线</h3><p>等待更多高置信度信号。</p></article>'
 
 
+def _review_meta_tags(publication_label: str, review: dict[str, str] | None) -> str:
+    review = review or {}
+    tags = [f'<span class="tag">{html.escape(publication_label)}</span>']
+    reviewer = _safe_text(review.get("reviewer"))
+    if reviewer:
+        tags.append(f'<span class="tag alt">{html.escape(reviewer)}</span>')
+    review_note = _safe_text(review.get("review_note"))
+    if review_note:
+        tags.append(f'<span class="tag warm">{html.escape(review_note)}</span>')
+    return "".join(tags)
+
+
 def _topic_cards(report: dict[str, object]) -> str:
     cards = []
     for topic in report["topic_briefs"]:
@@ -747,12 +798,14 @@ def _weekly_cards(weeks: list[dict[str, object]]) -> str:
             f'<span class="tag alt">{html.escape(name)}</span>'
             for name in list(week["domain_counts"].keys())[:2]
         )
+        lead_report = week["reports"][0]
+        review_tags = _review_meta_tags(str(lead_report["publication_label"]), lead_report.get("review", {}))
         cards.append(
             f"""<article class="archive-card">
   <span class="eyebrow">{html.escape(week["week_label"])}</span>
   <h3>{html.escape(week["range_label"])}</h3>
   <p>{week["report_count"]} daily brief(s) · {week["total_topics"]} topics · {week["total_items"]} raw items</p>
-  <div class="archive-meta" style="margin-top:12px;">{domain_tags}</div>
+  <div class="archive-meta" style="margin-top:12px;">{domain_tags}{review_tags}</div>
   <div class="archive-footer">
     <span>{html.escape(week["reports"][0]["judgment"])}</span>
     <a href="{html.escape(week["archive_url"])}">打开周报</a>
@@ -782,6 +835,7 @@ def _special_collection_cards(collections: list[dict[str, object]]) -> str:
 def _special_signal_cards(entries: list[dict[str, object]]) -> str:
     cards = []
     for item in entries:
+        review_tags = _review_meta_tags(str(item["publication_label"]), item.get("review", {}))
         cards.append(
             f"""<article class="archive-card">
   <span class="eyebrow">{html.escape(_format_date(str(item["last_date"])))}</span>
@@ -791,6 +845,7 @@ def _special_signal_cards(entries: list[dict[str, object]]) -> str:
     <span class="tag alt">{html.escape(item["domain_label"])}</span>
     <span class="tag warm">{html.escape(str(item["lifecycle_state"]))}</span>
     <span class="tag">{html.escape(str(item["risk_level"]))}</span>
+    {review_tags}
   </div>
   <p class="subtle" style="margin-top:12px;">{html.escape(str(item["enrichment_summary"]))}</p>
   <div class="archive-footer">
@@ -1143,14 +1198,36 @@ def _build_weekly_index(weeks: list[dict[str, object]]) -> str:
 def _build_week_page(week: dict[str, object]) -> str:
     daily_cards = []
     for report in week["reports"]:
+        review_tags = _review_meta_tags(str(report["publication_label"]), report.get("review", {}))
         daily_cards.append(
             f"""<article class="archive-card">
   <span class="eyebrow">{html.escape(report["date_label"])}</span>
   <h3>{html.escape(report["judgment"])}</h3>
   <p>{html.escape(" ".join(report["executive_summary"]) or report["watchlist"])}</p>
+  <div class="archive-meta" style="margin-top:12px;">{review_tags}</div>
   <div class="archive-footer">
     <span>{report["total_topics"]} topics · {report["total_items"]} items</span>
     <a href="../../archives/{html.escape(report["date"])}/">打开日报</a>
+  </div>
+</article>"""
+        )
+
+    mainline_cards = []
+    for signal in week.get("persistent_mainlines", []):
+        review_tags = _review_meta_tags(str(signal.get("publication_label", "自动版")), signal.get("review", {}))
+        mainline_cards.append(
+            f"""<article class="archive-card">
+  <span class="eyebrow">{int(signal.get("appearances", 1))} appearance(s)</span>
+  <h3>{html.escape(str(signal["title"]))}</h3>
+  <p>{html.escape(str(signal["summary"]))}</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">{html.escape(str(signal["domain_label"]))}</span>
+    <span class="tag warm">{html.escape(str(signal["lifecycle_state"]))}</span>
+    {review_tags}
+  </div>
+  <div class="archive-footer">
+    <span>score {float(signal.get("score", 0.0)):.1f}</span>
+    <a href="{html.escape(str(signal["url"]))}" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>"""
         )
@@ -1182,6 +1259,13 @@ def _build_week_page(week: dict[str, object]) -> str:
       <div class="eyebrow">{html.escape(week["week_label"])}</div>
       <h1 class="section-title" style="font-size:34px;">{html.escape(week["range_label"])}</h1>
       <p class="subtle">{week["report_count"]} daily brief(s) · {week["total_topics"]} topics · {week["total_items"]} raw items</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">持续主线</h2>
+      <div class="archive-grid">
+        {"".join(mainline_cards) or '<article class="archive-card"><h3>暂无持续主线</h3><p>等待更多跨日报重复信号。</p></article>'}
+      </div>
     </section>
 
     <section class="section">

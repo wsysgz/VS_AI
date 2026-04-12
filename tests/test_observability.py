@@ -109,11 +109,12 @@ def test_build_run_status_preserves_existing_fields():
         pushed=True,
         push_channel="clawbot",
         stage_status={"analysis": "ok"},
-        source_stats={"collected_items": 42, "filtered_topics": 10},
+        source_stats={"collected_items": 42, "report_topics": 10},
         timings={"total": 120.5},
     )
     assert status["pushed"] is True
     assert status["push_channel"] == "clawbot"
     assert status["stage_status"]["analysis"] == "ok"
     assert status["source_stats"]["collected_items"] == 42
+    assert status["source_stats"]["report_topics"] == 10
     assert status["total_elapsed"] == 120.5

@@ -115,9 +115,41 @@ def test_evaluate_prompt_dataset_outputs_stage_prompt_model_metrics(tmp_path: Pa
 
     assert output_path.parent.name == "evals"
     assert payload["dataset_path"].endswith("dataset.json")
+    assert payload["dataset_meta"] == {}
     assert payload["summary"]["case_count"] == 3
     assert payload["leaderboard"][0]["stage"] in {"summary", "forecast", "domain_briefs"}
     assert payload["leaderboard"][0]["model"] == "offline-dataset"
     assert "overall_score_avg" in payload["leaderboard"][0]["metrics"]
     assert payload["leaderboard"][0]["prompt_id"]
     assert payload["cases"][0]["evaluations"][0]["metrics"]["required_fields_score"] >= 0
+
+
+def test_evaluate_prompt_dataset_preserves_dataset_meta(tmp_path: Path):
+    ai_dir = tmp_path / "config" / "ai_reading"
+    ai_dir.mkdir(parents=True)
+    (ai_dir / "analysis-before.md").write_text("analysis-rules", encoding="utf-8")
+    (ai_dir / "summary-before.md").write_text("summary-rules", encoding="utf-8")
+    (ai_dir / "forecast-before.md").write_text("forecast-rules", encoding="utf-8")
+
+    dataset_path = tmp_path / "baseline-v1.json"
+    dataset_path.write_text(
+        json.dumps(
+            {
+                "meta": {
+                    "dataset_id": "baseline-v1",
+                    "version": "2026-04-12",
+                    "description": "Repo managed prompt benchmark",
+                },
+                "cases": [],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    output_path = evaluate_prompt_dataset(tmp_path, dataset_path)
+    payload = json.loads(output_path.read_text(encoding="utf-8"))
+
+    assert payload["dataset_meta"]["dataset_id"] == "baseline-v1"
+    assert payload["dataset_meta"]["version"] == "2026-04-12"

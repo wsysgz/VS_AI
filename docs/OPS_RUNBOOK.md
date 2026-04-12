@@ -39,8 +39,8 @@
 
 | 命令 | 用途 | 关键输出 |
 |------|------|----------|
-| `python -m auto_report.cli run-once [--publication-mode reviewed]` | 本地跑完整采集、分析、渲染、推送 | `data/reports/latest-summary.*`、`latest-summary-auto.*` / `latest-summary-reviewed.*`、`data/state/run-status.json` |
-| `python -m auto_report.cli backfill --target-date YYYY-MM-DD [--publication-mode reviewed]` | 补跑指定日期，并刷新归档与站点 | `data/archives/`、`docs/archives/` |
+| `python -m auto_report.cli run-once [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 本地跑完整采集、分析、渲染、推送 | `data/reports/latest-summary.*`、`latest-summary-auto.*` / `latest-summary-reviewed.*`、`data/state/run-status.json` |
+| `python -m auto_report.cli backfill --target-date YYYY-MM-DD [--publication-mode reviewed] [--reviewer <name>] [--review-note <text>]` | 补跑指定日期，并刷新归档与站点 | `data/archives/`、`docs/archives/` |
 | `python -m auto_report.cli diagnose-delivery --mode canary` | 只检查三端配置，不实发 | `run-status.json` 中的 delivery 诊断 |
 | `python -m auto_report.cli diagnose-delivery --mode canary --send` | 发送 canary 消息 | 各通道实发结果 |
 | `python -m auto_report.cli diagnose-delivery --mode full-report --send` | 用各渠道生产模板做实发诊断 | 各通道正文送达结果 |
@@ -51,7 +51,7 @@
 | `python -m auto_report.cli build-ops-dashboard` | 重建私有运营看板 | `out/ops-dashboard/index.html` |
 | `python -m auto_report.cli build-review-queue` | 为高价值主题生成人工复核 issue payload | `out/review-queue/review-issues.json` |
 | `python -m auto_report.cli evaluate-prompts --dataset <path>` | 做离线 Prompt/Eval 回归 | `out/evals/prompt-eval-*.json` |
-| `pwsh ./scripts/check-workflows.ps1` | 跑 workflow guard、本地 workflow 快验 | 本地 workflow 校验结果 |
+| `pwsh ./scripts/check-workflows.ps1 -Profile daily|recovery|full` | 跑 workflow guard、本地 workflow 快验 | 本地 workflow 校验结果 |
 
 ## 产物地图
 
@@ -60,7 +60,7 @@
 - `docs/index.html`：公开首页
 - `docs/archives/`：日报归档页
 - `docs/weekly/`：周报索引与周详情页
-- `docs/special/`：专题聚合页，当前包含 `verified` 与 `risk-watch`
+- `docs/special/`：专题聚合页，当前包含 `verified`、`emerging` 与 `risk-watch`
 - `docs/search-index.json`：站内搜索数据
 - `docs/feed.json`：JSON Feed
 - `docs/rss.xml`：RSS
@@ -72,7 +72,7 @@
 - `data/reports/latest-summary.json`：最新日报结构化 payload
 - `data/reports/latest-summary-auto.*` / `latest-summary-reviewed.*`：双轨发布的轨道化最新文件
 - `data/archives/YYYY-MM-DD/`：历史归档原始文件
-- `data/state/run-status.json`：阶段状态、风险、调度来源、送达状态、`publication_mode`，以及 external enrichment 运行指标的权威记录
+- `data/state/run-status.json`：阶段状态、风险、调度来源、送达状态、`publication_mode`、`review`、`ai_metrics`、`source_health`、`source_stats.report_topics`，以及 external enrichment 运行指标的权威记录
 
 ### 私有运维产物
 
@@ -107,14 +107,14 @@
 
 ### 本地最小验收
 
-1. `pwsh ./scripts/check-workflows.ps1`
+1. `pwsh ./scripts/check-workflows.ps1 -Profile full`
 2. `$env:PYTHONPATH='src'; python -m pytest tests -q`
-3. `$env:PYTHONPATH='src'; python -m auto_report.cli diagnose-delivery --mode canary`
-4. `$env:PYTHONPATH='src'; python -m auto_report.cli run-once`
-5. `$env:PYTHONPATH='src'; python -m auto_report.cli build-pages`
-6. `$env:PYTHONPATH='src'; python -m auto_report.cli build-ops-dashboard`
-7. `$env:PYTHONPATH='src'; python -m auto_report.cli build-review-queue`
-8. 需要做 PromptOps 回归时再跑 `$env:PYTHONPATH='src'; python -m auto_report.cli evaluate-prompts --dataset <path>`
+3. `$env:PYTHONPATH='src'; python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json`
+4. `$env:PYTHONPATH='src'; python -m auto_report.cli diagnose-delivery --mode canary`
+5. `$env:PYTHONPATH='src'; python -m auto_report.cli run-once --publication-mode reviewed`
+6. `$env:PYTHONPATH='src'; python -m auto_report.cli build-pages`
+7. `$env:PYTHONPATH='src'; python -m auto_report.cli build-ops-dashboard`
+8. `$env:PYTHONPATH='src'; python -m auto_report.cli build-review-queue`
 
 ### 远端验收
 
@@ -144,18 +144,12 @@
 - 当前本地已补的修复：改为显式 `if` 提交脚本、Pages 构建前同步当前触发分支而不是硬拉 `main`、提交完整 Pages 产物、后置 issue job 仅在上游 artifact 存在时运行
 - 后续动作：若要验证修复后的线上真实结果，需要先把当前分支推上远端，再重新触发 workflow
 
-### 本轮内容质量改进项
+### 本轮收口结果
 
-- `source_stats.filtered_topics` 当前与 `collected_items` 同为 `83`，命名语义容易误导，建议后续改成更明确的口径
-- `latest-summary-reviewed.md` 的“局限性”段落混入了采集器原始诊断（404/timeout/HN 过滤计数），可读性不够，建议与编辑性限制分栏
-- 本轮真实采集中有多路源失效或超时：
-  - `NVIDIA/cuda-cmake` -> 404
-  - `st-blog` -> 404
-  - `meta-ai-blog` RSS -> 404
-  - `arxiv-cs-ai` RSS -> 404
-  - `ti-e2e-blog` -> timeout
-  - `microsoft-research` -> timeout
-- 本地默认 `external_enrichment.enabled=false`，而 CI / workflow 默认开启；比较线下与线上结果时，要先确认是不是补证开关导致差异
+- `source_stats.filtered_topics` 已统一收口为 `source_stats.report_topics`
+- 公开报告中的 `limitations` 已只保留编辑性限制，来源异常改由 `run-status.source_health` 与私有 ops dashboard 展示
+- `run-status.json` 已统一包含 `ai_metrics`、`source_health`、`review`，用于观察 AI 调用、来源健康度和 reviewed 元数据
+- 本地默认 `external_enrichment.enabled=false`，而 CI / workflow 默认开启；比较线下与线上结果时，仍要先确认是不是补证开关导致差异
 
 ## 失败排查顺序
 
@@ -181,6 +175,7 @@
 - 先跑 `python -m auto_report.cli build-pages`
 - 检查 `docs/index.html`、`docs/archives/`、`docs/weekly/`、`docs/special/`、`docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`
 - 若是补报场景，优先改走 `backfill-report.yml` 或 `backfill --target-date`
+- 公开站首页始终固定为 `https://wsysgz.github.io/VS_AI/`；通知里不会切到 archive URL
 
 ### 4. 出现高风险报告或人工复核需求
 
@@ -207,11 +202,11 @@
 - Phase 9：跨日主线记忆、生命周期、`risk_level`、support evidence、review queue 已完成主链路
 - Phase 10：公开站首页、归档、搜索、feeds、周报页已落地
 
-### 仍需继续收口
+### 进入维护观察
 
-- Phase 8：长期 benchmark dataset 治理，token / latency 统一纳入 dashboard
-- Phase 9：外部 enrichment 命中率、source budget 和生命周期规则继续硬化
-- Phase 10：周报与首版专题聚合页已落地；渠道模板层已形成 PushPlus `short` / Feishu `medium` / Telegram `long` 的基础分层，`auto / reviewed` 双轨也已形成最小闭环；后续主要是继续丰富模板族与 reviewed 元数据
+- Phase 8：继续观察 `baseline-v1` 是否需要扩容样例，而不是重新设计 PromptOps 入口
+- Phase 9：继续观察外部 enrichment 命中率与 source budget 是否需要细调
+- Phase 10：继续观察周报/专题策展表达是否需要优化，但本轮 `weekly + special + reviewed metadata + dual links` 已完成收口
 
 接手时不要按“从零重做”理解 V7；当前更适合按“现有基线稳定化 + 缺口逐个收口”推进。
 

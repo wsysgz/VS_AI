@@ -53,6 +53,14 @@ def _default_external_enrichment_metrics(enabled: bool, max_signals: int) -> dic
         "success_rate": 0.0,
         "circuit_open": False,
         "reasons": [],
+        "source_type_stats": {
+            source_type: {
+                "budget": 0,
+                "hits": 0,
+                "matched_items": 0,
+            }
+            for source_type in ("official", "repo", "paper")
+        },
     }
 
 
@@ -64,7 +72,34 @@ def _classify_external_failure(exc: Exception) -> str:
     message = str(exc).lower()
     if isinstance(exc, TimeoutError) or "timed out" in message or "timeout" in message:
         return "timeout"
-    return "request-error"
+    return "request_error"
+
+
+def _record_external_source_type_budget(metrics: dict[str, object]) -> None:
+    source_type_stats = metrics.setdefault("source_type_stats", {})
+    for source_type in ("official", "repo", "paper"):
+        bucket = source_type_stats.setdefault(
+            source_type,
+            {"budget": 0, "hits": 0, "matched_items": 0},
+        )
+        bucket["budget"] = int(bucket.get("budget", 0)) + 1
+
+
+def _record_external_source_type_hits(metrics: dict[str, object], support_evidence: list[dict[str, object]]) -> None:
+    source_type_stats = metrics.setdefault("source_type_stats", {})
+    seen_types: set[str] = set()
+    for item in support_evidence:
+        source_type = str(item.get("source_type", "")).strip()
+        if source_type not in {"official", "repo", "paper"}:
+            continue
+        bucket = source_type_stats.setdefault(
+            source_type,
+            {"budget": 0, "hits": 0, "matched_items": 0},
+        )
+        bucket["matched_items"] = int(bucket.get("matched_items", 0)) + 1
+        if source_type not in seen_types:
+            bucket["hits"] = int(bucket.get("hits", 0)) + 1
+            seen_types.add(source_type)
 
 
 def _fetch_text(url: str, timeout: int = 12, headers: dict[str, str] | None = None) -> str:
@@ -427,7 +462,7 @@ def _load_history(root_dir: Path) -> list[dict[str, object]]:
 
     history: list[dict[str, object]] = []
     for day_dir in sorted((path for path in archives_dir.iterdir() if path.is_dir()), reverse=True):
-        json_files = sorted(day_dir.glob("*-summary.json"))
+        json_files = sorted(day_dir.glob("*-summary*.json"))
         if not json_files:
             continue
         payload = json.loads(json_files[-1].read_text(encoding="utf-8"))
@@ -456,6 +491,12 @@ def _load_history(root_dir: Path) -> list[dict[str, object]]:
                     "score": float(raw_signal.get("score", 0.0)),
                     "source_count": len(raw_signal.get("source_ids", [])) or int(raw_signal.get("evidence_count", 0)),
                     "confidence": str(matched_analysis.get("confidence", "low")).strip() or "low",
+                    "lifecycle_state": str(
+                        raw_signal.get("lifecycle_state")
+                        or matched_analysis.get("lifecycle_state")
+                        or "new"
+                    ).strip()
+                    or "new",
                 }
             )
     return history
@@ -486,6 +527,7 @@ def _build_memory(signal: dict[str, object], history_matches: list[dict[str, obj
         "last_seen": current_date,
         "previous_score": round(float(previous.get("score", 0.0)), 1) if previous else 0.0,
         "previous_confidence": str(previous.get("confidence", "")).strip(),
+        "previous_lifecycle_state": str(previous.get("lifecycle_state", "")).strip(),
         "seen_dates": unique_dates,
     }
 
@@ -499,8 +541,10 @@ def _pick_lifecycle_state(
     days_seen = int(memory.get("days_seen", 1))
     current_score = float(signal.get("score", 0.0))
     previous_score = float(memory.get("previous_score", 0.0))
+    previous_lifecycle_state = str(memory.get("previous_lifecycle_state", "")).strip()
     cross_source_count = int(enrichment.get("cross_source_count", 0))
     source_types = set(enrichment.get("source_types", []))
+    support_evidence = enrichment.get("support_evidence", [])
 
     if days_seen <= 1:
         return "new"
@@ -508,6 +552,18 @@ def _pick_lifecycle_state(
         cross_source_count >= 2
         and ("official" in source_types or "repo" in source_types or "paper" in source_types)
     ) or (days_seen >= 2 and confidence == "high"):
+        return "verified"
+    if (
+        previous_lifecycle_state == "verified"
+        and current_score >= max(2.5, previous_score - 0.6)
+        and (
+            "official" in source_types
+            or "repo" in source_types
+            or "paper" in source_types
+            or bool(support_evidence)
+            or confidence in {"medium", "high"}
+        )
+    ):
         return "verified"
     if previous_score and current_score + 0.25 < previous_score:
         return "fading"
@@ -629,6 +685,7 @@ def apply_intelligence_layer(
             else:
                 external_metrics["attempted"] = int(external_metrics.get("attempted", 0)) + 1
                 external_metrics["budget_used"] = int(external_metrics.get("budget_used", 0)) + 1
+                _record_external_source_type_budget(external_metrics)
                 try:
                     external_support_evidence = external_enrichment_fetcher(root_dir, signal)
                 except Exception as exc:
@@ -642,6 +699,7 @@ def apply_intelligence_layer(
                 else:
                     if external_support_evidence:
                         external_metrics["succeeded"] = int(external_metrics.get("succeeded", 0)) + 1
+                        _record_external_source_type_hits(external_metrics, external_support_evidence)
                         consecutive_external_failures = 0
                     else:
                         external_metrics["failed"] = int(external_metrics.get("failed", 0)) + 1

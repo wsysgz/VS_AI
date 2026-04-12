@@ -43,8 +43,31 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
                     },
                 },
                 "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "fallback"},
-                "source_stats": {"collected_items": 12, "filtered_topics": 4},
+                "source_stats": {"collected_items": 12, "report_topics": 4},
                 "timings": {"collection": 2.4, "rendering": 0.8},
+                "source_health": {
+                    "total": 2,
+                    "not_found": 1,
+                    "timeout": 1,
+                    "request_error": 0,
+                    "other": 0,
+                    "samples": [
+                        "RSS source failed: openai-news -> 404 Client Error: Not Found",
+                        "Website collectors timed out: openai-blog",
+                    ],
+                },
+                "ai_metrics": {
+                    "provider": "openai",
+                    "model": "gpt-4o-mini",
+                    "calls": 3,
+                    "token_usage": {"prompt": 120, "completion": 60, "total": 180},
+                    "latency_seconds": 4.2,
+                    "fallback_stages": ["forecast"],
+                },
+                "review": {
+                    "reviewer": "Alice",
+                    "review_note": "checked key sources",
+                },
             }
         ),
         encoding="utf-8",
@@ -59,6 +82,13 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
     assert "pushplus" in html
     assert "network" in html
     assert "request timed out" in html
+    assert "AI Metrics" in html
+    assert "gpt-4o-mini" in html
+    assert "180" in html
+    assert "Source Health" in html
+    assert "Review Metadata" in html
+    assert "checked key sources" in html
+    assert "openai-blog" in html
 
 
 def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tmp_path: Path):
@@ -86,7 +116,7 @@ def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tm
                     },
                 },
                 "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
-                "source_stats": {"collected_items": 8, "filtered_topics": 3},
+                "source_stats": {"collected_items": 8, "report_topics": 3},
                 "timings": {"collection": 1.8, "rendering": 0.4},
             }
         ),
@@ -99,7 +129,8 @@ def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tm
         json.dumps(
             {
                 "generated_at": "2026-04-11T07:00:00+08:00",
-                "dataset_path": "fixtures/baseline.json",
+                "dataset_path": "config/prompt_eval/baseline-v1.json",
+                "dataset_meta": {"dataset_id": "baseline-v1", "version": "2026-04-12"},
                 "summary": {"case_count": 3, "evaluation_count": 3, "stage_count": 1},
                 "leaderboard": [
                     {
@@ -121,7 +152,8 @@ def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tm
         json.dumps(
             {
                 "generated_at": "2026-04-11T07:30:00+08:00",
-                "dataset_path": "fixtures/baseline.json",
+                "dataset_path": "config/prompt_eval/baseline-v1.json",
+                "dataset_meta": {"dataset_id": "baseline-v1", "version": "2026-04-12"},
                 "summary": {"case_count": 3, "evaluation_count": 3, "stage_count": 1},
                 "leaderboard": [
                     {
@@ -149,7 +181,7 @@ def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tm
     assert "v7.0.1" in html
     assert "v7.0.0" in html
     assert "-0.11" in html
-    assert "fixtures/baseline.json" in html
+    assert "baseline-v1" in html
 
 
 def test_build_ops_dashboard_renders_external_enrichment_section(tmp_path: Path):
@@ -170,7 +202,7 @@ def test_build_ops_dashboard_renders_external_enrichment_section(tmp_path: Path)
                     "channels": {},
                 },
                 "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
-                "source_stats": {"collected_items": 8, "filtered_topics": 3},
+                "source_stats": {"collected_items": 8, "report_topics": 3},
                 "timings": {"collection": 1.8, "rendering": 0.4},
                 "external_enrichment": {
                     "enabled": True,

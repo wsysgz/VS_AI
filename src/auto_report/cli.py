@@ -13,16 +13,24 @@ def _add_publication_mode_argument(parser: argparse.ArgumentParser) -> None:
     )
 
 
+def _add_review_metadata_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--reviewer", default="", help="Optional reviewer name for reviewed publication mode")
+    parser.add_argument("--review-note", default="", help="Optional review note for reviewed publication mode")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="auto-report")
     subparsers = parser.add_subparsers(dest="command", required=True)
     run_once_parser = subparsers.add_parser("run-once", help="Collect, analyze, render, and archive reports once")
     _add_publication_mode_argument(run_once_parser)
+    _add_review_metadata_arguments(run_once_parser)
     backfill_parser = subparsers.add_parser("backfill", help="Rerun the report pipeline for a specific target date")
     backfill_parser.add_argument("--target-date", default="", help="Target date in YYYY-MM-DD format, defaults to today")
     _add_publication_mode_argument(backfill_parser)
+    _add_review_metadata_arguments(backfill_parser)
     render_report_parser = subparsers.add_parser("render-report", help="Render reports from current state without recollecting")
     _add_publication_mode_argument(render_report_parser)
+    _add_review_metadata_arguments(render_report_parser)
     diagnose_parser = subparsers.add_parser("diagnose-delivery", help="Inspect or send delivery test messages")
     diagnose_parser.add_argument(
         "--mode",
@@ -37,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("analyze-only", help="[CI] Run AI 3-stage pipeline on collected data")
     render_and_push_parser = subparsers.add_parser("render-and-push", help="[CI] Render MD/JSON/HTML + push to all channels + archive")
     _add_publication_mode_argument(render_and_push_parser)
+    _add_review_metadata_arguments(render_and_push_parser)
     subparsers.add_parser("build-pages", help="[CI] Build GitHub Pages site (index + archives)")
     subparsers.add_parser("build-ops-dashboard", help="[CI] Build private ops dashboard artifact")
     subparsers.add_parser("build-review-queue", help="[CI] Build human review issue payloads from latest report")
@@ -54,13 +63,23 @@ def main() -> int:
     if args.command == "run-once":
         from auto_report.app import run_once
 
-        run_once(root_dir, publication_mode=getattr(args, "publication_mode", ""))
+        run_once(
+            root_dir,
+            publication_mode=getattr(args, "publication_mode", ""),
+            reviewer=getattr(args, "reviewer", ""),
+            review_note=getattr(args, "review_note", ""),
+        )
         return 0
 
     if args.command == "render-report":
         from auto_report.app import render_reports
 
-        render_reports(root_dir, publication_mode=getattr(args, "publication_mode", ""))
+        render_reports(
+            root_dir,
+            publication_mode=getattr(args, "publication_mode", ""),
+            reviewer=getattr(args, "reviewer", ""),
+            review_note=getattr(args, "review_note", ""),
+        )
         return 0
 
     if args.command == "backfill":
@@ -71,6 +90,8 @@ def main() -> int:
             root_dir,
             target_date=target_date,
             publication_mode=getattr(args, "publication_mode", ""),
+            reviewer=getattr(args, "reviewer", ""),
+            review_note=getattr(args, "review_note", ""),
         )
         return 0
 
@@ -100,7 +121,12 @@ def main() -> int:
     if args.command == "render-and-push":
         from auto_report.app import cmd_render_and_push
 
-        cmd_render_and_push(root_dir, publication_mode=getattr(args, "publication_mode", ""))
+        cmd_render_and_push(
+            root_dir,
+            publication_mode=getattr(args, "publication_mode", ""),
+            reviewer=getattr(args, "reviewer", ""),
+            review_note=getattr(args, "review_note", ""),
+        )
         return 0
 
     if args.command == "build-pages":

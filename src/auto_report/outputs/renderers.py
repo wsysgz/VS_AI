@@ -14,6 +14,34 @@ def _html_attrs(attrs: dict[str, str]) -> str:
     return " ".join(f'{k}="{v}"' for k, v in attrs.items())
 
 
+def _review_lines(payload: dict[str, object]) -> list[str]:
+    meta = payload.get("meta", {})
+    if not isinstance(meta, dict):
+        return []
+    publication_mode = str(meta.get("publication_mode", "")).strip().lower()
+    if publication_mode != "reviewed":
+        return []
+    review = meta.get("review", {})
+    if not isinstance(review, dict):
+        review = {}
+    reviewer = str(review.get("reviewer", "")).strip() or "未填写"
+    review_note = str(review.get("review_note", "")).strip() or "未填写"
+    return [
+        "复核信息",
+        f"- 审核人：{reviewer}",
+        f"- 备注：{review_note}",
+    ]
+
+
+def _link_lines(public_site_url: str, raw_report_url: str) -> list[str]:
+    return [
+        "公开阅读：",
+        public_site_url,
+        "GitHub 原文：",
+        raw_report_url,
+    ]
+
+
 def render_markdown_report(
     title: str,
     generated_at: str,
@@ -108,7 +136,8 @@ def render_pushplus_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
-    detail_url: str,
+    public_site_url: str,
+    raw_report_url: str,
 ) -> str:
     brief = compose_executive_brief(title, generated_at, payload)
     lines = [
@@ -125,7 +154,8 @@ def render_pushplus_notification(
     if brief["risk_note"]:
         lines.extend(["提醒：", brief["risk_note"]])
 
-    lines.extend(["观察：", brief["watchlist"], "详情链接：", detail_url])
+    lines.extend(["观察：", brief["watchlist"]])
+    lines.extend(_link_lines(public_site_url, raw_report_url))
     return "\n".join(lines)
 
 
@@ -133,13 +163,15 @@ def render_text_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
-    detail_url: str,
+    public_site_url: str,
+    raw_report_url: str,
 ) -> str:
     return render_pushplus_notification(
         title=title,
         generated_at=generated_at,
         payload=payload,
-        detail_url=detail_url,
+        public_site_url=public_site_url,
+        raw_report_url=raw_report_url,
     )
 
 
@@ -147,7 +179,8 @@ def render_telegram_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
-    detail_url: str,
+    public_site_url: str,
+    raw_report_url: str,
 ) -> str:
     brief = compose_executive_brief(title, generated_at, payload)
     executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"]) or "- 暂无"
@@ -183,7 +216,11 @@ def render_telegram_notification(
     if brief["risk_note"]:
         lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
 
-    lines.extend(["", "详情链接：", detail_url])
+    review_lines = _review_lines(payload)
+    if review_lines:
+        lines.extend([""] + review_lines)
+
+    lines.extend([""] + _link_lines(public_site_url, raw_report_url))
     return "\n".join(lines)
 
 
@@ -191,7 +228,8 @@ def render_feishu_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
-    detail_url: str,
+    public_site_url: str,
+    raw_report_url: str,
 ) -> str:
     brief = compose_executive_brief(title, generated_at, payload)
     executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"][:2]) or "- 暂无"
@@ -218,7 +256,12 @@ def render_feishu_notification(
     if brief["risk_note"]:
         lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
 
-    lines.extend(["", "行动建议", actions, "", "详情链接：", detail_url])
+    review_lines = _review_lines(payload)
+    if review_lines:
+        lines.extend([""] + review_lines)
+
+    lines.extend(["", "行动建议", actions, ""])
+    lines.extend(_link_lines(public_site_url, raw_report_url))
     return "\n".join(lines)
 
 
@@ -326,7 +369,7 @@ def render_html_report(
         <p><strong>关键变量：</strong></p>
         <ul>{"".join(variables)}</ul>
         <p><strong>结论：</strong>{conclusion}</p>
-      </section>"""
+      </section>""".strip()
 
     risk_note_html = ""
     if brief.get("risk_note"):

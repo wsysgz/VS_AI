@@ -97,6 +97,9 @@ def _average_metric_rows(rows: list[dict[str, float]]) -> dict[str, float]:
 def evaluate_prompt_dataset(root_dir: Path, dataset_path: Path) -> Path:
     registry = load_prompt_registry(root_dir)
     payload = json.loads(dataset_path.read_text(encoding="utf-8"))
+    dataset_meta = payload.get("meta", {})
+    if not isinstance(dataset_meta, dict):
+        dataset_meta = {}
     cases = payload.get("cases", [])
     if not isinstance(cases, list):
         raise ValueError("Prompt evaluation dataset must contain a 'cases' list")
@@ -165,6 +168,7 @@ def evaluate_prompt_dataset(root_dir: Path, dataset_path: Path) -> Path:
     result_payload = {
         "generated_at": datetime.now().astimezone().isoformat(),
         "dataset_path": str(dataset_path),
+        "dataset_meta": dataset_meta,
         "summary": {
             "case_count": len(case_results),
             "evaluation_count": sum(len(case["evaluations"]) for case in case_results),

@@ -64,6 +64,27 @@ def test_run_once_command_accepts_publication_mode():
     assert args.publication_mode == "reviewed"
 
 
+def test_run_once_command_accepts_review_metadata():
+    parser = build_parser()
+
+    args = parser.parse_args(
+        [
+            "run-once",
+            "--publication-mode",
+            "reviewed",
+            "--reviewer",
+            "Alice",
+            "--review-note",
+            "checked key sources",
+        ]
+    )
+
+    assert args.command == "run-once"
+    assert args.publication_mode == "reviewed"
+    assert args.reviewer == "Alice"
+    assert args.review_note == "checked key sources"
+
+
 def test_backfill_command_accepts_publication_mode():
     parser = build_parser()
 

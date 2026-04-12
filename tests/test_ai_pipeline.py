@@ -37,6 +37,10 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     assert outputs["stage_status"]["analysis"] == "ok"
     assert outputs["summary"]["one_line_core"].startswith("Agent evaluation")
     assert outputs["forecast"]["most_likely_case"] == "benchmark competition intensifies"
+    assert outputs["ai_metrics"]["provider"] == "deepseek"
+    assert outputs["ai_metrics"]["model"] == "deepseek-chat"
+    assert outputs["ai_metrics"]["token_usage"]["total"] == 0
+    assert outputs["ai_metrics"]["fallback_stages"] == []
 
 
 def test_run_staged_ai_pipeline_falls_back_when_ai_errors(monkeypatch):
@@ -69,6 +73,7 @@ def test_run_staged_ai_pipeline_falls_back_when_ai_errors(monkeypatch):
     # 但后续 summary/forecast 调用仍会失败(DeepSeek 被 mock 为抛异常)
     assert outputs["stage_status"]["summary"] == "fallback"
     assert outputs["stage_status"]["forecast"] == "fallback"
+    assert outputs["ai_metrics"]["fallback_stages"] == ["summary", "forecast"]
 
 
 def test_run_staged_ai_pipeline_limits_analysis_scope(monkeypatch):

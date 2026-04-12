@@ -24,19 +24,19 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
 
 ## 2. 关键模块
 
-- `src/auto_report/app.py`：核心编排，包含 `StageTimer`、`run_once()`、`run_backfill()`，并负责解析 `publication_mode`、写入双轨输出、构造 track 专属详情链接。
+- `src/auto_report/app.py`：核心编排，包含 `StageTimer`、`run_once()`、`run_backfill()`，并负责解析 `publication_mode`、`reviewer / review_note`、写入双轨输出、构造公开站入口 + GitHub 原文双链接。
 - `src/auto_report/settings.py`：将 `.env` 变量封装进 `Settings` dataclass，供 pipeline 与 integrations 共享。
 - `src/auto_report/pipeline/analysis.py`：主 package builder，衔接 dedup/scoring、AI pipeline 与 intelligence layer。
 - `src/auto_report/pipeline/intelligence.py`：跨日主线记忆、`new/rising/verified/fading` 生命周期、`risk_level`、support evidence、外部 enrichment、单次运行熔断与 enrichment 可观测性。
 - `src/auto_report/pipeline/review_queue.py`：从最新报告中提取高价值主题，生成 GitHub Issue 复核 payload。
-- `src/auto_report/pipeline/prompt_loader.py`：版本化 prompt registry，并兼容 legacy `config/ai_reading/*.md`。
+- `src/auto_report/pipeline/prompt_loader.py`：版本化 prompt registry，正式使用 `config/ai_reading/registry.json`，并兼容 legacy `config/ai_reading/*.md`。
 - `src/auto_report/pipeline/prompt_evaluator.py`：离线 Prompt/Eval 回归，输出到 `out/evals/`。
 - `src/auto_report/pipeline/ai_pipeline.py`：analysis / summary / forecast 三阶段 AI 编排。
 - `src/auto_report/pipeline/dedup.py`、`scoring.py`、`topic_builder.py`：主题去重、打分、候选主题构建。
 - `src/auto_report/sources/`：各类数据源（RSS、GitHub、HN、websites），抽象复用 `collector.py`。
 - `src/auto_report/integrations/`：统一 LLM 客户端 + 通道适配器，保持 AI 与推送低耦合。
-- `src/auto_report/outputs/renderers.py`：日报 Markdown / HTML / JSON 与多通道推送文本模板，当前已拆为 PushPlus `short`、Feishu `medium`、Telegram `long` 三档。
-- `src/auto_report/outputs/pages_builder.py`：公开 Pages 站点生成器，当前已覆盖首页、archives、weekly、special、search index、JSON Feed、RSS，并在同日存在两条轨时优先选择 reviewed。
+- `src/auto_report/outputs/renderers.py`：日报 Markdown / HTML / JSON 与多通道推送文本模板，当前已固定为 PushPlus `short + risk-alert`、Feishu `medium + reviewed-note`、Telegram `long + reviewed-long`，三端统一输出公开站入口 + GitHub 原文。
+- `src/auto_report/outputs/pages_builder.py`：公开 Pages 站点生成器，当前已覆盖首页、archives、weekly、special、search index、JSON Feed、RSS，并在同日存在两条轨时优先选择 reviewed；weekly 已展示“持续主线”，special 已包含 `emerging` 专题与 reviewed 元数据卡片。
 - `src/auto_report/outputs/ops_dashboard.py`：私有 dashboard，聚合 `run-status.json` 与 prompt-eval 历史，并展示 external enrichment 运行指标。
 - `src/auto_report/workflow_guard.py`：workflow 本地快验逻辑，供 `scripts/check-workflows.ps1` 和 CI 复用。
 - `src/auto_report/domains/`、`models/`：定义领域、数据模型、TopicCandidate 与 CollectedItem，便于后续扩展。
@@ -48,7 +48,7 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
 - `data/archives/`：按日期归档的历史结果；当前既保留兼容命名，也保留 `*-summary-auto.*` / `*-summary-reviewed.*` 的轨道化归档文件，GitHub Actions 会自动提交到 `main`，避免触发 `push`。
 - `docs/archives/`：公开日报归档页。
 - `docs/weekly/`：公开周报聚合页。
-- `docs/special/`：公开专题聚合页，当前包含 `verified` 与 `risk-watch` 两类专题。
+- `docs/special/`：公开专题聚合页，当前包含 `verified`、`emerging` 与 `risk-watch` 三类专题。
 - `docs/search-index.json`、`docs/feed.json`、`docs/rss.xml`：公开检索与订阅面。
 - `out/ops-dashboard/`：私有 dashboard，不发布到 Pages。
 - `out/evals/`：离线 Prompt/Eval 历史结果。
@@ -65,8 +65,12 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
   - `scheduler`
   - `risk_level`
   - `external_enrichment`
+  - `ai_metrics`
+  - `source_health`
+  - `review`
+  - `source_stats.report_topics`
 - `data/state/run-status.json` 也是 `tests/test_observability.py` 关注的关键文件，确认 `StageTimer` 与 `_to_relative_paths()` 的行为一致。
-- `run-status.json` 当前还会显式记录 `publication_mode`，便于运维判断当前是自动轨还是人工复核轨。
+- `run-status.json` 当前还会显式记录 `publication_mode`，便于运维判断当前是自动轨还是人工复核轨；reviewed 轨的 `reviewer / review_note` 也会同步写入。
 - private ops dashboard 直接消费 `run-status.json`，并叠加最近的 prompt-eval 历史；external enrichment 的 `attempted / succeeded / failed / skipped / success_rate / circuit` 也在这里观察。
 - CI workflow 现已收口为 reusable workflow 体系，主入口仍是 `collect-report.yml`，并补有：
   - `delivery-canary.yml`
@@ -76,6 +80,7 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
   - `reusable-review-queue.yml`
   - `reusable-python-test.yml`
   - `reusable-workflow-guard.yml`
+- workflow 本地快验已固定为 `daily / recovery / full` 三档，由 `scripts/check-workflows.ps1` 和 `workflow_guard.py` 共用同一 profile 口径。
 
 ## 5. 拓展点与可观察性
 
@@ -85,5 +90,4 @@ collect → dedup/score → topic builder → AI pipeline (analysis → summary 
   - Topic 专题页继续深化，而不只停在分类聚合页
   - 渠道模板层继续深化成更丰富的 per-channel 变体，而不只是当前的 `short / medium / long`
   - enrichment 的跨日命中率和 source budget 进一步硬化
-  - reviewed 轨后续可再补 reviewer metadata / 审核备注，而不仅是当前的轨道切换与 public preference
 - 任何新增模块应先保证 `StageTimer`、`run-status.json` 和私有 ops dashboard 仍然能追踪到。

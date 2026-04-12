@@ -278,3 +278,92 @@ def test_build_report_package_surfaces_external_enrichment_metrics(monkeypatch):
 
     assert package.external_enrichment["attempted"] == 2
     assert package.external_enrichment["success_rate"] == 0.5
+
+
+def test_build_report_package_keeps_collector_diagnostics_out_of_public_limitations(monkeypatch):
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.load_ai_readings",
+        lambda root_dir: {"analysis": "a", "summary": "s", "forecast": "f"},
+    )
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.run_staged_ai_pipeline",
+        lambda **kwargs: {
+            "analyses": [
+                {
+                    "title": "Topic A",
+                    "url": "https://example.com/a",
+                    "primary_domain": "ai-llm-agent",
+                    "confidence": "low",
+                }
+            ],
+            "summary": {
+                "one_line_core": "core",
+                "executive_summary": [],
+                "key_points": [],
+                "key_insights": [],
+                "limitations": ["部分主题仍需人工复核"],
+                "actions": [],
+            },
+            "forecast": {"forecast_conclusion": "watch"},
+            "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+            "ai_metrics": {
+                "provider": "",
+                "model": "",
+                "calls": 0,
+                "token_usage": {"prompt": 0, "completion": 0, "total": 0},
+                "latency_seconds": 0.0,
+                "fallback_stages": [],
+            },
+        },
+    )
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.apply_intelligence_layer",
+        lambda **kwargs: {
+            "signals": kwargs["signals"],
+            "analyses": kwargs["analyses"],
+            "mainline_memory": [],
+            "lifecycle_summary": {"new": 1, "rising": 0, "verified": 0, "fading": 0},
+            "risk_level": "medium",
+            "external_enrichment": {
+                "enabled": False,
+                "max_signals": 0,
+                "attempted": 0,
+                "succeeded": 0,
+                "failed": 0,
+                "skipped": 0,
+                "budget_used": 0,
+                "success_rate": 0.0,
+                "circuit_open": False,
+                "reasons": [],
+            },
+        },
+    )
+
+    settings = load_settings(Path.cwd())
+    items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Topic A",
+            url="https://example.com/a",
+            summary="Debugger tooling for agent workflows",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "debugger"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    package = build_report_package(
+        settings,
+        items,
+        diagnostics=["RSS source failed: openai-news -> 404 Client Error: Not Found"],
+    )
+
+    assert package.summary_payload["limitations"] == ["部分主题仍需人工复核"]
+    assert package.summary_payload["risks"] == ["RSS source failed: openai-news -> 404 Client Error: Not Found"]

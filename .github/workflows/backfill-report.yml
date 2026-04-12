@@ -20,6 +20,16 @@ on:
         options:
           - auto
           - reviewed
+      reviewer:
+        description: "Optional reviewer name for reviewed publication"
+        required: false
+        default: ""
+        type: string
+      review_note:
+        description: "Optional review note for reviewed publication"
+        required: false
+        default: ""
+        type: string
 
 jobs:
   backfill:
@@ -28,6 +38,8 @@ jobs:
       target_date: ${{ inputs.target_date }}
       skip_push: ${{ inputs.skip_push }}
       publication_mode: ${{ inputs.publication_mode }}
+      reviewer: ${{ inputs.reviewer }}
+      review_note: ${{ inputs.review_note }}
       scheduler_trigger_kind: manual
       scheduler_compensation_run: false
     secrets: inherit

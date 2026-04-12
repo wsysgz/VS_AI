@@ -39,6 +39,21 @@ class ReportPackage:
     external_enrichment: dict[str, object]
 
 
+def _default_ai_metrics() -> dict[str, object]:
+    return {
+        "provider": "",
+        "model": "",
+        "calls": 0,
+        "token_usage": {
+            "prompt": 0,
+            "completion": 0,
+            "total": 0,
+        },
+        "latency_seconds": 0.0,
+        "fallback_stages": [],
+    }
+
+
 def _topic_summary(topic: TopicGroup) -> str:
     summaries = [item.summary.strip() for item in topic.evidence_items if item.summary.strip()]
     if summaries:
@@ -121,11 +136,12 @@ def build_report_package(
         "executive_summary": ai_outputs["summary"]["executive_summary"],
         "key_points": ai_outputs["summary"]["key_points"],
         "key_insights": ai_outputs["summary"]["key_insights"],
-        "limitations": ai_outputs["summary"]["limitations"] + diagnostics,
+        "limitations": list(ai_outputs["summary"].get("limitations", [])),
         "actions": ai_outputs["summary"]["actions"],
         "analyses": intelligence["analyses"],
         "forecast": ai_outputs["forecast"],
         "stage_status": ai_outputs["stage_status"],
+        "ai_metrics": ai_outputs.get("ai_metrics", _default_ai_metrics()),
         "mainline_memory": intelligence["mainline_memory"],
         "lifecycle_summary": intelligence["lifecycle_summary"],
         "risk_level": risk_level,

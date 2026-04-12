@@ -125,6 +125,39 @@ def _default_external_enrichment_status() -> dict[str, object]:
     }
 
 
+def _default_ai_metrics_status() -> dict[str, object]:
+    return {
+        "provider": "",
+        "model": "",
+        "calls": 0,
+        "token_usage": {
+            "prompt": 0,
+            "completion": 0,
+            "total": 0,
+        },
+        "latency_seconds": 0.0,
+        "fallback_stages": [],
+    }
+
+
+def _default_source_health_status() -> dict[str, object]:
+    return {
+        "total": 0,
+        "not_found": 0,
+        "timeout": 0,
+        "request_error": 0,
+        "other": 0,
+        "samples": [],
+    }
+
+
+def _default_review_status() -> dict[str, str]:
+    return {
+        "reviewer": "",
+        "review_note": "",
+    }
+
+
 def build_run_status(
     generated_files: list[str],
     pushed: bool,
@@ -138,6 +171,9 @@ def build_run_status(
     timings: dict[str, float] | None = None,
     risk_level: str = "low",
     external_enrichment: dict[str, Any] | None = None,
+    ai_metrics: dict[str, Any] | None = None,
+    source_health: dict[str, Any] | None = None,
+    review: dict[str, str] | None = None,
     error: str | None = None,
 ) -> dict[str, object]:
     payload: dict[str, object] = {
@@ -157,6 +193,9 @@ def build_run_status(
         "source_stats": source_stats or {},
         "risk_level": risk_level,
         "external_enrichment": external_enrichment or _default_external_enrichment_status(),
+        "ai_metrics": ai_metrics or _default_ai_metrics_status(),
+        "source_health": source_health or _default_source_health_status(),
+        "review": review or _default_review_status(),
         "scheduler": scheduler or {
             "trigger_kind": "manual",
             "compensation_run": False,

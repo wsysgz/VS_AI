@@ -21,6 +21,25 @@ def _format_metric(value: object, *, signed: bool = False, suffix: str = "") -> 
     return f"{number:.2f}{suffix}"
 
 
+def _format_value(value: object) -> str:
+    if value is None:
+        return "-"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, float):
+        return _format_metric(value)
+    if isinstance(value, list):
+        if not value:
+            return "-"
+        return ", ".join(str(item) for item in value)
+    if isinstance(value, dict):
+        if not value:
+            return "-"
+        return json.dumps(value, ensure_ascii=False, sort_keys=True)
+    text = str(value)
+    return text if text else "-"
+
+
 def _status_badge(status: str) -> str:
     tone = {
         "ok": "ok",
@@ -57,7 +76,7 @@ def _render_key_values(data: dict[str, object]) -> str:
     items: list[str] = []
     for key, value in data.items():
         items.append(
-            f'<div class="kv"><span>{escape(str(key))}</span><strong>{escape(str(value))}</strong></div>'
+            f'<div class="kv"><span>{escape(str(key))}</span><strong>{escape(_format_value(value))}</strong></div>'
         )
     return "\n".join(items)
 
@@ -70,6 +89,29 @@ def _render_reason_list(reasons: list[object]) -> str:
     for reason in reasons:
         items.append(f"<li>{escape(str(reason))}</li>")
     return f"<ul class=\"reason-list\">{''.join(items)}</ul>"
+
+
+def _flatten_mapping(data: dict[str, object], prefix: str = "") -> dict[str, object]:
+    flattened: dict[str, object] = {}
+    for key, value in data.items():
+        label = f"{prefix}.{key}" if prefix else str(key)
+        if isinstance(value, dict):
+            flattened.update(_flatten_mapping(value, label))
+        else:
+            flattened[label] = value
+    return flattened
+
+
+def _dataset_label(payload: dict[str, object], fallback: str) -> str:
+    dataset_meta = payload.get("dataset_meta", {})
+    if isinstance(dataset_meta, dict):
+        dataset_id = str(dataset_meta.get("dataset_id", "")).strip()
+        version = str(dataset_meta.get("version", "")).strip()
+        if dataset_id and version:
+            return f"{dataset_id} ({version})"
+        if dataset_id:
+            return dataset_id
+    return fallback
 
 
 def _load_recent_prompt_evals(root_dir: Path, limit: int = 5) -> list[dict[str, object]]:
@@ -109,6 +151,7 @@ def _load_recent_prompt_evals(root_dir: Path, limit: int = 5) -> list[dict[str, 
             {
                 "generated_at": str(payload.get("generated_at", path.stem)),
                 "dataset_path": str(payload.get("dataset_path", path.name)),
+                "dataset_label": _dataset_label(payload, str(payload.get("dataset_path", path.name))),
                 "summary": payload.get("summary", {}),
                 "leaderboard": leaderboard_rows,
             }
@@ -183,7 +226,7 @@ def _render_prompt_eval_runs(prompt_eval_runs: list[dict[str, object]]) -> str:
         rows.append(
             "<tr>"
             f"<td>{escape(str(run.get('generated_at', '-')))}</td>"
-            f"<td>{escape(str(run.get('dataset_path', '-')))}</td>"
+            f"<td>{escape(str(run.get('dataset_label', run.get('dataset_path', '-'))))}</td>"
             f"<td>{escape(str(summary_dict.get('case_count', '-')))}</td>"
             f"<td>{escape(str(summary_dict.get('evaluation_count', '-')))}</td>"
             f"<td>{escape(str(top_entry.get('prompt_id', '-')))} / {escape(str(top_entry.get('version', '-')))}</td>"
@@ -220,6 +263,9 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
     source_stats = status.get("source_stats", {})
     timings = status.get("timings", {})
     stage_status = status.get("stage_status", {})
+    ai_metrics = status.get("ai_metrics", {})
+    source_health = status.get("source_health", {})
+    review = status.get("review", {})
     external_enrichment = status.get("external_enrichment", {})
     regressions = _build_prompt_regressions(prompt_eval_runs)
 
@@ -231,6 +277,17 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
     latest_eval = prompt_eval_runs[0] if prompt_eval_runs else {}
     latest_eval_summary = latest_eval.get("summary", {}) if isinstance(latest_eval, dict) else {}
     external_dict = external_enrichment if isinstance(external_enrichment, dict) else {}
+    ai_metrics_view = (
+        _flatten_mapping(ai_metrics)
+        if isinstance(ai_metrics, dict)
+        else {}
+    )
+    source_health_view = (
+        _flatten_mapping(source_health)
+        if isinstance(source_health, dict)
+        else {}
+    )
+    review_view = review if isinstance(review, dict) else {}
     external_view = {
         "enabled": "on" if bool(external_dict.get("enabled", False)) else "off",
         "max_signals": external_dict.get("max_signals", 0),
@@ -470,6 +527,21 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
   </section>
 
   <section class="grid">
+    <div class="card">
+      <h2 class="section-title">AI Metrics</h2>
+      {_render_key_values(ai_metrics_view)}
+    </div>
+    <div class="card">
+      <h2 class="section-title">Source Health</h2>
+      {_render_key_values(source_health_view)}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Review Metadata</h2>
+      {_render_key_values(review_view)}
+    </div>
     <div class="card">
       <h2 class="section-title">External Enrichment</h2>
       {_render_key_values(external_view)}

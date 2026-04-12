@@ -23,11 +23,11 @@ def test_build_run_status_includes_stage_status_and_source_counts():
         generated_files=["data/reports/latest-summary.md"],
         pushed=False,
         stage_status={"analysis": "ok", "summary": "fallback", "forecast": "fallback"},
-        source_stats={"collected_items": 12, "filtered_topics": 5},
+        source_stats={"collected_items": 12, "report_topics": 5},
     )
 
     assert status["stage_status"]["analysis"] == "ok"
-    assert status["source_stats"]["filtered_topics"] == 5
+    assert status["source_stats"]["report_topics"] == 5
 
 
 def test_build_run_status_includes_scheduler_context():
@@ -138,6 +138,52 @@ def test_build_run_status_includes_external_enrichment_metrics():
     assert status["external_enrichment"]["success_rate"] == 0.5
 
 
+def test_build_run_status_includes_ai_metrics():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        ai_metrics={
+            "provider": "openai",
+            "model": "gpt-4o-mini",
+            "calls": 3,
+            "token_usage": {"prompt": 120, "completion": 60, "total": 180},
+            "latency_seconds": 4.2,
+            "fallback_stages": ["forecast"],
+        },
+    )
+
+    assert status["ai_metrics"]["provider"] == "openai"
+    assert status["ai_metrics"]["token_usage"]["total"] == 180
+    assert status["ai_metrics"]["fallback_stages"] == ["forecast"]
+
+
+def test_build_run_status_includes_source_health_and_review_metadata():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        source_health={
+            "total": 2,
+            "not_found": 1,
+            "timeout": 1,
+            "request_error": 0,
+            "other": 0,
+            "samples": [
+                "RSS source failed: openai-news -> 404 Client Error: Not Found",
+                "Website collectors timed out: openai-blog",
+            ],
+        },
+        review={
+            "reviewer": "Alice",
+            "review_note": "checked key sources",
+        },
+    )
+
+    assert status["source_health"]["not_found"] == 1
+    assert status["source_health"]["timeout"] == 1
+    assert status["review"]["reviewer"] == "Alice"
+    assert status["review"]["review_note"] == "checked key sources"
+
+
 def test_build_run_status_includes_publication_mode():
     status = build_run_status(
         generated_files=["data/reports/latest-summary-reviewed.md"],
@@ -215,6 +261,43 @@ def test_render_reports_writes_reviewed_track_outputs(tmp_path, monkeypatch):
     assert payload["meta"]["publication_mode"] == "reviewed"
 
 
+def test_render_reports_writes_review_metadata_into_report_meta(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+
+    render_reports(
+        tmp_path,
+        publication_mode="reviewed",
+        reviewer="Alice",
+        review_note="checked key sources",
+    )
+
+    payload = json.loads((tmp_path / "data" / "reports" / "latest-summary-reviewed.json").read_text(encoding="utf-8"))
+
+    assert payload["meta"]["review"]["reviewer"] == "Alice"
+    assert payload["meta"]["review"]["review_note"] == "checked key sources"
+
+
 def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
@@ -251,6 +334,7 @@ def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
     assert '"stage_status"' in status
     assert '"source_stats"' in status
     assert '"risk_level"' in status
+    assert '"ai_metrics"' in status
 
 
 def test_run_once_records_reviewed_publication_mode_and_detail_link(tmp_path, monkeypatch):
@@ -289,12 +373,20 @@ def test_run_once_records_reviewed_publication_mode_and_detail_link(tmp_path, mo
     monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
 
-    run_once(tmp_path, publication_mode="reviewed")
+    run_once(
+        tmp_path,
+        publication_mode="reviewed",
+        reviewer="Alice",
+        review_note="checked key sources",
+    )
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
 
     assert status["publication_mode"] == "reviewed"
+    assert status["review"]["reviewer"] == "Alice"
+    assert status["review"]["review_note"] == "checked key sources"
     assert any(path.endswith("latest-summary-reviewed.md") for path in status["generated_files"])
+    assert "https://wsysgz.github.io/VS_AI/" in captured["content"]
     assert "latest-summary-reviewed.md" in captured["content"]
 
 
@@ -348,7 +440,9 @@ def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
     assert captured["template"] == "txt"
     assert "今日判断：" in captured["content"]
     assert "三条主线：" in captured["content"]
-    assert "详情链接：" in captured["content"]
+    assert "公开阅读：" in captured["content"]
+    assert "GitHub 原文：" in captured["content"]
+    assert "https://wsysgz.github.io/VS_AI/" in captured["content"]
     assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md" in captured["content"]
     assert "执行摘要" not in captured["content"]
 
@@ -404,7 +498,8 @@ def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypat
     assert "执行摘要" in captured["text"]
     assert "关键主线" in captured["text"]
     assert "重点主题" in captured["text"]
-    assert "详情链接：" in captured["text"]
+    assert "公开阅读：" in captured["text"]
+    assert "GitHub 原文：" in captured["text"]
 
 
 def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monkeypatch):
@@ -466,7 +561,8 @@ def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monke
     assert "关键主线" in captured["text"]
     assert "行动建议" in captured["text"]
     assert "重点主题" not in captured["text"]
-    assert "详情链接：" in captured["text"]
+    assert "公开阅读：" in captured["text"]
+    assert "GitHub 原文：" in captured["text"]
 
 
 def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatch):
@@ -654,6 +750,9 @@ def test_run_once_writes_external_enrichment_metrics_into_run_status(tmp_path, m
     assert "external_enrichment" in status
     assert status["external_enrichment"]["enabled"] in {True, False}
     assert "success_rate" in status["external_enrichment"]
+    assert status["source_stats"]["report_topics"] >= 0
+    assert "provider" in status["ai_metrics"]
+    assert "token_usage" in status["ai_metrics"]
 
 
 def test_cmd_analyze_only_enables_ai_for_openai_provider(tmp_path, monkeypatch):

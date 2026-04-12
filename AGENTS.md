@@ -12,14 +12,14 @@
 - Do not switch the remote back to HTTPS unless the user explicitly asks for it.
 - `github-vsai-codex` is only a local backup key alias. The primary working path for this repo is still the `ssh-blog` / default GitHub key.
 
-## Project Status (2026-04-11)
+## Project Status (2026-04-12)
 
 - **V6 Phase 0~4 全部完成**, Phase 5 暂缓
-- **测试**: 116 passed, 0 failed
-- **CI**: 5-job 流水线（test → collect → analyze → report → deploy-pages）
+- **测试**: 190 passed, 0 failed
+- **CI**: reusable workflow 主链已覆盖 workflow-guard → test → collect → analyze → report → deploy-pages / ops-dashboard / review-queue
 - **数据源**: RSS(6) + GitHub(4组) + Websites + Hacker News + ArXiv
 - **LLM**: 统一客户端（DeepSeek / OpenAI 兼容），Analysis 5路并行
-- **推送**: PushPlus(ClawBot) + Telegram + 飞书 三通道
+- **推送**: PushPlus(ClawBot) + Telegram + 飞书 三通道，三端正文统一携带公开站首页 + GitHub 原文双链接
 
 ## 接手入口
 
@@ -34,8 +34,10 @@
   ```powershell
   cd D:\GitHub\auto
   $env:PYTHONPATH = "src"
-  python -m pytest tests -q           # 预期 116 passed
-  python -m auto_report.cli run-once   # 完整运行一次
+  pwsh ./scripts/check-workflows.ps1 -Profile full
+  python -m pytest tests -q           # 预期 190 passed
+  python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+  python -m auto_report.cli run-once --publication-mode reviewed   # 完整运行一次
   cat data/state/run-status.json       # 检查状态
   ```
 - GitHub CLI is installed locally at `C:\Program Files\GitHub CLI\gh.exe`.
@@ -53,14 +55,14 @@
 
 - PushPlus `clawbot` is the WeChat short-summary channel:
   - send `txt`
-  - send a short summary plus the GitHub detail link
+  - send a short summary plus the public site link and GitHub raw report link
   - expect occasional manual reactivation / conversation refresh on the WeChat side
 - Telegram is the full-report channel:
   - user must start the bot once before the bot can reach the private chat
   - send the complete report as plain text chunks of at most `4096` characters each
-  - append the GitHub detail link
+  - append the public site link and GitHub raw report link
   - keep link previews disabled
-- Feishu is the tertiary channel (configured but optional).
+- Feishu is the medium-length structured channel and also appends the public site link and GitHub raw report link.
 
 ## Repo Layout
 
@@ -72,17 +74,19 @@
 - Data sources: `src/auto_report/sources/collector.py` (4-source parallel collection)
 - Delivery integrations: `src/auto_report/integrations/`
 - Rendering and archives: `src/auto_report/outputs/`
-- Test suite: `tests/` (91 cases across 8 files)
+- Test suite: `tests/` (190 passing tests across 28 files)
 - Handoff docs: `docs/HANDOFF.md`, `AGENTS.md`, `README.md`
 - Upgrade plan: `docs/upgrade-plan/`
 
 ## Key Gotchas for Developers
 
-1. **render_reports() 返回 tuple**: `(list[str], dict[str,float])` — 调用方必须解包
+1. **render_reports() 返回 tuple**: `(list[str], dict[str,float], dict[str,object])` — 调用方必须完整解包
 2. **AI 不要外部重复调**：`build_report_package()` 内部已完成 AI 三阶段，不要在 app.py 再调 `run_staged_ai_pipeline()`
 3. **Windows 路径坑**：`_to_relative_paths()` 已处理，新增路径处理代码记得统一正斜杠
-4. **data/ 不用手动提交**：CI 的 `git-auto-commit-action` 会自动归档
-5. **新增数据源**：改 collector.py + config YAML + 对应 source 文件，三处联动
+4. **run-status source 口径**：统一使用 `source_stats.report_topics`，不要再写 `filtered_topics`
+5. **reviewed 元数据**：reviewer / review_note 只在 `publication_mode=reviewed` 时写入报告、通知和 Pages 卡片
+6. **data/ 不用手动提交**：CI 的 `git-auto-commit-action` 会自动归档
+7. **新增数据源**：改 collector.py + config YAML + 对应 source 文件，三处联动
 
 ## Extension Priorities
 

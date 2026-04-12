@@ -12,6 +12,12 @@ on:
       publication_mode:
         required: true
         type: string
+      reviewer:
+        required: false
+        type: string
+      review_note:
+        required: false
+        type: string
       scheduler_trigger_kind:
         required: true
         type: string
@@ -45,6 +51,8 @@ jobs:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           AUTO_PUSH_ENABLED: ${{ inputs.skip_push && 'false' || 'true' }}
           PUBLICATION_MODE: ${{ inputs.publication_mode }}
+          REPORT_REVIEWER: ${{ inputs.reviewer }}
+          REPORT_REVIEW_NOTE: ${{ inputs.review_note }}
           SCHEDULER_TRIGGER_KIND: ${{ inputs.scheduler_trigger_kind }}
           SCHEDULER_COMPENSATION_RUN: ${{ inputs.scheduler_compensation_run }}
           EXTERNAL_ENRICHMENT_ENABLED: "true"

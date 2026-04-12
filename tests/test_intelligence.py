@@ -406,6 +406,12 @@ def test_apply_intelligence_layer_tracks_external_enrichment_runtime_metrics(tmp
     assert metrics["circuit_open"] is False
     assert "empty-result: Topic B" in metrics["reasons"]
     assert "below-threshold: Topic C" in metrics["reasons"]
+    assert metrics["source_type_stats"]["official"]["budget"] == 2
+    assert metrics["source_type_stats"]["official"]["hits"] == 0
+    assert metrics["source_type_stats"]["paper"]["budget"] == 2
+    assert metrics["source_type_stats"]["paper"]["hits"] == 1
+    assert metrics["source_type_stats"]["repo"]["budget"] == 2
+    assert metrics["source_type_stats"]["repo"]["hits"] == 0
 
 
 def test_apply_intelligence_layer_opens_circuit_after_two_consecutive_failures(tmp_path: Path):
@@ -471,3 +477,71 @@ def test_apply_intelligence_layer_opens_circuit_after_two_consecutive_failures(t
     assert "empty-result: Topic A" in metrics["reasons"]
     assert "empty-result: Topic B" in metrics["reasons"]
     assert "circuit-open: Topic C" in metrics["reasons"]
+
+
+def test_apply_intelligence_layer_adds_hysteresis_before_verified_theme_fades(tmp_path: Path):
+    _write_archive_payload(
+        tmp_path,
+        "2026-04-10",
+        {
+            "meta": {
+                "generated_at": "2026-04-10T07:00:00+08:00",
+            },
+            "signals": [
+                {
+                    "title": "OpenAI launches secure agent runtime",
+                    "url": "https://openai.com/news/secure-agent-runtime",
+                    "primary_domain": "ai-llm-agent",
+                    "score": 3.4,
+                    "evidence_count": 2,
+                    "source_ids": ["openai-news", "curated-repos"],
+                    "lifecycle_state": "verified",
+                    "risk_level": "low",
+                    "tags": ["release"],
+                }
+            ],
+            "analyses": [
+                {
+                    "title": "OpenAI launches secure agent runtime",
+                    "url": "https://openai.com/news/secure-agent-runtime",
+                    "primary_domain": "ai-llm-agent",
+                    "confidence": "high",
+                    "lifecycle_state": "verified",
+                }
+            ],
+        },
+    )
+
+    result = apply_intelligence_layer(
+        root_dir=tmp_path,
+        signals=[
+            {
+                "title": "OpenAI launches secure agent runtime",
+                "url": "https://openai.com/news/secure-agent-runtime",
+                "summary": "OpenAI keeps iterating on the secure runtime.",
+                "primary_domain": "ai-llm-agent",
+                "score": 3.1,
+                "evidence_count": 1,
+                "source_ids": ["openai-news"],
+                "tags": ["release", "runtime"],
+            }
+        ],
+        analyses=[
+            {
+                "title": "OpenAI launches secure agent runtime",
+                "url": "https://openai.com/news/secure-agent-runtime",
+                "primary_domain": "ai-llm-agent",
+                "primary_contradiction": "speed vs control",
+                "core_insight": "The runtime is consolidating, not disappearing.",
+                "confidence": "medium",
+            }
+        ],
+        diagnostics=[],
+        generated_at="2026-04-11T07:00:00+08:00",
+    )
+
+    signal = result["signals"][0]
+
+    assert signal["memory"]["previous_lifecycle_state"] == "verified"
+    assert signal["lifecycle_state"] == "verified"
+    assert signal["risk_level"] == "low"

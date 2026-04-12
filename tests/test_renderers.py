@@ -54,7 +54,12 @@ def _sample_payload() -> dict[str, object]:
         },
         "limitations": ["部分信号仍需复核"],
         "actions": ["继续跟踪评估框架"],
-        "meta": {"total_items": 12, "total_topics": 5},
+        "meta": {
+            "total_items": 12,
+            "total_topics": 5,
+            "publication_mode": "auto",
+            "review": {"reviewer": "", "review_note": ""},
+        },
         "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
     }
 
@@ -64,7 +69,8 @@ def test_render_text_notification_uses_executive_brief_short_shape():
         title="AI情报早报 | 2026-04-10 | 北京时间 07:00",
         generated_at="2026-04-10T07:00:00+08:00",
         payload=_sample_payload(),
-        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
     )
 
     assert "今日判断：" in text
@@ -72,6 +78,8 @@ def test_render_text_notification_uses_executive_brief_short_shape():
     assert "1. 评估框架增加" in text
     assert "提醒：" in text
     assert "观察：" in text
+    assert "公开阅读：" in text
+    assert "GitHub 原文：" in text
 
 
 def test_render_pushplus_notification_uses_short_shape():
@@ -79,45 +87,62 @@ def test_render_pushplus_notification_uses_short_shape():
         title="AI情报早报 | 2026-04-10 | 北京时间 07:00",
         generated_at="2026-04-10T07:00:00+08:00",
         payload=_sample_payload(),
-        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
     )
 
     assert text.startswith("AI情报早报 |")
     assert "今日判断：" in text
     assert "三条主线：" in text
-    assert "详情链接：" in text
+    assert "公开阅读：" in text
+    assert "GitHub 原文：" in text
     assert "执行摘要" not in text
     assert "重点主题" not in text
 
 
 def test_render_telegram_notification_uses_full_brief_shape():
+    payload = _sample_payload()
+    payload["meta"]["publication_mode"] = "reviewed"
+    payload["meta"]["review"] = {"reviewer": "Alice", "review_note": "checked key sources"}
     text = render_telegram_notification(
         title="AI情报完整简报 | 2026-04-10 | 北京时间 07:00",
         generated_at="2026-04-10T07:00:00+08:00",
-        payload=_sample_payload(),
-        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+        payload=payload,
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
     )
 
     assert "执行摘要" in text
     assert "关键主线" in text
     assert "重点主题" in text
     assert "局限与提醒" in text
+    assert "复核信息" in text
+    assert "Alice" in text
+    assert "公开阅读：" in text
+    assert "GitHub 原文：" in text
 
 
 def test_render_feishu_notification_uses_mid_brief_shape():
+    payload = _sample_payload()
+    payload["meta"]["publication_mode"] = "reviewed"
+    payload["meta"]["review"] = {"reviewer": "Alice", "review_note": "checked key sources"}
     text = render_feishu_notification(
         title="AI情报飞书简报 | 2026-04-10 | 北京时间 07:00",
         generated_at="2026-04-10T07:00:00+08:00",
-        payload=_sample_payload(),
-        detail_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+        payload=payload,
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
     )
 
     assert text.startswith("AI情报飞书简报 |")
     assert "执行摘要" in text
     assert "关键主线" in text
     assert "行动建议" in text
+    assert "复核信息" in text
+    assert "checked key sources" in text
     assert "重点主题" not in text
-    assert "详情链接：" in text
+    assert "公开阅读：" in text
+    assert "GitHub 原文：" in text
 
 
 def test_render_markdown_report_uses_formal_brief_sections():
