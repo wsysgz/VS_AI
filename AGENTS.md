@@ -15,7 +15,7 @@
 ## Project Status (2026-04-12)
 
 - **V6 Phase 0~4 全部完成**, Phase 5 暂缓
-- **测试**: 190 passed, 0 failed
+- **测试**: 191 passed, 0 failed
 - **CI**: reusable workflow 主链已覆盖 workflow-guard → test → collect → analyze → report → deploy-pages / ops-dashboard / review-queue
 - **数据源**: RSS(6) + GitHub(4组) + Websites + Hacker News + ArXiv
 - **LLM**: 统一客户端（DeepSeek / OpenAI 兼容），Analysis 5路并行
@@ -35,7 +35,7 @@
   cd D:\GitHub\auto
   $env:PYTHONPATH = "src"
   pwsh ./scripts/check-workflows.ps1 -Profile full
-  python -m pytest tests -q           # 预期 190 passed
+  python -m pytest tests -q           # 预期 191 passed
   python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
   python -m auto_report.cli run-once --publication-mode reviewed   # 完整运行一次
   cat data/state/run-status.json       # 检查状态
@@ -85,7 +85,7 @@
 3. **Windows 路径坑**：`_to_relative_paths()` 已处理，新增路径处理代码记得统一正斜杠
 4. **run-status source 口径**：统一使用 `source_stats.report_topics`，不要再写 `filtered_topics`
 5. **reviewed 元数据**：reviewer / review_note 只在 `publication_mode=reviewed` 时写入报告、通知和 Pages 卡片
-6. **data/ 不用手动提交**：CI 的 `git-auto-commit-action` 会自动归档
+6. **data/ 不用手动提交**：CI 会在 workflow 内显式提交并回写归档产物
 7. **新增数据源**：改 collector.py + config YAML + 对应 source 文件，三处联动
 
 ## Extension Priorities

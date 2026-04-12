@@ -164,6 +164,15 @@ def test_reusable_review_queue_workflow_builds_review_queue_artifact():
     assert "name: review-queue" in content
 
 
+def test_reusable_report_workflow_rebases_before_pushing_data_outputs():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
+
+    assert "stefanzweifel/git-auto-commit-action@v4" not in content
+    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
+    assert 'git add data/' in content or 'git add data' in content
+    assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
+
+
 def test_reusable_pages_workflow_syncs_current_branch_and_commits_all_pages_outputs():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-pages.yml").read_text(encoding="utf-8")
 
@@ -183,11 +192,14 @@ def test_collect_report_followup_issue_jobs_only_run_when_artifacts_exist():
     assert "if: always() && needs.review-queue.result == 'success'" in content
 
 
-def test_reusable_backfill_workflow_commits_data_pages_and_ops_artifacts():
+def test_reusable_backfill_workflow_rebases_before_pushing_outputs():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
 
-    assert 'file_pattern: "data/** docs/index.html docs/archives/** docs/weekly/** docs/special/** docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll"' in content
-    assert 'commit_message: "chore: backfill report for ${{ inputs.target_date || \'latest\' }} [skip ci]"' in content
+    assert "stefanzweifel/git-auto-commit-action@v4" not in content
+    assert 'git add data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
+    assert 'git commit -m "chore: backfill report for ${{ inputs.target_date || \'latest\' }} [skip ci]"' in content
+    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
+    assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
 def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
@@ -197,7 +209,11 @@ def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
     assert "SCHEDULER_COMPENSATION_RUN: \"true\"" in content
     assert "actions/github-script@v7" in content
     assert "consecutive compensation failures" in content
-    assert 'file_pattern: "data/** docs/index.html docs/archives/** docs/weekly/** docs/special/** docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll"' in content
+    assert "stefanzweifel/git-auto-commit-action@v4" not in content
+    assert 'git add data/ docs/index.html docs/archives/ docs/weekly/ docs/special/ docs/search-index.json docs/feed.json docs/rss.xml docs/.nojekyll' in content
+    assert 'git commit -m "chore: compensate daily report [skip ci]"' in content
+    assert 'git pull --rebase origin "$GITHUB_REF_NAME"' in content
+    assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
 def test_canary_workflow_uses_canary_mode_and_issue_rule():
