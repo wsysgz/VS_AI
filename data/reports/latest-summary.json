@@ -1,73 +1,71 @@
 {
   "meta": {
-    "generated_at": "2026-04-13T00:04:48.210121+00:00",
+    "generated_at": "2026-04-13T12:00:28.589981+08:00",
     "timezone": "Asia/Shanghai",
-    "total_items": 93,
-    "total_topics": 93,
+    "total_items": 95,
+    "total_topics": 95,
     "publication_mode": "auto",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI Agent 领域正从追求单一能力扩展转向解决规模化部署的核心瓶颈：知识结构化、系统可调试性与评估可靠性，这标志着行业进入从“能做”到“能可靠地用”的关键转折期。",
+  "one_line_core": "AI智能体发展的核心瓶颈正从原始能力转向系统级的可运维性、可调试性和知识结构化，以支撑其在生产环境中的可靠部署与持续进化。",
   "executive_summary": [
-    "近期 AI Agent 领域进展揭示了一个共同趋势：研究焦点正从提升单一任务能力转向解决规模化、可靠化部署的系统性挑战。",
-    "微软提出的 PlugMem 和 AgentRx 框架，分别针对 Agent 的记忆效率与调试透明度问题，直指当前 Agent 在复杂、长程任务中性能退化的根源。",
-    "与此同时，Kimi 的开源策略与对 Agent 基准的质疑，共同指向了生态构建与可信评估的行业性需求，而 vLLM 等项目则持续夯实着底层推理效率的基础。",
-    "综合来看，行业正面临从“原型验证”到“生产部署”的跨越，其成功将取决于能否系统性地解决知识管理、故障排查和可信度量等工程化难题。"
+    "微软和IBM等机构的最新研究揭示了AI智能体规模化应用面临的新挑战：海量非结构化交互日志导致效率下降、复杂任务失败时难以调试、以及静态模型无法适应动态环境。",
+    "解决方案聚焦于系统层创新：PlugMem将原始交互转化为结构化知识以提升检索效率；AgentRx框架为智能体提供系统性调试工具；ALTK-Evolve支持智能体在线持续学习。",
+    "这些进展共同指向一个趋势：AI工程的重点正从“训练强大模型”转向“构建可运维、可信任、能进化的智能体系统”，这是智能体从演示走向生产的关键一步。"
   ],
   "key_points": [
     {
-      "title": "记忆瓶颈：从数据囤积转向知识工程",
-      "why_it_matters": "微软 PlugMem 的研究表明，单纯增加 Agent 的原始交互记忆反而会因信息过载和检索困难导致效能下降。这颠覆了“内存越大越好”的直觉，指出将原始经验转化为结构化、可复用知识才是提升 Agent 长期性能的关键。这意味着 Agent 架构需要内置“知识提炼”层，这是其实现持续学习和复杂任务管理的必要条件。"
+      "title": "记忆瓶颈在于知识结构化，而非容量",
+      "why_it_matters": "智能体积累的原始交互日志会因搜索开销增加而降低效率。PlugMem等方案通过将日志转化为结构化、可检索的知识，解决了“记忆越多越笨”的悖论，是提升智能体长期效能的基础设施。"
     },
     {
-      "title": "可调试性：自主性提升的伴生挑战",
-      "why_it_matters": "随着 Agent 自主执行多步骤工作流（如云事故管理），其决策过程变得不透明，故障难以追溯和复现。微软的 AgentRx 框架旨在系统化解决此问题。可调试性已成为制约 Agent 从实验室走向高可靠性生产环境的核心瓶颈，缺乏它，复杂 Agent 的规模化部署将伴随不可控的风险。"
+      "title": "可调试性是生产部署的关键障碍",
+      "why_it_matters": "随着智能体自主处理复杂任务（如云管、API工作流），其失败模式变得不透明且难以追溯。AgentRx等调试框架的缺失，使得智能体的可靠性无法保障，严重阻碍了其在关键业务中的落地。"
     },
     {
-      "title": "生态与评估：开源策略与基准可信度博弈",
-      "why_it_matters": "Kimi 开源 K2 Thinking 模型以构建生态，与学界对主流 Agent 基准可能被“利用”的质疑形成呼应。这揭示了行业在快速扩张期的双重需求：一方面通过开源加速工具链统一和开发者采纳，另一方面又亟需建立更鲁棒、防博弈的评估体系来客观衡量进展。生态繁荣与可信度量必须同步发展。"
+      "title": "智能体需从静态部署转向持续进化",
+      "why_it_matters": "真实世界动态变化，一次性训练的静态智能体会迅速过时。ALTK-Evolve框架支持智能体在部署后持续学习新知识和技能，同时避免灾难性遗忘，这是实现长期自主生存的必要能力。"
     },
     {
-      "title": "基础效率：推理与服务引擎持续优化",
-      "why_it_matters": "vLLM 作为高性能 LLM 推理引擎持续受到关注，谷歌也发布了端侧 AI 框架 LiteRT。这反映了无论上层 Agent 应用如何演进，底层推理的效率、内存优化和跨平台部署能力始终是支撑一切创新的基础设施。端侧框架的兴起更预示着 Agent 能力向边缘设备延伸的长期趋势。"
+      "title": "社区关注点反映生态成熟度",
+      "why_it_matters": "vLLM等高吞吐推理引擎的流行，以及关于“如何评估AI智能体”的广泛讨论（如基准测试被“攻破”），表明社区正从追求单一模型性能，转向关注系统效率、评估可信度和工程化实践，这是生态成熟的标志。"
     }
   ],
   "key_insights": [
-    "AI Agent 的发展已进入“系统工程”阶段，其最大挑战不再是让 Agent 执行某个任务，而是让它在长期、复杂的开放环境中保持稳定、高效和可管理。记忆、调试、评估是这一阶段必须攻克的“铁三角”问题。",
-    "当前的研究方向表明，未来的“智能”不仅体现在模型的推理能力上，更体现在围绕模型构建的、用于管理其自身认知过程（记忆、纠错）的元系统能力上。AI 系统的复杂性正在向系统架构层转移。",
-    "开源模型与对基准的质疑共同构成了一种“压力测试”：行业在寻求快速标准化和生态扩张的同时，必须警惕虚假的进步信号。建立抗博弈、贴近真实场景的评估方法，是避免陷入技术内卷的关键。",
-    "从云端到端侧的框架演进（如 LiteRT）提示，Agent 的终极形态可能是云-边协同的分布式系统，其中部分能力下沉至设备以保障实时性与隐私，这将对 Agent 的架构设计提出全新的模块化与协同挑战。"
+    "智能体发展的主要矛盾已转移：从“如何造出更强大的模型”转向“如何让已部署的智能体系统可靠、透明且能持续进化”。这要求工程思维从“制造”转向“运维与成长”。",
+    "未来的智能体竞争力将取决于其“学习循环”的质量：包括从经验中结构化知识（PlugMem）、从失败中诊断学习（AgentRx）、以及从环境中持续适应（ALTK-Evolve）的能力。这是一个系统级的能力。",
+    "当前的研究为解决“智能体黑箱”问题提供了初步工具链（记忆、调试、学习），但将这些工具整合成一个连贯、可观测、可控制的智能体运维平台，将是下一阶段的挑战和机会。"
   ],
   "limitations": [
-    "部分分析基于企业官方博客（如微软、Moonshot），虽具参考价值，但可能包含宣传倾向，缺乏第三方或学术论文的严格验证。",
-    "对于 Kimi K2 和谷歌 LiteRT 的分析，因输入信息中缺乏具体技术细节、性能数据或对比实验，洞察深度受限，更多是基于行业模式的分析。",
-    "关于“利用基准”的讨论仅源自单条高热度社区信息，其具体指控内容和实证依据未在输入中提供，因此相关分析停留在现象层面。",
-    "综合摘要试图从分散的主题中提炼宏观趋势，可能忽略了每个主题下更细微的技术分歧或未提及的其他重要进展。"
+    "本摘要基于有限的研究博客和社区信号，未涵盖所有厂商（如OpenAI、Anthropic）的智能体进展，视角可能不完整。",
+    "关于LiteRT框架等信息因证据不足未做深入分析，实际技术图景可能更复杂。",
+    "摘要中的趋势判断基于当前研究动向，实际产业落地速度和路径可能受成本、算力、安全法规等因素影响。"
   ],
   "actions": [
-    "对于 Agent 开发者：应优先评估现有项目中是否存在“记忆污染”和“调试黑盒”问题，并开始探索结构化记忆库与可观测性工具的集成。",
-    "对于技术选型者：在评估 Agent 框架或模型时，除关注任务完成度，更应考察其是否提供了知识管理、过程追溯和性能监控的系统性支持。",
-    "对于研究者：可关注如何设计更能抵抗过拟合、更能反映 Agent 在复杂环境中长期性能的评估基准，这是推动领域健康发展的关键。",
-    "跟踪端侧 AI 框架（如 LiteRT）与云端 Agent 的协同设计模式，这可能是未来构建低延迟、高隐私 Agent 应用的重要技术路径。"
+    "对于智能体开发者：评估现有智能体系统在记忆管理、失败调试和持续学习方面的短板，优先引入结构化记忆或基础观测工具。",
+    "对于技术决策者：在规划智能体投入时，将“可运维性”和“进化能力”纳入核心评估指标，而不仅仅是任务完成率。",
+    "对于研究者：关注如何将记忆、调试、在线学习等模块有机整合，并建立更贴近真实生产环境的智能体评估基准。"
   ],
   "analyses": [
     {
       "facts": [
-        "AI agents with more unstructured memory can become less effective due to irrelevant content accumulation and increased search difficulty.",
-        "PlugMem is a proposed system to transform raw agent interactions into structured, reusable knowledge.",
-        "The core issue is that large, unstructured interaction logs hinder agents from efficiently finding task-relevant information."
+        "AI agents accumulate large, unstructured interaction logs over time.",
+        "More memory can paradoxically reduce agent effectiveness due to increased search difficulty.",
+        "Raw logs mix relevant and irrelevant content, lacking organization.",
+        "Microsoft Research proposes PlugMem to transform raw interactions into structured, reusable knowledge."
       ],
       "contradictions": [
-        "Increasing memory capacity vs. decreasing agent effectiveness due to information overload.",
-        "The need for comprehensive historical data vs. the need for fast, relevant information retrieval.",
-        "Raw, unstructured interaction logs vs. structured, reusable knowledge for efficient agent operation."
+        "Increasing memory capacity vs. decreasing agent effectiveness due to search overhead",
+        "Accumulation of raw interaction data vs. need for structured, retrievable knowledge",
+        "Desire for comprehensive historical context vs. operational efficiency in current tasks",
+        "Potential of large-scale agent deployment vs. scalability limitations of naive memory systems"
       ],
-      "primary_contradiction": "The accumulation of raw, unstructured interaction data (enabling comprehensive memory) vs. the need for efficient, task-relevant information retrieval (requiring structured knowledge).",
-      "core_insight": "The fundamental bottleneck for advanced AI agents is not memory capacity, but the transformation of raw experiences into structured, actionable knowledge to prevent performance degradation from data overload.",
-      "confidence": "medium",
+      "primary_contradiction": "Accumulation of raw interaction data vs. need for structured, retrievable knowledge",
+      "core_insight": "The fundamental bottleneck for scalable AI agents is not memory capacity, but the transformation of raw experience into organized, actionable knowledge.",
+      "confidence": "high",
       "title": "PlugMem: Transforming raw agent interactions into reusable knowledge",
       "url": "https://www.microsoft.com/en-us/research/blog/from-raw-interaction-to-reusable-knowledge-rethinking-memory-for-ai-agents/",
       "primary_domain": "ai-llm-agent",
@@ -105,119 +103,17 @@
     },
     {
       "facts": [
-        "Kimi K2 Thinking 模型已发布并开源",
-        "该模型旨在全面提升Agent和推理能力",
-        "信息来源为Moonshot官方博客，证据片段为空"
+        "AI agents are evolving from simple chatbots to autonomous systems handling complex tasks like cloud incident management and multi-step API workflows.",
+        "A key challenge with AI agent failures is lack of transparency; unlike human errors, AI agent logic is often difficult to trace.",
+        "The AgentRx framework is introduced by Microsoft Research to address the systematic debugging of AI agents."
       ],
       "contradictions": [
-        "模型能力提升的宣传主张 vs 缺乏具体性能指标或对比数据的证据",
-        "开源策略（可能旨在促进生态和采用）vs 商业公司保持技术护城河的核心需求",
-        "Agent和推理能力作为通用宣称 vs 缺乏具体应用场景或问题解决的展示"
+        "Increasing agent autonomy and task complexity vs. the need for operational transparency and debuggability.",
+        "The demand for reliable, production-ready AI agents vs. the current opaque nature of their failure modes (e.g., hallucinating tool outputs).",
+        "The scale and speed of agent deployment vs. the manual, ad-hoc debugging methods currently available."
       ],
-      "primary_contradiction": "模型开源以扩大影响力与生态构建的需求 vs 在激烈竞争中需通过具体、可验证的性能优势来确立实际市场地位的需求",
-      "core_insight": "当前信息仅为单方面发布通告，缺乏客观证据支撑其‘全面提升’的主张，其真实技术突破与市场影响有待第三方验证与实际应用反馈。",
-      "confidence": "low",
-      "title": "Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力",
-      "url": "https://platform.moonshot.cn/blog/posts/k2-think",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "moonshot-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "moonshot-blog",
-            "source_type": "official",
-            "title": "Kimi K2 Turbo API 价格调整通知",
-            "url": "https://platform.moonshot.cn/blog/posts/k2-turbo-discount",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "moonshot-blog",
-            "source_type": "official",
-            "title": "Kimi K2 又又又提速了",
-            "url": "https://platform.moonshot.cn/blog/posts/k2-turbo-enhance",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "moonshot-blog",
-            "source_type": "official",
-            "title": "Kimi K2 官方高速版 API 开启 5 折特惠",
-            "url": "https://platform.moonshot.cn/blog/posts/k2-prom",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "moonshot-blog",
-          "source_type": "official",
-          "title": "Kimi K2 Turbo API 价格调整通知",
-          "url": "https://platform.moonshot.cn/blog/posts/k2-turbo-discount",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "moonshot-blog",
-          "source_type": "official",
-          "title": "Kimi K2 又又又提速了",
-          "url": "https://platform.moonshot.cn/blog/posts/k2-turbo-enhance",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "moonshot-blog",
-          "source_type": "official",
-          "title": "Kimi K2 官方高速版 API 开启 5 折特惠",
-          "url": "https://platform.moonshot.cn/blog/posts/k2-prom",
-          "summary": "",
-          "evidence_scope": "current-run"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "AI agents are evolving from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows.",
-        "A key challenge in this evolution is transparency and debuggability.",
-        "When a human makes a mistake, the logic can usually be traced, but when an AI agent fails (e.g., by hallucinating a tool output), the debugging process is not straightforward.",
-        "Microsoft Research is introducing the AgentRx framework to address the need for systematic debugging of AI agents."
-      ],
-      "contradictions": [
-        "Increasing Agent Autonomy vs. Need for Human-Observable Transparency",
-        "Complex Multi-Step Agent Capabilities vs. Current Opaque Failure Modes",
-        "Demand for Reliable Production Agents vs. Lack of Systematic Debugging Tools",
-        "Agent Actions in Real Environments vs. Difficulty in Isolating and Reproducing Failures"
-      ],
-      "primary_contradiction": "Increasing Agent Autonomy vs. Need for Human-Observable Transparency",
-      "core_insight": "The advancement of AI agents into complex, autonomous roles is fundamentally bottlenecked by the lack of debuggability, making systematic frameworks like AgentRx not just a tooling improvement but a prerequisite for reliable and scalable agent deployment.",
+      "primary_contradiction": "The advancing capability and autonomy of AI agents vs. the primitive state of tools for understanding and diagnosing their failures.",
+      "core_insight": "The next critical bottleneck for AI agent adoption in production is not raw capability, but the development of systematic observability and debugging frameworks to make their complex, autonomous operations trustworthy and manageable.",
       "confidence": "medium",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
@@ -246,13 +142,22 @@
             "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
             "summary": "",
             "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
           "official-source",
-          "related-support"
+          "related-support",
+          "external-support"
         ],
-        "summary": "1 source(s) | official | 2 related support"
+        "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
         "days_seen": 4,
@@ -286,20 +191,126 @@
           "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
           "summary": "",
           "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+          "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+          "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "external"
         }
       ]
     },
     {
       "facts": [
-        "主题候选为Google开发者博客发布的关于LiteRT框架的文章，标题为'LiteRT: The Universal Framework for On-Device AI'，主要领域为AI-LLM-Agent，标签包含AI与电子设备的交叉领域，证据片段列表为空。"
+        "IBM Research发布了ALTK-Evolve框架，这是一个让AI智能体在部署后持续学习的方法。该框架旨在解决AI智能体在动态环境中性能下降的问题，通过在线学习机制，使智能体能够适应新数据、新任务或环境变化，而无需完全重新训练。ALTK-Evolve代表了AI智能体从静态、一次性训练向动态、持续学习演进的重要趋势。"
       ],
       "contradictions": [
-        "1. 分析任务要求基于证据片段进行结构化分析 vs 提供的证据片段列表为空，缺乏实质性内容。",
-        "2. 框架要求'不要索要补充信息' vs 当前信息（仅元数据，无内容）无法支撑有效分析。",
-        "3. 主题候选指向一个具体的技术发布（LiteRT）vs 分析所需的背景、细节、影响等事实信息完全缺失。"
+        "静态部署的AI智能体能力 vs 动态变化的外部环境需求",
+        "离线重新训练的成本与中断 vs 在线持续学习的实时性要求",
+        "学习新知识/技能的需求 vs 避免灾难性遗忘（遗忘旧知识）的风险",
+        "模型性能的稳定性 vs 适应环境变化的灵活性",
+        "集中式、控制下的模型更新 vs 分布式、自主的智能体演化"
       ],
-      "primary_contradiction": "分析任务要求基于证据进行深度分析 vs 提供的证据内容实质为空，导致分析缺乏事实基础。",
-      "core_insight": "当前输入仅包含主题的元数据（标题、URL、标签等），而完全缺失用于分析该技术框架的内容、细节、背景或影响的证据片段。在'信息充分性检测'中，这属于'主体明确'通过但'矛盾可见'、'约束条件'、'目标清晰'等关键维度严重缺失的情况。根据框架第八条，对于'描述过于宏观，无法判断具体矛盾'或'矛盾对立双方都没有出现'的情况，应拒绝分析或要求补充信息。但本任务指令明确禁止索要信息，因此只能基于元数据进行极有限的分析，并指出根本的信息不足问题。",
+      "primary_contradiction": "静态部署的AI智能体能力 vs 动态变化的外部环境需求",
+      "core_insight": "ALTK-Evolve的出现，其根本驱动力在于AI应用范式的核心矛盾正在转移：从如何训练一个强大的静态模型，转向如何让已部署的模型像生物一样，在不可预测的真实世界中持续生存和进化。这标志着AI工程焦点从“制造”向“运维与成长”的深刻转变。",
+      "confidence": "medium",
+      "title": "ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
+            "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "Google AI Edge Gallery: Now with audio and on Google Play",
+            "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 1.8,
+        "previous_confidence": "medium",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low",
+      "support_evidence": [
+        {
+          "source_id": "nvidia-embedded",
+          "source_type": "official",
+          "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+          "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "nvidia-embedded",
+          "source_type": "official",
+          "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
+          "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "google-ai-edge",
+          "source_type": "official",
+          "title": "Google AI Edge Gallery: Now with audio and on Google Play",
+          "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        }
+      ]
+    },
+    {
+      "facts": [
+        "主题候选为Google开发者博客发布的关于LiteRT框架的文章，标题为'LiteRT: The Universal Framework for On-Device AI'，主要领域为AI-LLM-Agent，标签包含'AI-x-Electronics'，但提供的证据片段列表为空，未提供任何关于该框架的具体技术细节、发布时间、性能指标、应用场景或与其他框架对比的信息。"
+      ],
+      "contradictions": [
+        "1. 主题候选声称是'通用框架'与证据片段为空、缺乏具体技术细节支撑之间的矛盾。2. 主题候选被标记为'AI-x-Electronics'（暗示AI与电子设备/硬件的交叉）与当前信息无法证实其具体硬件适用性或部署优势之间的矛盾。3. 分析任务要求基于证据片段输出结构化分析与当前证据片段为空、无法进行实质性技术评估之间的矛盾。"
+      ],
+      "primary_contradiction": "分析任务要求（基于证据进行结构化分析）与输入信息状态（证据片段为空，缺乏分析基础）之间的矛盾。",
+      "core_insight": "当前输入信息严重不足，仅包含元数据（标题、标签、来源）而无任何实质性技术内容，导致无法对LiteRT框架本身进行任何有意义的分析。任何基于此的分析都将是纯粹基于标题和标签的推测，缺乏事实依据。",
       "confidence": "low",
       "title": "LiteRT: The Universal Framework for On-Device AI",
       "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
@@ -388,50 +399,6 @@
       ]
     },
     {
-      "title": "Exploiting the most prominent AI agent benchmarks",
-      "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[hacker-news] Score: 488 | Comments: 124"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Exploiting the most prominent AI agent benchmarks appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-12",
-        "last_seen": "2026-04-13",
-        "previous_score": 3.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "high",
-      "support_evidence": []
-    },
-    {
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
@@ -476,21 +443,84 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "support_evidence": []
+    },
+    {
+      "title": "Exploiting the most prominent AI agent benchmarks",
+      "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 499 | Comments: 130"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "Exploiting the most prominent AI agent benchmarks appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "ADeLe: Predicting and explaining AI performance across tasks",
+            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
+            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support",
+          "external-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-04-12",
+        "last_seen": "2026-04-13",
+        "previous_score": 3.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "ADeLe: Predicting and explaining AI performance across tasks",
+          "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
+          "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "external"
+        }
+      ]
     }
   ],
   "forecast": {
-    "best_case": "在短期内（3-6个月），AI Agent领域在解决核心瓶颈方面取得显著进展。PlugMem等结构化记忆方案被主流框架初步集成，有效缓解了长任务中的性能衰减问题；AgentRx等调试工具开始被开发者采纳，提升了复杂工作流的可靠性；行业对基准可信度的讨论促使出现更抗博弈的评估方法。开源模型（如Kimi K2）加速了工具链的标准化，vLLM等推理引擎的优化持续降低部署成本。整体上，Agent从“原型演示”向“初步可用”的生产环境迈出坚实一步，开发者信心增强，应用场景开始从简单自动化向更复杂的业务流程渗透。",
-    "worst_case": "核心瓶颈在短期内未能突破，导致行业进展放缓。结构化记忆和系统调试的工程复杂度被低估，PlugMem、AgentRx等框架停留在研究博客阶段，未能产出易用、可集成的开源工具。记忆过载和调试黑盒问题继续困扰现有Agent项目，导致其在真实业务场景中的失败率居高不下，挫伤企业 adoption 信心。同时，对基准的质疑演变为纯粹的信任危机，而缺乏建设性的新标准，导致技术评估混乱。Kimi K2等开源模型因缺乏具体性能验证而未能激发生态活力。整体上，Agent 领域陷入“演示精彩、部署困难”的尴尬期，市场热度降温，投资转向其他更易落地的AI方向。",
-    "most_likely_case": "未来3-6个月，AI Agent领域将呈现“重点突破与整体渐进”并存的局面。在工程实践层面，结构化记忆（如PlugMem思想）和可调试性（如AgentRx）将成为高端/研究型项目的优先探索方向，并出现早期开源实现或云服务商（如微软Azure AI）的预览功能，但距离大规模、开箱即用的普及尚远。行业共识将进一步加强，即记忆、调试、评估是三大关键挑战，但解决方案仍处于碎片化探索期。Kimi K2等开源模型会吸引一部分开发者进行实验，但其宣称的“全面提升”需要更长时间验证。vLLM等底层引擎的持续优化是确定性较高的进展，为上层应用提供稳定基础。总体趋势是：方向明确，路径清晰，但系统性解决方案的成熟和生态整合需要超过6个月的时间。市场将更理性，关注点从“炫技”转向“稳定性”和“总拥有成本”。",
+    "best_case": "在6个月内，主流AI智能体框架（如LangChain、AutoGPT）开始集成类似PlugMem的结构化记忆模块和AgentRx的调试工具，显著提升复杂任务的成功率和可追溯性。研究社区围绕'可运维智能体'形成共识，推动至少1-2个新的开源基准测试发布，重点评估智能体的长期稳定性、知识积累效率和失败可诊断性。ALTK-Evolve等持续学习框架在特定垂直场景（如客服机器人、IT运维）中完成概念验证，证明其能有效降低模型更新频率和成本。产业界对智能体的关注从'能做什么'转向'如何可靠地运行'，投资向智能体运维工具链倾斜。",
+    "worst_case": "结构化记忆、系统调试和在线学习等关键技术仍停留在研究博客和实验阶段，未能形成易用的标准化工具或与主流开发框架深度集成。智能体开发者继续在原始日志中挣扎，调试复杂失败仍依赖人工查看提示词和输出，导致生产部署成本高昂、故障排查耗时。由于缺乏可靠的运维保障，企业对大规模部署自主智能体持谨慎态度，智能体应用仍局限于低风险、短会话的辅助场景。社区讨论仍聚焦于基准测试分数和模型能力上限，而非系统工程问题，导致能力与可靠性之间的差距进一步扩大。",
+    "most_likely_case": "未来6个月，AI智能体领域将呈现'研究先行、产业跟进'的态势。微软、IBM等机构提出的结构化记忆（PlugMem）、系统调试（AgentRx）和持续学习（ALTK-Evolve）概念将获得学术界和开源社区的高度关注，相关论文和原型代码陆续发布。主流智能体框架会开始提供实验性的记忆管理和观测API，但离成熟、易用的生产级解决方案尚有距离。开发者将更积极地讨论和尝试解决智能体的'黑箱'问题，推动最佳实践的形成。产业界对智能体的部署会更加务实，优先在闭环、可监控的场景中试点，同时加大对智能体可观测性和可靠性工具的投资。vLLM等高性能推理引擎的持续优化，为复杂智能体的实时响应提供了基础支撑。",
     "key_variables": [
-      "结构化记忆框架（如PlugMem理念）的首个生产可用开源实现或主流云平台集成的时间与易用性",
-      "可调试性工具（如AgentRx）在开发者社区中的实际采纳率与问题解决效率",
-      "针对Agent基准可信度质疑，是否出现具有公信力的新评估数据集或方法",
-      "Kimi K2等开源模型在第三方评测及实际Agent任务中的性能表现数据",
-      "主要云厂商（AWS, Google Cloud, Azure）在AI Agent托管服务中推出内存管理与调试原生支持的进度",
-      "企业级用户在POC项目中反馈的Agent在长周期、多步骤任务中的稳定性和故障排查成本"
+      "主流智能体开发框架（LangChain, LlamaIndex, AutoGPT等）集成结构化记忆和调试工具的速度与深度",
+      "大型云厂商（AWS, Google Cloud, Azure）推出智能体运维托管服务或工具集的策略与时间表",
+      "开源社区围绕智能体可观测性、持续学习等主题形成关键项目或标准的进展",
+      "企业级用户在非演示场景中部署复杂、长周期智能体任务的实际案例数量与反馈",
+      "核心大模型提供商（OpenAI, Anthropic等）在API层面为智能体记忆、工具调用追溯提供的原生支持"
     ],
-    "forecast_conclusion": "基于当前信息，短期（3-6个月）内AI Agent领域最可能的发展路径是：在认知层面完成从“能力扩展”到“可靠性工程”的关键转向，并在核心瓶颈（记忆、调试）上出现概念验证性的解决方案和早期工具，但距离形成稳定、成熟、被广泛采用的最佳实践仍有显著差距。行业将进入一个密集的“工程化探索期”，进展体现为点状突破和共识凝聚，而非整体性的飞跃。成功将属于那些能率先在具体场景中整合记忆结构化、增强可观测性并有效评估的团队。",
+    "forecast_conclusion": "短期（未来6个月）内，AI智能体领域将处于从'能力演示'向'系统工程'转型的关键过渡期。研究层面已清晰指出核心瓶颈（记忆混乱、调试困难、静态模型），并提出了明确的技术方向。产业落地将滞后于研究认知，但趋势已不可逆转。最可能的前景是形成活跃的工具创新和最佳实践讨论氛围，为下一阶段的规模化可靠部署奠定基础。然而，若工具集成缓慢且产业需求不迫切，也可能陷入'能力增长但可靠性停滞'的尴尬局面。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -503,11 +533,11 @@
     "model": "deepseek-chat",
     "calls": 7,
     "token_usage": {
-      "prompt": 22015,
-      "completion": 3353,
-      "total": 25368
+      "prompt": 21702,
+      "completion": 2864,
+      "total": 24566
     },
-    "latency_seconds": 91.19,
+    "latency_seconds": 110.67,
     "fallback_stages": []
   },
   "mainline_memory": [
@@ -521,7 +551,7 @@
       "days_seen": 4,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-13",
-      "enrichment_summary": "1 source(s) | official | 2 related support"
+      "enrichment_summary": "1 source(s) | official | 3 related support"
     },
     {
       "title": "LiteRT: The Universal Framework for On-Device AI",
@@ -560,8 +590,8 @@
       "enrichment_summary": "1 source(s) | official"
     },
     {
-      "title": "Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力",
-      "url": "https://platform.moonshot.cn/blog/posts/k2-think",
+      "title": "ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve",
       "primary_domain": "ai-llm-agent",
       "lifecycle_state": "rising",
       "risk_level": "low",
@@ -573,30 +603,30 @@
     }
   ],
   "lifecycle_summary": {
-    "new": 0,
-    "rising": 92,
+    "new": 7,
+    "rising": 87,
     "verified": 1,
     "fading": 0
   },
-  "risk_level": "high",
+  "risk_level": "medium",
   "highlights": [
-    "AI Agent 领域正从追求单一能力扩展转向解决规模化部署的核心瓶颈：知识结构化、系统可调试性与评估可靠性，这标志着行业进入从“能做”到“能可靠地用”的关键转折期。",
-    "本轮共采集到 93 条原始信息，去重后保留 93 个主题。",
+    "AI智能体发展的核心瓶颈正从原始能力转向系统级的可运维性、可调试性和知识结构化，以支撑其在生产环境中的可靠部署与持续进化。",
+    "本轮共采集到 95 条原始信息，去重后保留 95 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
   "risks": [
     "GitHub repo failed: NVIDIA/cuda-cmake -> 404 Client Error: Not Found for url: https://api.github.com/repos/NVIDIA/cuda-cmake",
-    "HN: fetched 59 raw, filtered to 16 relevant (min_score=10)",
-    "Website source failed: ti-e2e-blog -> 410 Client Error: Gone for url: https://e2e.ti.com/blogs_/artificial-intelligence",
-    "Website source failed: st-blog -> 404 Client Error: Not Found for url: https://blog.st.com/artificial-intelligence/",
+    "HN: fetched 59 raw, filtered to 18 relevant (min_score=10)",
     "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/",
-    "RSS source failed: arxiv-cs-ai -> 404 Client Error: Not Found for url: https://rss.arxiv.org/cs.AI"
+    "RSS source failed: arxiv-cs-ai -> 404 Client Error: Not Found for url: https://rss.arxiv.org/cs.AI",
+    "Website source failed: st-blog -> 404 Client Error: Not Found for url: https://blog.st.com/artificial-intelligence/",
+    "Website source failed: ti-e2e-blog -> 410 Client Error: Gone for url: https://e2e.ti.com/blogs_/artificial-intelligence"
   ],
   "signals": [
     {
       "title": "Exploiting the most prominent AI agent benchmarks",
       "url": "https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/",
-      "summary": "Score: 488 | Comments: 124",
+      "summary": "Score: 499 | Comments: 130",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -618,11 +648,22 @@
         "source_types": [
           "community"
         ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "ADeLe: Predicting and explaining AI performance across tasks",
+            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
+            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
+          }
         ],
-        "summary": "1 source(s) | community"
+        "verification_flags": [
+          "community",
+          "related-support",
+          "external-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
         "days_seen": 2,
@@ -637,7 +678,7 @@
         ]
       },
       "lifecycle_state": "rising",
-      "risk_level": "high"
+      "risk_level": "medium"
     },
     {
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
@@ -680,13 +721,22 @@
             "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
             "summary": "",
             "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
           "official-source",
-          "related-support"
+          "related-support",
+          "external-support"
         ],
-        "summary": "1 source(s) | official | 2 related support"
+        "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
         "days_seen": 4,
@@ -891,6 +941,137 @@
         ]
       },
       "lifecycle_state": "verified",
+      "risk_level": "low"
+    },
+    {
+      "title": "ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
+            "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "Google AI Edge Gallery: Now with audio and on Google Play",
+            "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 1.8,
+        "previous_confidence": "medium",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
+      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
+      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "microsoft-research"
+      ],
+      "tags": [
+        "Research Blog",
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "microsoft-research"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
+            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
+            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
@@ -1686,137 +1867,6 @@
       "risk_level": "low"
     },
     {
-      "title": "ALTK‑Evolve: On‑the‑Job Learning for AI Agents",
-      "url": "https://huggingface.co/blog/ibm-research/altk-evolve",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
-            "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "Google AI Edge Gallery: Now with audio and on Google Play",
-            "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.8,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
-      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
-      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "microsoft-research"
-      ],
-      "tags": [
-        "Research Blog",
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "microsoft-research"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
-            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
-            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "DeepSeek-V3.2 Release 2025/12/01",
       "url": "https://api-docs.deepseek.com/news/news251201",
       "summary": "来源共 1 条，等待后续 AI 深度摘要。",
@@ -2255,9 +2305,9 @@
       "risk_level": "low"
     },
     {
-      "title": "ollama/ollama",
-      "url": "https://github.com/ollama/ollama",
-      "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+      "title": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "summary": "Build resilient language agents as graphs.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2268,22 +2318,25 @@
         "curated-repos"
       ],
       "tags": [
+        "agents",
+        "ai",
+        "ai-agents",
         "ai-llm-agent",
-        "deepseek",
-        "gemma",
-        "gemma3",
-        "glm",
-        "go",
-        "golang",
-        "gpt-oss",
-        "llama",
-        "llama3",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
         "llm",
-        "llms",
-        "minimax",
-        "mistral",
-        "ollama",
-        "qwen"
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -2317,9 +2370,9 @@
       "risk_level": "low"
     },
     {
-      "title": "langchain-ai/langgraph",
-      "url": "https://github.com/langchain-ai/langgraph",
-      "summary": "Build resilient language agents as graphs.",
+      "title": "ollama/ollama",
+      "url": "https://github.com/ollama/ollama",
+      "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2330,25 +2383,22 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
-        "ai",
-        "ai-agents",
         "ai-llm-agent",
-        "chatgpt",
-        "deepagents",
-        "enterprise",
-        "framework",
-        "gemini",
-        "generative-ai",
-        "langchain",
-        "langgraph",
+        "deepseek",
+        "gemma",
+        "gemma3",
+        "glm",
+        "go",
+        "golang",
+        "gpt-oss",
+        "llama",
+        "llama3",
         "llm",
-        "multiagent",
-        "open-source",
-        "openai",
-        "pydantic",
-        "python",
-        "rag"
+        "llms",
+        "minimax",
+        "mistral",
+        "ollama",
+        "qwen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -2437,9 +2487,9 @@
       "risk_level": "low"
     },
     {
-      "title": "tenstorrent/tt-metal",
-      "url": "https://github.com/tenstorrent/tt-metal",
-      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
+      "title": "alibaba/MNN",
+      "url": "https://github.com/alibaba/MNN",
+      "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -2451,21 +2501,18 @@
         "curated-repos"
       ],
       "tags": [
-        "accelerator",
-        "ai",
         "ai-llm-agent",
-        "cuda",
-        "deepseek",
-        "gpu",
-        "img-gen",
-        "kernels",
-        "llama",
+        "arm",
+        "convolution",
+        "deep-learning",
+        "embedded-devices",
         "llm",
-        "metal",
-        "scale-out",
-        "stable-diffusion",
-        "tenstorrent",
-        "video-gen"
+        "machine-learning",
+        "ml",
+        "mnn",
+        "transformer",
+        "vulkan",
+        "winograd-algorithm"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -2499,9 +2546,9 @@
       "risk_level": "low"
     },
     {
-      "title": "alibaba/MNN",
-      "url": "https://github.com/alibaba/MNN",
-      "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+      "title": "tenstorrent/tt-metal",
+      "url": "https://github.com/tenstorrent/tt-metal",
+      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -2513,18 +2560,21 @@
         "curated-repos"
       ],
       "tags": [
+        "accelerator",
+        "ai",
         "ai-llm-agent",
-        "arm",
-        "convolution",
-        "deep-learning",
-        "embedded-devices",
+        "cuda",
+        "deepseek",
+        "gpu",
+        "img-gen",
+        "kernels",
+        "llama",
         "llm",
-        "machine-learning",
-        "ml",
-        "mnn",
-        "transformer",
-        "vulkan",
-        "winograd-algorithm"
+        "metal",
+        "scale-out",
+        "stable-diffusion",
+        "tenstorrent",
+        "video-gen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -2821,57 +2871,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Small models also found the vulnerabilities that Mythos found",
-      "url": "https://aisle.com/blog/ai-cybersecurity-after-mythos-the-jagged-frontier",
-      "summary": "Score: 1228 | Comments: 322",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "hot",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 3,
-        "first_seen": "2026-04-11",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Tell HN: docker pull fails in spain due to football cloudflare block",
+      "title": "Tell HN: Docker pull fails in Spain due to football Cloudflare block",
       "url": "https://news.ycombinator.com/item?id=47738883",
-      "summary": "Score: 631 | Comments: 247 | Text: I just spent 1h+ debugging why my locally-hosted gitlab runner would fail to create pipelines. The gitlab job output would just display weird TLS errors when trying to pull a docker images. After debugging gitlab and the runner, I realized after a while I could not even run &quot;docker pull &lt;ima",
+      "summary": "Score: 713 | Comments: 274 | Text: I just spent 1h+ debugging why my locally-hosted gitlab runner would fail to create pipelines. The gitlab job output would just display weird TLS errors when trying to pull a docker images. After debugging gitlab and the runner, I realized after a while I could not even run &quot;docker pull &lt;ima",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2918,7 +2920,7 @@
     {
       "title": "Anthropic downgraded cache TTL on March 6th",
       "url": "https://github.com/anthropics/claude-code/issues/46829",
-      "summary": "Score: 461 | Comments: 356",
+      "summary": "Score: 497 | Comments: 383",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2964,7 +2966,7 @@
     {
       "title": "Google removes \"Doki Doki Literature Club\" from Google Play",
       "url": "https://bsky.app/profile/serenityforge.com/post/3mj3r4nbiws2t",
-      "summary": "Score: 241 | Comments: 101",
+      "summary": "Score: 345 | Comments: 169",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3020,7 +3022,7 @@
     {
       "title": "I gave every train in New York an instrument",
       "url": "https://www.trainjazz.com/",
-      "summary": "Score: 186 | Comments: 36",
+      "summary": "Score: 232 | Comments: 43",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3031,7 +3033,8 @@
         "hacker-news"
       ],
       "tags": [
-        "hacker-news"
+        "hacker-news",
+        "trending"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3063,9 +3066,53 @@
       "risk_level": "low"
     },
     {
-      "title": "Building a SaaS in 2026 Using Only EU Infrastructure",
-      "url": "https://eualternative.eu/guides/building-saas-eu-stack/",
-      "summary": "Score: 170 | Comments: 56",
+      "title": "We have a 99% email reputation, but Gmail disagrees",
+      "url": "https://blogfontawesome.wpcomstaging.com/we-have-a-99-email-reputation-gmail-disagrees/",
+      "summary": "Score: 193 | Comments: 182",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "European AI. A playbook to own it",
+      "url": "https://europe.mistral.ai/",
+      "summary": "Score: 157 | Comments: 96",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3088,11 +3135,11 @@
         ],
         "support_evidence": [
           {
-            "source_id": "openai-news",
+            "source_id": "nvidia-embedded",
             "source_type": "official",
-            "title": "Using projects in ChatGPT",
-            "url": "https://openai.com/academy/projects",
-            "summary": "Learn how to use orojects in ChatGPT to organize chats, files, and instructions, manage ongoing work, and collaborate more effectively.",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
             "evidence_scope": "current-run"
           }
         ],
@@ -3118,54 +3165,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Tell HN: OpenAI silently removed Study Mode from ChatGPT",
-      "url": "https://news.ycombinator.com/item?id=47739305",
-      "summary": "Score: 164 | Comments: 67 | Text: Here&#x27;s hoping that it will return soon, as I really liked it.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-12",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "European AI. A playbook to own it",
-      "url": "https://europe.mistral.ai/",
-      "summary": "Score: 134 | Comments: 67",
+      "title": "Tech valuations are back to pre-AI boom levels",
+      "url": "https://www.apollo.com/wealth/the-daily-spark/tech-valuations-back-to-pre-ai-boom-levels",
+      "summary": "Score: 124 | Comments: 32",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3220,7 +3222,7 @@
     {
       "title": "Show HN: Claudraband – Claude Code for the Power User",
       "url": "https://github.com/halfwhey/claudraband",
-      "summary": "Score: 83 | Comments: 23 | Text: Hello everyone.<p>Claudraband wraps a Claude Code TUI in a controlled terminal to enable extended workflows. It uses tmux for visible controlled sessions or xterm.js for headless sessions (a little slower), but everything is mediated by an actual Claude Code TUI.<p>One example of a workflow I use no",
+      "summary": "Score: 99 | Comments: 34 | Text: Hello everyone.<p>Claudraband wraps a Claude Code TUI in a controlled terminal to enable extended workflows. It uses tmux for visible controlled sessions or xterm.js for headless sessions (a little slower), but everything is mediated by an actual Claude Code TUI.<p>One example of a workflow I use no",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3264,64 +3266,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Tech valuations are back to pre-AI boom levels",
-      "url": "https://www.apollo.com/wealth/the-daily-spark/tech-valuations-back-to-pre-ai-boom-levels",
-      "summary": "Score: 73 | Comments: 10",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 1 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-12",
-        "last_seen": "2026-04-13",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "What have been the greatest intellectual achievements? (2017)",
-      "url": "https://www.thinkingcomplete.com/2017/09/what-have-been-greatest-intellectual.html",
-      "summary": "Score: 42 | Comments: 70",
+      "title": "Why AI Sucks at Front End",
+      "url": "https://nerdy.dev/why-ai-sucks-at-front-end",
+      "summary": "Score: 73 | Comments: 79",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3349,24 +3296,23 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-12",
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
         "last_seen": "2026-04-13",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-12",
           "2026-04-13"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Claude Opus 4.6 accuracy on BridgeBench hallucination test drops from 83% to 68%",
       "url": "https://twitter.com/bridgemindai/status/2043321284113670594",
-      "summary": "Score: 30 | Comments: 1",
+      "summary": "Score: 49 | Comments: 11",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3435,9 +3381,53 @@
       "risk_level": "low"
     },
     {
-      "title": "Intel Xpress Resurrection: Reviving a Forgotten EISA Beast",
-      "url": "https://x86.fr/intel-xpress-resurrection-reviving-a-forgotten-eisa-beast/",
-      "summary": "Score: 21 | Comments: 0",
+      "title": "Bouncer: Block \"crypto\", \"rage politics\", and more from your X feed using AI",
+      "url": "https://github.com/imbue-ai/bouncer",
+      "summary": "Score: 44 | Comments: 70",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "What have been the greatest intellectual achievements? (2017)",
+      "url": "https://www.thinkingcomplete.com/2017/09/what-have-been-greatest-intellectual.html",
+      "summary": "Score: 43 | Comments: 72",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3480,9 +3470,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Navy to use underwater drones to help clear Iranian mines from Strait of Hormuz",
-      "url": "https://defensescoop.com/2026/04/11/strait-of-hormuz-mine-clearance-navy-centcom-underwater-drones/",
-      "summary": "Score: 19 | Comments: 2",
+      "title": "Apple's accidental moat: How the \"AI Loser\" may end up winning",
+      "url": "https://adlrocha.substack.com/p/adlrocha-how-the-ai-loser-may-end",
+      "summary": "Score: 32 | Comments: 15",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3510,24 +3500,23 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-12",
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
         "last_seen": "2026-04-13",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-12",
           "2026-04-13"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Microsoft engineer says original Task Manager was only 80KB to run on 90s comps",
       "url": "https://www.tomshardware.com/software/windows/veteran-microsoft-engineer-says-original-task-manager-was-only-80kb-so-it-could-run-smoothly-on-90s-computers-original-utility-used-a-smart-technique-to-determine-whether-it-was-the-only-running-instance",
-      "summary": "Score: 12 | Comments: 5",
+      "summary": "Score: 26 | Comments: 8",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3577,6 +3566,148 @@
         ]
       },
       "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "I ran Gemma 4 as a local model in Codex CLI",
+      "url": "https://blog.danielvaughan.com/i-ran-gemma-4-as-a-local-model-in-codex-cli-7fda754dc0d4",
+      "summary": "Score: 18 | Comments: 7",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "New metal with triple copper's heat conduction challenges fundamental physics",
+      "url": "https://www.scientificamerican.com/article/new-metal-with-triple-coppers-heat-conduction-challenges-fundamental-physics/",
+      "summary": "Score: 11 | Comments: 1",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Haunt, the 70s text adventure game, is now playable on a website",
+      "url": "https://haunt.madebywindmill.com",
+      "summary": "Score: 10 | Comments: 0",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "Google AI Edge Gallery: Now with audio and on Google Play",
+            "url": "https://developers.googleblog.com/google-ai-edge-gallery-now-with-audio-and-on-google-play/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-13",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -4129,6 +4260,559 @@
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-13",
         "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
+      "url": "https://huggingface.co/blog/waypoint-1-5",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Safetensors is Joining the PyTorch Foundation",
+      "url": "https://huggingface.co/blog/safetensors-joins-pytorch-foundation",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
+      "url": "https://huggingface.co/blog/gemma4",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Granite 4.0 3B Vision: Compact Multimodal Intelligence for Enterprise Documents",
+            "url": "https://huggingface.co/blog/ibm-granite/granite-4-vision",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "google-ai-edge",
+            "source_type": "official",
+            "title": "LiteRT: The Universal Framework for On-Device AI",
+            "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Holo3: Breaking the Computer Use Frontier",
+      "url": "https://huggingface.co/blog/Hcompany/holo3",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Falcon Perception",
+      "url": "https://huggingface.co/blog/tiiuae/falcon-perception",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Any Custom Frontend with Gradio's Backend",
+      "url": "https://huggingface.co/blog/introducing-gradio-server",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Granite 4.0 3B Vision: Compact Multimodal Intelligence for Enterprise Documents",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-4-vision",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
+            "url": "https://huggingface.co/blog/gemma4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Training mRNA Language Models Across 25 Species for $165",
+      "url": "https://huggingface.co/blog/OpenMed/training-mrna-models-25-species",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "TRL v1.0: Post-Training Library Built to Move with the Field",
+      "url": "https://huggingface.co/blog/trl-v1",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Liberate your OpenClaw",
+      "url": "https://huggingface.co/blog/liberate-your-openclaw",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-13",
+        "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
@@ -5449,563 +6133,10 @@
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
-    },
-    {
-      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
-      "url": "https://huggingface.co/blog/waypoint-1-5",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
-      "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Safetensors is Joining the PyTorch Foundation",
-      "url": "https://huggingface.co/blog/safetensors-joins-pytorch-foundation",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
-      "url": "https://huggingface.co/blog/gemma4",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Granite 4.0 3B Vision: Compact Multimodal Intelligence for Enterprise Documents",
-            "url": "https://huggingface.co/blog/ibm-granite/granite-4-vision",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "google-ai-edge",
-            "source_type": "official",
-            "title": "LiteRT: The Universal Framework for On-Device AI",
-            "url": "https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Holo3: Breaking the Computer Use Frontier",
-      "url": "https://huggingface.co/blog/Hcompany/holo3",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Falcon Perception",
-      "url": "https://huggingface.co/blog/tiiuae/falcon-perception",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Any Custom Frontend with Gradio's Backend",
-      "url": "https://huggingface.co/blog/introducing-gradio-server",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Granite 4.0 3B Vision: Compact Multimodal Intelligence for Enterprise Documents",
-      "url": "https://huggingface.co/blog/ibm-granite/granite-4-vision",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
-            "url": "https://huggingface.co/blog/gemma4",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Training mRNA Language Models Across 25 Species for $165",
-      "url": "https://huggingface.co/blog/OpenMed/training-mrna-models-25-species",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "TRL v1.0: Post-Training Library Built to Move with the Field",
-      "url": "https://huggingface.co/blog/trl-v1",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Liberate your OpenClaw",
-      "url": "https://huggingface.co/blog/liberate-your-openclaw",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 4,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-13",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
     }
   ],
   "predictions": [
-    "基于当前信息，短期（3-6个月）内AI Agent领域最可能的发展路径是：在认知层面完成从“能力扩展”到“可靠性工程”的关键转向，并在核心瓶颈（记忆、调试）上出现概念验证性的解决方案和早期工具，但距离形成稳定、成熟、被广泛采用的最佳实践仍有显著差距。行业将进入一个密集的“工程化探索期”，进展体现为点状突破和共识凝聚，而非整体性的飞跃。成功将属于那些能率先在具体场景中整合记忆结构化、增强可观测性并有效评估的团队。"
+    "短期（未来6个月）内，AI智能体领域将处于从'能力演示'向'系统工程'转型的关键过渡期。研究层面已清晰指出核心瓶颈（记忆混乱、调试困难、静态模型），并提出了明确的技术方向。产业落地将滞后于研究认知，但趋势已不可逆转。最可能的前景是形成活跃的工具创新和最佳实践讨论氛围，为下一阶段的规模化可靠部署奠定基础。然而，若工具集成缓慢且产业需求不迫切，也可能陷入'能力增长但可靠性停滞'的尴尬局面。"
   ],
   "sources": {
     "github": {
