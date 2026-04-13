@@ -1,11 +1,41 @@
 import json
 import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 
 from auto_report.app import cmd_analyze_only, run_once
 from auto_report.app import render_reports
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.run_once import build_run_status
+
+
+class _FrozenAppDateTime:
+    _fixed_utc = datetime(2026, 4, 12, 23, 59, 54, tzinfo=timezone.utc)
+
+    @classmethod
+    def now(cls, tz=None):
+        if tz is not None:
+            return cls._fixed_utc.astimezone(tz)
+        return cls._FrozenNow(cls._fixed_utc)
+
+    class _FrozenNow:
+        def __init__(self, value: datetime):
+            self._value = value
+
+        def astimezone(self, tz=None):
+            if tz is None:
+                return self._value
+            return self._value.astimezone(tz)
+
+
+class _FrozenStatusDateTime:
+    _fixed_utc = datetime(2026, 4, 12, 23, 59, 54, tzinfo=timezone.utc)
+
+    @classmethod
+    def now(cls, tz=None):
+        if tz is None:
+            return cls._fixed_utc
+        return cls._fixed_utc.astimezone(tz)
 
 
 def test_build_run_status_tracks_generated_outputs():
@@ -296,6 +326,75 @@ def test_render_reports_writes_review_metadata_into_report_meta(tmp_path, monkey
 
     assert payload["meta"]["review"]["reviewer"] == "Alice"
     assert payload["meta"]["review"]["review_note"] == "checked key sources"
+
+
+def test_render_reports_uses_configured_timezone_for_archive_date(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr("auto_report.app.datetime", _FrozenAppDateTime)
+    monkeypatch.setenv("AUTO_TIMEZONE", "Asia/Shanghai")
+
+    generated_files, _, _ = render_reports(tmp_path)
+    payload = json.loads((tmp_path / "data" / "reports" / "latest-summary-auto.json").read_text(encoding="utf-8"))
+    normalized_paths = [path.replace("\\", "/") for path in generated_files]
+
+    assert payload["meta"]["generated_at"].startswith("2026-04-13T07:59:54+08:00")
+    assert any("data/archives/2026-04-13/" in path for path in normalized_paths)
+
+
+def test_run_once_persists_status_generated_at_in_configured_timezone(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr("auto_report.app.datetime", _FrozenAppDateTime)
+    monkeypatch.setattr("auto_report.pipeline.run_once.datetime", _FrozenStatusDateTime)
+    monkeypatch.setenv("AUTO_TIMEZONE", "Asia/Shanghai")
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "false")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+
+    assert status["generated_at"].startswith("2026-04-13T07:59:54+08:00")
 
 
 def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):

@@ -161,6 +161,7 @@ def _default_review_status() -> dict[str, str]:
 def build_run_status(
     generated_files: list[str],
     pushed: bool,
+    generated_at: str = "",
     push_channel: str = "",
     publication_mode: str = "auto",
     push_response: dict[str, Any] | None = None,
@@ -177,7 +178,7 @@ def build_run_status(
     error: str | None = None,
 ) -> dict[str, object]:
     payload: dict[str, object] = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": generated_at or datetime.now(timezone.utc).isoformat(),
         "generated_files": generated_files,
         "pushed": pushed,
         "push_channel": push_channel,

@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+import os
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+from dateutil import tz
 
 from auto_report.integrations.delivery_status import (
     build_channel_result,
@@ -53,6 +56,30 @@ class StageTimer:
 
     def __exit__(self, *_args):
         self.elapsed = round(time.perf_counter() - self.start, 2)
+
+
+def _configured_timezone(settings):
+    timezone_name = str(settings.env.get("AUTO_TIMEZONE", "Asia/Shanghai")).strip() or "Asia/Shanghai"
+    return _timezone_from_name(timezone_name)
+
+
+def _timezone_from_name(timezone_name: str):
+    try:
+        return ZoneInfo(timezone_name)
+    except ZoneInfoNotFoundError:
+        resolved_tz = tz.gettz(timezone_name)
+        if resolved_tz is not None:
+            return resolved_tz
+        fallback_tz = datetime.now().astimezone().tzinfo
+        return fallback_tz or timezone.utc
+
+
+def _now_in_configured_timezone(settings) -> datetime:
+    return datetime.now(timezone.utc).astimezone(_configured_timezone(settings))
+
+
+def _now_in_timezone_name(timezone_name: str) -> datetime:
+    return datetime.now(timezone.utc).astimezone(_timezone_from_name(timezone_name))
 
 
 def _normalize_publication_mode(value: str) -> str:
@@ -215,7 +242,7 @@ def _build_raw_report_url(settings, publication_mode: str) -> str:
 
 def _build_text_notification(root_dir: Path, settings, publication_mode: str) -> str:
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
-    generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
+    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
     local_date = generated_at[:10]
     review = payload.get("meta", {}).get("review", {})
     if not isinstance(review, dict):
@@ -231,7 +258,7 @@ def _build_text_notification(root_dir: Path, settings, publication_mode: str) ->
 
 def _build_telegram_notification(root_dir: Path, settings, publication_mode: str) -> str:
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
-    generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
+    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
     local_date = generated_at[:10]
     review = payload.get("meta", {}).get("review", {})
     if not isinstance(review, dict):
@@ -247,7 +274,7 @@ def _build_telegram_notification(root_dir: Path, settings, publication_mode: str
 
 def _build_feishu_notification(root_dir: Path, settings, publication_mode: str) -> str:
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
-    generated_at = str(payload.get("meta", {}).get("generated_at", datetime.now().astimezone().isoformat()))
+    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
     local_date = generated_at[:10]
     review = payload.get("meta", {}).get("review", {})
     if not isinstance(review, dict):
@@ -426,7 +453,7 @@ def render_reports(
         reviewer=reviewer,
         review_note=review_note,
     )
-    generated_at = datetime.now().astimezone().isoformat()
+    generated_at = _now_in_configured_timezone(settings).isoformat()
     reports_dir = root_dir / "data" / "reports"
     state_dir = root_dir / "data" / "state"
     archive_dir = root_dir / "data" / "archives" / generated_at[:10]
@@ -528,7 +555,7 @@ def run_backfill(
         reviewer=reviewer,
         review_note=review_note,
     )
-    generated_at = datetime.now().astimezone().isoformat()
+    generated_at = _now_in_configured_timezone(settings).isoformat()
     timings: dict[str, float] = {}
 
     archive_date = target_date.strip() if target_date.strip() else generated_at[:10]
@@ -610,6 +637,7 @@ def run_backfill(
     status = build_run_status(
         generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=False,
+        generated_at=generated_at,
         push_channel="",
         publication_mode=resolved_publication_mode,
         push_response={},
@@ -686,6 +714,7 @@ def run_once(
     status = build_run_status(
         generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=pushed,
+        generated_at=str(summary_payload.get("meta", {}).get("generated_at", "")),
         push_channel=push_channel,
         publication_mode=resolved_publication_mode,
         push_response=push_response,
@@ -720,7 +749,7 @@ def cmd_collect_only(root_dir: Path) -> list[str]:
     from auto_report.pipeline.topic_builder import build_topic_candidates
 
     settings = load_settings(root_dir)
-    generated_at = datetime.now().astimezone().isoformat()
+    generated_at = _now_in_configured_timezone(settings).isoformat()
     timings = {}
 
     with StageTimer("collection") as t:
@@ -802,7 +831,7 @@ def cmd_analyze_only(root_dir: Path) -> list[str]:
     timings["ai_total"] = t.elapsed
 
     meta = {
-        "analyzed_at": datetime.now().astimezone().isoformat(),
+        "analyzed_at": _now_in_configured_timezone(settings).isoformat(),
         "candidate_count": len(candidates),
         "analysis_count": len(result["analyses"]),
         "stage_status": result["stage_status"],
@@ -857,7 +886,7 @@ def cmd_build_review_queue(root_dir: Path) -> Path:
     output_path.write_text(
         json.dumps(
             {
-                "generated_at": datetime.now().astimezone().isoformat(),
+                "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
                 "count": len(issues),
                 "issues": issues,
             },
