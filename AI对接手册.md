@@ -1,16 +1,104 @@
 # AI对接手册
 
 > 适用仓库：`D:\GitHub\auto`
-> 
-> 最后整理：2026-04-17
+>
+> 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
+>
+> 最后更新：2026-04-17
 
-这份手册把原来的开发交接、运维操作、用户使用三类核心信息收口到一个地方，作为 VS_AI 的统一对接手册。
+这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
-> 如果是新会话 AI、上下文被清空后的 AI、或者第一次接手这个仓库的人，优先读这份手册。它的目标不是“帮你大概了解项目”，而是帮助你在最短时间内重新掌握工程结构、当前进度、验证方式和下一步该做什么。
+1. 让 AI 快速建立完整工程认知
+2. 让 AI 快速对接当前项目进度
+3. 让 AI 在失忆后仍然知道先看什么、先做什么、先验证什么
 
-## 1. 项目是什么
+## 0. 60 秒接管
 
-VS_AI 不是单纯的抓取脚本，而是一条工程化的 AI 情报生产链：
+如果你只剩 1 分钟，先记住这些绝对事实：
+
+- 本地工作区：`D:\GitHub\auto`
+- Canonical remote：`git@github.com:wsysgz/VS_AI.git`
+- 默认工作分支：`main`
+- 公开站入口：`https://wsysgz.github.io/VS_AI/`
+- 当前本地验证基线：`210 passed`
+- 当前主线优先级：`P1：来源稳定性升级`
+- 运行态唯一权威文件：`data/state/run-status.json`
+- 来源治理权威产物：`out/source-governance/source-governance.json`
+- 手动触发 workflow 前必须先 `push`，因为 `workflow_dispatch` 只跑远端已 push 代码
+
+如果你只剩 3 分钟，按这个顺序看：
+
+1. `交接备忘录.md`
+2. `data/state/run-status.json`
+3. `out/source-governance/source-governance.json`
+4. `.github/workflows/collect-report.yml`
+5. 最近 5 条 `git log`
+
+## 1. 新会话 AI 的前 10 分钟
+
+推荐恢复顺序：
+
+### 第 1 步：确认仓库是不是干净的
+
+```powershell
+cd D:\GitHub\auto
+git status --short
+git log --oneline -5
+```
+
+你要回答三个问题：
+
+- 当前有没有未提交修改
+- 最近 5 次提交在推进什么
+- 这次会话是继续已有主线，还是在处理一次临时修复
+
+### 第 2 步：读取最小上下文集
+
+必读文件：
+
+- `README.md`
+- `AI对接手册.md`
+- `交接备忘录.md`
+- `V1升级方案.md`
+- `data/state/run-status.json`
+- `out/source-governance/source-governance.json`
+
+这 6 个文件足够你回答：
+
+- 项目是做什么的
+- 现在做到哪了
+- 现在卡在哪里
+- 下一步应优先做什么
+- 做完后该怎么验收和上线
+
+### 第 3 步：建立当前状态判断
+
+优先核对：
+
+- `publication_mode`
+- `review`
+- `delivery_results`
+- `risk_level`
+- `source_stats.report_topics`
+- `source_health`
+- `source_governance`
+- `ai_metrics`
+
+### 第 4 步：决定这次会话属于哪一类
+
+常见会话类型：
+
+- 文档 / 交接 / 上下文恢复
+- 来源治理 / 坏源修复
+- workflow / CI 验证
+- 推送 / 交付诊断
+- 页面 / dashboard / review queue 输出修复
+
+决定完类型后，再去读对应代码或配置，不要一上来全仓库漫游。
+
+## 2. 项目是什么
+
+VS_AI 是一条工程化的 AI 情报生产链，而不是单点脚本。主链路如下：
 
 ```text
 collect
@@ -24,88 +112,90 @@ collect
 -> pages / ops dashboard / review queue
 ```
 
-项目当前覆盖两个主领域：
+领域重点：
 
 - AI / LLM / Agent
 - AI x Electronics
 
-公开站入口固定为：
+输出面：
 
-- `https://wsysgz.github.io/VS_AI/`
+- Markdown / HTML / JSON 报告
+- PushPlus / Telegram / Feishu 推送
+- GitHub Pages 公开站
+- ops dashboard
+- source governance artifact
+- review queue
 
-本地工作区固定为：
+## 3. 仓库地图：先看哪里最值钱
 
-- `D:\GitHub\auto`
-
-目标远端固定为：
-
-- `git@github.com:wsysgz/VS_AI.git`
-
-## 2. 仓库结构与入口
-
-```text
-.
-├─ .github/workflows/    workflow 入口与 reusable workflow
-├─ config/               providers、sources、domains、prompts、eval dataset
-├─ data/                 reports、archives、runtime state
-├─ docs/                 Pages 公开站输出
-├─ scripts/              本地 workflow 校验辅助脚本
-├─ src/auto_report/      应用主代码
-└─ tests/                回归测试
-```
-
-核心代码入口：
+### 3.1 入口层
 
 - `src/auto_report/cli.py`
   - 全部 CLI 命令入口
 - `src/auto_report/app.py`
-  - 主编排入口，负责运行、渲染、推送、归档、状态写入
+  - 主编排入口；负责 collect、AI、render、delivery、archive、状态写入
 - `src/auto_report/settings.py`
-  - 环境变量和配置封装
+  - 环境变量与 YAML 配置装配
 - `src/auto_report/workflow_guard.py`
-  - 本地 workflow profile 校验
+  - 本地 workflow profile 校验逻辑
 
-关键 pipeline：
+### 3.2 pipeline 层
 
-- `src/auto_report/pipeline/analysis.py`
-- `src/auto_report/pipeline/ai_pipeline.py`
-- `src/auto_report/pipeline/intelligence.py`
-- `src/auto_report/pipeline/topic_builder.py`
-- `src/auto_report/pipeline/review_queue.py`
-- `src/auto_report/pipeline/run_once.py`
+重点目录：`src/auto_report/pipeline/`
 
-关键集成：
+常看模块：
 
+- `analysis.py`
+- `ai_pipeline.py`
+- `intelligence.py`
+- `topic_builder.py`
+- `review_queue.py`
+- `run_once.py`
+
+### 3.3 输出与交付层
+
+- `src/auto_report/outputs/renderers.py`
+- `src/auto_report/outputs/pages_builder.py`
+- `src/auto_report/outputs/ops_dashboard.py`
 - `src/auto_report/integrations/pushplus.py`
 - `src/auto_report/integrations/telegram.py`
 - `src/auto_report/integrations/feishu.py`
 - `src/auto_report/integrations/llm_client.py`
 
-## 3. 最重要的状态文件与治理产物
+### 3.4 配置层
 
-运行态唯一权威文件是：
+- `config/providers.yaml`
+- `config/sources/github.yaml`
+- `config/sources/rss.yaml`
+- `config/sources/websites.yaml`
+- `config/domains/`
+- `config/prompt_eval/baseline-v1.json`
+
+### 3.5 运行态与产物层
 
 - `data/state/run-status.json`
-
-来源治理的内部产物是：
-
+- `data/reports/latest-summary.*`
+- `data/reports/latest-summary-reviewed.*`
 - `out/source-governance/source-governance.json`
+- `out/ops-dashboard/index.html`
+- `docs/index.html`
 
-它回答的核心问题包括：
+## 4. 不要信记忆，只信这些真相源
 
-- 这次报告是什么时候生成的
-- 走的是 `auto` 还是 `reviewed`
-- 哪些阶段成功/失败/回退
-- 哪些渠道送达成功/失败/跳过
-- 本轮风险等级如何
+### 4.1 运行态真相
+
+`data/state/run-status.json` 回答这些问题：
+
+- 本轮是 `auto` 还是 `reviewed`
+- 这轮报告是否真的生成了
+- 三个 AI 阶段是否成功
+- 三个渠道是成功、失败还是跳过
+- 风险等级如何
 - 真正进入报告的主题数是多少
-- AI 调用了哪个 provider/model，用了多少 token
-- 当前是手动、定时还是补偿运行
-- 各阶段耗时多少
-- 当前来源 registry 是如何分层的
-- 哪些来源需要人工复核、RSSHub route、changedetection watch 或替代入口
+- 当前 provider / model / token / latency 是什么
+- 这轮是手动、定时还是补偿运行
 
-重点字段：
+最关键字段：
 
 - `generated_at`
 - `publication_mode`
@@ -118,66 +208,243 @@ collect
 - `source_registry`
 - `source_governance`
 - `ai_metrics`
-- `external_enrichment`
 - `scheduler`
 - `timings`
 
-当前 schema 约定：
+### 4.2 来源治理真相
 
-- 正式字段名是 `source_stats.report_topics`，不要回退到 `filtered_topics`
-- `ai_metrics` 固定包含 `provider`、`model`、`calls`、`token_usage`、`latency_seconds`、`fallback_stages`
-- `source_health` 固定按 `not_found / timeout / request_error / other` 聚合，并且只统计真正的 failure diagnostics
-- `source_registry` 现在会保留来源的 `stability_tier`、`watch_strategy`、`replacement_target`、`candidate_kind`
-- `source_governance` 现在会汇总 `manual_review`、`rsshub_candidates`、`changedetection_candidates`、`replacement_candidates`
-- `reviewed` 轨允许 `reviewer`、`review_note` 为空
+`out/source-governance/source-governance.json` 回答这些问题：
 
-## 4. 环境配置
+- 当前来源有哪些治理候选
+- 哪些来源需要 manual review
+- 哪些来源适合优先找 RSSHub / feed
+- 哪些来源适合建 changedetection watch
+- 哪些来源已经有 `replacement_target`
 
-初始化：
+当前治理摘要（2026-04-17 仓库快照）：
+
+- `manual_review_count = 4`
+- `rsshub_candidate_count = 11`
+- `changedetection_candidate_count = 10`
+- `replacement_candidate_count = 14`
+
+### 4.3 远端执行真相
+
+`.github/workflows/collect-report.yml` 回答这些问题：
+
+- push 到 `main` 后会自动跑什么
+- 手动触发时有哪些输入参数
+- `push_enabled` 怎样控制真实通知发送
+- 流程链路是 `workflow-guard -> test -> collect -> analyze -> report -> pages / ops / review`
+
+最容易忘的事实：
+
+- `workflow_dispatch` 跑的是远端 ref，不是本地未 push 的修改
+- `push` 触发时忽略 `data/**`
+- 手动验证远端通常优先使用 `push_enabled=false`，避免无意实际推送
+
+## 5. 当前项目进度怎么对接
+
+任何新会话 AI，如果要“对接项目进度”，按下面这套顺序，不要跳步：
+
+### 5.1 看最近提交在推进什么
 
 ```powershell
-cd D:\GitHub\auto
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-pip install -e .
-Copy-Item .env.example .env
-$env:PYTHONPATH='src'
+git log --oneline -10
 ```
 
-常用环境变量：
+目标：识别最近是文档收口、来源治理、推送诊断、还是 dashboard / Pages 修复。
 
-### AI
+### 5.2 看最近一次运行出了什么结果
 
-- `DEEPSEEK_API_KEY`
-- `OPENAI_API_KEY`
-- `AI_PROVIDER`
-- `AI_BASE_URL`
-- `AI_MODEL`
+```powershell
+Get-Content data/state/run-status.json
+```
 
-### 推送
+目标：确认最新结果是成功还是带风险，当前主要问题在 delivery 还是 source health。
 
-- `PUSHPLUS_TOKEN`
-- `PUSHPLUS_SECRETKEY`
-- `PUSHPLUS_CHANNEL`
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
-- `FEISHU_APP_ID`
-- `FEISHU_APP_SECRET`
-- `FEISHU_CHAT_ID`
+### 5.3 看治理队列还剩什么没做
 
-### 运行控制
+```powershell
+Get-Content out/source-governance/source-governance.json
+```
 
-- `AUTO_TIMEZONE`
-- `AUTO_PUSH_ENABLED`
-- `DELIVERY_REQUEST_TIMEOUT`
-- `PUBLICATION_MODE`
+目标：确认 P1 还剩哪几类工作：RSSHub、changedetection、manual replace、replacement target。
 
-## 5. PushPlus / ClawBot 接入说明
+### 5.4 看当前路线图
 
-当前仓库默认 PushPlus 渠道可走 `clawbot`，并且已经支持 OpenAPI 验证最终送达状态。
+读 `V1升级方案.md`，确认：
 
-### 必备配置
+- 当前主阶段是不是仍是 P1
+- P1 的退出条件有哪些
+- 下一阶段是不是 P2（AI 网关 / tracing）
+
+### 5.5 看交接备忘录
+
+`交接备忘录.md` 只记录“最容易丢的上下文”：
+
+- 用户明确偏好
+- 当前不做什么
+- 建议下一步顺序
+
+这份文件是最快的方向校准器。
+
+## 6. 当前确认过的状态快照（2026-04-17）
+
+当前确定成立的项目状态：
+
+- 直接在 `main` 上工作，不建立功能分支
+- 文档主入口已经统一收口到仓库根目录
+- 当前主线优先级仍是 `P1：来源稳定性升级`
+- PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
+- 本地验证基线已经提升并固定到 `210 passed`
+- 最新一次本地 reviewed 验证时间为 `2026-04-17T02:34:21.756329+08:00`，本轮 `report_topics=82`、`risk_level=medium`、三个渠道均按预期 `skipped`
+
+目前已经落地的关键收口：
+
+- PushPlus / ClawBot 最终送达验证
+- `source_health` per-source breakdown
+- `source_health` failure-only 统计
+- 统一 `source_registry` builder
+- `source_governance` 队列与 JSON artifact
+- ops dashboard 的 `Source Failure Breakdown`
+- ops dashboard 的 `Source Registry` / 治理队列表格
+- `arxiv-cs-ai` 切到官方 Atom 查询接口
+- `NVIDIA/cuda-cmake` 替换为 `NVIDIA/TensorRT`
+- `st-blog` / `ti-e2e-blog` 已禁用
+
+最近仓库快照显示的未完成重点：
+
+- 第一批 RSSHub route 还没真正落表
+- changedetection watch 清单还没真正建立
+- `meta-ai-blog` / `nxp-edge-ai` / `ti-e2e-blog` 等 manual review 槽位还需要替换决策
+- 高价值脆弱 listing 来源仍需要补 `replacement_target` 或旁路方案
+
+最近可见的 source failure 示例：
+
+- `qwen-blog`
+- `openvino-blog`
+- `google-ai-edge`
+- `huggingface-blog`
+- `meta-ai-blog`
+- `arxiv-cs-ai`
+
+这些示例说明：P1 不再是“知道要治理”，而是已经有清单、有标签、有 next action，下一步该把治理动作真正落地。
+
+## 7. CLI 命令地图
+
+### 7.1 每日 / 手工运行
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once
+python -m auto_report.cli run-once --publication-mode reviewed
+python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>
+```
+
+### 7.2 补报与重渲染
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli backfill --target-date YYYY-MM-DD
+python -m auto_report.cli render-report --publication-mode auto
+python -m auto_report.cli render-report --publication-mode reviewed --reviewer <name> --review-note <text>
+```
+
+### 7.3 构建页面与内部产物
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli build-pages
+python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
+python -m auto_report.cli build-review-queue
+```
+
+### 7.4 诊断交付
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli diagnose-delivery --mode canary
+python -m auto_report.cli diagnose-delivery --mode canary --send
+python -m auto_report.cli diagnose-delivery --mode full-report --send
+```
+
+### 7.5 离线评估与 workflow 校验
+
+```powershell
+$env:PYTHONPATH='src'
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+python -m pytest tests -q
+```
+
+## 8. 本地验收、推仓、远端触发的标准顺序
+
+只要涉及 workflow、交付、页面、状态 schema、来源治理，默认都用这个顺序：
+
+### 8.1 本地完整验收
+
+```powershell
+$env:PYTHONPATH='src'
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m pytest tests -q
+python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AUTO_PUSH_ENABLED='false'
+python -m auto_report.cli run-once --publication-mode reviewed
+python -m auto_report.cli build-pages
+python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
+python -m auto_report.cli build-review-queue
+git status --short
+```
+
+通过标准：
+
+- workflow guard 通过
+- pytest 通过
+- prompt eval 通过
+- reviewed 轨本地跑通
+- Pages / ops dashboard / source governance / review queue 能重建
+- 没有异常运行产物残留
+
+### 8.2 推送到远端
+
+```powershell
+git add <changed-files>
+git commit -m "docs: refresh handoff manuals"
+git push origin main
+```
+
+### 8.3 手动触发 GitHub workflow
+
+建议优先触发 `Collect And Report`，并先把真实推送关掉：
+
+```powershell
+gh workflow run collect-report.yml --ref main -f push_enabled=false -f publication_mode=reviewed -f reviewer=manual-check -f review_note=post-push-verification
+```
+
+或者在 GitHub Actions UI 中手动点：
+
+- Workflow：`Collect And Report`
+- Branch：`main`
+- `push_enabled = false`
+- `publication_mode = reviewed`
+
+### 8.4 远端核对结果
+
+至少确认：
+
+- `workflow-guard`、`test`、`collect`、`analyze`、`report` 都通过
+- `deploy-pages`、`ops-dashboard`、`review-queue` 都通过
+- 没有新出现的 reliability issue
+
+## 9. PushPlus / ClawBot 接入要点
+
+当前仓库默认 PushPlus 可走 `clawbot`，但判定标准已经升级：
+
+- 不是 `/send` 返回 `code=200` 就算成功
+- 必须进一步检查 OpenAPI 的最终送达状态
 
 `.env` 至少需要：
 
@@ -187,251 +454,71 @@ PUSHPLUS_SECRETKEY=...
 PUSHPLUS_CHANNEL=clawbot
 ```
 
-### PushPlus 后台需要确认的三件事
+PushPlus 后台要确认：
 
 1. 开启开放接口
 2. 配置 `secretKey`
-3. 在开放接口安全设置里把调用机器的公网 IP 加到白名单
+3. 调用机器公网 IP 已进白名单
 
-### ClawBot 额外限制
+ClawBot 额外事实：
 
-根据 PushPlus 官方文档，ClawBot 不是普通 webhook：
+- 首次要扫码绑定
+- 绑定后要主动发起一次对话
+- 每 10 次消息需要重新主动对话一次
+- 每隔 24 小时也需要一次主动对话
 
-- 首次需要扫码绑定
-- 绑定后需要主动发起一次对话
-- 每下发 10 次消息后，需要再主动发起一次对话
-- 每隔 24 小时，也需要有一次主动对话
+当前仓库中的判定逻辑：
 
-因此：
+- `haveContextToken=1` 且 `delivery_status=2` -> 真正送达成功
+- `haveContextToken=0` -> ClawBot 失活，需要用户主动发消息恢复
+- `delivery_status=3` -> 明确投递失败
+- OpenAPI `401/403` -> 授权或安全 IP 配置问题
 
-- `/send` 接口返回 `code=200` 不等于微信侧一定已收到
-- 现在仓库会进一步用 OpenAPI 检查：
-  - `haveContextToken`
-  - `delivery_status`
-
-### 当前仓库里的判定逻辑
-
-- `haveContextToken=1` 且 `delivery_status=2`
-  - 视为真正送达成功
-- OpenAPI 返回 `401/403`
-  - 视为授权或安全 IP 配置问题
-- `haveContextToken=0`
-  - 视为 ClawBot 失活，需要用户主动发消息恢复上下文
-- `delivery_status=3`
-  - 视为 PushPlus 已明确判定投递失败
-
-## 6. 常用命令
-
-### 生成当天日报
-
-```powershell
-python -m auto_report.cli run-once
-```
-
-### 生成人工复核版
-
-```powershell
-python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>
-```
-
-如果只是先确认 reviewed 轨是否能生成：
-
-```powershell
-python -m auto_report.cli run-once --publication-mode reviewed
-```
-
-### 补报
-
-```powershell
-python -m auto_report.cli backfill --target-date YYYY-MM-DD
-```
-
-### 重渲染当前状态
-
-```powershell
-python -m auto_report.cli render-report --publication-mode auto
-python -m auto_report.cli render-report --publication-mode reviewed --reviewer <name> --review-note <text>
-```
-
-### 诊断推送
-
-```powershell
-python -m auto_report.cli diagnose-delivery --mode canary
-python -m auto_report.cli diagnose-delivery --mode canary --send
-python -m auto_report.cli diagnose-delivery --mode full-report --send
-```
-
-### 构建公开站 / 运维产物
-
-```powershell
-python -m auto_report.cli build-pages
-python -m auto_report.cli build-ops-dashboard
-python -m auto_report.cli build-source-governance
-python -m auto_report.cli build-review-queue
-```
-
-### Prompt 评估
-
-```powershell
-python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
-```
-
-## 7. 本地验收基线
-
-当前已验证基线：`210 passed`
-
-推荐完整验收：
-
-```powershell
-$env:PYTHONPATH='src'
-pwsh ./scripts/check-workflows.ps1 -Profile full
-python -m pytest tests -q
-python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
-python -m auto_report.cli run-once --publication-mode reviewed
-python -m auto_report.cli build-pages
-python -m auto_report.cli build-ops-dashboard
-python -m auto_report.cli build-source-governance
-python -m auto_report.cli build-review-queue
-git status --short
-```
-
-验收标准：
-
-- workflow guard 通过
-- pytest 通过
-- prompt eval 通过
-- reviewed 轨本地跑通（本地验收默认关闭推送）
-- Pages / ops dashboard / review queue 可重建
-- source governance artifact 可重建
-- `git status --short` 没有异常运行产物残留
-
-## 8. workflow 拓扑
-
-入口 workflow：
-
-- `.github/workflows/collect-report.yml`
-- `.github/workflows/backfill-report.yml`
-- `.github/workflows/compensate-report.yml`
-- `.github/workflows/delivery-canary.yml`
-
-本地 workflow 校验入口：
-
-- `scripts/check-workflows.ps1`
-- `src/auto_report/workflow_guard.py`
-
-支持固定 profile：
-
-- `daily`
-- `recovery`
-- `full`
-
-一个关键事实：
-
-- `workflow_dispatch` 始终跑远端已 push 代码，不会读取本地未 push 修改
-
-所以 workflow 相关改动的正确顺序必须是：
-
-1. 本地验证
-2. push 到远端
-3. 再触发线上 workflow
-
-## 9. 推送与交付约束
-
-当前版本的重要收口约束：
-
-1. 所有渠道消息必须同时带：
-   - 公开站入口
-   - GitHub 原文入口
-2. `public limitations` 只保留编辑性限制，采集器异常进入 `source_health`
-3. `source_health` 与 `ai_metrics` 是正式 observability 面
-4. 报告时间、归档日期、`generated_at` 必须保持同一时区语义
-5. reviewed 元数据允许为空
-
-## 10. 来源清洗现状
-
-截至 2026-04-17，已经完成并固化到配置 / 运行态的治理基础包括：
-
-- `config/sources/github.yaml`
-  - 将失效的 `NVIDIA/cuda-cmake` 替换为 `NVIDIA/TensorRT`
-- `config/sources/websites.yaml`
-  - 将长期失效的 `st-blog` 标记为 `enabled: false`
-  - 将已返回 `410 Gone` 的 `ti-e2e-blog` 标记为 `enabled: false`
-- `config/sources/*.yaml`
-  - 已开始记录 `stability_tier`、`replacement_hint`、`watch_strategy`、`replacement_target`
-- `run-status.json`
-  - 已开始写入 `source_registry` 与 `source_governance`
-- `out/source-governance/source-governance.json`
-  - 已可输出面向后续 RSSHub / changedetection 落地的候选清单
-
-保留禁用槽位的原因：
-
-- 方便后续恢复或替换，不丢失领域覆盖意图
-- 未来更适合通过 RSSHub / Firecrawl / changedetection 侧车来补齐这类来源
-
-## 11. 新维护者接手清单
-
-建议第一次接手按这个顺序：
-
-1. 读完本手册第 2、3、5、7、8、9、10 节
-2. 跑一次完整本地验收
-3. 检查：
-   - `data/state/run-status.json`
-   - `data/reports/latest-summary-reviewed.md`
-   - `out/source-governance/source-governance.json`
-   - `docs/index.html`
-4. 抽查至少一个真实推送渠道
-5. 最后确认 `git status --short` 没有异常运行产物
-
-## 12. 最容易踩的坑
+## 10. 最容易踩的坑
 
 - 忘记设置 `$env:PYTHONPATH='src'`
-- 只看 workflow 颜色，不核对 `delivery_results`
-- 本地改了 workflow，却没 push 就去点 `workflow_dispatch`
-- 只看 PushPlus `/send` 的 `code=200`，没看 ClawBot 的激活状态和最终送达状态
-- 修改状态 schema 却没同步更新 dashboard、页面或测试
-- 把信息性 diagnostics（例如 HN 抓取统计）误当成 `source_health` 失败项
-- 保留了长期 404/410 来源，导致 `source_health` 噪音越来越大
+- 只看 Actions 颜色，不看 `run-status.json`
+- 改了 workflow 却没 push 就去手动 dispatch
+- 把 PushPlus `/send` 的成功误认为真正送达成功
+- 修改状态 schema 但没同步 dashboard / 页面 / 测试
+- 把信息性诊断误记入 `source_health`
+- 修完本地后忘了再核对远端 workflow 结果
 
-## 13. 推荐进一步阅读
+## 11. 新会话 AI 启动提示词（可直接复制）
 
-- `README.md`
-- `用户操作手册.md`
-- `V1升级方案.md`
-- `交接备忘录.md`
-- `AGENTS.md`
+```text
+你现在接手仓库 D:\GitHub\auto（VS_AI）。
 
-## 14. 当前交接状态（2026-04-17）
+先不要假设上下文仍然存在，请按下面顺序恢复：
+1. 读取 README.md、AI对接手册.md、交接备忘录.md、V1升级方案.md
+2. 读取 data/state/run-status.json 和 out/source-governance/source-governance.json
+3. 查看 git status --short 和 git log --oneline -10
+4. 说明当前项目阶段、最近已完成事项、未完成高优先级事项
+5. 给出下一步建议顺序，并说明本地验证 / push / workflow_dispatch 的正确顺序
 
-这一轮已经完成并验证的核心事项：
+已知固定事实：
+- 工作区是 D:\GitHub\auto
+- 远端是 git@github.com:wsysgz/VS_AI.git
+- 当前优先级是 P1：来源稳定性升级
+- 运行态真相文件是 data/state/run-status.json
+- 手动触发 workflow 前必须先 push
+- 直接在 main 上工作，不创建功能分支
+- Telegram 暂不作为当前优化优先级
+```
 
-- PushPlus / ClawBot 最终送达验证已打通，当前判定逻辑以 `haveContextToken` 和 `delivery_status` 为准
-- 文档已收口为根目录统一入口，不再依赖旧的 `docs/HANDOFF.md`、`docs/OPS_RUNBOOK.md`、`docs/USER_GUIDE.md`
-- 来源清洗第一轮已落地：
-  - `NVIDIA/cuda-cmake` -> `NVIDIA/TensorRT`
-  - `st-blog` 禁用
-  - `ti-e2e-blog` 禁用
-- P1 来源治理基础层已落地：
-  - `source_health` 现在支持 per-source breakdown
-  - `source_health` 现在只统计 failure diagnostics，不再混入信息性消息
-  - `source_registry` 已有统一 builder，并带默认治理元数据
-  - `source_governance` 已能输出 manual review / RSSHub / changedetection / replacement 候选队列
-  - ops dashboard 新增 `Source Failure Breakdown`
-  - ops dashboard 新增 `Source Registry` 与治理队列表格
-  - `build-source-governance` CLI 和 `reusable-ops-dashboard.yml` artifact 已接通
-  - `arxiv-cs-ai` 已切到官方 Atom 查询接口
-  - 本地验证基线已更新为 `210 passed`
+## 12. AI 接手后的首小时清单
 
-当前用户明确要求与工作偏好：
+建议第一小时只做下面这些高价值动作：
 
-- 直接在 `main` 上工作，不创建功能分支
-- Telegram 当前视为网络环境问题，不作为当前优化优先级
-- 当前优先级是继续推进 P1（来源稳定性升级）
-- `README.md` 和总手册的大幅改版等到 V1 基本完成后再继续做审美/结构优化
+1. 确认仓库干净、确认最近提交方向
+2. 读取 `run-status.json` 和 `source-governance.json`
+3. 判断当前工作属于：文档、来源治理、workflow、推送诊断、页面输出中的哪一类
+4. 如果是代码或配置改动，先定义本地验收命令
+5. 完成本地验证后再考虑 `push` 与远端 dispatch
 
-建议下一位接手者优先按这个顺序推进：
+如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. 为高价值脆弱来源补第一批明确的 RSSHub route
-2. 形成第一版 changedetection.io watch 清单
-3. 为剩余脆弱来源补 `replacement_target`
-4. 继续把 `source_governance` 输出变成更直接的运维优先级视图
-
+1. P1 来源稳定性升级
+2. workflow / delivery 的可验证性
+3. 文档与交接一致性
+4. P2 之前不要主动把注意力转去大规模架构重写
