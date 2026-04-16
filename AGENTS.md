@@ -9,7 +9,7 @@
 
 ## Project Status
 
-- Current baseline: `191 passed`
+- Current baseline: `198 passed`
 - Main workflow chain:
   - workflow guard
   - tests
@@ -24,9 +24,9 @@
 ## Doc Entry Points
 
 1. `README.md`
-2. `docs/HANDOFF.md`
-3. `docs/OPS_RUNBOOK.md`
-4. `docs/USER_GUIDE.md`
+2. `AI对接手册.md`
+3. `用户操作手册.md`
+4. `V1升级方案.md`
 
 ## Local-First Verification
 
@@ -69,3 +69,4 @@ python -m auto_report.cli build-review-queue
 2. Use `source_stats.report_topics`; do not reintroduce `filtered_topics`.
 3. Public `limitations` should stay editorial; source failures belong in `source_health`.
 4. Workflow output writeback is concurrency-sensitive; keep the current snapshot-and-replay push strategy in reusable workflows.
+

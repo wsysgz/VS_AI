@@ -24,6 +24,22 @@ def test_summarize_delivery_results_keeps_success_and_error_channels():
 def test_channel_response_helpers_detect_success_and_descriptions():
     assert channel_response_succeeded("pushplus", {"code": 200, "msg": "ok"}) is True
     assert channel_response_succeeded(
+        "pushplus",
+        {
+            "code": 200,
+            "msg": "ok",
+            "verification": {"available": False, "reason": "openapi_unavailable"},
+        },
+    ) is False
+    assert channel_response_succeeded(
+        "pushplus",
+        {
+            "code": 200,
+            "msg": "ok",
+            "verification": {"available": True, "delivery": {"status": 2}},
+        },
+    ) is True
+    assert channel_response_succeeded(
         "telegram", [{"ok": True}, {"ok": True}]
     ) is True
     assert channel_response_succeeded(
@@ -35,6 +51,23 @@ def test_channel_response_helpers_detect_success_and_descriptions():
     assert describe_channel_response(
         "feishu", [{"code": 0, "msg": "success"}]
     ) == "success"
+
+
+def test_describe_channel_response_includes_clawbot_verification_note():
+    detail = describe_channel_response(
+        "pushplus",
+        {
+            "code": 200,
+            "msg": "执行成功",
+            "verification": {
+                "available": False,
+                "reason": "missing_secret_key",
+                "note": "ClawBot accepted by API only; final delivery requires active chat context and cannot be verified without PUSHPLUS_SECRETKEY.",
+            },
+        },
+    )
+
+    assert "ClawBot accepted by API only" in detail
 
 
 def test_build_channel_result_preserves_error_type_and_attempted_at():

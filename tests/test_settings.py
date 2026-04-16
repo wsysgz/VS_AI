@@ -76,3 +76,25 @@ def test_load_settings_includes_edge_infra_source_pack():
     assert "google-ai-edge" in website_sources
     assert "openvino-blog" in website_sources
     assert "nxp-edge-ai" in website_sources
+
+
+def test_load_settings_uses_live_curated_chip_ai_repositories():
+    settings = load_settings(Path.cwd())
+    github_sources = {
+        source["id"]: source for source in settings.sources["github"]["sources"]
+    }
+
+    repos = github_sources["curated-chip-ai-repos"]["repositories"]
+
+    assert "NVIDIA/TensorRT" in repos
+    assert "NVIDIA/cuda-cmake" not in repos
+
+
+def test_load_settings_disables_dead_vendor_ai_blog_slots():
+    settings = load_settings(Path.cwd())
+    website_sources = {
+        source["id"]: source for source in settings.sources["websites"]["sources"]
+    }
+
+    assert website_sources["st-blog"]["enabled"] is False
+    assert website_sources["ti-e2e-blog"]["enabled"] is False

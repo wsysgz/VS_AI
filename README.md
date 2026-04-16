@@ -1,51 +1,53 @@
 # VS_AI
 
-VS_AI is a daily AI intelligence workflow for collecting signals, generating structured analysis, publishing reports, and updating a public reading site.
+VS_AI is an engineering-focused daily AI intelligence pipeline that collects signals, builds structured analysis, publishes multi-channel reports, and maintains a public reading site.
 
-VS_AI 是一个面向每日 AI 情报生产的自动化工程，负责采集多源信号、生成结构化分析、推送多渠道报告，并持续更新公开阅读站。
+VS_AI 是一个工程化的每日 AI 情报生产系统，负责采集多源信号、生成结构化分析、输出多渠道报告，并持续维护公开阅读站。
 
-Public site / 公开站点:
+Public site / 公开站入口:
 `https://wsysgz.github.io/VS_AI/`
 
-## Overview / 项目概览
+## Snapshot / 项目快照
 
-- Focus:
+- Workspace / 本地工作区:
+  - `D:\GitHub\auto`
+- Canonical remote / 目标远端:
+  - `git@github.com:wsysgz/VS_AI.git`
+- Focus / 关注领域:
   - AI / LLM / Agent
-  - AI × Electronics
-- Daily output:
-  - structured report
-  - public Pages site
-  - PushPlus short summary
-  - Feishu medium summary
-  - Telegram full report
-- Publishing rule:
-  - every push message includes the public site link
-  - every push message includes the current GitHub raw report link
-  - `auto` and `reviewed` modes are both supported
+  - AI x Electronics
+- Publication modes / 发布轨:
+  - `auto`
+  - `reviewed`
+- Notification rule / 推送规则:
+  - every notification includes the public site entry
+  - every notification includes the matching GitHub raw report link
+- Verification baseline / 当前验证基线:
+  - `198 passed`
 
-## Capabilities / 核心能力
+## What It Does / 系统能力
 
-- Multi-source collection from RSS, GitHub, Hacker News, and curated websites.
-- Topic deduplication, scoring, clustering, analysis, summary, and forecast generation.
-- Dual-track publishing with `auto` and `reviewed` outputs.
-- Public Pages generation with archive, weekly, special, feed, and RSS outputs.
-- Delivery observability through `run-status.json`, review queue, and ops dashboard artifacts.
-- Workflow validation with fixed local profiles: `daily`, `recovery`, `full`.
+- Collects from RSS, GitHub, Hacker News, and curated websites.
+- Deduplicates, scores, clusters, and builds topic packages for report generation.
+- Runs AI analysis, summary, and forecast stages with unified `ai_metrics`.
+- Publishes Markdown, HTML, JSON, PushPlus, Feishu, and Telegram outputs.
+- Builds a public Pages site with archives, weekly pages, special topics, feed, and RSS.
+- Exposes delivery, review, risk, and source health signals through `run-status.json`.
 
-## Repository Layout / 目录结构
+## Manual Map / 手册分工
 
-```text
-.
-├─ .github/workflows/    GitHub Actions workflows
-├─ config/               sources, providers, prompts, evaluation dataset
-├─ data/                 reports, archives, state
-├─ docs/                 manuals + published Pages outputs
-├─ scripts/              bootstrap and workflow validation scripts
-├─ src/auto_report/      application source code
-└─ tests/                test suite
-```
+- [AI对接手册.md](AI对接手册.md)
+  - 面向开发、运维、交接，统一说明架构、配置、状态文件、渠道接入、验证基线和接手顺序。
+- [用户操作手册.md](用户操作手册.md)
+  - 面向使用者和值班同学，讲清楚怎么启动、怎么跑日报、怎么查看结果、怎么做常见操作。
+- [V1升级方案.md](V1升级方案.md)
+  - 面向后续优化升级，汇总可直接复用的外部项目、推荐技术路线和分阶段改造计划。
+- [AGENTS.md](AGENTS.md)
+  - 面向代理和自动化协作，记录本仓库的工程约束与验证基线。
 
 ## Quick Start / 快速开始
+
+### 1. Prepare the environment / 准备环境
 
 ```powershell
 cd D:\GitHub\auto
@@ -56,31 +58,43 @@ pip install -e .
 Copy-Item .env.example .env
 ```
 
-Fill `.env` with the keys you need:
+Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
 
-- `DEEPSEEK_API_KEY` or `OPENAI_API_KEY` / `AI_API_KEY`
-- `PUSHPLUS_TOKEN`
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
-- `FEISHU_APP_ID`
-- `FEISHU_APP_SECRET`
-- `FEISHU_CHAT_ID`
+- AI:
+  - `DEEPSEEK_API_KEY`
+  - or `OPENAI_API_KEY` / `AI_API_KEY`
+- Delivery:
+  - `PUSHPLUS_TOKEN`
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
+  - `FEISHU_APP_ID`
+  - `FEISHU_APP_SECRET`
+  - `FEISHU_CHAT_ID`
 
-Then run:
+### 2. Run once / 本地生成一次日报
 
 ```powershell
 $env:PYTHONPATH='src'
 python -m auto_report.cli run-once
 ```
 
-If you need a reviewed publication:
+### 3. Run reviewed mode / 生成人工复核轨
 
 ```powershell
 $env:PYTHONPATH='src'
 python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>
 ```
 
-## Verification / 验证基线
+If reviewer metadata is not ready yet, reviewed mode still works / 如果暂时没有复核人和备注，也可以先跑:
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli run-once --publication-mode reviewed
+```
+
+## Verification / 发布前验证
+
+Run from `D:\GitHub\auto`:
 
 ```powershell
 $env:PYTHONPATH='src'
@@ -89,39 +103,77 @@ python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
+python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-review-queue
 ```
 
-Current baseline: `191 passed`
+Workflow validation profiles / workflow 校验档位:
 
-## Manuals / 手册入口
+- `daily`
+  - `collect-report.yml`
+  - `delivery-canary.yml`
+- `recovery`
+  - `backfill-report.yml`
+  - `compensate-report.yml`
+- `full`
+  - 全量校验以上四个入口 workflow
 
-- [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
-  - Daily usage guide for local runs, report viewing, reviewed output, page rebuilds, and common tasks.
-- [docs/OPS_RUNBOOK.md](docs/OPS_RUNBOOK.md)
-  - Operations runbook for validation, GitHub Actions, incident triage, and production acceptance.
-- [docs/HANDOFF.md](docs/HANDOFF.md)
-  - Technical handoff guide covering architecture, module responsibilities, configuration model, and extension points.
-- [AGENTS.md](AGENTS.md)
-  - Project-local agent instructions and engineering guardrails.
+## Publishing Surface / 发布面
 
-## Outputs / 主要产物
+Latest report outputs / 最新报告产物:
 
-- Latest reports:
-  - `data/reports/latest-summary.*`
-  - `data/reports/latest-summary-auto.*`
-  - `data/reports/latest-summary-reviewed.*`
-- Runtime state:
-  - `data/state/run-status.json`
-- Public site:
-  - `docs/index.html`
-  - `docs/archives/`
-  - `docs/weekly/`
-  - `docs/special/`
-  - `docs/feed.json`
-  - `docs/rss.xml`
+- `data/reports/latest-summary.*`
+- `data/reports/latest-summary-auto.*`
+- `data/reports/latest-summary-reviewed.*`
 
-## Notes / 说明
+Runtime state / 运行状态:
 
-- Local verification should always happen before pushing to GitHub.
-- `workflow_dispatch` on GitHub always runs the pushed remote ref, not your local unpushed changes.
-- The public site entry is always `https://wsysgz.github.io/VS_AI/`; notifications do not switch to archive URLs.
+- `data/state/run-status.json`
+
+Public site / 公开站产物:
+
+- `docs/index.html`
+- `docs/archives/`
+- `docs/weekly/`
+- `docs/special/`
+- `docs/feed.json`
+- `docs/rss.xml`
+
+Push channel behavior / 推送渠道策略:
+
+- PushPlus:
+  - short
+  - risk-alert
+- Feishu:
+  - medium
+  - reviewed-note
+- Telegram:
+  - long
+  - reviewed-long
+
+All three channels always include / 三条推送始终同时带:
+
+- `公开阅读： https://wsysgz.github.io/VS_AI/`
+- `GitHub 原文： <当前 latest-summary 对应链接>`
+
+## Repository Layout / 仓库结构
+
+```text
+.
+├─ .github/workflows/    workflow entrypoints and reusable workflows
+├─ config/               providers, sources, domains, prompts, eval dataset
+├─ data/                 reports, archives, runtime state
+├─ docs/                 manuals and published Pages outputs
+├─ scripts/              local validation helpers
+├─ src/auto_report/      application source code
+└─ tests/                regression and behavior tests
+```
+
+## Key Notes / 关键说明
+
+- Local verification comes before push.
+- `workflow_dispatch` always runs the pushed remote ref, not local unpushed edits.
+- The public reading link always stays at `https://wsysgz.github.io/VS_AI/`; it does not switch to archive URLs.
+- `run-status.json` is the operational source of truth for delivery, review, AI metrics, and source health.
+- Report timestamps and archive dates follow the configured timezone so compensation logic can judge same-day status correctly.
+

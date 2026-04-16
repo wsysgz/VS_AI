@@ -48,7 +48,17 @@ def channel_response_succeeded(name: str, response: object) -> bool:
         return False
 
     if name == "pushplus":
-        return bool(items[0].get("code") in (0, 200))
+        first = items[0]
+        if first.get("code") not in (0, 200):
+            return False
+        verification = first.get("verification")
+        if isinstance(verification, dict):
+            if verification.get("available") is False:
+                return False
+            delivery = verification.get("delivery")
+            if isinstance(delivery, dict) and delivery.get("status") == 3:
+                return False
+        return True
     if name == "telegram":
         return all(bool(item.get("ok")) for item in items)
     if name == "feishu":
@@ -68,7 +78,18 @@ def describe_channel_response(name: str, response: object) -> str:
     if name == "pushplus":
         code = first.get("code")
         msg = first.get("msg")
-        return f"code={code}" if not msg else f"code={code} {msg}"
+        detail = f"code={code}" if not msg else f"code={code} {msg}"
+        verification = first.get("verification")
+        if isinstance(verification, dict):
+            note = verification.get("note")
+            if isinstance(note, str) and note:
+                return f"{detail} ({note})"
+            delivery = verification.get("delivery")
+            if isinstance(delivery, dict) and delivery:
+                status = delivery.get("status")
+                if status is not None:
+                    return f"{detail} (delivery_status={status})"
+        return detail
 
     if name == "telegram":
         description = first.get("description")

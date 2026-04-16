@@ -169,7 +169,7 @@ sources:
       - white paper
   # --- Round 4 expansion: AI × Electronics high-quality official sources ---
   - id: st-blog
-    enabled: true
+    enabled: false
     mode: article_listing
     url: https://blog.st.com/artificial-intelligence/
     category_hint: ai-x-electronics
@@ -193,6 +193,8 @@ sources:
       - event
       - register
       - white paper
+    # Disabled after repeated 404s on the category landing page.
+    # Keep the slot visible until a stable ST AI listing page is identified.
   - id: infineon-blog
     enabled: true
     mode: article_listing
@@ -218,7 +220,7 @@ sources:
       - register
       - invitation
   - id: ti-e2e-blog
-    enabled: true
+    enabled: false
     mode: article_listing
     url: https://e2e.ti.com/blogs_/artificial-intelligence
     category_hint: ai-x-electronics
@@ -242,3 +244,5 @@ sources:
       - event
       - register
       - training
+    # Disabled after the old E2E AI blog URL started returning 410 Gone.
+    # Replace with a current TI AI listing page in a later pass.
