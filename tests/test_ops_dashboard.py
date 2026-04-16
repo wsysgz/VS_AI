@@ -1,4 +1,5 @@
 import json
+import shutil
 from pathlib import Path
 
 from auto_report.outputs.ops_dashboard import build_ops_dashboard
@@ -58,12 +59,16 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
                     "sources": {
                         "openai-news": {
                             "collector": "rss",
+                            "stability_tier": "stable-feed",
+                            "replacement_hint": "",
                             "failure_count": 1,
                             "error_categories": ["not_found"],
                             "last_error": "RSS source failed: openai-news -> 404 Client Error: Not Found",
                         },
                         "openai-blog": {
                             "collector": "websites",
+                            "stability_tier": "fragile-listing",
+                            "replacement_hint": "Replace with a stable listing page",
                             "failure_count": 1,
                             "error_categories": ["timeout"],
                             "last_error": "Website collectors timed out: openai-blog",
@@ -101,9 +106,12 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
     assert "180" in html
     assert "Source Health" in html
     assert "Source Failure Breakdown" in html
+    assert "Replacement Hint" in html
     assert "Review Metadata" in html
     assert "checked key sources" in html
     assert "openai-blog" in html
+    assert "fragile-listing" in html
+    assert "Replace with a stable listing page" in html
 
 
 def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tmp_path: Path):
@@ -243,3 +251,102 @@ def test_build_ops_dashboard_renders_external_enrichment_section(tmp_path: Path)
     assert "Topic C" in html
     assert "0.50" in html
     assert "open" in html
+
+
+def test_build_ops_dashboard_renders_source_registry_from_config(tmp_path: Path):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    state_dir = tmp_path / "data" / "state"
+    state_dir.mkdir(parents=True)
+    (state_dir / "run-status.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-17T08:00:00+08:00",
+                "pushed": False,
+                "push_channel": "",
+                "risk_level": "low",
+                "scheduler": {"trigger_kind": "manual", "compensation_run": False},
+                "delivery_results": {
+                    "successful_channels": [],
+                    "failed_channels": [],
+                    "skipped_channels": [],
+                    "channels": {},
+                },
+                "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+                "source_stats": {"collected_items": 0, "report_topics": 0},
+                "timings": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    html = build_ops_dashboard(tmp_path).read_text(encoding="utf-8")
+
+    assert "Source Registry" in html
+    assert "anthropic-news" in html
+    assert "NVIDIA/TensorRT" in html
+    assert "hacker_news" in html
+    assert "fragile-listing" in html
+    assert "stable-feed" in html
+    assert "dynamic-site" in html
+    assert "manual-watch" in html
+    assert "listing-poll" in html
+    assert "repo-poll" in html
+    assert "manual-review" in html
+    assert "rsshub-or-feed" in html
+    assert "official-meta-feed" in html
+    assert "Manual Review Focus" in html
+    assert "meta-ai-blog" in html
+    assert "st-blog" in html
+    assert "ti-e2e-blog" in html
+    assert "Source Governance Queue" in html
+    assert "RSSHub Candidates" in html
+    assert "changedetection Candidates" in html
+    assert "Replacement Candidates" in html
+    assert "google-ai-edge" in html
+
+
+def test_build_ops_dashboard_prefers_source_registry_from_run_status(tmp_path: Path):
+    state_dir = tmp_path / "data" / "state"
+    state_dir.mkdir(parents=True)
+    (state_dir / "run-status.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-17T09:00:00+08:00",
+                "pushed": False,
+                "push_channel": "",
+                "risk_level": "low",
+                "scheduler": {"trigger_kind": "manual", "compensation_run": False},
+                "delivery_results": {
+                    "successful_channels": [],
+                    "failed_channels": [],
+                    "skipped_channels": [],
+                    "channels": {},
+                },
+                "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+                "source_stats": {"collected_items": 0, "report_topics": 0},
+                "timings": {},
+                "source_registry": {
+                    "custom-source": {
+                        "collector": "rss",
+                        "enabled": True,
+                        "mode": "rss_feed",
+                        "source_group": "custom-source",
+                        "stability_tier": "stable-feed",
+                        "replacement_hint": "Keep the live feed",
+                        "watch_strategy": "feed-poll",
+                        "replacement_target": "none",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    html = build_ops_dashboard(tmp_path).read_text(encoding="utf-8")
+
+    assert "Source Registry" in html
+    assert "custom-source" in html
+    assert "Keep the live feed" in html
+    assert "feed-poll" in html

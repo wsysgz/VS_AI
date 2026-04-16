@@ -158,6 +158,25 @@ def _default_review_status() -> dict[str, str]:
     }
 
 
+def _default_source_registry_status() -> dict[str, object]:
+    return {}
+
+
+def _default_source_governance_status() -> dict[str, object]:
+    return {
+        "summary": {
+            "manual_review_count": 0,
+            "rsshub_candidate_count": 0,
+            "changedetection_candidate_count": 0,
+            "replacement_candidate_count": 0,
+        },
+        "manual_review": [],
+        "rsshub_candidates": [],
+        "changedetection_candidates": [],
+        "replacement_candidates": [],
+    }
+
+
 def build_run_status(
     generated_files: list[str],
     pushed: bool,
@@ -174,6 +193,8 @@ def build_run_status(
     external_enrichment: dict[str, Any] | None = None,
     ai_metrics: dict[str, Any] | None = None,
     source_health: dict[str, Any] | None = None,
+    source_registry: dict[str, Any] | None = None,
+    source_governance: dict[str, Any] | None = None,
     review: dict[str, str] | None = None,
     error: str | None = None,
 ) -> dict[str, object]:
@@ -196,6 +217,8 @@ def build_run_status(
         "external_enrichment": external_enrichment or _default_external_enrichment_status(),
         "ai_metrics": ai_metrics or _default_ai_metrics_status(),
         "source_health": source_health or _default_source_health_status(),
+        "source_registry": source_registry or _default_source_registry_status(),
+        "source_governance": source_governance or _default_source_governance_status(),
         "review": review or _default_review_status(),
         "scheduler": scheduler or {
             "trigger_kind": "manual",

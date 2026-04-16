@@ -23,7 +23,7 @@ Public site / 公开站入口:
   - every notification includes the public site entry
   - every notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `200 passed`
+  - `210 passed`
 
 ## What It Does / 系统能力
 
@@ -37,7 +37,7 @@ Public site / 公开站入口:
 ## Manual Map / 手册分工
 
 - [AI对接手册.md](AI对接手册.md)
-  - 面向开发、运维、交接，统一说明架构、配置、状态文件、渠道接入、验证基线和接手顺序。
+  - 面向开发、运维、交接，也是新会话 AI / 新维护者恢复上下文的第一入口。
 - [用户操作手册.md](用户操作手册.md)
   - 面向使用者和值班同学，讲清楚怎么启动、怎么跑日报、怎么查看结果、怎么做常见操作。
 - [V1升级方案.md](V1升级方案.md)
@@ -103,9 +103,11 @@ $env:PYTHONPATH='src'
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AUTO_PUSH_ENABLED='false'
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
 
@@ -140,6 +142,11 @@ Public site / 公开站产物:
 - `docs/special/`
 - `docs/feed.json`
 - `docs/rss.xml`
+
+Internal ops outputs / 内部治理产物:
+
+- `out/ops-dashboard/index.html`
+- `out/source-governance/source-governance.json`
 
 Push channel behavior / 推送渠道策略:
 

@@ -164,6 +164,14 @@ def test_reusable_review_queue_workflow_builds_review_queue_artifact():
     assert "name: review-queue" in content
 
 
+def test_reusable_ops_dashboard_workflow_uploads_source_governance_artifact():
+    content = (ROOT_DIR / ".github" / "workflows" / "reusable-ops-dashboard.yml").read_text(encoding="utf-8")
+
+    assert "python -m auto_report.cli build-source-governance" in content
+    assert "name: source-governance" in content
+    assert "path: out/source-governance/" in content
+
+
 def test_reusable_report_workflow_replays_rendered_data_on_latest_branch_before_pushing():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
 

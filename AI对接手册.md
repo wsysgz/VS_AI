@@ -2,9 +2,11 @@
 
 > 适用仓库：`D:\GitHub\auto`
 > 
-> 最后整理：2026-04-16
+> 最后整理：2026-04-17
 
 这份手册把原来的开发交接、运维操作、用户使用三类核心信息收口到一个地方，作为 VS_AI 的统一对接手册。
+
+> 如果是新会话 AI、上下文被清空后的 AI、或者第一次接手这个仓库的人，优先读这份手册。它的目标不是“帮你大概了解项目”，而是帮助你在最短时间内重新掌握工程结构、当前进度、验证方式和下一步该做什么。
 
 ## 1. 项目是什么
 
@@ -79,11 +81,15 @@ collect
 - `src/auto_report/integrations/feishu.py`
 - `src/auto_report/integrations/llm_client.py`
 
-## 3. 最重要的状态文件
+## 3. 最重要的状态文件与治理产物
 
 运行态唯一权威文件是：
 
 - `data/state/run-status.json`
+
+来源治理的内部产物是：
+
+- `out/source-governance/source-governance.json`
 
 它回答的核心问题包括：
 
@@ -96,6 +102,8 @@ collect
 - AI 调用了哪个 provider/model，用了多少 token
 - 当前是手动、定时还是补偿运行
 - 各阶段耗时多少
+- 当前来源 registry 是如何分层的
+- 哪些来源需要人工复核、RSSHub route、changedetection watch 或替代入口
 
 重点字段：
 
@@ -107,6 +115,8 @@ collect
 - `risk_level`
 - `source_stats.report_topics`
 - `source_health`
+- `source_registry`
+- `source_governance`
 - `ai_metrics`
 - `external_enrichment`
 - `scheduler`
@@ -116,7 +126,9 @@ collect
 
 - 正式字段名是 `source_stats.report_topics`，不要回退到 `filtered_topics`
 - `ai_metrics` 固定包含 `provider`、`model`、`calls`、`token_usage`、`latency_seconds`、`fallback_stages`
-- `source_health` 固定按 `not_found / timeout / request_error / other` 聚合
+- `source_health` 固定按 `not_found / timeout / request_error / other` 聚合，并且只统计真正的 failure diagnostics
+- `source_registry` 现在会保留来源的 `stability_tier`、`watch_strategy`、`replacement_target`、`candidate_kind`
+- `source_governance` 现在会汇总 `manual_review`、`rsshub_candidates`、`changedetection_candidates`、`replacement_candidates`
 - `reviewed` 轨允许 `reviewer`、`review_note` 为空
 
 ## 4. 环境配置
@@ -254,6 +266,7 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send
 ```powershell
 python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
 
@@ -265,7 +278,7 @@ python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline
 
 ## 7. 本地验收基线
 
-当前已验证基线：`200 passed`
+当前已验证基线：`210 passed`
 
 推荐完整验收：
 
@@ -277,6 +290,7 @@ python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 git status --short
 ```
@@ -286,8 +300,9 @@ git status --short
 - workflow guard 通过
 - pytest 通过
 - prompt eval 通过
-- reviewed 轨本地跑通
+- reviewed 轨本地跑通（本地验收默认关闭推送）
 - Pages / ops dashboard / review queue 可重建
+- source governance artifact 可重建
 - `git status --short` 没有异常运行产物残留
 
 ## 8. workflow 拓扑
@@ -334,13 +349,19 @@ git status --short
 
 ## 10. 来源清洗现状
 
-截至 2026-04-16，已经完成第一轮安全清洗：
+截至 2026-04-17，已经完成并固化到配置 / 运行态的治理基础包括：
 
 - `config/sources/github.yaml`
   - 将失效的 `NVIDIA/cuda-cmake` 替换为 `NVIDIA/TensorRT`
 - `config/sources/websites.yaml`
   - 将长期失效的 `st-blog` 标记为 `enabled: false`
   - 将已返回 `410 Gone` 的 `ti-e2e-blog` 标记为 `enabled: false`
+- `config/sources/*.yaml`
+  - 已开始记录 `stability_tier`、`replacement_hint`、`watch_strategy`、`replacement_target`
+- `run-status.json`
+  - 已开始写入 `source_registry` 与 `source_governance`
+- `out/source-governance/source-governance.json`
+  - 已可输出面向后续 RSSHub / changedetection 落地的候选清单
 
 保留禁用槽位的原因：
 
@@ -356,6 +377,7 @@ git status --short
 3. 检查：
    - `data/state/run-status.json`
    - `data/reports/latest-summary-reviewed.md`
+   - `out/source-governance/source-governance.json`
    - `docs/index.html`
 4. 抽查至少一个真实推送渠道
 5. 最后确认 `git status --short` 没有异常运行产物
@@ -367,6 +389,7 @@ git status --short
 - 本地改了 workflow，却没 push 就去点 `workflow_dispatch`
 - 只看 PushPlus `/send` 的 `code=200`，没看 ClawBot 的激活状态和最终送达状态
 - 修改状态 schema 却没同步更新 dashboard、页面或测试
+- 把信息性 diagnostics（例如 HN 抓取统计）误当成 `source_health` 失败项
 - 保留了长期 404/410 来源，导致 `source_health` 噪音越来越大
 
 ## 13. 推荐进一步阅读
@@ -377,7 +400,7 @@ git status --short
 - `交接备忘录.md`
 - `AGENTS.md`
 
-## 14. 当前交接状态（2026-04-16）
+## 14. 当前交接状态（2026-04-17）
 
 这一轮已经完成并验证的核心事项：
 
@@ -389,8 +412,14 @@ git status --short
   - `ti-e2e-blog` 禁用
 - P1 来源治理基础层已落地：
   - `source_health` 现在支持 per-source breakdown
+  - `source_health` 现在只统计 failure diagnostics，不再混入信息性消息
+  - `source_registry` 已有统一 builder，并带默认治理元数据
+  - `source_governance` 已能输出 manual review / RSSHub / changedetection / replacement 候选队列
   - ops dashboard 新增 `Source Failure Breakdown`
+  - ops dashboard 新增 `Source Registry` 与治理队列表格
+  - `build-source-governance` CLI 和 `reusable-ops-dashboard.yml` artifact 已接通
   - `arxiv-cs-ai` 已切到官方 Atom 查询接口
+  - 本地验证基线已更新为 `210 passed`
 
 当前用户明确要求与工作偏好：
 
@@ -401,8 +430,8 @@ git status --short
 
 建议下一位接手者优先按这个顺序推进：
 
-1. 为高价值脆弱来源寻找 RSSHub route
-2. 形成 changedetection.io watch 清单
-3. 为来源 registry 增加替代入口与稳定性分层
-4. 继续增强 `source_health` 的可操作性输出
+1. 为高价值脆弱来源补第一批明确的 RSSHub route
+2. 形成第一版 changedetection.io watch 清单
+3. 为剩余脆弱来源补 `replacement_target`
+4. 继续把 `source_governance` 输出变成更直接的运维优先级视图
 

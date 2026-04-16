@@ -32,6 +32,7 @@ from auto_report.outputs.renderers import (
 )
 from auto_report.pipeline.analysis import build_report_package
 from auto_report.pipeline.run_once import build_run_status, _to_relative_paths
+from auto_report.source_registry import build_source_governance_queue, build_source_registry
 from auto_report.settings import load_settings
 from auto_report.sources.collector import collect_all_items
 
@@ -139,60 +140,25 @@ def _classify_source_diagnostic(message: str) -> str:
     return "other"
 
 
-def _build_source_registry(settings) -> dict[str, dict[str, object]]:
-    registry: dict[str, dict[str, object]] = {}
-
-    for source in settings.sources.get("rss", {}).get("sources", []):
-        source_id = str(source.get("id", "")).strip()
-        if source_id:
-            registry[source_id] = {
-                "collector": "rss",
-                "enabled": bool(source.get("enabled", False)),
-                "mode": "rss_feed",
-                "category_hint": str(source.get("category_hint", "")).strip(),
-                "source_group": source_id,
-                "url": str(source.get("url", "")).strip(),
-            }
-
-    for source in settings.sources.get("websites", {}).get("sources", []):
-        source_id = str(source.get("id", "")).strip()
-        if source_id:
-            registry[source_id] = {
-                "collector": "websites",
-                "enabled": bool(source.get("enabled", False)),
-                "mode": str(source.get("mode", "article_listing")).strip() or "article_listing",
-                "category_hint": str(source.get("category_hint", "")).strip(),
-                "source_group": source_id,
-                "url": str(source.get("url", "")).strip(),
-            }
-
-    for source in settings.sources.get("github", {}).get("sources", []):
-        source_id = str(source.get("id", "")).strip()
-        repositories = [
-            str(repository).strip()
-            for repository in source.get("repositories", [])
-            if str(repository).strip()
-        ]
-        for repository in repositories:
-            registry[repository] = {
-                "collector": "github",
-                "enabled": bool(source.get("enabled", False)),
-                "mode": str(source.get("mode", "curated_repositories")).strip() or "curated_repositories",
-                "category_hint": str(source.get("category_hint", "")).strip(),
-                "source_group": source_id,
-                "url": f"https://github.com/{repository}",
-            }
-
-    registry["hacker_news"] = {
-        "collector": "hacker_news",
-        "enabled": bool(settings.sources.get("hacker_news", {}).get("enabled", False)),
-        "mode": "top_stories",
-        "category_hint": "",
-        "source_group": "hacker_news",
-        "url": "https://news.ycombinator.com/",
-    }
-
-    return registry
+def _extract_source_failure_targets(message: str) -> list[str]:
+    text = str(message).strip()
+    if not text:
+        return []
+    match = RSS_FAILURE_PATTERN.match(text)
+    if match:
+        return [match.group("source_id")]
+    match = WEBSITE_FAILURE_PATTERN.match(text)
+    if match:
+        return [match.group("source_id")]
+    match = WEBSITE_TIMEOUT_PATTERN.match(text)
+    if match:
+        return [item.strip() for item in match.group("source_ids").split(",") if item.strip()]
+    match = GITHUB_REPO_FAILURE_PATTERN.match(text)
+    if match:
+        return [match.group("repository")]
+    if text.startswith("HN source failed:"):
+        return ["hacker_news"]
+    return []
 
 
 def _summarize_source_health(settings, diagnostics: list[str]) -> dict[str, object]:
@@ -205,7 +171,7 @@ def _summarize_source_health(settings, diagnostics: list[str]) -> dict[str, obje
         "samples": [],
         "sources": {},
     }
-    registry = _build_source_registry(settings)
+    registry = build_source_registry(settings)
 
     def _record_source(source_id: str, category: str, message: str) -> None:
         source_key = str(source_id or "").strip()
@@ -220,6 +186,8 @@ def _summarize_source_health(settings, diagnostics: list[str]) -> dict[str, obje
                 "category_hint": "",
                 "source_group": source_key,
                 "url": "",
+                "stability_tier": "",
+                "replacement_hint": "",
             },
         )
         raw_entry = summary["sources"].setdefault(
@@ -241,30 +209,16 @@ def _summarize_source_health(settings, diagnostics: list[str]) -> dict[str, obje
         text = str(message).strip()
         if not text:
             continue
+        targets = _extract_source_failure_targets(text)
+        if not targets:
+            continue
         category = _classify_source_diagnostic(text)
         summary["total"] = int(summary["total"]) + 1
         summary[category] = int(summary[category]) + 1
         if len(summary["samples"]) < 6:
             summary["samples"].append(text)
-        match = RSS_FAILURE_PATTERN.match(text)
-        if match:
-            _record_source(match.group("source_id"), category, text)
-            continue
-        match = WEBSITE_FAILURE_PATTERN.match(text)
-        if match:
-            _record_source(match.group("source_id"), category, text)
-            continue
-        match = WEBSITE_TIMEOUT_PATTERN.match(text)
-        if match:
-            for source_id in [item.strip() for item in match.group("source_ids").split(",") if item.strip()]:
-                _record_source(source_id, category, text)
-            continue
-        match = GITHUB_REPO_FAILURE_PATTERN.match(text)
-        if match:
-            _record_source(match.group("repository"), category, text)
-            continue
-        if text.startswith("HN source failed:"):
-            _record_source("hacker_news", category, text)
+        for source_id in targets:
+            _record_source(source_id, category, text)
 
     summary["sources"] = dict(sorted(summary["sources"].items()))
     return summary
@@ -574,6 +528,7 @@ def render_reports(
     state_dir = root_dir / "data" / "state"
     archive_dir = root_dir / "data" / "archives" / generated_at[:10]
     timings: dict[str, float] = {}
+    source_registry = build_source_registry(settings)
 
     with StageTimer("collection") as t:
         items, diagnostics = collect_all_items(settings)
@@ -652,6 +607,8 @@ def render_reports(
     return generated_files, timings, {
         "external_enrichment": package.external_enrichment,
         "source_health": _summarize_source_health(settings, diagnostics),
+        "source_registry": source_registry,
+        "source_governance": build_source_governance_queue(source_registry),
         "review": review,
     }
 
@@ -673,6 +630,7 @@ def run_backfill(
     )
     generated_at = _now_in_configured_timezone(settings).isoformat()
     timings: dict[str, float] = {}
+    source_registry = build_source_registry(settings)
 
     archive_date = target_date.strip() if target_date.strip() else generated_at[:10]
     reports_dir = root_dir / "data" / "reports"
@@ -767,6 +725,8 @@ def run_backfill(
         external_enrichment=package.external_enrichment,
         ai_metrics=package.summary_payload.get("ai_metrics", {}),
         source_health=_summarize_source_health(settings, diagnostics),
+        source_registry=source_registry,
+        source_governance=build_source_governance_queue(source_registry),
         review=review,
         scheduler=_scheduler_context(settings),
         timings=timings,
@@ -798,6 +758,8 @@ def run_once(
         all_timings.update(render_timings)
         external_enrichment = runtime_status.get("external_enrichment", {})
         source_health = runtime_status.get("source_health", {})
+        source_registry = runtime_status.get("source_registry", {})
+        source_governance = runtime_status.get("source_governance", {})
         review = runtime_status.get("review", {})
 
         summary_payload = _load_summary_payload(root_dir, publication_mode=resolved_publication_mode)
@@ -844,6 +806,8 @@ def run_once(
         external_enrichment=external_enrichment,
         ai_metrics=summary_payload.get("ai_metrics", {}),
         source_health=source_health,
+        source_registry=source_registry if isinstance(source_registry, dict) else {},
+        source_governance=source_governance if isinstance(source_governance, dict) else {},
         review=review if isinstance(review, dict) else {},
         scheduler=_scheduler_context(settings),
         timings=all_timings,
@@ -1019,6 +983,12 @@ def cmd_evaluate_prompts(root_dir: Path, dataset_path: str) -> Path:
     from auto_report.pipeline.prompt_evaluator import evaluate_prompt_dataset
 
     return evaluate_prompt_dataset(root_dir, Path(dataset_path))
+
+
+def cmd_build_source_governance(root_dir: Path) -> Path:
+    from auto_report.outputs.source_governance import build_source_governance_artifact
+
+    return build_source_governance_artifact(root_dir)
 
 
 # ════════════════════════════════════════

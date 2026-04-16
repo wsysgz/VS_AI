@@ -30,9 +30,19 @@ jobs:
       - name: Build private ops dashboard
         run: python -m auto_report.cli build-ops-dashboard
 
+      - name: Build source governance artifact
+        run: python -m auto_report.cli build-source-governance
+
       - name: Upload ops dashboard artifact
         uses: actions/upload-artifact@v4
         with:
           name: ops-dashboard
           path: out/ops-dashboard/
+          retention-days: 7
+
+      - name: Upload source governance artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-governance
+          path: out/source-governance/
           retention-days: 7

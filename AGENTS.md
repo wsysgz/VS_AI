@@ -9,7 +9,7 @@
 
 ## Project Status
 
-- Current baseline: `200 passed`
+- Current baseline: `210 passed`
 - Main workflow chain:
   - workflow guard
   - tests
@@ -38,15 +38,17 @@ $env:PYTHONPATH = "src"
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AUTO_PUSH_ENABLED = "false"
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
 
 ## Key Operational Truths
 
-1. `data/state/run-status.json` is the source of truth for delivery, risk, AI metrics, and source health.
+1. `data/state/run-status.json` is the source of truth for delivery, risk, AI metrics, source health, source registry, and source governance.
 2. `workflow_dispatch` runs the pushed remote ref, not local unpushed changes.
 3. Notifications always include both:
    - `https://wsysgz.github.io/VS_AI/`
@@ -62,6 +64,7 @@ python -m auto_report.cli build-review-queue
 - Config: `config/`
 - Reports: `data/reports/`
 - Runtime state: `data/state/run-status.json`
+- Source governance artifact: `out/source-governance/source-governance.json`
 - Public Pages output: `docs/`
 
 ## Common Gotchas

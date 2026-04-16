@@ -214,6 +214,71 @@ def test_build_run_status_includes_source_health_and_review_metadata():
     assert status["review"]["review_note"] == "checked key sources"
 
 
+def test_build_run_status_includes_source_registry():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        source_registry={
+            "meta-ai-blog": {
+                "collector": "rss",
+                "enabled": True,
+                "mode": "rss_feed",
+                "stability_tier": "manual-watch",
+                "replacement_hint": "Confirm a live Meta AI feed or disable this slot",
+                "watch_strategy": "manual-review",
+                "replacement_target": "official-meta-feed",
+            }
+        },
+    )
+
+    assert status["source_registry"]["meta-ai-blog"]["collector"] == "rss"
+    assert status["source_registry"]["meta-ai-blog"]["stability_tier"] == "manual-watch"
+    assert status["source_registry"]["meta-ai-blog"]["watch_strategy"] == "manual-review"
+    assert status["source_registry"]["meta-ai-blog"]["replacement_target"] == "official-meta-feed"
+
+
+def test_build_run_status_includes_source_governance():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        source_governance={
+            "summary": {
+                "manual_review_count": 1,
+                "rsshub_candidate_count": 1,
+                "changedetection_candidate_count": 1,
+                "replacement_candidate_count": 1,
+            },
+            "manual_review": [
+                {"source_id": "st-blog", "replacement_target": "rsshub-or-stable-listing"}
+            ],
+            "rsshub_candidates": [
+                {"source_id": "st-blog", "replacement_target": "rsshub-or-stable-listing"}
+            ],
+            "changedetection_candidates": [
+                {"source_id": "google-ai-edge", "candidate_kind": "changedetection_watch"}
+            ],
+            "replacement_candidates": [
+                {"source_id": "st-blog", "replacement_target": "rsshub-or-stable-listing"}
+            ],
+        },
+    )
+
+    assert status["source_governance"]["summary"]["manual_review_count"] == 1
+    assert status["source_governance"]["summary"]["changedetection_candidate_count"] == 1
+    assert status["source_governance"]["rsshub_candidates"][0]["source_id"] == "st-blog"
+    assert status["source_governance"]["changedetection_candidates"][0]["source_id"] == "google-ai-edge"
+
+
+def test_build_run_status_defaults_source_governance_changedetection_fields():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+    )
+
+    assert status["source_governance"]["summary"]["changedetection_candidate_count"] == 0
+    assert status["source_governance"]["changedetection_candidates"] == []
+
+
 def test_build_run_status_includes_publication_mode():
     status = build_run_status(
         generated_files=["data/reports/latest-summary-reviewed.md"],

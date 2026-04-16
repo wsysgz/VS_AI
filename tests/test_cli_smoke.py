@@ -15,6 +15,7 @@ def test_cli_exposes_all_commands():
     assert "render-and-push" in choices
     assert "build-pages" in choices
     assert "build-ops-dashboard" in choices
+    assert "build-source-governance" in choices
     assert "build-review-queue" in choices
     assert "evaluate-prompts" in choices
 

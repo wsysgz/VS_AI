@@ -4,6 +4,9 @@ import json
 from html import escape
 from pathlib import Path
 
+from auto_report.settings import load_settings
+from auto_report.source_registry import build_source_governance_queue, build_source_registry
+
 
 def _coerce_float(value: object) -> float | None:
     try:
@@ -94,7 +97,7 @@ def _render_reason_list(reasons: list[object]) -> str:
 def _render_source_failures(source_health: dict[str, object]) -> str:
     sources = source_health.get("sources", {})
     if not isinstance(sources, dict) or not sources:
-        return '<tr><td colspan="5" class="empty">No source failure breakdown</td></tr>'
+        return '<tr><td colspan="7" class="empty">No source failure breakdown</td></tr>'
 
     rows: list[str] = []
     for source_id, raw_item in sorted(sources.items()):
@@ -105,9 +108,81 @@ def _render_source_failures(source_health: dict[str, object]) -> str:
             "<tr>"
             f"<td>{escape(str(source_id))}</td>"
             f"<td>{escape(str(item.get('collector') or '-'))}</td>"
+            f"<td>{escape(str(item.get('stability_tier') or '-'))}</td>"
             f"<td>{escape(str(item.get('failure_count') or 0))}</td>"
             f"<td>{escape(category_text)}</td>"
+            f"<td>{escape(str(item.get('replacement_hint') or '-'))}</td>"
             f"<td>{escape(str(item.get('last_error') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _render_source_registry(source_registry: dict[str, object]) -> str:
+    if not isinstance(source_registry, dict) or not source_registry:
+        return '<tr><td colspan="9" class="empty">No source registry data</td></tr>'
+
+    rows: list[str] = []
+    for source_id, raw_item in sorted(
+        source_registry.items(),
+        key=lambda item: (not bool((item[1] if isinstance(item[1], dict) else {}).get("enabled", False)), str(item[0])),
+    ):
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(source_id))}</td>"
+            f"<td>{escape(str(item.get('collector') or '-'))}</td>"
+            f"<td>{escape(_format_value(item.get('enabled')))}</td>"
+            f"<td>{escape(str(item.get('mode') or '-'))}</td>"
+            f"<td>{escape(str(item.get('stability_tier') or '-'))}</td>"
+            f"<td>{escape(str(item.get('watch_strategy') or '-'))}</td>"
+            f"<td>{escape(str(item.get('source_group') or '-'))}</td>"
+            f"<td>{escape(str(item.get('replacement_target') or '-'))}</td>"
+            f"<td>{escape(str(item.get('replacement_hint') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _render_manual_review_focus(source_registry: dict[str, object]) -> str:
+    if not isinstance(source_registry, dict) or not source_registry:
+        return '<tr><td colspan="6" class="empty">No manual-review sources</td></tr>'
+
+    rows: list[str] = []
+    for source_id, raw_item in sorted(source_registry.items()):
+        item = raw_item if isinstance(raw_item, dict) else {}
+        if str(item.get("watch_strategy") or "") != "manual-review":
+            continue
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(source_id))}</td>"
+            f"<td>{escape(_format_value(item.get('enabled')))}</td>"
+            f"<td>{escape(str(item.get('stability_tier') or '-'))}</td>"
+            f"<td>{escape(str(item.get('replacement_target') or '-'))}</td>"
+            f"<td>{escape(str(item.get('replacement_hint') or '-'))}</td>"
+            f"<td>{escape(str(item.get('url') or '-'))}</td>"
+            "</tr>"
+        )
+    if not rows:
+        return '<tr><td colspan="6" class="empty">No manual-review sources</td></tr>'
+    return "\n".join(rows)
+
+
+def _render_governance_candidates(items: list[object], empty_label: str) -> str:
+    if not items:
+        return f'<tr><td colspan="6" class="empty">{escape(empty_label)}</td></tr>'
+
+    rows: list[str] = []
+    for raw_item in items:
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item.get('source_id') or '-'))}</td>"
+            f"<td>{escape(str(item.get('collector') or '-'))}</td>"
+            f"<td>{escape(_format_value(item.get('enabled')))}</td>"
+            f"<td>{escape(str(item.get('replacement_target') or '-'))}</td>"
+            f"<td>{escape(str(item.get('replacement_hint') or '-'))}</td>"
+            f"<td>{escape(str(item.get('url') or '-'))}</td>"
             "</tr>"
         )
     return "\n".join(rows)
@@ -279,7 +354,12 @@ def _render_prompt_regressions(regressions: list[dict[str, object]]) -> str:
     return "\n".join(rows)
 
 
-def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict[str, object]]) -> str:
+def _build_dashboard_html(
+    status: dict[str, object],
+    prompt_eval_runs: list[dict[str, object]],
+    source_registry: dict[str, object],
+    source_governance: dict[str, object],
+) -> str:
     delivery_results = status.get("delivery_results", {})
     scheduler = status.get("scheduler", {})
     source_stats = status.get("source_stats", {})
@@ -289,6 +369,8 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
     source_health = status.get("source_health", {})
     review = status.get("review", {})
     external_enrichment = status.get("external_enrichment", {})
+    source_governance_dict = source_governance if isinstance(source_governance, dict) else {}
+    governance_summary = source_governance_dict.get("summary", {})
     regressions = _build_prompt_regressions(prompt_eval_runs)
 
     successful = len(delivery_results.get("successful_channels", []))
@@ -567,13 +649,143 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
           <tr>
             <th>Source</th>
             <th>Collector</th>
+            <th>Tier</th>
             <th>Failures</th>
             <th>Categories</th>
+            <th>Replacement Hint</th>
             <th>Last Error</th>
           </tr>
         </thead>
         <tbody>
           {_render_source_failures(source_health if isinstance(source_health, dict) else {})}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Source Registry</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Collector</th>
+            <th>Enabled</th>
+            <th>Mode</th>
+            <th>Tier</th>
+            <th>Watch Strategy</th>
+            <th>Group</th>
+            <th>Replacement Target</th>
+            <th>Replacement Hint</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_source_registry(source_registry)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Source Governance Queue</h2>
+      {_render_key_values(governance_summary if isinstance(governance_summary, dict) else {})}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Manual Review Focus</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Enabled</th>
+            <th>Tier</th>
+            <th>Replacement Target</th>
+            <th>Replacement Hint</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_manual_review_focus(source_registry)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">RSSHub Candidates</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Collector</th>
+            <th>Enabled</th>
+            <th>Replacement Target</th>
+            <th>Replacement Hint</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_governance_candidates(
+              source_governance_dict.get("rsshub_candidates", [])
+              if isinstance(source_governance_dict, dict)
+              else [],
+              "No RSSHub candidates",
+          )}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">changedetection Candidates</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Collector</th>
+            <th>Enabled</th>
+            <th>Replacement Target</th>
+            <th>Replacement Hint</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_governance_candidates(
+              source_governance_dict.get("changedetection_candidates", [])
+              if isinstance(source_governance_dict, dict)
+              else [],
+              "No changedetection candidates",
+          )}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Replacement Candidates</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Collector</th>
+            <th>Enabled</th>
+            <th>Replacement Target</th>
+            <th>Replacement Hint</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_governance_candidates(
+              source_governance_dict.get("replacement_candidates", [])
+              if isinstance(source_governance_dict, dict)
+              else [],
+              "No replacement candidates",
+          )}
         </tbody>
       </table>
     </div>
@@ -650,9 +862,23 @@ def build_ops_dashboard(root_dir: Path) -> Path:
 
     status = json.loads(status_path.read_text(encoding="utf-8"))
     prompt_eval_runs = _load_recent_prompt_evals(root_dir)
+    source_registry = status.get("source_registry", {})
+    if not isinstance(source_registry, dict) or not source_registry:
+        source_registry = {}
+    source_governance = status.get("source_governance", {})
+    if not isinstance(source_governance, dict) or not source_governance:
+        source_governance = {}
+    config_dir = root_dir / "config"
+    if not source_registry and config_dir.exists():
+        source_registry = build_source_registry(load_settings(root_dir))
+    if not source_governance and source_registry:
+        source_governance = build_source_governance_queue(source_registry)
     output_dir = root_dir / "out" / "ops-dashboard"
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "index.html"
-    output_path.write_text(_build_dashboard_html(status, prompt_eval_runs), encoding="utf-8")
+    output_path.write_text(
+        _build_dashboard_html(status, prompt_eval_runs, source_registry, source_governance),
+        encoding="utf-8",
+    )
     print(f"[OpsDashboard] Built at {output_path}")
     return output_path

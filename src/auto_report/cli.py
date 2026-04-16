@@ -48,6 +48,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_review_metadata_arguments(render_and_push_parser)
     subparsers.add_parser("build-pages", help="[CI] Build GitHub Pages site (index + archives)")
     subparsers.add_parser("build-ops-dashboard", help="[CI] Build private ops dashboard artifact")
+    subparsers.add_parser("build-source-governance", help="[CI] Build source governance artifact")
     subparsers.add_parser("build-review-queue", help="[CI] Build human review issue payloads from latest report")
     eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
     eval_parser.add_argument("--dataset", required=True, help="Path to offline prompt evaluation dataset JSON")
@@ -139,6 +140,12 @@ def main() -> int:
         from auto_report.outputs.ops_dashboard import build_ops_dashboard
 
         build_ops_dashboard(root_dir)
+        return 0
+
+    if args.command == "build-source-governance":
+        from auto_report.app import cmd_build_source_governance
+
+        cmd_build_source_governance(root_dir)
         return 0
 
     if args.command == "build-review-queue":

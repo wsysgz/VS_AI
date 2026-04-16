@@ -107,3 +107,22 @@ def test_load_settings_uses_live_arxiv_atom_entry_point():
     }
 
     assert rss_sources["arxiv-cs-ai"]["url"].startswith("https://export.arxiv.org/api/query?")
+
+
+def test_load_settings_exposes_p1_source_registry_metadata():
+    settings = load_settings(Path.cwd())
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
+    website_sources = {
+        source["id"]: source for source in settings.sources["websites"]["sources"]
+    }
+
+    assert rss_sources["meta-ai-blog"]["stability_tier"] == "manual-watch"
+    assert rss_sources["meta-ai-blog"]["replacement_hint"] == "Confirm a live Meta AI feed or disable this slot"
+    assert rss_sources["meta-ai-blog"]["watch_strategy"] == "manual-review"
+    assert rss_sources["meta-ai-blog"]["replacement_target"] == "official-meta-feed"
+    assert website_sources["st-blog"]["stability_tier"] == "manual-watch"
+    assert website_sources["st-blog"]["replacement_hint"] == "Replace with a stable ST AI listing or RSSHub route"
+    assert website_sources["st-blog"]["watch_strategy"] == "manual-review"
+    assert website_sources["st-blog"]["replacement_target"] == "rsshub-or-stable-listing"
