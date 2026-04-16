@@ -265,7 +265,7 @@ python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline
 
 ## 7. 本地验收基线
 
-当前已验证基线：`198 passed`
+当前已验证基线：`200 passed`
 
 推荐完整验收：
 
@@ -374,5 +374,35 @@ git status --short
 - `README.md`
 - `用户操作手册.md`
 - `V1升级方案.md`
+- `交接备忘录.md`
 - `AGENTS.md`
+
+## 14. 当前交接状态（2026-04-16）
+
+这一轮已经完成并验证的核心事项：
+
+- PushPlus / ClawBot 最终送达验证已打通，当前判定逻辑以 `haveContextToken` 和 `delivery_status` 为准
+- 文档已收口为根目录统一入口，不再依赖旧的 `docs/HANDOFF.md`、`docs/OPS_RUNBOOK.md`、`docs/USER_GUIDE.md`
+- 来源清洗第一轮已落地：
+  - `NVIDIA/cuda-cmake` -> `NVIDIA/TensorRT`
+  - `st-blog` 禁用
+  - `ti-e2e-blog` 禁用
+- P1 来源治理基础层已落地：
+  - `source_health` 现在支持 per-source breakdown
+  - ops dashboard 新增 `Source Failure Breakdown`
+  - `arxiv-cs-ai` 已切到官方 Atom 查询接口
+
+当前用户明确要求与工作偏好：
+
+- 直接在 `main` 上工作，不创建功能分支
+- Telegram 当前视为网络环境问题，不作为当前优化优先级
+- 当前优先级是继续推进 P1（来源稳定性升级）
+- `README.md` 和总手册的大幅改版等到 V1 基本完成后再继续做审美/结构优化
+
+建议下一位接手者优先按这个顺序推进：
+
+1. 为高价值脆弱来源寻找 RSSHub route
+2. 形成 changedetection.io watch 清单
+3. 为来源 registry 增加替代入口与稳定性分层
+4. 继续增强 `source_health` 的可操作性输出
 

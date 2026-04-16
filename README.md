@@ -23,7 +23,7 @@ Public site / 公开站入口:
   - every notification includes the public site entry
   - every notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `198 passed`
+  - `200 passed`
 
 ## What It Does / 系统能力
 
@@ -42,6 +42,8 @@ Public site / 公开站入口:
   - 面向使用者和值班同学，讲清楚怎么启动、怎么跑日报、怎么查看结果、怎么做常见操作。
 - [V1升级方案.md](V1升级方案.md)
   - 面向后续优化升级，汇总可直接复用的外部项目、推荐技术路线和分阶段改造计划。
+- [交接备忘录.md](交接备忘录.md)
+  - 面向下一次接手或新会话恢复，快速说明当前状态、关键决策、遗留问题和下一步执行顺序。
 - [AGENTS.md](AGENTS.md)
   - 面向代理和自动化协作，记录本仓库的工程约束与验证基线。
 

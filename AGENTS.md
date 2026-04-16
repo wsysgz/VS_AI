@@ -9,7 +9,7 @@
 
 ## Project Status
 
-- Current baseline: `198 passed`
+- Current baseline: `200 passed`
 - Main workflow chain:
   - workflow guard
   - tests
@@ -27,6 +27,7 @@
 2. `AI对接手册.md`
 3. `用户操作手册.md`
 4. `V1升级方案.md`
+5. `交接备忘录.md`
 
 ## Local-First Verification
 
