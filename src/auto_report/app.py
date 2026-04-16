@@ -5,6 +5,7 @@ import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+import re
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from dateutil import tz
 
@@ -36,6 +37,11 @@ from auto_report.sources.collector import collect_all_items
 
 
 PUBLIC_SITE_URL = "https://wsysgz.github.io/VS_AI/"
+RSS_FAILURE_PATTERN = re.compile(r"^RSS source failed: (?P<source_id>.+?) -> ")
+WEBSITE_FAILURE_PATTERN = re.compile(r"^Website source failed: (?P<source_id>.+?) -> ")
+WEBSITE_TIMEOUT_PATTERN = re.compile(r"^Website collectors timed out: (?P<source_ids>.+)$")
+GITHUB_REPO_FAILURE_PATTERN = re.compile(r"^GitHub repo failed: (?P<repository>.+?) -> ")
+
 
 
 # ════════════════════════════════════════
@@ -133,7 +139,63 @@ def _classify_source_diagnostic(message: str) -> str:
     return "other"
 
 
-def _summarize_source_health(diagnostics: list[str]) -> dict[str, object]:
+def _build_source_registry(settings) -> dict[str, dict[str, object]]:
+    registry: dict[str, dict[str, object]] = {}
+
+    for source in settings.sources.get("rss", {}).get("sources", []):
+        source_id = str(source.get("id", "")).strip()
+        if source_id:
+            registry[source_id] = {
+                "collector": "rss",
+                "enabled": bool(source.get("enabled", False)),
+                "mode": "rss_feed",
+                "category_hint": str(source.get("category_hint", "")).strip(),
+                "source_group": source_id,
+                "url": str(source.get("url", "")).strip(),
+            }
+
+    for source in settings.sources.get("websites", {}).get("sources", []):
+        source_id = str(source.get("id", "")).strip()
+        if source_id:
+            registry[source_id] = {
+                "collector": "websites",
+                "enabled": bool(source.get("enabled", False)),
+                "mode": str(source.get("mode", "article_listing")).strip() or "article_listing",
+                "category_hint": str(source.get("category_hint", "")).strip(),
+                "source_group": source_id,
+                "url": str(source.get("url", "")).strip(),
+            }
+
+    for source in settings.sources.get("github", {}).get("sources", []):
+        source_id = str(source.get("id", "")).strip()
+        repositories = [
+            str(repository).strip()
+            for repository in source.get("repositories", [])
+            if str(repository).strip()
+        ]
+        for repository in repositories:
+            registry[repository] = {
+                "collector": "github",
+                "enabled": bool(source.get("enabled", False)),
+                "mode": str(source.get("mode", "curated_repositories")).strip() or "curated_repositories",
+                "category_hint": str(source.get("category_hint", "")).strip(),
+                "source_group": source_id,
+                "url": f"https://github.com/{repository}",
+            }
+
+    registry["hacker_news"] = {
+        "collector": "hacker_news",
+        "enabled": bool(settings.sources.get("hacker_news", {}).get("enabled", False)),
+        "mode": "top_stories",
+        "category_hint": "",
+        "source_group": "hacker_news",
+        "url": "https://news.ycombinator.com/",
+    }
+
+    return registry
+
+
+def _summarize_source_health(settings, diagnostics: list[str]) -> dict[str, object]:
     summary = {
         "total": 0,
         "not_found": 0,
@@ -141,7 +203,40 @@ def _summarize_source_health(diagnostics: list[str]) -> dict[str, object]:
         "request_error": 0,
         "other": 0,
         "samples": [],
+        "sources": {},
     }
+    registry = _build_source_registry(settings)
+
+    def _record_source(source_id: str, category: str, message: str) -> None:
+        source_key = str(source_id or "").strip()
+        if not source_key:
+            return
+        defaults = registry.get(
+            source_key,
+            {
+                "collector": "unknown",
+                "enabled": None,
+                "mode": "",
+                "category_hint": "",
+                "source_group": source_key,
+                "url": "",
+            },
+        )
+        raw_entry = summary["sources"].setdefault(
+            source_key,
+            {
+                **defaults,
+                "failure_count": 0,
+                "error_categories": [],
+                "last_error": "",
+            },
+        )
+        raw_entry["failure_count"] = int(raw_entry.get("failure_count", 0)) + 1
+        categories = raw_entry.get("error_categories", [])
+        if isinstance(categories, list) and category not in categories:
+            categories.append(category)
+        raw_entry["last_error"] = message
+
     for message in diagnostics:
         text = str(message).strip()
         if not text:
@@ -151,6 +246,27 @@ def _summarize_source_health(diagnostics: list[str]) -> dict[str, object]:
         summary[category] = int(summary[category]) + 1
         if len(summary["samples"]) < 6:
             summary["samples"].append(text)
+        match = RSS_FAILURE_PATTERN.match(text)
+        if match:
+            _record_source(match.group("source_id"), category, text)
+            continue
+        match = WEBSITE_FAILURE_PATTERN.match(text)
+        if match:
+            _record_source(match.group("source_id"), category, text)
+            continue
+        match = WEBSITE_TIMEOUT_PATTERN.match(text)
+        if match:
+            for source_id in [item.strip() for item in match.group("source_ids").split(",") if item.strip()]:
+                _record_source(source_id, category, text)
+            continue
+        match = GITHUB_REPO_FAILURE_PATTERN.match(text)
+        if match:
+            _record_source(match.group("repository"), category, text)
+            continue
+        if text.startswith("HN source failed:"):
+            _record_source("hacker_news", category, text)
+
+    summary["sources"] = dict(sorted(summary["sources"].items()))
     return summary
 
 
@@ -535,7 +651,7 @@ def render_reports(
 
     return generated_files, timings, {
         "external_enrichment": package.external_enrichment,
-        "source_health": _summarize_source_health(diagnostics),
+        "source_health": _summarize_source_health(settings, diagnostics),
         "review": review,
     }
 
@@ -650,7 +766,7 @@ def run_backfill(
         risk_level=str(package.summary_payload.get("risk_level", "low")),
         external_enrichment=package.external_enrichment,
         ai_metrics=package.summary_payload.get("ai_metrics", {}),
-        source_health=_summarize_source_health(diagnostics),
+        source_health=_summarize_source_health(settings, diagnostics),
         review=review,
         scheduler=_scheduler_context(settings),
         timings=timings,

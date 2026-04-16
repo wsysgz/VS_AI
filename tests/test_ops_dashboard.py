@@ -55,6 +55,20 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
                         "RSS source failed: openai-news -> 404 Client Error: Not Found",
                         "Website collectors timed out: openai-blog",
                     ],
+                    "sources": {
+                        "openai-news": {
+                            "collector": "rss",
+                            "failure_count": 1,
+                            "error_categories": ["not_found"],
+                            "last_error": "RSS source failed: openai-news -> 404 Client Error: Not Found",
+                        },
+                        "openai-blog": {
+                            "collector": "websites",
+                            "failure_count": 1,
+                            "error_categories": ["timeout"],
+                            "last_error": "Website collectors timed out: openai-blog",
+                        },
+                    },
                 },
                 "ai_metrics": {
                     "provider": "openai",
@@ -86,6 +100,7 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
     assert "gpt-4o-mini" in html
     assert "180" in html
     assert "Source Health" in html
+    assert "Source Failure Breakdown" in html
     assert "Review Metadata" in html
     assert "checked key sources" in html
     assert "openai-blog" in html

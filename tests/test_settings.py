@@ -98,3 +98,12 @@ def test_load_settings_disables_dead_vendor_ai_blog_slots():
 
     assert website_sources["st-blog"]["enabled"] is False
     assert website_sources["ti-e2e-blog"]["enabled"] is False
+
+
+def test_load_settings_uses_live_arxiv_atom_entry_point():
+    settings = load_settings(Path.cwd())
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
+
+    assert rss_sources["arxiv-cs-ai"]["url"].startswith("https://export.arxiv.org/api/query?")

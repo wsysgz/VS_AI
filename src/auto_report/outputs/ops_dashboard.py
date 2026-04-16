@@ -91,6 +91,28 @@ def _render_reason_list(reasons: list[object]) -> str:
     return f"<ul class=\"reason-list\">{''.join(items)}</ul>"
 
 
+def _render_source_failures(source_health: dict[str, object]) -> str:
+    sources = source_health.get("sources", {})
+    if not isinstance(sources, dict) or not sources:
+        return '<tr><td colspan="5" class="empty">No source failure breakdown</td></tr>'
+
+    rows: list[str] = []
+    for source_id, raw_item in sorted(sources.items()):
+        item = raw_item if isinstance(raw_item, dict) else {}
+        categories = item.get("error_categories", [])
+        category_text = ", ".join(str(category) for category in categories) if isinstance(categories, list) and categories else "-"
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(source_id))}</td>"
+            f"<td>{escape(str(item.get('collector') or '-'))}</td>"
+            f"<td>{escape(str(item.get('failure_count') or 0))}</td>"
+            f"<td>{escape(category_text)}</td>"
+            f"<td>{escape(str(item.get('last_error') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
 def _flatten_mapping(data: dict[str, object], prefix: str = "") -> dict[str, object]:
     flattened: dict[str, object] = {}
     for key, value in data.items():
@@ -534,6 +556,26 @@ def _build_dashboard_html(status: dict[str, object], prompt_eval_runs: list[dict
     <div class="card">
       <h2 class="section-title">Source Health</h2>
       {_render_key_values(source_health_view)}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Source Failure Breakdown</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Collector</th>
+            <th>Failures</th>
+            <th>Categories</th>
+            <th>Last Error</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_source_failures(source_health if isinstance(source_health, dict) else {})}
+        </tbody>
+      </table>
     </div>
   </section>
 
