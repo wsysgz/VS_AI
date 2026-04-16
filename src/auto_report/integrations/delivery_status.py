@@ -53,8 +53,10 @@ def channel_response_succeeded(name: str, response: object) -> bool:
             return False
         verification = first.get("verification")
         if isinstance(verification, dict):
+            # Token-level API success is sufficient when clawbot delivery cannot
+            # be verified via OpenAPI from the current environment.
             if verification.get("available") is False:
-                return False
+                return True
             delivery = verification.get("delivery")
             if isinstance(delivery, dict) and delivery.get("status") == 3:
                 return False

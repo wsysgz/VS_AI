@@ -3,6 +3,9 @@ name: Reusable Pages
 on:
   workflow_call:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   deploy-pages:
     runs-on: ubuntu-latest
@@ -11,12 +14,12 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 1
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: "3.12"
 
@@ -27,7 +30,7 @@ jobs:
         run: git pull --rebase origin "$GITHUB_REF_NAME"
 
       - name: Download final data
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8.0.1
         with:
           name: final-report
           path: data/

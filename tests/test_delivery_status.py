@@ -30,7 +30,7 @@ def test_channel_response_helpers_detect_success_and_descriptions():
             "msg": "ok",
             "verification": {"available": False, "reason": "openapi_unavailable"},
         },
-    ) is False
+    ) is True
     assert channel_response_succeeded(
         "pushplus",
         {

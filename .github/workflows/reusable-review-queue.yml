@@ -3,18 +3,21 @@ name: Reusable Review Queue
 on:
   workflow_call:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   review-queue:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 1
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: "3.12"
 
@@ -22,7 +25,7 @@ jobs:
         run: pip install -r requirements.txt && pip install -e .
 
       - name: Download final report
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8.0.1
         with:
           name: final-report
           path: data/
@@ -31,7 +34,7 @@ jobs:
         run: python -m auto_report.cli build-review-queue
 
       - name: Upload review queue artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: review-queue
           path: out/review-queue/
