@@ -298,7 +298,7 @@ Get-Content out/source-governance/source-governance.json
 - 当前主线优先级仍是 `P1：来源稳定性升级`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
 - 本地验证基线已经提升并固定到 `210 passed`
-- 最新一次本地 reviewed 验证时间为 `2026-04-17T02:34:21.756329+08:00`，本轮 `report_topics=82`、`risk_level=medium`、三个渠道均按预期 `skipped`
+- 本轮交接中已再次本地跑通 reviewed 验证；精确时间、主题数和风险等级以当前 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：
 
