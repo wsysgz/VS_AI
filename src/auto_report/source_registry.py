@@ -5,16 +5,24 @@ def _default_stability_tier(collector: str, enabled: bool, mode: str) -> str:
     if not enabled:
         return "manual-watch"
     if collector == "websites":
+        if mode == "json_api":
+            return "stable-api"
+        if mode == "structured_page":
+            return "stable-page"
         return "dynamic-site" if mode == "browser_flow" else "fragile-listing"
     if collector == "hacker_news":
         return "dynamic-site"
     return "stable-feed"
 
 
-def _default_replacement_hint(collector: str, enabled: bool) -> str:
+def _default_replacement_hint(collector: str, enabled: bool, mode: str = "") -> str:
     if not enabled:
         return "Keep disabled until a stable source entry point is confirmed"
     if collector == "websites":
+        if mode == "json_api":
+            return "Poll the official JSON endpoint directly and keep field mappings aligned with the API payload"
+        if mode == "structured_page":
+            return "Poll the official update page directly and keep selectors aligned with its entry structure"
         return "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy"
     if collector == "hacker_news":
         return "Treat as opportunistic discovery rather than a guaranteed source"
@@ -29,6 +37,10 @@ def _default_watch_strategy(collector: str, enabled: bool, mode: str) -> str:
     if collector == "github":
         return "repo-poll"
     if collector == "websites":
+        if mode == "json_api":
+            return "api-poll"
+        if mode == "structured_page":
+            return "page-poll"
         return "browser-watch" if mode == "browser_flow" else "listing-poll"
     if collector == "hacker_news":
         return "opportunistic-poll"
@@ -81,12 +93,15 @@ def _source_metadata(source: dict[str, object], *, collector: str, mode: str) ->
     replacement_target = str(source.get("replacement_target", "")).strip()
     url = str(source.get("url", "")).strip()
     resolved_watch_strategy = watch_strategy or _default_watch_strategy(collector, enabled, mode)
-    resolved_replacement_target = replacement_target or _default_replacement_target(collector, enabled)
+    if collector == "websites" and mode in {"structured_page", "json_api"}:
+        resolved_replacement_target = replacement_target or "none"
+    else:
+        resolved_replacement_target = replacement_target or _default_replacement_target(collector, enabled)
     candidate_kind = _default_candidate_kind(collector, resolved_watch_strategy, resolved_replacement_target)
     candidate_value = _default_candidate_value(url, candidate_kind, resolved_replacement_target)
     return {
         "stability_tier": stability_tier or _default_stability_tier(collector, enabled, mode),
-        "replacement_hint": replacement_hint or _default_replacement_hint(collector, enabled),
+        "replacement_hint": replacement_hint or _default_replacement_hint(collector, enabled, mode),
         "watch_strategy": resolved_watch_strategy,
         "replacement_target": resolved_replacement_target,
         "candidate_kind": candidate_kind,

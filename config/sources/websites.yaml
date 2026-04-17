@@ -14,33 +14,44 @@ sources:
       - "#"
   - id: deepseek-updates
     enabled: true
-    mode: article_listing
+    mode: structured_page
     url: https://api-docs.deepseek.com/updates/
     category_hint: ai-llm-agent
     max_items: 8
-    link_selector: "nav.menu a[href^='/news/']"
+    entry_selector: "main h3.anchor"
+    link_selector: "a.hash-link[href^='#']"
     include_url_patterns:
-      - /news/
+      - /updates/#
     exclude_url_patterns:
-      - "#"
+      - /zh-cn/
   - id: qwen-blog
     enabled: true
-    mode: article_listing
-    url: https://qwenlm.github.io/blog/
+    mode: json_api
+    url: https://qwen.ai/research#research_latest_advancements
+    api_url: https://qwen.ai/api/v2/article/retrieval?type=qwen_ai&language=zh-CN
     category_hint: ai-llm-agent
     max_items: 6
-    link_selector: "a[href*='/blog/']"
+    json_items_path:
+      - data
+      - articles
+    item_title_field: title
+    item_link_field: path
+    item_link_template: https://qwen.ai/blog?id={value}
+    item_date_field: extra.date
     include_url_patterns:
-      - /blog/
+      - qwen.ai/blog?id=
     exclude_url_patterns:
       - "#"
   - id: moonshot-blog
     enabled: true
-    mode: article_listing
+    mode: structured_page
     url: https://platform.moonshot.cn/blog
     category_hint: ai-llm-agent
     max_items: 6
-    link_selector: "div.post-item a[href^='/blog/posts/']"
+    entry_selector: "div.post-item"
+    title_selector: "h3"
+    link_selector: "h3 a[href^='/blog/posts/']"
+    date_selector: "time[datetime]"
     include_url_patterns:
       - /blog/posts/
     exclude_url_patterns:
@@ -93,27 +104,6 @@ sources:
       - webinar
       - event
       - register
-  - id: google-ai-edge
-    enabled: true
-    mode: article_listing
-    url: https://developers.googleblog.com/
-    category_hint: ai-x-electronics
-    max_items: 6
-    link_selector: "div.glue-carousel__post-list a.glue-card[href^='/']"
-    include_url_patterns:
-      - developers.googleblog.com/
-    include_title_patterns:
-      - litert
-      - on-device
-      - google ai edge
-      - npu
-      - edge ai
-    exclude_url_patterns:
-      - "#"
-    exclude_title_patterns:
-      - event
-      - register
-      - partner
   - id: openvino-blog
     enabled: true
     mode: article_listing

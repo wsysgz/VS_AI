@@ -11,7 +11,7 @@ def test_summarize_source_health_includes_per_source_breakdown():
         settings,
         [
             "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found",
-            "Website source failed: google-ai-edge -> Read timed out",
+            "RSS source failed: google-ai-edge -> Read timed out",
             "Website collectors timed out: openvino-blog, qwen-blog",
             "GitHub repo failed: NVIDIA/TensorRT -> 404 Client Error: Not Found",
             "HN source failed: timed out",
@@ -26,17 +26,15 @@ def test_summarize_source_health_includes_per_source_breakdown():
     assert sources["meta-ai-blog"]["stability_tier"] == "manual-watch"
     assert sources["meta-ai-blog"]["replacement_hint"] == "Confirm a live Meta AI feed or disable this slot"
 
-    assert sources["google-ai-edge"]["collector"] == "websites"
+    assert sources["google-ai-edge"]["collector"] == "rss"
     assert sources["google-ai-edge"]["failure_count"] == 1
     assert "timeout" in sources["google-ai-edge"]["error_categories"]
-    assert sources["google-ai-edge"]["stability_tier"] == "fragile-listing"
-    assert sources["google-ai-edge"]["replacement_hint"] == (
-        "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy"
-    )
-    assert sources["google-ai-edge"]["watch_strategy"] == "listing-poll"
-    assert sources["google-ai-edge"]["replacement_target"] == "rsshub-or-feed"
-    assert sources["google-ai-edge"]["candidate_kind"] == "changedetection_watch"
-    assert sources["google-ai-edge"]["candidate_value"] == "https://developers.googleblog.com/"
+    assert sources["google-ai-edge"]["stability_tier"] == "stable-feed"
+    assert sources["google-ai-edge"]["replacement_hint"] == ""
+    assert sources["google-ai-edge"]["watch_strategy"] == "feed-poll"
+    assert sources["google-ai-edge"]["replacement_target"] == "none"
+    assert sources["google-ai-edge"]["candidate_kind"] == "none"
+    assert sources["google-ai-edge"]["candidate_value"] == ""
 
     assert sources["openvino-blog"]["collector"] == "websites"
     assert sources["openvino-blog"]["failure_count"] == 1

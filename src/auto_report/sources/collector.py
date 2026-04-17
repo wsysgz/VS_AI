@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 from typing import Any
+import time
 
 import requests
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
@@ -10,17 +12,30 @@ from auto_report.settings import Settings
 from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.hn import fetch_hn_top_stories
 from auto_report.sources.rss import parse_rss_content
-from auto_report.sources.websites import extract_listing_items
+from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_structured_items
 
 
-def _fetch_text(url: str, timeout: int = 20) -> str:
-    response = requests.get(
-        url,
-        timeout=timeout,
-        headers={"User-Agent": "auto-report/0.1"},
-    )
-    response.raise_for_status()
-    return response.text
+def _fetch_text(url: str, timeout: int = 20, retries: int = 1) -> str:
+    last_error: Exception | None = None
+
+    for attempt in range(retries + 1):
+        try:
+            response = requests.get(
+                url,
+                timeout=timeout,
+                headers={"User-Agent": "auto-report/0.1"},
+            )
+            response.raise_for_status()
+            return response.text
+        except (requests.Timeout, requests.ConnectionError) as exc:
+            last_error = exc
+            if attempt >= retries:
+                raise
+            time.sleep(0.3)
+
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("unreachable")
 
 
 def _collect_rss(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
@@ -30,7 +45,8 @@ def _collect_rss(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
         if not source.get("enabled", False):
             continue
         try:
-            content = _fetch_text(str(source["url"]))
+            timeout = int(source.get("timeout_seconds", 20))
+            content = _fetch_text(str(source["url"]), timeout=timeout)
             items.extend(
                 parse_rss_content(
                     source_id=str(source["id"]),
@@ -107,9 +123,17 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
     ]
 
     def _fetch_one_site(source: dict) -> list[CollectedItem]:
-        url = str(source["url"])
-        html = _fetch_text(url)
-        extracted = extract_listing_items(source, html)
+        mode = str(source.get("mode", "article_listing")).strip() or "article_listing"
+        fetch_url = str(source.get("api_url") or source["url"])
+        body = _fetch_text(fetch_url)
+        if mode == "json_api":
+            extracted = extract_json_items(source, json.loads(body))
+            return extracted[: int(source.get("max_items", 12))]
+        html = body
+        if mode == "structured_page":
+            extracted = extract_structured_items(source, html)
+        else:
+            extracted = extract_listing_items(source, html)
         return extracted[: int(source.get("max_items", 12))]
 
     if not enabled_sources:

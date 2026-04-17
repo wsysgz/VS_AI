@@ -1,16 +1,21 @@
 from concurrent.futures import TimeoutError
 from pathlib import Path
 import threading
+import requests
 
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.source_filters import should_keep_candidate
 from auto_report.settings import load_settings
 from auto_report.sources import collector as collector_module
-from auto_report.sources.collector import collect_all_items
+from auto_report.sources.collector import _fetch_text, collect_all_items
 from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.github import normalize_github_repositories
 from auto_report.sources.rss import parse_rss_content
-from auto_report.sources.websites import extract_listing_items
+from auto_report.sources.websites import (
+    extract_json_items,
+    extract_listing_items,
+    extract_structured_items,
+)
 
 
 RSS_SAMPLE = """<?xml version="1.0" encoding="UTF-8"?>
@@ -83,6 +88,39 @@ def test_parse_rss_content_respects_excluded_title_patterns():
     )
 
     assert [item.title for item in items] == ["The next phase of enterprise AI"]
+
+
+def test_parse_rss_content_respects_included_title_patterns():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>Sample Feed</title>
+        <item>
+          <title>A new way to explore the web with AI Mode in Chrome</title>
+          <link>https://example.com/chrome-ai-mode</link>
+          <description>Broad consumer AI update</description>
+        </item>
+        <item>
+          <title>On-device GenAI in Chrome, Chromebook Plus, and Pixel Watch with LiteRT</title>
+          <link>https://example.com/litert-on-device</link>
+          <description>Edge AI update with LiteRT</description>
+        </item>
+      </channel>
+    </rss>
+    """
+
+    items = parse_rss_content(
+        source_id="sample-feed",
+        content=content,
+        category_hint="ai-x-electronics",
+        source_rules={
+            "include_title_patterns": ["litert", "on-device", "edge ai", "npu"],
+        },
+    )
+
+    assert [item.title for item in items] == [
+        "On-device GenAI in Chrome, Chromebook Plus, and Pixel Watch with LiteRT"
+    ]
 
 
 def test_normalize_github_repositories_maps_repo_payload():
@@ -257,6 +295,86 @@ def test_extract_listing_items_drops_white_paper_and_webinar_cards():
     assert [item.title for item in items] == ["Jetson edge AI pipeline update"]
 
 
+def test_extract_structured_items_reads_entry_title_link_and_date():
+    html = """
+    <html><body>
+      <article class="update-entry">
+        <h2><a href="/updates/v3-2">DeepSeek-V3.2</a></h2>
+        <time datetime="2025-12-01">2025-12-01</time>
+      </article>
+      <article class="update-entry">
+        <h2><a href="/updates/v3-1">DeepSeek-V3.1</a></h2>
+        <time datetime="2025-08-21">2025-08-21</time>
+      </article>
+    </body></html>
+    """
+
+    items = extract_structured_items(
+        {
+            "id": "deepseek-updates",
+            "url": "https://api-docs.deepseek.com/updates/",
+            "category_hint": "ai-llm-agent",
+            "entry_selector": "article.update-entry",
+            "title_selector": "h2",
+            "link_selector": "h2 a[href]",
+            "date_selector": "time",
+            "include_url_patterns": ["/updates/"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == ["DeepSeek-V3.2", "DeepSeek-V3.1"]
+    assert [item.url for item in items] == [
+        "https://api-docs.deepseek.com/updates/v3-2",
+        "https://api-docs.deepseek.com/updates/v3-1",
+    ]
+    assert items[0].published_at == "2025-12-01"
+
+
+def test_extract_json_items_reads_articles_from_official_api_payload():
+    payload = {
+        "success": True,
+        "data": {
+            "articles": [
+                {
+                    "title": "Qwen3.6-35B-A3B：智能体编程利器，现已开源",
+                    "path": "qwen3.6-35b-a3b",
+                    "extra": {"date": "2026/04/15"},
+                },
+                {
+                    "title": "Qwen3.6-Plus：走向现实世界智能体",
+                    "path": "qwen3.6-plus",
+                    "extra": {"date": "2026/04/02"},
+                },
+            ]
+        },
+    }
+
+    items = extract_json_items(
+        {
+            "id": "qwen-blog",
+            "url": "https://qwen.ai/research#research_latest_advancements",
+            "category_hint": "ai-llm-agent",
+            "json_items_path": ["data", "articles"],
+            "item_title_field": "title",
+            "item_link_field": "path",
+            "item_link_template": "https://qwen.ai/blog?id={value}",
+            "item_date_field": "extra.date",
+        },
+        payload,
+    )
+
+    assert [item.title for item in items] == [
+        "Qwen3.6-35B-A3B：智能体编程利器，现已开源",
+        "Qwen3.6-Plus：走向现实世界智能体",
+    ]
+    assert [item.url for item in items] == [
+        "https://qwen.ai/blog?id=qwen3.6-35b-a3b",
+        "https://qwen.ai/blog?id=qwen3.6-plus",
+    ]
+    assert items[0].published_at == "2026/04/15"
+
+
 def test_collect_websites_aggregates_enabled_sites(monkeypatch):
     settings = load_settings(Path.cwd())
     settings.sources["websites"] = {
@@ -310,6 +428,103 @@ def test_collect_websites_aggregates_enabled_sites(monkeypatch):
     assert [item.title for item in items] == ["site-a-headline", "site-b-headline"]
     assert diagnostics == []
     assert max_active_calls == 2
+
+
+def test_collect_websites_dispatches_structured_sources(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {"id": "site-a", "url": "https://example.com/a", "enabled": True, "mode": "structured_page"},
+            {"id": "site-b", "url": "https://example.com/b", "enabled": True},
+        ]
+    }
+
+    def fake_fetch(url: str, timeout: int = 20) -> str:
+        return f"<html>{url}</html>"
+
+    def fake_structured(source: dict, html: str) -> list[CollectedItem]:
+        return [
+            CollectedItem(
+                source_id=str(source["id"]),
+                item_id=f'{source["id"]}:structured',
+                title=f'{source["id"]}-structured',
+                url=str(source["url"]),
+                summary=html,
+                published_at="2026-04-09T08:00:00+00:00",
+                collected_at="2026-04-09T08:05:00+00:00",
+                tags=["site"],
+                language="en",
+                metadata={},
+            )
+        ]
+
+    def fake_listing(source: dict, html: str) -> list[CollectedItem]:
+        return [
+            CollectedItem(
+                source_id=str(source["id"]),
+                item_id=f'{source["id"]}:listing',
+                title=f'{source["id"]}-listing',
+                url=str(source["url"]),
+                summary=html,
+                published_at="2026-04-09T08:00:00+00:00",
+                collected_at="2026-04-09T08:05:00+00:00",
+                tags=["site"],
+                language="en",
+                metadata={},
+            )
+        ]
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_text", fake_fetch)
+    monkeypatch.setattr("auto_report.sources.collector.extract_structured_items", fake_structured)
+    monkeypatch.setattr("auto_report.sources.collector.extract_listing_items", fake_listing)
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert [item.title for item in items] == ["site-a-structured", "site-b-listing"]
+    assert diagnostics == []
+
+
+def test_collect_websites_dispatches_json_api_sources(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {
+                "id": "site-a",
+                "url": "https://example.com/a",
+                "api_url": "https://example.com/api/a",
+                "enabled": True,
+                "mode": "json_api",
+            },
+        ]
+    }
+
+    def fake_fetch(url: str, timeout: int = 20, retries: int = 1) -> str:
+        assert url == "https://example.com/api/a"
+        return '{"data": {"articles": []}}'
+
+    def fake_extract(source: dict, payload: dict) -> list[CollectedItem]:
+        return [
+            CollectedItem(
+                source_id=str(source["id"]),
+                item_id=f'{source["id"]}:json',
+                title=f'{source["id"]}-json',
+                url="https://example.com/item",
+                summary="",
+                published_at="2026-04-09T08:00:00+00:00",
+                collected_at="2026-04-09T08:05:00+00:00",
+                tags=["site"],
+                language="en",
+                metadata={},
+            )
+        ]
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_text", fake_fetch)
+    monkeypatch.setattr("auto_report.sources.collector.extract_json_items", fake_extract)
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert [item.title for item in items] == ["site-a-json"]
+    assert diagnostics == []
 
 
 def test_collect_websites_keeps_other_results_when_one_site_fails(monkeypatch):
@@ -370,6 +585,54 @@ def test_collect_websites_records_timeout_errors_as_diagnostics(monkeypatch):
     assert diagnostics == ["Website source failed: site-a -> slow site"]
 
 
+def test_fetch_text_retries_once_on_connection_reset(monkeypatch):
+    calls = {"count": 0}
+
+    class DummyResponse:
+        text = "<html>ok</html>"
+
+        def raise_for_status(self) -> None:
+            return None
+
+    def fake_get(url: str, timeout: int = 20, headers: dict | None = None):
+        calls["count"] += 1
+        if calls["count"] == 1:
+            raise requests.ConnectionError("connection reset")
+        return DummyResponse()
+
+    monkeypatch.setattr("auto_report.sources.collector.requests.get", fake_get)
+
+    result = _fetch_text("https://example.com")
+
+    assert result == "<html>ok</html>"
+    assert calls["count"] == 2
+
+
+def test_fetch_text_does_not_retry_http_errors(monkeypatch):
+    calls = {"count": 0}
+
+    class DummyResponse:
+        text = ""
+
+        def raise_for_status(self) -> None:
+            raise requests.HTTPError("404 not found")
+
+    def fake_get(url: str, timeout: int = 20, headers: dict | None = None):
+        calls["count"] += 1
+        return DummyResponse()
+
+    monkeypatch.setattr("auto_report.sources.collector.requests.get", fake_get)
+
+    try:
+        _fetch_text("https://example.com")
+    except requests.HTTPError as exc:
+        assert "404 not found" in str(exc)
+    else:
+        raise AssertionError("expected HTTPError")
+
+    assert calls["count"] == 1
+
+
 def test_collect_all_items_records_timeout_as_diagnostic(monkeypatch):
     settings = load_settings(Path.cwd())
     sample_item = CollectedItem(
@@ -401,3 +664,33 @@ def test_collect_all_items_records_timeout_as_diagnostic(monkeypatch):
 
     assert [item.title for item in items] == ["Agent breakthrough"]
     assert any("timed out" in message for message in diagnostics)
+
+
+def test_collect_rss_uses_source_specific_timeout(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["rss"] = {
+        "sources": [
+            {
+                "id": "youtube-google-developers",
+                "enabled": True,
+                "url": "https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers",
+                "category_hint": "ai-x-electronics",
+                "max_items": 2,
+                "timeout_seconds": 8,
+            }
+        ]
+    }
+
+    seen: list[int] = []
+
+    def fake_fetch(url: str, timeout: int = 20, retries: int = 1) -> str:
+        seen.append(timeout)
+        return RSS_SAMPLE
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_text", fake_fetch)
+
+    items, diagnostics = collector_module._collect_rss(settings)
+
+    assert [item.title for item in items] == ["Agent breakthrough"]
+    assert diagnostics == []
+    assert seen == [8]

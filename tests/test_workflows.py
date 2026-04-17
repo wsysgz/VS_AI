@@ -254,3 +254,16 @@ def test_canary_workflow_uses_canary_mode_and_issue_rule():
     assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
     assert "actions/github-script@v9.0.0" in content
     assert "consecutive canary failures" in content
+
+
+def test_source_reachability_canary_probes_google_and_openvino_from_github_runner():
+    content = (ROOT_DIR / ".github" / "workflows" / "source-reachability-canary.yml").read_text(encoding="utf-8")
+
+    assert 'name: Source Reachability Canary' in content
+    assert 'https://blog.google/innovation-and-ai/technology/ai/rss/' in content
+    assert 'https://blog.openvino.ai/' in content
+    assert 'https://blog.openvino.ai/feed' in content
+    assert 'https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers' in content
+    assert 'https://www.youtube.com/feeds/videos.xml?user=nvidia' in content
+    assert 'actions/upload-artifact@v4' in content
+    assert 'source-reachability-report' in content

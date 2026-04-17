@@ -64,6 +64,11 @@ def test_load_settings_uses_curated_live_website_entry_points():
 
     assert website_sources["deepseek-updates"]["url"] == "https://api-docs.deepseek.com/updates/"
     assert website_sources["moonshot-blog"]["url"] == "https://platform.moonshot.cn/blog"
+    assert website_sources["deepseek-updates"]["mode"] == "structured_page"
+    assert website_sources["moonshot-blog"]["mode"] == "structured_page"
+    assert website_sources["qwen-blog"]["url"] == "https://qwen.ai/research#research_latest_advancements"
+    assert website_sources["qwen-blog"]["api_url"] == "https://qwen.ai/api/v2/article/retrieval?type=qwen_ai&language=zh-CN"
+    assert website_sources["qwen-blog"]["mode"] == "json_api"
 
 
 def test_load_settings_includes_edge_infra_source_pack():
@@ -71,11 +76,14 @@ def test_load_settings_includes_edge_infra_source_pack():
     website_sources = {
         source["id"]: source for source in settings.sources["websites"]["sources"]
     }
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
 
     assert "nvidia-embedded" in website_sources
-    assert "google-ai-edge" in website_sources
     assert "openvino-blog" in website_sources
     assert "nxp-edge-ai" in website_sources
+    assert "google-ai-edge" in rss_sources
 
 
 def test_load_settings_uses_live_curated_chip_ai_repositories():
@@ -107,6 +115,21 @@ def test_load_settings_uses_live_arxiv_atom_entry_point():
     }
 
     assert rss_sources["arxiv-cs-ai"]["url"].startswith("https://export.arxiv.org/api/query?")
+    assert rss_sources["google-ai-edge"]["url"] == "https://blog.google/innovation-and-ai/technology/ai/rss/"
+
+
+def test_load_settings_includes_youtube_v0_official_channel_feeds():
+    settings = load_settings(Path.cwd())
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
+
+    assert rss_sources["youtube-google-developers"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers"
+    assert rss_sources["youtube-google-developers"]["category_hint"] == "ai-x-electronics"
+    assert rss_sources["youtube-google-developers"]["timeout_seconds"] == 8
+    assert rss_sources["youtube-nvidia"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=nvidia"
+    assert rss_sources["youtube-nvidia"]["category_hint"] == "ai-x-electronics"
+    assert rss_sources["youtube-nvidia"]["timeout_seconds"] == 8
 
 
 def test_load_settings_exposes_p1_source_registry_metadata():
