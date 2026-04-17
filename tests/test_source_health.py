@@ -23,8 +23,11 @@ def test_summarize_source_health_includes_per_source_breakdown():
     assert sources["meta-ai-blog"]["collector"] == "rss"
     assert sources["meta-ai-blog"]["failure_count"] == 1
     assert "not_found" in sources["meta-ai-blog"]["error_categories"]
-    assert sources["meta-ai-blog"]["stability_tier"] == "manual-watch"
-    assert sources["meta-ai-blog"]["replacement_hint"] == "Confirm a live Meta AI feed or disable this slot"
+    assert sources["meta-ai-blog"]["stability_tier"] == "stable-feed"
+    assert sources["meta-ai-blog"]["replacement_hint"] == ""
+    assert sources["meta-ai-blog"]["watch_strategy"] == "feed-poll"
+    assert sources["meta-ai-blog"]["replacement_target"] == "none"
+    assert sources["meta-ai-blog"]["candidate_kind"] == "none"
 
     assert sources["google-ai-edge"]["collector"] == "rss"
     assert sources["google-ai-edge"]["failure_count"] == 1

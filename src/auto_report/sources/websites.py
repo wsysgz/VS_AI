@@ -124,9 +124,19 @@ def extract_structured_items(source: dict[str, object], html: str) -> list[Colle
 def _lookup_json_path(payload: object, path: list[str]) -> object:
     current = payload
     for part in path:
-        if not isinstance(current, dict):
-            return None
-        current = current.get(part)
+        if isinstance(current, dict):
+            current = current.get(part)
+            continue
+        if isinstance(current, list):
+            try:
+                index = int(part)
+            except (TypeError, ValueError):
+                return None
+            if index < 0 or index >= len(current):
+                return None
+            current = current[index]
+            continue
+        return None
     return current
 
 
@@ -145,17 +155,22 @@ def extract_json_items(source: dict[str, object], payload: dict[str, object]) ->
     category_hint = str(source.get("category_hint", ""))
     page_url = str(source.get("url", ""))
     items_path = [str(part) for part in source.get("json_items_path", [])]
+    items_slice_start = int(source.get("json_items_slice_start", 0))
     title_field = str(source.get("item_title_field", "title"))
     link_field = str(source.get("item_link_field", "path"))
     link_template = str(source.get("item_link_template", "{value}"))
     date_field = str(source.get("item_date_field", "")).strip()
 
     raw_items = _lookup_json_path(payload, items_path)
-    if not isinstance(raw_items, list):
+    if isinstance(raw_items, list):
+        iterable_items = raw_items[items_slice_start:]
+    else:
+        iterable_items = raw_items
+    if not isinstance(iterable_items, list):
         return []
 
     items: list[CollectedItem] = []
-    for index, raw_item in enumerate(raw_items):
+    for index, raw_item in enumerate(iterable_items):
         if not isinstance(raw_item, dict):
             continue
         title_value = _lookup_field(raw_item, title_field)

@@ -406,6 +406,43 @@ def test_extract_json_items_reads_articles_from_official_api_payload():
     assert items[0].published_at == "2026/04/15"
 
 
+def test_extract_json_items_reads_array_payload_with_index_path():
+    payload = [
+        "115",
+        {
+            "headline": "Building tomorrow's innovations with today's edge AI-enabled devices",
+            "path": "https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html",
+            "date": "11 Nov 2025",
+        },
+        {
+            "headline": "Why packaging is the next frontier in power design innovation",
+            "path": "https://www.ti.com/about-ti/newsroom/company-blog/why-packaging-is-the-next-frontier-in-power-design-innovation.html",
+            "date": "23 Mar 2026",
+        },
+    ]
+
+    items = extract_json_items(
+        {
+            "id": "ti-e2e-blog",
+            "url": "https://www.ti.com/about-ti/newsroom/company-blog.html",
+            "category_hint": "ai-x-electronics",
+            "json_items_path": [],
+            "json_items_slice_start": 1,
+            "item_title_field": "headline",
+            "item_link_field": "path",
+            "item_date_field": "date",
+            "include_title_patterns": ["edge ai", "jacinto", "am62", "processor", "robot", "vision", "ai"],
+        },
+        payload,
+    )
+
+    assert [item.title for item in items] == [
+        "Building tomorrow's innovations with today's edge AI-enabled devices"
+    ]
+    assert items[0].url == "https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html"
+    assert items[0].published_at == "11 Nov 2025"
+
+
 def test_collect_websites_aggregates_enabled_sites(monkeypatch):
     settings = load_settings(Path.cwd())
     settings.sources["websites"] = {

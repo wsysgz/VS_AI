@@ -15,30 +15,46 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     changedetection_ids = [item["source_id"] for item in governance["changedetection_candidates"]]
     replacement_ids = [item["source_id"] for item in governance["replacement_candidates"]]
 
-    assert governance["summary"]["manual_review_count"] >= 4
+    assert governance["summary"]["manual_review_count"] >= 1
     assert governance["summary"]["rsshub_candidate_count"] >= 1
     assert governance["summary"]["changedetection_candidate_count"] >= 1
-    assert governance["summary"]["replacement_candidate_count"] >= 4
+    assert governance["summary"]["replacement_candidate_count"] >= 1
 
-    assert "meta-ai-blog" in manual_review_ids
-    assert "st-blog" in manual_review_ids
-    assert "ti-e2e-blog" in manual_review_ids
+    assert "nxp-edge-ai" in manual_review_ids
+    assert "meta-ai-blog" not in manual_review_ids
+    assert "st-blog" not in manual_review_ids
+    assert "ti-e2e-blog" not in manual_review_ids
 
-    assert registry["meta-ai-blog"]["candidate_kind"] == "manual_replace"
-    assert registry["st-blog"]["candidate_kind"] == "rsshub_route"
+    assert registry["meta-ai-blog"]["candidate_kind"] == "none"
+    assert registry["st-blog"]["candidate_kind"] == "none"
+    assert registry["ti-e2e-blog"]["candidate_kind"] == "none"
+    assert registry["nxp-edge-ai"]["candidate_kind"] == "manual_replace"
     assert registry["google-ai-edge"]["candidate_kind"] == "none"
 
-    assert "st-blog" in rsshub_candidate_ids
-    assert "meta-ai-blog" in replacement_ids
-    assert "ti-e2e-blog" in replacement_ids
+    assert "st-blog" not in rsshub_candidate_ids
+    assert "meta-ai-blog" not in replacement_ids
+    assert "ti-e2e-blog" not in replacement_ids
     assert "google-ai-edge" not in changedetection_ids
     assert "openvino-blog" not in changedetection_ids
+    assert "nxp-edge-ai" in replacement_ids
 
 
 def test_build_source_registry_treats_structured_pages_as_direct_official_polls():
     settings = load_settings(Path.cwd())
 
     registry = build_source_registry(settings)
+
+    assert registry["meta-ai-blog"]["mode"] == "rss_feed"
+    assert registry["meta-ai-blog"]["stability_tier"] == "stable-feed"
+    assert registry["meta-ai-blog"]["watch_strategy"] == "feed-poll"
+    assert registry["meta-ai-blog"]["replacement_target"] == "none"
+    assert registry["meta-ai-blog"]["candidate_kind"] == "none"
+
+    assert registry["st-blog"]["mode"] == "rss_feed"
+    assert registry["st-blog"]["stability_tier"] == "stable-feed"
+    assert registry["st-blog"]["watch_strategy"] == "feed-poll"
+    assert registry["st-blog"]["replacement_target"] == "none"
+    assert registry["st-blog"]["candidate_kind"] == "none"
 
     assert registry["deepseek-updates"]["mode"] == "structured_page"
     assert registry["deepseek-updates"]["stability_tier"] == "stable-page"
@@ -57,6 +73,12 @@ def test_build_source_registry_treats_structured_pages_as_direct_official_polls(
     assert registry["openvino-blog"]["watch_strategy"] == "page-poll"
     assert registry["openvino-blog"]["replacement_target"] == "none"
     assert registry["openvino-blog"]["candidate_kind"] == "none"
+
+    assert registry["ti-e2e-blog"]["mode"] == "json_api"
+    assert registry["ti-e2e-blog"]["stability_tier"] == "stable-api"
+    assert registry["ti-e2e-blog"]["watch_strategy"] == "api-poll"
+    assert registry["ti-e2e-blog"]["replacement_target"] == "none"
+    assert registry["ti-e2e-blog"]["candidate_kind"] == "none"
 
 
 def test_build_source_registry_treats_json_api_sources_as_stable_official_polls():

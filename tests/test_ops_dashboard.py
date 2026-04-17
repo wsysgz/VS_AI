@@ -295,11 +295,12 @@ def test_build_ops_dashboard_renders_source_registry_from_config(tmp_path: Path)
     assert "repo-poll" in html
     assert "manual-review" in html
     assert "rsshub-or-feed" in html
-    assert "official-meta-feed" in html
+    assert "nxp-appcodehub/dm-eiq-genai-flow-demonstrator" in html
     assert "Manual Review Focus" in html
-    assert "meta-ai-blog" in html
-    assert "st-blog" in html
-    assert "ti-e2e-blog" in html
+    assert "nxp-edge-ai" in html
+    assert "meta-ai-blog" not in html.split("Manual Review Focus", 1)[1]
+    assert "st-blog" not in html.split("Manual Review Focus", 1)[1]
+    assert "ti-e2e-blog" not in html.split("Manual Review Focus", 1)[1]
     assert "Source Governance Queue" in html
     assert "RSSHub Candidates" in html
     assert "changedetection Candidates" in html

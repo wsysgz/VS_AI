@@ -137,13 +137,13 @@ sources:
   - id: nxp-edge-ai
     enabled: false
     mode: article_listing
-    url: https://www.nxp.com/company/about-nxp/smarter-world-blog
+    url: https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator
     category_hint: ai-x-electronics
     max_items: 4
     stability_tier: manual-watch
-    replacement_hint: Enable after confirming a stable public NXP listing page
+    replacement_hint: Prefer the official NXP eIQ GenAI demo repository until a stable public NXP AI listing page is confirmed
     watch_strategy: manual-review
-    replacement_target: stable-nxp-listing
+    replacement_target: nxp-appcodehub/dm-eiq-genai-flow-demonstrator
     link_selector: "a[href*='/smarter-world-blog/']"
     include_url_patterns:
       - /smarter-world-blog/
@@ -163,37 +163,6 @@ sources:
       - register
       - white paper
   # --- Round 4 expansion: AI × Electronics high-quality official sources ---
-  - id: st-blog
-    enabled: false
-    mode: article_listing
-    url: https://blog.st.com/artificial-intelligence/
-    category_hint: ai-x-electronics
-    max_items: 6
-    stability_tier: manual-watch
-    replacement_hint: Replace with a stable ST AI listing or RSSHub route
-    watch_strategy: manual-review
-    replacement_target: rsshub-or-stable-listing
-    link_selector: "article.post-item a[href*='/artificial-intelligence/']"
-    include_url_patterns:
-      - /artificial-intelligence/
-    include_title_patterns:
-      - ai
-      - stm32
-      - mpu
-      - neural
-      - inference
-      - edge
-      - microcontroller
-    exclude_url_patterns:
-      - "#"
-      - /page/
-    exclude_title_patterns:
-      - webinar
-      - event
-      - register
-      - white paper
-    # Disabled after repeated 404s on the category landing page.
-    # Keep the slot visible until a stable ST AI listing page is identified.
   - id: infineon-blog
     enabled: true
     mode: article_listing
@@ -219,33 +188,30 @@ sources:
       - register
       - invitation
   - id: ti-e2e-blog
-    enabled: false
-    mode: article_listing
-    url: https://e2e.ti.com/blogs_/artificial-intelligence
+    enabled: true
+    mode: json_api
+    url: https://www.ti.com/about-ti/newsroom/company-blog.html
+    api_url: https://www.ti.com/bin/ti/newsroom?page=1&lang=en-us&categories=none&years=none&type=blog
     category_hint: ai-x-electronics
     max_items: 6
-    stability_tier: manual-watch
-    replacement_hint: Replace with a current TI AI listing page
-    watch_strategy: manual-review
-    replacement_target: current-ti-ai-listing
-    link_selector: "article.ti-blog-post a[href]"
-
-    include_url_patterns:
-      - e2e.ti.com/blogs_
+    json_items_path: []
+    json_items_slice_start: 1
+    item_title_field: headline
+    item_link_field: path
+    item_date_field: date
     include_title_patterns:
       - ai
-      - ml
+      - edge ai
       - tda4
       - jacinto
       - am62
       - processor
+      - autonomous
+      - robot
+      - vision
       - edge
-    exclude_url_patterns:
-      - "#"
     exclude_title_patterns:
       - webinar
       - event
       - register
       - training
-    # Disabled after the old E2E AI blog URL started returning 410 Gone.
-    # Replace with a current TI AI listing page in a later pass.

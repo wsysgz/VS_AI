@@ -19,13 +19,18 @@ sources:
     max_items: 8
   - id: meta-ai-blog
     enabled: true
-    url: https://ai.meta.com/blog/rss/
+    url: https://about.fb.com/news/category/technology-and-innovation/feed/
     category_hint: ai-llm-agent
     max_items: 6
-    stability_tier: manual-watch
-    replacement_hint: Confirm a live Meta AI feed or disable this slot
-    watch_strategy: manual-review
-    replacement_target: official-meta-feed
+    stability_tier: stable-feed
+    replacement_hint: ""
+    watch_strategy: feed-poll
+    replacement_target: none
+    include_title_patterns:
+      - ai
+      - llama
+      - model
+      - silicon
     exclude_title_patterns:
       - contest
       - hackathon
@@ -99,3 +104,24 @@ sources:
       - livestream
       - live at
       - replay
+  - id: st-blog
+    enabled: true
+    url: https://blog.st.com/tag/ai/feed/
+    category_hint: ai-x-electronics
+    max_items: 6
+    stability_tier: stable-feed
+    replacement_hint: ""
+    watch_strategy: feed-poll
+    replacement_target: none
+    timeout_seconds: 8
+    include_title_patterns:
+      - ai
+      - stm32
+      - nanoedge
+      - npu
+      - edge
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - summit

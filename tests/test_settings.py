@@ -80,11 +80,17 @@ def test_load_settings_includes_edge_infra_source_pack():
     rss_sources = {
         source["id"]: source for source in settings.sources["rss"]["sources"]
     }
+    github_sources = {
+        source["id"]: source for source in settings.sources["github"]["sources"]
+    }
 
     assert "nvidia-embedded" in website_sources
     assert "openvino-blog" in website_sources
     assert "nxp-edge-ai" in website_sources
     assert "google-ai-edge" in rss_sources
+    assert "ti-e2e-blog" in website_sources
+    assert "st-blog" in rss_sources
+    assert "dm-eiq-genai-flow-demonstrator" in " ".join(github_sources["curated-edge-repos"]["repositories"])
 
 
 def test_load_settings_uses_live_curated_chip_ai_repositories():
@@ -104,9 +110,12 @@ def test_load_settings_disables_dead_vendor_ai_blog_slots():
     website_sources = {
         source["id"]: source for source in settings.sources["websites"]["sources"]
     }
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
 
-    assert website_sources["st-blog"]["enabled"] is False
-    assert website_sources["ti-e2e-blog"]["enabled"] is False
+    assert rss_sources["st-blog"]["enabled"] is True
+    assert website_sources["ti-e2e-blog"]["enabled"] is True
 
 
 def test_load_settings_uses_live_arxiv_atom_entry_point():
@@ -144,11 +153,14 @@ def test_load_settings_exposes_p1_source_registry_metadata():
         source["id"]: source for source in settings.sources["websites"]["sources"]
     }
 
-    assert rss_sources["meta-ai-blog"]["stability_tier"] == "manual-watch"
-    assert rss_sources["meta-ai-blog"]["replacement_hint"] == "Confirm a live Meta AI feed or disable this slot"
-    assert rss_sources["meta-ai-blog"]["watch_strategy"] == "manual-review"
-    assert rss_sources["meta-ai-blog"]["replacement_target"] == "official-meta-feed"
-    assert website_sources["st-blog"]["stability_tier"] == "manual-watch"
-    assert website_sources["st-blog"]["replacement_hint"] == "Replace with a stable ST AI listing or RSSHub route"
-    assert website_sources["st-blog"]["watch_strategy"] == "manual-review"
-    assert website_sources["st-blog"]["replacement_target"] == "rsshub-or-stable-listing"
+    assert rss_sources["meta-ai-blog"]["stability_tier"] == "stable-feed"
+    assert rss_sources["meta-ai-blog"]["replacement_hint"] == ""
+    assert rss_sources["meta-ai-blog"]["watch_strategy"] == "feed-poll"
+    assert rss_sources["meta-ai-blog"]["replacement_target"] == "none"
+    assert rss_sources["st-blog"]["stability_tier"] == "stable-feed"
+    assert rss_sources["st-blog"]["replacement_hint"] == ""
+    assert rss_sources["st-blog"]["watch_strategy"] == "feed-poll"
+    assert rss_sources["st-blog"]["replacement_target"] == "none"
+    assert website_sources["ti-e2e-blog"]["mode"] == "json_api"
+    assert website_sources["nxp-edge-ai"]["enabled"] is False
+    assert website_sources["nxp-edge-ai"]["replacement_target"] == "nxp-appcodehub/dm-eiq-genai-flow-demonstrator"
