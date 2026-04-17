@@ -26,7 +26,8 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          import requests
+          from urllib.error import HTTPError, URLError
+          import urllib.request
 
           urls = [
               "https://blog.google/innovation-and-ai/technology/ai/rss/",
@@ -37,18 +38,22 @@ jobs:
           ]
 
           report = []
-          session = requests.Session()
           headers = {"User-Agent": "VS_AI source reachability canary"}
 
           for url in urls:
               row = {"url": url}
               try:
-                  response = session.get(url, timeout=20, headers=headers)
-                  row["ok"] = response.ok
-                  row["status_code"] = response.status_code
-                  row["content_type"] = response.headers.get("content-type", "")
-                  row["final_url"] = response.url
-              except Exception as exc:
+                  request = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(request, timeout=20) as response:
+                      row["ok"] = 200 <= response.status < 400
+                      row["status_code"] = response.status
+                      row["content_type"] = response.headers.get("content-type", "")
+                      row["final_url"] = response.geturl()
+              except HTTPError as exc:
+                  row["ok"] = False
+                  row["status_code"] = exc.code
+                  row["error"] = f"HTTPError: {exc}"
+              except (URLError, TimeoutError) as exc:
                   row["ok"] = False
                   row["error"] = f"{type(exc).__name__}: {exc}"
               report.append(row)
