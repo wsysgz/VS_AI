@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-04-17T21:58:14.729229+08:00",
+  "generated_at": "2026-04-17T22:11:26.847597+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
     "data/reports/latest-summary.html",
-    "data/reports/latest-summary-auto.md",
-    "data/reports/latest-summary-auto.json",
-    "data/reports/latest-summary-auto.html",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary.md",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary.json",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary.html",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary-auto.md",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary-auto.json",
-    "data/archives/2026-04-17/2026-04-17T21-58-14.729229+08-00-summary-auto.html",
+    "data/reports/latest-summary-reviewed.md",
+    "data/reports/latest-summary-reviewed.json",
+    "data/reports/latest-summary-reviewed.html",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary.md",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary.json",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary.html",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary-reviewed.md",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary-reviewed.json",
+    "data/archives/2026-04-17/2026-04-17T22-11-26.847597+08-00-summary-reviewed.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
   "pushed": false,
   "push_channel": "",
-  "publication_mode": "auto",
+  "publication_mode": "reviewed",
   "push_response": {},
   "delivery_results": {
     "channels": {
@@ -109,16 +109,16 @@
       "below-threshold: Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
       "below-threshold: AsgardBench: A benchmark for visually grounded interactive planning",
       "below-threshold: AD4AD: Benchmarking Visual Anomaly Detection Models for Safer Autonomous Driving",
-      "below-threshold: ollama/ollama",
       "below-threshold: langchain-ai/langgraph",
+      "below-threshold: ollama/ollama",
       "below-threshold: pytorch/executorch",
-      "below-threshold: alibaba/MNN",
       "below-threshold: tenstorrent/tt-metal",
-      "below-threshold: mem0ai/mem0",
+      "below-threshold: alibaba/MNN",
       "below-threshold: openai/swarm",
+      "below-threshold: mem0ai/mem0",
       "below-threshold: anthropics/claude-cookbooks",
-      "below-threshold: onnx/onnx",
       "below-threshold: NVIDIA/TensorRT",
+      "below-threshold: onnx/onnx",
       "below-threshold: jax-ml/jax",
       "below-threshold: Darkbloom – Private inference on idle Macs",
       "below-threshold: Cloudflare Email Service",
@@ -131,10 +131,10 @@
       "below-threshold: Show HN: MacMind – A transformer neural network in HyperCard on a 1989 Macintosh",
       "below-threshold: The beginning of scarcity in AI",
       "below-threshold: A Python Interpreter Written in Python",
-      "below-threshold: Show HN: SPICE simulation → oscilloscope → verification with Claude Code",
       "below-threshold: GPT‑Rosalind for life sciences research",
-      "below-threshold: Show HN: CodeBurn – Analyze Claude Code token usage by task",
+      "below-threshold: Show HN: SPICE simulation → oscilloscope → verification with Claude Code",
       "below-threshold: Silicon Valley is turning scientists into exploited gig workers?",
+      "below-threshold: Show HN: CodeBurn – Analyze Claude Code token usage by task",
       "below-threshold: ReBot-DevArm: open-source Robotic Arm",
       "below-threshold: Codex for (almost) everything",
       "below-threshold: Introducing GPT-Rosalind for life sciences research",
@@ -205,8 +205,8 @@
       },
       "paper": {
         "budget": 2,
-        "hits": 2,
-        "matched_items": 2
+        "hits": 1,
+        "matched_items": 1
       }
     }
   },
@@ -215,21 +215,23 @@
     "model": "deepseek-chat",
     "calls": 8,
     "token_usage": {
-      "prompt": 25384,
-      "completion": 3525,
-      "total": 28909
+      "prompt": 25673,
+      "completion": 3791,
+      "total": 29464
     },
-    "latency_seconds": 136.34,
+    "latency_seconds": 150.5,
     "fallback_stages": []
   },
   "source_health": {
-    "total": 1,
-    "not_found": 1,
+    "total": 3,
+    "not_found": 3,
     "timeout": 0,
     "request_error": 0,
     "other": 0,
     "samples": [
-      "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/"
+      "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/",
+      "RSS source failed: youtube-microsoft-developer -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper",
+      "RSS source failed: youtube-pytorch -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=pytorch"
     ],
     "sources": {
       "meta-ai-blog": {
@@ -252,6 +254,48 @@
           "not_found"
         ],
         "last_error": "RSS source failed: meta-ai-blog -> 404 Client Error: Not Found for url: https://ai.meta.com/blog/rss/"
+      },
+      "youtube-microsoft-developer": {
+        "collector": "rss",
+        "enabled": true,
+        "mode": "rss_feed",
+        "category_hint": "ai-llm-agent",
+        "source_group": "youtube-microsoft-developer",
+        "url": "https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "feed-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "failure_count": 1,
+        "error_categories": [
+          "not_found"
+        ],
+        "last_error": "RSS source failed: youtube-microsoft-developer -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper"
+      },
+      "youtube-pytorch": {
+        "collector": "rss",
+        "enabled": true,
+        "mode": "rss_feed",
+        "category_hint": "ai-llm-agent",
+        "source_group": "youtube-pytorch",
+        "url": "https://www.youtube.com/feeds/videos.xml?user=pytorch",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "feed-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "failure_count": 1,
+        "error_categories": [
+          "not_found"
+        ],
+        "last_error": "RSS source failed: youtube-pytorch -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=pytorch"
       }
     }
   },
@@ -400,6 +444,38 @@
       "automation_ready": false,
       "next_action": "Keep the current source under routine observation."
     },
+    "youtube-microsoft-developer": {
+      "collector": "rss",
+      "enabled": true,
+      "mode": "rss_feed",
+      "category_hint": "ai-llm-agent",
+      "source_group": "youtube-microsoft-developer",
+      "url": "https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper",
+      "stability_tier": "stable-feed",
+      "replacement_hint": "",
+      "watch_strategy": "feed-poll",
+      "replacement_target": "none",
+      "candidate_kind": "none",
+      "candidate_value": "",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation."
+    },
+    "youtube-pytorch": {
+      "collector": "rss",
+      "enabled": true,
+      "mode": "rss_feed",
+      "category_hint": "ai-llm-agent",
+      "source_group": "youtube-pytorch",
+      "url": "https://www.youtube.com/feeds/videos.xml?user=pytorch",
+      "stability_tier": "stable-feed",
+      "replacement_hint": "",
+      "watch_strategy": "feed-poll",
+      "replacement_target": "none",
+      "candidate_kind": "none",
+      "candidate_value": "",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation."
+    },
     "anthropic-news": {
       "collector": "websites",
       "enabled": true,
@@ -515,18 +591,18 @@
     "openvino-blog": {
       "collector": "websites",
       "enabled": true,
-      "mode": "article_listing",
+      "mode": "structured_page",
       "category_hint": "ai-x-electronics",
       "source_group": "openvino-blog",
       "url": "https://blog.openvino.ai/",
-      "stability_tier": "fragile-listing",
-      "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
-      "watch_strategy": "listing-poll",
-      "replacement_target": "rsshub-or-feed",
-      "candidate_kind": "changedetection_watch",
-      "candidate_value": "https://blog.openvino.ai/",
-      "automation_ready": true,
-      "next_action": "Create a changedetection watch for this URL and store the watch reference."
+      "stability_tier": "stable-page",
+      "replacement_hint": "Poll the official update page directly and keep selectors aligned with its entry structure",
+      "watch_strategy": "page-poll",
+      "replacement_target": "none",
+      "candidate_kind": "none",
+      "candidate_value": "",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation."
     },
     "nxp-edge-ai": {
       "collector": "websites",
@@ -800,9 +876,9 @@
   "source_governance": {
     "summary": {
       "manual_review_count": 4,
-      "rsshub_candidate_count": 7,
-      "changedetection_candidate_count": 6,
-      "replacement_candidate_count": 10
+      "rsshub_candidate_count": 6,
+      "changedetection_candidate_count": 5,
+      "replacement_candidate_count": 9
     },
     "manual_review": [
       {
@@ -936,22 +1012,6 @@
         "url": "https://developer.nvidia.com/blog/tag/jetson/"
       },
       {
-        "source_id": "openvino-blog",
-        "collector": "websites",
-        "enabled": true,
-        "mode": "article_listing",
-        "stability_tier": "fragile-listing",
-        "watch_strategy": "listing-poll",
-        "replacement_target": "rsshub-or-feed",
-        "candidate_kind": "changedetection_watch",
-        "candidate_value": "https://blog.openvino.ai/",
-        "automation_ready": true,
-        "next_action": "Create a changedetection watch for this URL and store the watch reference.",
-        "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
-        "source_group": "openvino-blog",
-        "url": "https://blog.openvino.ai/"
-      },
-      {
         "source_id": "qualcomm-onq",
         "collector": "websites",
         "enabled": true,
@@ -1048,22 +1108,6 @@
         "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
         "source_group": "nvidia-embedded",
         "url": "https://developer.nvidia.com/blog/tag/jetson/"
-      },
-      {
-        "source_id": "openvino-blog",
-        "collector": "websites",
-        "enabled": true,
-        "mode": "article_listing",
-        "stability_tier": "fragile-listing",
-        "watch_strategy": "listing-poll",
-        "replacement_target": "rsshub-or-feed",
-        "candidate_kind": "changedetection_watch",
-        "candidate_value": "https://blog.openvino.ai/",
-        "automation_ready": true,
-        "next_action": "Create a changedetection watch for this URL and store the watch reference.",
-        "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
-        "source_group": "openvino-blog",
-        "url": "https://blog.openvino.ai/"
       },
       {
         "source_id": "qualcomm-onq",
@@ -1180,22 +1224,6 @@
         "url": "https://www.nxp.com/company/about-nxp/smarter-world-blog"
       },
       {
-        "source_id": "openvino-blog",
-        "collector": "websites",
-        "enabled": true,
-        "mode": "article_listing",
-        "stability_tier": "fragile-listing",
-        "watch_strategy": "listing-poll",
-        "replacement_target": "rsshub-or-feed",
-        "candidate_kind": "changedetection_watch",
-        "candidate_value": "https://blog.openvino.ai/",
-        "automation_ready": true,
-        "next_action": "Create a changedetection watch for this URL and store the watch reference.",
-        "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
-        "source_group": "openvino-blog",
-        "url": "https://blog.openvino.ai/"
-      },
-      {
         "source_id": "qualcomm-onq",
         "collector": "websites",
         "enabled": true,
@@ -1250,15 +1278,15 @@
     "review_note": ""
   },
   "scheduler": {
-    "trigger_kind": "push",
+    "trigger_kind": "manual",
     "compensation_run": false
   },
   "timings": {
-    "collection": 4.68,
-    "dedup_score": 117.32,
+    "collection": 4.38,
+    "dedup_score": 122.53,
     "ai_total": 0.0,
     "rendering": 0.01,
     "push_total": 0.0
   },
-  "total_elapsed": 122.01
+  "total_elapsed": 126.92
 }
