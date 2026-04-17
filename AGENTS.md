@@ -46,6 +46,13 @@ python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
 
+### Remote Run Policy
+
+- Default to local-first verification for all normal development work.
+- Do **not** run GitHub Actions for every intermediate change; remote runs are reserved for project-plan completion, stage completion, or explicit release-style checkpoints.
+- Before any push or manual `workflow_dispatch`, confirm the local validation chain is clean enough for the scope of the change.
+- Treat GitHub Actions as final confirmation, not as the primary debug loop.
+
 ## Key Operational Truths
 
 1. `data/state/run-status.json` is the source of truth for delivery, risk, AI metrics, source health, source registry, and source governance.

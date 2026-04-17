@@ -131,12 +131,8 @@ def test_load_settings_includes_youtube_v0_official_channel_feeds():
     assert rss_sources["youtube-nvidia"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=nvidia"
     assert rss_sources["youtube-nvidia"]["category_hint"] == "ai-x-electronics"
     assert rss_sources["youtube-nvidia"]["timeout_seconds"] == 8
-    assert rss_sources["youtube-microsoft-developer"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper"
-    assert rss_sources["youtube-microsoft-developer"]["category_hint"] == "ai-llm-agent"
-    assert rss_sources["youtube-microsoft-developer"]["timeout_seconds"] == 8
-    assert rss_sources["youtube-pytorch"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=pytorch"
-    assert rss_sources["youtube-pytorch"]["category_hint"] == "ai-llm-agent"
-    assert rss_sources["youtube-pytorch"]["timeout_seconds"] == 8
+    assert "youtube-microsoft-developer" not in rss_sources
+    assert "youtube-pytorch" not in rss_sources
 
 
 def test_load_settings_exposes_p1_source_registry_metadata():

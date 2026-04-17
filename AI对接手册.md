@@ -407,6 +407,7 @@ git status --short
 - reviewed 轨本地跑通
 - Pages / ops dashboard / source governance / review queue 能重建
 - 没有异常运行产物残留
+- 平时默认停在本地验证闭环；只有项目计划完成、阶段性完成、或明确需要发布级确认时，才触发远端 GitHub workflow
 
 ### 8.2 推送到远端
 
@@ -417,6 +418,12 @@ git push origin main
 ```
 
 ### 8.3 手动触发 GitHub workflow
+
+先记住这条新增规则：
+
+- 远端 workflow 不是日常调试回路，默认只在“项目计划完成 / 阶段性完成 / 发布前确认”时使用
+- 只要还在中间开发阶段，就优先用本地验证解决问题，不要把 GitHub Actions 当主要排错工具
+- 每次准备 `push` 或 `workflow_dispatch` 前，都先确认本地验证已经通过并且结果可信
 
 建议优先触发 `Collect And Report`，并先把真实推送关掉：
 
