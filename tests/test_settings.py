@@ -69,6 +69,7 @@ def test_load_settings_uses_curated_live_website_entry_points():
     assert website_sources["qwen-blog"]["url"] == "https://qwen.ai/research#research_latest_advancements"
     assert website_sources["qwen-blog"]["api_url"] == "https://qwen.ai/api/v2/article/retrieval?type=qwen_ai&language=zh-CN"
     assert website_sources["qwen-blog"]["mode"] == "json_api"
+    assert website_sources["openvino-blog"]["mode"] == "structured_page"
 
 
 def test_load_settings_includes_edge_infra_source_pack():
@@ -130,6 +131,12 @@ def test_load_settings_includes_youtube_v0_official_channel_feeds():
     assert rss_sources["youtube-nvidia"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=nvidia"
     assert rss_sources["youtube-nvidia"]["category_hint"] == "ai-x-electronics"
     assert rss_sources["youtube-nvidia"]["timeout_seconds"] == 8
+    assert rss_sources["youtube-microsoft-developer"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper"
+    assert rss_sources["youtube-microsoft-developer"]["category_hint"] == "ai-llm-agent"
+    assert rss_sources["youtube-microsoft-developer"]["timeout_seconds"] == 8
+    assert rss_sources["youtube-pytorch"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=pytorch"
+    assert rss_sources["youtube-pytorch"]["category_hint"] == "ai-llm-agent"
+    assert rss_sources["youtube-pytorch"]["timeout_seconds"] == 8
 
 
 def test_load_settings_exposes_p1_source_registry_metadata():

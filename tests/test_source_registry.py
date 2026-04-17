@@ -29,10 +29,10 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     assert registry["google-ai-edge"]["candidate_kind"] == "none"
 
     assert "st-blog" in rsshub_candidate_ids
-    assert "openvino-blog" in changedetection_ids
     assert "meta-ai-blog" in replacement_ids
     assert "ti-e2e-blog" in replacement_ids
     assert "google-ai-edge" not in changedetection_ids
+    assert "openvino-blog" not in changedetection_ids
 
 
 def test_build_source_registry_treats_structured_pages_as_direct_official_polls():
@@ -51,6 +51,12 @@ def test_build_source_registry_treats_structured_pages_as_direct_official_polls(
     assert registry["moonshot-blog"]["watch_strategy"] == "page-poll"
     assert registry["moonshot-blog"]["replacement_target"] == "none"
     assert registry["moonshot-blog"]["candidate_kind"] == "none"
+
+    assert registry["openvino-blog"]["mode"] == "structured_page"
+    assert registry["openvino-blog"]["stability_tier"] == "stable-page"
+    assert registry["openvino-blog"]["watch_strategy"] == "page-poll"
+    assert registry["openvino-blog"]["replacement_target"] == "none"
+    assert registry["openvino-blog"]["candidate_kind"] == "none"
 
 
 def test_build_source_registry_treats_json_api_sources_as_stable_official_polls():

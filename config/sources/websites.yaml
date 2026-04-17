@@ -106,11 +106,12 @@ sources:
       - register
   - id: openvino-blog
     enabled: true
-    mode: article_listing
+    mode: structured_page
     url: https://blog.openvino.ai/
     category_hint: ai-x-electronics
     max_items: 6
-    link_selector: "a.blog_heading-wrapper[href^='/blog-posts/']"
+    entry_selector: "a[href^='/blog-posts/']"
+    entry_link_is_self: true
     include_url_patterns:
       - /blog-posts/
     include_title_patterns:

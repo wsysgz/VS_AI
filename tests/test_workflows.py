@@ -265,6 +265,8 @@ def test_source_reachability_canary_probes_google_and_openvino_from_github_runne
     assert 'https://blog.openvino.ai/feed' in content
     assert 'https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers' in content
     assert 'https://www.youtube.com/feeds/videos.xml?user=nvidia' in content
+    assert 'https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper' in content
+    assert 'https://www.youtube.com/feeds/videos.xml?user=pytorch' in content
     assert 'actions/upload-artifact@v4' in content
     assert 'source-reachability-report' in content
     assert 'urllib.request' in content

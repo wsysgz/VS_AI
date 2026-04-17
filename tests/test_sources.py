@@ -331,6 +331,37 @@ def test_extract_structured_items_reads_entry_title_link_and_date():
     assert items[0].published_at == "2025-12-01"
 
 
+def test_extract_structured_items_can_use_entry_as_link_node():
+    html = """
+    <html><body>
+      <a class="blog-title" href="/blog-posts/openvino-genai-gguf-feature-update">
+        OpenVINO GenAI GGUF Feature Update August 18, 2025
+      </a>
+      <a class="blog-read-more" href="/blog-posts/openvino-genai-gguf-feature-update">
+        Read More...
+      </a>
+    </body></html>
+    """
+
+    items = extract_structured_items(
+        {
+            "id": "openvino-blog",
+            "url": "https://blog.openvino.ai/",
+            "category_hint": "ai-x-electronics",
+            "entry_selector": "a[href^='/blog-posts/']",
+            "entry_link_is_self": True,
+            "include_url_patterns": ["/blog-posts/"],
+            "include_title_patterns": ["openvino", "genai", "npu"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == ["OpenVINO GenAI GGUF Feature Update August 18, 2025"]
+    assert [item.url for item in items] == [
+        "https://blog.openvino.ai/blog-posts/openvino-genai-gguf-feature-update"
+    ]
+
+
 def test_extract_json_items_reads_articles_from_official_api_payload():
     payload = {
         "success": True,

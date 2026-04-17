@@ -38,6 +38,10 @@ def test_summarize_source_health_includes_per_source_breakdown():
 
     assert sources["openvino-blog"]["collector"] == "websites"
     assert sources["openvino-blog"]["failure_count"] == 1
+    assert sources["openvino-blog"]["stability_tier"] == "stable-page"
+    assert sources["openvino-blog"]["watch_strategy"] == "page-poll"
+    assert sources["openvino-blog"]["replacement_target"] == "none"
+    assert sources["openvino-blog"]["candidate_kind"] == "none"
     assert sources["qwen-blog"]["failure_count"] == 1
 
     assert sources["NVIDIA/TensorRT"]["collector"] == "github"

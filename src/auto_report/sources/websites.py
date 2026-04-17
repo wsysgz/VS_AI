@@ -85,11 +85,12 @@ def extract_structured_items(source: dict[str, object], html: str) -> list[Colle
     title_selector = str(source.get("title_selector", "")).strip()
     link_selector = str(source.get("link_selector", "")).strip() or "a[href]"
     date_selector = str(source.get("date_selector", "")).strip()
+    entry_link_is_self = bool(source.get("entry_link_is_self", False))
     items: list[CollectedItem] = []
 
     for index, entry in enumerate(soup.select(entry_selector)):
         title_node = entry.select_one(title_selector) if title_selector else entry
-        link_node = entry.select_one(link_selector)
+        link_node = entry if entry_link_is_self else entry.select_one(link_selector)
         date_node = entry.select_one(date_selector) if date_selector else None
 
         title = _extract_title(title_node) if title_node is not None else ""
