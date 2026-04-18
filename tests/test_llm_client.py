@@ -10,6 +10,9 @@ from auto_report.integrations.llm_client import (
     _resolve_provider_config,
     build_llm_payload,
     call_llm,
+    get_llm_metrics,
+    is_llm_enabled,
+    reset_llm_metrics,
 )
 
 
@@ -82,6 +85,65 @@ class TestProviderConfigResolution:
             assert config["api_key"] == "generic-key"
             assert config["api_key_env"] == "AI_API_KEY"
 
+    def test_stage_specific_provider_override(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "SUMMARY_AI_PROVIDER": "minimax_svips",
+                "SUMMARY_AI_BASE_URL": "https://api.svips.org/v1",
+                "SUMMARY_AI_MODEL": "MiniMax-M2.7",
+                "AI_API_KEY": "generic-key",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config(stage="summary")
+            assert config["provider"] == "minimax_svips"
+            assert config["base_url"] == "https://api.svips.org/v1"
+            assert config["model"] == "MiniMax-M2.7"
+            assert config["api_key"] == "generic-key"
+
+    def test_is_llm_enabled_when_only_stage_specific_generic_key_exists(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "",
+                "AI_API_KEY": "",
+                "DEEPSEEK_API_KEY": "",
+                "OPENAI_API_KEY": "",
+                "SUMMARY_AI_PROVIDER": "minimax_svips",
+                "SUMMARY_AI_BASE_URL": "https://api.svips.org/v1",
+                "SUMMARY_AI_MODEL": "MiniMax-M2.7",
+                "SUMMARY_AI_API_KEY": "summary-key",
+            },
+            clear=False,
+        ):
+            assert is_llm_enabled() is True
+
+    def test_is_llm_enabled_when_only_stage_specific_provider_key_exists(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "",
+                "AI_API_KEY": "",
+                "DEEPSEEK_API_KEY": "",
+                "OPENAI_API_KEY": "",
+                "ANALYSIS_AI_PROVIDER": "deepseek",
+                "ANALYSIS_AI_BASE_URL": "https://api.deepseek.com",
+                "ANALYSIS_AI_MODEL": "deepseek-chat",
+                "ANALYSIS_DEEPSEEK_API_KEY": "analysis-key",
+            },
+            clear=False,
+        ):
+            assert is_llm_enabled() is True
+
 
 class TestBuildPayload:
     def test_basic_structure(self):
@@ -91,6 +153,18 @@ class TestBuildPayload:
         assert len(payload["messages"]) == 1
         assert payload["messages"][0]["role"] == "user"
         assert payload["messages"][0]["content"] == "Analyze this topic"
+
+    def test_stage_specific_model_is_used(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_MODEL": "deepseek-chat",
+                "SUMMARY_AI_MODEL": "MiniMax-M2.7",
+            },
+            clear=False,
+        ):
+            payload = build_llm_payload("test", stage="summary")
+            assert payload["model"] == "MiniMax-M2.7"
 
 
 class TestCallLlm:
@@ -159,6 +233,45 @@ class TestCallLlm:
             assert result == "custom provider works"
             headers = mock_session.post.call_args.kwargs["headers"]
             assert headers["Authorization"] == "Bearer generic-key"
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_stage_specific_call_uses_stage_provider_and_tracks_metrics(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "SUMMARY_AI_PROVIDER": "minimax_svips",
+                "SUMMARY_AI_BASE_URL": "https://api.svips.org/v1",
+                "SUMMARY_AI_MODEL": "MiniMax-M2.7",
+                "AI_API_KEY": "generic-key",
+            },
+            clear=False,
+        ):
+            reset_llm_metrics()
+            mock_resp = MagicMock()
+            mock_resp.json.return_value = {
+                "choices": [{"message": {"content": "summary works"}}],
+                "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15},
+            }
+            mock_resp.raise_for_status = MagicMock()
+            mock_session.post.return_value = mock_resp
+
+            result = call_llm("summarize this", stage="summary")
+
+            assert result == "summary works"
+            assert mock_session.post.call_args.args[0] == "https://api.svips.org/v1/chat/completions"
+            headers = mock_session.post.call_args.kwargs["headers"]
+            assert headers["Authorization"] == "Bearer generic-key"
+            payload = mock_session.post.call_args.kwargs["json"]
+            assert payload["model"] == "MiniMax-M2.7"
+            metrics = get_llm_metrics()
+            assert metrics["provider"] == "minimax_svips"
+            assert metrics["model"] == "MiniMax-M2.7"
+            assert metrics["stage_breakdown"]["summary"]["provider"] == "minimax_svips"
+            assert metrics["stage_breakdown"]["summary"]["token_usage"]["total"] == 15
 
 
 class TestBackwardCompatibility:

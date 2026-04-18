@@ -83,6 +83,7 @@ git log --oneline -5
 - `source_health`
 - `source_governance`
 - `ai_metrics`
+- 当前激活的 `AI_PROVIDER / AI_BASE_URL / AI_MODEL`
 
 ### 第 4 步：决定这次会话属于哪一类
 
@@ -170,6 +171,7 @@ collect
 - `config/sources/websites.yaml`
 - `config/domains/`
 - `config/prompt_eval/baseline-v1.json`
+- `.env`
 
 ### 3.5 运行态与产物层
 
@@ -277,7 +279,7 @@ Get-Content out/source-governance/source-governance.json
 
 - 当前主阶段是不是仍是 P1
 - P1 的退出条件有哪些
-- 下一阶段是不是 P2（AI 网关 / tracing）
+- 下一阶段是不是 P2-A / P2-B / P2-C
 
 ### 5.5 看交接备忘录
 
@@ -317,10 +319,21 @@ Get-Content out/source-governance/source-governance.json
 
 - 第一批 RSSHub route 还没真正落表
 - changedetection watch 清单还没真正建立
-- `meta-ai-blog` / `nxp-edge-ai` / `ti-e2e-blog` 等 manual review 槽位还需要替换决策
+- `OpenCLI` 侧车 pilot 还没做
+- GitHub Actions 还没切到统一 provider 配置（当前仍固定 DeepSeek）
 - 高价值脆弱 listing 来源仍需要补 `replacement_target` 或旁路方案
 
 最近可见的 source failure 示例：
+
+补充状态（2026-04-18 之后继续接手时要记住）：
+
+- P1 的核心工程目标已经基本收口，不再建议把 P1 当成长时间阻塞项
+- 下一阶段主线应转向 P2 准备与落地：
+  1. 双 AI 并存与 stage routing
+  2. LiteLLM Gateway
+  3. Langfuse tracing
+- `CLI-Anything` 已评估：暂不直接接主链
+- `OpenCLI` 已评估：更适合做来源侧车 / 运维侧车，可作为 P2.5 / P3 的 pilot
 
 - `qwen-blog`
 - `openvino-blog`
@@ -332,6 +345,49 @@ Get-Content out/source-governance/source-governance.json
 这些示例说明：P1 不再是“知道要治理”，而是已经有清单、有标签、有 next action，下一步该把治理动作真正落地。
 
 ## 7. CLI 命令地图
+
+### 7.0 AI provider 切换速查
+
+当前仓库的 `src/auto_report/integrations/llm_client.py` 已支持 OpenAI-compatible provider。
+
+已确认可切换的两套配置：
+
+```powershell
+# DeepSeek 官方
+$env:AI_PROVIDER='deepseek'
+$env:AI_BASE_URL='https://api.deepseek.com'
+$env:AI_MODEL='deepseek-chat'
+$env:DEEPSEEK_API_KEY='<your-deepseek-key>'
+
+# MiniMax-M2.7（通过 OpenAI-compatible 第三方入口）
+$env:AI_PROVIDER='minimax_svips'
+$env:AI_BASE_URL='https://api.svips.org/v1'
+$env:AI_MODEL='MiniMax-M2.7'
+$env:AI_API_KEY='<your-minimax-key>'
+```
+
+注意：
+
+- 当前已经支持按 `analysis / summary / forecast` 分阶段切换 provider。
+- `DeepSeek / MiniMax` 可以在同一轮运行中并存。
+- 预筛选阶段当前默认复用 `analysis` 的 provider 设置。
+
+推荐默认分工：
+
+```powershell
+$env:ANALYSIS_AI_PROVIDER='deepseek'
+$env:ANALYSIS_AI_BASE_URL='https://api.deepseek.com'
+$env:ANALYSIS_AI_MODEL='deepseek-chat'
+
+$env:SUMMARY_AI_PROVIDER='minimax_svips'
+$env:SUMMARY_AI_BASE_URL='https://api.svips.org/v1'
+$env:SUMMARY_AI_MODEL='MiniMax-M2.7'
+$env:SUMMARY_AI_API_KEY='<your-minimax-key>'
+
+$env:FORECAST_AI_PROVIDER='deepseek'
+$env:FORECAST_AI_BASE_URL='https://api.deepseek.com'
+$env:FORECAST_AI_MODEL='deepseek-chat'
+```
 
 ### 7.1 每日 / 手工运行
 
@@ -525,7 +581,8 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P1 来源稳定性升级
-2. workflow / delivery 的可验证性
-3. 文档与交接一致性
-4. P2 之前不要主动把注意力转去大规模架构重写
+1. P2-A：双 AI 并存 + stage routing
+2. P2-B：LiteLLM Gateway
+3. P2-C：Langfuse tracing
+4. P2.5：OpenCLI sidecar pilot
+5. workflow / delivery 的可验证性

@@ -65,6 +65,9 @@ Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
 - AI:
   - `DEEPSEEK_API_KEY`
   - or `OPENAI_API_KEY` / `AI_API_KEY`
+  - `AI_PROVIDER`
+  - `AI_BASE_URL`
+  - `AI_MODEL`
 - Delivery:
   - `PUSHPLUS_TOKEN`
   - `TELEGRAM_BOT_TOKEN`
@@ -72,6 +75,56 @@ Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
   - `FEISHU_APP_ID`
   - `FEISHU_APP_SECRET`
   - `FEISHU_CHAT_ID`
+
+Recommended provider examples / 推荐可直接复用的模型配置示例:
+
+```env
+# Option A: DeepSeek official (default / 当前主力推荐)
+AI_PROVIDER=deepseek
+AI_BASE_URL=https://api.deepseek.com
+AI_MODEL=deepseek-chat
+DEEPSEEK_API_KEY=<your-deepseek-key>
+
+# Option B: MiniMax-M2.7 via OpenAI-compatible third-party endpoint
+# Note: current repo supports one active provider per run. Switch the env
+# values before execution; do not enable both providers in the same run yet.
+AI_PROVIDER=minimax_svips
+AI_BASE_URL=https://api.svips.org/v1
+AI_MODEL=MiniMax-M2.7
+AI_API_KEY=<your-minimax-key>
+```
+
+Current capability note / 当前能力说明:
+
+- The current `llm_client.py` already supports OpenAI-compatible providers.
+- DeepSeek and MiniMax can coexist in configuration, but only one provider is
+  active globally by default.
+- Stage-level routing is now supported via environment overrides. Example:
+
+```env
+ANALYSIS_AI_PROVIDER=deepseek
+ANALYSIS_AI_BASE_URL=https://api.deepseek.com
+ANALYSIS_AI_MODEL=deepseek-chat
+
+SUMMARY_AI_PROVIDER=minimax_svips
+SUMMARY_AI_BASE_URL=https://api.svips.org/v1
+SUMMARY_AI_MODEL=MiniMax-M2.7
+SUMMARY_AI_API_KEY=<your-minimax-key>
+
+FORECAST_AI_PROVIDER=deepseek
+FORECAST_AI_BASE_URL=https://api.deepseek.com
+FORECAST_AI_MODEL=deepseek-chat
+```
+
+- The current pre-filter stage reuses the `ANALYSIS_*` provider settings.
+
+GitHub / Actions note:
+
+- Local runs can switch providers directly with `.env` or temporary env vars.
+- Current GitHub workflows are still wired around the DeepSeek path by default.
+- If you later want scheduled or manual GitHub runs to use MiniMax, update the
+  workflow env to pass `AI_PROVIDER`, `AI_BASE_URL`, `AI_MODEL`, and
+  `AI_API_KEY` instead of only `DEEPSEEK_API_KEY`.
 
 ### 2. Run once / 本地生成一次日报
 

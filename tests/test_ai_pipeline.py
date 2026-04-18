@@ -24,8 +24,8 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     )
 
     monkeypatch.setattr(
-        "auto_report.pipeline.ai_pipeline.summarize_with_deepseek",
-        lambda prompt: next(responses),
+        "auto_report.pipeline.ai_pipeline.call_llm",
+        lambda prompt, stage=None: next(responses),
     )
 
     outputs = run_staged_ai_pipeline(
@@ -57,8 +57,8 @@ def test_run_staged_ai_pipeline_falls_back_when_ai_errors(monkeypatch):
     )
 
     monkeypatch.setattr(
-        "auto_report.pipeline.ai_pipeline.summarize_with_deepseek",
-        lambda prompt: (_ for _ in ()).throw(RuntimeError("boom")),
+        "auto_report.pipeline.ai_pipeline.call_llm",
+        lambda prompt, stage=None: (_ for _ in ()).throw(RuntimeError("boom")),
     )
 
     outputs = run_staged_ai_pipeline(
@@ -101,12 +101,12 @@ def test_run_staged_ai_pipeline_limits_analysis_scope(monkeypatch):
         ]
     )
 
-    def fake_summarize(prompt: str) -> str:
+    def fake_summarize(prompt: str, stage: str | None = None) -> str:
         call_counter["count"] += 1
         return next(responses)
 
     monkeypatch.setattr(
-        "auto_report.pipeline.ai_pipeline.summarize_with_deepseek",
+        "auto_report.pipeline.ai_pipeline.call_llm",
         fake_summarize,
     )
 
@@ -143,8 +143,8 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_shape_is_invalid(monkeyp
     )
 
     monkeypatch.setattr(
-        "auto_report.pipeline.ai_pipeline.summarize_with_deepseek",
-        lambda prompt: next(responses),
+        "auto_report.pipeline.ai_pipeline.call_llm",
+        lambda prompt, stage=None: next(responses),
     )
 
     outputs = run_staged_ai_pipeline(
@@ -157,3 +157,42 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_shape_is_invalid(monkeyp
     assert outputs["analyses"][0]["core_insight"] == "evaluation is becoming central"
     assert outputs["stage_status"]["summary"] == "fallback"
     assert outputs["stage_status"]["forecast"] == "fallback"
+
+
+def test_run_staged_ai_pipeline_routes_each_stage_to_named_provider(monkeypatch):
+    candidate = TopicCandidate(
+        topic_id="topic-1",
+        title="Agent benchmark release",
+        url="https://example.com/agent",
+        primary_domain="ai-llm-agent",
+        matched_domains=["ai-llm-agent"],
+        evidence_count=2,
+        source_ids=["openai-news", "anthropic-news"],
+        tags=["agent", "benchmark"],
+        evidence_snippets=["Release notes", "Independent commentary"],
+    )
+
+    calls: list[str] = []
+
+    def fake_call(prompt: str, stage: str | None = None) -> str:
+        calls.append(stage or "")
+        if stage == "analysis":
+            return '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}'
+        if stage == "summary":
+            return '{"one_line_core":"Agent evaluation becomes a core battleground","executive_summary":["A","B"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track benchmarks"]}'
+        if stage == "forecast":
+            return '{"most_likely_case":"benchmark competition intensifies","best_case":"better reliability","worst_case":"benchmark theater","key_variables":["real deployment"],"forecast_conclusion":"watch evaluation quality","confidence":"medium"}'
+        raise AssertionError(f"unexpected stage: {stage}")
+
+    monkeypatch.setattr("auto_report.pipeline.ai_pipeline.call_llm", fake_call)
+
+    outputs = run_staged_ai_pipeline(
+        candidates=[candidate],
+        ai_readings={"analysis": "analysis-rules", "summary": "summary-rules", "forecast": "forecast-rules"},
+        ai_enabled=True,
+    )
+
+    assert calls == ["analysis", "summary", "forecast"]
+    assert outputs["stage_status"]["analysis"] == "ok"
+    assert outputs["stage_status"]["summary"] == "ok"
+    assert outputs["stage_status"]["forecast"] == "ok"

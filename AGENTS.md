@@ -53,6 +53,15 @@ python -m auto_report.cli build-review-queue
 - Before any push or manual `workflow_dispatch`, confirm the local validation chain is clean enough for the scope of the change.
 - Treat GitHub Actions as final confirmation, not as the primary debug loop.
 
+## AI Provider Notes
+
+- The current repo already supports OpenAI-compatible providers through `src/auto_report/integrations/llm_client.py`.
+- Confirmed switchable providers:
+  - DeepSeek official: `AI_PROVIDER=deepseek`, `AI_BASE_URL=https://api.deepseek.com`, `AI_MODEL=deepseek-chat`
+  - MiniMax-M2.7 via third-party OpenAI-compatible endpoint: `AI_PROVIDER=minimax_svips`, `AI_BASE_URL=https://api.svips.org/v1`, `AI_MODEL=MiniMax-M2.7`
+- Current limitation: one provider is active per run.
+- Stage-level multi-model routing is a P2 item; until then, do not assume `analysis`, `summary`, and `forecast` can use different providers in the same run unless code explicitly supports it.
+
 ## Key Operational Truths
 
 1. `data/state/run-status.json` is the source of truth for delivery, risk, AI metrics, source health, source registry, and source governance.

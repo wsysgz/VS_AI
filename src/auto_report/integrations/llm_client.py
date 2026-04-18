@@ -34,11 +34,26 @@ _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
 }
 
 
-def _resolve_api_key(provider: str, defaults: dict[str, str]) -> tuple[str, str]:
+def _stage_prefix(stage: str | None = None) -> str:
+    normalized = str(stage or "").strip().upper()
+    return f"{normalized}_" if normalized else ""
+
+
+def _resolve_api_key(provider: str, defaults: dict[str, str], stage: str | None = None) -> tuple[str, str]:
+    prefix = _stage_prefix(stage)
+    stage_ai_key_env = f"{prefix}AI_API_KEY" if prefix else ""
+
     if provider in _PROVIDER_DEFAULTS:
-        env_candidates = [defaults["key_env"], "AI_API_KEY"]
+        env_candidates = []
+        if prefix:
+            env_candidates.append(f"{prefix}{defaults['key_env']}")
+        if stage_ai_key_env:
+            env_candidates.append(stage_ai_key_env)
+        env_candidates.extend([defaults["key_env"], "AI_API_KEY"])
     else:
-        env_candidates = ["AI_API_KEY", "OPENAI_API_KEY", "DEEPSEEK_API_KEY"]
+        env_candidates = [stage_ai_key_env, "AI_API_KEY", "OPENAI_API_KEY", "DEEPSEEK_API_KEY"]
+
+    env_candidates = [name for name in env_candidates if name]
 
     for env_name in env_candidates:
         if env_name and os.environ.get(env_name):
@@ -47,9 +62,13 @@ def _resolve_api_key(provider: str, defaults: dict[str, str]) -> tuple[str, str]
     return "", env_candidates[0]
 
 
-def _resolve_provider_config() -> dict[str, str]:
+def _resolve_provider_config(stage: str | None = None) -> dict[str, str]:
     """从环境变量解析当前 provider 配置"""
-    provider = os.environ.get("AI_PROVIDER", "deepseek").lower()
+    prefix = _stage_prefix(stage)
+    provider = (
+        os.environ.get(f"{prefix}AI_PROVIDER", "")
+        or os.environ.get("AI_PROVIDER", "deepseek")
+    ).lower()
 
     if provider in _PROVIDER_DEFAULTS:
         defaults = _PROVIDER_DEFAULTS[provider]
@@ -57,20 +76,28 @@ def _resolve_provider_config() -> dict[str, str]:
         # 自定义 provider：必须手动设置所有参数
         defaults = {"base_url": "", "model": "", "key_env": "AI_API_KEY"}
 
-    api_key, api_key_env = _resolve_api_key(provider, defaults)
+    api_key, api_key_env = _resolve_api_key(provider, defaults, stage=stage)
 
     return {
-        "base_url": (os.environ.get("AI_BASE_URL") or "").rstrip("/") or defaults["base_url"],
-        "model": os.environ.get("AI_MODEL", "") or defaults["model"],
+        "base_url": (
+            os.environ.get(f"{prefix}AI_BASE_URL", "")
+            or os.environ.get("AI_BASE_URL")
+            or ""
+        ).rstrip("/") or defaults["base_url"],
+        "model": (
+            os.environ.get(f"{prefix}AI_MODEL", "")
+            or os.environ.get("AI_MODEL", "")
+            or defaults["model"]
+        ),
         "api_key": api_key,
         "api_key_env": api_key_env,
         "provider": provider,
     }
 
 
-def build_llm_payload(prompt: str) -> dict[str, object]:
+def build_llm_payload(prompt: str, stage: str | None = None) -> dict[str, object]:
     """构建 OpenAI 兼容格式的请求 payload"""
-    config = _resolve_provider_config()
+    config = _resolve_provider_config(stage=stage)
     return {
         "model": config["model"],
         "messages": [{"role": "user", "content": prompt}],
@@ -100,6 +127,7 @@ def _default_llm_metrics(config: dict[str, str] | None = None) -> dict[str, obje
         "calls": 0,
         "token_usage": _empty_token_usage(),
         "latency_seconds": 0.0,
+        "stage_breakdown": {},
     }
 
 
@@ -126,10 +154,30 @@ def get_llm_metrics() -> dict[str, object]:
                 "total": int(usage_dict.get("total", 0)),
             },
             "latency_seconds": round(float(_llm_metrics.get("latency_seconds", 0.0)), 2),
+            "stage_breakdown": {
+                str(stage_name): {
+                    "provider": str(stage_metrics.get("provider", "")),
+                    "model": str(stage_metrics.get("model", "")),
+                    "calls": int(stage_metrics.get("calls", 0)),
+                    "token_usage": {
+                        "prompt": int((stage_metrics.get("token_usage", {}) or {}).get("prompt", 0)),
+                        "completion": int((stage_metrics.get("token_usage", {}) or {}).get("completion", 0)),
+                        "total": int((stage_metrics.get("token_usage", {}) or {}).get("total", 0)),
+                    },
+                    "latency_seconds": round(float(stage_metrics.get("latency_seconds", 0.0)), 2),
+                }
+                for stage_name, stage_metrics in (_llm_metrics.get("stage_breakdown", {}) or {}).items()
+                if isinstance(stage_metrics, dict)
+            },
         }
 
 
-def _record_llm_metrics(config: dict[str, str], data: dict[str, object], elapsed_seconds: float) -> None:
+def _record_llm_metrics(
+    config: dict[str, str],
+    data: dict[str, object],
+    elapsed_seconds: float,
+    stage: str | None = None,
+) -> None:
     usage = data.get("usage", {})
     usage_dict = usage if isinstance(usage, dict) else {}
     prompt_tokens = int(usage_dict.get("prompt_tokens", 0) or 0)
@@ -139,8 +187,18 @@ def _record_llm_metrics(config: dict[str, str], data: dict[str, object], elapsed
     )
 
     with _metrics_lock:
-        _llm_metrics["provider"] = config.get("provider", "")
-        _llm_metrics["model"] = config.get("model", "")
+        current_provider = str(_llm_metrics.get("provider", ""))
+        current_model = str(_llm_metrics.get("model", ""))
+        next_provider = config.get("provider", "")
+        next_model = config.get("model", "")
+
+        if int(_llm_metrics.get("calls", 0)) == 0:
+            _llm_metrics["provider"] = next_provider
+            _llm_metrics["model"] = next_model
+        elif current_provider != next_provider or current_model != next_model:
+            _llm_metrics["provider"] = "mixed"
+            _llm_metrics["model"] = "mixed"
+
         _llm_metrics["calls"] = int(_llm_metrics.get("calls", 0)) + 1
         current_usage = _llm_metrics.get("token_usage", {})
         current_usage_dict = current_usage if isinstance(current_usage, dict) else _empty_token_usage()
@@ -154,12 +212,41 @@ def _record_llm_metrics(config: dict[str, str], data: dict[str, object], elapsed
             2,
         )
 
+        if stage:
+            stage_breakdown = _llm_metrics.setdefault("stage_breakdown", {})
+            current_stage_metrics = stage_breakdown.get(stage, {})
+            current_stage_usage = current_stage_metrics.get("token_usage", {})
+            current_stage_usage_dict = (
+                current_stage_usage if isinstance(current_stage_usage, dict) else _empty_token_usage()
+            )
+            stage_breakdown[stage] = {
+                "provider": next_provider,
+                "model": next_model,
+                "calls": int(current_stage_metrics.get("calls", 0)) + 1,
+                "token_usage": {
+                    "prompt": int(current_stage_usage_dict.get("prompt", 0)) + prompt_tokens,
+                    "completion": int(current_stage_usage_dict.get("completion", 0)) + completion_tokens,
+                    "total": int(current_stage_usage_dict.get("total", 0)) + total_tokens,
+                },
+                "latency_seconds": round(
+                    float(current_stage_metrics.get("latency_seconds", 0.0)) + float(elapsed_seconds),
+                    2,
+                ),
+            }
+
 
 def is_llm_enabled() -> bool:
-    return bool(_resolve_provider_config().get("api_key"))
+    if _resolve_provider_config().get("api_key"):
+        return True
+
+    for stage in ("analysis", "summary", "forecast"):
+        if _resolve_provider_config(stage=stage).get("api_key"):
+            return True
+
+    return False
 
 
-def call_llm(prompt: str) -> str:
+def call_llm(prompt: str, stage: str | None = None) -> str:
     """
     调用任意 OpenAI 兼容的 LLM API。
 
@@ -174,7 +261,7 @@ def call_llm(prompt: str) -> str:
       - HTTP 429 Rate Limit: 等 60s 后重试
       - 超时时间递增: 45s -> 55s -> 65s
     """
-    config = _resolve_provider_config()
+    config = _resolve_provider_config(stage=stage)
     api_key = config.get("api_key", "")
     base_url = config["base_url"]
 
@@ -205,12 +292,12 @@ def call_llm(prompt: str) -> str:
                 headers={
                     "Authorization": f"Bearer {api_key}",
                 },
-                json=build_llm_payload(prompt),
+                json=build_llm_payload(prompt, stage=stage),
                 timeout=base_timeout,
             )
             response.raise_for_status()
             data = response.json()
-            _record_llm_metrics(config, data, time.perf_counter() - started_at)
+            _record_llm_metrics(config, data, time.perf_counter() - started_at, stage=stage)
             return data["choices"][0]["message"]["content"]
 
         except requests.exceptions.Timeout as exc:

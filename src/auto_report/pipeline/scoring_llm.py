@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import logging
 
-from auto_report.integrations.llm_client import call_llm as summarize_with_deepseek
+from auto_report.integrations.llm_client import call_llm
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ def batch_score_candidates(
 """
 
     try:
-        raw = summarize_with_deepseek(prompt)
+        raw = call_llm(prompt, stage="analysis")
         result = _parse_score_items(raw)
 
         scores: dict[int, float] = {}

@@ -5,11 +5,7 @@ import json
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from auto_report.integrations.llm_client import (
-    call_llm as summarize_with_deepseek,
-    get_llm_metrics,
-    reset_llm_metrics,
-)
+from auto_report.integrations.llm_client import call_llm, get_llm_metrics, reset_llm_metrics
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)
@@ -191,7 +187,7 @@ def _analyze_single_candidate(
 ) -> dict[str, object]:
     """单个候选的 AI 分析（线程安全，可被并发调用）"""
     prompt = _build_analysis_prompt(ai_readings["analysis"], candidate)
-    raw = summarize_with_deepseek(prompt)
+    raw = call_llm(prompt, stage="analysis")
     parsed = _parse_json_block(raw)
     parsed = _unwrap_named_payload(parsed, "analysis")
     parsed = _validate_required_keys(parsed, ANALYSIS_REQUIRED_KEYS)
@@ -276,7 +272,7 @@ def run_staged_ai_pipeline(
     if ai_enabled and stage_status["analysis"] == "ok":
         try:
             prompt = _build_summary_prompt(ai_readings["summary"], all_analyses)
-            summary = _parse_json_block(summarize_with_deepseek(prompt))
+            summary = _parse_json_block(call_llm(prompt, stage="summary"))
             summary = _unwrap_named_payload(summary, "summary")
             summary = _validate_required_keys(summary, SUMMARY_REQUIRED_KEYS)
             stage_status["summary"] = "ok"
@@ -290,7 +286,7 @@ def run_staged_ai_pipeline(
     if ai_enabled and stage_status["summary"] == "ok":
         try:
             prompt = _build_forecast_prompt(ai_readings["forecast"], all_analyses, summary)
-            forecast = _parse_json_block(summarize_with_deepseek(prompt))
+            forecast = _parse_json_block(call_llm(prompt, stage="forecast"))
             forecast = _unwrap_named_payload(forecast, "forecast")
             forecast = _validate_required_keys(forecast, FORECAST_REQUIRED_KEYS)
             stage_status["forecast"] = "ok"
