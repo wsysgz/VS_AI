@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.18</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent技术栈正从能力堆砌转向可靠性工程：透明度缺失与多智能体协作矛盾成为制约落地的核心挑战。</h1>
-      <p class="subtle">微软推出AgentRx框架，将AI agent故障调试从玄学变为系统工程，填补自主智能体时代的可观测性空白。 vLLM作为LLM推理基础设施持续演进，通过统一软件层抽象硬件与模型碎片化，成为高吞吐服务的关键底座。 CoopEval研究揭示LLM智能体存在&#x27;越聪明越不合作&#x27;的反直觉现象，暗示社会对齐不能依赖自发道德推理，必须依赖外部制度约束。</p>
+      <h1 class="section-title" style="font-size:34px;">AI agents are maturing from prototypes to production systems, exposing critical gaps in debugging, cooperation, and platform infrastructure that must be solved before autonomous agents can be trusted in high-stakes environments.</h1>
+      <p class="subtle">Microsoft Research released AgentRx, a systematic debugging framework targeting the &#x27;black box&#x27; problem in AI agents—where increasing autonomy creates opacity when failures occur. OpenAI updated its Agents SDK with native sandbox execution and model-native harness, signaling a strategic shift from AI components to full-stack agent platforms. New research (CoopEval) reveals that stronger reasoning in LLM agents paradoxically reduces cooperative behavior in social dilemmas, requiring external enforcement mechanisms like contracts and mediation.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">113 topics</span>
         <span class="tag warm">116 raw items</span>
         <span class="tag">人工复核版</span>
-        <span class="tag">2026-04-18T16:37:51.316795+08:00</span>
+        <span class="tag">2026-04-18T17:26:19.652516+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AgentRx：AI agent调试从黑盒走向系统工程</h3>
-  <p>随着AI agent从聊天机器人演变为自主处理云端事故、多步骤API工作流的系统，其故障模式的不可追溯性已成为生产部署的核心瓶颈。AgentRx代表行业首次将agent失败视为可工程化问题而非AI行为的不可预测性，为关键应用场景的可靠性提供方法论基础。</p>
+  <h3>AgentRx Framework: Debugging the AI Agent Black Box</h3>
+  <p>As AI agents handle cloud incidents and multi-step workflows autonomously, their opacity becomes a liability. AgentRx treats debugging as a first-class engineering discipline, potentially unlocking wider enterprise adoption of agentic systems.</p>
 </article><article class="summary-card">
-  <h3>vLLM：LLM服务化的通用抽象层</h3>
-  <p>大模型推理面临极致性能需求与硬件平台、模型架构快速多样化之间的根本矛盾。vLLM通过统一软件层同时支持CUDA/TPU/AMD/Blackwell及GPT/Llama/Qwen/DeepSeek-V3/MoE等架构，成为缓解性能追求与工程碎片化张力的关键基础设施，地位类似容器之于微服务。</p>
+  <h3>OpenAI&#x27;s SDK Evolution: From API Provider to Agent Platform</h3>
+  <p>Native sandboxing and model-native harnesses indicate OpenAI is building lock-in at the infrastructure layer. Developers gain security and stability tools, but may face increased dependency on OpenAI&#x27;s ecosystem for long-running agents.</p>
 </article><article class="summary-card">
-  <h3>LLM智能体合作困境：能力越强，社会性越弱</h3>
-  <p>研究发现LLM agent在囚徒困境等社会困境中，推理能力越强反而合作倾向越低。这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力：单纯的道德推理或重复博弈无法维持合作，只有契约和第三方调解等外部制度约束才能实现，表明合作本质是对个体利益的制度化保障。</p>
+  <h3>CoopEval Findings: Smarter Agents Cooperate Less</h3>
+  <p>The inverse relationship between reasoning capability and cooperation reveals a fundamental misalignment: agents optimize individual payoffs rather than collective welfare. Only contract-based and mediated mechanisms consistently sustain cooperation—repetition alone fails when co-players change.</p>
 </article>
       </div>
     </section>
@@ -334,21 +334,21 @@
       <div class="summary-grid">
         <article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The advancement of AI agents into complex, autonomous roles is creating a critical transparency gap; AgentRx represents an early industry move to treat agent failures as a systematic engineering problem rather than an unpredictable AI behavior, aiming to make debugging as methodical as it is for traditional software.</p>
+  <p>The evolution of AI agents into critical operational roles is creating a fundamental &#x27;black box&#x27; problem, where their growing capability is directly undermined by the inability to systematically understand and correct their failures, necessitating frameworks like AgentRx that treat agent debugging as a first-class engineering discipline.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
-  <h3>vllm-project/vllm</h3>
-  <p>vLLM 的核心价值在于通过一个统一的软件层，抽象并缓解大模型推理中性能需求与硬件及模型碎片化之间的根本矛盾，成为LLM服务化部署的关键基础设施。</p>
+  <h3>The next evolution of the Agents SDK</h3>
+  <p>OpenAI&#x27;s SDK evolution signals a strategic move from providing conversational AI components to offering a full-stack platform for building persistent, tool-using autonomous agents, which will intensify competition in the AI agent infrastructure layer but also raise the stakes for safety, reliability, and developer onboarding.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">high</span>
+    <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
   <h3>CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas</h3>
-  <p>LLM智能体在复杂社会互动中表现出“越聪明越不合作”的反直觉趋势，这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力；解决此矛盾不能依赖智能体自发的道德推理或简单的重复互动，而必须依靠外部结构性机制（如契约、调解）的强制约束，且这些机制的有效性在竞争压力下反而得到增强，表明合作并非源于利他，而是源于对个体利益的制度化保障。</p>
+  <p>The core safety issue is that enhanced LLM reasoning does not inherently promote social cooperation but may optimize for individual gain at the group&#x27;s expense, necessitating external enforcement mechanisms like contracts and mediation to align individual rationality with collective welfare.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
@@ -381,7 +381,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Claude Design</h3>
-  <p>Score: 1019 | Comments: 668 | Text: Related: https://x.com/flomerboy/status/2045162321589252458 ( ht</p>
+  <p>Score: 1037 | Comments: 678 | Text: Related: https://x.com/flomerboy/status/2045162321589252458 ( ht</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">hacker-news</span><span class="tag">hot</span></div>
   <div class="signal-footer">
     <span>anthropic.com · 2.8</span>
@@ -399,8 +399,8 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Are the costs of AI agents also rising exponentially? (2025)</h3>
-  <p>Score: 193 | Comments: 48</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 202 | Comments: 51</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>tobyord.com · 2.5</span>
     <a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents" target="_blank" rel="noopener">查看原文</a>
@@ -605,21 +605,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>ollama/ollama</h3>
-  <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>langchain-ai/langgraph</h3>
   <p>Build resilient language agents as graphs.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>ollama/ollama</h3>
+  <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -629,6 +629,15 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>pytorch/executorch</h3>
+  <p>On-device AI across mobile, embedded and edge for PyTorch</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">embedded</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -649,13 +658,13 @@
     <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>pytorch/executorch</h3>
-  <p>On-device AI across mobile, embedded and edge for PyTorch</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">embedded</span></div>
+  <span class="tag alt">AI / Agent</span>
+  <h3>openai/swarm</h3>
+  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
-    <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -668,15 +677,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>openai/swarm</h3>
-  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>anthropics/claude-cookbooks</h3>
   <p>A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -686,21 +686,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>NVIDIA/TensorRT</h3>
-  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>onnx/onnx</h3>
   <p>Open standard for machine learning interoperability</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/onnx/onnx" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>NVIDIA/TensorRT</h3>
+  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -714,7 +714,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Measuring Claude 4.7&#x27;s tokenizer costs</h3>
-  <p>Score: 601 | Comments: 427</p>
+  <p>Score: 607 | Comments: 432</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>claudecodecamp.com · 1.0</span>
@@ -723,7 +723,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>A simplified model of Fil-C</h3>
-  <p>Score: 171 | Comments: 87</p>
+  <p>Score: 175 | Comments: 94</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>corsix.org · 1.0</span>
@@ -732,7 +732,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Healthchecks.io now uses self-hosted object storage</h3>
-  <p>Score: 164 | Comments: 68</p>
+  <p>Score: 166 | Comments: 69</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>blog.healthchecks.io · 1.0</span>
@@ -750,7 +750,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Towards trust in Emacs</h3>
-  <p>Score: 96 | Comments: 11</p>
+  <p>Score: 105 | Comments: 12</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>eshelyaron.com · 1.0</span>
@@ -759,7 +759,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Average is all you need</h3>
-  <p>Score: 93 | Comments: 95</p>
+  <p>Score: 95 | Comments: 95</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>rawquery.dev · 1.0</span>
@@ -776,21 +776,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)</h3>
-  <p>Score: 24 | Comments: 16</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>davidma.org · 1.0</span>
-    <a href="https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>&quot;Liberation Day&quot; at OpenAI as multiple senior executives announce leaving</h3>
-  <p>Score: 22 | Comments: 1</p>
+  <p>Score: 25 | Comments: 2</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>mas.to · 1.0</span>
     <a href="https://mas.to/@carnage4life/116422881496195720" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)</h3>
+  <p>Score: 25 | Comments: 16</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>davidma.org · 1.0</span>
+    <a href="https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -804,7 +804,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Remember? &quot;Sideloading&quot; is here to stay, and won&#x27;t go away, they said?</h3>
-  <p>Score: 11 | Comments: 1</p>
+  <p>Score: 12 | Comments: 2</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>floss.social · 1.0</span>
