@@ -22,7 +22,7 @@ Verified and landed in `config/sources/rss.yaml`:
 
 Deferred for now:
 
-- `anthropic-news` (RSSHub route visible in docs, but the public instance was not stable enough to promote yet)
+- `anthropic-news` (RSSHub route research remains promising, but local/public-instance probing looked network-sensitive; promote only after remote validation)
 
 ## Selection rules
 
