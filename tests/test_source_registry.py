@@ -39,6 +39,27 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     assert "nxp-edge-ai" in replacement_ids
 
 
+def test_build_source_governance_queue_adds_operational_priority_views():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+    governance = build_source_governance_queue(registry)
+
+    assert "priority_queue" in governance
+    assert "changedetection_watch_list" in governance
+
+    priority_queue = governance["priority_queue"]
+    changedetection_watch_list = governance["changedetection_watch_list"]
+
+    assert priority_queue
+    assert changedetection_watch_list
+    assert priority_queue[0]["priority_score"] >= priority_queue[-1]["priority_score"]
+    assert all("watch_target" in item for item in changedetection_watch_list)
+    assert all(item["candidate_kind"] == "changedetection_watch" for item in changedetection_watch_list)
+    assert all(item["watch_target"] == item["url"] for item in changedetection_watch_list)
+    assert all(item["priority_label"] in {"high", "medium", "low"} for item in priority_queue)
+
+
 def test_build_source_registry_treats_structured_pages_as_direct_official_polls():
     settings = load_settings(Path.cwd())
 

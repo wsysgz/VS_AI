@@ -188,6 +188,27 @@ def _render_governance_candidates(items: list[object], empty_label: str) -> str:
     return "\n".join(rows)
 
 
+def _render_governance_priority_queue(items: list[object]) -> str:
+    if not items:
+        return '<tr><td colspan="7" class="empty">No governance priority items</td></tr>'
+
+    rows: list[str] = []
+    for raw_item in items:
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item.get('source_id') or '-'))}</td>"
+            f"<td>{escape(str(item.get('candidate_kind') or '-'))}</td>"
+            f"<td>{escape(str(item.get('priority_label') or '-'))}</td>"
+            f"<td>{escape(str(item.get('priority_score') or '-'))}</td>"
+            f"<td>{escape(str(item.get('reason') or '-'))}</td>"
+            f"<td>{escape(str(item.get('next_action') or '-'))}</td>"
+            f"<td>{escape(str(item.get('url') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
 def _flatten_mapping(data: dict[str, object], prefix: str = "") -> dict[str, object]:
     flattened: dict[str, object] = {}
     for key, value in data.items():
@@ -691,6 +712,32 @@ def _build_dashboard_html(
     <div class="card">
       <h2 class="section-title">Source Governance Queue</h2>
       {_render_key_values(governance_summary if isinstance(governance_summary, dict) else {})}
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Governance Priority Queue</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Candidate Kind</th>
+            <th>Priority</th>
+            <th>Score</th>
+            <th>Reason</th>
+            <th>Next Action</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_governance_priority_queue(
+              source_governance_dict.get("priority_queue", [])
+              if isinstance(source_governance_dict, dict)
+              else []
+          )}
+        </tbody>
+      </table>
     </div>
   </section>
 

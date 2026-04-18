@@ -85,6 +85,50 @@ def _default_next_action(candidate_kind: str) -> str:
     return "Keep the current source under routine observation."
 
 
+def _priority_score(row: dict[str, object]) -> int:
+    candidate_kind = str(row.get("candidate_kind") or "")
+    category_hint = str(row.get("category_hint") or "")
+    stability_tier = str(row.get("stability_tier") or "")
+    enabled = bool(row.get("enabled", False))
+
+    score = {
+        "manual_replace": 90,
+        "changedetection_watch": 70,
+        "rsshub_route": 60,
+    }.get(candidate_kind, 0)
+
+    if category_hint in {"ai-llm-agent", "ai-x-electronics"}:
+        score += 10
+
+    if enabled and stability_tier in {"fragile-listing", "manual-watch"}:
+        score += 10
+
+    return score
+
+
+def _priority_label(score: int) -> str:
+    if score >= 80:
+        return "high"
+    if score >= 65:
+        return "medium"
+    return "low"
+
+
+def _priority_reason(row: dict[str, object], score: int) -> str:
+    candidate_kind = str(row.get("candidate_kind") or "none")
+    category_hint = str(row.get("category_hint") or "")
+    stability_tier = str(row.get("stability_tier") or "")
+    enabled = bool(row.get("enabled", False))
+    parts = [candidate_kind]
+    if category_hint:
+        parts.append(category_hint)
+    if stability_tier:
+        parts.append(stability_tier)
+    parts.append("enabled" if enabled else "disabled")
+    parts.append(f"score={score}")
+    return ", ".join(parts)
+
+
 def _source_metadata(source: dict[str, object], *, collector: str, mode: str) -> dict[str, object]:
     enabled = bool(source.get("enabled", False))
     stability_tier = str(source.get("stability_tier", "")).strip()
@@ -187,6 +231,7 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
                 "collector": str(item.get("collector") or ""),
                 "enabled": bool(item.get("enabled", False)),
                 "mode": str(item.get("mode") or ""),
+                "category_hint": str(item.get("category_hint") or ""),
                 "stability_tier": str(item.get("stability_tier") or ""),
                 "watch_strategy": str(item.get("watch_strategy") or ""),
                 "replacement_target": str(item.get("replacement_target") or ""),
@@ -204,6 +249,30 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
     rsshub_candidates = [row for row in rows if "rsshub" in row["replacement_target"]]
     changedetection_candidates = [row for row in rows if row["candidate_kind"] == "changedetection_watch"]
     replacement_candidates = [row for row in rows if row["replacement_target"] not in ("", "none")]
+    changedetection_watch_list = [
+        {
+            **row,
+            "watch_target": row["url"],
+            "priority_score": _priority_score(row),
+            "priority_label": _priority_label(_priority_score(row)),
+            "reason": _priority_reason(row, _priority_score(row)),
+        }
+        for row in changedetection_candidates
+    ]
+    changedetection_watch_list.sort(key=lambda row: (-int(row["priority_score"]), str(row["source_id"])))
+
+    priority_queue = [
+        {
+            **row,
+            "watch_target": row["url"] if row["candidate_kind"] == "changedetection_watch" else "",
+            "priority_score": _priority_score(row),
+            "priority_label": _priority_label(_priority_score(row)),
+            "reason": _priority_reason(row, _priority_score(row)),
+        }
+        for row in rows
+        if row["candidate_kind"] in {"manual_replace", "changedetection_watch", "rsshub_route"}
+    ]
+    priority_queue.sort(key=lambda row: (-int(row["priority_score"]), str(row["source_id"])))
 
     return {
         "summary": {
@@ -215,5 +284,7 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
         "manual_review": manual_review,
         "rsshub_candidates": rsshub_candidates,
         "changedetection_candidates": changedetection_candidates,
+        "changedetection_watch_list": changedetection_watch_list,
         "replacement_candidates": replacement_candidates,
+        "priority_queue": priority_queue,
     }

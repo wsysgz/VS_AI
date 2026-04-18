@@ -302,6 +302,8 @@ def test_build_ops_dashboard_renders_source_registry_from_config(tmp_path: Path)
     assert "st-blog" not in html.split("Manual Review Focus", 1)[1]
     assert "ti-e2e-blog" not in html.split("Manual Review Focus", 1)[1]
     assert "Source Governance Queue" in html
+    assert "Governance Priority Queue" in html
+    assert "Priority" in html
     assert "RSSHub Candidates" in html
     assert "changedetection Candidates" in html
     assert "Replacement Candidates" in html
