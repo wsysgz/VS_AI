@@ -58,6 +58,18 @@ jobs:
           FORECAST_AI_BASE_URL: ${{ vars.FORECAST_AI_BASE_URL || '' }}
           FORECAST_AI_MODEL: ${{ vars.FORECAST_AI_MODEL || '' }}
           FORECAST_AI_API_KEY: ${{ secrets.FORECAST_AI_API_KEY }}
+          PREFILTER_AI_PROVIDER: ${{ vars.PREFILTER_AI_PROVIDER || '' }}
+          PREFILTER_AI_BASE_URL: ${{ vars.PREFILTER_AI_BASE_URL || '' }}
+          PREFILTER_AI_MODEL: ${{ vars.PREFILTER_AI_MODEL || '' }}
+          PREFILTER_AI_API_KEY: ${{ secrets.PREFILTER_AI_API_KEY }}
+          DISCOVERY_AI_PROVIDER: ${{ vars.DISCOVERY_AI_PROVIDER || '' }}
+          DISCOVERY_AI_BASE_URL: ${{ vars.DISCOVERY_AI_BASE_URL || '' }}
+          DISCOVERY_AI_MODEL: ${{ vars.DISCOVERY_AI_MODEL || '' }}
+          DISCOVERY_AI_API_KEY: ${{ secrets.DISCOVERY_AI_API_KEY }}
+          SEARCH_AI_PROVIDER: ${{ vars.SEARCH_AI_PROVIDER || '' }}
+          SEARCH_AI_BASE_URL: ${{ vars.SEARCH_AI_BASE_URL || '' }}
+          SEARCH_AI_MODEL: ${{ vars.SEARCH_AI_MODEL || '' }}
+          SEARCH_AI_API_KEY: ${{ secrets.SEARCH_AI_API_KEY }}
           AI_TEMPERATURE: "0.2"
           AUTO_TIMEZONE: Asia/Shanghai
         run: python -m auto_report.cli analyze-only
