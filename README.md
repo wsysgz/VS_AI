@@ -100,6 +100,12 @@ Current capability note / 当前能力说明:
 - DeepSeek and MiniMax can coexist in configuration, but only one provider is
   active globally by default.
 - Stage-level routing is now supported via environment overrides. Example:
+- Recommended P2 stage ownership:
+  - `analysis` -> DeepSeek
+  - `summary` -> MiniMax-M2.7
+  - `forecast` -> DeepSeek
+  - `pre_filter` -> MiniMax-M2.7
+  - future helper stages `discovery` / `search` -> MiniMax-M2.7
 
 ```env
 ANALYSIS_AI_PROVIDER=deepseek
@@ -114,9 +120,20 @@ SUMMARY_AI_API_KEY=<your-minimax-key>
 FORECAST_AI_PROVIDER=deepseek
 FORECAST_AI_BASE_URL=https://api.deepseek.com
 FORECAST_AI_MODEL=deepseek-chat
-```
 
-- The current pre-filter stage reuses the `ANALYSIS_*` provider settings.
+PREFILTER_AI_PROVIDER=minimax_svips
+PREFILTER_AI_BASE_URL=https://api.svips.org/v1
+PREFILTER_AI_MODEL=MiniMax-M2.7
+PREFILTER_AI_API_KEY=<your-minimax-key>
+
+DISCOVERY_AI_PROVIDER=minimax_svips
+DISCOVERY_AI_BASE_URL=https://api.svips.org/v1
+DISCOVERY_AI_MODEL=MiniMax-M2.7
+
+SEARCH_AI_PROVIDER=minimax_svips
+SEARCH_AI_BASE_URL=https://api.svips.org/v1
+SEARCH_AI_MODEL=MiniMax-M2.7
+```
 
 GitHub / Actions note:
 

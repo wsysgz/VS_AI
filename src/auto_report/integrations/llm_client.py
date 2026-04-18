@@ -239,7 +239,7 @@ def is_llm_enabled() -> bool:
     if _resolve_provider_config().get("api_key"):
         return True
 
-    for stage in ("analysis", "summary", "forecast"):
+    for stage in ("analysis", "summary", "forecast", "prefilter", "discovery", "search"):
         if _resolve_provider_config(stage=stage).get("api_key"):
             return True
 

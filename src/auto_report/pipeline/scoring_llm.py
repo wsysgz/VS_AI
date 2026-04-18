@@ -79,7 +79,7 @@ def batch_score_candidates(
 """
 
     try:
-        raw = call_llm(prompt, stage="analysis")
+        raw = call_llm(prompt, stage="prefilter")
         result = _parse_score_items(raw)
 
         scores: dict[int, float] = {}

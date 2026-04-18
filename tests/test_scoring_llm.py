@@ -41,7 +41,7 @@ def test_batch_score_candidates_accepts_json_array(monkeypatch):
     ]
 
 
-def test_batch_score_candidates_uses_analysis_stage(monkeypatch):
+def test_batch_score_candidates_uses_prefilter_stage(monkeypatch):
     candidates = [
         TopicCandidate(
             topic_id="topic-1",
@@ -67,4 +67,4 @@ def test_batch_score_candidates_uses_analysis_stage(monkeypatch):
     scored = batch_score_candidates(candidates, {"analysis": "analysis-rules"})
 
     assert scored == [(candidates[0], 8.5)]
-    assert seen == ["analysis"]
+    assert seen == ["prefilter"]

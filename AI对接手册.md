@@ -411,8 +411,14 @@ $env:AI_API_KEY='<your-minimax-key>'
 注意：
 
 - 当前已经支持按 `analysis / summary / forecast` 分阶段切换 provider。
+- 当前建议默认分工：
+  - `analysis` -> DeepSeek
+  - `summary` -> MiniMax-M2.7
+  - `forecast` -> DeepSeek
+  - `pre_filter` -> MiniMax-M2.7
+  - 未来 `discovery` / `search` helper stage -> MiniMax-M2.7
 - `DeepSeek / MiniMax` 可以在同一轮运行中并存。
-- 预筛选阶段当前默认复用 `analysis` 的 provider 设置。
+- 预筛选阶段现已支持独立的 `PREFILTER_*` provider 设置。
 
 推荐默认分工：
 
@@ -429,6 +435,19 @@ $env:SUMMARY_AI_API_KEY='<your-minimax-key>'
 $env:FORECAST_AI_PROVIDER='deepseek'
 $env:FORECAST_AI_BASE_URL='https://api.deepseek.com'
 $env:FORECAST_AI_MODEL='deepseek-chat'
+
+$env:PREFILTER_AI_PROVIDER='minimax_svips'
+$env:PREFILTER_AI_BASE_URL='https://api.svips.org/v1'
+$env:PREFILTER_AI_MODEL='MiniMax-M2.7'
+$env:PREFILTER_AI_API_KEY='<your-minimax-key>'
+
+$env:DISCOVERY_AI_PROVIDER='minimax_svips'
+$env:DISCOVERY_AI_BASE_URL='https://api.svips.org/v1'
+$env:DISCOVERY_AI_MODEL='MiniMax-M2.7'
+
+$env:SEARCH_AI_PROVIDER='minimax_svips'
+$env:SEARCH_AI_BASE_URL='https://api.svips.org/v1'
+$env:SEARCH_AI_MODEL='MiniMax-M2.7'
 ```
 
 ### 7.1 每日 / 手工运行

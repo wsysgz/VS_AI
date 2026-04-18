@@ -106,6 +106,27 @@ class TestProviderConfigResolution:
             assert config["model"] == "MiniMax-M2.7"
             assert config["api_key"] == "generic-key"
 
+    def test_helper_stage_specific_provider_override(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "PREFILTER_AI_PROVIDER": "minimax_svips",
+                "PREFILTER_AI_BASE_URL": "https://api.svips.org/v1",
+                "PREFILTER_AI_MODEL": "MiniMax-M2.7",
+                "AI_API_KEY": "generic-key",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config(stage="prefilter")
+            assert config["provider"] == "minimax_svips"
+            assert config["base_url"] == "https://api.svips.org/v1"
+            assert config["model"] == "MiniMax-M2.7"
+            assert config["api_key"] == "generic-key"
+
     def test_is_llm_enabled_when_only_stage_specific_generic_key_exists(self):
         with patch.dict(
             os.environ,
@@ -139,6 +160,25 @@ class TestProviderConfigResolution:
                 "ANALYSIS_AI_BASE_URL": "https://api.deepseek.com",
                 "ANALYSIS_AI_MODEL": "deepseek-chat",
                 "ANALYSIS_DEEPSEEK_API_KEY": "analysis-key",
+            },
+            clear=False,
+        ):
+            assert is_llm_enabled() is True
+
+    def test_is_llm_enabled_when_only_helper_stage_key_exists(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "",
+                "AI_API_KEY": "",
+                "DEEPSEEK_API_KEY": "",
+                "OPENAI_API_KEY": "",
+                "PREFILTER_AI_PROVIDER": "minimax_svips",
+                "PREFILTER_AI_BASE_URL": "https://api.svips.org/v1",
+                "PREFILTER_AI_MODEL": "MiniMax-M2.7",
+                "PREFILTER_AI_API_KEY": "prefilter-key",
             },
             clear=False,
         ):
