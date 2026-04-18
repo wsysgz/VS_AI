@@ -1,74 +1,68 @@
 {
   "meta": {
-    "generated_at": "2026-04-18T15:06:45.206290+08:00",
+    "generated_at": "2026-04-18T15:41:32.030993+08:00",
     "timezone": "Asia/Shanghai",
-    "total_items": 114,
-    "total_topics": 111,
+    "total_items": 113,
+    "total_topics": 110,
     "publication_mode": "reviewed",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI智能体正从实验工具演变为关键生产系统，但其规模化面临透明度缺失、成本压力、合作风险三大核心挑战，推动基础设施与治理机制的同步进化。",
+  "one_line_core": "AI智能体正从概念验证转向关键生产应用，但其规模化面临透明度、合作行为与成本效益三大核心瓶颈，系统性调试、机制设计和开源优化成为突破关键。",
   "executive_summary": [
-    "AI智能体领域正经历从能力验证到生产部署的关键转折，核心矛盾从“能否做”转向“能否可靠、经济、安全地规模化”。",
-    "微软的AgentRx框架和OpenAI的SDK更新表明，行业正通过系统化调试与开发工具应对智能体失败不透明的根本性可靠性问题。",
-    "vLLM等项目致力于打造通用推理引擎以降低部署门槛，但智能体运行成本（尤其是复杂任务）的指数增长风险与硬件进步之间的博弈，成为商业化的关键制约。",
-    "更严峻的挑战来自多智能体交互：研究表明，更强的推理能力可能导致更低的合作倾向，凸显了在提升个体能力之外，设计外部治理机制（如契约、调解）的紧迫性。",
-    "整体趋势显示，AI智能体的发展已进入“系统工程”阶段，需要工具链、成本优化、安全机制三方面的协同突破才能实现真正的规模化应用。"
+    "AI智能体领域正经历从能力展示到生产部署的关键转折，核心矛盾从“能否做”转向“能否可靠、协同、经济地做”。",
+    "微软的AgentRx框架和学术界的CoopEval研究分别揭示了智能体在系统可靠性和社会协同性上的深层挑战，前者缺乏透明调试工具，后者存在个体理性与集体利益的错配。",
+    "开源项目vLLM和OpenAI的SDK更新代表了产业界在提升智能体部署效率（性能、成本、易用性）上的持续努力，但广泛兼容性与极致性能间的平衡仍是难题。",
+    "整体趋势表明，智能体的下一阶段发展将更依赖框架级工具、外部机制设计和开源生态协同，而非单纯追求模型能力的提升。"
   ],
   "key_points": [
     {
-      "title": "可靠性危机：智能体越自主，调试越困难",
-      "why_it_matters": "当AI智能体管理云故障或复杂工作流时，其决策过程如同黑箱，一旦失败难以追溯根因（如幻觉的工具输出）。微软推出AgentRx框架，标志着行业开始将“系统化调试”视为智能体投入生产环境的先决条件，而非可选功能。这直接关系到智能体在关键任务中的可信度与采用范围。"
+      "title": "可靠性瓶颈：智能体复杂化与调试透明度的矛盾",
+      "why_it_matters": "随着AI智能体承担云管、多步工作流等关键任务，其失败变得难以追溯和诊断（如工具调用幻觉），这构成了将其安全、规模化部署到生产环境的最大障碍。微软的AgentRx框架正是针对这一系统性痛点，标志着行业开始正视并着手解决智能体的“可观测性”问题。"
     },
     {
-      "title": "成本悖论：能力增长与经济效益的拉锯战",
-      "why_it_matters": "智能体能力的指数级提升（更复杂任务、更长上下文）可能对冲掉算法与硬件进步带来的单位计算成本下降。这种“小时成本”的博弈结果，将决定AI智能体是从少数企业的利器变为广泛普及的基础设施，还是受限于高昂成本而无法规模化。这是技术乐观主义与商业现实的核心冲突点。"
+      "title": "合作困境：LLM智能体理性与系统协同需求的结构性错配",
+      "why_it_matters": "研究发现，LLM智能体在囚徒困境等社会博弈中，更强的推理能力反而导致更低的合作倾向。这揭示了当前基于能力优化的安全范式局限：智能体缺乏内在的合作动机。有效的解决方案并非提升模型“善念”，而是依赖契约、调解等外部机制设计，这对多智能体协作系统的构建至关重要。"
     },
     {
-      "title": "合作困境：越聪明的智能体，可能越不合作",
-      "why_it_matters": "研究表明，在囚徒困境等社会博弈中，LLM智能体更强的推理能力反而导致更低的合作倾向。这意味着单纯追求模型个体能力的优化路径，可能与多智能体协同所需的安全、合作目标背道而驰。解决之道不在模型内部“道德”，而在于设计外部机制（如契约、调解），这为AI治理和安全研究指明了新方向。"
-    },
-    {
-      "title": "基础设施竞赛：vLLM欲成推理领域的“PyTorch”",
-      "why_it_matters": "vLLM通过支持多硬件（CUDA/AMD/TPU）和多模型架构（包括MOE），试图打造一个通用、高效的开源推理服务标准。其成功与否，取决于能否在保持通用性的同时，在关键硬件和模型上提供极致性能。这实质上是开源生态与闭源服务之间，争夺LLM应用底层标准话语权的竞争。"
+      "title": "部署效率：开源生态在性能、兼容性与成本间的持续博弈",
+      "why_it_matters": "vLLM等项目致力于通过内存优化、高吞吐来降低推理成本，OpenAI则通过SDK简化开发。这反映了产业界在推动智能体落地时面临的核心权衡：如何在支持多样化硬件（CUDA/AMD/TPU）和模型架构的同时，保持极致的性能和易用性。成本控制已成为智能体经济可行性的关键变量。"
     }
   ],
   "key_insights": [
-    "AI智能体发展的主要矛盾已从“功能实现”转向“可信规模化”。当前阶段的核心挑战不是让智能体执行任务，而是确保其执行过程可追溯、失败可诊断、成本可承受、交互可预测。",
-    "存在一个“智能体能力-成本-风险”的不可能三角雏形：在现有技术路径下，同时实现高性能、低成本和交互安全极为困难。行业正在通过分层解决：工具链（如AgentRx）应对风险，基础设施（如vLLM）优化成本，治理机制（如契约）引导安全。",
-    "智能体的“合作”问题揭示了AI安全范式的扩展：安全不仅是防止有害输出或对齐偏差，还包括确保多个自主智能体在复杂社会情境中产生稳定、可预期的集体行为。这需要将博弈论、机制设计等社会科学工具深度融入AI系统架构。",
-    "开源推理引擎（如vLLM）的崛起，与闭源厂商（如OpenAI）的工具链更新（如Agents SDK），共同指向一个趋势：智能体开发的“中间件”层正在快速成熟和标准化，这将降低应用开发门槛，但也可能将竞争焦点从模型能力向上游的开发体验和下游的生态整合转移。"
+    "智能体发展的主要矛盾已转移：从证明“单点能力”转向解决“系统可靠性”、“多体协同”和“部署经济性”等复合型工程与机制问题。",
+    "“透明性”和“可调试性”正成为比“能力上限”更紧迫的瓶颈。AgentRx框架的出现预示着一个新趋势：智能体开发将像软件工程一样，需要强大的底层调试与观测工具。",
+    "LLM智能体的合作行为研究表明，对于确保多智能体系统的安全与稳定，外部制度约束（机制设计）可能比内在的“对齐”或“价值观”灌输更有效、更可工程化。",
+    "开源推理引擎（如vLLM）的演进表明，智能体的规模化落地严重依赖底层基础设施的优化，性能与成本的进步将直接决定智能体应用的边界与普及速度。"
   ],
   "limitations": [
-    "本摘要基于有限的主题分析列表，其中两项（OpenAI Agents SDK、Claude Design）因证据深度不足，其具体内容与影响未被深入整合，可能遗漏了工具链演进的重要细节。",
-    "关于成本的分析主要基于社区讨论和趋势推演，缺乏实际的大规模商业部署数据支撑，成本曲线的具体形态仍有待观察。",
-    "多智能体合作研究主要基于受控的博弈实验环境，其结论在开放、动态的真实世界场景中的普适性需要进一步验证。",
-    "摘要侧重于技术挑战与行业动态，对政策监管、伦理标准等外部环境因素的讨论不足。"
+    "本摘要基于有限的主题分析列表，未涵盖AI智能体在具体垂直行业（如金融、医疗）的应用进展与挑战。",
+    "关于OpenAI Agents SDK更新、Claude Design及AI智能体成本的具体技术细节和实证数据不足，相关分析基于信号强度推测，需后续验证。",
+    "分析主要聚焦于技术和机制层面，对智能体引发的组织变革、伦理法规及劳动力市场影响等宏观社会维度涉及较少。"
   ],
   "actions": [
-    "对于AI开发者与架构师：在评估智能体技术栈时，应将“可观测性”和“调试支持”作为核心选型标准，优先考虑提供类似AgentRx诊断能力的框架或平台。",
-    "对于企业技术决策者：在规划AI智能体应用时，需建立包含性能、成本（尤其是动态推理成本）、风险（包括交互安全）的综合评估模型，避免单一维度决策。",
-    "对于研究人员：应超越单智能体能力评测，加强对多智能体交互机制、长期博弈行为以及外部治理机制有效性的研究，为构建安全的智能体社会奠定基础。",
-    "关注并参与vLLM等开源推理引擎的生态建设，其通用性优化与硬件适配进展将直接影响未来智能体应用的部署成本与灵活性。"
+    "技术决策者：应优先评估和引入类似AgentRx的系统调试框架，将智能体的可观测性与可追溯性纳入生产部署的核心考量。",
+    "研究人员与产品经理：在设计多智能体系统时，应超越模型微调，积极探索契约、声誉、调解等机制设计，以制度保障协同目标的达成。",
+    "开发者：关注vLLM等开源推理优化项目的最新进展，将其作为降低智能体服务成本、提升性能的关键基础设施进行评估和集成。",
+    "持续监测：需紧密跟踪OpenAI、Anthropic等头部公司在智能体开发套件上的更新，以及关于智能体运行成本的独立分析报告，以把握技术演进与经济效益的平衡点。"
   ],
   "analyses": [
     {
       "facts": [
         "AI agents are evolving from simple chatbots to autonomous systems handling complex tasks like cloud incident management and multi-step API workflows.",
         "A key emerging challenge is the lack of transparency when these agents fail, making it difficult to trace the logic behind errors such as hallucinated tool outputs.",
-        "Microsoft Research has introduced the AgentRx framework, which is presented as a systematic debugging approach for AI agents."
+        "Microsoft Research has introduced the AgentRx framework, which is presented as a systematic debugging approach specifically for AI agents."
       ],
       "contradictions": [
         "Increasing agent autonomy and task complexity vs. the need for human-understandable transparency and debuggability.",
-        "The demand for reliable, production-ready AI agents vs. the current opaque nature of agent failures.",
-        "The promise of autonomous AI systems to improve efficiency vs. the risk and cost of undiagnosed errors in critical workflows."
+        "The demand for reliable, production-ready AI agents vs. the current opacity and difficulty in diagnosing their failures.",
+        "The aspiration for agents to operate independently in critical workflows vs. the inherent risk and unpredictability of their potential failure modes."
       ],
-      "primary_contradiction": "The increasing autonomy and complexity of AI agents vs. the fundamental need for transparency and systematic debuggability to ensure reliability and trust.",
-      "core_insight": "The evolution of AI agents into critical operational roles is creating a fundamental reliability gap, where their growing capability is undermined by a lack of diagnostic transparency, making systematic debugging frameworks like AgentRx not just a technical tool but a prerequisite for safe and scalable agent deployment.",
-      "confidence": "medium",
+      "primary_contradiction": "The increasing autonomy and operational complexity of AI agents versus the critical need for systematic transparency and debuggability to ensure reliability.",
+      "core_insight": "The evolution of AI agents into critical operational roles is fundamentally constrained not by their capability potential, but by the current lack of robust, framework-level debugging tools—making systematic observability the key bottleneck for their safe and scalable adoption.",
+      "confidence": "high",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
       "primary_domain": "ai-llm-agent",
@@ -88,6 +82,14 @@
             "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
             "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
             "evidence_scope": "external"
+          },
+          {
+            "source_id": "arxiv-search",
+            "source_type": "paper",
+            "title": "BOOP: Write Right Code",
+            "url": "https://arxiv.org/abs/2507.22085v2",
+            "summary": "Novice programmers frequently adopt a syntax-specific and test-case-driven approach, writing code first and adjusting until programs compile and test cases pass, rather than developing correct solutions through systematic reasoning. AI coding tools exacerbate this challenge by providing syntactically correct but conceptually flawed solutions. In this paper, we address the question of developing correctness-first methodologies to enhance computational thinking in introductory programming education. To this end, we introduce BOOP (Blueprint, Operations, OCaml, Proof), a structured framework requiring four mandatory phases: formal specification, language-agnostic algorithm development, implementation, and correctness proof. This shifts focus from making the code to understanding the code is correct.\n  BOOP was implemented at Ashoka University using a VS Code extension and preprocessor that enforces constraints. Initial evaluation shows improved algorithmic reasoning and reduced trial-and-error debugging. Students reported better edge case understanding and problem decomposition, though some initially found the format verbose. Instructors observed stronger foundational skills compared to traditional approaches, suggesting that structured correctness-first approaches may significantly improve students' computational thinking abilities.",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
@@ -95,7 +97,7 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 1 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
         "days_seen": 9,
@@ -126,124 +128,135 @@
           "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
           "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
           "evidence_scope": "external"
+        },
+        {
+          "source_id": "arxiv-search",
+          "source_type": "paper",
+          "title": "BOOP: Write Right Code",
+          "url": "https://arxiv.org/abs/2507.22085v2",
+          "summary": "Novice programmers frequently adopt a syntax-specific and test-case-driven approach, writing code first and adjusting until programs compile and test cases pass, rather than developing correct solutions through systematic reasoning. AI coding tools exacerbate this challenge by providing syntactically correct but conceptually flawed solutions. In this paper, we address the question of developing correctness-first methodologies to enhance computational thinking in introductory programming education. To this end, we introduce BOOP (Blueprint, Operations, OCaml, Proof), a structured framework requiring four mandatory phases: formal specification, language-agnostic algorithm development, implementation, and correctness proof. This shifts focus from making the code to understanding the code is correct.\n  BOOP was implemented at Ashoka University using a VS Code extension and preprocessor that enforces constraints. Initial evaluation shows improved algorithmic reasoning and reduced trial-and-error debugging. Students reported better edge case understanding and problem decomposition, though some initially found the format verbose. Instructors observed stronger foundational skills compared to traditional approaches, suggesting that structured correctness-first approaches may significantly improve students' computational thinking abilities.",
+          "evidence_scope": "external"
         }
       ]
     },
     {
       "facts": [
-        "主题讨论AI智能体的小时成本是否也在指数级增长（2025年）",
-        "信息来源为单一网站文章，讨论热度较高（Hacker News得分180，评论42条）",
-        "主题属于AI-LLM-智能体领域"
+        "LLM智能体在混合动机博弈（如囚徒困境、公共物品博弈）中表现出更强的推理能力反而导致更低的合作倾向，近期模型在单次社会困境中普遍选择背叛。",
+        "研究比较了四种促进合作均衡的机制：多轮重复博弈、声誉系统、第三方调解、结果条件支付契约。",
+        "实验发现契约和调解机制在促进高能力LLM模型间合作方面最有效，而重复博弈在对手变化时合作效果急剧下降。",
+        "这些合作机制在进化压力（个体收益最大化）下变得更加有效。"
       ],
       "contradictions": [
-        "AI能力/性能的指数级提升 vs. 运行成本的可能同步增长",
-        "对更强大、更复杂AI智能体的市场需求 vs. 其高昂使用成本对普及的制约",
-        "技术乐观主义（成本终将下降） vs. 当前硬件与算力资源的现实约束",
-        "企业/开发者对AI代理效率的追求 vs. 预算与投资回报率的压力"
+        "LLM推理能力增强 vs 社会困境中合作行为减少",
+        "单次博弈中的背叛倾向 vs 机制设计下的合作均衡目标",
+        "重复博弈的稳定性 vs 对手变化时的合作脆弱性",
+        "个体理性（收益最大化） vs 集体理性（合作共赢）",
+        "机制的理论有效性 vs LLM智能体实际行为偏差"
       ],
-      "primary_contradiction": "AI智能体能力与复杂性的指数级增长需求 vs. 支撑其运行的硬件、算力与能源成本的现实约束",
-      "core_insight": "当前讨论的核心并非简单的“是”或“否”，而在于揭示AI发展范式的一个关键张力：能力跃迁往往依赖于更大的模型、更复杂的交互（如智能体），这直接对冲了通过算法优化、芯片进步带来的单位计算成本下降效应；真正的成本曲线形态取决于这两股力量的净博弈结果，而“小时成本”是观测这一博弈的敏感指标。",
-      "confidence": "medium",
-      "title": "Are the costs of AI agents also rising exponentially? (2025)",
-      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
+      "primary_contradiction": "LLM智能体个体理性（短期收益最大化导致的背叛倾向）与系统安全需求（长期合作可持续性）之间的结构性矛盾",
+      "core_insight": "LLM智能体的合作困境本质是算法个体理性与系统协同要求的结构性错配，契约与调解等外部约束机制比内在推理能力更能有效引导合作行为，这揭示了当前LLM智能体安全范式的局限性——需从能力优化转向机制设计。",
+      "confidence": "high",
+      "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
+      "url": "https://arxiv.org/abs/2604.15267v1",
       "primary_domain": "ai-llm-agent",
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
-          "hacker-news"
+          "arxiv-cs-ai"
         ],
         "source_types": [
-          "community"
+          "paper"
         ],
         "support_evidence": [
           {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
+            "url": "https://arxiv.org/abs/2604.15306v1",
+            "summary": "Whether language models can systematically generalize remains actively debated. Yet empirical performance is jointly shaped by multiple factors such as training data, training paradigms, and inference-time strategies, making failures difficult to interpret. We introduce a controlled synthetic environment based on shortest-path planning, a canonical composable sequential optimization problem. The setup enables clean separation of these factors and supports two orthogonal axes of generalization: spatial transfer to unseen maps and length scaling to longer-horizon problems. We find that models exhibit strong spatial transfer but consistently fail under length scaling due to recursive instability. We further analyze how distinct stages of the learning pipeline influence systematic problem-solving: for example, data coverage sets capability limits; reinforcement learning improves training stability but does not expand those limits; and inference-time scaling enhances performance but cannot rescue length-scaling failures.",
             "evidence_scope": "current-run"
           },
           {
-            "source_id": "huggingface-blog",
+            "source_id": "openai-news",
             "source_type": "official",
-            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-            "summary": "",
-            "evidence_scope": "current-run"
+            "title": "Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
+            "url": "https://openai.com/index/cloudflare-openai-agent-cloud",
+            "summary": "Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.",
+            "evidence_scope": "external"
           },
           {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
+            "source_id": "arxiv-search",
+            "source_type": "paper",
+            "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
+            "url": "https://arxiv.org/abs/2604.15267v1",
+            "summary": "It is increasingly important that LLM agents interact effectively and safely with other goal-pursuing agents, yet, recent works report the opposite trend: LLMs with stronger reasoning capabilities behave _less_ cooperatively in mixed-motive games such as the prisoner's dilemma and public goods settings. Indeed, our experiments show that recent models -- with or without reasoning enabled -- consistently defect in single-shot social dilemmas.\n  To tackle this safety concern, we present the first comparative study of game-theoretic mechanisms that are designed to enable cooperative outcomes between rational agents _in equilibrium_. Across four social dilemmas testing distinct components of robust cooperation, we evaluate the following mechanisms: (1) repeating the game for many rounds, (2) reputation systems, (3) third-party mediators to delegate decision making to, and (4) contract agreements for outcome-conditional payments between players. Among our findings, we establish that contracting and mediation are most effective in achieving cooperative outcomes between capable LLM models, and that repetition-induced cooperation deteriorates drastically when co-players vary. Moreover, we demonstrate that these cooperation mechanisms become _more effective_ under evolutionary pressures to maximize individual payoffs.",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
-          "community",
-          "related-support"
+          "paper",
+          "related-support",
+          "external-support"
         ],
-        "summary": "1 source(s) | community | 3 related support"
+        "summary": "1 source(s) | paper | 3 related support"
       },
       "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
+        "days_seen": 2,
+        "first_seen": "2026-04-17",
         "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
+        "previous_score": 3.3,
+        "previous_confidence": "high",
+        "previous_lifecycle_state": "new",
         "seen_dates": [
+          "2026-04-17",
           "2026-04-18"
         ]
       },
-      "lifecycle_state": "new",
-      "risk_level": "medium",
+      "lifecycle_state": "verified",
+      "risk_level": "low",
       "support_evidence": [
         {
-          "source_id": "meta-ai-blog",
-          "source_type": "official",
-          "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-          "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-          "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
+          "url": "https://arxiv.org/abs/2604.15306v1",
+          "summary": "Whether language models can systematically generalize remains actively debated. Yet empirical performance is jointly shaped by multiple factors such as training data, training paradigms, and inference-time strategies, making failures difficult to interpret. We introduce a controlled synthetic environment based on shortest-path planning, a canonical composable sequential optimization problem. The setup enables clean separation of these factors and supports two orthogonal axes of generalization: spatial transfer to unseen maps and length scaling to longer-horizon problems. We find that models exhibit strong spatial transfer but consistently fail under length scaling due to recursive instability. We further analyze how distinct stages of the learning pipeline influence systematic problem-solving: for example, data coverage sets capability limits; reinforcement learning improves training stability but does not expand those limits; and inference-time scaling enhances performance but cannot rescue length-scaling failures.",
           "evidence_scope": "current-run"
         },
         {
-          "source_id": "huggingface-blog",
+          "source_id": "openai-news",
           "source_type": "official",
-          "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-          "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-          "summary": "",
-          "evidence_scope": "current-run"
+          "title": "Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
+          "url": "https://openai.com/index/cloudflare-openai-agent-cloud",
+          "summary": "Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.",
+          "evidence_scope": "external"
         },
         {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-          "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-          "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "current-run"
+          "source_id": "arxiv-search",
+          "source_type": "paper",
+          "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
+          "url": "https://arxiv.org/abs/2604.15267v1",
+          "summary": "It is increasingly important that LLM agents interact effectively and safely with other goal-pursuing agents, yet, recent works report the opposite trend: LLMs with stronger reasoning capabilities behave _less_ cooperatively in mixed-motive games such as the prisoner's dilemma and public goods settings. Indeed, our experiments show that recent models -- with or without reasoning enabled -- consistently defect in single-shot social dilemmas.\n  To tackle this safety concern, we present the first comparative study of game-theoretic mechanisms that are designed to enable cooperative outcomes between rational agents _in equilibrium_. Across four social dilemmas testing distinct components of robust cooperation, we evaluate the following mechanisms: (1) repeating the game for many rounds, (2) reputation systems, (3) third-party mediators to delegate decision making to, and (4) contract agreements for outcome-conditional payments between players. Among our findings, we establish that contracting and mediation are most effective in achieving cooperative outcomes between capable LLM models, and that repetition-induced cooperation deteriorates drastically when co-players vary. Moreover, we demonstrate that these cooperation mechanisms become _more effective_ under evolutionary pressures to maximize individual payoffs.",
+          "evidence_scope": "external"
         }
       ]
     },
     {
       "facts": [
-        "vLLM 是一个专为大型语言模型设计的高吞吐、内存高效推理与服务引擎",
-        "项目标签显示其支持 CUDA、AMD、TPU、Blackwell 等多种硬件平台",
-        "标签表明其支持 GPT、Llama、Qwen、DeepSeek-V3、Kimi 等多种主流与前沿模型架构",
-        "特别标注支持 MOE（混合专家）模型",
-        "项目定位为“推理与 serving 引擎”，属于 AI/LLM 服务基础设施层"
+        "vLLM 是一个专为大型语言模型设计的高吞吐、内存高效的推理与服务引擎",
+        "项目在 GitHub 上开源，隶属于 vllm-project 组织",
+        "技术标签显示其支持 CUDA、PyTorch、TPU，并兼容多种主流模型架构（如 GPT、LLaMA、Qwen、DeepSeek-V3）及特性（如 MoE）",
+        "标签 'amd' 和 'blackwell' 暗示其对 AMD 硬件和 NVIDIA 新一代架构的适配关注",
+        "标签 'inference'、'llm-serving'、'model-serving' 明确了其核心功能定位"
       ],
       "contradictions": [
-        "高性能推理需求 vs 硬件多样性带来的优化复杂度",
-        "支持广泛模型架构（如MOE）的通用性目标 vs 为每种架构实现极致性能的专用性需求",
-        "作为开源服务引擎的生态构建野心 vs 闭源商业服务（如 OpenAI）的竞争压力",
-        "内存高效设计目标 vs 支持越来越大规模参数模型的内存压力",
-        "高吞吐服务引擎的定位 vs 对低延迟推理场景的兼顾可能不足"
+        "高性能与广泛兼容性之间的矛盾：追求极致的吞吐和内存效率，可能需要对特定硬件（如 CUDA）或模型架构进行深度优化，这与支持多样化的硬件（AMD、TPU）和模型（GPT、LLaMA、Qwen、MoE 等）存在工程复杂性和性能权衡",
+        "开源生态与商业竞争之间的矛盾：作为开源项目，其技术演进需服务社区需求并保持开放性，但同时标签涉及 'openai'、'gpt-oss'，可能面临与闭源商业服务（如 OpenAI）或同类开源方案在生态主导权上的竞争",
+        "技术先进性与稳定易用性之间的矛盾：快速集成支持最新模型（如 DeepSeek-V3、Qwen3）和硬件架构（如 Blackwell）体现了技术前沿性，但这可能与确保引擎的稳定性、文档完善性和向下兼容性产生资源冲突",
+        "通用服务引擎与特定优化深度之间的矛盾：定位为通用 LLM 推理引擎，但为了达到 'high-throughput and memory-efficient'，可能需要对特定场景（如长上下文、MoE 模型）进行特化优化，存在平台泛化能力与极致性能间的张力"
       ],
-      "primary_contradiction": "作为通用、高性能开源服务引擎的生态定位 vs 在特定硬件、特定模型架构上实现极致性能所需的深度、专用优化",
-      "core_insight": "vLLM 正试图在 LLM 推理服务领域扮演类似 PyTorch 在训练领域的角色——通过打造一个通用、高效的开源标准引擎，来统一和加速整个 LLM 应用生态，但其成功取决于能否在保持通用性的同时，在关键硬件和模型架构上提供不输于专用解决方案的性能。",
+      "primary_contradiction": "高性能与广泛兼容性之间的矛盾",
+      "core_insight": "vLLM 的核心挑战在于如何在维持其作为通用、开源 LLM 推理服务引擎的广泛兼容性（支持多硬件、多模型架构）的同时，持续达成并宣传其标志性的 'high-throughput and memory-efficient' 技术优势，这本质上是在生态广度与技术深度之间寻找最佳平衡点。",
       "confidence": "medium",
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
@@ -284,94 +297,6 @@
       "lifecycle_state": "verified",
       "risk_level": "low",
       "support_evidence": []
-    },
-    {
-      "facts": [
-        "LLM智能体在混合动机博弈（如囚徒困境、公共物品博弈）中表现出更强的推理能力反而导致更低的合作倾向",
-        "近期模型（无论是否开启推理能力）在单次社会困境博弈中持续选择背叛",
-        "研究比较了四种促进合作均衡的机制：重复博弈、声誉系统、第三方调解、契约协议",
-        "契约和调解机制在促进高能力LLM模型合作方面最有效",
-        "重复博弈诱导的合作在对手变化时急剧恶化",
-        "在进化压力（个体收益最大化）下，这些合作机制变得更为有效"
-      ],
-      "contradictions": [
-        "LLM推理能力增强 vs 社会困境中合作行为减少（能力提升与安全行为背道而驰）",
-        "单次博弈中的背叛倾向 vs 机制干预下可实现的合作均衡（短期自利与长期协作可能性的矛盾）",
-        "重复博弈促进合作的经典结论 vs 对手变化时合作急剧恶化（机制有效性的情境依赖性）",
-        "个体理性（收益最大化） vs 集体理性（合作共赢）（经典社会困境的结构性矛盾）",
-        "模型能力提升（技术目标） vs 合作安全风险（安全目标）（AI发展路径的内在张力）"
-      ],
-      "primary_contradiction": "LLM智能体个体能力提升（技术目标）与多智能体交互中合作安全风险（安全目标）之间的矛盾",
-      "core_insight": "当前LLM智能体发展的核心矛盾在于，追求个体模型能力（如推理）的优化路径，与确保其在复杂社会交互中维持合作、安全的行为准则之间，存在系统性背离；解决此矛盾不能依赖模型自身的“道德”或“推理”，而必须依靠外部结构化机制（如契约、调解）的设计与约束。",
-      "confidence": "high",
-      "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
-      "url": "https://arxiv.org/abs/2604.15267v1",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arxiv-cs-ai"
-        ],
-        "source_types": [
-          "paper"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
-            "url": "https://arxiv.org/abs/2604.15306v1",
-            "summary": "Whether language models can systematically generalize remains actively debated. Yet empirical performance is jointly shaped by multiple factors such as training data, training paradigms, and inference-time strategies, making failures difficult to interpret. We introduce a controlled synthetic environment based on shortest-path planning, a canonical composable sequential optimization problem. The setup enables clean separation of these factors and supports two orthogonal axes of generalization: spatial transfer to unseen maps and length scaling to longer-horizon problems. We find that models exhibit strong spatial transfer but consistently fail under length scaling due to recursive instability. We further analyze how distinct stages of the learning pipeline influence systematic problem-solving: for example, data coverage sets capability limits; reinforcement learning improves training stability but does not expand those limits; and inference-time scaling enhances performance but cannot rescue length-scaling failures.",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "openai-news",
-            "source_type": "official",
-            "title": "Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
-            "url": "https://openai.com/index/cloudflare-openai-agent-cloud",
-            "summary": "Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.",
-            "evidence_scope": "external"
-          }
-        ],
-        "verification_flags": [
-          "paper",
-          "related-support",
-          "external-support"
-        ],
-        "summary": "1 source(s) | paper | 2 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-18",
-        "previous_score": 3.3,
-        "previous_confidence": "high",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
-          "url": "https://arxiv.org/abs/2604.15306v1",
-          "summary": "Whether language models can systematically generalize remains actively debated. Yet empirical performance is jointly shaped by multiple factors such as training data, training paradigms, and inference-time strategies, making failures difficult to interpret. We introduce a controlled synthetic environment based on shortest-path planning, a canonical composable sequential optimization problem. The setup enables clean separation of these factors and supports two orthogonal axes of generalization: spatial transfer to unseen maps and length scaling to longer-horizon problems. We find that models exhibit strong spatial transfer but consistently fail under length scaling due to recursive instability. We further analyze how distinct stages of the learning pipeline influence systematic problem-solving: for example, data coverage sets capability limits; reinforcement learning improves training stability but does not expand those limits; and inference-time scaling enhances performance but cannot rescue length-scaling failures.",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "openai-news",
-          "source_type": "official",
-          "title": "Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
-          "url": "https://openai.com/index/cloudflare-openai-agent-cloud",
-          "summary": "Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.",
-          "evidence_scope": "external"
-        }
-      ]
     },
     {
       "title": "The next evolution of the Agents SDK",
@@ -474,7 +399,7 @@
       "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 990 | Comments: 650 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x"
+        "[hacker-news] Score: 1003 | Comments: 659 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
@@ -515,20 +440,114 @@
       "lifecycle_state": "new",
       "risk_level": "low",
       "support_evidence": []
+    },
+    {
+      "title": "Are the costs of AI agents also rising exponentially? (2025)",
+      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 186 | Comments: 43"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "Are the costs of AI agents also rising exponentially? (2025) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "meta-ai-blog",
+          "source_type": "official",
+          "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+          "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+          "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+          "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+          "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+          "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "current-run"
+        }
+      ]
     }
   ],
   "forecast": {
-    "best_case": "在短期（3-6个月）内，AI智能体领域将出现加速整合与初步标准化。AgentRx等调试框架被主流开发平台快速集成，显著提升复杂智能体的故障诊断效率。vLLM等开源引擎在多硬件支持上取得关键进展，有效抑制了推理成本的上升斜率。行业对多智能体合作风险的共识推动初步治理工具（如契约模板库）在实验环境中出现。OpenAI、Anthropic等闭源厂商的SDK更新与开源生态形成互补，共同降低开发门槛，推动一批更可靠、成本可控的智能体应用进入早期生产部署阶段。",
-    "worst_case": "智能体的可靠性、成本、安全三大挑战在短期内未能取得突破性进展，形成相互强化的负向循环。调试工具的缺乏导致多个高调的生产智能体项目因难以排查的故障而失败或暂停，打击市场信心。硬件进步与模型复杂化带来的成本压力持续，使得除头部企业外的多数开发者对部署复杂智能体望而却步。多智能体合作研究揭示更多不可预测的风险行为，但缺乏有效的工程化缓解措施，导致企业对部署多智能体协同系统持极端保守态度。开源与闭源生态的竞争加剧碎片化，延缓工具链标准化进程。",
-    "most_likely_case": "行业将呈现“问题凸显与工具响应同步加速”的格局。一方面，随着更多智能体尝试进入生产环境，由透明度缺失和调试困难引发的故障事件会有所增加，成本压力在复杂任务场景下持续存在，多智能体交互的安全担忧从学术论文进入技术社区讨论。另一方面，应对措施将快速跟进：类似AgentRx的调试理念将被更多框架采纳成为标配功能；vLLM等基础设施通过优化在特定硬件（如NVIDIA）和模型（如Llama）上的性能来证明其价值，部分缓解成本焦虑；关于多智能体治理的讨论将从纯学术研究扩展到开源框架的设计考量中。整体上，智能体开发将从“功能原型”阶段进入“生产就绪”的阵痛期，工具链的成熟度成为关键分水岭，但大规模、低成本、高可靠的智能体应用普及仍需更长时间。",
+    "best_case": "在短期内（3-6个月），AI智能体领域的关键瓶颈得到初步缓解。AgentRx等调试框架被快速采纳，显著提升了复杂智能体的可观测性和故障诊断效率，加速了其在非关键生产环境（如内部工具、辅助工作流）的试点部署。同时，vLLM等开源引擎的持续优化有效抑制了推理成本的上升曲线，使得中小规模的原型部署在经济上更为可行。产业界对合作机制设计的关注度提升，为多智能体系统的早期应用（如游戏NPC、模拟环境）提供了初步的稳定性保障。整体上，智能体从‘演示’迈向‘有限实用’的阶段取得实质性进展。",
+    "worst_case": "短期内，透明度、合作与成本三大瓶颈未能取得突破性进展，导致智能体的生产化进程迟滞。AgentRx等调试工具被证明在真实复杂场景中效果有限，智能体的‘黑箱’故障依然频发且难以根治，严重打击了企业将其用于关键业务流程的信心。vLLM等优化方案面临硬件碎片化和模型快速迭代的挑战，未能有效控制成本，使得智能体部署的经济效益存疑。合作机制研究停留在学术层面，缺乏工程化落地，多智能体系统在简单测试外仍表现出不可预测的竞争或失效行为。市场对智能体的炒作降温，投资与开发资源转向其他更确定的AI方向。",
+    "most_likely_case": "未来3-6个月，AI智能体领域将呈现‘框架加速构建、应用谨慎试点、成本问题凸显’的分化局面。一方面，以AgentRx为代表的系统性调试工具和vLLM为代表的性能优化框架将获得开发者社区的积极关注和初步集成，在技术栈层面为未来规模化打下基础。另一方面，由于根本性的可靠性与协同问题尚未解决，智能体在生产环境的大规模、高自主性部署仍将非常有限，主要应用场景集中在低风险、高监督的辅助角色（如代码生成助手、内部数据查询代理）。合作机制设计的重要性成为共识，但转化为广泛可用的SDK功能尚需时日。智能体运行成本将成为项目可行性评估的核心制约因素，推动资源向推理优化和成本控制倾斜。整体处于从‘技术探索期’向‘工程化与试点期’过渡的关键阶段，但距离广泛的生产就绪仍有明显距离。",
     "key_variables": [
-      "主流AI开发平台（如LangChain, LlamaIndex）集成系统化调试工具的速度与深度",
-      "vLLM等开源推理引擎在支持MOE等复杂模型时的实际性能与成本表现",
-      "OpenAI、Anthropic等闭源厂商的Agents SDK更新是否包含针对可靠性、成本的核心优化",
-      "是否有真实世界的生产智能体因合作或安全问题出现公开的重大故障案例",
-      "下一代旗舰LLM模型（如GPT-5、Claude 4）发布时，其智能体相关API的成本与能力定价策略"
+      "AgentRx类调试框架在真实项目中的采纳率与有效性反馈",
+      "vLLM等开源推理引擎对最新大模型及硬件的适配速度与性能提升幅度",
+      "头部云厂商（AWS, Azure, GCP）AI智能体托管服务的定价策略与成本变化",
+      "OpenAI、Anthropic等发布的智能体SDK中是否集成合作机制或安全约束模块",
+      "主要行业（如金融、客服、运维）中首个‘非演示性’智能体生产案例的出现及其效果评估"
     ],
-    "forecast_conclusion": "短期（3-6个月）内，AI智能体领域将处于“问题暴露期”与“工具响应期”的重叠阶段。最可能的前景是行业痛点（可靠性、成本、安全）被更广泛地认知和讨论，并催生第一代针对性工具和最佳实践的涌现，但尚不足以根本性解决所有矛盾。发展将是不均衡的：在调试工具和开源推理引擎上可能看到较快进展，而在成本控制和多智能体安全机制上则面临更大不确定性。整体置信度为中等，因为关键变量（如闭源厂商的定价策略、重大安全事件是否发生）具有较高的外部依赖性。",
+    "forecast_conclusion": "基于当前信息，短期（3-6个月）内，AI智能体技术将主要在‘工具链完善’和‘有限场景试点’上取得进展，而非在‘高自主性、高可靠性生产部署’上实现突破。系统性调试工具和成本优化基础设施的建设是明确的积极信号，但智能体固有的可靠性黑箱、协同行为不可预测等核心矛盾难以在短期内根本解决。因此，市场热情可能从‘万能智能体’的宏大叙事，转向对具体工具、框架和成本效益的务实关注。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -539,13 +558,13 @@
   "ai_metrics": {
     "provider": "deepseek",
     "model": "deepseek-chat",
-    "calls": 7,
+    "calls": 6,
     "token_usage": {
-      "prompt": 22829,
-      "completion": 3519,
-      "total": 26348
+      "prompt": 19830,
+      "completion": 3030,
+      "total": 22860
     },
-    "latency_seconds": 135.17,
+    "latency_seconds": 112.49,
     "fallback_stages": []
   },
   "mainline_memory": [
@@ -559,7 +578,7 @@
       "days_seen": 9,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-18",
-      "enrichment_summary": "1 source(s) | official | 1 related support"
+      "enrichment_summary": "1 source(s) | official | 2 related support"
     },
     {
       "title": "vllm-project/vllm",
@@ -611,19 +630,19 @@
     }
   ],
   "lifecycle_summary": {
-    "new": 28,
+    "new": 27,
     "rising": 78,
     "verified": 4,
     "fading": 1
   },
   "risk_level": "low",
   "highlights": [
-    "AI智能体正从实验工具演变为关键生产系统，但其规模化面临透明度缺失、成本压力、合作风险三大核心挑战，推动基础设施与治理机制的同步进化。",
-    "本轮共采集到 114 条原始信息，去重后保留 111 个主题。",
+    "AI智能体正从概念验证转向关键生产应用，但其规模化面临透明度、合作行为与成本效益三大核心瓶颈，系统性调试、机制设计和开源优化成为突破关键。",
+    "本轮共采集到 113 条原始信息，去重后保留 110 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
   "risks": [
-    "HN: fetched 59 raw, filtered to 14 relevant (min_score=10)"
+    "HN: fetched 59 raw, filtered to 13 relevant (min_score=10)"
   ],
   "signals": [
     {
@@ -659,6 +678,14 @@
             "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
             "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
             "evidence_scope": "external"
+          },
+          {
+            "source_id": "arxiv-search",
+            "source_type": "paper",
+            "title": "BOOP: Write Right Code",
+            "url": "https://arxiv.org/abs/2507.22085v2",
+            "summary": "Novice programmers frequently adopt a syntax-specific and test-case-driven approach, writing code first and adjusting until programs compile and test cases pass, rather than developing correct solutions through systematic reasoning. AI coding tools exacerbate this challenge by providing syntactically correct but conceptually flawed solutions. In this paper, we address the question of developing correctness-first methodologies to enhance computational thinking in introductory programming education. To this end, we introduce BOOP (Blueprint, Operations, OCaml, Proof), a structured framework requiring four mandatory phases: formal specification, language-agnostic algorithm development, implementation, and correctness proof. This shifts focus from making the code to understanding the code is correct.\n  BOOP was implemented at Ashoka University using a VS Code extension and preprocessor that enforces constraints. Initial evaluation shows improved algorithmic reasoning and reduced trial-and-error debugging. Students reported better edge case understanding and problem decomposition, though some initially found the format verbose. Instructors observed stronger foundational skills compared to traditional approaches, suggesting that structured correctness-first approaches may significantly improve students' computational thinking abilities.",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
@@ -666,7 +693,7 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 1 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
         "days_seen": 9,
@@ -735,6 +762,14 @@
             "url": "https://openai.com/index/cloudflare-openai-agent-cloud",
             "summary": "Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.",
             "evidence_scope": "external"
+          },
+          {
+            "source_id": "arxiv-search",
+            "source_type": "paper",
+            "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
+            "url": "https://arxiv.org/abs/2604.15267v1",
+            "summary": "It is increasingly important that LLM agents interact effectively and safely with other goal-pursuing agents, yet, recent works report the opposite trend: LLMs with stronger reasoning capabilities behave _less_ cooperatively in mixed-motive games such as the prisoner's dilemma and public goods settings. Indeed, our experiments show that recent models -- with or without reasoning enabled -- consistently defect in single-shot social dilemmas.\n  To tackle this safety concern, we present the first comparative study of game-theoretic mechanisms that are designed to enable cooperative outcomes between rational agents _in equilibrium_. Across four social dilemmas testing distinct components of robust cooperation, we evaluate the following mechanisms: (1) repeating the game for many rounds, (2) reputation systems, (3) third-party mediators to delegate decision making to, and (4) contract agreements for outcome-conditional payments between players. Among our findings, we establish that contracting and mediation are most effective in achieving cooperative outcomes between capable LLM models, and that repetition-induced cooperation deteriorates drastically when co-players vary. Moreover, we demonstrate that these cooperation mechanisms become _more effective_ under evolutionary pressures to maximize individual payoffs.",
+            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
@@ -742,7 +777,7 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | paper | 2 related support"
+        "summary": "1 source(s) | paper | 3 related support"
       },
       "memory": {
         "days_seen": 2,
@@ -762,7 +797,7 @@
     {
       "title": "Claude Design",
       "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
-      "summary": "Score: 990 | Comments: 650 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458</a> (<a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">ht",
+      "summary": "Score: 1003 | Comments: 659 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458</a> (<a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">ht",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -810,6 +845,76 @@
       },
       "lifecycle_state": "new",
       "risk_level": "low"
+    },
+    {
+      "title": "Are the costs of AI agents also rising exponentially? (2025)",
+      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
+      "summary": "Score: 186 | Comments: 43",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 2.5,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium"
     },
     {
       "title": "vllm-project/vllm",
@@ -882,76 +987,6 @@
       },
       "lifecycle_state": "verified",
       "risk_level": "low"
-    },
-    {
-      "title": "Are the costs of AI agents also rising exponentially? (2025)",
-      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
-      "summary": "Score: 180 | Comments: 42",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 2.5,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium"
     },
     {
       "title": "The next evolution of the Agents SDK",
@@ -2347,6 +2382,545 @@
       "risk_level": "low"
     },
     {
+      "title": "Measuring Claude 4.7's tokenizer costs",
+      "url": "https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you",
+      "summary": "Score: 597 | Comments: 419",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "hot",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Tesla tells HW3 owner to 'be patient' after 7 years of waiting for FSD",
+      "url": "https://electrek.co/2026/04/17/tesla-hw3-owners-be-patient-7-years-fsd/",
+      "summary": "Score: 195 | Comments: 153",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
+            "url": "https://www.anthropic.com/news/narasimhan-board",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "Meta Partners With Arm to Develop New Class of Data Center Silicon",
+            "url": "https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/arm-Partnership_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re partnering with Arm to develop a new class of CPUs purpose-built to support data centers and large-scale AI deployments.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/\">Meta Partners With Arm to Develop New Class of Data Center Silicon</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "st-blog",
+            "source_type": "official",
+            "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
+            "url": "https://blog.st.com/stm32n6/",
+            "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Healthchecks.io now uses self-hosted object storage",
+      "url": "https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/",
+      "summary": "Score: 164 | Comments: 68",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "A simplified model of Fil-C",
+      "url": "https://www.corsix.org/content/simplified-model-of-fil-c",
+      "summary": "Score: 163 | Comments: 86",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "A Python Interpreter Written in Python",
+      "url": "https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html",
+      "summary": "Score: 148 | Comments: 48",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-18",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Average is all you need",
+      "url": "https://rawquery.dev/blog/average-is-all-you-need",
+      "summary": "Score: 91 | Comments: 94",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Towards trust in Emacs",
+      "url": "https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html",
+      "summary": "Score: 89 | Comments: 10",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Solitaire simulator for finding the best strategy: Current record is 8.590%",
+      "url": "https://github.com/dacracot/Klondike3-Simulator",
+      "summary": "Score: 46 | Comments: 21",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)",
+      "url": "https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/",
+      "summary": "Score: 24 | Comments: 16",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
+            "url": "https://www.anthropic.com/news/narasimhan-board",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Fulu bounty for Ring Camera jailbreak reaches $23k",
+      "url": "https://bounties.fulu.org/bounties/ring-video-doorbells",
+      "summary": "Score: 16 | Comments: 2",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "\"Liberation Day\" at OpenAI as multiple senior executives announce leaving",
+      "url": "https://mas.to/@carnage4life/116422881496195720",
+      "summary": "Score: 13 | Comments: 0",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
       "title": "ollama/ollama",
       "url": "https://github.com/ollama/ollama",
       "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
@@ -2889,59 +3463,6 @@
       "risk_level": "low"
     },
     {
-      "title": "jax-ml/jax",
-      "url": "https://github.com/jax-ml/jax",
-      "summary": "Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "jax"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 9,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-18",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "NVIDIA/TensorRT",
       "url": "https://github.com/NVIDIA/TensorRT",
       "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
@@ -3068,9 +3589,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Measuring Claude 4.7's tokenizer costs",
-      "url": "https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you",
-      "summary": "Score: 592 | Comments: 411",
+      "title": "jax-ml/jax",
+      "url": "https://github.com/jax-ml/jax",
+      "summary": "Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3078,612 +3599,46 @@
       "score": 1.0,
       "evidence_count": 1,
       "source_ids": [
-        "hacker-news"
+        "curated-repos"
       ],
       "tags": [
-        "hacker-news",
-        "hot",
-        "trending"
+        "ai-llm-agent",
+        "jax"
       ],
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
-          "hacker-news"
+          "curated-repos"
         ],
         "source_types": [
-          "community"
+          "repo"
         ],
         "support_evidence": [],
         "verification_flags": [
-          "community"
+          "repo"
         ],
-        "summary": "1 source(s) | community"
+        "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Tesla tells HW3 owner to 'be patient' after 7 years of waiting for FSD",
-      "url": "https://electrek.co/2026/04/17/tesla-hw3-owners-be-patient-7-years-fsd/",
-      "summary": "Score: 195 | Comments: 153",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
-            "url": "https://www.anthropic.com/news/narasimhan-board",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Meta Partners With Arm to Develop New Class of Data Center Silicon",
-            "url": "https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/arm-Partnership_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re partnering with Arm to develop a new class of CPUs purpose-built to support data centers and large-scale AI deployments.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/\">Meta Partners With Arm to Develop New Class of Data Center Silicon</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "st-blog",
-            "source_type": "official",
-            "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
-            "url": "https://blog.st.com/stm32n6/",
-            "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Healthchecks.io now uses self-hosted object storage",
-      "url": "https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/",
-      "summary": "Score: 164 | Comments: 67",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "A simplified model of Fil-C",
-      "url": "https://www.corsix.org/content/simplified-model-of-fil-c",
-      "summary": "Score: 159 | Comments: 79",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "A Python Interpreter Written in Python",
-      "url": "https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html",
-      "summary": "Score: 148 | Comments: 48",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-17",
+        "days_seen": 9,
+        "first_seen": "2026-04-09",
         "last_seen": "2026-04-18",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
           "2026-04-17",
           "2026-04-18"
         ]
       },
       "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Average is all you need",
-      "url": "https://rawquery.dev/blog/average-is-all-you-need",
-      "summary": "Score: 91 | Comments: 94",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Towards trust in Emacs",
-      "url": "https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html",
-      "summary": "Score: 83 | Comments: 8",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Solitaire simulator for finding the best strategy: Current record is 8.590%",
-      "url": "https://github.com/dacracot/Klondike3-Simulator",
-      "summary": "Score: 46 | Comments: 21",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Maine Said No to New Data Centers. Other States Are Racing to Follow",
-      "url": "https://www.motherjones.com/environment/2026/04/maine-ai-data-center-moratorium-ban-energy-grid/",
-      "summary": "Score: 31 | Comments: 18",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Meta Partners With Arm to Develop New Class of Data Center Silicon",
-            "url": "https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/arm-Partnership_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re partnering with Arm to develop a new class of CPUs purpose-built to support data centers and large-scale AI deployments.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/\">Meta Partners With Arm to Develop New Class of Data Center Silicon</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 1 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "There is no you in your brain – your identity is a \"society of the mind\"",
-      "url": "https://bigthink.com/books/our-brains-our-selves/",
-      "summary": "Score: 29 | Comments: 10",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "st-blog",
-            "source_type": "official",
-            "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
-            "url": "https://blog.st.com/stm32n6/",
-            "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)",
-      "url": "https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/",
-      "summary": "Score: 24 | Comments: 16",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
-            "url": "https://www.anthropic.com/news/narasimhan-board",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Fulu bounty for Ring Camera jailbreak reaches $23k",
-      "url": "https://bounties.fulu.org/bounties/ring-video-doorbells",
-      "summary": "Score: 15 | Comments: 1",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -7409,7 +7364,7 @@
     }
   ],
   "predictions": [
-    "短期（3-6个月）内，AI智能体领域将处于“问题暴露期”与“工具响应期”的重叠阶段。最可能的前景是行业痛点（可靠性、成本、安全）被更广泛地认知和讨论，并催生第一代针对性工具和最佳实践的涌现，但尚不足以根本性解决所有矛盾。发展将是不均衡的：在调试工具和开源推理引擎上可能看到较快进展，而在成本控制和多智能体安全机制上则面临更大不确定性。整体置信度为中等，因为关键变量（如闭源厂商的定价策略、重大安全事件是否发生）具有较高的外部依赖性。"
+    "基于当前信息，短期（3-6个月）内，AI智能体技术将主要在‘工具链完善’和‘有限场景试点’上取得进展，而非在‘高自主性、高可靠性生产部署’上实现突破。系统性调试工具和成本优化基础设施的建设是明确的积极信号，但智能体固有的可靠性黑箱、协同行为不可预测等核心矛盾难以在短期内根本解决。因此，市场热情可能从‘万能智能体’的宏大叙事，转向对具体工具、框架和成本效益的务实关注。"
   ],
   "sources": {
     "github": {
