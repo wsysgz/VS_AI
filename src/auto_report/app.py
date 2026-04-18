@@ -991,6 +991,12 @@ def cmd_build_source_governance(root_dir: Path) -> Path:
     return build_source_governance_artifact(root_dir)
 
 
+def cmd_build_discovery_search(root_dir: Path, keywords_path: str) -> Path:
+    from auto_report.pipeline.discovery_search import build_discovery_search_artifact
+
+    return build_discovery_search_artifact(root_dir, Path(keywords_path))
+
+
 # ════════════════════════════════════════
 # 内部辅助
 # ════════════════════════════════════════

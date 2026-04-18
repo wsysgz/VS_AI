@@ -17,6 +17,7 @@ def test_cli_exposes_all_commands():
     assert "build-ops-dashboard" in choices
     assert "build-source-governance" in choices
     assert "build-review-queue" in choices
+    assert "build-discovery-search" in choices
     assert "evaluate-prompts" in choices
 
 
@@ -102,3 +103,12 @@ def test_evaluate_prompts_command_accepts_dataset_path():
 
     assert args.command == "evaluate-prompts"
     assert args.dataset == "data/evals/sample.json"
+
+
+def test_build_discovery_search_command_accepts_keywords_path():
+    parser = build_parser()
+
+    args = parser.parse_args(["build-discovery-search", "--keywords", "config/source_discovery/keywords.txt"])
+
+    assert args.command == "build-discovery-search"
+    assert args.keywords == "config/source_discovery/keywords.txt"

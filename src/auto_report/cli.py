@@ -50,6 +50,8 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("build-ops-dashboard", help="[CI] Build private ops dashboard artifact")
     subparsers.add_parser("build-source-governance", help="[CI] Build source governance artifact")
     subparsers.add_parser("build-review-queue", help="[CI] Build human review issue payloads from latest report")
+    discovery_parser = subparsers.add_parser("build-discovery-search", help="[CI] Build keyword-driven discovery/search helper artifact")
+    discovery_parser.add_argument("--keywords", required=True, help="Path to keyword list file")
     eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
     eval_parser.add_argument("--dataset", required=True, help="Path to offline prompt evaluation dataset JSON")
 
@@ -152,6 +154,12 @@ def main() -> int:
         from auto_report.app import cmd_build_review_queue
 
         cmd_build_review_queue(root_dir)
+        return 0
+
+    if args.command == "build-discovery-search":
+        from auto_report.app import cmd_build_discovery_search
+
+        cmd_build_discovery_search(root_dir, keywords_path=getattr(args, "keywords", ""))
         return 0
 
     if args.command == "evaluate-prompts":
