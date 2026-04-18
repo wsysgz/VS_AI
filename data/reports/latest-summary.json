@@ -1,71 +1,83 @@
 {
   "meta": {
-    "generated_at": "2026-04-18T16:37:51.316795+08:00",
+    "generated_at": "2026-04-18T17:12:03.632847+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 116,
     "total_topics": 113,
-    "publication_mode": "reviewed",
+    "publication_mode": "auto",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI agent技术栈正从能力堆砌转向可靠性工程：透明度缺失与多智能体协作矛盾成为制约落地的核心挑战。",
+  "one_line_core": "AI agent ecosystem is maturing rapidly, with key developments in debugging frameworks, autonomous capabilities, and systemic challenges around transparency, cost, and cooperation—requiring both technical innovation and governance mechanisms.",
   "executive_summary": [
-    "微软推出AgentRx框架，将AI agent故障调试从玄学变为系统工程，填补自主智能体时代的可观测性空白。",
-    "vLLM作为LLM推理基础设施持续演进，通过统一软件层抽象硬件与模型碎片化，成为高吞吐服务的关键底座。",
-    "CoopEval研究揭示LLM智能体存在'越聪明越不合作'的反直觉现象，暗示社会对齐不能依赖自发道德推理，必须依赖外部制度约束。",
-    "OpenAI升级Agents SDK，引入原生沙箱执行与模型级测试框架，推动开发者工具链成熟化。"
+    "Microsoft Research introduces AgentRx, a systematic debugging framework addressing the critical transparency gap as AI agents evolve toward autonomous task execution.",
+    "Anthropic's Claude Design announcement signals AI companies' strategic push into design tooling, generating high community engagement amid questions about execution capability.",
+    "vLLM continues to serve as the high-performance inference engine backbone for LLM services, balancing throughput demands against hardware constraints through software innovation.",
+    "New research (CoopEval) reveals that stronger LLM reasoning capabilities paradoxically reduce cooperative behavior in social dilemmas, with contractual and mediation mechanisms proving more effective than repeated interaction alone.",
+    "OpenAI's Agents SDK update advances toward persistent, tool-using autonomous agents with native sandbox execution, emphasizing security for long-running deployments."
   ],
   "key_points": [
     {
-      "title": "AgentRx：AI agent调试从黑盒走向系统工程",
-      "why_it_matters": "随着AI agent从聊天机器人演变为自主处理云端事故、多步骤API工作流的系统，其故障模式的不可追溯性已成为生产部署的核心瓶颈。AgentRx代表行业首次将agent失败视为可工程化问题而非AI行为的不可预测性，为关键应用场景的可靠性提供方法论基础。"
+      "title": "Debugging Framework Gap Threatens Agent Reliability",
+      "why_it_matters": "As agents handle cloud incidents and multi-step API workflows, the inability to trace failures—particularly tool hallucination—creates operational blind spots that prevent trustworthy production deployment. AgentRx represents the first systematic approach to closing this transparency-reliability gap."
     },
     {
-      "title": "vLLM：LLM服务化的通用抽象层",
-      "why_it_matters": "大模型推理面临极致性能需求与硬件平台、模型架构快速多样化之间的根本矛盾。vLLM通过统一软件层同时支持CUDA/TPU/AMD/Blackwell及GPT/Llama/Qwen/DeepSeek-V3/MoE等架构，成为缓解性能追求与工程碎片化张力的关键基础设施，地位类似容器之于微服务。"
+      "title": "AI Companies Cross Into Design Tool Territory",
+      "why_it_matters": "Anthropic's Claude Design entry intensifies competition with specialized design tools. The high HN engagement (1,034 points, 673 comments) reveals strong market appetite for AI design assistance, but questions remain about whether AI companies can bridge the gap between AI capability and design domain expertise."
     },
     {
-      "title": "LLM智能体合作困境：能力越强，社会性越弱",
-      "why_it_matters": "研究发现LLM agent在囚徒困境等社会困境中，推理能力越强反而合作倾向越低。这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力：单纯的道德推理或重复博弈无法维持合作，只有契约和第三方调解等外部制度约束才能实现，表明合作本质是对个体利益的制度化保障。"
+      "title": "Agent Cost Concerns Lack Empirical Grounding",
+      "why_it_matters": "While the 198-point HN discussion reflects widespread anxiety about AI cost trajectories, the absence of verifiable cost data means the 'exponential growth' narrative is driven by perception rather than evidence, creating a vacuum for speculation and misaligned expectations."
     },
     {
-      "title": "OpenAI Agents SDK引入原生沙箱执行",
-      "why_it_matters": "新版Agents SDK增加原生沙箱执行和模型级测试能力，标志着AI agent开发工具链从原型验证向生产部署的成熟度跃迁，有助于降低自主agent的运行时风险。"
+      "title": "vLLM Balances Performance Against Hardware Limits",
+      "why_it_matters": "The project's cross-platform support (CUDA, AMD, TPU, Blackwell) and broad model coverage (MoE, Llama, DeepSeek, etc.) position it as critical infrastructure. Its PagedAttention innovation demonstrates how software optimization can extract more value from finite compute resources, which becomes increasingly important as inference demand scales."
+    },
+    {
+      "title": "Cooperation Cannot Be Left to Reasoning Alone",
+      "why_it_matters": "The CoopEval finding that increased LLM capability correlates with reduced cooperation is a fundamental insight for multi-agent systems. Contractual and third-party mediation mechanisms outperform reputation systems or repeated interaction, suggesting that AI agent societies require institutional design rather than hoping emergent cooperation from enhanced reasoning."
+    },
+    {
+      "title": "OpenAI SDK Enables Autonomous Persistent Agents",
+      "why_it_matters": "The shift from conversational components to autonomous, long-running, tool-using agents marks a qualitative change in AI application architecture. Native sandbox execution addresses security concerns inherent to this expanded scope, but the complexity of managing such agents remains a developer challenge."
     }
   ],
   "key_insights": [
-    "AI agent领域正在经历范式转移：从前两年的'能力竞赛'转向'可靠性工程'，透明度与可调试性成为与模型性能同等重要的竞争力维度。",
-    "LLM智能体在社会互动中表现出'理性悖论'——个体理性最大化收益与集体理性实现合作最优解存在根本冲突，这一发现对多agent系统的制度设计具有重要启示。",
-    "vLLM的成功印证了基础设施层的平台效应：在硬件多元化和模型架构快速迭代的背景下，抽象层而非定制化优化成为更可持续的技术路线。"
+    "AI agent capabilities are advancing faster than the debugging and governance infrastructure needed to operate them reliably in production—this transparency gap is the most immediate barrier to enterprise adoption.",
+    "The inverse relationship between LLM reasoning capability and cooperative behavior suggests that smarter agents require stronger external constraints, not more autonomy.",
+    "AI companies expanding into domain-specific tools (design, agents) face a structural tension between their technical strengths and the specialized requirements of those domains.",
+    "vLLM's sustained relevance stems from addressing the fundamental memory-bandwidth bottleneck in LLM inference through systematic software innovation, not hardware upgrades alone.",
+    "The market is expressing demand signals (high engagement, cost anxiety) that outpace the available evidence, suggesting a collective information gap that better transparency mechanisms could fill."
   ],
   "limitations": [
-    "AgentRx框架尚处于研究早期阶段，生产环境中的实际效果与规模化能力待验证。",
-    "CoopEval研究的实验设置相对简化，真实世界中多智能体交互的动态性与复杂性可能改变机制有效性排序。",
-    "部分主题（AI agents成本、Toby Ord分析）可信度不足，未纳入核心要点；Claude Design仅获得中可信度评估，信息深度有限。",
-    "vLLM在追求通用性与极致性能优化之间仍面临工程权衡，Blackwell等新硬件的集成成熟度待观察。"
+    "Claude Design analysis lacks official documentation; community discussion is the primary source, limiting depth of insight into actual capabilities.",
+    "AI agent cost discussion relies on single-source HN content with no empirical cost data, making claims of 'exponential growth' speculative.",
+    "CoopEval findings are based on controlled benchmark environments; real-world multi-agent systems may exhibit different cooperation dynamics.",
+    "The rapid pace of SDK and framework updates means specific technical details may become outdated quickly."
   ],
   "actions": [
-    "对已部署或计划部署AI agent的组织：优先评估透明度工具链成熟度，将AgentRx类调试框架纳入技术选型考量。",
-    "构建LLM服务基础设施时：优先考虑vLLM等具备多硬件、多模型支持能力的抽象层，避免底层绑定。",
-    "设计多智能体系统时：避免依赖自发合作假设，明确引入契约或调解机制作为合作保障，并考虑竞争压力下机制的鲁棒性。",
-    "持续追踪：AgentRx框架的开源进展、vLLM对新一代硬件的适配情况、以及LLM agent合作机制的更多实证研究。"
+    "Monitor AgentRx framework releases and integrate debugging tooling early in agent development pipelines to establish transparency standards.",
+    "Evaluate Claude Design's actual feature set upon official release before making competitive positioning decisions.",
+    "Establish internal cost tracking mechanisms for agent workloads to generate empirical data rather than relying on market speculation.",
+    "For multi-agent systems requiring cooperation, prioritize contractual or mediation mechanisms over reputation-based approaches.",
+    "Review OpenAI Agents SDK sandbox capabilities for security assessment when building long-running autonomous workflows."
   ],
   "analyses": [
     {
       "facts": [
         "AI agents are evolving from simple chatbots to autonomous systems handling complex tasks like cloud incident management and multi-step API workflows.",
-        "A key emerging challenge is the lack of transparency when these agents fail, making it difficult to trace the logic behind errors such as hallucinated tool outputs.",
-        "Microsoft Research is introducing the AgentRx framework, which aims to provide systematic debugging capabilities for AI agents."
+        "A key emerging challenge is the lack of transparency when these agents fail, making it difficult to trace the logic behind errors such as tool hallucination.",
+        "Microsoft Research has introduced the AgentRx framework, which is presented as a systematic debugging approach for AI agents."
       ],
       "contradictions": [
-        "Increasing agent autonomy and task complexity vs. the need for transparency and debuggability when failures occur.",
-        "The black-box nature of advanced AI agent decision-making vs. the operational requirement for traceable and understandable logic in critical applications.",
-        "The rapid deployment of AI agents into production environments vs. the immature state of tools for diagnosing and fixing their failures."
+        "Increasing agent autonomy and task complexity vs. the need for operational transparency and debuggability.",
+        "The demand for reliable, production-ready AI agents vs. the current opaque nature of their failure modes.",
+        "The aspiration to deploy agents in critical workflows vs. the inherent risk and difficulty in diagnosing their errors."
       ],
-      "primary_contradiction": "The black-box nature of advanced AI agent decision-making vs. the operational requirement for traceable and understandable logic in critical applications.",
-      "core_insight": "The advancement of AI agents into complex, autonomous roles is creating a critical transparency gap; AgentRx represents an early industry move to treat agent failures as a systematic engineering problem rather than an unpredictable AI behavior, aiming to make debugging as methodical as it is for traditional software.",
+      "primary_contradiction": "The expanding scope and autonomy of AI agents vs. the lagging development of systematic methods to understand and debug their failures.",
+      "core_insight": "The advancement of AI agent capabilities is creating a critical transparency and reliability gap, necessitating the development of foundational debugging frameworks like AgentRx to enable trustworthy deployment.",
       "confidence": "medium",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
@@ -86,14 +98,6 @@
             "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
             "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
             "evidence_scope": "external"
-          },
-          {
-            "source_id": "arxiv-search",
-            "source_type": "paper",
-            "title": "DeepFix: Debugging and Fixing Machine Learning Workflow using Agentic AI",
-            "url": "https://arxiv.org/abs/2603.14099v1",
-            "summary": "In recent years, machine learning (ML) based software systems are increasingly deployed in several critical applications, yet systematic testing of their behavior remains challenging due to complex model architectures, large input spaces, and evolving deployment environments. Existing testing approaches often rely on generating test cases based on given requirements, which often fail to reveal critical bugs of modern ML models due to their complex nature. Most importantly, such approaches, although they can be used to detect the presence of specific failures in the ML software, they hardly provide any message as to how to fix such errors. To tackle this, in this paper, we present DeepFix, a tool for automated testing of the entire ML pipeline using an agentic AI framework. Our testing approach first leverages Deepchecks to test the ML software for any potential bugs, and thereafter, uses an agentic AI-based approach to generate a detailed bug report. This includes a ranking, based on the severity of the found bugs, along with their explanations, which can be interpreted easily by any non-data science experts and most importantly, also provides possible ways to fix these bugs. Additionally, DeepFix supports several types of ML software systems and can be integrated easily to any ML workflow, enabling continuous testing throughout the development lifecycle. We discuss our already validated cases as well as some planned validations designed to demonstrate how the agentic testing process can reveal hidden failure modes that remain undetected by conventional testing methods. A 5-minute screencast demonstrating the tool's core functionality is available at https://youtu.be/WfwZmFcQgBQ.",
-            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
@@ -101,7 +105,7 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 2 related support"
+        "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
         "days_seen": 9,
@@ -132,33 +136,174 @@
           "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
           "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
           "evidence_scope": "external"
+        }
+      ]
+    },
+    {
+      "facts": [
+        "Anthropic发布了Claude Design相关公告，可能涉及AI设计工具或界面",
+        "Hacker News上相关讨论热度高（1034分，673条评论）",
+        "讨论中提及了外部链接（X平台上的相关讨论）",
+        "主题被标记为'hot'和'trending'，表明当前关注度高"
+      ],
+      "contradictions": [
+        "AI设计工具的市场需求增长 vs 现有设计工具生态的竞争压力",
+        "Anthropic作为AI公司推出设计工具的技术专长 vs 设计领域专业性的要求",
+        "社区高热度讨论 vs 官方信息可能不完整导致的猜测与误解",
+        "AI辅助设计效率提升的潜力 vs 设计师创意自主性与工具依赖的平衡"
+      ],
+      "primary_contradiction": "AI公司拓展设计工具领域的技术能力与设计行业专业需求深度之间的结构性矛盾",
+      "core_insight": "Anthropic可能试图通过Claude Design切入AI辅助设计赛道，但面临从纯AI技术向设计工具专业领域跨越的实质性挑战，高社区热度反映了市场对AI设计工具的期待与疑虑并存。",
+      "confidence": "medium",
+      "title": "Claude Design",
+      "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 2,
+        "source_ids": [
+          "anthropic-news",
+          "hacker-news"
+        ],
+        "source_types": [
+          "official",
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "cross-source",
+          "official-source",
+          "community"
+        ],
+        "summary": "2 source(s) | official / community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low",
+      "support_evidence": []
+    },
+    {
+      "facts": [
+        "主题讨论AI智能体（AI agents）的每小时成本是否也在呈指数级增长（2025年）",
+        "信息来源为单一讨论平台（Hacker News），热度较高（Score: 198, Comments: 51）",
+        "讨论聚焦于AI智能体领域，未提供具体的成本数据、技术细节或时间序列对比"
+      ],
+      "contradictions": [
+        "讨论热度（高关注度）与信息深度（单一来源、无具体数据）之间的矛盾",
+        "标题提出的指数级增长假设与证据片段中缺乏实证数据支撑之间的矛盾",
+        "AI智能体技术发展（可能追求更强能力）与成本控制需求之间的潜在张力",
+        "外部对AI成本趋势的普遍关切与内部（技术提供商）实际成本结构不透明之间的矛盾"
+      ],
+      "primary_contradiction": "公众/市场对AI智能体成本趋势的高度关切与可验证的、透明的成本数据事实严重缺失之间的矛盾",
+      "core_insight": "当前关于AI智能体成本是否指数增长的讨论，主要反映了市场的信息焦虑和预期管理需求，而非基于充分事实的技术经济分析。",
+      "confidence": "low",
+      "title": "Are the costs of AI agents also rising exponentially? (2025)",
+      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "meta-ai-blog",
+          "source_type": "official",
+          "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+          "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+          "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+          "evidence_scope": "current-run"
         },
         {
-          "source_id": "arxiv-search",
-          "source_type": "paper",
-          "title": "DeepFix: Debugging and Fixing Machine Learning Workflow using Agentic AI",
-          "url": "https://arxiv.org/abs/2603.14099v1",
-          "summary": "In recent years, machine learning (ML) based software systems are increasingly deployed in several critical applications, yet systematic testing of their behavior remains challenging due to complex model architectures, large input spaces, and evolving deployment environments. Existing testing approaches often rely on generating test cases based on given requirements, which often fail to reveal critical bugs of modern ML models due to their complex nature. Most importantly, such approaches, although they can be used to detect the presence of specific failures in the ML software, they hardly provide any message as to how to fix such errors. To tackle this, in this paper, we present DeepFix, a tool for automated testing of the entire ML pipeline using an agentic AI framework. Our testing approach first leverages Deepchecks to test the ML software for any potential bugs, and thereafter, uses an agentic AI-based approach to generate a detailed bug report. This includes a ranking, based on the severity of the found bugs, along with their explanations, which can be interpreted easily by any non-data science experts and most importantly, also provides possible ways to fix these bugs. Additionally, DeepFix supports several types of ML software systems and can be integrated easily to any ML workflow, enabling continuous testing throughout the development lifecycle. We discuss our already validated cases as well as some planned validations designed to demonstrate how the agentic testing process can reveal hidden failure modes that remain undetected by conventional testing methods. A 5-minute screencast demonstrating the tool's core functionality is available at https://youtu.be/WfwZmFcQgBQ.",
-          "evidence_scope": "external"
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+          "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+          "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+          "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "current-run"
         }
       ]
     },
     {
       "facts": [
         "vLLM 是一个专为大型语言模型设计的高吞吐、内存高效的推理与服务引擎",
-        "项目标签显示其支持 CUDA、TPU、AMD、Blackwell 等多种硬件平台",
-        "标签列表表明其与 GPT、Llama、Qwen、DeepSeek-V3、MoE 等多种主流及前沿模型架构相关",
-        "证据片段将其定位为“推理和服务引擎”，属于 AI-LLM-Agent 领域的基础设施层"
+        "项目在 GitHub 上开源，隶属于 vllm-project 组织",
+        "其技术标签覆盖了从底层硬件（CUDA, AMD, TPU, Blackwell）到主流模型架构（Transformer, MoE）及具体模型（Llama, GPT, Qwen, DeepSeek, Kimi）的广泛生态",
+        "核心定位是解决 LLM 推理与服务场景下的性能与资源瓶颈"
       ],
       "contradictions": [
-        "高性能推理需求 vs 硬件异构性与成本约束",
-        "追求高吞吐与低延迟的服务目标 vs 大模型固有的内存占用与计算复杂度",
-        "支持广泛模型架构（如 MoE、DeepSeek-V3）的通用性目标 vs 为特定模型做深度优化的专用性需求",
-        "作为开源项目需要保持代码可维护性与社区贡献友好性 vs 集成尖端硬件特性（如 Blackwell）带来的工程复杂性",
-        "模型服务要求的稳定性与确定性 vs 快速迭代以支持新模型和新硬件的开发节奏"
+        "追求极致推理吞吐量与有限硬件计算/内存资源之间的矛盾",
+        "支持广泛且快速演进的模型生态（如 MoE、新架构）与引擎自身需要保持稳定、高效核心之间的矛盾",
+        "作为开源项目需要保持社区友好、易于接入与作为高性能引擎需要深度优化、可能增加使用复杂度之间的矛盾",
+        "在竞争激烈的 LLM 服务市场中，提供通用高效解决方案与满足特定厂商或场景定制化需求之间的矛盾"
       ],
-      "primary_contradiction": "大模型推理对极致性能（吞吐、延迟、内存效率）的追求 vs 硬件平台、模型架构快速多样化带来的工程复杂性与优化碎片化挑战",
-      "core_insight": "vLLM 的核心价值在于通过一个统一的软件层，抽象并缓解大模型推理中性能需求与硬件及模型碎片化之间的根本矛盾，成为LLM服务化部署的关键基础设施。",
+      "primary_contradiction": "LLM 服务对高吞吐、低延迟的无限需求与底层硬件（计算、内存、通信）资源的有限性之间的矛盾",
+      "core_insight": "vLLM 的本质是通过软件层面的创新（如 PagedAttention、连续批处理等），在硬件资源约束下，最大化挖掘和重组计算与内存效率，以应对 LLM 推理的核心瓶颈——内存带宽与动态序列长度，从而在资源有限性与性能需求无限性之间建立新的平衡点。",
       "confidence": "high",
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
@@ -202,23 +347,20 @@
     },
     {
       "facts": [
-        "LLM智能体在混合动机博弈（如囚徒困境、公共物品博弈）中表现出更强的推理能力反而导致更低的合作倾向。",
-        "近期模型（无论是否启用推理能力）在单次社会困境博弈中持续选择背叛。",
-        "研究比较了四种旨在实现理性智能体均衡合作的机制：重复博弈、声誉系统、第三方调解、结果条件支付契约。",
-        "实验发现契约和调解机制在能力强的LLM模型间实现合作最有效。",
-        "重复博弈诱导的合作在博弈对手变化时急剧恶化。",
-        "在进化压力（最大化个体收益）下，这些合作维持机制变得更为有效。"
+        "LLM智能体在混合动机博弈（如囚徒困境、公共物品场景）中表现出更强的推理能力与更低的合作性趋势，近期模型在单次社会困境中普遍选择背叛。",
+        "研究评估了四种旨在实现理性智能体间均衡合作结果的机制：多轮重复博弈、声誉系统、第三方调解决策、玩家间结果条件支付契约协议。",
+        "实验发现契约和调解机制在能力较强的LLM模型间实现合作结果最为有效，而重复博弈诱导的合作在对手变化时急剧恶化。",
+        "这些合作机制在进化压力（最大化个体收益）下变得更加有效。"
       ],
       "contradictions": [
-        "LLM智能体推理能力增强 vs 社会困境中合作行为减少",
-        "单次博弈中背叛的均衡趋势 vs 多轮或机制干预下实现合作的可能性",
-        "重复博弈促进合作的经典理论 vs 对手变化时合作迅速崩溃的现实",
-        "个体理性（追求最大收益） vs 集体理性（实现合作最优解）",
-        "机制设计的理论有效性 vs 在复杂、动态的LLM智能体交互环境中的实际表现",
-        "进化压力（个体收益最大化） vs 合作机制的强化效果（机制在压力下更有效）"
+        "LLM智能体推理能力增强与合作行为减少之间的矛盾。",
+        "单次博弈中背叛的短期收益与长期合作的社会效益之间的矛盾。",
+        "重复博弈机制在固定对手下的合作诱导效果与对手变化时效果急剧恶化之间的矛盾。",
+        "个体理性（追求最大收益）与集体理性（实现合作均衡）之间的矛盾。",
+        "机制设计（如契约、调解）的理论有效性与LLM智能体实际行为适配性之间的矛盾。"
       ],
-      "primary_contradiction": "LLM智能体个体能力（尤其是推理能力）的增强 vs 在多智能体社会困境中维持合作的社会性需求",
-      "core_insight": "LLM智能体在复杂社会互动中表现出“越聪明越不合作”的反直觉趋势，这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力；解决此矛盾不能依赖智能体自发的道德推理或简单的重复互动，而必须依靠外部结构性机制（如契约、调解）的强制约束，且这些机制的有效性在竞争压力下反而得到增强，表明合作并非源于利他，而是源于对个体利益的制度化保障。",
+      "primary_contradiction": "LLM智能体个体理性（基于强化推理追求短期/个体最大收益）与维持合作所需的社会理性（考虑长期、集体利益）之间的矛盾。",
+      "core_insight": "LLM智能体的合作困境本质是算法目标与社会性目标的错配；契约与调解等外部结构化约束比单纯依赖重复互动或声誉更能有效引导强能力LLM走向合作，这揭示了在AI智能体系统中，合作不能仅依赖内在推理或学习，而必须通过制度设计来强制或引导均衡。",
       "confidence": "high",
       "title": "CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas",
       "url": "https://arxiv.org/abs/2604.15267v1",
@@ -306,160 +448,24 @@
       ]
     },
     {
-      "title": "Are the costs of AI agents also rising exponentially? (2025)",
-      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
-      "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 193 | Comments: 48"
+        "OpenAI has updated its Agents SDK.",
+        "The update introduces native sandbox execution.",
+        "The update introduces a model-native harness.",
+        "The stated purpose is to help developers build secure, long-running agents.",
+        "These agents are designed to operate across files and tools."
       ],
       "contradictions": [
-        "insufficient evidence depth for contradiction detection"
+        "Enhanced agent autonomy and capability (through sandbox execution and cross-file/tool operation) vs. the imperative for security and control (addressed by the sandbox and harness).",
+        "Developer desire for powerful, flexible agent-building tools vs. the complexity and risk management overhead introduced by such powerful capabilities.",
+        "The push for 'long-running' agents that can handle complex tasks vs. the technical and reliability challenges of maintaining stable, persistent AI processes."
       ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Are the costs of AI agents also rising exponentially? (2025) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "meta-ai-blog",
-          "source_type": "official",
-          "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-          "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-          "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-          "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-          "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-          "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "current-run"
-        }
-      ]
-    },
-    {
-      "title": "Claude Design",
-      "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[hacker-news] Score: 1019 | Comments: 668 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=3, sources=2)",
-      "core_insight": "Claude Design appeared across 2 source(s) with 3 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "medium",
-      "source_count": 2,
-      "enrichment": {
-        "cross_source_count": 2,
-        "source_ids": [
-          "anthropic-news",
-          "hacker-news"
-        ],
-        "source_types": [
-          "official",
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "cross-source",
-          "official-source",
-          "community"
-        ],
-        "summary": "2 source(s) | official / community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low",
-      "support_evidence": []
-    },
-    {
+      "primary_contradiction": "The expansion of agent capabilities and autonomy (enabling more powerful applications) vs. the inherent risks and management complexity this expansion creates.",
+      "core_insight": "OpenAI's SDK evolution signals a strategic shift from providing conversational AI components to enabling the creation of autonomous, persistent, and tool-using AI systems, with the core challenge being how to safely unlock this new level of functionality for developers.",
+      "confidence": "high",
       "title": "The next evolution of the Agents SDK",
       "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
       "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[openai-news] OpenAI updates the Agents SDK with native sandbox execution and a model-native harness, helping developers"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "The next evolution of the Agents SDK appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
@@ -513,8 +519,8 @@
           "2026-04-18"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
+      "lifecycle_state": "verified",
+      "risk_level": "low",
       "support_evidence": [
         {
           "source_id": "anthropic-news",
@@ -544,17 +550,18 @@
     }
   ],
   "forecast": {
-    "best_case": "AI agent技术栈在6个月内加速成熟：AgentRx等调试框架被主流云厂商集成，显著提升生产环境agent的故障诊断效率；vLLM等基础设施层进一步巩固，推动LLM服务成本下降、可靠性提升；OpenAI Agents SDK的沙箱执行能力被广泛采用，降低自主agent的部署风险；学术界对LLM智能体合作困境的研究催生初步的工程化解决方案（如标准化契约协议），多agent系统协作效率小幅改善。",
-    "worst_case": "透明度与协作矛盾在6个月内加剧：AgentRx等调试工具进展缓慢，无法应对真实生产环境中复杂的agent故障场景，导致关键业务部署推迟或事故频发；vLLM在适配Blackwell等新硬件时遇到重大性能瓶颈，LLM服务成本居高不下；LLM智能体在复杂多agent环境中普遍表现出“高能力、低合作”倾向，且缺乏有效的工程化约束机制，导致自动化协作系统可信度受质疑，行业对agent落地的预期降温。",
-    "most_likely_case": "AI agent领域在6个月内呈现“基础设施稳步推进、上层应用挑战凸显”的分化态势：vLLM等推理层持续优化，成为LLM服务的默认选择之一；AgentRx等调试框架引发关注并开始早期试点，但离大规模生产级应用仍有距离；OpenAI Agents SDK的沙箱能力被开发者采纳，但主要限于可控场景；LLM智能体的合作困境问题被广泛讨论，但尚未出现被广泛接受的工程解决方案，多agent系统设计仍以简单、受限的协作模式为主。关键矛盾（透明度缺失、协作不可靠）仍是制约复杂agent落地的核心瓶颈。",
+    "best_case": "AI agent ecosystem experiences accelerated maturation with AgentRx and similar frameworks establishing industry-standard debugging practices, reducing production failures by 30-50% within 6 months. OpenAI's SDK sandbox adoption becomes widespread, enabling secure deployment of long-running agents. vLLM's optimizations help contain inference cost growth, alleviating market anxiety. Claude Design demonstrates viable AI-assisted design workflows, expanding the agent application landscape. Cooperation mechanisms from CoopEval research begin influencing multi-agent system design, improving stability.",
+    "worst_case": "The transparency-reliability gap widens as agent complexity outpaces debugging tool development, leading to high-profile production failures that erode enterprise trust and slow adoption. Unverified cost concerns trigger premature budget cuts in agent projects. Claude Design fails to meet domain-specific expectations, reinforcing skepticism about AI companies' ability to cross into specialized tool markets. Lack of effective cooperation mechanisms in multi-agent systems leads to unpredictable failures in collaborative workflows. Security vulnerabilities in sandbox implementations are exposed, causing setbacks for autonomous agent deployment.",
+    "most_likely_case": "Gradual, uneven progress across the agent ecosystem. AgentRx and similar debugging approaches gain traction among early adopters but face integration challenges in existing systems. OpenAI's SDK updates drive increased experimentation with autonomous agents, though production deployments remain cautious. vLLM maintains its position as inference backbone while hardware constraints continue to pressure costs. Claude Design generates initial interest but faces scrutiny over its design domain expertise. The cooperation paradox highlighted by CoopEval becomes a recognized design consideration but doesn't immediately change mainstream practices. Market continues to express cost anxiety despite limited empirical data.",
     "key_variables": [
-      "AgentRx类调试框架的实际生产环境效果验证进度",
-      "vLLM对Blackwell等新硬件的适配性能与稳定性",
-      "主流云厂商对agent可观测性工具链的投入力度",
-      "多智能体协作机制（契约、调解）的工程化实现与标准化进展",
-      "LLM服务成本（尤其是长上下文、复杂推理）的变化趋势"
+      "Adoption rate of systematic debugging frameworks like AgentRx",
+      "Security incident frequency in sandboxed agent deployments",
+      "Availability of empirical cost data for agent inference",
+      "Claude Design's actual feature set and user adoption metrics",
+      "Implementation of contractual/mediation mechanisms in multi-agent systems",
+      "Hardware innovation pace relative to vLLM's software optimizations"
     ],
-    "forecast_conclusion": "短期（6个月）内，AI agent领域将处于“可靠性补课期”。基础设施层（vLLM、SDK）会继续稳步成熟，但制约落地的核心矛盾——自主agent的透明度与多智能体协作的可靠性——难以出现突破性解决方案。行业焦点将从追求单一agent能力，转向构建可观测、可调试、可约束的agent系统工程体系。",
+    "forecast_conclusion": "The AI agent ecosystem will advance technically but face adoption friction due to unresolved transparency, cost, and cooperation challenges. Short-term progress will be most visible in debugging tooling and SDK capabilities, while market acceptance will lag until reliability concerns are substantively addressed. The inverse relationship between reasoning capability and cooperation poses a fundamental design constraint that will shape multi-agent architectures.",
     "confidence": "medium"
   },
   "stage_status": {
@@ -565,57 +572,57 @@
   "ai_metrics": {
     "provider": "mixed",
     "model": "mixed",
-    "calls": 6,
+    "calls": 9,
     "token_usage": {
-      "prompt": 15494,
-      "completion": 3089,
-      "total": 18583
+      "prompt": 28048,
+      "completion": 4348,
+      "total": 32396
     },
-    "latency_seconds": 113.04,
+    "latency_seconds": 129.29,
     "stage_breakdown": {
       "prefilter": {
-        "provider": "deepseek",
-        "model": "deepseek-chat",
+        "provider": "minimax_svips",
+        "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 492,
-          "completion": 217,
-          "total": 709
+          "prompt": 504,
+          "completion": 965,
+          "total": 1469
         },
-        "latency_seconds": 9.05
+        "latency_seconds": 12.88
       },
       "analysis": {
         "provider": "deepseek",
         "model": "deepseek-chat",
-        "calls": 3,
+        "calls": 6,
         "token_usage": {
-          "prompt": 8141,
-          "completion": 1023,
-          "total": 9164
+          "prompt": 15944,
+          "completion": 1679,
+          "total": 17623
         },
-        "latency_seconds": 42.35
+        "latency_seconds": 63.72
       },
       "summary": {
         "provider": "minimax_svips",
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 229,
-          "completion": 1301,
-          "total": 1530
+          "prompt": 4549,
+          "completion": 1202,
+          "total": 5751
         },
-        "latency_seconds": 39.42
+        "latency_seconds": 34.89
       },
       "forecast": {
         "provider": "deepseek",
         "model": "deepseek-chat",
         "calls": 1,
         "token_usage": {
-          "prompt": 6632,
-          "completion": 548,
-          "total": 7180
+          "prompt": 7051,
+          "completion": 502,
+          "total": 7553
         },
-        "latency_seconds": 22.22
+        "latency_seconds": 17.8
       }
     },
     "fallback_stages": []
@@ -631,7 +638,7 @@
       "days_seen": 9,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-18",
-      "enrichment_summary": "1 source(s) | official | 2 related support"
+      "enrichment_summary": "1 source(s) | official | 1 related support"
     },
     {
       "title": "vllm-project/vllm",
@@ -684,13 +691,13 @@
   ],
   "lifecycle_summary": {
     "new": 31,
-    "rising": 77,
-    "verified": 4,
+    "rising": 76,
+    "verified": 5,
     "fading": 1
   },
   "risk_level": "low",
   "highlights": [
-    "AI agent技术栈正从能力堆砌转向可靠性工程：透明度缺失与多智能体协作矛盾成为制约落地的核心挑战。",
+    "AI agent ecosystem is maturing rapidly, with key developments in debugging frameworks, autonomous capabilities, and systemic challenges around transparency, cost, and cooperation—requiring both technical innovation and governance mechanisms.",
     "本轮共采集到 116 条原始信息，去重后保留 113 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -731,14 +738,6 @@
             "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
             "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
             "evidence_scope": "external"
-          },
-          {
-            "source_id": "arxiv-search",
-            "source_type": "paper",
-            "title": "DeepFix: Debugging and Fixing Machine Learning Workflow using Agentic AI",
-            "url": "https://arxiv.org/abs/2603.14099v1",
-            "summary": "In recent years, machine learning (ML) based software systems are increasingly deployed in several critical applications, yet systematic testing of their behavior remains challenging due to complex model architectures, large input spaces, and evolving deployment environments. Existing testing approaches often rely on generating test cases based on given requirements, which often fail to reveal critical bugs of modern ML models due to their complex nature. Most importantly, such approaches, although they can be used to detect the presence of specific failures in the ML software, they hardly provide any message as to how to fix such errors. To tackle this, in this paper, we present DeepFix, a tool for automated testing of the entire ML pipeline using an agentic AI framework. Our testing approach first leverages Deepchecks to test the ML software for any potential bugs, and thereafter, uses an agentic AI-based approach to generate a detailed bug report. This includes a ranking, based on the severity of the found bugs, along with their explanations, which can be interpreted easily by any non-data science experts and most importantly, also provides possible ways to fix these bugs. Additionally, DeepFix supports several types of ML software systems and can be integrated easily to any ML workflow, enabling continuous testing throughout the development lifecycle. We discuss our already validated cases as well as some planned validations designed to demonstrate how the agentic testing process can reveal hidden failure modes that remain undetected by conventional testing methods. A 5-minute screencast demonstrating the tool's core functionality is available at https://youtu.be/WfwZmFcQgBQ.",
-            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
@@ -746,7 +745,7 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 2 related support"
+        "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
         "days_seen": 9,
@@ -850,7 +849,7 @@
     {
       "title": "Claude Design",
       "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
-      "summary": "Score: 1019 | Comments: 668 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458</a> (<a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">ht",
+      "summary": "Score: 1034 | Comments: 673 | Text: Related: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458</a> (<a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;flomerboy&#x2F;status&#x2F;2045162321589252458\" rel=\"nofollow\">ht",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -898,6 +897,76 @@
       },
       "lifecycle_state": "new",
       "risk_level": "low"
+    },
+    {
+      "title": "Are the costs of AI agents also rising exponentially? (2025)",
+      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
+      "summary": "Score: 198 | Comments: 51",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 2.5,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium"
     },
     {
       "title": "vllm-project/vllm",
@@ -972,76 +1041,6 @@
       "risk_level": "low"
     },
     {
-      "title": "Are the costs of AI agents also rising exponentially? (2025)",
-      "url": "https://www.tobyord.com/writing/hourly-costs-for-ai-agents",
-      "summary": "Score: 193 | Comments: 48",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 2.5,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium"
-    },
-    {
       "title": "The next evolution of the Agents SDK",
       "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
       "summary": "OpenAI updates the Agents SDK with native sandbox execution and a model-native harness, helping developers build secure, long-running agents across files and tools.",
@@ -1111,8 +1110,8 @@
           "2026-04-18"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "medium"
+      "lifecycle_state": "verified",
+      "risk_level": "low"
     },
     {
       "title": "Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
@@ -2516,6 +2515,529 @@
       "risk_level": "low"
     },
     {
+      "title": "Measuring Claude 4.7's tokenizer costs",
+      "url": "https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you",
+      "summary": "Score: 604 | Comments: 430",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "hot",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "A simplified model of Fil-C",
+      "url": "https://www.corsix.org/content/simplified-model-of-fil-c",
+      "summary": "Score: 173 | Comments: 93",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Healthchecks.io now uses self-hosted object storage",
+      "url": "https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/",
+      "summary": "Score: 166 | Comments: 69",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "A Python Interpreter Written in Python",
+      "url": "https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html",
+      "summary": "Score: 149 | Comments: 48",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-18",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Towards trust in Emacs",
+      "url": "https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html",
+      "summary": "Score: 102 | Comments: 12",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Average is all you need",
+      "url": "https://rawquery.dev/blog/average-is-all-you-need",
+      "summary": "Score: 94 | Comments: 95",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Solitaire simulator for finding the best strategy: Current record is 8.590%",
+      "url": "https://github.com/dacracot/Klondike3-Simulator",
+      "summary": "Score: 47 | Comments: 21",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)",
+      "url": "https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/",
+      "summary": "Score: 25 | Comments: 16",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
+            "url": "https://www.anthropic.com/news/narasimhan-board",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "\"Liberation Day\" at OpenAI as multiple senior executives announce leaving",
+      "url": "https://mas.to/@carnage4life/116422881496195720",
+      "summary": "Score: 24 | Comments: 2",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Fulu bounty for Ring Camera jailbreak reaches $23k",
+      "url": "https://bounties.fulu.org/bounties/ring-video-doorbells",
+      "summary": "Score: 17 | Comments: 2",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Remember? \"Sideloading\" is here to stay, and won't go away, they said?",
+      "url": "https://floss.social/@IzzyOnDroid/116415766636505917",
+      "summary": "Score: 11 | Comments: 1",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Claude is a space to think",
+            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-18",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-18"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
       "title": "ollama/ollama",
       "url": "https://github.com/ollama/ollama",
       "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
@@ -2653,9 +3175,9 @@
       "risk_level": "low"
     },
     {
-      "title": "tenstorrent/tt-metal",
-      "url": "https://github.com/tenstorrent/tt-metal",
-      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
+      "title": "pytorch/executorch",
+      "url": "https://github.com/pytorch/executorch",
+      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -2667,21 +3189,14 @@
         "curated-repos"
       ],
       "tags": [
-        "accelerator",
-        "ai",
         "ai-llm-agent",
-        "cuda",
-        "deepseek",
+        "deep-learning",
+        "embedded",
         "gpu",
-        "img-gen",
-        "kernels",
-        "llama",
-        "llm",
-        "metal",
-        "scale-out",
-        "stable-diffusion",
-        "tenstorrent",
-        "video-gen"
+        "machine-learning",
+        "mobile",
+        "neural-network",
+        "tensor"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -2828,9 +3343,9 @@
       "risk_level": "low"
     },
     {
-      "title": "pytorch/executorch",
-      "url": "https://github.com/pytorch/executorch",
-      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
+      "title": "tenstorrent/tt-metal",
+      "url": "https://github.com/tenstorrent/tt-metal",
+      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
       "primary_domain": "ai-x-electronics",
       "matched_domains": [
         "ai-x-electronics",
@@ -2842,14 +3357,21 @@
         "curated-repos"
       ],
       "tags": [
+        "accelerator",
+        "ai",
         "ai-llm-agent",
-        "deep-learning",
-        "embedded",
+        "cuda",
+        "deepseek",
         "gpu",
-        "machine-learning",
-        "mobile",
-        "neural-network",
-        "tensor"
+        "img-gen",
+        "kernels",
+        "llama",
+        "llm",
+        "metal",
+        "scale-out",
+        "stable-diffusion",
+        "tenstorrent",
+        "video-gen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3234,529 +3756,6 @@
         ]
       },
       "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Measuring Claude 4.7's tokenizer costs",
-      "url": "https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you",
-      "summary": "Score: 601 | Comments: 427",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "hot",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "A simplified model of Fil-C",
-      "url": "https://www.corsix.org/content/simplified-model-of-fil-c",
-      "summary": "Score: 171 | Comments: 87",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Healthchecks.io now uses self-hosted object storage",
-      "url": "https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/",
-      "summary": "Score: 164 | Comments: 68",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "A Python Interpreter Written in Python",
-      "url": "https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html",
-      "summary": "Score: 149 | Comments: 48",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-18",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Towards trust in Emacs",
-      "url": "https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html",
-      "summary": "Score: 96 | Comments: 11",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Average is all you need",
-      "url": "https://rawquery.dev/blog/average-is-all-you-need",
-      "summary": "Score: 93 | Comments: 95",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Solitaire simulator for finding the best strategy: Current record is 8.590%",
-      "url": "https://github.com/dacracot/Klondike3-Simulator",
-      "summary": "Score: 47 | Comments: 21",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)",
-      "url": "https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/",
-      "summary": "Score: 24 | Comments: 16",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
-            "url": "https://www.anthropic.com/news/narasimhan-board",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "\"Liberation Day\" at OpenAI as multiple senior executives announce leaving",
-      "url": "https://mas.to/@carnage4life/116422881496195720",
-      "summary": "Score: 22 | Comments: 1",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Fulu bounty for Ring Camera jailbreak reaches $23k",
-      "url": "https://bounties.fulu.org/bounties/ring-video-doorbells",
-      "summary": "Score: 17 | Comments: 2",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Remember? \"Sideloading\" is here to stay, and won't go away, they said?",
-      "url": "https://floss.social/@IzzyOnDroid/116415766636505917",
-      "summary": "Score: 11 | Comments: 1",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Claude is a space to think",
-            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 1 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-18",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-18"
-        ]
-      },
-      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -7641,7 +7640,7 @@
     }
   ],
   "predictions": [
-    "短期（6个月）内，AI agent领域将处于“可靠性补课期”。基础设施层（vLLM、SDK）会继续稳步成熟，但制约落地的核心矛盾——自主agent的透明度与多智能体协作的可靠性——难以出现突破性解决方案。行业焦点将从追求单一agent能力，转向构建可观测、可调试、可约束的agent系统工程体系。"
+    "The AI agent ecosystem will advance technically but face adoption friction due to unresolved transparency, cost, and cooperation challenges. Short-term progress will be most visible in debugging tooling and SDK capabilities, while market acceptance will lag until reliability concerns are substantively addressed. The inverse relationship between reasoning capability and cooperation poses a fundamental design constraint that will shape multi-agent architectures."
   ],
   "sources": {
     "github": {
