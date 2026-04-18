@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.18</div>
-      <h1 class="section-title" style="font-size:34px;">AI智能体正从概念验证转向关键生产应用，但其规模化面临透明度、合作行为与成本效益三大核心瓶颈，系统性调试、机制设计和开源优化成为突破关键。</h1>
-      <p class="subtle">AI智能体领域正经历从能力展示到生产部署的关键转折，核心矛盾从“能否做”转向“能否可靠、协同、经济地做”。 微软的AgentRx框架和学术界的CoopEval研究分别揭示了智能体在系统可靠性和社会协同性上的深层挑战，前者缺乏透明调试工具，后者存在个体理性与集体利益的错配。 开源项目vLLM和OpenAI的SDK更新代表了产业界在提升智能体部署效率（性能、成本、易用性）上的持续努力，但广泛兼容性与极致性能间的平衡仍是难题。</p>
+      <h1 class="section-title" style="font-size:34px;">AI agent技术栈正从能力堆砌转向可靠性工程：透明度缺失与多智能体协作矛盾成为制约落地的核心挑战。</h1>
+      <p class="subtle">微软推出AgentRx框架，将AI agent故障调试从玄学变为系统工程，填补自主智能体时代的可观测性空白。 vLLM作为LLM推理基础设施持续演进，通过统一软件层抽象硬件与模型碎片化，成为高吞吐服务的关键底座。 CoopEval研究揭示LLM智能体存在&#x27;越聪明越不合作&#x27;的反直觉现象，暗示社会对齐不能依赖自发道德推理，必须依赖外部制度约束。</p>
       <div class="archive-meta" style="margin-top:14px;">
-        <span class="tag alt">110 topics</span>
-        <span class="tag warm">113 raw items</span>
+        <span class="tag alt">113 topics</span>
+        <span class="tag warm">116 raw items</span>
         <span class="tag">人工复核版</span>
-        <span class="tag">2026-04-18T15:41:32.030993+08:00</span>
+        <span class="tag">2026-04-18T16:37:51.316795+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>可靠性瓶颈：智能体复杂化与调试透明度的矛盾</h3>
-  <p>随着AI智能体承担云管、多步工作流等关键任务，其失败变得难以追溯和诊断（如工具调用幻觉），这构成了将其安全、规模化部署到生产环境的最大障碍。微软的AgentRx框架正是针对这一系统性痛点，标志着行业开始正视并着手解决智能体的“可观测性”问题。</p>
+  <h3>AgentRx：AI agent调试从黑盒走向系统工程</h3>
+  <p>随着AI agent从聊天机器人演变为自主处理云端事故、多步骤API工作流的系统，其故障模式的不可追溯性已成为生产部署的核心瓶颈。AgentRx代表行业首次将agent失败视为可工程化问题而非AI行为的不可预测性，为关键应用场景的可靠性提供方法论基础。</p>
 </article><article class="summary-card">
-  <h3>合作困境：LLM智能体理性与系统协同需求的结构性错配</h3>
-  <p>研究发现，LLM智能体在囚徒困境等社会博弈中，更强的推理能力反而导致更低的合作倾向。这揭示了当前基于能力优化的安全范式局限：智能体缺乏内在的合作动机。有效的解决方案并非提升模型“善念”，而是依赖契约、调解等外部机制设计，这对多智能体协作系统的构建至关重要。</p>
+  <h3>vLLM：LLM服务化的通用抽象层</h3>
+  <p>大模型推理面临极致性能需求与硬件平台、模型架构快速多样化之间的根本矛盾。vLLM通过统一软件层同时支持CUDA/TPU/AMD/Blackwell及GPT/Llama/Qwen/DeepSeek-V3/MoE等架构，成为缓解性能追求与工程碎片化张力的关键基础设施，地位类似容器之于微服务。</p>
 </article><article class="summary-card">
-  <h3>部署效率：开源生态在性能、兼容性与成本间的持续博弈</h3>
-  <p>vLLM等项目致力于通过内存优化、高吞吐来降低推理成本，OpenAI则通过SDK简化开发。这反映了产业界在推动智能体落地时面临的核心权衡：如何在支持多样化硬件（CUDA/AMD/TPU）和模型架构的同时，保持极致的性能和易用性。成本控制已成为智能体经济可行性的关键变量。</p>
+  <h3>LLM智能体合作困境：能力越强，社会性越弱</h3>
+  <p>研究发现LLM agent在囚徒困境等社会困境中，推理能力越强反而合作倾向越低。这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力：单纯的道德推理或重复博弈无法维持合作，只有契约和第三方调解等外部制度约束才能实现，表明合作本质是对个体利益的制度化保障。</p>
 </article>
       </div>
     </section>
@@ -334,24 +334,24 @@
       <div class="summary-grid">
         <article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The evolution of AI agents into critical operational roles is fundamentally constrained not by their capability potential, but by the current lack of robust, framework-level debugging tools—making systematic observability the key bottleneck for their safe and scalable adoption.</p>
+  <p>The advancement of AI agents into complex, autonomous roles is creating a critical transparency gap; AgentRx represents an early industry move to treat agent failures as a systematic engineering problem rather than an unpredictable AI behavior, aiming to make debugging as methodical as it is for traditional software.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">medium</span>
+  </div>
+</article><article class="topic-card">
+  <h3>vllm-project/vllm</h3>
+  <p>vLLM 的核心价值在于通过一个统一的软件层，抽象并缓解大模型推理中性能需求与硬件及模型碎片化之间的根本矛盾，成为LLM服务化部署的关键基础设施。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
   </div>
 </article><article class="topic-card">
   <h3>CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas</h3>
-  <p>LLM智能体的合作困境本质是算法个体理性与系统协同要求的结构性错配，契约与调解等外部约束机制比内在推理能力更能有效引导合作行为，这揭示了当前LLM智能体安全范式的局限性——需从能力优化转向机制设计。</p>
+  <p>LLM智能体在复杂社会互动中表现出“越聪明越不合作”的反直觉趋势，这揭示了当前AI能力发展路径与社会对齐目标之间的深层张力；解决此矛盾不能依赖智能体自发的道德推理或简单的重复互动，而必须依靠外部结构性机制（如契约、调解）的强制约束，且这些机制的有效性在竞争压力下反而得到增强，表明合作并非源于利他，而是源于对个体利益的制度化保障。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
-  </div>
-</article><article class="topic-card">
-  <h3>vllm-project/vllm</h3>
-  <p>vLLM 的核心挑战在于如何在维持其作为通用、开源 LLM 推理服务引擎的广泛兼容性（支持多硬件、多模型架构）的同时，持续达成并宣传其标志性的 &#x27;high-throughput and memory-efficient&#x27; 技术优势，这本质上是在生态广度与技术深度之间寻找最佳平衡点。</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
   </div>
 </article>
       </div>
@@ -381,20 +381,11 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Claude Design</h3>
-  <p>Score: 1003 | Comments: 659 | Text: Related: https://x.com/flomerboy/status/2045162321589252458 ( ht</p>
+  <p>Score: 1019 | Comments: 668 | Text: Related: https://x.com/flomerboy/status/2045162321589252458 ( ht</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">hacker-news</span><span class="tag">hot</span></div>
   <div class="signal-footer">
     <span>anthropic.com · 2.8</span>
     <a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Are the costs of AI agents also rising exponentially? (2025)</h3>
-  <p>Score: 186 | Comments: 43</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>tobyord.com · 2.5</span>
-    <a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -404,6 +395,15 @@
   <div class="signal-footer">
     <span>github.com · 2.5</span>
     <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Are the costs of AI agents also rising exponentially? (2025)</h3>
+  <p>Score: 193 | Comments: 48</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>tobyord.com · 2.5</span>
+    <a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -469,6 +469,42 @@
     <a href="https://arxiv.org/abs/2604.15294v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
+  <p>The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 2.5</span>
+    <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
+  <p>Physical AI is rapidly evolving, from next-generation software-defined autonomous vehicles (AVs) to humanoid robots. The challenge is no longer how to run a...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 2.5</span>
+    <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
+  <p>Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Agent</span><span class="tag">AI Inference</span><span class="tag">Agentic AI / Generative AI</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 2.5</span>
+    <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics</h3>
+  <p>Running advanced AI and computer vision workloads on small, power-efficient devices at the edge is a growing challenge. Robots, smart cameras, and autonomous...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Computer Vision / Video Analytics</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 2.5</span>
+    <a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
   <h3>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing</h3>
   <p>The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.</p>
@@ -494,42 +530,6 @@
   <div class="signal-footer">
     <span>platform.moonshot.cn · 1.8</span>
     <a href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.8</span>
-    <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.8</span>
-    <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.8</span>
-    <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.8</span>
-    <a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -596,102 +596,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Measuring Claude 4.7&#x27;s tokenizer costs</h3>
-  <p>Score: 597 | Comments: 419</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <h3>Arm announces earnings release date for fourth quarter fiscal year ended 2026</h3>
+  <p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its […] The post Arm announces earnings release date for fourth quarter fiscal year ended 2026 appeared first on Arm Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
   <div class="signal-footer">
-    <span>claudecodecamp.com · 1.0</span>
-    <a href="https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Tesla tells HW3 owner to &#x27;be patient&#x27; after 7 years of waiting for FSD</h3>
-  <p>Score: 195 | Comments: 153</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>electrek.co · 1.0</span>
-    <a href="https://electrek.co/2026/04/17/tesla-hw3-owners-be-patient-7-years-fsd/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Healthchecks.io now uses self-hosted object storage</h3>
-  <p>Score: 164 | Comments: 68</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>blog.healthchecks.io · 1.0</span>
-    <a href="https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>A simplified model of Fil-C</h3>
-  <p>Score: 163 | Comments: 86</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>corsix.org · 1.0</span>
-    <a href="https://www.corsix.org/content/simplified-model-of-fil-c" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>A Python Interpreter Written in Python</h3>
-  <p>Score: 148 | Comments: 48</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>aosabook.org · 1.0</span>
-    <a href="https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Average is all you need</h3>
-  <p>Score: 91 | Comments: 94</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>rawquery.dev · 1.0</span>
-    <a href="https://rawquery.dev/blog/average-is-all-you-need" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Towards trust in Emacs</h3>
-  <p>Score: 89 | Comments: 10</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>eshelyaron.com · 1.0</span>
-    <a href="https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Solitaire simulator for finding the best strategy: Current record is 8.590%</h3>
-  <p>Score: 46 | Comments: 21</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/dacracot/Klondike3-Simulator" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)</h3>
-  <p>Score: 24 | Comments: 16</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>davidma.org · 1.0</span>
-    <a href="https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Fulu bounty for Ring Camera jailbreak reaches $23k</h3>
-  <p>Score: 16 | Comments: 2</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>bounties.fulu.org · 1.0</span>
-    <a href="https://bounties.fulu.org/bounties/ring-video-doorbells" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>&quot;Liberation Day&quot; at OpenAI as multiple senior executives announce leaving</h3>
-  <p>Score: 13 | Comments: 0</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>mas.to · 1.0</span>
-    <a href="https://mas.to/@carnage4life/116422881496195720" target="_blank" rel="noopener">查看原文</a>
+    <span>newsroom.arm.com · 1.8</span>
+    <a href="https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -713,15 +623,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
-  <h3>alibaba/MNN</h3>
-  <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
   <h3>tenstorrent/tt-metal</h3>
   <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
@@ -731,12 +632,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
-  <h3>pytorch/executorch</h3>
-  <p>On-device AI across mobile, embedded and edge for PyTorch</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">embedded</span></div>
+  <h3>alibaba/MNN</h3>
+  <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
-    <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -746,6 +647,15 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>pytorch/executorch</h3>
+  <p>On-device AI across mobile, embedded and edge for PyTorch</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">embedded</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -800,6 +710,105 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/jax-ml/jax" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Measuring Claude 4.7&#x27;s tokenizer costs</h3>
+  <p>Score: 601 | Comments: 427</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>claudecodecamp.com · 1.0</span>
+    <a href="https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>A simplified model of Fil-C</h3>
+  <p>Score: 171 | Comments: 87</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>corsix.org · 1.0</span>
+    <a href="https://www.corsix.org/content/simplified-model-of-fil-c" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Healthchecks.io now uses self-hosted object storage</h3>
+  <p>Score: 164 | Comments: 68</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>blog.healthchecks.io · 1.0</span>
+    <a href="https://blog.healthchecks.io/2026/04/healthchecks-io-now-uses-self-hosted-object-storage/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>A Python Interpreter Written in Python</h3>
+  <p>Score: 149 | Comments: 48</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>aosabook.org · 1.0</span>
+    <a href="https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Towards trust in Emacs</h3>
+  <p>Score: 96 | Comments: 11</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>eshelyaron.com · 1.0</span>
+    <a href="https://eshelyaron.com/posts/2026-04-15-towards-trust-in-emacs.html" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Average is all you need</h3>
+  <p>Score: 93 | Comments: 95</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>rawquery.dev · 1.0</span>
+    <a href="https://rawquery.dev/blog/average-is-all-you-need" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Solitaire simulator for finding the best strategy: Current record is 8.590%</h3>
+  <p>Score: 47 | Comments: 21</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/dacracot/Klondike3-Simulator" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>How to Host a Blog on a Subdirectory Instead of a Subdomain (2025)</h3>
+  <p>Score: 24 | Comments: 16</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>davidma.org · 1.0</span>
+    <a href="https://www.davidma.org/blog/2025-11-14-host-your-blog-on-a-subdirectory/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>&quot;Liberation Day&quot; at OpenAI as multiple senior executives announce leaving</h3>
+  <p>Score: 22 | Comments: 1</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>mas.to · 1.0</span>
+    <a href="https://mas.to/@carnage4life/116422881496195720" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Fulu bounty for Ring Camera jailbreak reaches $23k</h3>
+  <p>Score: 17 | Comments: 2</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>bounties.fulu.org · 1.0</span>
+    <a href="https://bounties.fulu.org/bounties/ring-video-doorbells" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Remember? &quot;Sideloading&quot; is here to stay, and won&#x27;t go away, they said?</h3>
+  <p>Score: 11 | Comments: 1</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>floss.social · 1.0</span>
+    <a href="https://floss.social/@IzzyOnDroid/116415766636505917" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -971,6 +980,42 @@
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
     <a href="https://arxiv.org/abs/2604.15259v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era</h3>
+  <p>Kuala Lumpur, Malaysia, March 31, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, today announced a collaboration with the School of Engineering at Monash University Malaysia, on future AI workforce development. The collaboration aims to deepen industry–academic engagement and support the development of the semiconductor workforce as demand […] The post Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era appeared first on Arm Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
+  <div class="signal-footer">
+    <span>newsroom.arm.com · 1.0</span>
+    <a href="https://newsroom.arm.com/news/arm-monash-university-malaysia-semiconductor-talent-development-ai" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Arm expands compute platform to silicon products in historic company first</h3>
+  <p>News highlights Cambridge, England – Mar. 24, 2026 – Arm Holdings plc (NASDAQ: ARM) today announced the next evolution of the Arm compute platform, extending into production silicon products for the first time in the company’s history. This begins with the launch of the Arm AGI CPU, an Arm-designed CPU for AI data centers, built […] The post Arm expands compute platform to silicon products in historic company first appeared first on Arm Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
+  <div class="signal-footer">
+    <span>newsroom.arm.com · 1.0</span>
+    <a href="https://newsroom.arm.com/news/arm-agi-cpu-launch" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1</h3>
+  <p>NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">CES26</span><span class="tag">Edge Computing</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 1.0</span>
+    <a href="https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Making Robot Perception More Efficient on NVIDIA Jetson Thor</h3>
+  <p>Building autonomous robots requires robust, low-latency visual perception for depth, obstacle recognition, localization, and navigation in dynamic environments....</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Computer Vision / Video Analytics</span><span class="tag">Edge Computing</span><span class="tag">Humanoid Robots</span></div>
+  <div class="signal-footer">
+    <span>developer.nvidia.com · 1.0</span>
+    <a href="https://developer.nvidia.com/blog/making-robot-perception-more-efficient-on-nvidia-jetson-thor/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -1196,24 +1241,6 @@
   <div class="signal-footer">
     <span>platform.moonshot.cn · 0.3</span>
     <a href="https://platform.moonshot.cn/blog/posts/k2-turbo-enhance" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 0.3</span>
-    <a href="https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Making Robot Perception More Efficient on NVIDIA Jetson Thor</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 0.3</span>
-    <a href="https://developer.nvidia.com/blog/making-robot-perception-more-efficient-on-nvidia-jetson-thor/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
