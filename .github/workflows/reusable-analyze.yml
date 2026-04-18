@@ -41,8 +41,23 @@ jobs:
       - name: Run AI analysis
         timeout-minutes: 32
         env:
+          AI_PROVIDER: ${{ vars.AI_PROVIDER || 'deepseek' }}
+          AI_BASE_URL: ${{ vars.AI_BASE_URL || 'https://api.deepseek.com' }}
+          AI_MODEL: ${{ vars.AI_MODEL || 'deepseek-chat' }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          AI_MODEL: deepseek-chat
+          ANALYSIS_AI_PROVIDER: ${{ vars.ANALYSIS_AI_PROVIDER || '' }}
+          ANALYSIS_AI_BASE_URL: ${{ vars.ANALYSIS_AI_BASE_URL || '' }}
+          ANALYSIS_AI_MODEL: ${{ vars.ANALYSIS_AI_MODEL || '' }}
+          ANALYSIS_AI_API_KEY: ${{ secrets.ANALYSIS_AI_API_KEY }}
+          SUMMARY_AI_PROVIDER: ${{ vars.SUMMARY_AI_PROVIDER || '' }}
+          SUMMARY_AI_BASE_URL: ${{ vars.SUMMARY_AI_BASE_URL || '' }}
+          SUMMARY_AI_MODEL: ${{ vars.SUMMARY_AI_MODEL || '' }}
+          SUMMARY_AI_API_KEY: ${{ secrets.SUMMARY_AI_API_KEY }}
+          FORECAST_AI_PROVIDER: ${{ vars.FORECAST_AI_PROVIDER || '' }}
+          FORECAST_AI_BASE_URL: ${{ vars.FORECAST_AI_BASE_URL || '' }}
+          FORECAST_AI_MODEL: ${{ vars.FORECAST_AI_MODEL || '' }}
+          FORECAST_AI_API_KEY: ${{ secrets.FORECAST_AI_API_KEY }}
           AI_TEMPERATURE: "0.2"
           AUTO_TIMEZONE: Asia/Shanghai
         run: python -m auto_report.cli analyze-only

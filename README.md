@@ -121,10 +121,27 @@ FORECAST_AI_MODEL=deepseek-chat
 GitHub / Actions note:
 
 - Local runs can switch providers directly with `.env` or temporary env vars.
-- Current GitHub workflows are still wired around the DeepSeek path by default.
-- If you later want scheduled or manual GitHub runs to use MiniMax, update the
-  workflow env to pass `AI_PROVIDER`, `AI_BASE_URL`, `AI_MODEL`, and
-  `AI_API_KEY` instead of only `DEEPSEEK_API_KEY`.
+- Current GitHub workflows now support the same unified provider contract.
+- Remote runs still default to DeepSeek when no repository variables are set.
+- To switch the remote default provider, configure Repository Variables:
+  - `AI_PROVIDER`
+  - `AI_BASE_URL`
+  - `AI_MODEL`
+- Configure Repository Secrets:
+  - `DEEPSEEK_API_KEY` for the DeepSeek-default path
+  - `AI_API_KEY` for OpenAI-compatible non-DeepSeek providers
+- Optional remote stage routing is also supported through Repository Variables
+  and Secrets:
+  - Variables: `ANALYSIS_AI_PROVIDER`, `ANALYSIS_AI_BASE_URL`,
+    `ANALYSIS_AI_MODEL`, `SUMMARY_AI_PROVIDER`, `SUMMARY_AI_BASE_URL`,
+    `SUMMARY_AI_MODEL`, `FORECAST_AI_PROVIDER`, `FORECAST_AI_BASE_URL`,
+    `FORECAST_AI_MODEL`
+  - Secrets: `ANALYSIS_AI_API_KEY`, `SUMMARY_AI_API_KEY`,
+    `FORECAST_AI_API_KEY`
+- Recommended first remote validation:
+  - use `workflow_dispatch`
+  - set `push_enabled=false`
+  - confirm the run status and provider selection before enabling real pushes
 
 ### 2. Run once / 本地生成一次日报
 

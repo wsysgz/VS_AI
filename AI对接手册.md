@@ -244,6 +244,48 @@ collect
 - `workflow_dispatch` 跑的是远端 ref，不是本地未 push 的修改
 - `push` 触发时忽略 `data/**`
 - 手动验证远端通常优先使用 `push_enabled=false`，避免无意实际推送
+- 当前远端 workflow 已支持统一 provider 配置与 stage-level routing，但未配置
+  Repository Variables / Secrets 时仍默认走 DeepSeek
+
+### 4.4 远端 AI provider 配置真相
+
+远端 GitHub Actions 现在分三层看：
+
+1. 默认层
+   - `AI_PROVIDER=deepseek`
+   - `AI_BASE_URL=https://api.deepseek.com`
+   - `AI_MODEL=deepseek-chat`
+   - Secret 仍以 `DEEPSEEK_API_KEY` 为默认主路径
+2. 全局切换层
+   - Repository Variables:
+     - `AI_PROVIDER`
+     - `AI_BASE_URL`
+     - `AI_MODEL`
+   - Repository Secret:
+     - `AI_API_KEY`
+3. stage-level routing 层
+   - Variables:
+     - `ANALYSIS_AI_PROVIDER`
+     - `ANALYSIS_AI_BASE_URL`
+     - `ANALYSIS_AI_MODEL`
+     - `SUMMARY_AI_PROVIDER`
+     - `SUMMARY_AI_BASE_URL`
+     - `SUMMARY_AI_MODEL`
+     - `FORECAST_AI_PROVIDER`
+     - `FORECAST_AI_BASE_URL`
+     - `FORECAST_AI_MODEL`
+   - Secrets:
+     - `ANALYSIS_AI_API_KEY`
+     - `SUMMARY_AI_API_KEY`
+     - `FORECAST_AI_API_KEY`
+
+远端首轮验证建议：
+
+- 先 `push`
+- 再手动触发 `Collect And Report`
+- 先用 `push_enabled=false`
+- 先确认 `run-status.json` 里的 provider / model / ai_metrics 是否符合预期
+- 确认无误后再打开真实推送
 
 ## 5. 当前项目进度怎么对接
 

@@ -48,6 +48,30 @@ def test_load_settings_exposes_ai_reading_paths():
     assert settings.env["AI_MAX_ANALYSIS_TOPICS"] == "6"
 
 
+def test_load_settings_includes_stage_level_ai_env(monkeypatch):
+    monkeypatch.setenv("ANALYSIS_AI_PROVIDER", "deepseek")
+    monkeypatch.setenv("ANALYSIS_AI_BASE_URL", "https://api.deepseek.com")
+    monkeypatch.setenv("ANALYSIS_AI_MODEL", "deepseek-chat")
+    monkeypatch.setenv("SUMMARY_AI_PROVIDER", "minimax_svips")
+    monkeypatch.setenv("SUMMARY_AI_BASE_URL", "https://api.svips.org/v1")
+    monkeypatch.setenv("SUMMARY_AI_MODEL", "MiniMax-M2.7")
+    monkeypatch.setenv("FORECAST_AI_PROVIDER", "deepseek")
+    monkeypatch.setenv("FORECAST_AI_BASE_URL", "https://api.deepseek.com")
+    monkeypatch.setenv("FORECAST_AI_MODEL", "deepseek-chat")
+
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["ANALYSIS_AI_PROVIDER"] == "deepseek"
+    assert settings.env["ANALYSIS_AI_BASE_URL"] == "https://api.deepseek.com"
+    assert settings.env["ANALYSIS_AI_MODEL"] == "deepseek-chat"
+    assert settings.env["SUMMARY_AI_PROVIDER"] == "minimax_svips"
+    assert settings.env["SUMMARY_AI_BASE_URL"] == "https://api.svips.org/v1"
+    assert settings.env["SUMMARY_AI_MODEL"] == "MiniMax-M2.7"
+    assert settings.env["FORECAST_AI_PROVIDER"] == "deepseek"
+    assert settings.env["FORECAST_AI_BASE_URL"] == "https://api.deepseek.com"
+    assert settings.env["FORECAST_AI_MODEL"] == "deepseek-chat"
+
+
 def test_load_settings_includes_delivery_endpoint_defaults():
     settings = load_settings(Path.cwd())
     assert settings.env["PUSHPLUS_BASE_URL"] == "https://www.pushplus.plus"
