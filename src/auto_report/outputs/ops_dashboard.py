@@ -209,6 +209,27 @@ def _render_governance_priority_queue(items: list[object]) -> str:
     return "\n".join(rows)
 
 
+def _render_discovery_leads(items: list[object], empty_label: str) -> str:
+    if not items:
+        return f'<tr><td colspan="7" class="empty">{escape(empty_label)}</td></tr>'
+
+    rows: list[str] = []
+    for raw_item in items:
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item.get('keyword') or '-'))}</td>"
+            f"<td>{escape(str(item.get('title') or '-'))}</td>"
+            f"<td>{escape(str(item.get('classification') or '-'))}</td>"
+            f"<td>{escape(str(item.get('confidence') or '-'))}</td>"
+            f"<td>{escape(str(item.get('feed_candidate') or item.get('rsshub_candidate') or item.get('changedetection_candidate') or '-'))}</td>"
+            f"<td>{escape(str(item.get('next_action') or '-'))}</td>"
+            f"<td>{escape(str(item.get('url') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
 def _flatten_mapping(data: dict[str, object], prefix: str = "") -> dict[str, object]:
     flattened: dict[str, object] = {}
     for key, value in data.items():
@@ -390,6 +411,9 @@ def _build_dashboard_html(
     source_health = status.get("source_health", {})
     review = status.get("review", {})
     external_enrichment = status.get("external_enrichment", {})
+    official_feed_leads = status.get("official_feed_leads", [])
+    rsshub_leads = status.get("rsshub_leads", [])
+    changedetection_leads = status.get("changedetection_leads", [])
     source_governance_dict = source_governance if isinstance(source_governance, dict) else {}
     governance_summary = source_governance_dict.get("summary", {})
     regressions = _build_prompt_regressions(prompt_eval_runs)
@@ -735,6 +759,95 @@ def _build_dashboard_html(
               source_governance_dict.get("priority_queue", [])
               if isinstance(source_governance_dict, dict)
               else []
+          )}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Discovery Leads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Title</th>
+            <th>Classification</th>
+            <th>Confidence</th>
+            <th>Candidate</th>
+            <th>Next Action</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_discovery_leads(
+              official_feed_leads if isinstance(official_feed_leads, list) else [],
+              "No discovery leads",
+          )}
+        </tbody>
+      </table>
+      <h2 class="section-title" style="margin-top: 22px;">Official Feed Leads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Title</th>
+            <th>Classification</th>
+            <th>Confidence</th>
+            <th>Candidate</th>
+            <th>Next Action</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_discovery_leads(
+              official_feed_leads if isinstance(official_feed_leads, list) else [],
+              "No official feed leads",
+          )}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">RSSHub Leads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Title</th>
+            <th>Classification</th>
+            <th>Confidence</th>
+            <th>Candidate</th>
+            <th>Next Action</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_discovery_leads(
+              rsshub_leads if isinstance(rsshub_leads, list) else [],
+              "No RSSHub leads",
+          )}
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 22px;">changedetection Leads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Title</th>
+            <th>Classification</th>
+            <th>Confidence</th>
+            <th>Candidate</th>
+            <th>Next Action</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_discovery_leads(
+              changedetection_leads if isinstance(changedetection_leads, list) else [],
+              "No changedetection leads",
           )}
         </tbody>
       </table>

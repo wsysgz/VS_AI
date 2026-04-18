@@ -359,11 +359,10 @@ Get-Content out/source-governance/source-governance.json
 
 最近仓库快照显示的未完成重点：
 
-- 第一批 RSSHub route 还没真正落表
-- changedetection watch 清单还没真正建立
+- `anthropic-news` 仍待远端 / 外网环境完成 RSSHub 或官方 feed 最终验证
 - `OpenCLI` 侧车 pilot 还没做
-- GitHub Actions 还没切到统一 provider 配置（当前仍固定 DeepSeek）
-- 高价值脆弱 listing 来源仍需要补 `replacement_target` 或旁路方案
+- AI Gateway / tracing 还没真正接入主链
+- discovery/search helper 已落地，但还没有并入主日报主链
 
 最近可见的 source failure 示例：
 
@@ -374,6 +373,26 @@ Get-Content out/source-governance/source-governance.json
   1. 双 AI 并存与 stage routing
   2. LiteLLM Gateway
   3. Langfuse tracing
+- 当前已确认的默认 AI 分工：
+  - `analysis` -> DeepSeek
+  - `summary` -> MiniMax-M2.7
+  - `forecast` -> DeepSeek
+  - `pre_filter` -> MiniMax-M2.7
+  - `discovery` / `search` helper stage -> MiniMax-M2.7
+- `build-discovery-search` 已可从关键词列表生成：
+  - `out/discovery-search/discovery-search.json`
+  - `out/discovery-search/discovery-search.md`
+- `build-source-governance` 已会把 discovery/search 结果轻量挂到：
+  - `discovery_search`
+  - `official_feed_leads`
+  - `rsshub_leads`
+  - `changedetection_leads`
+- `ops dashboard` 下一位接手时应重点看：
+  - `Governance Priority Queue`
+  - `Discovery Leads`
+  - `Official Feed Leads`
+  - `RSSHub Leads`
+  - `changedetection Leads`
 - `CLI-Anything` 已评估：暂不直接接主链
 - `OpenCLI` 已评估：更适合做来源侧车 / 运维侧车，可作为 P2.5 / P3 的 pilot
 
@@ -476,6 +495,7 @@ python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
 python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
+python -m auto_report.cli build-discovery-search --keywords config/source_discovery/keywords.txt
 ```
 
 ### 7.4 诊断交付

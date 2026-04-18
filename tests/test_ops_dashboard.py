@@ -353,3 +353,73 @@ def test_build_ops_dashboard_prefers_source_registry_from_run_status(tmp_path: P
     assert "custom-source" in html
     assert "Keep the live feed" in html
     assert "feed-poll" in html
+
+
+def test_build_ops_dashboard_renders_discovery_leads(tmp_path: Path):
+    state_dir = tmp_path / "data" / "state"
+    state_dir.mkdir(parents=True)
+    (state_dir / "run-status.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-18T13:30:00+08:00",
+                "pushed": False,
+                "push_channel": "",
+                "risk_level": "low",
+                "scheduler": {"trigger_kind": "manual", "compensation_run": False},
+                "delivery_results": {
+                    "successful_channels": [],
+                    "failed_channels": [],
+                    "skipped_channels": [],
+                    "channels": {},
+                },
+                "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+                "source_stats": {"collected_items": 0, "report_topics": 0},
+                "timings": {},
+                "source_governance": {"summary": {}},
+                "official_feed_leads": [
+                    {
+                        "keyword": "Jetson edge AI",
+                        "title": "NVIDIA Jetson Blog Feed",
+                        "url": "https://developer.nvidia.com/blog/tag/jetson/feed/",
+                        "classification": "official-feed",
+                        "confidence": "high",
+                        "feed_candidate": "https://developer.nvidia.com/blog/tag/jetson/feed/",
+                        "next_action": "Promote to rss source after validation",
+                    }
+                ],
+                "rsshub_leads": [
+                    {
+                        "keyword": "Anthropic news",
+                        "title": "Anthropic RSSHub",
+                        "url": "https://rsshub.app/anthropic/news",
+                        "classification": "rsshub-candidate",
+                        "confidence": "medium",
+                        "rsshub_candidate": "/anthropic/news",
+                        "next_action": "Validate RSSHub route",
+                    }
+                ],
+                "changedetection_leads": [
+                    {
+                        "keyword": "Anthropic news",
+                        "title": "Anthropic News",
+                        "url": "https://www.anthropic.com/news",
+                        "classification": "changedetection-candidate",
+                        "confidence": "high",
+                        "changedetection_candidate": "https://www.anthropic.com/news",
+                        "next_action": "Create changedetection watch",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    html = build_ops_dashboard(tmp_path).read_text(encoding="utf-8")
+
+    assert "Discovery Leads" in html
+    assert "Official Feed Leads" in html
+    assert "RSSHub Leads" in html
+    assert "changedetection Leads" in html
+    assert "Jetson edge AI" in html
+    assert "/anthropic/news" in html
+    assert "Create changedetection watch" in html
