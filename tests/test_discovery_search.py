@@ -108,3 +108,16 @@ def test_build_discovery_search_artifact_writes_json_and_markdown(tmp_path: Path
     assert payload["keyword_count"] == 2
     assert payload["items"][0]["keyword"] == "Anthropic news"
     assert payload["items"][1]["candidates"][0]["classification"] == "official-feed"
+
+
+def test_load_keywords_returns_expanded_real_keyword_seed_file():
+    keywords = load_keywords(Path.cwd() / "config" / "source_discovery" / "keywords.txt")
+
+    assert "Anthropic news" in keywords
+    assert "OpenAI safety updates" in keywords
+    assert "AI model safety blog" in keywords
+    assert "agent framework official updates" in keywords
+    assert "Jetson edge AI" in keywords
+    assert "Qualcomm on-device AI" in keywords
+    assert "STM32 AI blog" in keywords
+    assert "NPU edge inference semiconductor news" in keywords
