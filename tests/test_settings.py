@@ -107,10 +107,14 @@ def test_load_settings_includes_edge_infra_source_pack():
     github_sources = {
         source["id"]: source for source in settings.sources["github"]["sources"]
     }
+    rss_sources = {
+        source["id"]: source for source in settings.sources["rss"]["sources"]
+    }
 
-    assert "nvidia-embedded" in website_sources
     assert "openvino-blog" in website_sources
     assert "nxp-edge-ai" in website_sources
+    assert "arm-news" in rss_sources
+    assert "nvidia-embedded" in rss_sources
     assert "google-ai-edge" in rss_sources
     assert "ti-e2e-blog" in website_sources
     assert "st-blog" in rss_sources

@@ -56,18 +56,6 @@ sources:
       - /blog/posts/
     exclude_url_patterns:
       - "#"
-  - id: arm-news
-    enabled: true
-    mode: article_listing
-    url: https://newsroom.arm.com/news
-    category_hint: ai-x-electronics
-    max_items: 6
-    link_selector: "a[href*='/news/']"
-    include_url_patterns:
-      - /news/
-    exclude_url_patterns:
-      - /about
-      - "#"
   - id: qualcomm-onq
     enabled: true
     mode: article_listing
@@ -80,30 +68,6 @@ sources:
     exclude_url_patterns:
       - /support
       - "#"
-  - id: nvidia-embedded
-    enabled: true
-    mode: article_listing
-    url: https://developer.nvidia.com/blog/tag/jetson/
-    category_hint: ai-x-electronics
-    max_items: 6
-    link_selector: "a.carousel-row-slide__link[href*='/blog/']"
-    include_url_patterns:
-      - /blog/
-    include_title_patterns:
-      - jetson
-      - edge
-      - embedded
-      - tensorrt
-      - robotics
-      - orin
-      - jetpack
-      - on-device
-    exclude_url_patterns:
-      - "#"
-    exclude_title_patterns:
-      - webinar
-      - event
-      - register
   - id: openvino-blog
     enabled: true
     mode: structured_page

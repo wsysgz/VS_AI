@@ -13,6 +13,17 @@ This document is intentionally lighter than implementation work.
 - It does **not** override current stable sources already landed in `rss.yaml`
 - It gives the next execution pass a small, prioritized candidate list
 
+## Current implementation result
+
+Verified and landed in `config/sources/rss.yaml`:
+
+- `arm-news`
+- `nvidia-embedded`
+
+Deferred for now:
+
+- `anthropic-news` (RSSHub route visible in docs, but the public instance was not stable enough to promote yet)
+
 ## Selection rules
 
 First-batch candidates are chosen from sources that are currently:

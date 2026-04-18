@@ -104,6 +104,49 @@ sources:
       - livestream
       - live at
       - replay
+  - id: arm-news
+    enabled: true
+    url: https://newsroom.arm.com/news/feed/
+    category_hint: ai-x-electronics
+    max_items: 6
+    stability_tier: stable-feed
+    replacement_hint: ""
+    watch_strategy: feed-poll
+    replacement_target: none
+    include_title_patterns:
+      - ai
+      - arm
+      - npu
+      - edge
+      - robotics
+      - vision
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - summit
+  - id: nvidia-embedded
+    enabled: true
+    url: https://developer.nvidia.com/blog/tag/jetson/feed/
+    category_hint: ai-x-electronics
+    max_items: 6
+    stability_tier: stable-feed
+    replacement_hint: ""
+    watch_strategy: feed-poll
+    replacement_target: none
+    include_title_patterns:
+      - jetson
+      - edge
+      - embedded
+      - tensorrt
+      - robotics
+      - orin
+      - jetpack
+      - on-device
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
   - id: st-blog
     enabled: true
     url: https://blog.st.com/tag/ai/feed/
