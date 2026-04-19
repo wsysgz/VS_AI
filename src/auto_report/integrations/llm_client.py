@@ -1,11 +1,12 @@
-"""通用 LLM 客户端 — 支持 OpenAI 兼容接口（DeepSeek / OpenAI / 本地部署等）
+"""通用 LLM 客户端 — 支持 OpenAI 兼容接口（DeepSeek / OpenAI / LiteLLM Gateway / 本地部署等）
 
 通过环境变量切换后端，无需改代码：
   AI_PROVIDER=deepseek  (默认)
   AI_PROVIDER=openai
+  AI_PROVIDER=litellm_proxy
   AI_BASE_URL=https://api.deepseek.com
   AI_MODEL=deepseek-chat
-  DEEPSEEK_API_KEY / OPENAI_API_KEY
+  DEEPSEEK_API_KEY / OPENAI_API_KEY / LITELLM_MASTER_KEY
 """
 
 from __future__ import annotations
@@ -15,6 +16,11 @@ import threading
 import time
 
 import requests
+
+from auto_report.integrations.langfuse_tracing import (
+    finish_generation_trace,
+    start_generation_trace,
+)
 
 
 # ── Provider 配置注册表 ──────────────────────────────
@@ -30,6 +36,11 @@ _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
         "base_url": "https://api.openai.com/v1",
         "model": "gpt-4o-mini",
         "key_env": "OPENAI_API_KEY",
+    },
+    "litellm_proxy": {
+        "base_url": "http://127.0.0.1:4000",
+        "model": "vs-ai-default",
+        "key_env": "LITELLM_MASTER_KEY",
     },
 }
 
@@ -65,10 +76,9 @@ def _resolve_api_key(provider: str, defaults: dict[str, str], stage: str | None 
 def _resolve_provider_config(stage: str | None = None) -> dict[str, str]:
     """从环境变量解析当前 provider 配置"""
     prefix = _stage_prefix(stage)
-    provider = (
-        os.environ.get(f"{prefix}AI_PROVIDER", "")
-        or os.environ.get("AI_PROVIDER", "deepseek")
-    ).lower()
+    stage_provider = os.environ.get(f"{prefix}AI_PROVIDER", "").strip().lower()
+    global_provider = os.environ.get("AI_PROVIDER", "deepseek").strip().lower()
+    provider = (stage_provider or global_provider).lower()
 
     if provider in _PROVIDER_DEFAULTS:
         defaults = _PROVIDER_DEFAULTS[provider]
@@ -77,16 +87,19 @@ def _resolve_provider_config(stage: str | None = None) -> dict[str, str]:
         defaults = {"base_url": "", "model": "", "key_env": "AI_API_KEY"}
 
     api_key, api_key_env = _resolve_api_key(provider, defaults, stage=stage)
+    use_global_fallback = not stage_provider or stage_provider == global_provider
+    stage_base_url = os.environ.get(f"{prefix}AI_BASE_URL", "")
+    stage_model = os.environ.get(f"{prefix}AI_MODEL", "")
 
     return {
         "base_url": (
-            os.environ.get(f"{prefix}AI_BASE_URL", "")
-            or os.environ.get("AI_BASE_URL")
+            stage_base_url
+            or (os.environ.get("AI_BASE_URL") if use_global_fallback else "")
             or ""
         ).rstrip("/") or defaults["base_url"],
         "model": (
-            os.environ.get(f"{prefix}AI_MODEL", "")
-            or os.environ.get("AI_MODEL", "")
+            stage_model
+            or (os.environ.get("AI_MODEL", "") if use_global_fallback else "")
             or defaults["model"]
         ),
         "api_key": api_key,
@@ -195,9 +208,11 @@ def _record_llm_metrics(
         if int(_llm_metrics.get("calls", 0)) == 0:
             _llm_metrics["provider"] = next_provider
             _llm_metrics["model"] = next_model
-        elif current_provider != next_provider or current_model != next_model:
-            _llm_metrics["provider"] = "mixed"
-            _llm_metrics["model"] = "mixed"
+        else:
+            if current_provider != next_provider:
+                _llm_metrics["provider"] = "mixed"
+            if current_model != next_model:
+                _llm_metrics["model"] = "mixed"
 
         _llm_metrics["calls"] = int(_llm_metrics.get("calls", 0)) + 1
         current_usage = _llm_metrics.get("token_usage", {})
@@ -253,6 +268,7 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
     支持的后端（通过 AI_PROVIDER 环境变量切换）：
       - deepseek (默认): DeepSeek Chat
       - openai: OpenAI GPT 系列
+      - litellm_proxy: LiteLLM Gateway / Proxy
       - 自定义：设 AI_BASE_URL + AI_MODEL + 对应的 *_API_KEY
 
     重试策略：
@@ -282,6 +298,17 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
         endpoint += "/chat/completions"
 
     max_retries = 3
+    payload = build_llm_payload(prompt, stage=stage)
+    generation_trace = start_generation_trace(
+        stage=stage,
+        provider=str(config.get("provider", "")),
+        model=str(config.get("model", "")),
+        input_payload=payload,
+        metadata={
+            "api_key_env": str(config.get("api_key_env", "")),
+            "base_url": endpoint,
+        },
+    )
 
     for attempt in range(max_retries):
         try:
@@ -292,19 +319,50 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
                 headers={
                     "Authorization": f"Bearer {api_key}",
                 },
-                json=build_llm_payload(prompt, stage=stage),
+                json=payload,
                 timeout=base_timeout,
             )
             response.raise_for_status()
             data = response.json()
             _record_llm_metrics(config, data, time.perf_counter() - started_at, stage=stage)
-            return data["choices"][0]["message"]["content"]
+            content = data["choices"][0]["message"]["content"]
+            usage = data.get("usage", {})
+            usage_dict = usage if isinstance(usage, dict) else {}
+            finish_generation_trace(
+                generation_trace,
+                output_text=content,
+                usage_details={
+                    "prompt_tokens": int(usage_dict.get("prompt_tokens", 0) or 0),
+                    "completion_tokens": int(usage_dict.get("completion_tokens", 0) or 0),
+                    "total_tokens": int(usage_dict.get("total_tokens", 0) or 0),
+                },
+                metadata={
+                    "stage": stage or "default",
+                    "provider": str(config.get("provider", "")),
+                    "model": str(config.get("model", "")),
+                    "http_status": int(getattr(response, "status_code", 200) or 200),
+                    "attempt": attempt + 1,
+                    "status": "ok",
+                },
+            )
+            return content
 
         except requests.exceptions.Timeout as exc:
             if attempt < max_retries - 1:
                 wait = 2 ** attempt
                 time.sleep(wait)
                 continue
+            finish_generation_trace(
+                generation_trace,
+                metadata={
+                    "stage": stage or "default",
+                    "provider": str(config.get("provider", "")),
+                    "model": str(config.get("model", "")),
+                    "attempt": attempt + 1,
+                    "status": "timeout",
+                },
+                error=str(exc),
+            )
             raise RuntimeError(
                 f"LLM API timeout after {max_retries} attempts ({config['provider']})"
             ) from exc
@@ -314,6 +372,18 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
             if status_code == 429 and attempt < max_retries - 1:
                 time.sleep(60)
                 continue
+            finish_generation_trace(
+                generation_trace,
+                metadata={
+                    "stage": stage or "default",
+                    "provider": str(config.get("provider", "")),
+                    "model": str(config.get("model", "")),
+                    "attempt": attempt + 1,
+                    "status": "http_error",
+                    "http_status": status_code,
+                },
+                error=str(exc),
+            )
             raise
 
         except requests.exceptions.ConnectionError as exc:
@@ -321,6 +391,17 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
                 wait = 2 ** attempt
                 time.sleep(wait)
                 continue
+            finish_generation_trace(
+                generation_trace,
+                metadata={
+                    "stage": stage or "default",
+                    "provider": str(config.get("provider", "")),
+                    "model": str(config.get("model", "")),
+                    "attempt": attempt + 1,
+                    "status": "connection_error",
+                },
+                error=str(exc),
+            )
             raise RuntimeError(
                 f"LLM API connection failed after {max_retries} attempts ({config['provider']})"
             ) from exc

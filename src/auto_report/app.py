@@ -17,6 +17,15 @@ from auto_report.integrations.delivery_status import (
     summarize_delivery_results,
 )
 from auto_report.integrations.feishu import send_feishu_messages
+from auto_report.integrations.langfuse_tracing import (
+    build_tracing_status,
+    clear_active_trace_state,
+    complete_run_trace,
+    finish_stage_span,
+    flush_langfuse,
+    start_run_trace,
+    start_stage_span,
+)
 from auto_report.integrations.lark_cli import sync_feishu_workspace as sync_feishu_workspace_sidecar
 from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.integrations.pushplus import send_pushplus
@@ -550,10 +559,21 @@ def render_reports(
     timings: dict[str, float] = {}
     source_registry = build_source_registry(settings)
 
+    start_stage_span("collection", metadata={"publication_mode": resolved_publication_mode})
     with StageTimer("collection") as t:
         items, diagnostics = collect_all_items(settings)
     timings["collection"] = t.elapsed
+    finish_stage_span(
+        "collection",
+        metadata={
+            "status": "ok",
+            "item_count": len(items),
+            "diagnostic_count": len(diagnostics),
+            "elapsed_seconds": t.elapsed,
+        },
+    )
 
+    start_stage_span("dedup_score", metadata={"publication_mode": resolved_publication_mode})
     with StageTimer("dedup_score") as t:
         package = build_report_package(settings, items, diagnostics)
         # dedup + classify + score + AI pipeline 全部在 build_report_package 内完成
@@ -561,10 +581,20 @@ def render_reports(
         package.summary_payload["meta"]["publication_mode"] = resolved_publication_mode
         package.summary_payload["meta"]["review"] = review
     timings["dedup_score"] = t.elapsed
+    finish_stage_span(
+        "dedup_score",
+        metadata={
+            "status": "ok",
+            "report_topic_count": int(package.summary_payload.get("meta", {}).get("total_topics", 0)),
+            "collected_item_count": int(package.summary_payload.get("meta", {}).get("total_items", 0)),
+            "elapsed_seconds": t.elapsed,
+        },
+    )
 
     # 从 package 中提取 AI 阶段耗时（如果 ai_pipeline 有内部计时）
     timings["ai_total"] = 0.0  # 占位，AI 耗时已包含在 dedup_score 中（build_report_package 内部整体计时）
 
+    start_stage_span("rendering", metadata={"publication_mode": resolved_publication_mode})
     with StageTimer("rendering") as t:
         summary_markdown = _compose_report_markdown(
             title=_report_title(resolved_publication_mode),
@@ -623,6 +653,14 @@ def render_reports(
         ]
         generated_files.extend(_write_domain_briefs(root_dir, generated_at, package, settings))
     timings["rendering"] = t.elapsed
+    finish_stage_span(
+        "rendering",
+        metadata={
+            "status": "ok",
+            "generated_file_count": len(generated_files),
+            "elapsed_seconds": t.elapsed,
+        },
+    )
 
     return generated_files, timings, {
         "external_enrichment": package.external_enrichment,
@@ -767,99 +805,133 @@ def run_once(
     resolved_publication_mode = _resolve_publication_mode(settings, publication_mode)
     all_timings: dict[str, float] = {}
     delivery_results = _empty_delivery_results()
+    trace_state = start_run_trace(
+        settings.env,
+        name="vs-ai-run-once",
+        metadata={
+            "publication_mode": resolved_publication_mode,
+            "workspace": str(root_dir),
+            "timezone": str(settings.env.get("AUTO_TIMEZONE", "Asia/Shanghai")),
+        },
+    )
 
-    with StageTimer("total") as total_timer:
-        generated_files, render_timings, runtime_status = render_reports(
-            root_dir,
-            publication_mode=resolved_publication_mode,
-            reviewer=reviewer,
-            review_note=review_note,
-        )
-        all_timings.update(render_timings)
-        external_enrichment = runtime_status.get("external_enrichment", {})
-        source_health = runtime_status.get("source_health", {})
-        source_registry = runtime_status.get("source_registry", {})
-        source_governance = runtime_status.get("source_governance", {})
-        review = runtime_status.get("review", {})
+    try:
+        with StageTimer("total") as total_timer:
+            generated_files, render_timings, runtime_status = render_reports(
+                root_dir,
+                publication_mode=resolved_publication_mode,
+                reviewer=reviewer,
+                review_note=review_note,
+            )
+            all_timings.update(render_timings)
+            external_enrichment = runtime_status.get("external_enrichment", {})
+            source_health = runtime_status.get("source_health", {})
+            source_registry = runtime_status.get("source_registry", {})
+            source_governance = runtime_status.get("source_governance", {})
+            review = runtime_status.get("review", {})
 
-        summary_payload = _load_summary_payload(root_dir, publication_mode=resolved_publication_mode)
-        pushed = False
-        push_channel = ""
-        push_response: dict[str, object] = {}
-        feishu_sidecar: dict[str, object] = {}
+            summary_payload = _load_summary_payload(root_dir, publication_mode=resolved_publication_mode)
+            pushed = False
+            push_channel = ""
+            push_response: dict[str, object] = {}
+            feishu_sidecar: dict[str, object] = {}
 
-        with StageTimer("push_total") as push_timer:
-            if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
-                delivery_results, push_response = _collect_delivery_results(
-                    root_dir,
-                    settings,
-                    send=True,
-                    mode="full-report",
-                    publication_mode=resolved_publication_mode,
-                )
-                pushed = bool(delivery_results["successful_channels"])
-                push_channel = ",".join(delivery_results["successful_channels"])
-            else:
-                delivery_results, _ = _collect_delivery_results(
-                    root_dir,
-                    settings,
-                    send=False,
-                    mode="full-report",
-                    publication_mode=resolved_publication_mode,
-                )
-
-        all_timings["push_total"] = push_timer.elapsed
-
-        if _should_run_feishu_sidecar(settings):
-            with StageTimer("feishu_sidecar") as sidecar_timer:
-                try:
-                    feishu_sidecar = sync_feishu_workspace_sidecar(
+            start_stage_span("push_total", metadata={"publication_mode": resolved_publication_mode})
+            with StageTimer("push_total") as push_timer:
+                if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
+                    delivery_results, push_response = _collect_delivery_results(
                         root_dir,
                         settings,
+                        send=True,
+                        mode="full-report",
                         publication_mode=resolved_publication_mode,
                     )
-                    feishu_sidecar["enabled"] = True
-                    feishu_sidecar["ok"] = True
-                except Exception as exc:
-                    feishu_sidecar = {
-                        "enabled": True,
-                        "ok": False,
-                        "error": str(exc),
-                    }
-            all_timings["feishu_sidecar"] = sidecar_timer.elapsed
-        elif _is_github_actions_runtime():
-            feishu_sidecar = _disabled_feishu_sidecar_status(reason="github_actions")
-        else:
-            feishu_sidecar = _disabled_feishu_sidecar_status(reason="disabled")
+                    pushed = bool(delivery_results["successful_channels"])
+                    push_channel = ",".join(delivery_results["successful_channels"])
+                else:
+                    delivery_results, _ = _collect_delivery_results(
+                        root_dir,
+                        settings,
+                        send=False,
+                        mode="full-report",
+                        publication_mode=resolved_publication_mode,
+                    )
 
-    status = build_run_status(
-        generated_files=_to_relative_paths(generated_files, root_dir),
-        pushed=pushed,
-        generated_at=str(summary_payload.get("meta", {}).get("generated_at", "")),
-        push_channel=push_channel,
-        publication_mode=resolved_publication_mode,
-        push_response=push_response,
-        delivery_results=delivery_results,
-        stage_status=summary_payload.get("stage_status", {}),
-        source_stats={
-            "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
-            "report_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
-        },
-        risk_level=str(summary_payload.get("risk_level", "low")),
-        external_enrichment=external_enrichment,
-        ai_metrics=summary_payload.get("ai_metrics", {}),
-        source_health=source_health,
-        source_registry=source_registry if isinstance(source_registry, dict) else {},
-        source_governance=source_governance if isinstance(source_governance, dict) else {},
-        feishu_sidecar=feishu_sidecar,
-        review=review if isinstance(review, dict) else {},
-        scheduler=_scheduler_context(settings),
-        timings=all_timings,
-    )
-    status_path = root_dir / "data" / "state" / "run-status.json"
-    write_text(status_path, render_json_report(status))
-    generated_files.append(str(status_path))
-    return generated_files
+            all_timings["push_total"] = push_timer.elapsed
+            finish_stage_span(
+                "push_total",
+                metadata={
+                    "status": "ok",
+                    "successful_channels": list(delivery_results.get("successful_channels", [])),
+                    "failed_channels": list(delivery_results.get("failed_channels", [])),
+                    "elapsed_seconds": push_timer.elapsed,
+                },
+            )
+
+            if _should_run_feishu_sidecar(settings):
+                with StageTimer("feishu_sidecar") as sidecar_timer:
+                    try:
+                        feishu_sidecar = sync_feishu_workspace_sidecar(
+                            root_dir,
+                            settings,
+                            publication_mode=resolved_publication_mode,
+                        )
+                        feishu_sidecar["enabled"] = True
+                        feishu_sidecar["ok"] = True
+                    except Exception as exc:
+                        feishu_sidecar = {
+                            "enabled": True,
+                            "ok": False,
+                            "error": str(exc),
+                        }
+                all_timings["feishu_sidecar"] = sidecar_timer.elapsed
+            elif _is_github_actions_runtime():
+                feishu_sidecar = _disabled_feishu_sidecar_status(reason="github_actions")
+            else:
+                feishu_sidecar = _disabled_feishu_sidecar_status(reason="disabled")
+
+        status = build_run_status(
+            generated_files=_to_relative_paths(generated_files, root_dir),
+            pushed=pushed,
+            generated_at=str(summary_payload.get("meta", {}).get("generated_at", "")),
+            push_channel=push_channel,
+            publication_mode=resolved_publication_mode,
+            push_response=push_response,
+            delivery_results=delivery_results,
+            stage_status=summary_payload.get("stage_status", {}),
+            source_stats={
+                "collected_items": int(summary_payload.get("meta", {}).get("total_items", 0)),
+                "report_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
+            },
+            risk_level=str(summary_payload.get("risk_level", "low")),
+            external_enrichment=external_enrichment,
+            ai_metrics=summary_payload.get("ai_metrics", {}),
+            source_health=source_health,
+            source_registry=source_registry if isinstance(source_registry, dict) else {},
+            source_governance=source_governance if isinstance(source_governance, dict) else {},
+            feishu_sidecar=feishu_sidecar,
+            review=review if isinstance(review, dict) else {},
+            tracing=build_tracing_status(trace_state),
+            scheduler=_scheduler_context(settings),
+            timings=all_timings,
+        )
+        status_path = root_dir / "data" / "state" / "run-status.json"
+        write_text(status_path, render_json_report(status))
+        generated_files.append(str(status_path))
+        complete_run_trace(
+            trace_state,
+            metadata={
+                "publication_mode": resolved_publication_mode,
+                "risk_level": str(summary_payload.get("risk_level", "low")),
+                "pushed": pushed,
+                "successful_channels": list(delivery_results.get("successful_channels", [])),
+                "report_topics": int(summary_payload.get("meta", {}).get("total_topics", 0)),
+            },
+        )
+        flush_langfuse(settings.env)
+        return generated_files
+    finally:
+        clear_active_trace_state()
 
 
 # ════════════════════════════════════════

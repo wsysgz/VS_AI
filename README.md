@@ -65,6 +65,11 @@ Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
 - AI:
   - `DEEPSEEK_API_KEY`
   - or `OPENAI_API_KEY` / `AI_API_KEY`
+  - `LITELLM_MASTER_KEY`
+  - `LANGFUSE_ENABLED`
+  - `LANGFUSE_PUBLIC_KEY`
+  - `LANGFUSE_SECRET_KEY`
+  - `LANGFUSE_BASE_URL`
   - `AI_PROVIDER`
   - `AI_BASE_URL`
   - `AI_MODEL`
@@ -97,11 +102,21 @@ AI_PROVIDER=minimax_svips
 AI_BASE_URL=https://api.svips.org/v1
 AI_MODEL=MiniMax-M2.7
 AI_API_KEY=<your-minimax-key>
+
+# Option C: LiteLLM Gateway (optional first-rollout path)
+# Keep direct-provider mode as the default fallback; do not force every
+# environment onto LiteLLM until the gateway path is locally verified.
+AI_PROVIDER=litellm_proxy
+AI_BASE_URL=http://127.0.0.1:4000
+AI_MODEL=vs-ai-default
+LITELLM_MASTER_KEY=sk-change-me
 ```
 
 Current capability note / 当前能力说明:
 
 - The current `llm_client.py` already supports OpenAI-compatible providers.
+- The repo now has a first-class LiteLLM gateway provider contract via
+  `AI_PROVIDER=litellm_proxy`.
 - DeepSeek and MiniMax can coexist in configuration, but only one provider is
   active globally by default.
 - Stage-level routing is now supported via environment overrides. Example:
@@ -111,6 +126,16 @@ Current capability note / 当前能力说明:
   - `forecast` -> DeepSeek
   - `pre_filter` -> MiniMax-M2.7
   - future helper stages `discovery` / `search` -> MiniMax-M2.7
+- Recommended LiteLLM alias ownership for the first rollout:
+  - `vs-ai-default` -> direct DeepSeek-compatible fallback
+  - `vs-ai-analysis` -> DeepSeek
+  - `vs-ai-summary` -> MiniMax-M2.7
+  - `vs-ai-forecast` -> DeepSeek
+  - `vs-ai-prefilter` -> MiniMax-M2.7
+  - `vs-ai-discovery` -> MiniMax-M2.7
+  - `vs-ai-search` -> MiniMax-M2.7
+- Use `D:\GitHub\auto\config\litellm\litellm-config.example.yaml` as the
+  starting point for the local gateway config.
 
 ```env
 ANALYSIS_AI_PROVIDER=deepseek
@@ -140,6 +165,27 @@ SEARCH_AI_BASE_URL=https://api.svips.org/v1
 SEARCH_AI_MODEL=MiniMax-M2.7
 ```
 
+LiteLLM alias example / LiteLLM 首轮 alias 示例:
+
+```env
+AI_PROVIDER=litellm_proxy
+AI_BASE_URL=http://127.0.0.1:4000
+AI_MODEL=vs-ai-default
+LITELLM_MASTER_KEY=sk-change-me
+
+ANALYSIS_AI_PROVIDER=litellm_proxy
+ANALYSIS_AI_MODEL=vs-ai-analysis
+
+SUMMARY_AI_PROVIDER=litellm_proxy
+SUMMARY_AI_MODEL=vs-ai-summary
+
+FORECAST_AI_PROVIDER=litellm_proxy
+FORECAST_AI_MODEL=vs-ai-forecast
+
+PREFILTER_AI_PROVIDER=litellm_proxy
+PREFILTER_AI_MODEL=vs-ai-prefilter
+```
+
 GitHub / Actions note:
 
 - Local runs can switch providers directly with `.env` or temporary env vars.
@@ -164,6 +210,25 @@ GitHub / Actions note:
   - use `workflow_dispatch`
   - set `push_enabled=false`
   - confirm the run status and provider selection before enabling real pushes
+- For the first LiteLLM rollout, prefer local verification first and treat the
+  gateway as an optional path. Keep direct DeepSeek / MiniMax config ready as
+  the rollback path.
+
+Langfuse tracing / Langfuse tracing 首轮接入:
+
+```env
+LANGFUSE_ENABLED=true
+LANGFUSE_PUBLIC_KEY=pk-lf-...
+LANGFUSE_SECRET_KEY=sk-lf-...
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
+LANGFUSE_ENV=local
+LANGFUSE_CAPTURE_CONTENT=false
+```
+
+- First batch uses metadata-first tracing: trace metadata, stage names, provider,
+  model, timing, token usage, and status are uploaded by default.
+- Prompt and response bodies are not uploaded unless
+  `LANGFUSE_CAPTURE_CONTENT=true`.
 
 ### 2. Run once / 本地生成一次日报
 

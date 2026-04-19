@@ -279,6 +279,22 @@ def test_build_run_status_defaults_source_governance_changedetection_fields():
     assert status["source_governance"]["changedetection_candidates"] == []
 
 
+def test_build_run_status_includes_tracing_metadata():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        tracing={
+            "enabled": True,
+            "trace_id": "trace-123",
+            "trace_url": "https://langfuse.example/trace/trace-123",
+        },
+    )
+
+    assert status["tracing"]["enabled"] is True
+    assert status["tracing"]["trace_id"] == "trace-123"
+    assert status["tracing"]["trace_url"] == "https://langfuse.example/trace/trace-123"
+
+
 def test_build_run_status_includes_publication_mode():
     status = build_run_status(
         generated_files=["data/reports/latest-summary-reviewed.md"],

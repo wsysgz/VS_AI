@@ -127,6 +127,46 @@ class TestProviderConfigResolution:
             assert config["model"] == "MiniMax-M2.7"
             assert config["api_key"] == "generic-key"
 
+    def test_litellm_proxy_provider_defaults(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "litellm_proxy",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "",
+                "LITELLM_MASTER_KEY": "sk-litellm",
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config()
+            assert config["provider"] == "litellm_proxy"
+            assert config["base_url"] == "http://127.0.0.1:4000"
+            assert config["model"] == "vs-ai-default"
+            assert config["api_key"] == "sk-litellm"
+            assert config["api_key_env"] == "LITELLM_MASTER_KEY"
+
+    def test_stage_specific_litellm_proxy_override(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "SUMMARY_AI_PROVIDER": "litellm_proxy",
+                "SUMMARY_AI_BASE_URL": "",
+                "SUMMARY_AI_MODEL": "vs-ai-summary",
+                "SUMMARY_LITELLM_MASTER_KEY": "sk-summary-litellm",
+            },
+            clear=False,
+        ):
+            config = _resolve_provider_config(stage="summary")
+            assert config["provider"] == "litellm_proxy"
+            assert config["base_url"] == "http://127.0.0.1:4000"
+            assert config["model"] == "vs-ai-summary"
+            assert config["api_key"] == "sk-summary-litellm"
+            assert config["api_key_env"] == "SUMMARY_LITELLM_MASTER_KEY"
+
     def test_is_llm_enabled_when_only_stage_specific_generic_key_exists(self):
         with patch.dict(
             os.environ,
@@ -312,6 +352,113 @@ class TestCallLlm:
             assert metrics["model"] == "MiniMax-M2.7"
             assert metrics["stage_breakdown"]["summary"]["provider"] == "minimax_svips"
             assert metrics["stage_breakdown"]["summary"]["token_usage"]["total"] == 15
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_litellm_proxy_call_uses_master_key_and_alias_model(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "litellm_proxy",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "vs-ai-analysis",
+                "LITELLM_MASTER_KEY": "sk-litellm",
+            },
+            clear=False,
+        ):
+            mock_resp = MagicMock()
+            mock_resp.json.return_value = {
+                "choices": [{"message": {"content": "gateway works"}}],
+                "usage": {"prompt_tokens": 8, "completion_tokens": 4, "total_tokens": 12},
+            }
+            mock_resp.raise_for_status = MagicMock()
+            mock_session.post.return_value = mock_resp
+
+            reset_llm_metrics()
+            result = call_llm("route through gateway")
+
+            assert result == "gateway works"
+            assert mock_session.post.call_args.args[0] == "http://127.0.0.1:4000/chat/completions"
+            assert mock_session.post.call_args.kwargs["headers"]["Authorization"] == "Bearer sk-litellm"
+            assert mock_session.post.call_args.kwargs["json"]["model"] == "vs-ai-analysis"
+            metrics = get_llm_metrics()
+            assert metrics["provider"] == "litellm_proxy"
+            assert metrics["model"] == "vs-ai-analysis"
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_same_provider_different_models_keep_provider_but_mix_model(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "litellm_proxy",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "vs-ai-analysis",
+                "LITELLM_MASTER_KEY": "sk-litellm",
+                "SUMMARY_AI_PROVIDER": "litellm_proxy",
+                "SUMMARY_AI_BASE_URL": "",
+                "SUMMARY_AI_MODEL": "vs-ai-summary",
+                "SUMMARY_LITELLM_MASTER_KEY": "sk-litellm",
+            },
+            clear=False,
+        ):
+            first = MagicMock()
+            first.json.return_value = {
+                "choices": [{"message": {"content": "analysis works"}}],
+                "usage": {"prompt_tokens": 10, "completion_tokens": 3, "total_tokens": 13},
+            }
+            first.raise_for_status = MagicMock()
+
+            second = MagicMock()
+            second.json.return_value = {
+                "choices": [{"message": {"content": "summary works"}}],
+                "usage": {"prompt_tokens": 12, "completion_tokens": 4, "total_tokens": 16},
+            }
+            second.raise_for_status = MagicMock()
+
+            mock_session.post.side_effect = [first, second]
+
+            reset_llm_metrics()
+            assert call_llm("analysis pass", stage="analysis") == "analysis works"
+            assert call_llm("summary pass", stage="summary") == "summary works"
+
+            metrics = get_llm_metrics()
+            assert metrics["provider"] == "litellm_proxy"
+            assert metrics["model"] == "mixed"
+            assert metrics["stage_breakdown"]["analysis"]["model"] == "vs-ai-analysis"
+            assert metrics["stage_breakdown"]["summary"]["model"] == "vs-ai-summary"
+
+    @patch("auto_report.integrations.llm_client.finish_generation_trace")
+    @patch("auto_report.integrations.llm_client.start_generation_trace")
+    @patch("auto_report.integrations.llm_client._session")
+    def test_call_llm_emits_tracing_hooks(self, mock_session, mock_start_generation, mock_finish_generation):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "litellm_proxy",
+                "AI_BASE_URL": "",
+                "AI_MODEL": "vs-ai-analysis",
+                "LITELLM_MASTER_KEY": "sk-litellm",
+            },
+            clear=False,
+        ):
+            mock_resp = MagicMock()
+            mock_resp.json.return_value = {
+                "choices": [{"message": {"content": "traced response"}}],
+                "usage": {"prompt_tokens": 9, "completion_tokens": 3, "total_tokens": 12},
+            }
+            mock_resp.raise_for_status = MagicMock()
+            mock_resp.status_code = 200
+            mock_session.post.return_value = mock_resp
+            mock_start_generation.return_value = {"observation_id": "gen-1"}
+
+            result = call_llm("trace me", stage="analysis")
+
+            assert result == "traced response"
+            mock_start_generation.assert_called_once()
+            mock_finish_generation.assert_called_once()
+            finish_kwargs = mock_finish_generation.call_args.kwargs
+            assert finish_kwargs["usage_details"]["prompt_tokens"] == 9
+            assert finish_kwargs["metadata"]["stage"] == "analysis"
+            assert finish_kwargs["output_text"] == "traced response"
 
 
 class TestBackwardCompatibility:

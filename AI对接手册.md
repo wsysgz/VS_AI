@@ -4,13 +4,19 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-17
+> 最后更新：2026-04-19
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
 1. 让 AI 快速建立完整工程认知
 2. 让 AI 快速对接当前项目进度
 3. 让 AI 在失忆后仍然知道先看什么、先做什么、先验证什么
+
+新增执行原则（2026-04-19 起默认执行）：
+
+- 项目推进尽量按阶段整段推进，不在多个阶段之间来回磨
+- 当前阶段没有完成本地闭环前，不要把注意力切去做下一阶段的表层优化
+- 新想法如果属于后续阶段，先写入路线图，再回到当前阶段收口
 
 ## 0. 60 秒接管
 
@@ -96,6 +102,11 @@ git log --oneline -5
 - 页面 / dashboard / review queue 输出修复
 
 决定完类型后，再去读对应代码或配置，不要一上来全仓库漫游。
+
+补充执行纪律：
+
+- 如果当前会话已经确认处于 `P2-B LiteLLM Gateway`，就先把 Gateway 接入、文档、测试、回退路径做完
+- `Langfuse tracing`、`飞书推送卡片优化`、`飞书多维表格运营台` 属于后续阶段，不要在同一批实现里混做
 
 ## 2. 项目是什么
 
@@ -443,6 +454,12 @@ $env:AI_PROVIDER='minimax_svips'
 $env:AI_BASE_URL='https://api.svips.org/v1'
 $env:AI_MODEL='MiniMax-M2.7'
 $env:AI_API_KEY='<your-minimax-key>'
+
+# LiteLLM Gateway（本地可选接入）
+$env:AI_PROVIDER='litellm_proxy'
+$env:AI_BASE_URL='http://127.0.0.1:4000'
+$env:AI_MODEL='vs-ai-default'
+$env:LITELLM_MASTER_KEY='sk-change-me'
 ```
 
 注意：
@@ -456,6 +473,9 @@ $env:AI_API_KEY='<your-minimax-key>'
   - 未来 `discovery` / `search` helper stage -> MiniMax-M2.7
 - `DeepSeek / MiniMax` 可以在同一轮运行中并存。
 - 预筛选阶段现已支持独立的 `PREFILTER_*` provider 设置。
+- LiteLLM Gateway 首轮接入建议作为可选路径保留直连回退，不要一上来把所有环境强制切到 Gateway。
+- 当前仓库内置的 LiteLLM provider 名称为 `litellm_proxy`，推荐配合 `config/litellm/litellm-config.example.yaml` 中的 alias 使用。
+- Langfuse tracing 首轮接入采用 metadata-first：默认只上传 stage / provider / model / latency / token usage / status，不默认上传 prompt 和 response 正文。
 
 推荐默认分工：
 
@@ -485,6 +505,26 @@ $env:DISCOVERY_AI_MODEL='MiniMax-M2.7'
 $env:SEARCH_AI_PROVIDER='minimax_svips'
 $env:SEARCH_AI_BASE_URL='https://api.svips.org/v1'
 $env:SEARCH_AI_MODEL='MiniMax-M2.7'
+```
+
+如果走 LiteLLM Gateway，推荐 alias 对应如下：
+
+```powershell
+$env:AI_PROVIDER='litellm_proxy'
+$env:AI_BASE_URL='http://127.0.0.1:4000'
+$env:LITELLM_MASTER_KEY='sk-change-me'
+
+$env:ANALYSIS_AI_PROVIDER='litellm_proxy'
+$env:ANALYSIS_AI_MODEL='vs-ai-analysis'
+
+$env:SUMMARY_AI_PROVIDER='litellm_proxy'
+$env:SUMMARY_AI_MODEL='vs-ai-summary'
+
+$env:FORECAST_AI_PROVIDER='litellm_proxy'
+$env:FORECAST_AI_MODEL='vs-ai-forecast'
+
+$env:PREFILTER_AI_PROVIDER='litellm_proxy'
+$env:PREFILTER_AI_MODEL='vs-ai-prefilter'
 ```
 
 ### 7.1 每日 / 手工运行
@@ -731,4 +771,6 @@ ClawBot 额外事实：
 2. P2-B：LiteLLM Gateway
 3. P2-C：Langfuse tracing
 4. P2.5：OpenCLI sidecar pilot
-5. workflow / delivery 的可验证性
+5. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
+6. P3-B：飞书多维表格运营台
+7. workflow / delivery 的可验证性

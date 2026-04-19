@@ -158,6 +158,12 @@ def _default_review_status() -> dict[str, str]:
     }
 
 
+def _default_tracing_status() -> dict[str, object]:
+    return {
+        "enabled": False,
+    }
+
+
 def _default_source_registry_status() -> dict[str, object]:
     return {}
 
@@ -197,6 +203,7 @@ def build_run_status(
     source_governance: dict[str, Any] | None = None,
     feishu_sidecar: dict[str, Any] | None = None,
     review: dict[str, str] | None = None,
+    tracing: dict[str, Any] | None = None,
     error: str | None = None,
 ) -> dict[str, object]:
     payload: dict[str, object] = {
@@ -222,6 +229,7 @@ def build_run_status(
         "source_governance": source_governance or _default_source_governance_status(),
         "feishu_sidecar": feishu_sidecar or {},
         "review": review or _default_review_status(),
+        "tracing": tracing or _default_tracing_status(),
         "scheduler": scheduler or {
             "trigger_kind": "manual",
             "compensation_run": False,

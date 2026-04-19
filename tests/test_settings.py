@@ -97,6 +97,32 @@ def test_load_settings_includes_helper_stage_ai_env(monkeypatch):
     assert settings.env["SEARCH_AI_MODEL"] == "MiniMax-M2.7"
 
 
+def test_load_settings_includes_litellm_gateway_env(monkeypatch):
+    monkeypatch.setenv("LITELLM_MASTER_KEY", "sk-litellm")
+
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["LITELLM_MASTER_KEY"] == "sk-litellm"
+
+
+def test_load_settings_includes_langfuse_env(monkeypatch):
+    monkeypatch.setenv("LANGFUSE_ENABLED", "true")
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "pk-lf-test")
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "sk-lf-test")
+    monkeypatch.setenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
+    monkeypatch.setenv("LANGFUSE_ENV", "local")
+    monkeypatch.setenv("LANGFUSE_CAPTURE_CONTENT", "false")
+
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["LANGFUSE_ENABLED"] == "true"
+    assert settings.env["LANGFUSE_PUBLIC_KEY"] == "pk-lf-test"
+    assert settings.env["LANGFUSE_SECRET_KEY"] == "sk-lf-test"
+    assert settings.env["LANGFUSE_BASE_URL"] == "https://cloud.langfuse.com"
+    assert settings.env["LANGFUSE_ENV"] == "local"
+    assert settings.env["LANGFUSE_CAPTURE_CONTENT"] == "false"
+
+
 def test_load_settings_includes_delivery_endpoint_defaults(tmp_path, monkeypatch):
     shutil.copytree(Path.cwd() / "config", tmp_path / "config")
     monkeypatch.delenv("FEISHU_SIDECAR_ENABLED", raising=False)

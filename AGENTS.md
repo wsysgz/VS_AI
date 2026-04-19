@@ -53,6 +53,13 @@ python -m auto_report.cli build-review-queue
 - Before any push or manual `workflow_dispatch`, confirm the local validation chain is clean enough for the scope of the change.
 - Treat GitHub Actions as final confirmation, not as the primary debug loop.
 
+## Phase Execution Discipline
+
+- Prefer stage-by-stage delivery over mixed parallel polishing.
+- Once a session enters a project stage, close that stage's local code, docs, and verification loop before opening the next stage.
+- Do not mix P2 infrastructure work, P3 delivery-surface work, and governance tail work in one batch unless the user explicitly asks for a combined push.
+- If a new idea belongs to a later stage, record it in the roadmap and keep the current session focused on the active stage.
+
 ## AI Provider Notes
 
 - The current repo already supports OpenAI-compatible providers through `src/auto_report/integrations/llm_client.py`.

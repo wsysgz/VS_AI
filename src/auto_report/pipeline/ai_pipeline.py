@@ -6,6 +6,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from auto_report.integrations.llm_client import call_llm, get_llm_metrics, reset_llm_metrics
+from auto_report.integrations.langfuse_tracing import finish_stage_span, start_stage_span
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)
@@ -217,6 +218,11 @@ def run_staged_ai_pipeline(
     if ai_enabled:
         # ═══ Phase 1.3: AI 预筛选（可选）═══
         if enable_pre_filter and len(selected_candidates) > 3:
+            start_stage_span(
+                "prefilter",
+                parent_name="dedup_score",
+                metadata={"candidate_count": len(selected_candidates)},
+            )
             try:
                 from auto_report.pipeline.scoring_llm import apply_pre_filter
 
@@ -229,8 +235,24 @@ def run_staged_ai_pipeline(
                         len(high_score),
                         len(low_score),
                     )
+                finish_stage_span(
+                    "prefilter",
+                    metadata={
+                        "status": "ok",
+                        "selected_count": len(high_score),
+                        "fallback_count": len(low_score),
+                    },
+                )
             except Exception as exc:
                 logger.warning("Pre-filter failed (%s), analyzing all %d candidates", exc, len(selected_candidates))
+                finish_stage_span(
+                    "prefilter",
+                    metadata={
+                        "status": "fallback",
+                        "selected_count": len(selected_candidates),
+                    },
+                    error=str(exc),
+                )
 
         # 确保至少有候选可分析
         if not selected_candidates:
@@ -239,6 +261,11 @@ def run_staged_ai_pipeline(
 
         # ═══ Phase 1.1: 并行 Analysis ═══
         max_workers = min(len(selected_candidates), 5)  # 最多5路并发
+        start_stage_span(
+            "analysis",
+            parent_name="dedup_score",
+            metadata={"candidate_count": len(selected_candidates), "max_workers": max_workers},
+        )
 
         try:
             analyses = []
@@ -258,10 +285,27 @@ def run_staged_ai_pipeline(
 
             stage_status["analysis"] = "ok"
             logger.info("Parallel analysis complete: %d/%d candidates analyzed", len(analyses), len(selected_candidates))
+            finish_stage_span(
+                "analysis",
+                metadata={
+                    "status": "ok",
+                    "analysis_count": len(analyses),
+                    "candidate_count": len(selected_candidates),
+                },
+            )
         except Exception as exc:
             logger.error("Parallel analysis batch failed: %s, falling back", exc)
             analyses = [_fallback_analysis(candidate) for candidate in selected_candidates]
             stage_status["analysis"] = "fallback"
+            finish_stage_span(
+                "analysis",
+                metadata={
+                    "status": "fallback",
+                    "analysis_count": len(analyses),
+                    "candidate_count": len(selected_candidates),
+                },
+                error=str(exc),
+            )
     else:
         analyses = [_fallback_analysis(candidate) for candidate in selected_candidates]
         stage_status["analysis"] = "fallback"
@@ -269,6 +313,11 @@ def run_staged_ai_pipeline(
     # 合并高分分析结果和低分 fallback 结果（低分的排在后面）
     all_analyses = analyses + low_score_analyses
 
+    start_stage_span(
+        "summary",
+        parent_name="dedup_score",
+        metadata={"analysis_count": len(all_analyses)},
+    )
     if ai_enabled and stage_status["analysis"] == "ok":
         try:
             prompt = _build_summary_prompt(ai_readings["summary"], all_analyses)
@@ -276,13 +325,31 @@ def run_staged_ai_pipeline(
             summary = _unwrap_named_payload(summary, "summary")
             summary = _validate_required_keys(summary, SUMMARY_REQUIRED_KEYS)
             stage_status["summary"] = "ok"
+            finish_stage_span(
+                "summary",
+                metadata={"status": "ok", "analysis_count": len(all_analyses)},
+            )
         except Exception:
             summary = _fallback_summary(all_analyses)
             stage_status["summary"] = "fallback"
+            finish_stage_span(
+                "summary",
+                metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+                error="summary fallback",
+            )
     else:
         summary = _fallback_summary(all_analyses)
         stage_status["summary"] = "fallback"
+        finish_stage_span(
+            "summary",
+            metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+        )
 
+    start_stage_span(
+        "forecast",
+        parent_name="dedup_score",
+        metadata={"analysis_count": len(all_analyses)},
+    )
     if ai_enabled and stage_status["summary"] == "ok":
         try:
             prompt = _build_forecast_prompt(ai_readings["forecast"], all_analyses, summary)
@@ -290,12 +357,25 @@ def run_staged_ai_pipeline(
             forecast = _unwrap_named_payload(forecast, "forecast")
             forecast = _validate_required_keys(forecast, FORECAST_REQUIRED_KEYS)
             stage_status["forecast"] = "ok"
+            finish_stage_span(
+                "forecast",
+                metadata={"status": "ok", "analysis_count": len(all_analyses)},
+            )
         except Exception:
             forecast = _fallback_forecast(summary)
             stage_status["forecast"] = "fallback"
+            finish_stage_span(
+                "forecast",
+                metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+                error="forecast fallback",
+            )
     else:
         forecast = _fallback_forecast(summary)
         stage_status["forecast"] = "fallback"
+        finish_stage_span(
+            "forecast",
+            metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+        )
 
     ai_metrics = get_llm_metrics()
     ai_metrics["fallback_stages"] = [
