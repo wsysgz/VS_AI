@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 from auto_report.settings import load_settings
@@ -96,12 +97,21 @@ def test_load_settings_includes_helper_stage_ai_env(monkeypatch):
     assert settings.env["SEARCH_AI_MODEL"] == "MiniMax-M2.7"
 
 
-def test_load_settings_includes_delivery_endpoint_defaults():
-    settings = load_settings(Path.cwd())
+def test_load_settings_includes_delivery_endpoint_defaults(tmp_path, monkeypatch):
+    shutil.copytree(Path.cwd() / "config", tmp_path / "config")
+    monkeypatch.delenv("FEISHU_SIDECAR_ENABLED", raising=False)
+    monkeypatch.delenv("FEISHU_DOC_WIKI_SPACE", raising=False)
+    monkeypatch.delenv("FEISHU_GOVERNANCE_TASK_LIMIT", raising=False)
+    monkeypatch.delenv("LARK_CLI_PATH", raising=False)
+    monkeypatch.delenv("LARK_CLI_PROFILE", raising=False)
+    settings = load_settings(tmp_path)
     assert settings.env["PUSHPLUS_BASE_URL"] == "https://www.pushplus.plus"
     assert settings.env["TELEGRAM_API_BASE_URL"] == "https://api.telegram.org"
     assert settings.env["FEISHU_API_BASE_URL"] == "https://open.feishu.cn"
     assert settings.env["DELIVERY_REQUEST_TIMEOUT"] == "20"
+    assert settings.env["LARK_CLI_PATH"] == "D:\\AI\\Feishu\\feushu_cli\\lark-cli.exe"
+    assert settings.env["LARK_CLI_PROFILE"] == "vs_ai"
+    assert settings.env["FEISHU_SIDECAR_ENABLED"] == "false"
 
 
 def test_load_settings_uses_curated_live_website_entry_points():
@@ -118,6 +128,21 @@ def test_load_settings_uses_curated_live_website_entry_points():
     assert website_sources["qwen-blog"]["api_url"] == "https://qwen.ai/api/v2/article/retrieval?type=qwen_ai&language=zh-CN"
     assert website_sources["qwen-blog"]["mode"] == "json_api"
     assert website_sources["openvino-blog"]["mode"] == "structured_page"
+
+
+def test_load_settings_marks_anthropic_news_as_validated_listing():
+    settings = load_settings(Path.cwd())
+    website_sources = {
+        source["id"]: source for source in settings.sources["websites"]["sources"]
+    }
+
+    anthropic = website_sources["anthropic-news"]
+    assert anthropic["mode"] == "article_listing"
+    assert anthropic["url"] == "https://www.anthropic.com/news"
+    assert anthropic["stability_tier"] == "verified-listing"
+    assert anthropic["watch_strategy"] == "listing-poll"
+    assert anthropic["candidate_kind"] == "validated_listing"
+    assert anthropic["candidate_value"] == "https://www.anthropic.com/news"
 
 
 def test_load_settings_includes_edge_infra_source_pack():

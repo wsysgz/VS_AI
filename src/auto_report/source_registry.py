@@ -135,14 +135,17 @@ def _source_metadata(source: dict[str, object], *, collector: str, mode: str) ->
     replacement_hint = str(source.get("replacement_hint", "")).strip()
     watch_strategy = str(source.get("watch_strategy", "")).strip()
     replacement_target = str(source.get("replacement_target", "")).strip()
+    explicit_candidate_kind = str(source.get("candidate_kind", "")).strip()
+    explicit_candidate_value = str(source.get("candidate_value", "")).strip()
+    explicit_next_action = str(source.get("next_action", "")).strip()
     url = str(source.get("url", "")).strip()
     resolved_watch_strategy = watch_strategy or _default_watch_strategy(collector, enabled, mode)
     if collector == "websites" and mode in {"structured_page", "json_api"}:
         resolved_replacement_target = replacement_target or "none"
     else:
         resolved_replacement_target = replacement_target or _default_replacement_target(collector, enabled)
-    candidate_kind = _default_candidate_kind(collector, resolved_watch_strategy, resolved_replacement_target)
-    candidate_value = _default_candidate_value(url, candidate_kind, resolved_replacement_target)
+    candidate_kind = explicit_candidate_kind or _default_candidate_kind(collector, resolved_watch_strategy, resolved_replacement_target)
+    candidate_value = explicit_candidate_value or _default_candidate_value(url, candidate_kind, resolved_replacement_target)
     return {
         "stability_tier": stability_tier or _default_stability_tier(collector, enabled, mode),
         "replacement_hint": replacement_hint or _default_replacement_hint(collector, enabled, mode),
@@ -150,8 +153,8 @@ def _source_metadata(source: dict[str, object], *, collector: str, mode: str) ->
         "replacement_target": resolved_replacement_target,
         "candidate_kind": candidate_kind,
         "candidate_value": candidate_value,
-        "automation_ready": candidate_kind in {"rsshub_route", "changedetection_watch"},
-        "next_action": _default_next_action(candidate_kind),
+        "automation_ready": bool(source.get("automation_ready", candidate_kind in {"rsshub_route", "changedetection_watch"})),
+        "next_action": explicit_next_action or _default_next_action(candidate_kind),
     }
 
 

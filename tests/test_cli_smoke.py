@@ -19,6 +19,7 @@ def test_cli_exposes_all_commands():
     assert "build-review-queue" in choices
     assert "build-discovery-search" in choices
     assert "evaluate-prompts" in choices
+    assert "sync-feishu-workspace" in choices
 
 
 def test_ci_commands_exist():
@@ -112,3 +113,12 @@ def test_build_discovery_search_command_accepts_keywords_path():
 
     assert args.command == "build-discovery-search"
     assert args.keywords == "config/source_discovery/keywords.txt"
+
+
+def test_sync_feishu_workspace_command_accepts_publication_mode():
+    parser = build_parser()
+
+    args = parser.parse_args(["sync-feishu-workspace", "--publication-mode", "reviewed"])
+
+    assert args.command == "sync-feishu-workspace"
+    assert args.publication_mode == "reviewed"

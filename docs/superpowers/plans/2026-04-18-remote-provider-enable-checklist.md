@@ -53,6 +53,18 @@ SUMMARY_AI_MODEL=MiniMax-M2.7
 FORECAST_AI_PROVIDER=deepseek
 FORECAST_AI_BASE_URL=https://api.deepseek.com
 FORECAST_AI_MODEL=deepseek-chat
+
+PREFILTER_AI_PROVIDER=minimax_svips
+PREFILTER_AI_BASE_URL=https://api.svips.org/v1
+PREFILTER_AI_MODEL=MiniMax-M2.7
+
+DISCOVERY_AI_PROVIDER=minimax_svips
+DISCOVERY_AI_BASE_URL=https://api.svips.org/v1
+DISCOVERY_AI_MODEL=MiniMax-M2.7
+
+SEARCH_AI_PROVIDER=minimax_svips
+SEARCH_AI_BASE_URL=https://api.svips.org/v1
+SEARCH_AI_MODEL=MiniMax-M2.7
 ```
 
 ## 2. Repository Secrets
@@ -72,6 +84,9 @@ Only add these when a stage truly needs its own secret instead of the global fal
 - `ANALYSIS_AI_API_KEY`
 - `SUMMARY_AI_API_KEY`
 - `FORECAST_AI_API_KEY`
+- `PREFILTER_AI_API_KEY`
+- `DISCOVERY_AI_API_KEY`
+- `SEARCH_AI_API_KEY`
 
 ## 3. Recommended enablement order
 
@@ -101,7 +116,13 @@ Use this when you want the whole remote pipeline to use one OpenAI-compatible pr
 Use this after Option A or B is already stable.
 
 1. Keep global fallback configured
-2. Add only the specific `ANALYSIS_*`, `SUMMARY_*`, `FORECAST_*` variables you need
+2. Add only the specific stage variables you need:
+   - `ANALYSIS_*`
+   - `SUMMARY_*`
+   - `FORECAST_*`
+   - `PREFILTER_*`
+   - `DISCOVERY_*`
+   - `SEARCH_*`
 3. Add stage-specific secrets only where required
 4. Run one manual remote validation with `push_enabled=false`
 

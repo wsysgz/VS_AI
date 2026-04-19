@@ -50,6 +50,11 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("build-ops-dashboard", help="[CI] Build private ops dashboard artifact")
     subparsers.add_parser("build-source-governance", help="[CI] Build source governance artifact")
     subparsers.add_parser("build-review-queue", help="[CI] Build human review issue payloads from latest report")
+    feishu_workspace_parser = subparsers.add_parser(
+        "sync-feishu-workspace",
+        help="[Ops] Publish latest report to Feishu Doc and sync governance sheet/tasks",
+    )
+    _add_publication_mode_argument(feishu_workspace_parser)
     discovery_parser = subparsers.add_parser("build-discovery-search", help="[CI] Build keyword-driven discovery/search helper artifact")
     discovery_parser.add_argument("--keywords", required=True, help="Path to keyword list file")
     eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
@@ -154,6 +159,15 @@ def main() -> int:
         from auto_report.app import cmd_build_review_queue
 
         cmd_build_review_queue(root_dir)
+        return 0
+
+    if args.command == "sync-feishu-workspace":
+        from auto_report.app import cmd_sync_feishu_workspace
+
+        cmd_sync_feishu_workspace(
+            root_dir,
+            publication_mode=getattr(args, "publication_mode", "") or "reviewed",
+        )
         return 0
 
     if args.command == "build-discovery-search":

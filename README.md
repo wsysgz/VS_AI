@@ -75,6 +75,11 @@ Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
   - `FEISHU_APP_ID`
   - `FEISHU_APP_SECRET`
   - `FEISHU_CHAT_ID`
+  - `FEISHU_SIDECAR_ENABLED`
+  - `FEISHU_DOC_WIKI_SPACE`
+  - `FEISHU_GOVERNANCE_TASK_LIMIT`
+  - `LARK_CLI_PATH`
+  - `LARK_CLI_PROFILE`
 
 Recommended provider examples / 推荐可直接复用的模型配置示例:
 
@@ -181,6 +186,21 @@ $env:PYTHONPATH='src'
 python -m auto_report.cli run-once --publication-mode reviewed
 ```
 
+### 4. Sync Feishu workspace / 同步飞书协作面
+
+```powershell
+$env:PYTHONPATH='src'
+python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
+```
+
+This sidecar is local-only. It is for local verification, prettier Feishu output,
+and local collaboration sync; GitHub Actions should continue to use the built-in
+official Feishu API push path only.
+
+When `FEISHU_SIDECAR_ENABLED=true`, `run-once` also updates the Feishu Doc,
+governance sheet, and governance task list after report generation. When
+`GITHUB_ACTIONS=true`, the sidecar is skipped automatically even if enabled.
+
 ## Verification / 发布前验证
 
 Run from `D:\GitHub\auto`:
@@ -197,6 +217,20 @@ python -m auto_report.cli build-ops-dashboard
 python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
+
+`build-review-queue` now writes two local review artifacts:
+
+- `out/review-queue/review-issues.json` for report-topic review candidates
+- `out/review-queue/source-lead-issues.json` for governance/discovery lead review candidates
+- `out/review-queue/source-lead-review-status.json` for lightweight human decisions
+- `out/review-queue/candidate-updates.json` for approved lead -> source update candidates
+
+Recommended local lead-review loop:
+
+1. inspect `source-lead-issues.json`
+2. update matching entries in `source-lead-review-status.json` to `approved`, `rejected`, or `deferred`
+3. rerun `python -m auto_report.cli build-review-queue`
+4. inspect `candidate-updates.json` and use it as the next source-update input set
 
 Workflow validation profiles / workflow 校验档位:
 

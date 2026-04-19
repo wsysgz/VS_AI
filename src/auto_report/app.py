@@ -17,6 +17,7 @@ from auto_report.integrations.delivery_status import (
     summarize_delivery_results,
 )
 from auto_report.integrations.feishu import send_feishu_messages
+from auto_report.integrations.lark_cli import sync_feishu_workspace as sync_feishu_workspace_sidecar
 from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
@@ -390,6 +391,25 @@ def _scheduler_context(settings) -> dict[str, object]:
     }
 
 
+def _is_github_actions_runtime() -> bool:
+    return os.environ.get("GITHUB_ACTIONS", "").strip().lower() == "true"
+
+
+def _disabled_feishu_sidecar_status(reason: str = "disabled") -> dict[str, object]:
+    return {
+        "enabled": False,
+        "ok": False,
+        "reason": reason,
+    }
+
+
+def _should_run_feishu_sidecar(settings) -> bool:
+    return (
+        settings.env.get("FEISHU_SIDECAR_ENABLED", "false").lower() == "true"
+        and not _is_github_actions_runtime()
+    )
+
+
 def _collect_delivery_results(
     root_dir: Path,
     settings,
@@ -419,6 +439,18 @@ def _collect_delivery_results(
 
     delivery_plan = [
         (
+            "feishu",
+            bool(settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]),
+            lambda: send_feishu_messages(
+                settings.env["FEISHU_APP_ID"],
+                settings.env["FEISHU_APP_SECRET"],
+                settings.env["FEISHU_CHAT_ID"],
+                feishu_content,
+                api_base_url=settings.env["FEISHU_API_BASE_URL"],
+                timeout=request_timeout,
+            ),
+        ),
+        (
             "pushplus",
             bool(settings.env["PUSHPLUS_TOKEN"]),
             lambda: send_pushplus(
@@ -440,18 +472,6 @@ def _collect_delivery_results(
                 settings.env["TELEGRAM_CHAT_ID"],
                 telegram_content,
                 api_base_url=settings.env["TELEGRAM_API_BASE_URL"],
-                timeout=request_timeout,
-            ),
-        ),
-        (
-            "feishu",
-            bool(settings.env["FEISHU_APP_ID"] and settings.env["FEISHU_APP_SECRET"] and settings.env["FEISHU_CHAT_ID"]),
-            lambda: send_feishu_messages(
-                settings.env["FEISHU_APP_ID"],
-                settings.env["FEISHU_APP_SECRET"],
-                settings.env["FEISHU_CHAT_ID"],
-                feishu_content,
-                api_base_url=settings.env["FEISHU_API_BASE_URL"],
                 timeout=request_timeout,
             ),
         ),
@@ -766,6 +786,7 @@ def run_once(
         pushed = False
         push_channel = ""
         push_response: dict[str, object] = {}
+        feishu_sidecar: dict[str, object] = {}
 
         with StageTimer("push_total") as push_timer:
             if settings.env["AUTO_PUSH_ENABLED"].lower() == "true":
@@ -789,6 +810,28 @@ def run_once(
 
         all_timings["push_total"] = push_timer.elapsed
 
+        if _should_run_feishu_sidecar(settings):
+            with StageTimer("feishu_sidecar") as sidecar_timer:
+                try:
+                    feishu_sidecar = sync_feishu_workspace_sidecar(
+                        root_dir,
+                        settings,
+                        publication_mode=resolved_publication_mode,
+                    )
+                    feishu_sidecar["enabled"] = True
+                    feishu_sidecar["ok"] = True
+                except Exception as exc:
+                    feishu_sidecar = {
+                        "enabled": True,
+                        "ok": False,
+                        "error": str(exc),
+                    }
+            all_timings["feishu_sidecar"] = sidecar_timer.elapsed
+        elif _is_github_actions_runtime():
+            feishu_sidecar = _disabled_feishu_sidecar_status(reason="github_actions")
+        else:
+            feishu_sidecar = _disabled_feishu_sidecar_status(reason="disabled")
+
     status = build_run_status(
         generated_files=_to_relative_paths(generated_files, root_dir),
         pushed=pushed,
@@ -808,6 +851,7 @@ def run_once(
         source_health=source_health,
         source_registry=source_registry if isinstance(source_registry, dict) else {},
         source_governance=source_governance if isinstance(source_governance, dict) else {},
+        feishu_sidecar=feishu_sidecar,
         review=review if isinstance(review, dict) else {},
         scheduler=_scheduler_context(settings),
         timings=all_timings,
@@ -951,24 +995,80 @@ def cmd_diagnose_delivery(root_dir: Path, send: bool = False, mode: str = "canar
     return summary
 
 
+def cmd_sync_feishu_workspace(root_dir: Path, publication_mode: str = "reviewed") -> dict[str, object]:
+    settings = load_settings(root_dir)
+    if _is_github_actions_runtime():
+        status = _disabled_feishu_sidecar_status(reason="github_actions")
+        print("[FeishuSidecar] Skipped in GitHub Actions runtime.")
+        return status
+    return sync_feishu_workspace_sidecar(root_dir, settings, publication_mode=publication_mode)
+
+
 def cmd_build_ops_dashboard(root_dir: Path) -> Path:
     return build_ops_dashboard(root_dir)
 
 
 def cmd_build_review_queue(root_dir: Path) -> Path:
-    from auto_report.pipeline.review_queue import build_review_issue_candidates
+    from auto_report.pipeline.review_queue import (
+        build_review_issue_candidates,
+        build_approved_source_lead_updates,
+        build_source_lead_review_payload,
+        build_source_lead_review_status_payload,
+        build_source_lead_review_candidates,
+        load_source_governance_payload,
+    )
 
     payload = _load_summary_payload(root_dir)
     issues = build_review_issue_candidates(payload)
+    governance_payload = load_source_governance_payload(root_dir)
+    source_lead_issues_payload = build_source_lead_review_payload(governance_payload)
     output_dir = root_dir / "out" / "review-queue"
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "review-issues.json"
+    source_lead_path = output_dir / "source-lead-issues.json"
+    source_lead_status_path = output_dir / "source-lead-review-status.json"
+    source_lead_updates_path = output_dir / "candidate-updates.json"
     output_path.write_text(
         json.dumps(
             {
                 "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
                 "count": len(issues),
                 "issues": issues,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    source_lead_path.write_text(
+        json.dumps(
+            {
+                "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
+                **source_lead_issues_payload,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    source_lead_status_path.write_text(
+        json.dumps(
+            {
+                "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
+                **build_source_lead_review_status_payload(source_lead_issues_payload, source_lead_status_path),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    status_payload = json.loads(source_lead_status_path.read_text(encoding="utf-8"))
+    source_lead_updates_path.write_text(
+        json.dumps(
+            {
+                "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
+                "count": len(build_approved_source_lead_updates(source_lead_issues_payload.get("issues", []), status_payload, governance_payload)),
+                "updates": build_approved_source_lead_updates(source_lead_issues_payload.get("issues", []), status_payload, governance_payload),
             },
             ensure_ascii=False,
             indent=2,

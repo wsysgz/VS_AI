@@ -191,6 +191,25 @@ def test_reusable_report_workflow_replays_rendered_data_on_latest_branch_before_
     assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
+def test_reusable_workflows_expose_helper_stage_ai_env_contract():
+    analyze_content = (ROOT_DIR / ".github" / "workflows" / "reusable-analyze.yml").read_text(encoding="utf-8")
+    report_content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
+
+    for content in (analyze_content, report_content):
+        assert "PREFILTER_AI_PROVIDER: ${{ vars.PREFILTER_AI_PROVIDER || '' }}" in content
+        assert "PREFILTER_AI_BASE_URL: ${{ vars.PREFILTER_AI_BASE_URL || '' }}" in content
+        assert "PREFILTER_AI_MODEL: ${{ vars.PREFILTER_AI_MODEL || '' }}" in content
+        assert "PREFILTER_AI_API_KEY: ${{ secrets.PREFILTER_AI_API_KEY }}" in content
+        assert "DISCOVERY_AI_PROVIDER: ${{ vars.DISCOVERY_AI_PROVIDER || '' }}" in content
+        assert "DISCOVERY_AI_BASE_URL: ${{ vars.DISCOVERY_AI_BASE_URL || '' }}" in content
+        assert "DISCOVERY_AI_MODEL: ${{ vars.DISCOVERY_AI_MODEL || '' }}" in content
+        assert "DISCOVERY_AI_API_KEY: ${{ secrets.DISCOVERY_AI_API_KEY }}" in content
+        assert "SEARCH_AI_PROVIDER: ${{ vars.SEARCH_AI_PROVIDER || '' }}" in content
+        assert "SEARCH_AI_BASE_URL: ${{ vars.SEARCH_AI_BASE_URL || '' }}" in content
+        assert "SEARCH_AI_MODEL: ${{ vars.SEARCH_AI_MODEL || '' }}" in content
+        assert "SEARCH_AI_API_KEY: ${{ secrets.SEARCH_AI_API_KEY }}" in content
+
+
 def test_reusable_pages_workflow_syncs_current_branch_and_commits_all_pages_outputs():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-pages.yml").read_text(encoding="utf-8")
 

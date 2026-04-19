@@ -195,6 +195,7 @@ def build_run_status(
     source_health: dict[str, Any] | None = None,
     source_registry: dict[str, Any] | None = None,
     source_governance: dict[str, Any] | None = None,
+    feishu_sidecar: dict[str, Any] | None = None,
     review: dict[str, str] | None = None,
     error: str | None = None,
 ) -> dict[str, object]:
@@ -219,6 +220,7 @@ def build_run_status(
         "source_health": source_health or _default_source_health_status(),
         "source_registry": source_registry or _default_source_registry_status(),
         "source_governance": source_governance or _default_source_governance_status(),
+        "feishu_sidecar": feishu_sidecar or {},
         "review": review or _default_review_status(),
         "scheduler": scheduler or {
             "trigger_kind": "manual",

@@ -21,7 +21,7 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`210 passed`
-- 当前主线优先级：`P1：来源稳定性升级`
+- 当前主线优先级：`P2：AI 分工 + discovery/search helper + 远端 stage routing`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 手动触发 workflow 前必须先 `push`，因为 `workflow_dispatch` 只跑远端已 push 代码
@@ -244,8 +244,7 @@ collect
 - `workflow_dispatch` 跑的是远端 ref，不是本地未 push 的修改
 - `push` 触发时忽略 `data/**`
 - 手动验证远端通常优先使用 `push_enabled=false`，避免无意实际推送
-- 当前远端 workflow 已支持统一 provider 配置与 stage-level routing，但未配置
-  Repository Variables / Secrets 时仍默认走 DeepSeek
+- 当前远端 workflow 已支持统一 provider 配置与 stage-level routing，并已完成远端验证
 
 ### 4.4 远端 AI provider 配置真相
 
@@ -274,12 +273,31 @@ collect
      - `FORECAST_AI_PROVIDER`
      - `FORECAST_AI_BASE_URL`
      - `FORECAST_AI_MODEL`
+     - `PREFILTER_AI_PROVIDER`
+     - `PREFILTER_AI_BASE_URL`
+     - `PREFILTER_AI_MODEL`
+     - `DISCOVERY_AI_PROVIDER`
+     - `DISCOVERY_AI_BASE_URL`
+     - `DISCOVERY_AI_MODEL`
+     - `SEARCH_AI_PROVIDER`
+     - `SEARCH_AI_BASE_URL`
+     - `SEARCH_AI_MODEL`
    - Secrets:
      - `ANALYSIS_AI_API_KEY`
      - `SUMMARY_AI_API_KEY`
      - `FORECAST_AI_API_KEY`
+     - `PREFILTER_AI_API_KEY`
+     - `DISCOVERY_AI_API_KEY`
+     - `SEARCH_AI_API_KEY`
 
-远端首轮验证建议：
+当前远端验证结论：
+
+- `analysis` -> DeepSeek
+- `summary` -> MiniMax-M2.7
+- `forecast` -> DeepSeek
+- `prefilter` -> MiniMax-M2.7
+
+后续远端验证建议：
 
 - 先 `push`
 - 再手动触发 `Collect And Report`
@@ -339,7 +357,7 @@ Get-Content out/source-governance/source-governance.json
 
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
-- 当前主线优先级仍是 `P1：来源稳定性升级`
+- 当前主线优先级已转向 `P2：AI 分工 + discovery/search helper + 远端 stage routing`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
 - 本地验证基线已经提升并固定到 `210 passed`
 - 本轮交接中已再次本地跑通 reviewed 验证；精确时间、主题数和风险等级以当前 `data/state/run-status.json` 为准
@@ -359,10 +377,10 @@ Get-Content out/source-governance/source-governance.json
 
 最近仓库快照显示的未完成重点：
 
-- `anthropic-news` 仍待远端 / 外网环境完成 RSSHub 或官方 feed 最终验证
+- `anthropic-news` 已完成收口：官方 RSS/feed 候选当前 404，保留远端已验证通过的官方 news listing 作为正式入口
 - `OpenCLI` 侧车 pilot 还没做
 - AI Gateway / tracing 还没真正接入主链
-- discovery/search helper 已落地，但还没有并入主日报主链
+- discovery/search helper 已落地，并已进入 governance / review queue 的人工审批流
 
 最近可见的 source failure 示例：
 
@@ -498,6 +516,21 @@ python -m auto_report.cli build-review-queue
 python -m auto_report.cli build-discovery-search --keywords config/source_discovery/keywords.txt
 ```
 
+补充说明：
+
+- `build-review-queue` 现在会同时输出：
+  - `out/review-queue/review-issues.json`
+  - `out/review-queue/source-lead-issues.json`
+  - `out/review-queue/source-lead-review-status.json`
+  - `out/review-queue/candidate-updates.json`
+- 后者用于把 discovery / search / governance leads 转成人审 issue payload
+- 建议闭环：
+  1. 看 `source-lead-issues.json`
+  2. 在 `source-lead-review-status.json` 中把目标 lead 标成 `approved / rejected / deferred`
+  3. 再跑一次 `build-review-queue`
+  4. 用 `candidate-updates.json` 作为下一步 source update 候选集
+- `anthropic-news` 建议作为第一批 `approved -> remote validation` 的优先案例
+
 ### 7.4 诊断交付
 
 ```powershell
@@ -505,7 +538,14 @@ $env:PYTHONPATH='src'
 python -m auto_report.cli diagnose-delivery --mode canary
 python -m auto_report.cli diagnose-delivery --mode canary --send
 python -m auto_report.cli diagnose-delivery --mode full-report --send
+python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
 ```
+
+补充原则：
+
+- `sync-feishu-workspace` / `lark-cli` 是本地侧车，不是 GitHub Actions 主链依赖
+- 远端 workflow 继续使用仓库原生 Feishu API 推送
+- 若 `GITHUB_ACTIONS=true`，sidecar 会自动跳过
 
 ### 7.5 离线评估与 workflow 校验
 
@@ -561,6 +601,7 @@ git push origin main
 - 远端 workflow 不是日常调试回路，默认只在“项目计划完成 / 阶段性完成 / 发布前确认”时使用
 - 只要还在中间开发阶段，就优先用本地验证解决问题，不要把 GitHub Actions 当主要排错工具
 - 每次准备 `push` 或 `workflow_dispatch` 前，都先确认本地验证已经通过并且结果可信
+- 远端 workflow 触发后，不要卡在前台持续盯跑；记录 run 链接 / run id 后继续做本地工作，稍后再回来看结果
 
 建议优先触发 `Collect And Report`，并先把真实推送关掉：
 
@@ -579,6 +620,7 @@ gh workflow run collect-report.yml --ref main -f push_enabled=false -f publicati
 
 至少确认：
 
+- 默认不要求一直前台 watch；先记 run，再回来统一核对
 - `workflow-guard`、`test`、`collect`、`analyze`、`report` 都通过
 - `deploy-pages`、`ops-dashboard`、`review-queue` 都通过
 - 没有新出现的 reliability issue
@@ -623,10 +665,20 @@ ClawBot 额外事实：
 - 忘记设置 `$env:PYTHONPATH='src'`
 - 只看 Actions 颜色，不看 `run-status.json`
 - 改了 workflow 却没 push 就去手动 dispatch
+- 把候选 feed / RSSHub 链接直接当正式 source，不先验证真实可用性
+- 看到 `candidate-updates.json` 就直接改配置，不先看 `apply_ready / blocking_reason / validation_mode`
 - 把 PushPlus `/send` 的成功误认为真正送达成功
 - 修改状态 schema 但没同步 dashboard / 页面 / 测试
 - 把信息性诊断误记入 `source_health`
 - 修完本地后忘了再核对远端 workflow 结果
+
+## 10.5 建库 / 收口经验
+
+- 先把 artifact 铺起来，再决定是否进入主链；`source-governance.json`、`source-lead-issues.json`、`candidate-updates.json` 都是这样长出来的
+- 对来源收口不要执着于“必须切到 feed”；`anthropic-news` 的正确收口是 validated listing，而不是一个返回 404 的伪 feed
+- 远端验证真正依赖的是“远端 main 上的 workflow 文件是不是最新”，不是本地工作区看起来有没有改好
+- 本地 sidecar（如 `lark-cli`）只做本地验证、美化输出、协作同步，远端主链继续走仓库原生 Feishu API
+- 人工审批流要走完整：`source-lead-issues.json -> source-lead-review-status.json -> candidate-updates.json`
 
 ## 11. 新会话 AI 启动提示词（可直接复制）
 
@@ -647,6 +699,19 @@ ClawBot 额外事实：
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
+
+## 12.5 下次上手最短路径
+
+如果下一位只想最快恢复推进节奏，按这个顺序：
+
+1. `git status --short`
+2. `git log --oneline -5`
+3. 读 `交接备忘录.md`
+4. 读 `AI对接手册.md`
+5. 看 `data/state/run-status.json`
+6. 看 `out/source-governance/source-governance.json`
+7. 看 `out/review-queue/source-lead-review-status.json`
+8. 再判断是继续推进 `candidate-updates.json`、做远端验证，还是进入 LiteLLM / Langfuse
 - Telegram 暂不作为当前优化优先级
 ```
 

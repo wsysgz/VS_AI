@@ -3,7 +3,7 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
-from auto_report.app import cmd_analyze_only, run_once
+from auto_report.app import cmd_analyze_only, cmd_sync_feishu_workspace, run_once
 from auto_report.app import render_reports
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.run_once import build_run_status
@@ -729,6 +729,158 @@ def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monke
     assert "GitHub 原文：" in captured["text"]
 
 
+def test_run_once_prefers_feishu_as_primary_delivery_channel(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
+    monkeypatch.setattr("auto_report.app.send_telegram_messages", lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}])
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", lambda *args, **kwargs: [{"code": 0, "data": {"message_id": "om_1"}}])
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    assert status["push_channel"] == "feishu,pushplus,telegram"
+    assert status["delivery_results"]["successful_channels"] == ["feishu", "pushplus", "telegram"]
+
+
+def test_run_once_records_feishu_sidecar_status_when_enabled(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
+    monkeypatch.setattr(
+        "auto_report.app.sync_feishu_workspace_sidecar",
+        lambda *args, **kwargs: {"report_doc": {"doc_token": "doc_1"}},
+    )
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("FEISHU_SIDECAR_ENABLED", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
+    monkeypatch.delenv("FEISHU_APP_ID", raising=False)
+    monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
+    monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    assert status["feishu_sidecar"]["enabled"] is True
+    assert status["feishu_sidecar"]["ok"] is True
+    assert status["feishu_sidecar"]["report_doc"]["doc_token"] == "doc_1"
+
+
+def test_run_once_skips_feishu_sidecar_in_github_actions(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    sample_items = [
+        CollectedItem(
+            source_id="rss",
+            item_id="1",
+            title="Agent platform launched",
+            url="https://example.com/agent-platform",
+            summary="A new reasoning agent stack for enterprise deployment",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "reasoning"],
+            language="en",
+            metadata={},
+        )
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.app.collect_all_items",
+        lambda settings: (sample_items, ["测试诊断"]),
+    )
+    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
+
+    def _unexpected_sidecar(*args, **kwargs):
+        raise AssertionError("sidecar should not run in GitHub Actions")
+
+    monkeypatch.setattr("auto_report.app.sync_feishu_workspace_sidecar", _unexpected_sidecar)
+    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
+    monkeypatch.setenv("FEISHU_SIDECAR_ENABLED", "true")
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
+    monkeypatch.delenv("FEISHU_APP_ID", raising=False)
+    monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
+    monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
+
+    run_once(tmp_path)
+
+    status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
+    assert status["feishu_sidecar"]["enabled"] is False
+    assert status["feishu_sidecar"]["ok"] is False
+    assert status["feishu_sidecar"]["reason"] == "github_actions"
+
+
+def test_cmd_sync_feishu_workspace_skips_in_github_actions(tmp_path, monkeypatch):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    monkeypatch.setattr(
+        "auto_report.app.sync_feishu_workspace_sidecar",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("should not run")),
+    )
+
+    status = cmd_sync_feishu_workspace(tmp_path, publication_mode="reviewed")
+
+    assert status["enabled"] is False
+    assert status["ok"] is False
+    assert status["reason"] == "github_actions"
+
 def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
@@ -776,7 +928,7 @@ def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatc
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
     assert status["pushed"] is False
-    assert status["delivery_results"]["failed_channels"] == ["pushplus", "telegram", "feishu"]
+    assert status["delivery_results"]["failed_channels"] == ["feishu", "pushplus", "telegram"]
 
 
 def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monkeypatch):

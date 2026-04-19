@@ -28,10 +28,12 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     assert registry["meta-ai-blog"]["candidate_kind"] == "none"
     assert registry["st-blog"]["candidate_kind"] == "none"
     assert registry["ti-e2e-blog"]["candidate_kind"] == "none"
+    assert registry["anthropic-news"]["candidate_kind"] == "validated_listing"
     assert registry["nxp-edge-ai"]["candidate_kind"] == "manual_replace"
     assert registry["google-ai-edge"]["candidate_kind"] == "none"
 
     assert "st-blog" not in rsshub_candidate_ids
+    assert "anthropic-news" not in changedetection_ids
     assert "meta-ai-blog" not in replacement_ids
     assert "ti-e2e-blog" not in replacement_ids
     assert "google-ai-edge" not in changedetection_ids
@@ -125,3 +127,17 @@ def test_build_source_registry_treats_google_ai_edge_as_stable_rss_feed():
     assert registry["google-ai-edge"]["watch_strategy"] == "feed-poll"
     assert registry["google-ai-edge"]["replacement_target"] == "none"
     assert registry["google-ai-edge"]["candidate_kind"] == "none"
+
+
+def test_build_source_registry_marks_anthropic_news_as_validated_listing():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    assert registry["anthropic-news"]["collector"] == "websites"
+    assert registry["anthropic-news"]["mode"] == "article_listing"
+    assert registry["anthropic-news"]["stability_tier"] == "verified-listing"
+    assert registry["anthropic-news"]["watch_strategy"] == "listing-poll"
+    assert registry["anthropic-news"]["replacement_target"] == "none"
+    assert registry["anthropic-news"]["candidate_kind"] == "validated_listing"
+    assert registry["anthropic-news"]["candidate_value"] == "https://www.anthropic.com/news"
