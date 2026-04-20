@@ -209,7 +209,8 @@ GitHub / Actions note:
 - Recommended first remote validation:
   - use `workflow_dispatch`
   - set `push_enabled=false`
-  - confirm the run status and provider selection before enabling real pushes
+  - record the run link / run id, then continue local work
+  - only return to inspect final remote results when the user explicitly asks or a later task depends on them
 - For the first LiteLLM rollout, prefer local verification first and treat the
   gateway as an optional path. Keep direct DeepSeek / MiniMax config ready as
   the rollback path.
@@ -225,6 +226,20 @@ LANGFUSE_ENV=local
 LANGFUSE_CAPTURE_CONTENT=false
 ```
 
+- Verified rollout status / 已验证状态（2026-04-20）:
+  - local metadata-first tracing works with Langfuse Cloud
+  - GitHub Actions reusable workflows now pass through the required `LANGFUSE_*`
+    environment variables
+  - both `push` and manual `workflow_dispatch` runs have been verified with
+    `tracing.enabled=true`
+  - successful Langfuse runs now write `trace_id` and `trace_url` into
+    `data/state/run-status.json`
+- Remote GitHub Actions config / 远端配置:
+  - Repository Variables:
+    `LANGFUSE_ENABLED`, `LANGFUSE_BASE_URL`, `LANGFUSE_ENV`,
+    `LANGFUSE_CAPTURE_CONTENT`
+  - Repository Secrets:
+    `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`
 - First batch uses metadata-first tracing: trace metadata, stage names, provider,
   model, timing, token usage, and status are uploaded by default.
 - Prompt and response bodies are not uploaded unless
@@ -368,6 +383,9 @@ All three channels always include / 三条推送始终同时带:
 
 - Local verification comes before push.
 - `workflow_dispatch` always runs the pushed remote ref, not local unpushed edits.
+- After a remote run is triggered, record the run id and continue local work; do
+  not front-watch the run, and do not require a dedicated final-result check
+  unless the next task depends on it.
 - The public reading link always stays at `https://wsysgz.github.io/VS_AI/`; it does not switch to archive URLs.
 - `run-status.json` is the operational source of truth for delivery, review, AI metrics, and source health.
 - Report timestamps and archive dates follow the configured timezone so compensation logic can judge same-day status correctly.

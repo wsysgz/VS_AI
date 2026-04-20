@@ -234,12 +234,12 @@ collect
 - 哪些来源适合建 changedetection watch
 - 哪些来源已经有 `replacement_target`
 
-当前治理摘要（2026-04-17 仓库快照）：
+当前治理摘要（以当前仓库 artifact 为准）：
 
-- `manual_review_count = 4`
-- `rsshub_candidate_count = 11`
-- `changedetection_candidate_count = 10`
-- `replacement_candidate_count = 14`
+- `manual_review_count = 1`
+- `rsshub_candidate_count = 2`
+- `changedetection_candidate_count = 2`
+- `replacement_candidate_count = 3`
 
 ### 4.3 远端执行真相
 
@@ -390,7 +390,7 @@ Get-Content out/source-governance/source-governance.json
 
 - `anthropic-news` 已完成收口：官方 RSS/feed 候选当前 404，保留远端已验证通过的官方 news listing 作为正式入口
 - `OpenCLI` 侧车 pilot 还没做
-- AI Gateway / tracing 还没真正接入主链
+- `P2-C Langfuse tracing` 已完成本地实接与远端 rollout 验证；当前剩余是 trace 维度统一与预算治理尾项
 - discovery/search helper 已落地，并已进入 governance / review queue 的人工审批流
 
 最近可见的 source failure 示例：
@@ -476,6 +476,10 @@ $env:LITELLM_MASTER_KEY='sk-change-me'
 - LiteLLM Gateway 首轮接入建议作为可选路径保留直连回退，不要一上来把所有环境强制切到 Gateway。
 - 当前仓库内置的 LiteLLM provider 名称为 `litellm_proxy`，推荐配合 `config/litellm/litellm-config.example.yaml` 中的 alias 使用。
 - Langfuse tracing 首轮接入采用 metadata-first：默认只上传 stage / provider / model / latency / token usage / status，不默认上传 prompt 和 response 正文。
+- `P2-C` 已于 2026-04-20 完成本地与远端验证；当 Langfuse 可达时，`run-status.json` 现在会写入：
+  - `tracing.enabled`
+  - `tracing.trace_id`
+  - `tracing.trace_url`
 
 推荐默认分工：
 
@@ -641,7 +645,7 @@ git push origin main
 - 远端 workflow 不是日常调试回路，默认只在“项目计划完成 / 阶段性完成 / 发布前确认”时使用
 - 只要还在中间开发阶段，就优先用本地验证解决问题，不要把 GitHub Actions 当主要排错工具
 - 每次准备 `push` 或 `workflow_dispatch` 前，都先确认本地验证已经通过并且结果可信
-- 远端 workflow 触发后，不要卡在前台持续盯跑；记录 run 链接 / run id 后继续做本地工作，稍后再回来看结果
+- 远端 workflow 触发后，不要卡在前台持续盯跑；记录 run 链接 / run id 后继续做本地工作，默认也不要求专门回头核对最终结果，除非用户明确要求或后续任务依赖它
 
 建议优先触发 `Collect And Report`，并先把真实推送关掉：
 
@@ -656,11 +660,11 @@ gh workflow run collect-report.yml --ref main -f push_enabled=false -f publicati
 - `push_enabled = false`
 - `publication_mode = reviewed`
 
-### 8.4 远端核对结果
+### 8.4 如需回看远端结果
 
-至少确认：
+只有在用户明确要求、出现异常、或后续任务明确依赖远端结果时，再回来核对：
 
-- 默认不要求一直前台 watch；先记 run，再回来统一核对
+- 默认不要求一直前台 watch，也不要求专门补做一次“最终结果核对”
 - `workflow-guard`、`test`、`collect`、`analyze`、`report` 都通过
 - `deploy-pages`、`ops-dashboard`、`review-queue` 都通过
 - 没有新出现的 reliability issue
@@ -710,7 +714,7 @@ ClawBot 额外事实：
 - 把 PushPlus `/send` 的成功误认为真正送达成功
 - 修改状态 schema 但没同步 dashboard / 页面 / 测试
 - 把信息性诊断误记入 `source_health`
-- 修完本地后忘了再核对远端 workflow 结果
+- 把远端 workflow 当成必须前台盯到结束、或每次都必须专门补做最终结果核对
 
 ## 10.5 建库 / 收口经验
 
@@ -735,7 +739,7 @@ ClawBot 额外事实：
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级是 P1：来源稳定性升级
+- 当前优先级已转到 P2 尾项：trace 维度统一、预算治理与 P2.5 准备
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
@@ -767,10 +771,10 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P2-A：双 AI 并存 + stage routing
-2. P2-B：LiteLLM Gateway
-3. P2-C：Langfuse tracing
-4. P2.5：OpenCLI sidecar pilot
+1. P2 尾项：把 prompt eval 与线上 run 打通统一 trace 维度
+2. P2 尾项：增加 provider fallback、budget guardrail、per-stage latency / token budget
+3. P2.5：OpenCLI sidecar pilot
+4. 治理尾项：把 `candidate-updates.json` / priority queue 继续推进成最小 source update 闭环
 5. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
 6. P3-B：飞书多维表格运营台
 7. workflow / delivery 的可验证性
