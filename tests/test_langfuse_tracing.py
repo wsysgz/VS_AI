@@ -99,6 +99,31 @@ class _FakeClient:
         return None
 
 
+class _FakeClientKeywordTraceUrl(_FakeClient):
+    def get_trace_url(self, *, trace_id: str | None = None):
+        return f"https://langfuse.example/trace/{trace_id}"
+
+
+def test_start_run_trace_reads_trace_url_with_keyword_only_sdk(monkeypatch):
+    fake_client = _FakeClientKeywordTraceUrl()
+    monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)
+
+    trace_state = start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+            "LANGFUSE_CAPTURE_CONTENT": "false",
+        },
+        name="vs-ai-run-once",
+        metadata={"publication_mode": "reviewed"},
+    )
+
+    assert trace_state["enabled"] is True
+    assert trace_state["trace_id"] == "trace-1"
+    assert trace_state["trace_url"] == "https://langfuse.example/trace/trace-1"
+
+
 def test_start_run_trace_and_generation_use_metadata_first(monkeypatch):
     fake_client = _FakeClient()
     monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)

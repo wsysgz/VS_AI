@@ -157,7 +157,7 @@ def start_run_trace(
         "capture_content": is_langfuse_capture_content_enabled(resolved),
     }
     try:
-        trace_state["trace_url"] = client.get_trace_url(trace_state["trace_id"])
+        trace_state["trace_url"] = client.get_trace_url(trace_id=trace_state["trace_id"])
     except Exception:
         trace_state["trace_url"] = ""
 
