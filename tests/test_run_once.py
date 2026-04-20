@@ -817,6 +817,7 @@ def test_run_once_records_feishu_sidecar_status_when_enabled(tmp_path, monkeypat
     )
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
     monkeypatch.setenv("FEISHU_SIDECAR_ENABLED", "true")
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
     monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
     monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)

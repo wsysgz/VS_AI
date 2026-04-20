@@ -51,6 +51,7 @@ python -m auto_report.cli build-review-queue
 - Default to local-first verification for all normal development work.
 - Do **not** run GitHub Actions for every intermediate change; remote runs are reserved for project-plan completion, stage completion, or explicit release-style checkpoints.
 - Before any push or manual `workflow_dispatch`, confirm the local validation chain is clean enough for the scope of the change.
+- After any remote trigger (`push` or manual `workflow_dispatch`), record the run link / run id and return later; do **not** front-watch the run continuously unless the user explicitly asks for live monitoring.
 - Treat GitHub Actions as final confirmation, not as the primary debug loop.
 
 ## Phase Execution Discipline
