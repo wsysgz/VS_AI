@@ -2,6 +2,7 @@ import auto_report.integrations.langfuse_tracing as tracing
 from auto_report.integrations.langfuse_tracing import (
     build_tracing_status,
     complete_run_trace,
+    finish_stage_span,
     finish_generation_trace,
     is_langfuse_capture_content_enabled,
     is_langfuse_enabled,
@@ -57,19 +58,34 @@ def test_build_tracing_status_includes_trace_url_when_present():
 
 
 class _FakeObservation:
-    def __init__(self, name: str, trace_id: str, obs_id: str, trace_context=None, **kwargs):
+    def __init__(
+        self,
+        name: str,
+        trace_id: str,
+        obs_id: str,
+        trace_context=None,
+        raise_on_update: bool = False,
+        raise_on_end: bool = False,
+        **kwargs,
+    ):
         self.name = name
         self.trace_id = trace_id
         self.id = obs_id
         self.trace_context = trace_context or {}
+        self.raise_on_update = raise_on_update
+        self.raise_on_end = raise_on_end
         self.kwargs = kwargs
         self.updates = []
         self.ended = False
 
     def update(self, **kwargs):
+        if self.raise_on_update:
+            raise RuntimeError(f"update failed for {self.name}")
         self.updates.append(kwargs)
 
     def end(self):
+        if self.raise_on_end:
+            raise RuntimeError(f"end failed for {self.name}")
         self.ended = True
 
 
@@ -122,6 +138,133 @@ def test_start_run_trace_reads_trace_url_with_keyword_only_sdk(monkeypatch):
     assert trace_state["enabled"] is True
     assert trace_state["trace_id"] == "trace-1"
     assert trace_state["trace_url"] == "https://langfuse.example/trace/trace-1"
+
+
+def test_start_generation_trace_can_parent_under_named_span(monkeypatch):
+    fake_client = _FakeClient()
+    monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)
+
+    trace_state = start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+            "LANGFUSE_CAPTURE_CONTENT": "false",
+        },
+        name="vs-ai-evaluate-prompts",
+        metadata={"dataset_path": "dataset.json"},
+    )
+
+    assert trace_state["enabled"] is True
+    start_stage_span("prompt-eval-case:summary-case", metadata={"case_id": "summary-case"})
+
+    observation = start_generation_trace(
+        stage="prompt_eval",
+        parent_name="prompt-eval-case:summary-case",
+        provider="offline_eval",
+        model="offline-dataset",
+        input_payload={"content": {"one_line_core": "secret"}},
+        metadata={"case_id": "summary-case", "prompt_id": "summary-v2"},
+    )
+
+    assert observation is not None
+    assert fake_client.observations[-1].trace_context["parent_span_id"] == "obs-2"
+    assert fake_client.observations[-1].name == "llm:prompt_eval"
+
+
+def test_finish_stage_span_swallows_langfuse_update_and_end_errors(monkeypatch):
+    fake_client = _FakeClient()
+    monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)
+
+    start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+        },
+        name="vs-ai-run-once",
+    )
+
+    start_stage_span("analysis")
+    trace_state = tracing.get_active_trace_state()
+    assert trace_state is not None
+
+    trace_state["stage_spans"]["analysis"] = _FakeObservation(
+        "analysis",
+        "trace-1",
+        "obs-stage-update",
+        raise_on_update=True,
+    )
+    finish_stage_span("analysis", metadata={"status": "ok"})
+
+    trace_state["stage_spans"]["analysis"] = _FakeObservation(
+        "analysis",
+        "trace-1",
+        "obs-stage-end",
+        raise_on_end=True,
+    )
+    finish_stage_span("analysis")
+
+
+def test_finish_generation_trace_swallows_langfuse_update_and_end_errors(monkeypatch):
+    fake_client = _FakeClient()
+    monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)
+
+    start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+        },
+        name="vs-ai-run-once",
+    )
+
+    finish_generation_trace(
+        {"observation": _FakeObservation("llm:analysis", "trace-1", "obs-gen-update", raise_on_update=True)},
+        output_text="secret answer",
+    )
+
+    finish_generation_trace(
+        {"observation": _FakeObservation("llm:analysis", "trace-1", "obs-gen-end", raise_on_end=True)},
+    )
+
+
+def test_complete_run_trace_swallows_langfuse_update_and_end_errors(monkeypatch):
+    fake_client = _FakeClient()
+    monkeypatch.setattr(tracing, "get_langfuse_client", lambda env=None: fake_client)
+
+    trace_state = start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+        },
+        name="vs-ai-run-once",
+    )
+
+    trace_state["root"] = _FakeObservation(
+        "vs-ai-run-once",
+        "trace-1",
+        "obs-root-update",
+        raise_on_update=True,
+    )
+    complete_run_trace(trace_state, metadata={"status": "ok"})
+
+    trace_state = start_run_trace(
+        {
+            "LANGFUSE_ENABLED": "true",
+            "LANGFUSE_PUBLIC_KEY": "pk-lf-test",
+            "LANGFUSE_SECRET_KEY": "sk-lf-test",
+        },
+        name="vs-ai-run-once",
+    )
+    trace_state["root"] = _FakeObservation(
+        "vs-ai-run-once",
+        "trace-2",
+        "obs-root-end",
+        raise_on_end=True,
+    )
+    complete_run_trace(trace_state)
 
 
 def test_start_run_trace_and_generation_use_metadata_first(monkeypatch):

@@ -5,7 +5,17 @@ import re
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
+from typing import Mapping
 
+from auto_report.integrations.langfuse_tracing import (
+    complete_run_trace,
+    finish_generation_trace,
+    finish_stage_span,
+    flush_langfuse,
+    start_generation_trace,
+    start_run_trace,
+    start_stage_span,
+)
 from auto_report.pipeline.prompt_loader import load_prompt_registry
 
 
@@ -94,7 +104,11 @@ def _average_metric_rows(rows: list[dict[str, float]]) -> dict[str, float]:
     }
 
 
-def evaluate_prompt_dataset(root_dir: Path, dataset_path: Path) -> Path:
+def evaluate_prompt_dataset(
+    root_dir: Path,
+    dataset_path: Path,
+    env: Mapping[str, str] | None = None,
+) -> Path:
     registry = load_prompt_registry(root_dir)
     payload = json.loads(dataset_path.read_text(encoding="utf-8"))
     dataset_meta = payload.get("meta", {})
@@ -112,75 +126,171 @@ def evaluate_prompt_dataset(root_dir: Path, dataset_path: Path) -> Path:
     case_results: list[dict[str, object]] = []
     grouped_metrics: dict[tuple[str, str, str, str], list[dict[str, float]]] = defaultdict(list)
 
-    for raw_case in cases:
-        stage = str(raw_case.get("stage", "")).strip()
-        reference = raw_case.get("reference", {})
-        outputs = raw_case.get("outputs", [])
-        evaluations: list[dict[str, object]] = []
-        for raw_output in outputs:
-            prompt_id = str(raw_output.get("prompt_id", "")).strip() or f"{stage}-unknown"
-            version = str(raw_output.get("version", prompt_lookup.get(prompt_id, {}).get("version", "unknown"))).strip()
-            model = str(raw_output.get("model", "offline-dataset")).strip()
-            metrics = _metric_bundle(stage, reference if isinstance(reference, dict) else {}, raw_output.get("content"))
-            prompt_meta = prompt_lookup.get(prompt_id, {})
-            evaluation = {
-                "prompt_id": prompt_id,
-                "version": version,
-                "stage": stage,
-                "model": model,
-                "tags": prompt_meta.get("tags", []),
-                "metrics": metrics,
-            }
-            evaluations.append(evaluation)
-            grouped_metrics[(stage, prompt_id, version, model)].append(metrics)
-
-        case_results.append(
-            {
-                "case_id": str(raw_case.get("id", "")).strip() or f"{stage}-case",
-                "stage": stage,
-                "evaluations": evaluations,
-            }
-        )
-
-    leaderboard: list[dict[str, object]] = []
-    for (stage, prompt_id, version, model), rows in grouped_metrics.items():
-        prompt_meta = prompt_lookup.get(prompt_id, {})
-        leaderboard.append(
-            {
-                "stage": stage,
-                "prompt_id": prompt_id,
-                "version": version,
-                "model": model,
-                "tags": prompt_meta.get("tags", []),
-                "case_count": len(rows),
-                "metrics": _average_metric_rows(rows),
-            }
-        )
-
-    leaderboard.sort(
-        key=lambda item: (
-            -float(item["metrics"].get("overall_score_avg", 0.0)),
-            item["stage"],
-            item["prompt_id"],
-        )
-    )
-
-    result_payload = {
-        "generated_at": datetime.now().astimezone().isoformat(),
-        "dataset_path": str(dataset_path),
-        "dataset_meta": dataset_meta,
-        "summary": {
-            "case_count": len(case_results),
-            "evaluation_count": sum(len(case["evaluations"]) for case in case_results),
-            "stage_count": len({case["stage"] for case in case_results}),
+    trace_state = start_run_trace(
+        env,
+        name="vs-ai-evaluate-prompts",
+        metadata={
+            "dataset_path": str(dataset_path),
+            "workspace": str(root_dir),
+            "timezone": str((env or {}).get("AUTO_TIMEZONE", "Asia/Shanghai")).strip() or "Asia/Shanghai",
         },
-        "leaderboard": leaderboard,
-        "cases": case_results,
-    }
+    )
+    trace_error: str | None = None
 
-    out_dir = root_dir / "out" / "evals"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    output_path = out_dir / f"prompt-eval-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json"
-    output_path.write_text(json.dumps(result_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[PromptEval] Wrote results to {output_path}")
-    return output_path
+    try:
+        for raw_case in cases:
+            stage = str(raw_case.get("stage", "")).strip()
+            case_id = str(raw_case.get("id", "")).strip() or f"{stage}-case"
+            reference = raw_case.get("reference", {})
+            outputs = raw_case.get("outputs", [])
+            span_name = f"prompt-eval-case:{case_id}"
+            evaluations: list[dict[str, object]] = []
+            case_error: str | None = None
+
+            start_stage_span(
+                span_name,
+                metadata={
+                    "case_id": case_id,
+                    "stage": stage,
+                    "output_count": len(outputs) if isinstance(outputs, list) else 0,
+                },
+            )
+
+            try:
+                for raw_output in outputs:
+                    prompt_id = str(raw_output.get("prompt_id", "")).strip() or f"{stage}-unknown"
+                    version = str(raw_output.get("version", prompt_lookup.get(prompt_id, {}).get("version", "unknown"))).strip()
+                    model = str(raw_output.get("model", "offline-dataset")).strip()
+                    prompt_meta = prompt_lookup.get(prompt_id, {})
+                    generation_trace = start_generation_trace(
+                        stage="prompt_eval",
+                        parent_name=span_name,
+                        provider="offline_eval",
+                        model=model,
+                        input_payload={
+                            "reference": reference if isinstance(reference, dict) else {},
+                            "candidate": raw_output.get("content"),
+                        },
+                        metadata={
+                            "case_id": case_id,
+                            "stage": stage,
+                            "prompt_id": prompt_id,
+                            "version": version,
+                            "model": model,
+                            "tags": prompt_meta.get("tags", []),
+                        },
+                    )
+                    generation_error: str | None = None
+                    generation_output_text: str | None = None
+                    generation_metadata: dict[str, object] | None = None
+
+                    try:
+                        metrics = _metric_bundle(stage, reference if isinstance(reference, dict) else {}, raw_output.get("content"))
+                        generation_output_text = json.dumps(metrics, ensure_ascii=False, sort_keys=True)
+                        generation_metadata = {
+                            "case_id": case_id,
+                            "stage": stage,
+                            "prompt_id": prompt_id,
+                            "version": version,
+                            "model": model,
+                            "tags": prompt_meta.get("tags", []),
+                            **metrics,
+                        }
+                    except Exception as exc:
+                        generation_error = str(exc)
+                        raise
+                    finally:
+                        finish_generation_trace(
+                            generation_trace,
+                            output_text=generation_output_text,
+                            metadata=generation_metadata,
+                            error=generation_error,
+                        )
+
+                    evaluation = {
+                        "prompt_id": prompt_id,
+                        "version": version,
+                        "stage": stage,
+                        "model": model,
+                        "tags": prompt_meta.get("tags", []),
+                        "metrics": metrics,
+                    }
+                    evaluations.append(evaluation)
+                    grouped_metrics[(stage, prompt_id, version, model)].append(metrics)
+            except Exception as exc:
+                case_error = str(exc)
+                raise
+            finally:
+                finish_stage_span(
+                    span_name,
+                    metadata={
+                        "case_id": case_id,
+                        "stage": stage,
+                        "evaluation_count": len(evaluations),
+                    },
+                    error=case_error,
+                )
+
+            case_results.append(
+                {
+                    "case_id": case_id,
+                    "stage": stage,
+                    "evaluations": evaluations,
+                }
+            )
+        leaderboard: list[dict[str, object]] = []
+        for (stage, prompt_id, version, model), rows in grouped_metrics.items():
+            prompt_meta = prompt_lookup.get(prompt_id, {})
+            leaderboard.append(
+                {
+                    "stage": stage,
+                    "prompt_id": prompt_id,
+                    "version": version,
+                    "model": model,
+                    "tags": prompt_meta.get("tags", []),
+                    "case_count": len(rows),
+                    "metrics": _average_metric_rows(rows),
+                }
+            )
+
+        leaderboard.sort(
+            key=lambda item: (
+                -float(item["metrics"].get("overall_score_avg", 0.0)),
+                item["stage"],
+                item["prompt_id"],
+            )
+        )
+
+        result_payload = {
+            "generated_at": datetime.now().astimezone().isoformat(),
+            "dataset_path": str(dataset_path),
+            "dataset_meta": dataset_meta,
+            "summary": {
+                "case_count": len(case_results),
+                "evaluation_count": sum(len(case["evaluations"]) for case in case_results),
+                "stage_count": len({case["stage"] for case in case_results}),
+            },
+            "leaderboard": leaderboard,
+            "cases": case_results,
+        }
+
+        out_dir = root_dir / "out" / "evals"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        output_path = out_dir / f"prompt-eval-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json"
+        output_path.write_text(json.dumps(result_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[PromptEval] Wrote results to {output_path}")
+        return output_path
+    except Exception as exc:
+        trace_error = str(exc)
+        raise
+    finally:
+        complete_run_trace(
+            trace_state,
+            metadata={
+                "dataset_path": str(dataset_path),
+                "case_count": len(case_results),
+                "evaluation_count": sum(len(case["evaluations"]) for case in case_results),
+            },
+            error=trace_error,
+        )
+        flush_langfuse(env)

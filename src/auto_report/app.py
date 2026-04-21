@@ -1154,7 +1154,8 @@ def cmd_build_review_queue(root_dir: Path) -> Path:
 def cmd_evaluate_prompts(root_dir: Path, dataset_path: str) -> Path:
     from auto_report.pipeline.prompt_evaluator import evaluate_prompt_dataset
 
-    return evaluate_prompt_dataset(root_dir, Path(dataset_path))
+    settings = load_settings(root_dir)
+    return evaluate_prompt_dataset(root_dir, Path(dataset_path), env=settings.env)
 
 
 def cmd_build_source_governance(root_dir: Path) -> Path:

@@ -224,13 +224,20 @@ def finish_stage_span(
         update_kwargs["level"] = "ERROR"
         update_kwargs["status_message"] = error
     if update_kwargs:
-        span.update(**update_kwargs)
-    span.end()
+        try:
+            span.update(**update_kwargs)
+        except Exception:
+            pass
+    try:
+        span.end()
+    except Exception:
+        pass
 
 
 def start_generation_trace(
     *,
     stage: str | None,
+    parent_name: str | None = None,
     provider: str,
     model: str,
     input_payload: Any | None,
@@ -247,12 +254,13 @@ def start_generation_trace(
         "model": model,
         **(metadata or {}),
     }
+    parent_key = parent_name if parent_name is not None else stage
 
     try:
         observation = trace_state["client"].start_observation(
             trace_context={
                 "trace_id": trace_state["trace_id"],
-                "parent_span_id": _parent_span_id(trace_state, stage),
+                "parent_span_id": _parent_span_id(trace_state, parent_key),
             },
             name=f"llm:{stage or 'default'}",
             as_type="generation",
@@ -299,8 +307,14 @@ def finish_generation_trace(
         update_kwargs["level"] = "ERROR"
         update_kwargs["status_message"] = error
     if update_kwargs:
-        observation.update(**update_kwargs)
-    observation.end()
+        try:
+            observation.update(**update_kwargs)
+        except Exception:
+            pass
+    try:
+        observation.end()
+    except Exception:
+        pass
 
 
 def complete_run_trace(
@@ -324,10 +338,18 @@ def complete_run_trace(
     if error:
         update_kwargs["level"] = "ERROR"
         update_kwargs["status_message"] = error
-    if update_kwargs:
-        root.update(**update_kwargs)
-    root.end()
-    clear_active_trace_state()
+    try:
+        if update_kwargs:
+            try:
+                root.update(**update_kwargs)
+            except Exception:
+                pass
+        try:
+            root.end()
+        except Exception:
+            pass
+    finally:
+        clear_active_trace_state()
 
 
 def flush_langfuse(env: Mapping[str, str] | None = None) -> None:
