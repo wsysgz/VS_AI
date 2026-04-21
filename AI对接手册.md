@@ -390,7 +390,7 @@ Get-Content out/source-governance/source-governance.json
 
 - `anthropic-news` 已完成收口：官方 RSS/feed 候选当前 404，保留远端已验证通过的官方 news listing 作为正式入口
 - `OpenCLI` 侧车 pilot 还没做
-- `P2-C Langfuse tracing` 已完成本地实接与远端 rollout 验证；当前剩余是 trace 维度统一与预算治理尾项
+- `P2` 尾项已经继续推进：`prompt eval tracing`、`provider fallback`、`budget guardrail`、`per-stage latency/token budget` 已落地
 - discovery/search helper 已落地，并已进入 governance / review queue 的人工审批流
 
 最近可见的 source failure 示例：
@@ -398,10 +398,14 @@ Get-Content out/source-governance/source-governance.json
 补充状态（2026-04-18 之后继续接手时要记住）：
 
 - P1 的核心工程目标已经基本收口，不再建议把 P1 当成长时间阻塞项
-- 下一阶段主线应转向 P2 准备与落地：
-  1. 双 AI 并存与 stage routing
-  2. LiteLLM Gateway
-  3. Langfuse tracing
+- P2 核心工程链路也已经基本收口：
+  1. 双 AI 并存与 stage routing 已验证
+  2. LiteLLM Gateway 已验证
+  3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
+- 下一阶段默认优先转向：
+  1. P2.5：OpenCLI sidecar pilot
+  2. 治理尾项：`candidate-updates.json` / priority queue 最小闭环
+  3. P3：飞书与运营面
 - 当前已确认的默认 AI 分工：
   - `analysis` -> DeepSeek
   - `summary` -> MiniMax-M2.7
@@ -480,6 +484,17 @@ $env:LITELLM_MASTER_KEY='sk-change-me'
   - `tracing.enabled`
   - `tracing.trace_id`
   - `tracing.trace_url`
+- `P2` 新增尾项（2026-04-21）：
+  - `evaluate-prompts` 已接入 Langfuse tracing
+  - `llm_client.py` 已支持：主 provider -> 备用 provider -> pipeline fallback 的两层降级
+  - 已支持：
+    - `BACKUP_AI_PROVIDER / BACKUP_AI_BASE_URL / BACKUP_AI_MODEL / BACKUP_AI_API_KEY`
+    - `AI_MAX_STAGE_LATENCY_SECONDS / AI_MAX_STAGE_TOTAL_TOKENS`
+    - 以及各 stage 的 `*_BACKUP_*`、`*_AI_MAX_*` 覆盖
+  - `run-status.json` / `ai_metrics` 现在会额外记录：
+    - `backup_stages`
+    - `guardrail_stages`
+    - 每个 stage 的 `attempts / backup_used / guardrail_reason / budget`
 
 推荐默认分工：
 
@@ -723,6 +738,21 @@ ClawBot 额外事实：
 - 远端验证真正依赖的是“远端 main 上的 workflow 文件是不是最新”，不是本地工作区看起来有没有改好
 - 本地 sidecar（如 `lark-cli`）只做本地验证、美化输出、协作同步，远端主链继续走仓库原生 Feishu API
 - 人工审批流要走完整：`source-lead-issues.json -> source-lead-review-status.json -> candidate-updates.json`
+- 预算/降级策略最好放在同一层：provider fallback 放在 `llm_client.py`，非 AI fallback 继续留在 pipeline 层，不要混成一团
+- 项目收尾时优先清理本地临时目录：
+  - `.codex-pytest-temp*`
+  - `.codex-tmp`
+  - `.pytest_cache`
+  - `.pytest-codex-*`
+  - `.pytest-tmp`
+  - `codex_pytest_temp`
+  - `pytest-tempdir*`
+- 不要把以下目录当成“临时垃圾”直接删：
+  - `data/`
+  - `docs/`
+  - `out/`
+  - `docs/superpowers/`
+- 如果这类本地临时目录删除时遇到 `Access denied`，优先判断是不是测试进程残留或 ACL 异常；不要为了清理临时目录去误删正式交付目录
 
 ## 11. 新会话 AI 启动提示词（可直接复制）
 
@@ -739,7 +769,7 @@ ClawBot 额外事实：
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级已转到 P2 尾项：trace 维度统一、预算治理与 P2.5 准备
+- 当前优先级已转到：P2.5 OpenCLI pilot + 治理尾项 + 收尾交接
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
@@ -755,7 +785,7 @@ ClawBot 额外事实：
 5. 看 `data/state/run-status.json`
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
-8. 再判断是继续推进 `candidate-updates.json`、做远端验证，还是进入 LiteLLM / Langfuse
+8. 再判断是继续推进 `candidate-updates.json`、做 P2.5 OpenCLI pilot，还是做一次发布级验收
 - Telegram 暂不作为当前优化优先级
 ```
 
@@ -771,10 +801,8 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P2 尾项：把 prompt eval 与线上 run 打通统一 trace 维度
-2. P2 尾项：增加 provider fallback、budget guardrail、per-stage latency / token budget
-3. P2.5：OpenCLI sidecar pilot
-4. 治理尾项：把 `candidate-updates.json` / priority queue 继续推进成最小 source update 闭环
-5. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
-6. P3-B：飞书多维表格运营台
-7. workflow / delivery 的可验证性
+1. P2.5：OpenCLI sidecar pilot
+2. 治理尾项：把 `candidate-updates.json` / priority queue 继续推进成最小 source update 闭环
+3. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
+4. P3-B：飞书多维表格运营台
+5. workflow / delivery 的可验证性

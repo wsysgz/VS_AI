@@ -9,7 +9,7 @@
 
 ## Project Status
 
-- Current baseline: `210 passed`
+- Current baseline: `292 passed`
 - Main workflow chain:
   - workflow guard
   - tests

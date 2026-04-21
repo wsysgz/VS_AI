@@ -23,7 +23,10 @@ Public site / 公开站入口:
   - every notification includes the public site entry
   - every notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `210 passed`
+  - `292 passed`
+- Current project phase / 当前阶段:
+  - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
+  - `默认下一步：P2.5 OpenCLI pilot + 来源治理尾项`
 
 ## What It Does / 系统能力
 
