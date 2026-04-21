@@ -59,6 +59,12 @@ def build_parser() -> argparse.ArgumentParser:
     discovery_parser.add_argument("--keywords", required=True, help="Path to keyword list file")
     eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
     eval_parser.add_argument("--dataset", required=True, help="Path to offline prompt evaluation dataset JSON")
+    apply_updates_parser = subparsers.add_parser(
+        "apply-source-updates",
+        help="[Ops] Apply safe approved source updates and rebuild governance artifacts",
+    )
+    apply_updates_parser.add_argument("--dry-run", action="store_true", help="Preview applyable updates without writing config files")
+    subparsers.add_parser("run-watch-checks", help="[Ops] Run repo-local watch checks for active local watch entries")
 
     return parser
 
@@ -180,6 +186,18 @@ def main() -> int:
         from auto_report.app import cmd_evaluate_prompts
 
         cmd_evaluate_prompts(root_dir, dataset_path=getattr(args, "dataset", ""))
+        return 0
+
+    if args.command == "apply-source-updates":
+        from auto_report.app import cmd_apply_source_updates
+
+        cmd_apply_source_updates(root_dir, dry_run=getattr(args, "dry_run", False))
+        return 0
+
+    if args.command == "run-watch-checks":
+        from auto_report.app import cmd_run_watch_checks
+
+        cmd_run_watch_checks(root_dir)
         return 0
 
     return 0

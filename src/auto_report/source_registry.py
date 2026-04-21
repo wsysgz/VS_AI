@@ -77,7 +77,7 @@ def _default_candidate_value(url: str, candidate_kind: str, replacement_target: 
 
 def _default_next_action(candidate_kind: str) -> str:
     if candidate_kind == "changedetection_watch":
-        return "Create a changedetection watch for this URL and store the watch reference."
+        return "Activate the repo-local watch runner for this URL and keep its baseline/results up to date."
     if candidate_kind == "rsshub_route":
         return "Validate an RSSHub route and replace this source with the feed."
     if candidate_kind == "manual_replace":

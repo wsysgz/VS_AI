@@ -23,10 +23,12 @@ Public site / 公开站入口:
   - every notification includes the public site entry
   - every notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `292 passed`
+  - `312 passed`
 - Current project phase / 当前阶段:
   - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
-  - `默认下一步：P2.5 OpenCLI pilot + 来源治理尾项`
+  - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
+  - `P3-A 已启动：飞书推送界面优化（静态卡片 + 文本 fallback）`
+  - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
 
 ## What It Does / 系统能力
 
@@ -306,14 +308,27 @@ python -m auto_report.cli build-review-queue
 - `out/review-queue/review-issues.json` for report-topic review candidates
 - `out/review-queue/source-lead-issues.json` for governance/discovery lead review candidates
 - `out/review-queue/source-lead-review-status.json` for lightweight human decisions
-- `out/review-queue/candidate-updates.json` for approved lead -> source update candidates
+- `out/review-queue/candidate-updates.json` for actionable source/watch updates
+- `out/source-governance/changedetection-watch-registry.json` for repo-local watch progression
+- `out/source-governance/watch-run-results.json` for the latest local watch run summary
+- `out/source-governance/watch-run-state.json` for local watch baselines / seen entries
 
 Recommended local lead-review loop:
 
 1. inspect `source-lead-issues.json`
 2. update matching entries in `source-lead-review-status.json` to `approved`, `rejected`, or `deferred`
 3. rerun `python -m auto_report.cli build-review-queue`
-4. inspect `candidate-updates.json` and use it as the next source-update input set
+4. inspect `candidate-updates.json` and use it as the next source/watch update input set
+5. run `python -m auto_report.cli apply-source-updates`
+6. run `python -m auto_report.cli run-watch-checks`
+
+Recommended current finish-up order / 当前推荐收尾顺序:
+
+1. check `out/source-governance/watch-run-results.json`
+2. clear any `blocked` watch items that are still worth keeping
+3. run the full local verification chain
+4. do a real Feishu canary if `P3-A` changes must be release-validated
+5. only then `push` and optionally trigger remote workflow
 
 Workflow validation profiles / workflow 校验档位:
 

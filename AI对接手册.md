@@ -4,7 +4,7 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-19
+> 最后更新：2026-04-21
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
@@ -26,10 +26,11 @@
 - Canonical remote：`git@github.com:wsysgz/VS_AI.git`
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
-- 当前本地验证基线：`210 passed`
-- 当前主线优先级：`P2：AI 分工 + discovery/search helper + 远端 stage routing`
+- 当前本地验证基线：`312 passed`
+- 当前主线优先级：`P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
+- 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
 - 手动触发 workflow 前必须先 `push`，因为 `workflow_dispatch` 只跑远端已 push 代码
 
 如果你只剩 3 分钟，按这个顺序看：
@@ -237,9 +238,11 @@ collect
 当前治理摘要（以当前仓库 artifact 为准）：
 
 - `manual_review_count = 1`
-- `rsshub_candidate_count = 2`
-- `changedetection_candidate_count = 2`
-- `replacement_candidate_count = 3`
+- `rsshub_candidate_count = 5`
+- `changedetection_candidate_count = 5`
+- `replacement_candidate_count = 6`
+- `changedetection_watch_registry.status_counts.active_local = 4`
+- `changedetection_watch_registry.status_counts.blocked = 1`
 
 ### 4.3 远端执行真相
 
@@ -362,16 +365,18 @@ Get-Content out/source-governance/source-governance.json
 
 这份文件是最快的方向校准器。
 
-## 6. 当前确认过的状态快照（2026-04-17）
+## 6. 当前确认过的状态快照（2026-04-21）
 
 当前确定成立的项目状态：
 
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
-- 当前主线优先级已转向 `P2：AI 分工 + discovery/search helper + 远端 stage routing`
+- 当前主线已切到 `P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
-- 本地验证基线已经提升并固定到 `210 passed`
-- 本轮交接中已再次本地跑通 reviewed 验证；精确时间、主题数和风险等级以当前 `data/state/run-status.json` 为准
+- 本地验证基线已经提升并固定到 `312 passed`
+- 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
+- 当前仅剩一个明确 blocked 来源：`renesas-blog`（403）
+- 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：
 
@@ -389,9 +394,9 @@ Get-Content out/source-governance/source-governance.json
 最近仓库快照显示的未完成重点：
 
 - `anthropic-news` 已完成收口：官方 RSS/feed 候选当前 404，保留远端已验证通过的官方 news listing 作为正式入口
-- `OpenCLI` 侧车 pilot 还没做
-- `P2` 尾项已经继续推进：`prompt eval tracing`、`provider fallback`、`budget guardrail`、`per-stage latency/token budget` 已落地
-- discovery/search helper 已落地，并已进入 governance / review queue 的人工审批流
+- `P3-A` 代码已落地，但还没做真实飞书 canary 级发布验证
+- `renesas-blog` 仍 blocked，需要替代入口或局部 fallback
+- `OpenCLI` 侧车 pilot 继续延后，不与当前批次混做
 
 最近可见的 source failure 示例：
 
@@ -402,10 +407,10 @@ Get-Content out/source-governance/source-governance.json
   1. 双 AI 并存与 stage routing 已验证
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
-- 下一阶段默认优先转向：
-  1. P2.5：OpenCLI sidecar pilot
-  2. 治理尾项：`candidate-updates.json` / priority queue 最小闭环
-  3. P3：飞书与运营面
+- 下一阶段默认优先顺序：
+  1. 完成 `P3-A` 的发布级验收
+  2. 视结果进入 `P3-B：飞书多维表格运营台`
+  3. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
   - `analysis` -> DeepSeek
   - `summary` -> MiniMax-M2.7
@@ -582,13 +587,17 @@ python -m auto_report.cli build-discovery-search --keywords config/source_discov
   - `out/review-queue/source-lead-issues.json`
   - `out/review-queue/source-lead-review-status.json`
   - `out/review-queue/candidate-updates.json`
-- 后者用于把 discovery / search / governance leads 转成人审 issue payload
+- `out/source-governance/changedetection-watch-registry.json`
+- `out/source-governance/watch-run-results.json`
+- 后者用于把 discovery / search / governance leads 转成人审 issue payload，并配合本地 watch runner 做治理收口
 - 建议闭环：
   1. 看 `source-lead-issues.json`
   2. 在 `source-lead-review-status.json` 中把目标 lead 标成 `approved / rejected / deferred`
   3. 再跑一次 `build-review-queue`
-  4. 用 `candidate-updates.json` 作为下一步 source update 候选集
-- `anthropic-news` 建议作为第一批 `approved -> remote validation` 的优先案例
+  4. 用 `candidate-updates.json` 作为下一步 source/watch update 候选集
+  5. 跑 `python -m auto_report.cli apply-source-updates`
+  6. 跑 `python -m auto_report.cli run-watch-checks`
+- 当前收尾阶段优先关注：`watch-run-results.json` 里的 `blocked / changed`
 
 ### 7.4 诊断交付
 
@@ -769,7 +778,7 @@ ClawBot 额外事实：
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级已转到：P2.5 OpenCLI pilot + 治理尾项 + 收尾交接
+- 当前优先级已转到：`P3-A` 主线推进 + repo 内原生 watch runner 收尾 + 发布级验收
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
@@ -785,7 +794,7 @@ ClawBot 额外事实：
 5. 看 `data/state/run-status.json`
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
-8. 再判断是继续推进 `candidate-updates.json`、做 P2.5 OpenCLI pilot，还是做一次发布级验收
+8. 再判断是继续处理 `watch-run-results.json` 里的 blocked/changed，还是直接做一次发布级验收
 - Telegram 暂不作为当前优化优先级
 ```
 
@@ -801,8 +810,8 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P2.5：OpenCLI sidecar pilot
-2. 治理尾项：把 `candidate-updates.json` / priority queue 继续推进成最小 source update 闭环
-3. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
-4. P3-B：飞书多维表格运营台
-5. workflow / delivery 的可验证性
+1. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
+2. 治理尾项：看 `changedetection-watch-registry.json` 和 `watch-run-results.json`，优先处理 blocked/changed
+3. 做发布级本地验收
+4. 如需发布级确认，`push` + workflow_dispatch
+5. P3-B：飞书多维表格运营台

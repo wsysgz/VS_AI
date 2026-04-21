@@ -114,6 +114,12 @@ def test_build_source_registry_treats_json_api_sources_as_stable_official_polls(
     assert registry["qwen-blog"]["watch_strategy"] == "api-poll"
     assert registry["qwen-blog"]["replacement_target"] == "none"
     assert registry["qwen-blog"]["candidate_kind"] == "none"
+    assert registry["infineon-blog"]["mode"] == "json_api"
+    assert registry["infineon-blog"]["stability_tier"] == "stable-api"
+    assert registry["infineon-blog"]["candidate_kind"] == "none"
+    assert registry["qualcomm-onq"]["mode"] == "json_api"
+    assert registry["qualcomm-onq"]["stability_tier"] == "stable-api"
+    assert registry["qualcomm-onq"]["candidate_kind"] == "none"
 
 
 def test_build_source_registry_treats_google_ai_edge_as_stable_rss_feed():

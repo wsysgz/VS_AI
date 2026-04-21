@@ -20,6 +20,8 @@ def test_cli_exposes_all_commands():
     assert "build-discovery-search" in choices
     assert "evaluate-prompts" in choices
     assert "sync-feishu-workspace" in choices
+    assert "apply-source-updates" in choices
+    assert "run-watch-checks" in choices
 
 
 def test_ci_commands_exist():
@@ -122,3 +124,20 @@ def test_sync_feishu_workspace_command_accepts_publication_mode():
 
     assert args.command == "sync-feishu-workspace"
     assert args.publication_mode == "reviewed"
+
+
+def test_apply_source_updates_command_accepts_dry_run():
+    parser = build_parser()
+
+    args = parser.parse_args(["apply-source-updates", "--dry-run"])
+
+    assert args.command == "apply-source-updates"
+    assert args.dry_run is True
+
+
+def test_run_watch_checks_command_accepts_no_arguments():
+    parser = build_parser()
+
+    args = parser.parse_args(["run-watch-checks"])
+
+    assert args.command == "run-watch-checks"

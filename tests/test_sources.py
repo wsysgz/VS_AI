@@ -1,5 +1,6 @@
 from concurrent.futures import TimeoutError
 from pathlib import Path
+import json
 import threading
 import requests
 
@@ -441,6 +442,95 @@ def test_extract_json_items_reads_array_payload_with_index_path():
     ]
     assert items[0].url == "https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html"
     assert items[0].published_at == "11 Nov 2025"
+
+
+def test_extract_json_items_reads_graphql_resource_list():
+    payload = {
+        "data": {
+            "newsFinder": {
+                "resources": [
+                    {
+                        "title": "From hardware to intelligence: The Qualcomm AI camera platform for scalable security solutions",
+                        "url": "https://www.qualcomm.com/news/onq/2026/03/qualcomm-insight-platform-edge-ai-security",
+                        "publishedOn": "Apr 21, 2026",
+                    },
+                    {
+                        "title": "Modernizing RF exposure management",
+                        "url": "https://www.qualcomm.com/news/onq/2026/03/modernizing-rf-exposure-management-smart-transmit-tas",
+                        "publishedOn": "Apr 21, 2026",
+                    },
+                ]
+            }
+        }
+    }
+
+    items = extract_json_items(
+        {
+            "id": "qualcomm-onq",
+            "url": "https://www.qualcomm.com/news/onq",
+            "category_hint": "ai-x-electronics",
+            "json_items_path": ["data", "newsFinder", "resources"],
+            "item_title_field": "title",
+            "item_link_field": "url",
+            "item_date_field": "publishedOn",
+            "include_title_patterns": ["ai", "edge", "iot", "camera", "industrial", "automotive"],
+        },
+        payload,
+    )
+
+    assert [item.title for item in items] == [
+        "From hardware to intelligence: The Qualcomm AI camera platform for scalable security solutions"
+    ]
+    assert items[0].url == "https://www.qualcomm.com/news/onq/2026/03/qualcomm-insight-platform-edge-ai-security"
+
+
+def test_collect_websites_supports_post_backed_json_api_sources(monkeypatch):
+    settings = load_settings(Path.cwd())
+    settings.sources["websites"] = {
+        "sources": [
+            {
+                "id": "qualcomm-onq",
+                "enabled": True,
+                "mode": "json_api",
+                "url": "https://www.qualcomm.com/news/onq",
+                "api_url": "https://prdgraphql.www.qualcomm.com/graphql",
+                "api_method": "post",
+                "api_request_json": {"operationName": "newsFinder"},
+                "json_items_path": ["data", "newsFinder", "resources"],
+                "item_title_field": "title",
+                "item_link_field": "url",
+                "item_date_field": "publishedOn",
+                "include_title_patterns": ["ai", "camera"],
+            }
+        ]
+    }
+
+    def fake_fetch(source: dict) -> str:
+        assert source["api_method"] == "post"
+        assert source["api_request_json"]["operationName"] == "newsFinder"
+        return json.dumps(
+            {
+                "data": {
+                    "newsFinder": {
+                        "resources": [
+                            {
+                                "title": "Qualcomm AI camera platform",
+                                "url": "https://www.qualcomm.com/news/onq/ai-camera",
+                                "publishedOn": "Apr 21, 2026",
+                            }
+                        ]
+                    }
+                }
+            }
+        )
+
+    monkeypatch.setattr("auto_report.sources.collector._fetch_source_body", fake_fetch)
+
+    items, diagnostics = collector_module._collect_websites(settings)
+
+    assert diagnostics == []
+    assert len(items) == 1
+    assert items[0].title == "Qualcomm AI camera platform"
 
 
 def test_collect_websites_aggregates_enabled_sites(monkeypatch):

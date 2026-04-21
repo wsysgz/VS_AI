@@ -16,7 +16,7 @@ from auto_report.integrations.delivery_status import (
     describe_channel_response,
     summarize_delivery_results,
 )
-from auto_report.integrations.feishu import send_feishu_messages
+from auto_report.integrations.feishu import send_feishu_notification_with_fallback
 from auto_report.integrations.langfuse_tracing import (
     build_tracing_status,
     clear_active_trace_state,
@@ -34,6 +34,7 @@ from auto_report.outputs.archive import write_text
 from auto_report.outputs.ops_dashboard import build_ops_dashboard
 from auto_report.outputs.renderers import (
     render_feishu_notification,
+    render_feishu_card_notification,
     render_html_report,
     render_json_report,
     render_markdown_report,
@@ -368,6 +369,43 @@ def _build_feishu_notification(root_dir: Path, settings, publication_mode: str) 
     )
 
 
+def _build_feishu_notification_card(root_dir: Path, settings, publication_mode: str) -> dict[str, object]:
+    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
+    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
+    local_date = generated_at[:10]
+    review = payload.get("meta", {}).get("review", {})
+    if not isinstance(review, dict):
+        review = {}
+    return render_feishu_card_notification(
+        title=_notification_title("AI情报飞书简报", publication_mode, local_date, review=review),
+        generated_at=generated_at,
+        payload=payload,
+        public_site_url=PUBLIC_SITE_URL,
+        raw_report_url=_build_raw_report_url(settings, publication_mode),
+    )
+
+
+def send_feishu_messages(
+    app_id: str,
+    app_secret: str,
+    receive_id: str,
+    text: str,
+    *,
+    card: dict[str, object] | None = None,
+    api_base_url: str = "https://open.feishu.cn",
+    timeout: int = 20,
+) -> list[dict[str, object]]:
+    return send_feishu_notification_with_fallback(
+        app_id,
+        app_secret,
+        receive_id,
+        text,
+        card=card,
+        api_base_url=api_base_url,
+        timeout=timeout,
+    )
+
+
 def _build_delivery_probe_messages() -> dict[str, dict[str, str]]:
     timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
     return {
@@ -435,6 +473,7 @@ def _collect_delivery_results(
     pushplus_content = ""
     telegram_content = ""
     feishu_content = ""
+    feishu_card: dict[str, object] | None = None
     if send:
         if mode == "canary":
             pushplus_title = probe_messages["pushplus"]["title"]
@@ -445,6 +484,7 @@ def _collect_delivery_results(
             pushplus_content = _build_text_notification(root_dir, settings, publication_mode)
             telegram_content = _build_telegram_notification(root_dir, settings, publication_mode)
             feishu_content = _build_feishu_notification(root_dir, settings, publication_mode)
+            feishu_card = _build_feishu_notification_card(root_dir, settings, publication_mode)
 
     delivery_plan = [
         (
@@ -455,6 +495,7 @@ def _collect_delivery_results(
                 settings.env["FEISHU_APP_SECRET"],
                 settings.env["FEISHU_CHAT_ID"],
                 feishu_content,
+                card=feishu_card,
                 api_base_url=settings.env["FEISHU_API_BASE_URL"],
                 timeout=request_timeout,
             ),
@@ -1084,6 +1125,7 @@ def cmd_build_review_queue(root_dir: Path) -> Path:
     from auto_report.pipeline.review_queue import (
         build_review_issue_candidates,
         build_approved_source_lead_updates,
+        build_changedetection_watch_updates,
         build_source_lead_review_payload,
         build_source_lead_review_status_payload,
         build_source_lead_review_candidates,
@@ -1135,12 +1177,18 @@ def cmd_build_review_queue(root_dir: Path) -> Path:
         encoding="utf-8",
     )
     status_payload = json.loads(source_lead_status_path.read_text(encoding="utf-8"))
+    source_updates = build_approved_source_lead_updates(source_lead_issues_payload.get("issues", []), status_payload, governance_payload)
+    watch_updates = build_changedetection_watch_updates(governance_payload)
     source_lead_updates_path.write_text(
         json.dumps(
             {
                 "generated_at": _now_in_timezone_name(os.environ.get("AUTO_TIMEZONE", "Asia/Shanghai")).isoformat(),
-                "count": len(build_approved_source_lead_updates(source_lead_issues_payload.get("issues", []), status_payload, governance_payload)),
-                "updates": build_approved_source_lead_updates(source_lead_issues_payload.get("issues", []), status_payload, governance_payload),
+                "count": len(source_updates) + len(watch_updates),
+                "summary": {
+                    "source_update_count": len(source_updates),
+                    "watch_update_count": len(watch_updates),
+                },
+                "updates": source_updates + watch_updates,
             },
             ensure_ascii=False,
             indent=2,
@@ -1156,6 +1204,22 @@ def cmd_evaluate_prompts(root_dir: Path, dataset_path: str) -> Path:
 
     settings = load_settings(root_dir)
     return evaluate_prompt_dataset(root_dir, Path(dataset_path), env=settings.env)
+
+
+def cmd_apply_source_updates(root_dir: Path, dry_run: bool = False) -> Path:
+    from auto_report.pipeline.source_updates import OUTPUT_PATH, apply_source_updates
+
+    apply_source_updates(root_dir, dry_run=dry_run)
+    if not dry_run:
+        cmd_build_source_governance(root_dir)
+        cmd_build_review_queue(root_dir)
+    return root_dir / OUTPUT_PATH
+
+
+def cmd_run_watch_checks(root_dir: Path) -> Path:
+    from auto_report.pipeline.watch_runner import run_watch_checks
+
+    return run_watch_checks(root_dir)
 
 
 def cmd_build_source_governance(root_dir: Path) -> Path:

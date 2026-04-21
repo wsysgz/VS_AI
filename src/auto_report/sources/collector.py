@@ -38,6 +38,28 @@ def _fetch_text(url: str, timeout: int = 20, retries: int = 1) -> str:
     raise RuntimeError("unreachable")
 
 
+def _fetch_source_body(source: dict[str, Any]) -> str:
+    fetch_url = str(source.get("api_url") or source["url"])
+    timeout = int(source.get("timeout_seconds", 20) or 20)
+    method = str(source.get("api_method", "get")).strip().lower() or "get"
+    headers = {"User-Agent": "auto-report/0.1"}
+    extra_headers = source.get("request_headers", {})
+    if isinstance(extra_headers, dict):
+        headers.update({str(key): str(value) for key, value in extra_headers.items()})
+
+    if method == "post":
+        response = requests.post(
+            fetch_url,
+            json=source.get("api_request_json", {}),
+            timeout=timeout,
+            headers=headers,
+        )
+        response.raise_for_status()
+        return response.text
+
+    return _fetch_text(fetch_url, timeout=timeout)
+
+
 def _collect_rss(settings: Settings) -> tuple[list[CollectedItem], list[str]]:
     items: list[CollectedItem] = []
     diagnostics: list[str] = []
@@ -124,8 +146,7 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
 
     def _fetch_one_site(source: dict) -> list[CollectedItem]:
         mode = str(source.get("mode", "article_listing")).strip() or "article_listing"
-        fetch_url = str(source.get("api_url") or source["url"])
-        body = _fetch_text(fetch_url)
+        body = _fetch_source_body(source)
         if mode == "json_api":
             extracted = extract_json_items(source, json.loads(body))
             return extracted[: int(source.get("max_items", 12))]

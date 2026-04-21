@@ -478,6 +478,9 @@ def _infer_source_id(issue: dict[str, object]) -> str:
     meta = issue.get("meta", {})
     if not isinstance(meta, dict):
         return ""
+    explicit_source_id = str(meta.get("source_id", "")).strip()
+    if explicit_source_id:
+        return explicit_source_id
     keyword = str(meta.get("keyword", "")).strip().lower()
     url = str(meta.get("url", "")).strip().lower()
     title = str(meta.get("title", "")).strip().lower()
@@ -492,8 +495,6 @@ def _infer_source_id(issue: dict[str, object]) -> str:
 
 
 def _remote_validation_required(source_id: str, target_kind: str) -> bool:
-    if source_id == "anthropic-news":
-        return True
     return False
 
 
@@ -509,12 +510,14 @@ def _target_file_for_update(source_id: str, target_kind: str, source_info: dict[
 
 
 def _validation_mode_for_update(source_id: str, target_kind: str) -> str:
-    if source_id == "anthropic-news":
-        return "remote_feed_validation"
-    if target_kind in {"official_feed", "rsshub"}:
+    if target_kind == "official_feed":
         return "local_feed_validation"
+    if target_kind == "rsshub":
+        return "manual_rsshub_validation"
     if target_kind == "changedetection":
-        return "remote_watch_validation"
+        return "local_watch_metadata_update"
+    if target_kind == "validated_listing":
+        return "local_listing_validation"
     return "manual_review"
 
 
@@ -547,10 +550,48 @@ def _suggested_fields_for_update(
                 "enabled": bool(source_info.get("enabled", True)),
                 "mode": str(source_info.get("mode", "")).strip() or "article_listing",
                 "url": candidate_value,
+                "candidate_kind": "changedetection_watch",
+                "candidate_value": candidate_value,
                 "watch_strategy": "changedetection-watch",
+                "next_action": "Create a changedetection watch for this URL and store the watch reference.",
             }
         )
     return {key: value for key, value in fields.items() if value not in {"", None}}
+
+
+def _is_source_update_current(
+    source_info: dict[str, object],
+    target_kind: str,
+    candidate_value: str,
+    suggested_fields: dict[str, object],
+) -> bool:
+    if not isinstance(source_info, dict) or not source_info:
+        return False
+    if target_kind == "validated_listing":
+        return (
+            str(source_info.get("collector", "")).strip() == str(suggested_fields.get("collector", "")).strip()
+            and bool(source_info.get("enabled", False)) == bool(suggested_fields.get("enabled", False))
+            and str(source_info.get("mode", "")).strip() == str(suggested_fields.get("mode", "")).strip()
+            and str(source_info.get("url", "")).strip() == candidate_value
+            and str(source_info.get("candidate_kind", "")).strip() == str(suggested_fields.get("candidate_kind", "")).strip()
+            and str(source_info.get("candidate_value", "")).strip() == str(suggested_fields.get("candidate_value", "")).strip()
+            and str(source_info.get("watch_strategy", "")).strip() == str(suggested_fields.get("watch_strategy", "")).strip()
+            and str(source_info.get("stability_tier", "")).strip() == str(suggested_fields.get("stability_tier", "")).strip()
+        )
+    if target_kind == "official_feed":
+        return (
+            str(source_info.get("collector", "")).strip() == "rss"
+            and str(source_info.get("url", "")).strip() == candidate_value
+            and str(source_info.get("watch_strategy", "")).strip() == "feed-poll"
+        )
+    if target_kind == "changedetection":
+        return (
+            str(source_info.get("url", "")).strip() == candidate_value
+            and str(source_info.get("watch_strategy", "")).strip() == str(suggested_fields.get("watch_strategy", "")).strip()
+            and str(source_info.get("candidate_kind", "")).strip() == str(suggested_fields.get("candidate_kind", "")).strip()
+            and str(source_info.get("candidate_value", "")).strip() == str(suggested_fields.get("candidate_value", "")).strip()
+        )
+    return False
 
 
 def build_approved_source_lead_updates(
@@ -580,7 +621,8 @@ def build_approved_source_lead_updates(
         note = str(status.get("note", "")).strip()
         if source_id and source_id in emitted_source_ids:
             continue
-        emitted_source_ids.add(source_id)
+        if source_id:
+            emitted_source_ids.add(source_id)
 
         # anthropic-news is already validated as a working website listing in this repo.
         # The "approved" action should therefore capture the current source as the
@@ -617,11 +659,21 @@ def build_approved_source_lead_updates(
         else:
             remote_validation_required = _remote_validation_required(source_id, target_kind)
             validation_mode = _validation_mode_for_update(source_id, target_kind)
-            apply_ready = not remote_validation_required
             blocking_reason = ""
-            if remote_validation_required:
-                blocking_reason = "Requires remote validation before applying this source update."
             candidate_value = _candidate_value_for_issue(issue, target_kind)
+            if not source_id:
+                apply_ready = False
+                blocking_reason = "Requires manual source mapping before applying this source update."
+            elif target_kind == "rsshub":
+                apply_ready = False
+                blocking_reason = "RSSHub updates stay review-only until the repo defines a validated RSSHub base contract."
+            elif not candidate_value:
+                apply_ready = False
+                blocking_reason = "Missing candidate value for this approved source update."
+            else:
+                apply_ready = not remote_validation_required
+            if remote_validation_required and not blocking_reason:
+                blocking_reason = "Requires remote validation before applying this source update."
             target_file = _target_file_for_update(source_id, target_kind, source_info)
             suggested_fields = _suggested_fields_for_update(issue, target_kind, source_info)
             current_source = {
@@ -630,8 +682,11 @@ def build_approved_source_lead_updates(
                 "mode": str(source_info.get("mode", "")).strip(),
                 "url": str(source_info.get("url", "")).strip(),
             }
+        if _is_source_update_current(source_info, target_kind, candidate_value, suggested_fields):
+            continue
         updates.append(
             {
+                "update_kind": "source_update",
                 "lead_key": lead_key,
                 "keyword": str(meta.get("keyword", "")).strip(),
                 "title": str(meta.get("title", "")).strip(),
@@ -668,6 +723,64 @@ def build_approved_source_lead_updates(
     return updates
 
 
+def build_changedetection_watch_updates(governance_payload: dict[str, object]) -> list[dict[str, object]]:
+    registry = governance_payload.get("changedetection_watch_registry", {})
+    if not isinstance(registry, dict):
+        return []
+    items = registry.get("items", [])
+    if not isinstance(items, list):
+        return []
+    updates: list[dict[str, object]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        status = str(item.get("status", "")).strip() or "planned"
+        if status not in {"planned", "requested"}:
+            continue
+        source_id = str(item.get("source_id", "")).strip()
+        watch_target = str(item.get("watch_target", "")).strip()
+        if not source_id or not watch_target:
+            continue
+        updates.append(
+            {
+                "update_kind": "watch_update",
+                "lead_key": f"changedetection-watch|{source_id}|{watch_target}",
+                "keyword": source_id,
+                "title": source_id,
+                "bucket": "changedetection_watch_registry",
+                "source_id": source_id,
+                "status": status,
+                "note": str(item.get("note", "")).strip(),
+                "target_kind": "changedetection_watch",
+                "candidate_value": watch_target,
+                "target_file": "out/source-governance/changedetection-watch-registry.json",
+                "suggested_fields": {
+                    "status": "active_local",
+                    "note": "Managed by repo-local watch runner.",
+                    "next_action": "Run local watch checks.",
+                },
+                "current_source": {
+                    "status": status,
+                    "watch_target": watch_target,
+                },
+                "validation_mode": "registry_status_update",
+                "remote_validation_required": False,
+                "apply_ready": True,
+                "blocking_reason": "",
+                "recommended_next_step": "Activate repo-local watch monitoring and initialize the baseline.",
+                "priority_score": int(item.get("priority_score", 0) or 0),
+                "priority_label": str(item.get("priority_label", "low")).strip() or "low",
+            }
+        )
+    updates.sort(
+        key=lambda item: (
+            -int(item.get("priority_score", 0)),
+            str(item.get("source_id", "")),
+        )
+    )
+    return updates
+
+
 def load_source_governance_payload(root_dir: Path) -> dict[str, object]:
     path = root_dir / "out" / "source-governance" / "source-governance.json"
     if not path.exists():
@@ -676,4 +789,15 @@ def load_source_governance_payload(root_dir: Path) -> dict[str, object]:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-    return payload if isinstance(payload, dict) else {}
+    if not isinstance(payload, dict):
+        return {}
+
+    registry_path = root_dir / "out" / "source-governance" / "changedetection-watch-registry.json"
+    if "changedetection_watch_registry" not in payload and registry_path.exists():
+        try:
+            registry_payload = json.loads(registry_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            registry_payload = {}
+        if isinstance(registry_payload, dict):
+            payload["changedetection_watch_registry"] = registry_payload
+    return payload

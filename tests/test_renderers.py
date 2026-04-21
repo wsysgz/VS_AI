@@ -1,4 +1,5 @@
 from auto_report.outputs.renderers import (
+    render_feishu_card_notification,
     render_feishu_notification,
     render_html_report,
     render_markdown_report,
@@ -143,6 +144,26 @@ def test_render_feishu_notification_uses_mid_brief_shape():
     assert "重点主题" not in text
     assert "公开阅读：" in text
     assert "GitHub 原文：" in text
+
+
+def test_render_feishu_card_notification_uses_static_card_shape():
+    payload = _sample_payload()
+    payload["meta"]["publication_mode"] = "reviewed"
+    payload["meta"]["review"] = {"reviewer": "Alice", "review_note": "checked key sources"}
+    card = render_feishu_card_notification(
+        title="AI情报飞书简报 | 2026-04-10 | 北京时间 07:00",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=payload,
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+    )
+
+    assert card["header"]["title"]["content"].startswith("AI情报飞书简报")
+    assert card["header"]["template"] == "blue"
+    assert any(element.get("tag") == "action" for element in card["elements"])
+    action = next(element for element in card["elements"] if element.get("tag") == "action")
+    assert action["actions"][0]["url"] == "https://wsysgz.github.io/VS_AI/"
+    assert action["actions"][1]["url"].startswith("https://github.com/wsysgz/VS_AI/")
 
 
 def test_render_markdown_report_uses_formal_brief_sections():

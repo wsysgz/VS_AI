@@ -236,6 +236,48 @@ def test_load_settings_uses_live_curated_chip_ai_repositories():
     assert "NVIDIA/cuda-cmake" not in repos
 
 
+def test_load_settings_includes_recent_domestic_and_international_governance_sources():
+    settings = load_settings(Path.cwd())
+    website_sources = {
+        source["id"]: source for source in settings.sources["websites"]["sources"]
+    }
+    github_sources = {
+        source["id"]: source for source in settings.sources["github"]["sources"]
+    }
+
+    assert "zhipu-news" in website_sources
+    assert website_sources["zhipu-news"]["url"] == "https://www.zhipuai.cn/zh/news"
+    assert "renesas-blog" in website_sources
+    assert "edge-impulse-blog" in website_sources
+    assert "cerebras-blog" in website_sources
+    assert website_sources["cerebras-blog"]["url"] == "https://www.cerebras.ai/blog"
+    assert website_sources["cerebras-blog"]["mode"] == "article_listing"
+    assert "groq-blog" in website_sources
+    assert website_sources["groq-blog"]["url"] == "https://groq.com/blog"
+    assert website_sources["groq-blog"]["mode"] == "structured_page"
+    assert "espressif-blog" in website_sources
+    assert website_sources["espressif-blog"]["url"] == "https://developer.espressif.com/blog/"
+    assert "mediatek-blog" in website_sources
+    assert website_sources["mediatek-blog"]["url"] == "https://www.mediatek.com/blog"
+    assert website_sources["infineon-blog"]["mode"] == "json_api"
+    assert "insightsarticlenewsl.pagelisting.json" in website_sources["infineon-blog"]["api_url"]
+    assert website_sources["qualcomm-onq"]["mode"] == "json_api"
+    assert website_sources["qualcomm-onq"]["api_method"] == "post"
+
+    agent_repos = github_sources["curated-agent-repos"]["repositories"]
+    infra_repos = github_sources["curated-infra-repos"]["repositories"]
+    edge_repos = github_sources["curated-edge-repos"]["repositories"]
+
+    assert "microsoft/autogen" in agent_repos
+    assert "openai/openai-agents-python" in agent_repos
+    assert "mistralai/mistral-inference" in infra_repos
+    assert "QwenLM/Qwen3" in agent_repos
+    assert "modelscope/ms-swift" in infra_repos
+    assert "deepseek-ai/DeepEP" in infra_repos
+    assert "espressif/esp-dl" in edge_repos
+    assert "Seeed-Studio/SSCMA-Micro" in edge_repos
+
+
 def test_load_settings_disables_dead_vendor_ai_blog_slots():
     settings = load_settings(Path.cwd())
     website_sources = {

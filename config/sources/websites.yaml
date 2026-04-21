@@ -62,18 +62,148 @@ sources:
       - /blog/posts/
     exclude_url_patterns:
       - "#"
-  - id: qualcomm-onq
+  - id: zhipu-news
     enabled: true
     mode: article_listing
+    url: https://www.zhipuai.cn/zh/news
+    category_hint: ai-llm-agent
+    max_items: 6
+    link_selector: "a[href*='/zh/news/']"
+    include_url_patterns:
+      - /zh/news/
+    include_title_patterns:
+      - glm
+      - agent
+      - ai
+      - 模型
+      - 智能体
+      - 端侧
+      - 开源
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - 业绩
+      - 公示
+      - 招聘
+  - id: cerebras-blog
+    enabled: true
+    mode: article_listing
+    url: https://www.cerebras.ai/blog
+    category_hint: ai-llm-agent
+    max_items: 6
+    link_selector: "a[href^='/blog/']"
+    include_url_patterns:
+      - /blog/
+    include_title_patterns:
+      - agent
+      - inference
+      - latency
+      - openai
+      - qwen
+      - glm
+      - speed
+      - model
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - newsletter
+      - highlights
+  - id: groq-blog
+    enabled: true
+    mode: structured_page
+    url: https://groq.com/blog
+    category_hint: ai-llm-agent
+    max_items: 6
+    entry_selector: "article"
+    title_selector: "h2"
+    link_selector: "h2 a[href^='/blog/']"
+    include_url_patterns:
+      - /blog/
+    include_title_patterns:
+      - agent
+      - inference
+      - latency
+      - openai
+      - qwen
+      - llama
+      - model
+      - groqcloud
+      - mcp
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - newsletter
+      - event
+  - id: qualcomm-onq
+    enabled: true
+    mode: json_api
     url: https://www.qualcomm.com/news/onq
+    api_url: https://prdgraphql.www.qualcomm.com/graphql
+    api_method: post
+    api_request_json:
+      operationName: newsFinder
+      query: >-
+        query newsFinder($searchInput: InterceptorSearchInput!) {
+          newsFinder(searchInput: $searchInput) {
+            fields filters numberFound spellcheck start resources
+          }
+        }
+      variables:
+        searchInput:
+          requestGuid: vs-ai-watch
+          resourceFields:
+            - title
+            - url
+            - field_blog_author_title
+            - field_blog_teaser_image_file_url
+            - field_blog_teaser_image_title
+            - field_blog_type
+            - field_content_tags_name
+            - field_pr_body_summary
+            - field_press_note
+            - field_publish_date
+            - readTime
+            - hardwareCategories
+          rows: 24
+          sourceApplication: WWW-AEM
+          start: 0
+          filterFields:
+            - field: isDownloadable
+              values:
+                - "False"
+            - field: resourceSubType
+              values:
+                - blog
+            - field: field_blog_type
+              values:
+                - "0"
+          searchText: ""
+          sessionGuid: vs-ai-watch
+          sortFields:
+            field: publishedOn
+            order: desc
     category_hint: ai-x-electronics
     max_items: 6
-    link_selector: "a[href*='/news/onq/']"
-    include_url_patterns:
-      - /news/onq/
-    exclude_url_patterns:
-      - /support
-      - "#"
+    json_items_path:
+      - data
+      - newsFinder
+      - resources
+    item_title_field: title
+    item_link_field: url
+    item_date_field: publishedOn
+    include_title_patterns:
+      - ai
+      - edge
+      - iot
+      - robotics
+      - camera
+      - industrial
+      - automotive
+      - compute
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
   - id: openvino-blog
     enabled: true
     mode: structured_page
@@ -135,13 +265,16 @@ sources:
   # --- Round 4 expansion: AI × Electronics high-quality official sources ---
   - id: infineon-blog
     enabled: true
-    mode: article_listing
+    mode: json_api
     url: https://www.infineon.com/cms/en/about-infineon/press/press-releases/
+    api_url: https://www.infineon.com/content/ifx/en/about/press/press-releases/jcr:content/root/ifxcontainer_1087892422/insightsarticlenewsl.pagelisting.json
     category_hint: ai-x-electronics
     max_items: 6
-    link_selector: "a[href*='/press/press-releases/']"
-    include_url_patterns:
-      - /press/press-releases/
+    json_items_path: []
+    item_title_field: articleTitle
+    item_link_field: articleUrl
+    item_link_template: https://www.infineon.com{value}
+    item_date_field: articlePublishFormattedDate
     include_title_patterns:
       - ai
       - machine learning
@@ -157,6 +290,31 @@ sources:
       - event
       - register
       - invitation
+  - id: renesas-blog
+    enabled: true
+    mode: article_listing
+    url: https://www.renesas.com/en/blogs
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a[href*='/en/blogs/']"
+    include_url_patterns:
+      - /en/blogs/
+    include_title_patterns:
+      - ai
+      - edge ai
+      - industrial
+      - detection
+      - vision
+      - accelerator
+      - smart
+      - power
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - summit
   - id: ti-e2e-blog
     enabled: true
     mode: json_api
@@ -185,3 +343,78 @@ sources:
       - event
       - register
       - training
+  - id: edge-impulse-blog
+    enabled: true
+    mode: article_listing
+    url: https://www.edgeimpulse.com/blog
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "a[href^='/blog/']"
+    include_url_patterns:
+      - /blog/
+    include_title_patterns:
+      - edge ai
+      - embedded
+      - arduino
+      - qualcomm
+      - yolo
+      - vision
+      - sensor
+      - zephyr
+      - lora
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - webinar
+      - event
+      - register
+      - ebook
+  - id: espressif-blog
+    enabled: true
+    mode: article_listing
+    url: https://developer.espressif.com/blog/
+    category_hint: ai-x-electronics
+    max_items: 6
+    link_selector: "article a[href^='/blog/20']"
+    include_url_patterns:
+      - /blog/20
+    include_title_patterns:
+      - ai
+      - edge
+      - esp32
+      - tflite
+      - llm
+      - iot
+      - gesture
+      - recognition
+      - robotic
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - workshop
+      - event
+      - webinar
+  - id: mediatek-blog
+    enabled: true
+    mode: structured_page
+    url: https://www.mediatek.com/blog
+    category_hint: ai-x-electronics
+    max_items: 6
+    entry_selector: "article"
+    title_selector: "h2"
+    link_selector: "h2 a[href*='/tek-talk-blogs/']"
+    include_url_patterns:
+      - /tek-talk-blogs/
+    include_title_patterns:
+      - ai
+      - iot
+      - edge
+      - robotics
+      - genio
+      - industrial
+      - cloud
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - counterpoint
+      - brand

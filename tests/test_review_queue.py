@@ -5,6 +5,7 @@ from auto_report.app import cmd_build_review_queue
 from auto_report.pipeline.review_queue import (
     build_review_issue_candidates,
     build_approved_source_lead_updates,
+    build_changedetection_watch_updates,
     build_source_lead_review_candidates,
 )
 
@@ -70,6 +71,29 @@ def _sample_governance_payload() -> dict[str, object]:
         "source_registry": {
             "anthropic-news": {
                 "url": "https://www.anthropic.com/news",
+                "collector": "websites",
+                "enabled": True,
+                "mode": "article_listing",
+                "category_hint": "ai-llm-agent",
+                "stability_tier": "verified-listing",
+                "watch_strategy": "listing-poll",
+                "replacement_target": "none",
+                "candidate_kind": "validated_listing",
+                "candidate_value": "https://www.anthropic.com/news",
+            },
+            "qualcomm-onq": {
+                "url": "https://www.qualcomm.com/news/onq",
+                "collector": "websites",
+                "enabled": True,
+                "mode": "article_listing",
+                "category_hint": "ai-x-electronics",
+            },
+            "infineon-blog": {
+                "url": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
+                "collector": "websites",
+                "enabled": True,
+                "mode": "article_listing",
+                "category_hint": "ai-x-electronics",
             }
         },
         "source_governance": {
@@ -77,6 +101,14 @@ def _sample_governance_payload() -> dict[str, object]:
                 {
                     "source_id": "anthropic-news",
                     "url": "https://www.anthropic.com/news",
+                },
+                {
+                    "source_id": "qualcomm-onq",
+                    "url": "https://www.qualcomm.com/news/onq",
+                },
+                {
+                    "source_id": "infineon-blog",
+                    "url": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
                 }
             ]
         },
@@ -91,6 +123,17 @@ def _sample_governance_payload() -> dict[str, object]:
                 "rsshub_candidate": "/anthropic/news",
                 "changedetection_candidate": "https://www.anthropic.com/news",
                 "next_action": "优先验证官方 feed。",
+            },
+            {
+                "keyword": "Qualcomm on-device AI",
+                "title": "Qualcomm OnQ Feed",
+                "url": "https://www.qualcomm.com/news/onq",
+                "classification": "official-feed",
+                "confidence": "high",
+                "feed_candidate": "https://www.qualcomm.com/news/onq/feed",
+                "rsshub_candidate": "",
+                "changedetection_candidate": "",
+                "next_action": "验证官方 feed 后切换到 RSS。",
             }
         ],
         "rsshub_leads": [
@@ -117,6 +160,17 @@ def _sample_governance_payload() -> dict[str, object]:
                 "rsshub_candidate": "",
                 "changedetection_candidate": "https://developer.nvidia.com/blog/tag/jetson/",
                 "next_action": "建立 changedetection watch。",
+            },
+            {
+                "keyword": "Infineon edge AI",
+                "title": "Infineon Press Releases",
+                "url": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
+                "classification": "official-site",
+                "confidence": "high",
+                "feed_candidate": "",
+                "rsshub_candidate": "",
+                "changedetection_candidate": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
+                "next_action": "建立 changedetection watch。",
             }
         ],
     }
@@ -139,7 +193,7 @@ def test_build_review_issue_candidates_selects_high_value_topics_and_formats_iss
 def test_build_source_lead_review_candidates_formats_governance_leads():
     queue = build_source_lead_review_candidates(_sample_governance_payload(), limit_per_kind=2)
 
-    assert len(queue) == 3
+    assert len(queue) == 5
     first = queue[0]
     assert first["meta"]["source_id"] == "anthropic-news"
     assert first["title"].startswith("[Lead review]")
@@ -163,6 +217,32 @@ def test_cmd_build_review_queue_writes_clustered_lead_payload_and_status_file(tm
         json.dumps(_sample_governance_payload(), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    (governance_dir / "changedetection-watch-registry.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-21T10:00:00+08:00",
+                "count": 1,
+                "summary": {"status_counts": {"planned": 1}},
+                "items": [
+                    {
+                        "source_id": "infineon-blog",
+                        "watch_target": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
+                        "priority_score": 90,
+                        "priority_label": "high",
+                        "status": "planned",
+                        "note": "",
+                        "watch_url": "",
+                        "watch_reference": "",
+                        "next_action": "Create a changedetection watch for this URL and store the watch reference.",
+                        "updated_at": "",
+                    }
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
     output_path = cmd_build_review_queue(tmp_path)
 
@@ -172,16 +252,22 @@ def test_cmd_build_review_queue_writes_clustered_lead_payload_and_status_file(tm
     assert payload["issues"][0]["title"] == "[V7 review] Launch HN: Agent debugger"
     lead_path = tmp_path / "out" / "review-queue" / "source-lead-issues.json"
     lead_payload = json.loads(lead_path.read_text(encoding="utf-8"))
-    assert lead_payload["count"] == 3
+    assert lead_payload["count"] == 5
     assert lead_payload["issues"][0]["title"].startswith("[Lead review]")
     assert lead_payload["clusters"][0]["keyword"] == "Anthropic news"
     assert lead_payload["clusters"][0]["priority_score"] >= lead_payload["clusters"][-1]["priority_score"]
     assert lead_payload["clusters"][0]["issue_count"] >= 1
     status_path = tmp_path / "out" / "review-queue" / "source-lead-review-status.json"
     status_payload = json.loads(status_path.read_text(encoding="utf-8"))
-    assert status_payload["count"] == 3
+    assert status_payload["count"] == 5
     assert status_payload["items"][0]["status"] == "pending"
     assert status_payload["items"][0]["lead_key"]
+    updates_path = tmp_path / "out" / "review-queue" / "candidate-updates.json"
+    updates_payload = json.loads(updates_path.read_text(encoding="utf-8"))
+    assert updates_payload["count"] == 1
+    assert updates_payload["summary"]["watch_update_count"] == 1
+    assert updates_payload["summary"]["source_update_count"] == 0
+    assert updates_payload["updates"][0]["target_kind"] == "changedetection_watch"
 
 
 def test_cmd_build_review_queue_preserves_existing_lead_review_status(tmp_path: Path):
@@ -272,12 +358,129 @@ def test_build_approved_source_lead_updates_includes_anthropic_news_when_approve
         ]
     }
 
-    updates = build_approved_source_lead_updates(issues, status_payload)
+    updates = build_approved_source_lead_updates(issues, status_payload, payload)
 
-    assert updates[0]["keyword"] in {"Anthropic news", "AI model safety blog"}
-    assert "anthropic" in updates[0]["lead_key"].lower()
-    assert updates[0]["candidate_value"] == "https://www.anthropic.com/news"
-    assert updates[0]["source_id"] == "anthropic-news"
-    assert updates[0]["remote_validation_required"] is False
+    assert updates == []
+
+
+def test_build_approved_source_lead_updates_prefers_meta_source_id_for_known_feed_upgrade():
+    payload = _sample_governance_payload()
+    issues = build_source_lead_review_candidates(payload, limit_per_kind=3)
+    qualcomm_issue = next(issue for issue in issues if issue["meta"]["title"] == "Qualcomm OnQ Feed")
+    status_payload = {
+        "items": [
+            {
+                "lead_key": qualcomm_issue["meta"]["lead_key"],
+                "status": "approved",
+                "note": "move to direct feed",
+            }
+        ]
+    }
+
+    updates = build_approved_source_lead_updates(issues, status_payload, payload)
+
+    assert len(updates) == 1
+    assert updates[0]["source_id"] == "qualcomm-onq"
+    assert updates[0]["target_kind"] == "official_feed"
+    assert updates[0]["candidate_value"] == "https://www.qualcomm.com/news/onq/feed"
     assert updates[0]["apply_ready"] is True
     assert updates[0]["blocking_reason"] == ""
+
+
+def test_build_approved_source_lead_updates_marks_rsshub_routes_as_review_only():
+    payload = _sample_governance_payload()
+    issues = build_source_lead_review_candidates(payload, limit_per_kind=3)
+    rsshub_issue = next(issue for issue in issues if issue["meta"]["bucket"] == "rsshub_leads")
+    status_payload = {
+        "items": [
+            {
+                "lead_key": rsshub_issue["meta"]["lead_key"],
+                "status": "approved",
+                "note": "rsshub looks promising",
+            }
+        ]
+    }
+
+    updates = build_approved_source_lead_updates(issues, status_payload, payload)
+
+    assert len(updates) == 1
+    assert updates[0]["target_kind"] == "rsshub"
+    assert updates[0]["apply_ready"] is False
+    assert updates[0]["blocking_reason"]
+
+
+def test_build_approved_source_lead_updates_does_not_collapse_distinct_unknown_leads():
+    issues = [
+        {
+            "body": "Feed candidate: https://example.com/feed-a.xml",
+            "meta": {
+                "lead_key": "official_feed_leads|A|A|https://example.com/a",
+                "keyword": "A",
+                "title": "A",
+                "bucket": "official_feed_leads",
+                "url": "https://example.com/a",
+                "source_id": "",
+                "priority_score": 80,
+                "priority_label": "high",
+            },
+        },
+        {
+            "body": "Feed candidate: https://example.com/feed-b.xml",
+            "meta": {
+                "lead_key": "official_feed_leads|B|B|https://example.com/b",
+                "keyword": "B",
+                "title": "B",
+                "bucket": "official_feed_leads",
+                "url": "https://example.com/b",
+                "source_id": "",
+                "priority_score": 79,
+                "priority_label": "high",
+            },
+        },
+    ]
+    status_payload = {
+        "items": [
+            {"lead_key": issues[0]["meta"]["lead_key"], "status": "approved", "note": ""},
+            {"lead_key": issues[1]["meta"]["lead_key"], "status": "approved", "note": ""},
+        ]
+    }
+
+    updates = build_approved_source_lead_updates(issues, status_payload, {})
+
+    assert len(updates) == 2
+
+
+def test_build_changedetection_watch_updates_emits_only_planned_items():
+    payload = {
+        "changedetection_watch_registry": {
+            "items": [
+                {
+                    "source_id": "infineon-blog",
+                    "watch_target": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
+                    "priority_score": 90,
+                    "priority_label": "high",
+                    "status": "planned",
+                    "note": "",
+                    "next_action": "Create a changedetection watch for this URL and store the watch reference.",
+                    "updated_at": "",
+                },
+                {
+                    "source_id": "qualcomm-onq",
+                    "watch_target": "https://www.qualcomm.com/news/onq",
+                    "priority_score": 90,
+                    "priority_label": "high",
+                    "status": "requested",
+                    "note": "pending local activation",
+                    "next_action": "Activate the local watch runner.",
+                    "updated_at": "2026-04-21T10:00:00+08:00",
+                },
+            ]
+        }
+    }
+
+    updates = build_changedetection_watch_updates(payload)
+
+    assert len(updates) == 2
+    assert all(update["target_kind"] == "changedetection_watch" for update in updates)
+    assert all(update["apply_ready"] is True for update in updates)
+    assert all(update["suggested_fields"]["status"] == "active_local" for update in updates)

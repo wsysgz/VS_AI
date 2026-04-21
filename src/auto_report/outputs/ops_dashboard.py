@@ -8,6 +8,17 @@ from auto_report.settings import load_settings
 from auto_report.source_registry import build_source_governance_queue, build_source_registry
 
 
+def _load_source_governance_artifact(root_dir: Path) -> dict[str, object]:
+    path = root_dir / "out" / "source-governance" / "source-governance.json"
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
 def _coerce_float(value: object) -> float | None:
     try:
         return float(value)
@@ -209,6 +220,47 @@ def _render_governance_priority_queue(items: list[object]) -> str:
     return "\n".join(rows)
 
 
+def _render_changedetection_watch_registry(items: list[object]) -> str:
+    if not items:
+        return '<tr><td colspan="8" class="empty">No changedetection watch registry items</td></tr>'
+
+    rows: list[str] = []
+    for raw_item in items:
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item.get('source_id') or '-'))}</td>"
+            f"<td>{escape(str(item.get('status') or '-'))}</td>"
+            f"<td>{escape(str(item.get('priority_label') or '-'))}</td>"
+            f"<td>{escape(str(item.get('priority_score') or '-'))}</td>"
+            f"<td>{escape(str(item.get('watch_target') or '-'))}</td>"
+            f"<td>{escape(str(item.get('watch_reference') or '-'))}</td>"
+            f"<td>{escape(str(item.get('next_action') or '-'))}</td>"
+            f"<td>{escape(str(item.get('note') or '-'))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
+def _render_watch_run_results(items: list[object]) -> str:
+    if not items:
+        return '<tr><td colspan="5" class="empty">No local watch run results</td></tr>'
+
+    rows: list[str] = []
+    for raw_item in items:
+        item = raw_item if isinstance(raw_item, dict) else {}
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(item.get('source_id') or '-'))}</td>"
+            f"<td>{escape(str(item.get('status') or '-'))}</td>"
+            f"<td>{escape(str(item.get('checked_at') or '-'))}</td>"
+            f"<td>{escape(str(item.get('new_item_count') or 0))}</td>"
+            f"<td>{escape(_format_value(item.get('new_items') or []))}</td>"
+            "</tr>"
+        )
+    return "\n".join(rows)
+
+
 def _render_discovery_leads(items: list[object], empty_label: str) -> str:
     if not items:
         return f'<tr><td colspan="7" class="empty">{escape(empty_label)}</td></tr>'
@@ -401,6 +453,8 @@ def _build_dashboard_html(
     prompt_eval_runs: list[dict[str, object]],
     source_registry: dict[str, object],
     source_governance: dict[str, object],
+    changedetection_watch_registry: dict[str, object],
+    watch_run_results: dict[str, object],
 ) -> str:
     delivery_results = status.get("delivery_results", {})
     scheduler = status.get("scheduler", {})
@@ -416,6 +470,8 @@ def _build_dashboard_html(
     changedetection_leads = status.get("changedetection_leads", [])
     source_governance_dict = source_governance if isinstance(source_governance, dict) else {}
     governance_summary = source_governance_dict.get("summary", {})
+    watch_registry_dict = changedetection_watch_registry if isinstance(changedetection_watch_registry, dict) else {}
+    watch_results_dict = watch_run_results if isinstance(watch_run_results, dict) else {}
     regressions = _build_prompt_regressions(prompt_eval_runs)
 
     successful = len(delivery_results.get("successful_channels", []))
@@ -767,6 +823,55 @@ def _build_dashboard_html(
 
   <section class="grid">
     <div class="card">
+      <h2 class="section-title">Local Watch Registry</h2>
+      {_render_key_values(watch_registry_dict.get("summary", {}) if isinstance(watch_registry_dict.get("summary", {}), dict) else {})}
+      <table style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Score</th>
+            <th>Watch Target</th>
+            <th>Watch Reference</th>
+            <th>Next Action</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_changedetection_watch_registry(
+              watch_registry_dict.get("items", []) if isinstance(watch_registry_dict, dict) else []
+          )}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2 class="section-title">Local Watch Run Results</h2>
+      {_render_key_values(watch_results_dict.get("summary", {}) if isinstance(watch_results_dict.get("summary", {}), dict) else {})}
+      <table style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Checked At</th>
+            <th>New Items</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {_render_watch_run_results(
+              watch_results_dict.get("items", []) if isinstance(watch_results_dict, dict) else []
+          )}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
       <h2 class="section-title">Discovery Leads</h2>
       <table>
         <thead>
@@ -1028,16 +1133,46 @@ def build_ops_dashboard(root_dir: Path) -> Path:
     source_governance = status.get("source_governance", {})
     if not isinstance(source_governance, dict) or not source_governance:
         source_governance = {}
+    changedetection_watch_registry = status.get("changedetection_watch_registry", {})
+    if not isinstance(changedetection_watch_registry, dict) or not changedetection_watch_registry:
+        changedetection_watch_registry = {}
+    source_governance_artifact = _load_source_governance_artifact(root_dir)
+    artifact_source_registry = source_governance_artifact.get("source_registry", {})
+    if isinstance(artifact_source_registry, dict) and artifact_source_registry:
+        source_registry = artifact_source_registry
+    artifact_source_governance = source_governance_artifact.get("source_governance", {})
+    if isinstance(artifact_source_governance, dict) and artifact_source_governance:
+        source_governance = artifact_source_governance
+    artifact_watch_registry = source_governance_artifact.get("changedetection_watch_registry", {})
+    if isinstance(artifact_watch_registry, dict) and artifact_watch_registry:
+        changedetection_watch_registry = artifact_watch_registry
+    watch_run_results = status.get("watch_run_results", {})
+    if not isinstance(watch_run_results, dict) or not watch_run_results:
+        watch_run_results = {}
     config_dir = root_dir / "config"
     if not source_registry and config_dir.exists():
         source_registry = build_source_registry(load_settings(root_dir))
     if not source_governance and source_registry:
         source_governance = build_source_governance_queue(source_registry)
+    if not changedetection_watch_registry:
+        registry_path = root_dir / "out" / "source-governance" / "changedetection-watch-registry.json"
+        if registry_path.exists():
+            try:
+                changedetection_watch_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                changedetection_watch_registry = {}
+    if not watch_run_results:
+        watch_results_path = root_dir / "out" / "source-governance" / "watch-run-results.json"
+        if watch_results_path.exists():
+            try:
+                watch_run_results = json.loads(watch_results_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                watch_run_results = {}
     output_dir = root_dir / "out" / "ops-dashboard"
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "index.html"
     output_path.write_text(
-        _build_dashboard_html(status, prompt_eval_runs, source_registry, source_governance),
+        _build_dashboard_html(status, prompt_eval_runs, source_registry, source_governance, changedetection_watch_registry, watch_run_results),
         encoding="utf-8",
     )
     print(f"[OpsDashboard] Built at {output_path}")

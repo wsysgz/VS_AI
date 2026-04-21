@@ -132,3 +132,42 @@ def test_build_source_governance_artifact_builds_lead_views_from_discovery_candi
     assert payload["official_feed_leads"][0]["feed_candidate"] == "https://developer.nvidia.com/blog/tag/jetson/feed/"
     assert payload["rsshub_leads"][0]["rsshub_candidate"] == "/nvidia/jetson"
     assert payload["changedetection_leads"][0]["changedetection_candidate"] == "https://developer.nvidia.com/blog/tag/jetson/"
+
+
+def test_build_source_governance_artifact_preserves_changedetection_watch_registry_state(tmp_path: Path):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+    registry_dir = tmp_path / "out" / "source-governance"
+    registry_dir.mkdir(parents=True)
+    (registry_dir / "changedetection-watch-registry.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-21T09:00:00+08:00",
+                "count": 1,
+                "summary": {"status_counts": {"active": 1}},
+                "items": [
+                    {
+                        "source_id": "cerebras-blog",
+                        "watch_target": "https://www.cerebras.ai/blog",
+                        "priority_score": 90,
+                        "priority_label": "high",
+                        "status": "active_local",
+                        "note": "local runner active",
+                        "next_action": "Run local watch checks.",
+                        "updated_at": "2026-04-21T09:00:00+08:00",
+                    }
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    payload = json.loads(build_source_governance_artifact(tmp_path).read_text(encoding="utf-8"))
+    registry_payload = json.loads((registry_dir / "changedetection-watch-registry.json").read_text(encoding="utf-8"))
+
+    cerebras = next(item for item in registry_payload["items"] if item["source_id"] == "cerebras-blog")
+    assert cerebras["status"] == "active_local"
+    assert "changedetection_watch_registry" in payload
+    assert payload["changedetection_watch_registry"]["count"] >= 1

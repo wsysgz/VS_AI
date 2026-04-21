@@ -1,7 +1,9 @@
 import pytest
 from auto_report.integrations.feishu import (
     FEISHU_MAX_TEXT_LENGTH,
+    build_feishu_card_payload,
     build_feishu_payload,
+    send_feishu_notification_with_fallback,
     send_feishu_message,
     split_feishu_text,
 )
@@ -16,6 +18,14 @@ def test_build_feishu_payload_has_correct_structure():
     # content must be a JSON string, not a dict
     content = json.loads(payload["content"])
     assert content["text"] == "Hello world"
+
+
+def test_build_feishu_card_payload_has_correct_structure():
+    payload = build_feishu_card_payload("oc_xxx", {"elements": [], "header": {"title": {"content": "Hi"}}})
+    assert payload["receive_id"] == "oc_xxx"
+    assert payload["msg_type"] == "interactive"
+    content = json.loads(payload["content"])
+    assert content["header"]["title"]["content"] == "Hi"
 
 
 def test_split_feishu_text_short_text_returns_single_chunk():
@@ -68,3 +78,24 @@ def test_send_feishu_message_rejects_non_zero_send_code(monkeypatch):
 
     with pytest.raises(RuntimeError, match="chat not found"):
         send_feishu_message("app", "secret", "oc_xxx", "text")
+
+
+def test_send_feishu_notification_with_fallback_uses_text_when_card_send_fails(monkeypatch):
+    monkeypatch.setattr(
+        "auto_report.integrations.feishu.send_feishu_card_message",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("card failed")),
+    )
+    monkeypatch.setattr(
+        "auto_report.integrations.feishu.send_feishu_messages",
+        lambda *args, **kwargs: [{"code": 0, "msg": "ok"}],
+    )
+
+    result = send_feishu_notification_with_fallback(
+        "app",
+        "secret",
+        "oc_xxx",
+        "fallback text",
+        card={"header": {"title": {"content": "card"}}},
+    )
+
+    assert result == [{"code": 0, "msg": "ok"}]

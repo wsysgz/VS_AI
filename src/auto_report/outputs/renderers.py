@@ -265,6 +265,97 @@ def render_feishu_notification(
     return "\n".join(lines)
 
 
+def render_feishu_card_notification(
+    title: str,
+    generated_at: str,
+    payload: dict[str, object],
+    public_site_url: str,
+    raw_report_url: str,
+) -> dict[str, object]:
+    brief = compose_executive_brief(title, generated_at, payload)
+    executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"][:2]) or "- 暂无"
+    mainlines = "\n".join(
+        f"- {item['title']}：{item['why_it_matters']}"
+        for item in brief["mainlines"][:3]
+    ) or "- 暂无"
+    actions = "\n".join(f"- {item}" for item in brief["actions"][:2]) or "- 暂无"
+
+    elements: list[dict[str, object]] = [
+        {
+            "tag": "div",
+            "text": {
+                "tag": "lark_md",
+                "content": f"**生成时间**\\n{generated_at}\\n\\n**今日判断**\\n{brief['judgment']}",
+            },
+        },
+        {
+            "tag": "div",
+            "fields": [
+                {
+                    "is_short": False,
+                    "text": {"tag": "lark_md", "content": f"**执行摘要**\\n{executive_summary}"},
+                },
+                {
+                    "is_short": False,
+                    "text": {"tag": "lark_md", "content": f"**关键主线**\\n{mainlines}"},
+                },
+            ],
+        },
+    ]
+
+    if brief["risk_note"]:
+        elements.append(
+            {
+                "tag": "div",
+                "text": {"tag": "lark_md", "content": f"**局限与提醒**\\n- {brief['risk_note']}"},
+            }
+        )
+
+    review_lines = _review_lines(payload)
+    if review_lines:
+        elements.append(
+            {
+                "tag": "div",
+                "text": {"tag": "lark_md", "content": "\\n".join(review_lines)},
+            }
+        )
+
+    elements.extend(
+        [
+            {
+                "tag": "div",
+                "text": {"tag": "lark_md", "content": f"**行动建议**\\n{actions}"},
+            },
+            {
+                "tag": "action",
+                "actions": [
+                    {
+                        "tag": "button",
+                        "text": {"tag": "plain_text", "content": "公开阅读"},
+                        "type": "primary",
+                        "url": public_site_url,
+                    },
+                    {
+                        "tag": "button",
+                        "text": {"tag": "plain_text", "content": "GitHub 原文"},
+                        "type": "default",
+                        "url": raw_report_url,
+                    },
+                ],
+            },
+        ]
+    )
+
+    return {
+        "config": {"wide_screen_mode": True},
+        "header": {
+            "template": "blue",
+            "title": {"tag": "plain_text", "content": title},
+        },
+        "elements": elements,
+    }
+
+
 def render_html_report(
     title: str,
     generated_at: str,

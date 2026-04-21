@@ -310,6 +310,97 @@ def test_build_ops_dashboard_renders_source_registry_from_config(tmp_path: Path)
     assert "google-ai-edge" in html
 
 
+def test_build_ops_dashboard_renders_local_watch_registry_and_results(tmp_path: Path):
+    root = Path.cwd()
+    shutil.copytree(root / "config", tmp_path / "config")
+
+    state_dir = tmp_path / "data" / "state"
+    state_dir.mkdir(parents=True)
+    (state_dir / "run-status.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-21T18:30:00+08:00",
+                "pushed": False,
+                "push_channel": "",
+                "risk_level": "low",
+                "scheduler": {"trigger_kind": "manual", "compensation_run": False},
+                "delivery_results": {
+                    "successful_channels": [],
+                    "failed_channels": [],
+                    "skipped_channels": [],
+                    "channels": {},
+                },
+                "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+                "source_stats": {"collected_items": 0, "report_topics": 0},
+                "timings": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    governance_dir = tmp_path / "out" / "source-governance"
+    governance_dir.mkdir(parents=True)
+    (governance_dir / "changedetection-watch-registry.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-21T18:30:00+08:00",
+                "count": 1,
+                "summary": {"status_counts": {"active_local": 1}},
+                "items": [
+                    {
+                        "source_id": "qualcomm-onq",
+                        "watch_target": "https://www.qualcomm.com/news/onq",
+                        "priority_score": 90,
+                        "priority_label": "high",
+                        "status": "active_local",
+                        "note": "managed locally",
+                        "next_action": "Run local watch checks.",
+                        "updated_at": "2026-04-21T18:30:00+08:00",
+                    }
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    (governance_dir / "watch-run-results.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-04-21T18:35:00+08:00",
+                "summary": {
+                    "active_watch_count": 1,
+                    "initialized_count": 0,
+                    "changed_count": 1,
+                    "unchanged_count": 0,
+                    "blocked_count": 0,
+                },
+                "items": [
+                    {
+                        "source_id": "qualcomm-onq",
+                        "status": "changed",
+                        "checked_at": "2026-04-21T18:35:00+08:00",
+                        "new_item_count": 1,
+                        "new_items": [{"title": "New Post", "url": "https://www.qualcomm.com/news/onq/new"}],
+                    }
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    html = build_ops_dashboard(tmp_path).read_text(encoding="utf-8")
+
+    assert "Local Watch Registry" in html
+    assert "Local Watch Run Results" in html
+    assert "qualcomm-onq" in html
+    assert "active_local" in html
+    assert "managed locally" in html
+    assert "changed" in html
+    assert "New Post" in html
+
+
 def test_build_ops_dashboard_prefers_source_registry_from_run_status(tmp_path: Path):
     state_dir = tmp_path / "data" / "state"
     state_dir.mkdir(parents=True)
