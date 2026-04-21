@@ -60,6 +60,15 @@ def test_diagnose_delivery_defaults_to_canary_mode():
     assert args.mode == "canary"
 
 
+def test_diagnose_delivery_accepts_channel_filter():
+    parser = build_parser()
+
+    args = parser.parse_args(["diagnose-delivery", "--mode", "full-report", "--send", "--channels", "feishu"])
+
+    assert args.command == "diagnose-delivery"
+    assert args.channels == "feishu"
+
+
 def test_run_once_command_accepts_publication_mode():
     parser = build_parser()
 

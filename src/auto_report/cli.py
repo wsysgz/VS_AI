@@ -39,6 +39,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Delivery diagnostic mode",
     )
     diagnose_parser.add_argument("--send", action="store_true", help="Actually send test messages to configured channels")
+    diagnose_parser.add_argument(
+        "--channels",
+        default="",
+        help="Optional comma-separated channels to test (feishu,pushplus,telegram)",
+    )
 
     # CI 专用命令 — Phase 0: 拆分为三个独立阶段供多 job workflow 使用
     subparsers.add_parser("collect-only", help="[CI] Collect + dedup + classify + score, save intermediate result")
@@ -116,6 +121,7 @@ def main() -> int:
             root_dir,
             send=getattr(args, "send", False),
             mode=getattr(args, "mode", "canary"),
+            channels=getattr(args, "channels", ""),
         )
         return 1 if summary["failed_channels"] else 0
 

@@ -27,7 +27,8 @@ Public site / 公开站入口:
 - Current project phase / 当前阶段:
   - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
   - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
-  - `P3-A 已启动：飞书推送界面优化（静态卡片 + 文本 fallback）`
+  - `P3-A 已完成首轮发布级验收：飞书静态卡片 + 文本 fallback 已真实验证`
+  - `P3-B 已正式纳入计划：飞书多维表格运营台将基于现有 sidecar 铺底扩展`
   - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
 
 ## What It Does / 系统能力
@@ -276,6 +277,7 @@ python -m auto_report.cli run-once --publication-mode reviewed
 ```powershell
 $env:PYTHONPATH='src'
 python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
+python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu
 ```
 
 This sidecar is local-only. It is for local verification, prettier Feishu output,
@@ -327,7 +329,7 @@ Recommended current finish-up order / 当前推荐收尾顺序:
 1. check `out/source-governance/watch-run-results.json`
 2. clear any `blocked` watch items that are still worth keeping
 3. run the full local verification chain
-4. do a real Feishu canary if `P3-A` changes must be release-validated
+4. for Feishu card validation, prefer `diagnose-delivery --mode full-report --send --channels feishu`
 5. only then `push` and optionally trigger remote workflow
 
 Workflow validation profiles / workflow 校验档位:

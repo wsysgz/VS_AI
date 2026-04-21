@@ -285,7 +285,7 @@ def render_feishu_card_notification(
             "tag": "div",
             "text": {
                 "tag": "lark_md",
-                "content": f"**生成时间**\\n{generated_at}\\n\\n**今日判断**\\n{brief['judgment']}",
+                "content": f"**生成时间**\n{generated_at}\n\n**今日判断**\n{brief['judgment']}",
             },
         },
         {
@@ -293,11 +293,11 @@ def render_feishu_card_notification(
             "fields": [
                 {
                     "is_short": False,
-                    "text": {"tag": "lark_md", "content": f"**执行摘要**\\n{executive_summary}"},
+                    "text": {"tag": "lark_md", "content": f"**执行摘要**\n{executive_summary}"},
                 },
                 {
                     "is_short": False,
-                    "text": {"tag": "lark_md", "content": f"**关键主线**\\n{mainlines}"},
+                    "text": {"tag": "lark_md", "content": f"**关键主线**\n{mainlines}"},
                 },
             ],
         },
@@ -307,7 +307,7 @@ def render_feishu_card_notification(
         elements.append(
             {
                 "tag": "div",
-                "text": {"tag": "lark_md", "content": f"**局限与提醒**\\n- {brief['risk_note']}"},
+                "text": {"tag": "lark_md", "content": f"**局限与提醒**\n- {brief['risk_note']}"},
             }
         )
 
@@ -316,7 +316,7 @@ def render_feishu_card_notification(
         elements.append(
             {
                 "tag": "div",
-                "text": {"tag": "lark_md", "content": "\\n".join(review_lines)},
+                "text": {"tag": "lark_md", "content": "\n".join(review_lines)},
             }
         )
 
@@ -324,7 +324,7 @@ def render_feishu_card_notification(
         [
             {
                 "tag": "div",
-                "text": {"tag": "lark_md", "content": f"**行动建议**\\n{actions}"},
+                "text": {"tag": "lark_md", "content": f"**行动建议**\n{actions}"},
             },
             {
                 "tag": "action",

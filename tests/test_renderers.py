@@ -166,6 +166,32 @@ def test_render_feishu_card_notification_uses_static_card_shape():
     assert action["actions"][1]["url"].startswith("https://github.com/wsysgz/VS_AI/")
 
 
+def test_render_feishu_card_notification_uses_real_newlines_in_markdown():
+    payload = _sample_payload()
+    payload["meta"]["publication_mode"] = "reviewed"
+    card = render_feishu_card_notification(
+        title="AI情报飞书简报 | 2026-04-10 | 北京时间 07:00",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=payload,
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+    )
+
+    markdown_blocks: list[str] = []
+    for element in card["elements"]:
+        text = element.get("text")
+        if isinstance(text, dict):
+            markdown_blocks.append(str(text.get("content", "")))
+        for field in element.get("fields", []):
+            if isinstance(field, dict):
+                field_text = field.get("text")
+                if isinstance(field_text, dict):
+                    markdown_blocks.append(str(field_text.get("content", "")))
+
+    assert any("\n" in block for block in markdown_blocks)
+    assert all("\\n" not in block for block in markdown_blocks)
+
+
 def test_render_markdown_report_uses_formal_brief_sections():
     report = render_markdown_report(
         title="自动情报快报",

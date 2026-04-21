@@ -457,17 +457,32 @@ def _should_run_feishu_sidecar(settings) -> bool:
     )
 
 
+def _normalize_delivery_channels(channels: str = "") -> set[str] | None:
+    raw = str(channels or "").strip()
+    if not raw:
+        return None
+
+    selected = {item.strip().lower() for item in raw.split(",") if item.strip()}
+    valid = {"feishu", "pushplus", "telegram"}
+    invalid = sorted(selected - valid)
+    if invalid:
+        raise ValueError(f"Unsupported delivery channels: {', '.join(invalid)}")
+    return selected
+
+
 def _collect_delivery_results(
     root_dir: Path,
     settings,
     send: bool,
     mode: str = "full-report",
     publication_mode: str = "auto",
+    channels: str = "",
 ) -> tuple[dict[str, object], dict[str, object]]:
     responses: dict[str, object] = {}
     results: dict[str, dict[str, object]] = {}
     request_timeout = int(settings.env.get("DELIVERY_REQUEST_TIMEOUT", "20"))
     probe_messages = _build_delivery_probe_messages()
+    selected_channels = _normalize_delivery_channels(channels)
 
     pushplus_title = _report_title(publication_mode)
     pushplus_content = ""
@@ -528,6 +543,15 @@ def _collect_delivery_results(
     ]
 
     for channel_name, configured, sender in delivery_plan:
+        if selected_channels is not None and channel_name not in selected_channels:
+            results[channel_name] = build_channel_result(
+                channel_name,
+                configured=configured,
+                attempted=False,
+                ok=False,
+                detail="filtered",
+            )
+            continue
         if not configured:
             results[channel_name] = build_channel_result(
                 channel_name,
@@ -1097,9 +1121,14 @@ def cmd_render_and_push(
     )
 
 
-def cmd_diagnose_delivery(root_dir: Path, send: bool = False, mode: str = "canary") -> dict[str, object]:
+def cmd_diagnose_delivery(
+    root_dir: Path,
+    send: bool = False,
+    mode: str = "canary",
+    channels: str = "",
+) -> dict[str, object]:
     settings = load_settings(root_dir)
-    summary, _ = _collect_delivery_results(root_dir, settings, send=send, mode=mode)
+    summary, _ = _collect_delivery_results(root_dir, settings, send=send, mode=mode, channels=channels)
     for name, item in summary["channels"].items():
         print(
             f"[{name}] status={item['status']} configured={item['configured']} "

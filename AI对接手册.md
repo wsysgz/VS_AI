@@ -4,7 +4,7 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-21
+> 最后更新：2026-04-22
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
@@ -27,7 +27,7 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`312 passed`
-- 当前主线优先级：`P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）`
+- 当前主线优先级：`P3-A 收口 + P3-B 规划：飞书推送界面优化完成发布级验收，飞书多维表格运营台正式纳入计划`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
@@ -107,7 +107,7 @@ git log --oneline -5
 补充执行纪律：
 
 - 如果当前会话已经确认处于 `P2-B LiteLLM Gateway`，就先把 Gateway 接入、文档、测试、回退路径做完
-- `Langfuse tracing`、`飞书推送卡片优化`、`飞书多维表格运营台` 属于后续阶段，不要在同一批实现里混做
+- 当前默认阶段顺序已经切到：先完成 `P3-A` 收口，再进入 `P3-B` 的表结构 / 视图 / 自动化设计；不要把 P3-B 和来源治理尾项、OpenCLI pilot 混做
 
 ## 2. 项目是什么
 
@@ -351,9 +351,9 @@ Get-Content out/source-governance/source-governance.json
 
 读 `V1升级方案.md`，确认：
 
-- 当前主阶段是不是仍是 P1
-- P1 的退出条件有哪些
-- 下一阶段是不是 P2-A / P2-B / P2-C
+- 当前主阶段是不是已经切到 `P3-A / P3-B`
+- `P3-A` 当前还差哪些收口项（持续 canary / 可观测性）
+- `P3-B` 当前是否只是铺底，还是已经进入正式实现
 
 ### 5.5 看交接备忘录
 
@@ -365,13 +365,13 @@ Get-Content out/source-governance/source-governance.json
 
 这份文件是最快的方向校准器。
 
-## 6. 当前确认过的状态快照（2026-04-21）
+## 6. 当前确认过的状态快照（2026-04-22）
 
 当前确定成立的项目状态：
 
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
-- 当前主线已切到 `P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）`
+- 当前主线已切到 `P3-A 收口 + P3-B 规划`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
 - 本地验证基线已经提升并固定到 `312 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
@@ -394,7 +394,14 @@ Get-Content out/source-governance/source-governance.json
 最近仓库快照显示的未完成重点：
 
 - `anthropic-news` 已完成收口：官方 RSS/feed 候选当前 404，保留远端已验证通过的官方 news listing 作为正式入口
-- `P3-A` 代码已落地，但还没做真实飞书 canary 级发布验证
+- `P3-A` 已完成首轮发布级验收：
+  1. 飞书静态卡片真实发送成功
+  2. 文本 fallback 保留
+  3. `diagnose-delivery --mode full-report --send --channels feishu` 已可做 Feishu-only 验证
+- `P3-A` 当前剩余缺口：
+  1. 远端持续 canary 仍未覆盖卡片主路径
+  2. `run-status` 仍未区分 `card_success / text_fallback`
+- `P3-B` 已正式纳入计划，但当前仍处于“sidecar 铺底已存在、运营台尚未建模”的状态
 - `renesas-blog` 仍 blocked，需要替代入口或局部 fallback
 - `OpenCLI` 侧车 pilot 继续延后，不与当前批次混做
 
@@ -408,9 +415,10 @@ Get-Content out/source-governance/source-governance.json
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
 - 下一阶段默认优先顺序：
-  1. 完成 `P3-A` 的发布级验收
-  2. 视结果进入 `P3-B：飞书多维表格运营台`
-  3. `P2.5 OpenCLI pilot` 继续留在 backlog
+  1. 完成 `P3-A` 的收口项（持续 canary + delivery observability）
+  2. 进入 `P3-B：飞书多维表格运营台`
+  3. `P1` 尾项继续只保留 `renesas-blog`
+  4. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
   - `analysis` -> DeepSeek
   - `summary` -> MiniMax-M2.7
@@ -606,6 +614,7 @@ $env:PYTHONPATH='src'
 python -m auto_report.cli diagnose-delivery --mode canary
 python -m auto_report.cli diagnose-delivery --mode canary --send
 python -m auto_report.cli diagnose-delivery --mode full-report --send
+python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu
 python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
 ```
 
@@ -614,6 +623,8 @@ python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
 - `sync-feishu-workspace` / `lark-cli` 是本地侧车，不是 GitHub Actions 主链依赖
 - 远端 workflow 继续使用仓库原生 Feishu API 推送
 - 若 `GITHUB_ACTIONS=true`，sidecar 会自动跳过
+- 如果只想验证飞书卡片路径，优先用：
+  - `python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu`
 
 ### 7.5 离线评估与 workflow 校验
 
@@ -778,10 +789,11 @@ ClawBot 额外事实：
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级已转到：`P3-A` 主线推进 + repo 内原生 watch runner 收尾 + 发布级验收
+- 当前优先级已转到：`P3-A` 收口 + `P3-B` 规划 + repo 内原生 watch runner 收尾
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
+```
 
 ## 12.5 下次上手最短路径
 
@@ -794,9 +806,8 @@ ClawBot 额外事实：
 5. 看 `data/state/run-status.json`
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
-8. 再判断是继续处理 `watch-run-results.json` 里的 blocked/changed，还是直接做一次发布级验收
+8. 再判断是继续处理 `watch-run-results.json` 里的 blocked/changed，还是直接进入 `P3-A` 收口 / `P3-B` 规划
 - Telegram 暂不作为当前优化优先级
-```
 
 ## 12. AI 接手后的首小时清单
 
@@ -810,8 +821,8 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P3-A：飞书推送界面优化（静态卡片 + 文本 fallback）
-2. 治理尾项：看 `changedetection-watch-registry.json` 和 `watch-run-results.json`，优先处理 blocked/changed
-3. 做发布级本地验收
-4. 如需发布级确认，`push` + workflow_dispatch
-5. P3-B：飞书多维表格运营台
+1. P3-A：飞书推送界面优化收口（持续 canary / 可观测性 / 小修）
+2. P3-B：飞书多维表格运营台（把现有 sidecar 铺底升级成正式运营台）
+3. 治理尾项：看 `changedetection-watch-registry.json` 和 `watch-run-results.json`，优先处理 blocked/changed
+4. 做发布级本地验收
+5. 如需发布级确认，`push` + workflow_dispatch

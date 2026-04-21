@@ -3,7 +3,7 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
-from auto_report.app import cmd_analyze_only, cmd_sync_feishu_workspace, run_once
+from auto_report.app import cmd_analyze_only, cmd_diagnose_delivery, cmd_sync_feishu_workspace, run_once
 from auto_report.app import render_reports
 from auto_report.models.records import CollectedItem
 from auto_report.pipeline.run_once import build_run_status
@@ -940,6 +940,52 @@ def test_cmd_sync_feishu_workspace_skips_in_github_actions(tmp_path, monkeypatch
     assert status["enabled"] is False
     assert status["ok"] is False
     assert status["reason"] == "github_actions"
+
+
+def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
+    tmp_path = Path.cwd()
+
+    captured: dict[str, object] = {}
+
+    monkeypatch.setattr("auto_report.app._build_text_notification", lambda *args, **kwargs: "pushplus text")
+    monkeypatch.setattr("auto_report.app._build_telegram_notification", lambda *args, **kwargs: "telegram text")
+    monkeypatch.setattr("auto_report.app._build_feishu_notification", lambda *args, **kwargs: "feishu text")
+    monkeypatch.setattr(
+        "auto_report.app._build_feishu_notification_card",
+        lambda *args, **kwargs: {"header": {"title": {"content": "card"}}, "elements": []},
+    )
+
+    def fake_send_feishu_messages(app_id, app_secret, chat_id, text, **kwargs):
+        captured["text"] = text
+        captured["card"] = kwargs.get("card")
+        return [{"code": 0, "data": {"message_id": "om_1"}}]
+
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pushplus should not send")),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should not send")),
+    )
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    summary = cmd_diagnose_delivery(tmp_path, send=True, mode="full-report", channels="feishu")
+
+    assert captured["text"] == "feishu text"
+    assert captured["card"] == {"header": {"title": {"content": "card"}}, "elements": []}
+    assert summary["successful_channels"] == ["feishu"]
+    assert summary["channels"]["pushplus"]["attempted"] is False
+    assert summary["channels"]["pushplus"]["detail"] == "filtered"
+    assert summary["channels"]["telegram"]["attempted"] is False
+    assert summary["channels"]["telegram"]["detail"] == "filtered"
 
 def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatch):
     root = Path.cwd()
