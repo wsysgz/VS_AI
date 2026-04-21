@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.22</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent systems are advancing rapidly in autonomy and capability, but face critical gaps in debuggability and consistent performance across deployment contexts (cloud vs local), signaling that infrastructure maturity and transparency tooling are now the binding constraints on real-world deployment.</h1>
-      <p class="subtle">A fundamental &#x27;debuggability gap&#x27; has emerged as AI agents evolve from simple chatbots to autonomous systems: their growing operational power outpaces our ability to understand and correct failures, creating a major barrier to reliable production deployment. New frameworks like Microsoft&#x27;s AgentRx are being developed to address systematic debugging of AI agents, though the field remains nascent and the debugging challenge is qualitatively different from traditional software debugging due to issues like hallucinated tool outputs. Local large language models have reached near mid-tier cloud performance (77% on structured tasks like causal loop diagram extraction) but consistently fail on long-context tasks requiring extended error correction (dropping to 0-50%), revealing that the bottleneck is not model size but memory management and sequence handling infrastructure.</p>
+      <h1 class="section-title" style="font-size:34px;">AI agent infrastructure matures toward production deployment while facing critical debugging and observability challenges; local LLM deployments near cloud parity on specific tasks but remain bottlenecked by context length; fairness algorithms attempt to systematize human negotiation.</h1>
+      <p class="subtle">The AI agent ecosystem is experiencing a fundamental shift from capability demonstration to operational reliability, with Microsoft Research&#x27;s AgentRx framework addressing an emerging &#x27;observability gap&#x27; that threatens production adoption despite advancing autonomy. Local LLM deployments have reached approximate parity with mid-tier cloud models on structured extraction tasks (77-89% pass rate), but struggle significantly with interactive tasks requiring long-context reasoning, exposing memory constraints as the key bottleneck rather than model quality itself. Experimental fairness systems like Mediator.ai reveal the inherent tension between algorithmic systematization and the subjective, emotional dimensions of human negotiation, suggesting that quantifiable outcomes may not capture what parties actually perceive as &#x27;fair&#x27;.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">167 topics</span>
         <span class="tag warm">169 raw items</span>
-        <span class="tag">自动版</span>
-        <span class="tag">2026-04-22T01:29:20.122249+08:00</span>
+        <span class="tag">人工复核版</span>
+        <span class="tag">2026-04-22T01:48:36.622783+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AI Agents&#x27; Debugging Crisis: Autonomy Outpaces Transparency</h3>
-  <p>As AI agents take on critical workflows (cloud incident management, multi-step API execution), the inability to trace failures like hallucinated tool outputs threatens to lock them out of production environments where reliability is non-negotiable. The AgentRx framework represents a first systematic attempt to close this gap, but no mature tooling exists yet.</p>
+  <h3>AI Agent Observability Gap Threatens Production Adoption</h3>
+  <p>As agents graduate from chatbots to autonomous cloud incident managers, the inability to trace failures (e.g., hallucinated tool outputs) becomes a blocker for mission-critical deployments. AgentRx represents the first systematic debugging framework, addressing a bottleneck that raw capability improvements cannot solve.</p>
 </article><article class="summary-card">
-  <h3>Local LLMs Narrow the Cloud Gap on Structured Tasks but Break Down on Long Context</h3>
-  <p>The benchmarking study shows local models can match mid-tier cloud performance (~77%) on structured extraction tasks, but collapse to 0-50% on error correction requiring long context windows. This suggests local deployment ambitions are currently capped by memory architecture, not model quality—software stack maturity (GGUF vs MLX backends) matters more than quantization level.</p>
+  <h3>Local LLMs Match Cloud on Structured Tasks but Fail on Context-Heavy Interactions</h3>
+  <p>The benchmark reveals a nuanced reality: local models (Kimi K2.5) achieve 77% on causal loop diagram extraction comparable to mid-tier cloud services, yet drop to 0-50% on error修复 tasks dominated by long-context prompts. This suggests the real constraint for local deployment is hardware memory, not model architecture—a finding with significant cost and privacy implications.</p>
 </article><article class="summary-card">
-  <h3>Algorithmic Fairness via Nash Bargaining + LLMs Remains Unproven in Practice</h3>
-  <p>Mediator.ai&#x27;s attempt to systematize negotiation fairness through game-theoretic models and LLMs faces the fundamental challenge of quantifying inherently subjective, emotionally-laden human value exchanges. Whether such frameworks gain acceptance in legal or relational contexts remains speculative, but the gap between formal rationality and real协商 dynamics is a known limitation.</p>
+  <h3>Backend Selection Outweighs Quantization in Local Deployment</h3>
+  <p>The study demonstrates that llama.cpp vs mlx_lm backend choice has greater practical impact than quantization level, with implications for developers optimizing local LLM stacks. JSON constraint handling and context length limits differ substantially between backends, affecting reliability in production workflows.</p>
 </article>
       </div>
     </section>
@@ -334,21 +334,21 @@
       <div class="summary-grid">
         <article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The evolution of AI agents is creating a fundamental &#x27;debuggability gap&#x27; where their growing operational power outpaces our ability to understand and correct their failures, posing a major barrier to reliable real-world deployment.</p>
+  <p>The evolution of AI agents into operational systems is creating a critical &#x27;observability gap&#x27;; their value and adoption for serious tasks are bottlenecked not by raw capability, but by the lack of frameworks like AgentRx that make their failure modes diagnosable and fixable.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">high</span>
+    <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
   <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
-  <p>Mediator.ai 的核心尝试是将‘公平’这一高度情境化、主观的社会概念，转化为一个可计算、可执行的算法框架，其成败关键在于模型能否有效捕捉并量化协商中那些难以形式化的深层价值与关系因素。</p>
+  <p>该项目试图用数学和AI技术解决人类最主观、最情境化的公平感知问题，核心挑战不在于算法精度，而在于能否捕捉并处理那些无法被量化的协商维度——如关系历史、情感价值、未来信任预期等，这些才是真实协商中决定‘公平感’的关键因素。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
   <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
-  <p>本地大模型在特定结构化任务上已能匹配中端云端性能，但其在需要长上下文理解和复杂交互的‘硬核’AI辅助任务（如错误修复）上的失败，揭示了当前本地部署的核心瓶颈并非纯粹的计算能力或模型大小，而是内存管理与长序列处理的基础架构缺陷；后端选择（GGUF/MLX）带来的实践差异甚至大于量化级别，表明软件栈与推理引擎的成熟度是决定本地AI助手可用性的关键变量。</p>
+  <p>本地大语言模型在系统动力学AI助手任务上已展现出与云端中端模型相当的潜力，但其实际应用效能并非单纯由模型参数或量化决定，而是更关键地受制于部署后端的选择和本地硬件的内存限制，尤其是在处理需要长上下文推理的复杂交互任务时，这一瓶颈暴露无遗。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
@@ -389,8 +389,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>vllm-project/vllm</h3>
+  <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
+  <div class="signal-footer">
+    <span>github.com · 2.5</span>
+    <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
-  <p>Score: 116 | Comments: 60 | Text: Eight years ago, my then-fiancée and I decided to get a prenup, so we hired a local mediator. The meetings were useful, but I felt there was no systematic process to produce a final agreement. So I started to think about this problem, and after a bit of research, I discovered the Nash bargaining sol</p>
+  <p>Score: 118 | Comments: 62 | Text: Eight years ago, my then-fiancée and I decided to get a prenup, so we hired a local mediator. The meetings were useful, but I felt there was no systematic process to produce a final agreement. So I started to think about this problem, and after a bit of research, I discovered the Nash bargaining sol</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
   <div class="signal-footer">
     <span>mediator.ai · 2.5</span>
@@ -399,20 +408,11 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Less human AI agents, please</h3>
-  <p>Score: 97 | Comments: 113</p>
+  <p>Score: 100 | Comments: 117</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>nial.se · 2.5</span>
     <a href="https://nial.se/blog/less-human-ai-agents-please/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>vllm-project/vllm</h3>
-  <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <div class="signal-footer">
-    <span>github.com · 2.5</span>
-    <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -695,168 +695,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>John Ternus to become Apple CEO</h3>
-  <p>Score: 2124 | Comments: 1220</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>apple.com · 1.0</span>
-    <a href="https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Laws of Software Engineering</h3>
-  <p>Score: 547 | Comments: 281</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>lawsofsoftwareengineering.com · 1.0</span>
-    <a href="https://lawsofsoftwareengineering.com" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
-  <p>Score: 395 | Comments: 225</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>docs.openclaw.ai · 1.0</span>
-    <a href="https://docs.openclaw.ai/providers/anthropic" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Kimi vendor verifier – verify accuracy of inference providers</h3>
-  <p>Score: 301 | Comments: 28</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>kimi.com · 1.0</span>
-    <a href="https://www.kimi.com/blog/kimi-vendor-verifier" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Ternary Bonsai: Top Intelligence at 1.58 Bits</h3>
-  <p>Score: 211 | Comments: 54</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>prismml.com · 1.0</span>
-    <a href="https://prismml.com/news/ternary-bonsai" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Apple ignores DMA interoperability requests and contradicts own documentation</h3>
-  <p>Score: 187 | Comments: 40</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>fsfe.org · 1.0</span>
-    <a href="https://fsfe.org/news/2026/news-20260420-01.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>The Beauty of Bonsai Styles</h3>
-  <p>Score: 169 | Comments: 32</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>longwoodgardens.org · 1.0</span>
-    <a href="https://longwoodgardens.org/blog/2023-05-17/beauty-bonsai-styles" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return</h3>
-  <p>Score: 164 | Comments: 157</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>techcrunch.com · 1.0</span>
-    <a href="https://techcrunch.com/2026/04/20/anthropic-takes-5b-from-amazon-and-pledges-100b-in-cloud-spending-in-return/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Air is full of DNA</h3>
-  <p>Score: 156 | Comments: 52</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>nature.com · 1.0</span>
-    <a href="https://www.nature.com/articles/d41586-026-01099-2" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Japan&#x27;s cherry blossom database, 1,200 years old, has a new keeper</h3>
-  <p>Score: 155 | Comments: 24</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>nytimes.com · 1.0</span>
-    <a href="https://www.nytimes.com/2026/04/17/climate/japan-cherry-blossom-database-scientist.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Even &#x27;uncensored&#x27; models can&#x27;t say what they want</h3>
-  <p>Score: 153 | Comments: 116</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>morgin.ai · 1.0</span>
-    <a href="https://morgin.ai/articles/even-uncensored-models-cant-say-what-they-want.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Monero Community Crowdfunding System</h3>
-  <p>Score: 144 | Comments: 120</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>ccs.getmonero.org · 1.0</span>
-    <a href="https://ccs.getmonero.org/ideas/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Soul Player C64 – A real transformer running on a 1 MHz Commodore 64</h3>
-  <p>Score: 142 | Comments: 44</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/gizmo64k/soulplayer-c64" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>How a subsea cable is repaired (2021)</h3>
-  <p>Score: 117 | Comments: 33</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>onesteppower.com · 1.0</span>
-    <a href="https://www.onesteppower.com/post/subsea-cable-repair" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Salmon exposed to cocaine and its main byproduct roam more widely</h3>
-  <p>Score: 115 | Comments: 71</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>science.org · 1.0</span>
-    <a href="https://www.science.org/content/article/cocaine-pollution-gives-salmon-wanderlust" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>As oceans warm, great white sharks are overheating</h3>
-  <p>Score: 110 | Comments: 95</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>e360.yale.edu · 1.0</span>
-    <a href="https://e360.yale.edu/digest/great-white-sharks-climate" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>A type-safe, realtime collaborative Graph Database in a CRDT</h3>
-  <p>Score: 106 | Comments: 31</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>codemix.com · 1.0</span>
-    <a href="https://codemix.com/graph" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Show HN: GoModel – an open-source AI gateway in Go</h3>
-  <p>Score: 83 | Comments: 22 | Text: Hi, I’m Jakub, a solo founder based in Warsaw. I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others. I built it for my startup to solve a few problems: &lt;</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/ENTERPILOT/GOModel/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>ollama/ollama</h3>
   <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
@@ -911,21 +749,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>openai/swarm</h3>
-  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>mem0ai/mem0</h3>
   <p>Universal memory layer for AI Agents</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>openai/swarm</h3>
+  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -938,15 +776,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>onnx/onnx</h3>
-  <p>Open standard for machine learning interoperability</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/onnx/onnx" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>NVIDIA/TensorRT</h3>
   <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
@@ -956,12 +785,183 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>onnx/onnx</h3>
+  <p>Open standard for machine learning interoperability</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/onnx/onnx" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>jax-ml/jax</h3>
   <p>Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">jax</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/jax-ml/jax" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>John Ternus to become Apple CEO</h3>
+  <p>Score: 2126 | Comments: 1226</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>apple.com · 1.0</span>
+    <a href="https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Laws of Software Engineering</h3>
+  <p>Score: 576 | Comments: 296</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>lawsofsoftwareengineering.com · 1.0</span>
+    <a href="https://lawsofsoftwareengineering.com" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
+  <p>Score: 400 | Comments: 230</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>docs.openclaw.ai · 1.0</span>
+    <a href="https://docs.openclaw.ai/providers/anthropic" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Kimi vendor verifier – verify accuracy of inference providers</h3>
+  <p>Score: 302 | Comments: 28</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>kimi.com · 1.0</span>
+    <a href="https://www.kimi.com/blog/kimi-vendor-verifier" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Ternary Bonsai: Top Intelligence at 1.58 Bits</h3>
+  <p>Score: 211 | Comments: 54</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>prismml.com · 1.0</span>
+    <a href="https://prismml.com/news/ternary-bonsai" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Apple ignores DMA interoperability requests and contradicts own documentation</h3>
+  <p>Score: 187 | Comments: 41</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>fsfe.org · 1.0</span>
+    <a href="https://fsfe.org/news/2026/news-20260420-01.html" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return</h3>
+  <p>Score: 171 | Comments: 167</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>techcrunch.com · 1.0</span>
+    <a href="https://techcrunch.com/2026/04/20/anthropic-takes-5b-from-amazon-and-pledges-100b-in-cloud-spending-in-return/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>The Beauty of Bonsai Styles</h3>
+  <p>Score: 171 | Comments: 33</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>longwoodgardens.org · 1.0</span>
+    <a href="https://longwoodgardens.org/blog/2023-05-17/beauty-bonsai-styles" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Air is full of DNA</h3>
+  <p>Score: 157 | Comments: 52</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>nature.com · 1.0</span>
+    <a href="https://www.nature.com/articles/d41586-026-01099-2" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Japan&#x27;s cherry blossom database, 1,200 years old, has a new keeper</h3>
+  <p>Score: 156 | Comments: 24</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>nytimes.com · 1.0</span>
+    <a href="https://www.nytimes.com/2026/04/17/climate/japan-cherry-blossom-database-scientist.html" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Monero Community Crowdfunding System</h3>
+  <p>Score: 144 | Comments: 120</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>ccs.getmonero.org · 1.0</span>
+    <a href="https://ccs.getmonero.org/ideas/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Soul Player C64 – A real transformer running on a 1 MHz Commodore 64</h3>
+  <p>Score: 143 | Comments: 44</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/gizmo64k/soulplayer-c64" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Salmon exposed to cocaine and its main byproduct roam more widely</h3>
+  <p>Score: 118 | Comments: 73</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>science.org · 1.0</span>
+    <a href="https://www.science.org/content/article/cocaine-pollution-gives-salmon-wanderlust" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>How a subsea cable is repaired (2021)</h3>
+  <p>Score: 118 | Comments: 33</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>onesteppower.com · 1.0</span>
+    <a href="https://www.onesteppower.com/post/subsea-cable-repair" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>As oceans warm, great white sharks are overheating</h3>
+  <p>Score: 113 | Comments: 100</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>e360.yale.edu · 1.0</span>
+    <a href="https://e360.yale.edu/digest/great-white-sharks-climate" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>A type-safe, realtime collaborative Graph Database in a CRDT</h3>
+  <p>Score: 110 | Comments: 31</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>codemix.com · 1.0</span>
+    <a href="https://codemix.com/graph" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Show HN: GoModel – an open-source AI gateway in Go</h3>
+  <p>Score: 88 | Comments: 27 | Text: Hi, I’m Jakub, a solo founder based in Warsaw. I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others. I built it for my startup to solve a few problems: &lt;</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/ENTERPILOT/GOModel/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Tindie store under &quot;scheduled maintenance&quot; for days</h3>
+  <p>Score: 84 | Comments: 33</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>tindie.com · 1.0</span>
+    <a href="https://www.tindie.com/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
