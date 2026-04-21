@@ -123,6 +123,34 @@ def test_load_settings_includes_langfuse_env(monkeypatch):
     assert settings.env["LANGFUSE_CAPTURE_CONTENT"] == "false"
 
 
+def test_load_settings_includes_backup_provider_and_budget_env(monkeypatch):
+    monkeypatch.setenv("BACKUP_AI_PROVIDER", "openai")
+    monkeypatch.setenv("BACKUP_AI_BASE_URL", "https://api.openai.com/v1")
+    monkeypatch.setenv("BACKUP_AI_MODEL", "gpt-4o-mini")
+    monkeypatch.setenv("BACKUP_AI_API_KEY", "backup-key")
+    monkeypatch.setenv("AI_MAX_STAGE_LATENCY_SECONDS", "12.5")
+    monkeypatch.setenv("AI_MAX_STAGE_TOTAL_TOKENS", "5000")
+    monkeypatch.setenv("SUMMARY_BACKUP_AI_PROVIDER", "litellm_proxy")
+    monkeypatch.setenv("SUMMARY_BACKUP_AI_MODEL", "vs-ai-summary-backup")
+    monkeypatch.setenv("SUMMARY_BACKUP_AI_API_KEY", "summary-backup-key")
+    monkeypatch.setenv("SUMMARY_AI_MAX_LATENCY_SECONDS", "9.0")
+    monkeypatch.setenv("SUMMARY_AI_MAX_TOTAL_TOKENS", "2500")
+
+    settings = load_settings(Path.cwd())
+
+    assert settings.env["BACKUP_AI_PROVIDER"] == "openai"
+    assert settings.env["BACKUP_AI_BASE_URL"] == "https://api.openai.com/v1"
+    assert settings.env["BACKUP_AI_MODEL"] == "gpt-4o-mini"
+    assert settings.env["BACKUP_AI_API_KEY"] == "backup-key"
+    assert settings.env["AI_MAX_STAGE_LATENCY_SECONDS"] == "12.5"
+    assert settings.env["AI_MAX_STAGE_TOTAL_TOKENS"] == "5000"
+    assert settings.env["SUMMARY_BACKUP_AI_PROVIDER"] == "litellm_proxy"
+    assert settings.env["SUMMARY_BACKUP_AI_MODEL"] == "vs-ai-summary-backup"
+    assert settings.env["SUMMARY_BACKUP_AI_API_KEY"] == "summary-backup-key"
+    assert settings.env["SUMMARY_AI_MAX_LATENCY_SECONDS"] == "9.0"
+    assert settings.env["SUMMARY_AI_MAX_TOTAL_TOKENS"] == "2500"
+
+
 def test_load_settings_includes_delivery_endpoint_defaults(tmp_path, monkeypatch):
     shutil.copytree(Path.cwd() / "config", tmp_path / "config")
     monkeypatch.delenv("FEISHU_SIDECAR_ENABLED", raising=False)

@@ -51,6 +51,8 @@ def _default_ai_metrics() -> dict[str, object]:
         },
         "latency_seconds": 0.0,
         "fallback_stages": [],
+        "backup_stages": [],
+        "guardrail_stages": [],
     }
 
 

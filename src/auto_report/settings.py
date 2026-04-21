@@ -56,6 +56,12 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "AI_PROVIDER": os.environ.get("AI_PROVIDER", "deepseek"),
         "AI_BASE_URL": os.environ.get("AI_BASE_URL", "https://api.deepseek.com"),
         "AI_MODEL": os.environ.get("AI_MODEL", "deepseek-chat"),
+        "BACKUP_AI_PROVIDER": os.environ.get("BACKUP_AI_PROVIDER", ""),
+        "BACKUP_AI_BASE_URL": os.environ.get("BACKUP_AI_BASE_URL", ""),
+        "BACKUP_AI_MODEL": os.environ.get("BACKUP_AI_MODEL", ""),
+        "BACKUP_AI_API_KEY": os.environ.get("BACKUP_AI_API_KEY", ""),
+        "AI_MAX_STAGE_LATENCY_SECONDS": os.environ.get("AI_MAX_STAGE_LATENCY_SECONDS", ""),
+        "AI_MAX_STAGE_TOTAL_TOKENS": os.environ.get("AI_MAX_STAGE_TOTAL_TOKENS", ""),
         "LITELLM_MASTER_KEY": os.environ.get("LITELLM_MASTER_KEY", ""),
         "LANGFUSE_ENABLED": os.environ.get("LANGFUSE_ENABLED", "false"),
         "LANGFUSE_PUBLIC_KEY": os.environ.get("LANGFUSE_PUBLIC_KEY", ""),
@@ -113,6 +119,14 @@ def load_settings(root_dir: Path | None = None) -> Settings:
         "EXTERNAL_ENRICHMENT_MAX_SIGNALS": os.environ.get("EXTERNAL_ENRICHMENT_MAX_SIGNALS", "2"),
         "EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS": os.environ.get("EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS", "8"),
     }
+
+    for stage_prefix in ("ANALYSIS", "SUMMARY", "FORECAST", "PREFILTER", "DISCOVERY", "SEARCH"):
+        env[f"{stage_prefix}_BACKUP_AI_PROVIDER"] = os.environ.get(f"{stage_prefix}_BACKUP_AI_PROVIDER", "")
+        env[f"{stage_prefix}_BACKUP_AI_BASE_URL"] = os.environ.get(f"{stage_prefix}_BACKUP_AI_BASE_URL", "")
+        env[f"{stage_prefix}_BACKUP_AI_MODEL"] = os.environ.get(f"{stage_prefix}_BACKUP_AI_MODEL", "")
+        env[f"{stage_prefix}_BACKUP_AI_API_KEY"] = os.environ.get(f"{stage_prefix}_BACKUP_AI_API_KEY", "")
+        env[f"{stage_prefix}_AI_MAX_LATENCY_SECONDS"] = os.environ.get(f"{stage_prefix}_AI_MAX_LATENCY_SECONDS", "")
+        env[f"{stage_prefix}_AI_MAX_TOTAL_TOKENS"] = os.environ.get(f"{stage_prefix}_AI_MAX_TOTAL_TOKENS", "")
 
     return Settings(
         root_dir=resolved_root,

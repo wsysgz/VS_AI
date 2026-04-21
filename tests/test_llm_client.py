@@ -7,7 +7,9 @@ import pytest
 
 from auto_report.integrations.llm_client import (
     _PROVIDER_DEFAULTS,
+    _resolve_backup_provider_config,
     _resolve_provider_config,
+    _resolve_stage_budget,
     build_llm_payload,
     call_llm,
     get_llm_metrics,
@@ -224,6 +226,69 @@ class TestProviderConfigResolution:
         ):
             assert is_llm_enabled() is True
 
+    def test_global_backup_provider_resolution(self):
+        with patch.dict(
+            os.environ,
+            {
+                "BACKUP_AI_PROVIDER": "openai",
+                "BACKUP_AI_BASE_URL": "",
+                "BACKUP_AI_MODEL": "",
+                "BACKUP_AI_API_KEY": "backup-openai-key",
+            },
+            clear=False,
+        ):
+            config = _resolve_backup_provider_config("analysis")
+            assert config is not None
+            assert config["provider"] == "openai"
+            assert "openai.com" in config["base_url"]
+            assert config["api_key"] == "backup-openai-key"
+
+    def test_stage_specific_backup_provider_resolution(self):
+        with patch.dict(
+            os.environ,
+            {
+                "SUMMARY_BACKUP_AI_PROVIDER": "litellm_proxy",
+                "SUMMARY_BACKUP_AI_BASE_URL": "",
+                "SUMMARY_BACKUP_AI_MODEL": "vs-ai-summary-backup",
+                "SUMMARY_BACKUP_AI_API_KEY": "summary-backup-key",
+            },
+            clear=False,
+        ):
+            config = _resolve_backup_provider_config("summary")
+            assert config is not None
+            assert config["provider"] == "litellm_proxy"
+            assert config["base_url"] == "http://127.0.0.1:4000"
+            assert config["model"] == "vs-ai-summary-backup"
+            assert config["api_key"] == "summary-backup-key"
+
+    def test_global_stage_budget_resolution(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_MAX_STAGE_LATENCY_SECONDS": "12.5",
+                "AI_MAX_STAGE_TOTAL_TOKENS": "5000",
+            },
+            clear=False,
+        ):
+            budget = _resolve_stage_budget("analysis")
+            assert budget["max_latency_seconds"] == 12.5
+            assert budget["max_total_tokens"] == 5000
+
+    def test_stage_specific_budget_resolution(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_MAX_STAGE_LATENCY_SECONDS": "12.5",
+                "AI_MAX_STAGE_TOTAL_TOKENS": "5000",
+                "SUMMARY_AI_MAX_LATENCY_SECONDS": "9.0",
+                "SUMMARY_AI_MAX_TOTAL_TOKENS": "2500",
+            },
+            clear=False,
+        ):
+            budget = _resolve_stage_budget("summary")
+            assert budget["max_latency_seconds"] == 9.0
+            assert budget["max_total_tokens"] == 2500
+
 
 class TestBuildPayload:
     def test_basic_structure(self):
@@ -286,6 +351,179 @@ class TestCallLlm:
             result = call_llm("retry me")
             assert result == "finally works"
             assert mock_session.post.call_count == 2
+
+    @patch("auto_report.integrations.llm_client._session")
+    @patch("auto_report.integrations.llm_client.time.sleep", return_value=None)
+    def test_stage_uses_backup_provider_after_primary_failure(self, _mock_sleep, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "BACKUP_AI_PROVIDER": "openai",
+                "BACKUP_AI_BASE_URL": "",
+                "BACKUP_AI_MODEL": "gpt-4o-mini",
+                "BACKUP_AI_API_KEY": "backup-openai-key",
+            },
+            clear=False,
+        ):
+            import requests.exceptions
+
+            success_resp = MagicMock()
+            success_resp.json.return_value = {
+                "choices": [{"message": {"content": "backup works"}}],
+                "usage": {"prompt_tokens": 11, "completion_tokens": 4, "total_tokens": 15},
+            }
+            success_resp.raise_for_status = MagicMock()
+            success_resp.status_code = 200
+
+            mock_session.post.side_effect = [
+                requests.exceptions.ConnectionError("primary down"),
+                requests.exceptions.ConnectionError("primary still down"),
+                requests.exceptions.ConnectionError("primary exhausted"),
+                success_resp,
+            ]
+
+            reset_llm_metrics()
+            result = call_llm("use backup", stage="analysis")
+
+            assert result == "backup works"
+            assert mock_session.post.call_args_list[0].args[0] == "https://api.deepseek.com/chat/completions"
+            assert mock_session.post.call_args_list[-1].args[0] == "https://api.openai.com/v1/chat/completions"
+            metrics = get_llm_metrics()
+            assert metrics["stage_breakdown"]["analysis"]["attempts"] == 2
+            assert metrics["stage_breakdown"]["analysis"]["backup_used"] is True
+            assert metrics["stage_breakdown"]["analysis"]["final_provider"] == "openai"
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_stage_uses_backup_provider_after_latency_guardrail(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "BACKUP_AI_PROVIDER": "openai",
+                "BACKUP_AI_BASE_URL": "",
+                "BACKUP_AI_MODEL": "gpt-4o-mini",
+                "BACKUP_AI_API_KEY": "backup-openai-key",
+                "ANALYSIS_AI_MAX_LATENCY_SECONDS": "0.01",
+            },
+            clear=False,
+        ):
+            first = MagicMock()
+            first.json.return_value = {
+                "choices": [{"message": {"content": "primary too slow"}}],
+                "usage": {"prompt_tokens": 8, "completion_tokens": 3, "total_tokens": 11},
+            }
+            first.raise_for_status = MagicMock()
+            first.status_code = 200
+
+            second = MagicMock()
+            second.json.return_value = {
+                "choices": [{"message": {"content": "backup fast enough"}}],
+                "usage": {"prompt_tokens": 7, "completion_tokens": 2, "total_tokens": 9},
+            }
+            second.raise_for_status = MagicMock()
+            second.status_code = 200
+
+            mock_session.post.side_effect = [first, second]
+
+            with patch("auto_report.integrations.llm_client.time.perf_counter", side_effect=[0.0, 0.5, 1.0, 1.005]):
+                reset_llm_metrics()
+                result = call_llm("latency guardrail", stage="analysis")
+
+            assert result == "backup fast enough"
+            metrics = get_llm_metrics()
+            stage = metrics["stage_breakdown"]["analysis"]
+            assert stage["backup_used"] is True
+            assert stage["guardrail_triggered"] is True
+            assert stage["guardrail_reason"] == "latency_exceeded"
+
+    @patch("auto_report.integrations.llm_client._session")
+    def test_stage_uses_backup_provider_after_token_guardrail(self, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "BACKUP_AI_PROVIDER": "openai",
+                "BACKUP_AI_BASE_URL": "",
+                "BACKUP_AI_MODEL": "gpt-4o-mini",
+                "BACKUP_AI_API_KEY": "backup-openai-key",
+                "ANALYSIS_AI_MAX_TOTAL_TOKENS": "10",
+            },
+            clear=False,
+        ):
+            first = MagicMock()
+            first.json.return_value = {
+                "choices": [{"message": {"content": "primary too expensive"}}],
+                "usage": {"prompt_tokens": 8, "completion_tokens": 5, "total_tokens": 13},
+            }
+            first.raise_for_status = MagicMock()
+            first.status_code = 200
+
+            second = MagicMock()
+            second.json.return_value = {
+                "choices": [{"message": {"content": "backup acceptable"}}],
+                "usage": {"prompt_tokens": 6, "completion_tokens": 3, "total_tokens": 9},
+            }
+            second.raise_for_status = MagicMock()
+            second.status_code = 200
+
+            mock_session.post.side_effect = [first, second]
+
+            reset_llm_metrics()
+            result = call_llm("token guardrail", stage="analysis")
+
+            assert result == "backup acceptable"
+            metrics = get_llm_metrics()
+            stage = metrics["stage_breakdown"]["analysis"]
+            assert stage["backup_used"] is True
+            assert stage["guardrail_triggered"] is True
+            assert stage["guardrail_reason"] == "token_exceeded"
+
+    @patch("auto_report.integrations.llm_client._session")
+    @patch("auto_report.integrations.llm_client.time.sleep", return_value=None)
+    def test_stage_raises_after_primary_and_backup_fail(self, _mock_sleep, mock_session):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_PROVIDER": "deepseek",
+                "AI_BASE_URL": "https://api.deepseek.com",
+                "AI_MODEL": "deepseek-chat",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "BACKUP_AI_PROVIDER": "openai",
+                "BACKUP_AI_BASE_URL": "",
+                "BACKUP_AI_MODEL": "gpt-4o-mini",
+                "BACKUP_AI_API_KEY": "backup-openai-key",
+            },
+            clear=False,
+        ):
+            import requests.exceptions
+
+            mock_session.post.side_effect = [
+                requests.exceptions.Timeout("primary timeout 1"),
+                requests.exceptions.Timeout("primary timeout 2"),
+                requests.exceptions.Timeout("primary timeout 3"),
+                requests.exceptions.ConnectionError("backup down 1"),
+                requests.exceptions.ConnectionError("backup down 2"),
+                requests.exceptions.ConnectionError("backup down 3"),
+            ]
+
+            reset_llm_metrics()
+            with pytest.raises(RuntimeError):
+                call_llm("both fail", stage="analysis")
+
+            metrics = get_llm_metrics()
+            stage = metrics["stage_breakdown"]["analysis"]
+            assert stage["attempts"] == 2
+            assert stage["backup_used"] is True
 
     @patch("auto_report.integrations.llm_client._session")
     def test_custom_provider_uses_generic_ai_api_key(self, mock_session):

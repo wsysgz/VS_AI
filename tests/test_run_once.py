@@ -295,6 +295,49 @@ def test_build_run_status_includes_tracing_metadata():
     assert status["tracing"]["trace_url"] == "https://langfuse.example/trace/trace-123"
 
 
+def test_build_run_status_preserves_backup_and_guardrail_ai_metrics():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=False,
+        ai_metrics={
+            "provider": "mixed",
+            "model": "mixed",
+            "calls": 2,
+            "token_usage": {"prompt": 20, "completion": 8, "total": 28},
+            "latency_seconds": 1.2,
+            "fallback_stages": [],
+            "backup_stages": ["analysis"],
+            "guardrail_stages": ["analysis"],
+            "stage_breakdown": {
+                "analysis": {
+                    "provider": "openai",
+                    "model": "gpt-4o-mini",
+                    "calls": 2,
+                    "token_usage": {"prompt": 20, "completion": 8, "total": 28},
+                    "latency_seconds": 1.2,
+                    "attempts": 2,
+                    "backup_used": True,
+                    "guardrail_triggered": True,
+                    "guardrail_reason": "latency_exceeded",
+                    "primary_provider": "deepseek",
+                    "primary_model": "deepseek-chat",
+                    "final_provider": "openai",
+                    "final_model": "gpt-4o-mini",
+                    "budget": {"max_latency_seconds": 0.5, "max_total_tokens": 1000},
+                }
+            },
+        },
+    )
+
+    stage = status["ai_metrics"]["stage_breakdown"]["analysis"]
+    assert status["ai_metrics"]["backup_stages"] == ["analysis"]
+    assert status["ai_metrics"]["guardrail_stages"] == ["analysis"]
+    assert stage["attempts"] == 2
+    assert stage["backup_used"] is True
+    assert stage["guardrail_reason"] == "latency_exceeded"
+    assert stage["budget"]["max_latency_seconds"] == 0.5
+
+
 def test_build_run_status_includes_publication_mode():
     status = build_run_status(
         generated_files=["data/reports/latest-summary-reviewed.md"],
