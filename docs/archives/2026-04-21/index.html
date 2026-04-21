@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.21</div>
-      <h1 class="section-title" style="font-size:34px;">AI代理领域正经历从能力提升向可靠性基础设施的关键转型，内存管理、安全控制和调试能力成为决定企业级部署成败的核心瓶颈。</h1>
-      <p class="subtle">微软研究院连续发布两项重要成果：PlugMem系统解决了AI代理内存膨胀导致效率下降的核心矛盾，通过将原始交互日志转化为结构化知识提升检索质量；AgentRx框架则瞄准了代理能力提升带来的&#x27;调试债务&#x27;问题，为复杂故障诊断提供系统化方法。 OpenAI同步更新Agents SDK，引入原生沙箱执行和模型级测试框架，核心逻辑是通过技术手段在增强代理自主性与保障安全可控之间取得平衡。 企业级应用层面，Cloudflare与OpenAI的合作为代理工作流提供基础设施支持，但整体生态仍在可靠性、安全性和可观测性基础设施建设早期阶段。</p>
+      <h1 class="section-title" style="font-size:34px;">AI agent ecosystem matures with new debugging frameworks, fairness mediation tools, and benchmarking insights, while low-confidence signals suggest emerging infrastructure plays.</h1>
+      <p class="subtle">Microsoft Research introduces AgentRx framework to address the &#x27;debuggability gap&#x27; as AI agents evolve from chatbots to autonomous actors capable of complex cloud incident management and multi-step API workflows. Mediator.ai emerges as an experimental project applying Nash bargaining theory and LLMs to systematize fairness in human mediation, highlighting the tension between formal game-theoretic frameworks and the inherently unstructured nature of human conflict resolution. Systematic benchmarking reveals local LLMs now achieve mid-tier cloud performance on structured system dynamics tasks (77% vs 77-89%), but face critical bottlenecks in long-context tasks like error repair (0-50%), exposing memory constraints as the key limiting factor.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">121 topics</span>
         <span class="tag warm">123 raw items</span>
         <span class="tag">自动版</span>
-        <span class="tag">2026-04-21T15:03:02.497137+08:00</span>
+        <span class="tag">2026-04-21T15:51:57.763545+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>内存陷阱：容量≠效能</h3>
-  <p>AI代理积累的交互日志越多，检索无关信息的难度越大，反而导致任务完成质量下降。PlugMem的解决方案是将原始数据转化为结构化知识，本质上是用数据质量换数据数量。</p>
+  <h3>Debuggability Gap Threatens AI Agent Adoption</h3>
+  <p>As AI agents transition to autonomous, multi-step reasoning systems in critical infrastructure, the inability to trace failures (e.g., hallucinated tool outputs) creates fundamental trust and safety barriers. AgentRx represents the first systematic attempt to build observability infrastructure for agent failures—without this, enterprise deployment at scale remains risky.</p>
 </article><article class="summary-card">
-  <h3>安全与自主性的张力</h3>
-  <p>OpenAI Agents SDK通过原生沙箱技术，允许代理在隔离环境中充分释放能力，同时通过harness机制保持对执行过程的控制权。这一设计选择反映了行业对&#x27;可信代理&#x27;的标准正在从&#x27;能做什么&#x27;转向&#x27;如何安全地做&#x27;。</p>
+  <h3>Local LLMs Narrow the Performance Gap but Hit Memory Ceiling</h3>
+  <p>Local models now match mid-tier cloud performance on structured extraction tasks, offering cost and privacy advantages. However, they catastrophically underperform (0-50%) on long-context error repair tasks due to memory limits, indicating that hardware constraints—not model capability—now define the local AI ceiling for complex workflows.</p>
 </article><article class="summary-card">
-  <h3>调试债务威胁规模化部署</h3>
-  <p>AgentRx的出现映射出一个根本矛盾：代理越自主、越复杂，当它出错时诊断难度越高。没有可靠的调试路径，企业在生产环境中部署高风险任务的代理将面临不可接受的风险敞口。</p>
+  <h3>LLM-Based Mediation Faces the Formality Paradox</h3>
+  <p>Mediator.ai attempts to formalize fairness using Nash bargaining, but human conflict resolution is inherently informal, emotional, and context-dependent. The project reveals that applying game-theoretic rigor to human disputes may solve the wrong problem—success depends less on algorithmic sophistication than on building trust and handling edge cases.</p>
 </article>
       </div>
     </section>
@@ -333,22 +333,22 @@
       <h2 class="section-title">Deep Reads</h2>
       <div class="summary-grid">
         <article class="topic-card">
-  <h3>PlugMem: Transforming raw agent interactions into reusable knowledge</h3>
-  <p>The fundamental bottleneck for advanced AI agents is not memory capacity, but the transformation of raw experience into structured, retrievable knowledge; effectiveness hinges on curation, not just collection.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
-  </div>
-</article><article class="topic-card">
-  <h3>The next evolution of the Agents SDK</h3>
-  <p>OpenAI&#x27;s SDK evolution is fundamentally about managing the tension between empowering agents with greater autonomy (to be useful) and enforcing robust safety constraints (to be trustworthy), with native sandboxing being a key technical lever to reconcile this.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
-  </div>
-</article><article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The rapid advancement of AI agent capabilities is creating a critical &#x27;debugging debt&#x27;—the more powerful and autonomous they become, the harder it is to diagnose their failures, threatening their reliability and safe deployment. AgentRx represents an attempt to build the necessary observability and diagnostic tools to close this gap.</p>
+  <p>The evolution of AI agents from tools to autonomous actors is creating a critical &#x27;debuggability gap&#x27;; the AgentRx framework represents an early attempt to build the necessary observability and diagnostic infrastructure, which is a prerequisite for safe and scalable agent deployment.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">high</span>
+  </div>
+</article><article class="topic-card">
+  <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
+  <p>Mediator.ai的核心挑战在于，其试图用形式化的博弈论框架和LLM来规整本质上非形式化的人类冲突与协商，成功的关键不在于技术本身的复杂性，而在于能否在结构化模型与灵活的人类判断之间找到有效的结合点，并建立足够的信任来被采纳。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">medium</span>
+  </div>
+</article><article class="topic-card">
+  <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
+  <p>当前本地大语言模型在特定结构化任务上已能逼近中游云端模型性能，但其应用深度和可靠性仍严重受限于硬件资源（内存）和后端推理引擎在处理复杂、长上下文交互时的稳定性与效率，这构成了本地AI助手能力跃升的关键瓶颈。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
@@ -377,6 +377,15 @@
   <div class="signal-footer">
     <span>arxiv.org · 3.3</span>
     <a href="https://arxiv.org/abs/2604.18566v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
+  <p>Score: 49 | Comments: 18 | Text: Eight years ago, my then-fiancée and I decided to get a prenup, so we hired a local mediator. The meetings were useful, but I felt there was no systematic process to produce a final agreement. So I started to think about this problem, and after a bit of research, I discovered the Nash bargaining sol</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
+  <div class="signal-footer">
+    <span>mediator.ai · 2.5</span>
+    <a href="https://mediator.ai/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -579,7 +588,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>John Ternus to become Apple CEO</h3>
-  <p>Score: 1622 | Comments: 792</p>
+  <p>Score: 1669 | Comments: 836</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>apple.com · 1.0</span>
@@ -588,7 +597,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>GitHub&#x27;s fake star economy</h3>
-  <p>Score: 764 | Comments: 360</p>
+  <p>Score: 767 | Comments: 360</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>awesomeagents.ai · 1.0</span>
@@ -597,7 +606,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Atlassian enables default data collection to train AI</h3>
-  <p>Score: 560 | Comments: 124</p>
+  <p>Score: 563 | Comments: 124</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>letsdatascience.com · 1.0</span>
@@ -605,17 +614,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>NSA is using Anthropic&#x27;s Mythos despite blacklist</h3>
-  <p>Score: 456 | Comments: 319</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>axios.com · 1.0</span>
-    <a href="https://www.axios.com/2026/04/19/nsa-anthropic-mythos-pentagon" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>AI Resistance: some recent anti-AI stuff that’s worth discussing</h3>
-  <p>Score: 348 | Comments: 340</p>
+  <p>Score: 355 | Comments: 341</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>stephvee.ca · 1.0</span>
@@ -624,7 +624,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Deezer says 44% of songs uploaded to its platform daily are AI-generated</h3>
-  <p>Score: 335 | Comments: 334</p>
+  <p>Score: 338 | Comments: 339</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>techcrunch.com · 1.0</span>
@@ -633,7 +633,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>OpenAI ad partner now selling ChatGPT ad placements based on “prompt relevance”</h3>
-  <p>Score: 259 | Comments: 130</p>
+  <p>Score: 262 | Comments: 131</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>adweek.com · 1.0</span>
@@ -642,7 +642,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Kimi vendor verifier – verify accuracy of inference providers</h3>
-  <p>Score: 231 | Comments: 20</p>
+  <p>Score: 243 | Comments: 21</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>kimi.com · 1.0</span>
@@ -650,17 +650,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Claude Token Counter, now with model comparisons</h3>
-  <p>Score: 216 | Comments: 81</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>simonwillison.net · 1.0</span>
-    <a href="https://simonwillison.net/2026/Apr/20/claude-token-counts/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Kefir C17/C23 Compiler</h3>
-  <p>Score: 147 | Comments: 12</p>
+  <p>Score: 149 | Comments: 13</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>sr.ht · 1.0</span>
@@ -668,8 +659,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
+  <p>Score: 132 | Comments: 65</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>docs.openclaw.ai · 1.0</span>
+    <a href="https://docs.openclaw.ai/providers/anthropic" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Ternary Bonsai: Top Intelligence at 1.58 Bits</h3>
-  <p>Score: 126 | Comments: 27</p>
+  <p>Score: 132 | Comments: 34</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>prismml.com · 1.0</span>
@@ -677,8 +677,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>A Roblox cheat and one AI tool brought down Vercel&#x27;s platform</h3>
+  <p>Score: 121 | Comments: 40</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>webmatrices.com · 1.0</span>
+    <a href="https://webmatrices.com/post/how-a-roblox-cheat-and-one-ai-tool-brought-down-vercel-s-entire-platform" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Soul Player C64 – A real transformer running on a 1 MHz Commodore 64</h3>
-  <p>Score: 113 | Comments: 28</p>
+  <p>Score: 119 | Comments: 30</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
@@ -687,7 +696,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Figma&#x27;s woes compound with Claude Design</h3>
-  <p>Score: 106 | Comments: 89</p>
+  <p>Score: 107 | Comments: 91</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>martinalderson.com · 1.0</span>
@@ -695,26 +704,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>A Roblox cheat and one AI tool brought down Vercel&#x27;s platform</h3>
-  <p>Score: 98 | Comments: 32</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>webmatrices.com · 1.0</span>
-    <a href="https://webmatrices.com/post/how-a-roblox-cheat-and-one-ai-tool-brought-down-vercel-s-entire-platform" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
-  <p>Score: 92 | Comments: 39</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>docs.openclaw.ai · 1.0</span>
-    <a href="https://docs.openclaw.ai/providers/anthropic" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Air is full of DNA</h3>
-  <p>Score: 74 | Comments: 11</p>
+  <p>Score: 84 | Comments: 13</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>nature.com · 1.0</span>
@@ -722,17 +713,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Monero Community Crowdfunding System</h3>
-  <p>Score: 74 | Comments: 47</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>ccs.getmonero.org · 1.0</span>
-    <a href="https://ccs.getmonero.org/ideas/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Japan&#x27;s cherry blossom database, 1,200 years old, has a new keeper</h3>
-  <p>Score: 73 | Comments: 7</p>
+  <p>Score: 84 | Comments: 9</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>nytimes.com · 1.0</span>
@@ -740,8 +722,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Monero Community Crowdfunding System</h3>
+  <p>Score: 80 | Comments: 50</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>ccs.getmonero.org · 1.0</span>
+    <a href="https://ccs.getmonero.org/ideas/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Zero-Copy Pages in Rust: Or How I Learned to Stop Worrying and Love Lifetimes</h3>
-  <p>Score: 70 | Comments: 7</p>
+  <p>Score: 71 | Comments: 7</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>redixhumayun.github.io · 1.0</span>
@@ -758,12 +749,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>langchain-ai/langgraph</h3>
-  <p>Build resilient language agents as graphs.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <h3>How a subsea cable is repaired</h3>
+  <p>Score: 55 | Comments: 11</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
+    <span>onesteppower.com · 1.0</span>
+    <a href="https://www.onesteppower.com/post/subsea-cable-repair" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -775,6 +766,15 @@
     <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>langchain-ai/langgraph</h3>
+  <p>Build resilient language agents as graphs.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
   <h3>pytorch/executorch</h3>
   <p>On-device AI across mobile, embedded and edge for PyTorch</p>
@@ -784,15 +784,6 @@
     <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>alibaba/MNN</h3>
-  <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
   <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
@@ -800,6 +791,15 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>alibaba/MNN</h3>
+  <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -839,15 +839,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>NVIDIA/TensorRT</h3>
-  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>onnx/onnx</h3>
   <p>Open standard for machine learning interoperability</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
@@ -863,6 +854,15 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/jax-ml/jax" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>NVIDIA/TensorRT</h3>
+  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
