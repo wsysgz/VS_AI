@@ -28,7 +28,7 @@ Public site / 公开站入口:
   - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
   - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
   - `P3-A 已完成首轮发布级验收：飞书静态卡片 + 文本 fallback 已真实验证`
-  - `P3-B 已正式纳入计划：飞书多维表格运营台将基于现有 sidecar 铺底扩展`
+  - `P3-B 第一版已落地：飞书多维表格运营台已建成 4 张表 + 中文 dashboard，并支持审批/交付状态回写到仓库 JSON`
   - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
 
 ## What It Does / 系统能力
@@ -278,6 +278,8 @@ python -m auto_report.cli run-once --publication-mode reviewed
 $env:PYTHONPATH='src'
 python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
 python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu
+python -m auto_report.cli sync-feishu-ops-desk
+python -m auto_report.cli pull-feishu-ops-status
 ```
 
 This sidecar is local-only. It is for local verification, prettier Feishu output,
@@ -287,6 +289,27 @@ official Feishu API push path only.
 When `FEISHU_SIDECAR_ENABLED=true`, `run-once` also updates the Feishu Doc,
 governance sheet, and governance task list after report generation. When
 `GITHUB_ACTIONS=true`, the sidecar is skipped automatically even if enabled.
+
+`P3-B` first batch adds a Feishu ops desk base:
+
+- dashboard: `VS_AI 今日运营台`
+- tables:
+  - `治理总表`
+  - `审批协作`
+  - `交付验收`
+  - `待应用变更`
+
+Recommended local loop:
+
+1. `python -m auto_report.cli sync-feishu-ops-desk`
+2. review / edit approval and delivery verification status in Feishu
+3. `python -m auto_report.cli pull-feishu-ops-status`
+
+Current button-first fields in the first batch:
+
+- `审批协作.状态` -> select
+- `交付验收.卡片已确认` -> checkbox
+- `交付验收.发现回退` -> checkbox
 
 ## Verification / 发布前验证
 

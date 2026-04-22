@@ -13,74 +13,178 @@ SIDE_CAR_STATE_PATH = Path("data") / "state" / "feishu-sidecar.json"
 DELIVERY_AUDIT_REVIEW_PATH = Path("data") / "state" / "delivery-audit-review.json"
 OPS_DESK_SNAPSHOT_PATH = Path("out") / "feishu-ops" / "latest-sync.json"
 OPS_DESK_BASE_NAME = "VS_AI Ops Desk"
-OPS_DESK_DASHBOARD_NAME = "VS_AI Ops Desk"
+OPS_DESK_DASHBOARD_NAME = "VS_AI 今日运营台"
+DASHBOARD_LAYOUT_VERSION = 2
+OPS_DESK_LEGACY_TABLE_NAMES = {"Lead Review", "Delivery Audit", "Candidate Updates", "数据表"}
+OPS_DESK_LEGACY_DASHBOARD_NAMES = {"VS_AI Ops Desk"}
+OPS_DESK_LEGACY_TABLE_RENAMES = {
+    "Lead Review": "旧版审批协作（停用）",
+    "Delivery Audit": "旧版交付验收（停用）",
+    "Candidate Updates": "旧版待应用变更（停用）",
+    "数据表": "默认空表（停用）",
+}
+OPS_DESK_LEGACY_DASHBOARD_RENAMES = {
+    "VS_AI Ops Desk": "旧版运营台（停用）",
+}
+LEAD_REVIEW_STATUS_DISPLAY = {
+    "pending": "待处理",
+    "approved": "已批准",
+    "rejected": "已拒绝",
+    "deferred": "已延后",
+}
+LEAD_REVIEW_STATUS_REPO = {value: key for key, value in LEAD_REVIEW_STATUS_DISPLAY.items()}
 OPS_DESK_TABLE_SPECS = {
     "governance_main": {
-        "name": "Governance Main",
+        "name": "治理总表",
         "key_field": "source_id",
         "fields": [
             "source_id",
-            "category_hint",
             "priority_label",
+            "watch_status",
             "priority_score",
             "candidate_kind",
+            "next_action",
+            "replacement_target",
             "stability_tier",
             "watch_strategy",
             "automation_ready",
-            "next_action",
-            "replacement_target",
+            "category_hint",
             "url",
             "updated_at",
+        ],
+        "field_labels": {
+            "source_id": "来源 ID",
+            "priority_label": "优先级",
+            "watch_status": "监控状态",
+            "priority_score": "优先分",
+            "candidate_kind": "候选类型",
+            "next_action": "下一步动作",
+            "replacement_target": "替代目标",
+            "stability_tier": "稳定层级",
+            "watch_strategy": "监控策略",
+            "automation_ready": "自动化准备",
+            "category_hint": "领域",
+            "url": "链接",
+            "updated_at": "更新时间",
+        },
+        "views": [
+            {"name": "高优先级来源", "fields": ["source_id", "priority_label", "watch_status", "candidate_kind", "next_action", "replacement_target", "updated_at"], "filter": ("priority_label", "==", "high")},
+            {"name": "阻塞来源", "fields": ["source_id", "watch_status", "next_action", "replacement_target", "updated_at"], "filter": ("watch_status", "==", "blocked")},
+            {"name": "人工复核来源", "fields": ["source_id", "candidate_kind", "next_action", "replacement_target", "updated_at"], "filter": ("candidate_kind", "==", "manual_replace")},
+            {"name": "候选替换来源", "fields": ["source_id", "candidate_kind", "replacement_target", "next_action", "updated_at"], "filter": None},
         ],
         "writable_fields": set(),
     },
     "lead_review": {
-        "name": "Lead Review",
+        "name": "审批协作",
         "key_field": "lead_key",
         "fields": [
-            "lead_key",
-            "keyword",
             "title",
-            "bucket",
-            "priority_label",
-            "priority_score",
             "status",
             "note",
+            "priority_label",
+            "keyword",
+            "bucket",
             "updated_at",
+            "lead_key",
+            "priority_score",
         ],
+        "field_labels": {
+            "title": "标题",
+            "status": "状态",
+            "note": "备注",
+            "priority_label": "优先级",
+            "keyword": "关键词",
+            "bucket": "来源桶",
+            "updated_at": "更新时间",
+            "lead_key": "线索键",
+            "priority_score": "优先分",
+        },
+        "views": [
+            {"name": "待审批", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": ("status", "==", "待处理")},
+            {"name": "已批准", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已批准")},
+            {"name": "已延后", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已延后")},
+            {"name": "最近更新", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": None},
+        ],
+        "field_types": {
+            "status": {
+                "type": "select",
+                "options": [{"name": value} for value in LEAD_REVIEW_STATUS_DISPLAY.values()],
+            }
+        },
         "writable_fields": {"status", "note"},
     },
     "delivery_audit": {
-        "name": "Delivery Audit",
+        "name": "交付验收",
         "key_field": "generated_at",
         "fields": [
             "generated_at",
             "publication_mode",
-            "risk_level",
             "feishu_status",
-            "feishu_message_id",
-            "pushplus_status",
-            "telegram_status",
             "card_verified",
             "fallback_observed",
             "delivery_note",
-            "reviewer",
+            "risk_level",
+            "feishu_message_id",
             "trace_url",
+            "pushplus_status",
+            "telegram_status",
+            "reviewer",
         ],
+        "field_labels": {
+            "generated_at": "生成时间",
+            "publication_mode": "发布轨",
+            "feishu_status": "飞书状态",
+            "card_verified": "卡片已确认",
+            "fallback_observed": "发现回退",
+            "delivery_note": "验收备注",
+            "risk_level": "风险等级",
+            "feishu_message_id": "飞书消息 ID",
+            "trace_url": "Trace 链接",
+            "pushplus_status": "PushPlus 状态",
+            "telegram_status": "Telegram 状态",
+            "reviewer": "审核人",
+        },
+        "views": [
+            {"name": "待验收", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "fallback_observed", "delivery_note", "risk_level"], "filter": ("card_verified", "!=", "true")},
+            {"name": "最近交付", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "fallback_observed", "delivery_note", "risk_level"], "filter": None},
+            {"name": "发现回退", "fields": ["generated_at", "publication_mode", "feishu_status", "fallback_observed", "delivery_note", "risk_level"], "filter": ("fallback_observed", "==", "true")},
+            {"name": "已确认卡片", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "delivery_note", "risk_level"], "filter": ("card_verified", "==", "true")},
+        ],
+        "field_types": {
+            "card_verified": {"type": "checkbox"},
+            "fallback_observed": {"type": "checkbox"},
+        },
         "writable_fields": {"card_verified", "fallback_observed", "delivery_note"},
     },
     "candidate_updates": {
-        "name": "Candidate Updates",
+        "name": "待应用变更",
         "key_field": "update_key",
         "fields": [
-            "update_key",
             "source_id",
-            "update_type",
             "summary",
+            "update_type",
             "apply_ready",
             "blocking_reason",
             "validation_mode",
             "generated_at",
+            "update_key",
+        ],
+        "field_labels": {
+            "source_id": "来源 ID",
+            "summary": "变更摘要",
+            "update_type": "变更类型",
+            "apply_ready": "可应用",
+            "blocking_reason": "阻塞原因",
+            "validation_mode": "校验模式",
+            "generated_at": "生成时间",
+            "update_key": "变更键",
+        },
+        "views": [
+            {"name": "待应用变更", "fields": ["source_id", "summary", "update_type", "apply_ready", "blocking_reason", "validation_mode", "generated_at"], "filter": None},
+            {"name": "可应用", "fields": ["source_id", "summary", "update_type", "apply_ready", "validation_mode", "generated_at"], "filter": ("apply_ready", "==", "true")},
+            {"name": "有阻塞", "fields": ["source_id", "summary", "blocking_reason", "validation_mode", "generated_at"], "filter": ("blocking_reason", "!=", "")},
+            {"name": "仅查看", "fields": ["source_id", "summary", "update_type", "apply_ready", "blocking_reason", "validation_mode", "generated_at"], "filter": None},
         ],
         "writable_fields": set(),
     },
@@ -307,22 +411,32 @@ def _coerce_cell_value(value: object) -> str:
 
 def _build_governance_main_table(governance_payload: dict[str, Any]) -> dict[str, Any]:
     items = governance_payload.get("source_governance", {}).get("priority_queue", [])
+    watch_lookup: dict[str, str] = {}
+    registry_items = governance_payload.get("changedetection_watch_registry", {}).get("items", [])
+    if isinstance(registry_items, list):
+        for item in registry_items:
+            if isinstance(item, dict):
+                source_id = _coerce_cell_value(item.get("source_id", ""))
+                if source_id:
+                    watch_lookup[source_id] = _coerce_cell_value(item.get("status", ""))
     records: list[dict[str, str]] = []
     for item in items:
         if not isinstance(item, dict):
             continue
+        source_id = _coerce_cell_value(item.get("source_id", ""))
         records.append(
             {
-                "source_id": _coerce_cell_value(item.get("source_id", "")),
-                "category_hint": _coerce_cell_value(item.get("category_hint", "")),
+                "source_id": source_id,
                 "priority_label": _coerce_cell_value(item.get("priority_label", "")),
+                "watch_status": watch_lookup.get(source_id, ""),
                 "priority_score": _coerce_cell_value(item.get("priority_score", "")),
                 "candidate_kind": _coerce_cell_value(item.get("candidate_kind", "")),
+                "next_action": _coerce_cell_value(item.get("next_action", "")),
+                "replacement_target": _coerce_cell_value(item.get("replacement_target", "")),
                 "stability_tier": _coerce_cell_value(item.get("stability_tier", "")),
                 "watch_strategy": _coerce_cell_value(item.get("watch_strategy", "")),
                 "automation_ready": _coerce_cell_value(item.get("automation_ready", "")),
-                "next_action": _coerce_cell_value(item.get("next_action", "")),
-                "replacement_target": _coerce_cell_value(item.get("replacement_target", "")),
+                "category_hint": _coerce_cell_value(item.get("category_hint", "")),
                 "url": _coerce_cell_value(item.get("url", "")),
                 "updated_at": _coerce_cell_value(governance_payload.get("generated_at", "")),
             }
@@ -339,7 +453,9 @@ def _build_lead_review_table(review_payload: dict[str, Any]) -> dict[str, Any]:
     for item in items:
         if not isinstance(item, dict):
             continue
-        records.append({field: _coerce_cell_value(item.get(field, "")) for field in OPS_DESK_TABLE_SPECS["lead_review"]["fields"]})
+        record = {field: _coerce_cell_value(item.get(field, "")) for field in OPS_DESK_TABLE_SPECS["lead_review"]["fields"]}
+        record["status"] = LEAD_REVIEW_STATUS_DISPLAY.get(record["status"], record["status"])
+        records.append(record)
     return {
         **OPS_DESK_TABLE_SPECS["lead_review"],
         "records": records,
@@ -418,6 +534,53 @@ def _build_ops_desk_payload(root_dir: Path) -> dict[str, Any]:
     }
 
 
+def _display_field_name(table_payload: dict[str, Any], internal_name: str) -> str:
+    labels = table_payload.get("field_labels", {})
+    if isinstance(labels, dict):
+        return _coerce_cell_value(labels.get(internal_name, internal_name))
+    return internal_name
+
+
+def _internal_field_name(table_payload: dict[str, Any], display_name: str) -> str:
+    labels = table_payload.get("field_labels", {})
+    if isinstance(labels, dict):
+        for internal, display in labels.items():
+            if _coerce_cell_value(display) == display_name:
+                return internal
+    return display_name
+
+
+def _to_display_record(table_payload: dict[str, Any], record: dict[str, Any]) -> dict[str, Any]:
+    return {
+        _display_field_name(table_payload, key): value
+        for key, value in record.items()
+    }
+
+
+def _resolve_actual_field_name_map(table_payload: dict[str, Any], field_meta: dict[str, dict[str, str]]) -> dict[str, str]:
+    mapping: dict[str, str] = {}
+    for internal_name in table_payload.get("fields", []):
+        display_name = _display_field_name(table_payload, internal_name)
+        if display_name in field_meta:
+            mapping[internal_name] = display_name
+        elif internal_name in field_meta:
+            mapping[internal_name] = internal_name
+        else:
+            mapping[internal_name] = display_name
+    return mapping
+
+
+def _desired_field_payload(table_payload: dict[str, Any], internal_name: str, current_type: str = "text") -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "name": _display_field_name(table_payload, internal_name),
+        "type": current_type or "text",
+    }
+    field_types = table_payload.get("field_types", {})
+    if isinstance(field_types, dict) and internal_name in field_types and isinstance(field_types[internal_name], dict):
+        payload.update(field_types[internal_name])
+    return payload
+
+
 def _payload_items(payload: object) -> list[dict[str, Any]]:
     if isinstance(payload, dict):
         items = payload.get("items")
@@ -444,6 +607,22 @@ def _extract_record_fields(item: dict[str, Any]) -> dict[str, Any]:
 def _list_base_tables(settings, base_token: str) -> dict[str, dict[str, Any]]:
     response = _run_lark_cli(settings, ["base", "+table-list", "--base-token", base_token])
     tables: dict[str, dict[str, Any]] = {}
+    if isinstance(response, dict):
+        data = response.get("data")
+        if isinstance(data, dict):
+            raw_tables = data.get("tables")
+            if isinstance(raw_tables, list):
+                for item in raw_tables:
+                    if not isinstance(item, dict):
+                        continue
+                    name = _coerce_cell_value(item.get("name", ""))
+                    if not name:
+                        continue
+                    tables[name] = {
+                        "table_id": _coerce_cell_value(item.get("table_id", item.get("id", ""))),
+                        "name": name,
+                    }
+                return tables
     for item in _payload_items(response):
         name = _coerce_cell_value(item.get("name", ""))
         if not name:
@@ -455,13 +634,29 @@ def _list_base_tables(settings, base_token: str) -> dict[str, dict[str, Any]]:
     return tables
 
 
-def _list_table_fields(settings, base_token: str, table_id: str) -> set[str]:
+def _list_table_fields(settings, base_token: str, table_id: str) -> dict[str, dict[str, str]]:
     response = _run_lark_cli(settings, ["base", "+field-list", "--base-token", base_token, "--table-id", table_id])
-    names: set[str] = set()
+    names: dict[str, dict[str, str]] = {}
+    if isinstance(response, dict):
+        data = response.get("data")
+        if isinstance(data, dict):
+            fields = data.get("fields")
+            if isinstance(fields, list):
+                for item in fields:
+                    if not isinstance(item, dict):
+                        continue
+                    name = _coerce_cell_value(item.get("name", item.get("field_name", "")))
+                    field_id = _coerce_cell_value(item.get("id", item.get("field_id", "")))
+                    field_type = _coerce_cell_value(item.get("type", "text")) or "text"
+                    if name:
+                        names[name] = {"id": field_id, "type": field_type}
+                return names
     for item in _payload_items(response):
         name = _coerce_cell_value(item.get("name", item.get("field_name", "")))
+        field_id = _coerce_cell_value(item.get("id", item.get("field_id", "")))
+        field_type = _coerce_cell_value(item.get("type", "text")) or "text"
         if name:
-            names.add(name)
+            names[name] = {"id": field_id, "type": field_type}
     return names
 
 
@@ -507,6 +702,227 @@ def _list_dashboards(settings, base_token: str) -> dict[str, dict[str, Any]]:
     return dashboards
 
 
+def _cleanup_legacy_ops_desk_resources(settings, base_token: str, table_state: dict[str, Any], dashboard_meta: dict[str, Any]) -> None:
+    current_table_ids = {
+        _coerce_cell_value(meta.get("table_id", ""))
+        for meta in table_state.values()
+        if isinstance(meta, dict)
+    }
+    listed_tables = _list_base_tables(settings, base_token)
+    for name, meta in listed_tables.items():
+        table_id = _coerce_cell_value(meta.get("table_id", ""))
+        if not table_id or table_id in current_table_ids:
+            continue
+        if name in OPS_DESK_LEGACY_TABLE_NAMES:
+            try:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+table-delete",
+                        "--base-token",
+                        base_token,
+                        "--table-id",
+                        table_id,
+                        "--yes",
+                    ],
+                )
+            except RuntimeError:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+table-update",
+                        "--base-token",
+                        base_token,
+                        "--table-id",
+                        table_id,
+                        "--name",
+                        OPS_DESK_LEGACY_TABLE_RENAMES.get(name, f"旧版{name}（停用）"),
+                    ],
+                )
+
+    current_dashboard_id = _coerce_cell_value(dashboard_meta.get("dashboard_id", ""))
+    listed_dashboards = _list_dashboards(settings, base_token)
+    for name, meta in listed_dashboards.items():
+        dashboard_id = _coerce_cell_value(meta.get("dashboard_id", ""))
+        if not dashboard_id or dashboard_id == current_dashboard_id:
+            continue
+        if name in OPS_DESK_LEGACY_DASHBOARD_NAMES:
+            try:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+dashboard-delete",
+                        "--base-token",
+                        base_token,
+                        "--dashboard-id",
+                        dashboard_id,
+                        "--yes",
+                    ],
+                )
+            except RuntimeError:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+dashboard-update",
+                        "--base-token",
+                        base_token,
+                        "--dashboard-id",
+                        dashboard_id,
+                        "--name",
+                        OPS_DESK_LEGACY_DASHBOARD_RENAMES.get(name, f"旧版{name}（停用）"),
+                    ],
+                )
+
+
+def _list_views(settings, base_token: str, table_id: str) -> dict[str, dict[str, Any]]:
+    response = _run_lark_cli(settings, ["base", "+view-list", "--base-token", base_token, "--table-id", table_id])
+    views: dict[str, dict[str, Any]] = {}
+    if isinstance(response, dict):
+        data = response.get("data")
+        if isinstance(data, dict):
+            raw_views = data.get("views")
+            if isinstance(raw_views, list):
+                for item in raw_views:
+                    if not isinstance(item, dict):
+                        continue
+                    name = _coerce_cell_value(item.get("name", ""))
+                    if name:
+                        views[name] = {
+                            "view_id": _coerce_cell_value(item.get("id", item.get("view_id", ""))),
+                            "name": name,
+                        }
+                return views
+    for item in _payload_items(response):
+        name = _coerce_cell_value(item.get("name", ""))
+        if name:
+            views[name] = {
+                "view_id": _coerce_cell_value(item.get("id", item.get("view_id", ""))),
+                "name": name,
+            }
+    return views
+
+
+def _list_dashboard_blocks(settings, base_token: str, dashboard_id: str) -> list[dict[str, Any]]:
+    response = _run_lark_cli(settings, ["base", "+dashboard-block-list", "--base-token", base_token, "--dashboard-id", dashboard_id])
+    blocks: list[dict[str, Any]] = []
+    if isinstance(response, dict):
+        data = response.get("data")
+        if isinstance(data, dict):
+            raw_items = data.get("items")
+            if isinstance(raw_items, list):
+                return [item for item in raw_items if isinstance(item, dict)]
+    return _payload_items(response)
+
+
+def _apply_view_visible_fields(settings, base_token: str, table_id: str, view_name: str, field_ids: list[str]) -> None:
+    _run_lark_cli(
+        settings,
+        [
+            "base",
+            "+view-set-visible-fields",
+            "--base-token",
+            base_token,
+            "--table-id",
+            table_id,
+            "--view-id",
+            view_name,
+            "--json",
+            json.dumps({"visible_fields": field_ids}, ensure_ascii=False),
+        ],
+    )
+
+
+def _apply_view_filter(settings, base_token: str, table_id: str, view_name: str, field_id: str, operator: str, value: str) -> None:
+    _run_lark_cli(
+        settings,
+        [
+            "base",
+            "+view-set-filter",
+            "--base-token",
+            base_token,
+            "--table-id",
+            table_id,
+            "--view-id",
+            view_name,
+            "--json",
+            json.dumps({"logic": "and", "conditions": [[field_id, operator, value]]}, ensure_ascii=False),
+        ],
+    )
+
+
+def _ensure_ops_desk_views(settings, base_token: str, table_meta: dict[str, Any], table_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    existing = _list_views(settings, base_token, table_meta["table_id"])
+    if "Grid View" in existing and "全部记录" not in existing:
+        try:
+            _run_lark_cli(
+                settings,
+                [
+                    "base",
+                    "+view-rename",
+                    "--base-token",
+                    base_token,
+                    "--table-id",
+                    table_meta["table_id"],
+                    "--view-id",
+                    "Grid View",
+                    "--name",
+                    "全部记录",
+                ],
+            )
+        except RuntimeError:
+            pass
+        existing = _list_views(settings, base_token, table_meta["table_id"])
+    field_meta = _list_table_fields(settings, base_token, table_meta["table_id"])
+    views: list[dict[str, Any]] = []
+    for spec in table_payload.get("views", []):
+        view_name = _coerce_cell_value(spec.get("name", ""))
+        if not view_name:
+            continue
+        if view_name not in existing:
+            response = _run_lark_cli(
+                settings,
+                [
+                    "base",
+                    "+view-create",
+                    "--base-token",
+                    base_token,
+                    "--table-id",
+                    table_meta["table_id"],
+                    "--json",
+                    json.dumps({"name": view_name, "type": "grid"}, ensure_ascii=False),
+                ],
+            )
+            view_id = _find_first_string(response, {"id", "view_id"})
+            existing[view_name] = {"view_id": view_id, "name": view_name}
+        field_ids = []
+        for internal_name in spec.get("fields", []):
+            display_name = _display_field_name(table_payload, internal_name)
+            field_info = field_meta.get(display_name) or field_meta.get(internal_name)
+            if field_info:
+                field_ids.append(str(field_info["id"]))
+        if field_ids:
+            try:
+                _apply_view_visible_fields(settings, base_token, table_meta["table_id"], view_name, field_ids)
+            except RuntimeError:
+                pass
+        filter_spec = spec.get("filter")
+        if isinstance(filter_spec, tuple) and len(filter_spec) == 3:
+            internal_name, operator, value = filter_spec
+            display_name = _display_field_name(table_payload, str(internal_name))
+            field_info = field_meta.get(display_name) or field_meta.get(str(internal_name))
+            if field_info:
+                try:
+                    _apply_view_filter(settings, base_token, table_meta["table_id"], view_name, str(field_info["id"]), str(operator), str(value))
+                except RuntimeError:
+                    pass
+        views.append(existing[view_name])
+    return views
+
+
 def _ensure_ops_desk_base(root_dir: Path, settings, ops_state: dict[str, Any]) -> dict[str, Any]:
     existing = ops_state.get("base", {}) if isinstance(ops_state.get("base"), dict) else {}
     app_token = _coerce_cell_value(existing.get("app_token", ""))
@@ -544,10 +960,35 @@ def _ensure_ops_desk_table(settings, base_token: str, table_state: dict[str, Any
             ["base", "+table-create", "--base-token", base_token, "--name", table_name],
         )
         table_id = _find_first_string(response, {"table_id", "id"})
+    else:
+        _run_lark_cli(
+            settings,
+            ["base", "+table-update", "--base-token", base_token, "--table-id", table_id, "--name", table_name],
+        )
 
     field_names = _list_table_fields(settings, base_token, table_id)
     for field_name in table_payload["fields"]:
-        if field_name in field_names:
+        display_name = _display_field_name(table_payload, field_name)
+        field_info = field_names.get(field_name) or field_names.get(display_name)
+        if field_info:
+            try:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+field-update",
+                        "--base-token",
+                        base_token,
+                        "--table-id",
+                        table_id,
+                        "--field-id",
+                        str(field_info["id"]),
+                        "--json",
+                        json.dumps(_desired_field_payload(table_payload, field_name, field_info.get("type", "text")), ensure_ascii=False),
+                    ],
+                )
+            except RuntimeError:
+                pass
             continue
         _run_lark_cli(
             settings,
@@ -559,25 +1000,32 @@ def _ensure_ops_desk_table(settings, base_token: str, table_state: dict[str, Any
                 "--table-id",
                 table_id,
                 "--json",
-                json.dumps({"name": field_name, "type": "text"}, ensure_ascii=False),
+                json.dumps(_desired_field_payload(table_payload, field_name, "text"), ensure_ascii=False),
             ],
         )
+
+    field_name_map = _resolve_actual_field_name_map(table_payload, _list_table_fields(settings, base_token, table_id))
 
     return {
         "table_id": table_id,
         "name": table_name,
         "key_field": table_payload["key_field"],
+        "field_name_map": field_name_map,
         "record_ids": dict(existing.get("record_ids", {})) if isinstance(existing.get("record_ids"), dict) else {},
     }
 
 
 def _sync_ops_desk_records(settings, base_token: str, table_meta: dict[str, Any], table_payload: dict[str, Any]) -> dict[str, str]:
     key_field = table_meta["key_field"]
+    field_name_map = table_meta.get("field_name_map", {}) if isinstance(table_meta.get("field_name_map"), dict) else {}
     record_ids = dict(table_meta.get("record_ids", {})) if isinstance(table_meta.get("record_ids"), dict) else {}
     existing_records = _list_table_records(settings, base_token, table_meta["table_id"])
     duplicate_record_ids: list[str] = []
     for item in existing_records:
-        fields = _extract_record_fields(item)
+        fields = {
+            _internal_field_name(table_payload, key): value
+            for key, value in _extract_record_fields(item).items()
+        }
         key = _coerce_cell_value(fields.get(key_field, ""))
         record_id = _coerce_cell_value(item.get("record_id", item.get("id", "")))
         if not key:
@@ -608,6 +1056,10 @@ def _sync_ops_desk_records(settings, base_token: str, table_meta: dict[str, Any]
         key = _coerce_cell_value(record.get(key_field, ""))
         if not key:
             continue
+        actual_record = {
+            _coerce_cell_value(field_name_map.get(internal_name, _display_field_name(table_payload, internal_name))): value
+            for internal_name, value in record.items()
+        }
         args = [
             "base",
             "+record-upsert",
@@ -616,7 +1068,7 @@ def _sync_ops_desk_records(settings, base_token: str, table_meta: dict[str, Any]
             "--table-id",
             table_meta["table_id"],
             "--json",
-            json.dumps(record, ensure_ascii=False),
+            json.dumps(actual_record, ensure_ascii=False),
         ]
         if key in record_ids and record_ids[key]:
             args.extend(["--record-id", record_ids[key]])
@@ -631,7 +1083,7 @@ def _ensure_ops_desk_dashboard(settings, base_token: str, ops_state: dict[str, A
     existing = ops_state.get("dashboard", {}) if isinstance(ops_state.get("dashboard"), dict) else {}
     dashboard_id = _coerce_cell_value(existing.get("dashboard_id", ""))
     dashboard_url = _coerce_cell_value(existing.get("url", ""))
-    initialized = bool(existing.get("initialized", False))
+    initialized_version = int(existing.get("layout_version", 0) or 0)
     if not dashboard_id:
         dashboards = _list_dashboards(settings, base_token)
         dashboard = dashboards.get(OPS_DESK_DASHBOARD_NAME, {})
@@ -645,30 +1097,31 @@ def _ensure_ops_desk_dashboard(settings, base_token: str, ops_state: dict[str, A
         dashboard_id = _find_first_string(response, {"dashboard_id", "id"})
         dashboard_url = _find_first_string(response, {"url"})
 
-    if dashboard_id and not initialized:
-        _run_lark_cli(
-            settings,
-            [
-                "base",
-                "+dashboard-block-create",
-                "--base-token",
-                base_token,
-                "--dashboard-id",
-                dashboard_id,
-                "--type",
-                "text",
-                "--name",
-                "Overview",
-                "--data-config",
-                json.dumps({"text": "VS_AI Ops Desk\nUse the four tables below as the operator workspace."}, ensure_ascii=False),
-            ],
-        )
-        for table_key, label in (
-            ("governance_main", "Governance"),
-            ("lead_review", "Lead Review"),
-            ("delivery_audit", "Delivery Audit"),
-            ("candidate_updates", "Candidate Updates"),
-        ):
+    if dashboard_id and initialized_version < DASHBOARD_LAYOUT_VERSION:
+        rebuild_allowed = True
+        for block in _list_dashboard_blocks(settings, base_token, dashboard_id):
+            block_id = _coerce_cell_value(block.get("block_id", block.get("id", "")))
+            if not block_id:
+                continue
+            try:
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+dashboard-block-delete",
+                        "--base-token",
+                        base_token,
+                        "--dashboard-id",
+                        dashboard_id,
+                        "--block-id",
+                        block_id,
+                        "--yes",
+                    ],
+                )
+            except RuntimeError:
+                rebuild_allowed = False
+                break
+        if rebuild_allowed:
             _run_lark_cli(
                 settings,
                 [
@@ -679,21 +1132,60 @@ def _ensure_ops_desk_dashboard(settings, base_token: str, ops_state: dict[str, A
                     "--dashboard-id",
                     dashboard_id,
                     "--type",
-                    "statistics",
+                    "text",
                     "--name",
-                    label,
+                    "首页说明",
                     "--data-config",
-                    json.dumps({"table_name": table_state[table_key]["name"], "count_all": True}, ensure_ascii=False),
-                    "--no-validate",
+                    json.dumps({"text": "VS_AI 今日运营台\n先看状态，再进入处理\n常用入口：待审批、待验收、阻塞来源、待应用变更"}, ensure_ascii=False),
                 ],
             )
-        initialized = True
+            for table_key, label in (
+                ("delivery_audit", "飞书交付"),
+                ("governance_main", "来源治理"),
+                ("lead_review", "审批协作"),
+                ("candidate_updates", "待应用变更"),
+            ):
+                _run_lark_cli(
+                    settings,
+                    [
+                        "base",
+                        "+dashboard-block-create",
+                        "--base-token",
+                        base_token,
+                        "--dashboard-id",
+                        dashboard_id,
+                        "--type",
+                        "statistics",
+                        "--name",
+                        label,
+                        "--data-config",
+                        json.dumps({"table_name": table_state[table_key]["name"], "count_all": True}, ensure_ascii=False),
+                        "--no-validate",
+                    ],
+                )
+            _run_lark_cli(
+                settings,
+                [
+                    "base",
+                    "+dashboard-block-create",
+                    "--base-token",
+                    base_token,
+                    "--dashboard-id",
+                    dashboard_id,
+                    "--type",
+                    "text",
+                    "--name",
+                    "今日操作建议",
+                    "--data-config",
+                    json.dumps({"text": "1. 先看【飞书交付】\n2. 再看【审批协作】中的待审批\n3. 如有异常，再看【来源治理】的阻塞来源"}, ensure_ascii=False),
+                ],
+            )
 
     return {
         "dashboard_id": dashboard_id,
         "url": dashboard_url,
         "name": OPS_DESK_DASHBOARD_NAME,
-        "initialized": initialized,
+        "layout_version": DASHBOARD_LAYOUT_VERSION,
     }
 
 
@@ -927,7 +1419,8 @@ def _write_back_lead_review_status(root_dir: Path, records: list[dict[str, Any]]
         lead_key = _coerce_cell_value(fields.get("lead_key", ""))
         if not lead_key or lead_key not in index:
             continue
-        next_status = _coerce_cell_value(fields.get("status", "")).lower()
+        raw_status = _coerce_cell_value(fields.get("status", "")).strip()
+        next_status = LEAD_REVIEW_STATUS_REPO.get(raw_status, raw_status.lower())
         if next_status not in allowed_status:
             continue
         next_note = _coerce_cell_value(fields.get("note", ""))
@@ -1024,6 +1517,7 @@ def sync_feishu_ops_desk(root_dir: Path, settings) -> dict[str, Any]:
     for table_key, table_payload in payload.items():
         table_meta = _ensure_ops_desk_table(settings, base_meta["app_token"], existing_tables, table_key, table_payload)
         table_meta["record_ids"] = _sync_ops_desk_records(settings, base_meta["app_token"], table_meta, table_payload)
+        table_meta["views"] = _ensure_ops_desk_views(settings, base_meta["app_token"], table_meta, table_payload)
         table_state[table_key] = table_meta
         state["ops_desk"] = {
             "base": base_meta,
@@ -1032,6 +1526,7 @@ def sync_feishu_ops_desk(root_dir: Path, settings) -> dict[str, Any]:
         }
         _save_sidecar_state(root_dir, state)
     dashboard_meta = _ensure_ops_desk_dashboard(settings, base_meta["app_token"], ops_state, table_state)
+    _cleanup_legacy_ops_desk_resources(settings, base_meta["app_token"], table_state, dashboard_meta)
     result = {
         "base": base_meta,
         "tables": table_state,

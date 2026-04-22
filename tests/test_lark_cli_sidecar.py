@@ -297,28 +297,44 @@ def test_sync_feishu_ops_desk_creates_base_tables_and_dashboard(monkeypatch):
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"base": {"app_token": "base_1", "url": "https://base/1"}}), stderr="")
         if "base +table-list" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +table-update" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"table": {"table_id": "tbl_any"}}), stderr="")
         if "base +table-create" in joined:
             if "Governance Main" in joined:
                 table_id = "tbl_governance"
-            elif "Lead Review" in joined:
+            elif "审批协作" in joined:
                 table_id = "tbl_leads"
-            elif "Delivery Audit" in joined:
+            elif "交付验收" in joined:
                 table_id = "tbl_delivery"
             else:
                 table_id = "tbl_updates"
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"table": {"table_id": table_id, "name": table_id}}), stderr="")
         if "base +field-list" in joined:
-            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"fields": []}}), stderr="")
         if "base +field-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"field": {"field_id": "fld_1"}}), stderr="")
+        if "base +field-update" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"field": {"field_id": "fld_1"}}), stderr="")
         if "base +record-list" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
         if "base +record-upsert" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"record": {"record_id": f"rec_{len(calls)}"}}), stderr="")
+        if "base +view-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"views": []}}), stderr="")
+        if "base +view-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"view": {"view_id": f"vew_{len(calls)}"}}), stderr="")
+        if "base +view-set-visible-fields" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        if "base +view-set-filter" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
         if "base +dashboard-list" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
         if "base +dashboard-create" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"dashboard": {"dashboard_id": "dsh_1", "url": "https://dashboard/1"}}), stderr="")
+        if "base +dashboard-block-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +dashboard-block-delete" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
         if "base +dashboard-block-create" in joined:
             return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"block": {"block_id": f"blk_{len(calls)}"}}), stderr="")
         raise AssertionError(f"Unexpected command: {command}")
@@ -423,3 +439,77 @@ def test_pull_feishu_ops_status_updates_repo_json_files(monkeypatch):
     assert delivery["delivery_note"] == "looks good"
     assert result["lead_review"]["updated_count"] == 1
     assert result["delivery_audit"]["updated_count"] == 1
+
+
+def test_sync_feishu_ops_desk_cleans_up_legacy_english_resources(monkeypatch):
+    tmp_path = Path(tempfile.mkdtemp(prefix="codex-opsdesk-", dir=Path.cwd() / "output"))
+    _write_governance_artifact(tmp_path)
+    _write_lead_review_status(tmp_path)
+    _write_candidate_updates(tmp_path)
+    _write_run_status(tmp_path)
+    _write_delivery_audit_review(tmp_path)
+    settings = _settings_for(tmp_path, monkeypatch)
+
+    calls: list[list[str]] = []
+
+    def fake_run(command, capture_output, text, check, cwd=None, encoding=None, errors=None):
+        calls.append(command)
+        joined = " ".join(command)
+        if "base +table-list" in joined:
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                stdout=json.dumps(
+                    {
+                        "data": {
+                            "tables": [
+                                {"id": "tbl_old1", "name": "Lead Review"},
+                                {"id": "tbl_old2", "name": "Delivery Audit"},
+                                {"id": "tbl_old3", "name": "Candidate Updates"},
+                                {"id": "tbl_old4", "name": "数据表"},
+                            ]
+                        }
+                    }
+                ),
+                stderr="",
+            )
+        if "base +dashboard-list" in joined:
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                stdout=json.dumps({"data": {"items": [{"dashboard_id": "dsh_old", "name": "VS_AI Ops Desk"}]}}),
+                stderr="",
+            )
+        if "base +base-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"base": {"app_token": "base_1", "url": "https://base/1"}}), stderr="")
+        if "base +table-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"table": {"table_id": f"tbl_{len(calls)}"}}), stderr="")
+        if "base +field-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"fields": []}}), stderr="")
+        if "base +field-create" in joined or "base +field-update" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"field": {"field_id": "fld_1"}}), stderr="")
+        if "base +record-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +record-upsert" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"record": {"record_id": f"rec_{len(calls)}"}}), stderr="")
+        if "base +view-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"views": []}}), stderr="")
+        if "base +view-create" in joined or "base +view-set-visible-fields" in joined or "base +view-set-filter" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        if "base +dashboard-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"dashboard": {"dashboard_id": "dsh_new", "url": "https://dashboard/1"}}), stderr="")
+        if "base +dashboard-block-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +dashboard-block-create" in joined or "base +dashboard-block-delete" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        if "base +table-delete" in joined or "base +dashboard-delete" in joined or "base +dashboard-update" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr("auto_report.integrations.lark_cli.subprocess.run", fake_run)
+
+    sync_feishu_ops_desk(tmp_path, settings)
+
+    assert any(("base +table-delete" in " ".join(command) or "base +table-update" in " ".join(command)) and "tbl_old1" in " ".join(command) for command in calls)
+    assert any(("base +table-delete" in " ".join(command) or "base +table-update" in " ".join(command)) and "tbl_old4" in " ".join(command) for command in calls)
+    assert any(("base +dashboard-delete" in " ".join(command) or "base +dashboard-update" in " ".join(command)) and "dsh_old" in " ".join(command) for command in calls)
