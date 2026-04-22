@@ -29,6 +29,8 @@
 - 当前本地验证基线：`312 passed`
 - 当前主线优先级：`P3-A 收口尾项 + P3-B 第二轮 polish：飞书推送界面优化已完成首轮发布级验收，飞书多维表格运营台第一版已落地`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
+- 当前批次已 `push` 到远端：`2026-04-22 / commit 479f5fb`
+- 当前批次已触发远端发布级确认：`push run 24778735719` + `workflow_dispatch run 24778755577`（以 GitHub Actions 页面为准）
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
@@ -378,6 +380,9 @@ Get-Content out/source-governance/source-governance.json
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - 当前仅剩一个明确 blocked 来源：`renesas-blog`（403）
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
+- `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
+- `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
+- `2026-04-22` 已 `push` `479f5fb` 并触发远端发布级确认（run `24778735719` / `24778755577`）
 - 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：
@@ -401,8 +406,9 @@ Get-Content out/source-governance/source-governance.json
   2. 文本 fallback 保留
   3. `diagnose-delivery --mode full-report --send --channels feishu` 已可做 Feishu-only 验证
 - `P3-A` 当前剩余缺口：
-  1. 远端持续 canary 仍未覆盖卡片主路径
-  2. `run-status` 仍未区分 `card_success / text_fallback`
+  1. `2026-04-22` 本地已实测卡片主路径命中：`delivery_kind=card_success`
+  2. `run-status` / diagnose 输出已区分 `card_success / text_fallback`
+  3. 当前剩余差距只剩远端持续 canary 覆盖与最终确认收口
 - `P3-B` 第一版已经落地：
   1. `VS_AI 今日运营台` dashboard 已建成
   2. 四张表已建成：`治理总表` / `审批协作` / `交付验收` / `待应用变更`
@@ -410,8 +416,11 @@ Get-Content out/source-governance/source-governance.json
      - `python -m auto_report.cli sync-feishu-ops-desk`
      - `python -m auto_report.cli pull-feishu-ops-status`
   4. 已支持状态类回写：
-     - `审批协作.status / note`
-     - `交付验收.card_verified / fallback_observed / delivery_note`
+      - `审批协作.status / note`
+      - `交付验收.card_verified / fallback_observed / delivery_note`
+  5. 第二轮 polish 已开始落地：
+      - `审批协作.pending` 已中文化为 `待审批`
+      - 视图过滤条件已与中文状态值对齐
 - `renesas-blog` 仍 blocked，需要替代入口或局部 fallback
 - `OpenCLI` 侧车 pilot 继续延后，不与当前批次混做
 
