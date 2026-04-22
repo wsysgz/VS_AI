@@ -98,4 +98,25 @@ def test_send_feishu_notification_with_fallback_uses_text_when_card_send_fails(m
         card={"header": {"title": {"content": "card"}}},
     )
 
-    assert result == [{"code": 0, "msg": "ok"}]
+    assert result == [{"code": 0, "msg": "ok", "delivery_kind": "text_fallback"}]
+
+
+def test_send_feishu_notification_with_fallback_marks_card_success(monkeypatch):
+    monkeypatch.setattr(
+        "auto_report.integrations.feishu.send_feishu_card_message",
+        lambda *args, **kwargs: {"code": 0, "msg": "ok"},
+    )
+    monkeypatch.setattr(
+        "auto_report.integrations.feishu.send_feishu_messages",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("text fallback should not send")),
+    )
+
+    result = send_feishu_notification_with_fallback(
+        "app",
+        "secret",
+        "oc_xxx",
+        "fallback text",
+        card={"header": {"title": {"content": "card"}}},
+    )
+
+    assert result == [{"code": 0, "msg": "ok", "delivery_kind": "card_success"}]
