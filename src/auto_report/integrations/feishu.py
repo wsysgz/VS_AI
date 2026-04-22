@@ -160,25 +160,46 @@ def send_feishu_notification_with_fallback(
     api_base_url: str = "https://open.feishu.cn",
     timeout: int = 20,
 ) -> list[dict[str, Any]]:
+    def _annotate_delivery_kind(response: object, delivery_kind: str) -> object:
+        if isinstance(response, dict):
+            annotated = dict(response)
+            annotated["delivery_kind"] = delivery_kind
+            return annotated
+        if isinstance(response, list):
+            annotated_list: list[dict[str, Any]] = []
+            for item in response:
+                if isinstance(item, dict):
+                    annotated = dict(item)
+                    annotated["delivery_kind"] = delivery_kind
+                    annotated_list.append(annotated)
+            return annotated_list
+        return response
+
     if card:
         try:
             return [
-                send_feishu_card_message(
-                    app_id,
-                    app_secret,
-                    receive_id,
-                    card,
-                    api_base_url=api_base_url,
-                    timeout=timeout,
+                _annotate_delivery_kind(
+                    send_feishu_card_message(
+                        app_id,
+                        app_secret,
+                        receive_id,
+                        card,
+                        api_base_url=api_base_url,
+                        timeout=timeout,
+                    ),
+                    "card_success",
                 )
             ]
         except Exception:
             pass
-    return send_feishu_messages(
-        app_id,
-        app_secret,
-        receive_id,
-        text,
-        api_base_url=api_base_url,
-        timeout=timeout,
+    return _annotate_delivery_kind(
+        send_feishu_messages(
+            app_id,
+            app_secret,
+            receive_id,
+            text,
+            api_base_url=api_base_url,
+            timeout=timeout,
+        ),
+        "text_fallback",
     )

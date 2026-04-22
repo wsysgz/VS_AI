@@ -27,7 +27,7 @@ OPS_DESK_LEGACY_DASHBOARD_RENAMES = {
     "VS_AI Ops Desk": "旧版运营台（停用）",
 }
 LEAD_REVIEW_STATUS_DISPLAY = {
-    "pending": "待处理",
+    "pending": "待审批",
     "approved": "已批准",
     "rejected": "已拒绝",
     "deferred": "已延后",
@@ -101,7 +101,7 @@ OPS_DESK_TABLE_SPECS = {
             "priority_score": "优先分",
         },
         "views": [
-            {"name": "待审批", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": ("status", "==", "待处理")},
+            {"name": "待审批", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": ("status", "==", "待审批")},
             {"name": "已批准", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已批准")},
             {"name": "已延后", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已延后")},
             {"name": "最近更新", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": None},

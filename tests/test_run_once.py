@@ -146,6 +146,25 @@ def test_build_run_status_summarizes_feishu_responses():
     }
 
 
+def test_build_run_status_preserves_feishu_delivery_kind():
+    status = build_run_status(
+        generated_files=["data/reports/latest-summary.md"],
+        pushed=True,
+        push_response={
+            "feishu": [
+                {
+                    "code": 0,
+                    "msg": "success",
+                    "data": {"message_id": "om_1"},
+                    "delivery_kind": "card_success",
+                }
+            ]
+        },
+    )
+
+    assert status["push_response"]["feishu"]["delivery_kind"] == "card_success"
+
+
 def test_build_run_status_includes_external_enrichment_metrics():
     status = build_run_status(
         generated_files=["data/reports/latest-summary.md"],
@@ -958,7 +977,7 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     def fake_send_feishu_messages(app_id, app_secret, chat_id, text, **kwargs):
         captured["text"] = text
         captured["card"] = kwargs.get("card")
-        return [{"code": 0, "data": {"message_id": "om_1"}}]
+        return [{"code": 0, "data": {"message_id": "om_1"}, "delivery_kind": "card_success"}]
 
     monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
     monkeypatch.setattr(
@@ -982,6 +1001,7 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     assert captured["text"] == "feishu text"
     assert captured["card"] == {"header": {"title": {"content": "card"}}, "elements": []}
     assert summary["successful_channels"] == ["feishu"]
+    assert summary["channels"]["feishu"]["delivery_kind"] == "card_success"
     assert summary["channels"]["pushplus"]["attempted"] is False
     assert summary["channels"]["pushplus"]["detail"] == "filtered"
     assert summary["channels"]["telegram"]["attempted"] is False

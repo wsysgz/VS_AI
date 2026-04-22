@@ -153,6 +153,7 @@ def build_channel_result(
     response: object | None = None,
     error_type: str | None = None,
     attempted_at: str | None = None,
+    delivery_kind: str = "",
 ) -> dict[str, object]:
     status = "skipped"
     if configured and attempted and ok:
@@ -171,6 +172,7 @@ def build_channel_result(
         "response": response,
         "error_type": error_type,
         "attempted_at": attempted_at,
+        **({"delivery_kind": delivery_kind} if delivery_kind else {}),
     }
 
 

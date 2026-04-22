@@ -86,6 +86,19 @@ def test_build_channel_result_preserves_error_type_and_attempted_at():
     assert result["attempted_at"] == "2026-04-11T07:01:00+08:00"
 
 
+def test_build_channel_result_preserves_delivery_kind():
+    result = build_channel_result(
+        "feishu",
+        configured=True,
+        attempted=True,
+        ok=True,
+        detail="success",
+        delivery_kind="card_success",
+    )
+
+    assert result["delivery_kind"] == "card_success"
+
+
 def test_classify_channel_error_uses_delivery_categories():
     assert classify_channel_error("telegram", [{"description": "Unauthorized"}], "Unauthorized") == "auth"
     assert classify_channel_error("pushplus", {"msg": "forbidden"}, "forbidden") == "permission"

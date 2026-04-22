@@ -27,7 +27,8 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`312 passed`
-- 当前主线优先级：`P3-A 收口 + P3-B 规划：飞书推送界面优化完成发布级验收，飞书多维表格运营台正式纳入计划`
+- 当前主线优先级：`P3-A 收口尾项 + P3-B 第二轮 polish：飞书推送界面优化已完成首轮发布级验收，飞书多维表格运营台第一版已落地`
+- 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
@@ -371,11 +372,12 @@ Get-Content out/source-governance/source-governance.json
 
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
-- 当前主线已切到 `P3-A 收口 + P3-B 规划`
+- 当前主线已切到 `P3-A 收口尾项 + P3-B 第二轮 polish`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
 - 本地验证基线已经提升并固定到 `312 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - 当前仅剩一个明确 blocked 来源：`renesas-blog`（403）
+- `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：

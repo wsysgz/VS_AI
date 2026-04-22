@@ -47,11 +47,14 @@ def _summarize_feishu_response(push_response: object) -> dict[str, object]:
     message_ids: list[str] = []
     all_ok = True
     description = ""
+    delivery_kind = ""
 
     for item in responses:
         all_ok = all_ok and item.get("code") == 0
         if not description and isinstance(item.get("msg"), str):
             description = item["msg"]
+        if not delivery_kind and isinstance(item.get("delivery_kind"), str):
+            delivery_kind = item["delivery_kind"]
 
         data = item.get("data")
         if isinstance(data, dict) and isinstance(data.get("message_id"), str):
@@ -64,6 +67,8 @@ def _summarize_feishu_response(push_response: object) -> dict[str, object]:
     }
     if description:
         summary["description"] = description
+    if delivery_kind:
+        summary["delivery_kind"] = delivery_kind
     return summary
 
 

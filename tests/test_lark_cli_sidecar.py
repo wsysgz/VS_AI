@@ -7,6 +7,7 @@ import tempfile
 from pathlib import Path
 
 from auto_report.integrations.lark_cli import (
+    OPS_DESK_TABLE_SPECS,
     SIDE_CAR_STATE_PATH,
     pull_feishu_ops_status,
     sync_feishu_ops_desk,
@@ -362,6 +363,11 @@ def test_sync_feishu_ops_desk_creates_base_tables_and_dashboard(monkeypatch):
     assert any("base +base-create" in " ".join(command) for command in calls)
     assert any("base +table-create" in " ".join(command) for command in calls)
     assert any("base +dashboard-create" in " ".join(command) for command in calls)
+
+
+def test_ops_desk_lead_review_uses_waiting_for_approval_label():
+    assert OPS_DESK_TABLE_SPECS["lead_review"]["field_types"]["status"]["options"][0]["name"] == "待审批"
+    assert OPS_DESK_TABLE_SPECS["lead_review"]["views"][0]["filter"] == ("status", "==", "待审批")
 
 
 def test_pull_feishu_ops_status_updates_repo_json_files(monkeypatch):

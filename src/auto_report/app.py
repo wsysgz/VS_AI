@@ -435,6 +435,21 @@ def _empty_delivery_results() -> dict[str, object]:
     }
 
 
+def _extract_delivery_kind(response: object) -> str:
+    if isinstance(response, dict):
+        items = [response]
+    elif isinstance(response, list):
+        items = [item for item in response if isinstance(item, dict)]
+    else:
+        items = []
+
+    for item in items:
+        delivery_kind = item.get("delivery_kind")
+        if isinstance(delivery_kind, str) and delivery_kind:
+            return delivery_kind
+    return ""
+
+
 def _scheduler_context(settings) -> dict[str, object]:
     return {
         "trigger_kind": settings.env.get("SCHEDULER_TRIGGER_KIND", "manual") or "manual",
@@ -579,6 +594,7 @@ def _collect_delivery_results(
             response = sender()
             ok = channel_response_succeeded(channel_name, response)
             detail = describe_channel_response(channel_name, response)
+            delivery_kind = _extract_delivery_kind(response)
             responses[channel_name] = response
             results[channel_name] = build_channel_result(
                 channel_name,
@@ -589,6 +605,7 @@ def _collect_delivery_results(
                 response=response,
                 error_type=None if ok else classify_channel_error(channel_name, response, detail),
                 attempted_at=attempted_at,
+                delivery_kind=delivery_kind,
             )
         except Exception as exc:
             error_response = {"error": str(exc)}
@@ -1136,7 +1153,8 @@ def cmd_diagnose_delivery(
     for name, item in summary["channels"].items():
         print(
             f"[{name}] status={item['status']} configured={item['configured']} "
-            f"attempted={item['attempted']} error_type={item['error_type']} detail={item['detail']}"
+            f"attempted={item['attempted']} error_type={item['error_type']} detail={item['detail']} "
+            f"delivery_kind={item.get('delivery_kind', '')}"
         )
     return summary
 
