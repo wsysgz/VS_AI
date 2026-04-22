@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.22</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent infrastructure is rapidly advancing with new debugging frameworks and security tools emerging, while production reliability remains the critical bottleneck for enterprise deployment.</h1>
-      <p class="subtle">The AI agent ecosystem is experiencing a significant push toward production readiness, with two major developments addressing core reliability and security challenges. Microsoft&#x27;s AgentRx framework introduces systematic debugging capabilities for complex AI agents, recognizing that agent failures are fundamentally harder to diagnose than human errors due to issues like hallucinated tool outputs. Brex&#x27;s open-sourced CrabTrap project provides an LLM-as-a-judge HTTP proxy designed to secure AI agents in production environments, representing a pragmatic approach to balancing agent flexibility with safety constraints.</p>
+      <h1 class="section-title" style="font-size:34px;">The AI agent ecosystem is rapidly evolving from capability-focused to security-first, with OpenAI, Brex, and Microsoft independently addressing the core tension between agent autonomy and production safety.</h1>
+      <p class="subtle">Three major developments this cycle signal a pivotal shift in AI agent infrastructure: OpenAI&#x27;s Agents SDK now includes native sandbox execution, Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy, and Microsoft Research introduced AgentRx for systematic agent debugging. These releases converge on a critical insight—AI agents are transitioning from simple chatbots to autonomous systems capable of managing production incidents and multi-step workflows, but their failure modes remain opaque and difficult to diagnose. The primary contradiction emerging across all three is the inherent tension between empowering agents with greater autonomy while maintaining safety, security, and developer control over increasingly powerful systems.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">167 topics</span>
         <span class="tag warm">169 raw items</span>
         <span class="tag">人工复核版</span>
-        <span class="tag">2026-04-22T14:00:51.572336+08:00</span>
+        <span class="tag">2026-04-22T14:19:00.781645+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>Agent Debugging Gap Threatens Production Reliability</h3>
-  <p>As AI agents transition from simple chatbots to autonomous systems handling complex tasks like cloud incident management, their failures become harder to diagnose than human errors. The AgentRx framework from Microsoft directly addresses this &#x27;debuggability gap,&#x27; which if unaddressed, will limit enterprise adoption of autonomous agents in critical workflows.</p>
+  <h3>OpenAI SDK Evolution: Security as Default, Not Afterthought</h3>
+  <p>OpenAI&#x27;s shift from raw model capabilities to a managed, secure framework indicates the industry recognizes that autonomous agent deployment requires institutionalized safety mechanisms. The native sandbox execution fundamentally changes the risk profile for production agents.</p>
 </article><article class="summary-card">
-  <h3>Security Tooling for Agent Deployment Gains Momentum</h3>
-  <p>Brex&#x27;s decision to open-source CrabTrap signals that production agent security is becoming a community priority rather than a competitive moat. The LLM-as-a-judge proxy pattern represents a practical architectural approach for organizations seeking to deploy agents while maintaining safety guardrails, with 106 HN points indicating strong community interest.</p>
+  <h3>CrabTrap: LLM-as-Judge Security Layer for Production Agents</h3>
+  <p>Brex&#x27;s open-source release demonstrates that the industry is investing in runtime security layers that can enforce policies without sacrificing agent functionality. The 107-point HN score reflects strong community interest in production-grade agent security solutions.</p>
 </article><article class="summary-card">
-  <h3>Agent Autonomy vs. Transparency Trade-off Remains Unsolved</h3>
-  <p>The primary contradiction across these developments is the tension between increasing agent capability/autonomy and the decreasing transparency/debuggability of their actions. Organizations deploying agents in production must actively invest in observability infrastructure or risk deploying systems whose failures are opaque and potentially costly.</p>
+  <h3>AgentRx Framework: Addressing the &#x27;Debuggability Gap&#x27;</h3>
+  <p>Microsoft Research identifies a critical engineering challenge—agent failures (e.g., hallucinated tool outputs) are opaque compared to human errors. AgentRx treats systematic debugging as a core engineering problem, essential for reliable production deployment.</p>
 </article>
       </div>
     </section>
@@ -333,25 +333,25 @@
       <h2 class="section-title">Deep Reads</h2>
       <div class="summary-grid">
         <article class="topic-card">
-  <h3>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World</h3>
-  <p>在零证据输入的情况下，任何实质性分析都无法进行。当前状态仅能识别出任务指令与底层分析协议的根本冲突，无法对主题候选内容本身做出任何有效判断。</p>
+  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
+  <p>CrabTrap代表了将LLM从纯粹的生成工具转变为实时安全监控与决策组件的关键尝试，其核心挑战在于如何在不牺牲智能体功能灵活性的前提下，通过一个代理层来强制实施安全策略。</p>
   <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI × Electronics</span>
-    <span class="tag warm">low</span>
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The evolution of AI agents into complex autonomous systems is creating a critical &#x27;debuggability gap&#x27;—their failures are becoming harder to diagnose than human errors, threatening their reliability and safe deployment in critical applications.</p>
+  <h3>The next evolution of the Agents SDK</h3>
+  <p>OpenAI&#x27;s SDK evolution signals a strategic pivot from providing raw model capabilities to offering a managed, secure framework for agent deployment, aiming to lower the barrier to building powerful agents while attempting to institutionalize safety as a default, not an afterthought.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
   </div>
 </article><article class="topic-card">
-  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
-  <p>CrabTrap的核心是试图通过一个外部化、标准化的LLM评判层，在允许智能体保持其功能灵活性的同时，系统性拦截其可能产生的有害或高风险输出，这反映了行业在积极部署AI智能体时对安全性与可靠性基础工具的迫切需求。</p>
+  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+  <p>The evolution of AI agents into complex autonomous actors is creating a critical &#x27;debuggability gap&#x27; where their failure modes become opaque, threatening their reliability and safe deployment; AgentRx represents an early attempt to systematize the diagnosis of agent failures, treating it as a core engineering challenge rather than an incidental problem.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
+    <span class="tag warm">high</span>
   </div>
 </article>
       </div>
@@ -390,7 +390,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
-  <p>Score: 106 | Comments: 36 | Text: https://www.brex.com/journal/building-crabtrap-open-source</p>
+  <p>Score: 107 | Comments: 36 | Text: https://www.brex.com/journal/building-crabtrap-open-source</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>brex.com · 2.5</span>
@@ -498,7 +498,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Framework Laptop 13 Pro</h3>
-  <p>Score: 1106 | Comments: 571</p>
+  <p>Score: 1119 | Comments: 573</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>frame.work · 1.8</span>
@@ -696,7 +696,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Laws of Software Engineering</h3>
-  <p>Score: 906 | Comments: 450</p>
+  <p>Score: 916 | Comments: 450</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>lawsofsoftwareengineering.com · 1.0</span>
@@ -705,7 +705,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>ChatGPT Images 2.0</h3>
-  <p>Score: 658 | Comments: 528 | Text: Livestream: https://openai.com/live/ System card: https://deploymentsaf</p>
+  <p>Score: 683 | Comments: 535 | Text: Livestream: https://openai.com/live/ System card: https://deploymentsaf</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
@@ -714,7 +714,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
-  <p>Score: 485 | Comments: 278</p>
+  <p>Score: 486 | Comments: 278</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>docs.openclaw.ai · 1.0</span>
@@ -723,7 +723,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Claude Code to be removed from Anthropic&#x27;s Pro plan?</h3>
-  <p>Score: 471 | Comments: 455 | Text: https://x.com/TheAmolAvasare/status/2046725498592722972 &lt;a href=&quot;https://xcancel.com/TheAmolAvasare/status/2046725498592722972&quot; rel=&quot;nofol</p>
+  <p>Score: 477 | Comments: 469 | Text: https://x.com/TheAmolAvasare/status/2046725498592722972 &lt;a href=&quot;https://xcancel.com/TheAmolAvasare/status/2046725498592722972&quot; rel=&quot;nofol</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>bsky.app · 1.0</span>
@@ -732,7 +732,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Meta to start capturing employee mouse movements, keystrokes for AI training</h3>
-  <p>Score: 449 | Comments: 345 | Text: Alt link: https://tech.yahoo.com/ai/meta-ai/articles/exclusive-meta-st...</p>
+  <p>Score: 461 | Comments: 347 | Text: Alt link: https://tech.yahoo.com/ai/meta-ai/articles/exclusive-meta-st...</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>reuters.com · 1.0</span>
@@ -741,7 +741,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Changes to GitHub Copilot individual plans</h3>
-  <p>Score: 389 | Comments: 149</p>
+  <p>Score: 394 | Comments: 153</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>github.blog · 1.0</span>
@@ -759,11 +759,20 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>The Beauty of Bonsai Styles</h3>
-  <p>Score: 203 | Comments: 37</p>
+  <p>Score: 204 | Comments: 37</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>longwoodgardens.org · 1.0</span>
     <a href="https://longwoodgardens.org/blog/2023-05-17/beauty-bonsai-styles" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Stephen&#x27;s Sausage Roll remains one of the most influential puzzle games</h3>
+  <p>Score: 172 | Comments: 82</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>thinkygames.com · 1.0</span>
+    <a href="https://thinkygames.com/features/10-years-of-grilling-stephens-sausage-roll-remains-one-of-the-most-influential-puzzle-games-ever-created/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -773,15 +782,6 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/ENTERPILOT/GOModel/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Stephen&#x27;s Sausage Roll remains one of the most influential puzzle games</h3>
-  <p>Score: 168 | Comments: 81</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>thinkygames.com · 1.0</span>
-    <a href="https://thinkygames.com/features/10-years-of-grilling-stephens-sausage-roll-remains-one-of-the-most-influential-puzzle-games-ever-created/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -813,7 +813,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Windows Server 2025 Runs Better on ARM</h3>
-  <p>Score: 90 | Comments: 79</p>
+  <p>Score: 96 | Comments: 79</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>jasoneckert.github.io · 1.0</span>
@@ -822,7 +822,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Claude Code Removed from $20-a-Month &quot;Pro&quot; Subscription for New Users</h3>
-  <p>Score: 69 | Comments: 25</p>
+  <p>Score: 69 | Comments: 26</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>wheresyoured.at · 1.0</span>
@@ -831,7 +831,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Show HN: Ctx – a /resume that works across Claude Code and Codex</h3>
-  <p>Score: 58 | Comments: 24 | Text: ctx is a local SQLite-backed skill for Claude Code and Codex that stores context as a persistent workstream that can be continued across agent sessions. Each workstream can contain multiple sessions, notes, decisions, todos, and resume packs. It essentially functions as a /resume that can work</p>
+  <p>Score: 59 | Comments: 24 | Text: ctx is a local SQLite-backed skill for Claude Code and Codex that stores context as a persistent workstream that can be continued across agent sessions. Each workstream can contain multiple sessions, notes, decisions, todos, and resume packs. It essentially functions as a /resume that can work</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
@@ -848,21 +848,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>ollama/ollama</h3>
-  <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>langchain-ai/langgraph</h3>
   <p>Build resilient language agents as graphs.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>ollama/ollama</h3>
+  <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -872,15 +872,6 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>tenstorrent/tt-metal</h3>
-  <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -901,6 +892,24 @@
     <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>tenstorrent/tt-metal</h3>
+  <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>mem0ai/mem0</h3>
+  <p>Universal memory layer for AI Agents</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>openai/swarm</h3>
   <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
@@ -917,15 +926,6 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/anthropics/claude-cookbooks" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>mem0ai/mem0</h3>
-  <p>Universal memory layer for AI Agents</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
