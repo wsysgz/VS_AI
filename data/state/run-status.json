@@ -1,69 +1,164 @@
 {
-  "generated_at": "2026-04-22T01:48:36.622783+08:00",
+  "generated_at": "2026-04-22T08:01:33.263592+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
     "data/reports/latest-summary.html",
-    "data/reports/latest-summary-reviewed.md",
-    "data/reports/latest-summary-reviewed.json",
-    "data/reports/latest-summary-reviewed.html",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary.md",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary.json",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary.html",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary-reviewed.md",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary-reviewed.json",
-    "data/archives/2026-04-22/2026-04-22T01-48-36.622783+08-00-summary-reviewed.html",
+    "data/reports/latest-summary-auto.md",
+    "data/reports/latest-summary-auto.json",
+    "data/reports/latest-summary-auto.html",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.md",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.json",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.html",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.md",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.json",
+    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
-  "pushed": false,
-  "push_channel": "",
-  "publication_mode": "reviewed",
-  "push_response": {},
+  "pushed": true,
+  "push_channel": "feishu,pushplus,telegram",
+  "publication_mode": "auto",
+  "push_response": {
+    "pushplus": {
+      "code": 200,
+      "msg": "执行成功",
+      "data": "38f2641eaeb2401283341b0decfccad1"
+    },
+    "telegram": {
+      "ok": true,
+      "messages_sent": 1,
+      "message_ids": [
+        70
+      ]
+    },
+    "feishu": {
+      "ok": true,
+      "messages_sent": 1,
+      "message_ids": [
+        "om_x100b51b5443d84a8b103e6da1c24257"
+      ],
+      "description": "success"
+    }
+  },
   "delivery_results": {
     "channels": {
       "feishu": {
         "name": "feishu",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "success",
+        "response": [
+          {
+            "code": 0,
+            "data": {
+              "body": {
+                "content": "{\"title\":\"AI情报飞书简报 | 2026-04-22 | 北京时间 07:00\",\"elements\":[[{\"tag\":\"text\",\"text\":\"生成时间\"},{\"tag\":\"text\",\"text\":\"\\n2026-04-22T08:01:33.263592+08:00\\n\\n\"},{\"tag\":\"text\",\"text\":\"今日判断\"},{\"tag\":\"text\",\"text\":\"\\nAI代理系统正从工具向结构化决策框架演进，核心瓶颈在于可调试性和本地部署的长上下文处理能力，而非基础推理能力本身\"}],[{\"tag\":\"text\",\"text\":\"执行摘要\"},{\"tag\":\"text\",\"text\":\"\\n- AI代理领域正在经历从简单聊天机器人向复杂自主系统的转型，但可调试性缺失成为制约其可靠性的关键瓶颈\\n- 微软AgentRx框架代表了对AI agent系统性调试方法论的探索，旨在解决工具幻觉等黑箱问题\"},{\"tag\":\"text\",\"text\":\"关键主线\"},{\"tag\":\"text\",\"text\":\"\\n- AI Agent调试成为产业关键需求：随着AI代理承担云事故管理、多步骤API工作流等复杂任务，缺乏透明度导致无法追踪错误逻辑，威胁生产环境可靠性，AgentRx等系统化调试框架成为行业必需品而非可选项\\n- 本地部署的核心瓶颈是内存而非推理能力：本地模型在CLD提取任务达到77%通过率匹配中端云性能，但在需要长上下文的错误修复任务上仅0-50%，揭示从'静态任务执行'到'动态对话协作'的能力鸿沟根本源于内存约束\\n- 后端选择比量化级别更具实际影响：llama.cpp能可靠处理JSON但可能导致无限生成，mlx_lm不强制约束但需显式指令——这种基础设施差异对生产部署的影响超过模型精度选择\"}],[{\"tag\":\"text\",\"text\":\"局限与提醒\"},{\"tag\":\"text\",\"text\":\"\\n- 三个数据源（MediaTek IoT边缘AI、'Less human AI agents'博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析\"}],[{\"tag\":\"text\",\"text\":\"行动建议\"},{\"tag\":\"text\",\"text\":\"\\n- 对需要长上下文处理的生产场景，优先考虑云端部署或扩展本地内存架构，避免依赖当前本地模型处理复杂交互任务\\n- 在选择本地部署后端时，优先评估JSON处理能力和长上下文稳定性，而非单纯追求量化精度\"}],[{\"tag\":\"button\",\"text\":\"公开阅读\",\"type\":\"primary\"},{\"tag\":\"button\",\"text\":\"GitHub 原文\",\"type\":\"default\"}]]}"
+              },
+              "chat_id": "oc_1e327a2c66bc7eca3fe914414117c13c",
+              "create_time": "1776816303369",
+              "deleted": false,
+              "message_id": "om_x100b51b5443d84a8b103e6da1c24257",
+              "msg_type": "interactive",
+              "sender": {
+                "id": "cli_a953a33ee3b99cce",
+                "id_type": "app_id",
+                "sender_type": "app",
+                "tenant_key": "1a4d8a64161ddb94"
+              },
+              "update_time": "1776816303369",
+              "updated": false
+            },
+            "msg": "success"
+          }
+        ],
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-22T00:05:01+00:00"
       },
       "pushplus": {
         "name": "pushplus",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "code=200 执行成功 (ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '52.165.251.244 IP未授权'})",
+        "response": {
+          "code": 200,
+          "msg": "执行成功",
+          "data": "38f2641eaeb2401283341b0decfccad1",
+          "verification": {
+            "available": false,
+            "reason": "openapi_unavailable",
+            "note": "ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '52.165.251.244 IP未授权'}"
+          }
+        },
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-22T00:05:03+00:00"
       },
       "telegram": {
         "name": "telegram",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "1 message(s)",
+        "response": [
+          {
+            "ok": true,
+            "result": {
+              "message_id": 70,
+              "from": {
+                "id": 8650164336,
+                "is_bot": true,
+                "first_name": "wsysgz",
+                "username": "xfl888bot"
+              },
+              "chat": {
+                "id": 8566057843,
+                "first_name": "Christi",
+                "last_name": "Card",
+                "username": "wsysgz",
+                "type": "private"
+              },
+              "date": 1776816306,
+              "text": "AI情报完整简报 | 2026-04-22 | 北京时间 07:00\n生成时间：2026-04-22T08:01:33.263592+08:00\n\n今日判断：\nAI代理系统正从工具向结构化决策框架演进，核心瓶颈在于可调试性和本地部署的长上下文处理能力，而非基础推理能力本身\n\n执行摘要\n- AI代理领域正在经历从简单聊天机器人向复杂自主系统的转型，但可调试性缺失成为制约其可靠性的关键瓶颈\n- 微软AgentRx框架代表了对AI agent系统性调试方法论的探索，旨在解决工具幻觉等黑箱问题\n- 本地大模型在结构化任务上可达到中端云模型水平（77%通过率），但在需要长上下文的错误修复任务上表现极差（0-50%），暴露了内存限制的根本性挑战\n- 后端工程选择（GGUF vs MLX）对实际性能的影响超过量化级别差异，说明基础设施优化与模型质量同等重要\n- AI调解系统尝试将纳什议价理论工程化，象征AI从辅助工具向结构化决策框架的演进趋势\n\n关键主线\n- AI Agent调试成为产业关键需求：随着AI代理承担云事故管理、多步骤API工作流等复杂任务，缺乏透明度导致无法追踪错误逻辑，威胁生产环境可靠性，AgentRx等系统化调试框架成为行业必需品而非可选项\n- 本地部署的核心瓶颈是内存而非推理能力：本地模型在CLD提取任务达到77%通过率匹配中端云性能，但在需要长上下文的错误修复任务上仅0-50%，揭示从'静态任务执行'到'动态对话协作'的能力鸿沟根本源于内存约束\n- 后端选择比量化级别更具实际影响：llama.cpp能可靠处理JSON但可能导致无限生成，mlx_lm不强制约束但需显式指令——这种基础设施差异对生产部署的影响超过模型精度选择\n\n重点主题\n- Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness：Mediator.ai试图通过将经典的纳什议价理论与现代LLM相结合，将传统上依赖经验和直觉的调解过程转化为可系统化、可计算的公平分配框架，这代表了AI从辅助工具向结构化决策框架的演进。\n- Systematic debugging for AI agents: Introducing the AgentRx framework：The advancement of AI agents is hitting a fundamental bottleneck: the lack of debuggability threatens their reliability and scalability in critical applications, making systematic debugging frameworks like AgentRx not just an improvement but a necessity for the field's progression.\n- Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion：当前本地大模型在系统动力学AI助手场景中的核心瓶颈不是基础推理能力，而是长上下文处理、内存约束和交互可靠性——这揭示了从“静态任务执行”到“动态对话协作”的能力鸿沟，后端工程选择（如GGUF vs MLX）对实际可用性的影响甚至超过模型本身的质量差异。\n\n短期观察\n- AI agent调试框架在头部科技公司内部试点取得进展，但行业标准化缓慢；本地大模型在CLD提取等结构化任务上保持与中端云模型的竞争力（75-80%通过率），但在需要长上下文的复杂交互任务上仍显著落后（错误修复率<30%）；Mediator.ai类项目在细分场景（如标准化合同条款）获得早期采用，但大规模推广受限；后端工程优化（vLLM等）继续成为性能提升的关键杠杆。\n\n局限与提醒\n- 三个数据源（MediaTek IoT边缘AI、'Less human AI agents'博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析\n\n公开阅读：\nhttps://wsysgz.github.io/VS_AI/\nGitHub 原文：\nhttps://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md",
+              "entities": [
+                {
+                  "offset": 744,
+                  "length": 11,
+                  "type": "url"
+                },
+                {
+                  "offset": 1778,
+                  "length": 31,
+                  "type": "url"
+                },
+                {
+                  "offset": 1821,
+                  "length": 77,
+                  "type": "url"
+                }
+              ],
+              "link_preview_options": {
+                "is_disabled": true
+              }
+            }
+          }
+        ],
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-22T00:05:06+00:00"
       }
     },
-    "successful_channels": [],
-    "failed_channels": [],
-    "skipped_channels": [
+    "successful_channels": [
       "feishu",
       "pushplus",
       "telegram"
-    ]
+    ],
+    "failed_channels": [],
+    "skipped_channels": []
   },
   "stage_status": {
     "analysis": "ok",
@@ -101,6 +196,7 @@
       "below-threshold: Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
       "below-threshold: STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
       "below-threshold: NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds",
+      "below-threshold: Framework Laptop 13 Pro",
       "below-threshold: Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力",
       "below-threshold: GLM-PC 基座模型，CogAgent-9B 开源",
       "below-threshold: Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
@@ -121,48 +217,47 @@
       "below-threshold: MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval",
       "below-threshold: Arm announces earnings release date for fourth quarter fiscal year ended 2026",
       "below-threshold: Smarter Devices, Smaller Chips: Inside Embedded World 2026",
-      "below-threshold: ollama/ollama",
       "below-threshold: langchain-ai/langgraph",
+      "below-threshold: ollama/ollama",
       "below-threshold: alibaba/MNN",
       "below-threshold: pytorch/executorch",
-      "below-threshold: tenstorrent/tt-metal",
       "below-threshold: nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+      "below-threshold: tenstorrent/tt-metal",
       "below-threshold: mem0ai/mem0",
       "below-threshold: openai/swarm",
       "below-threshold: anthropics/claude-cookbooks",
-      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: onnx/onnx",
+      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: jax-ml/jax",
-      "below-threshold: John Ternus to become Apple CEO",
       "below-threshold: Laws of Software Engineering",
       "below-threshold: Anthropic says OpenClaw-style Claude CLI usage is allowed again",
-      "below-threshold: Kimi vendor verifier – verify accuracy of inference providers",
+      "below-threshold: Claude Code removed from Anthropic's Pro plan",
+      "below-threshold: ChatGPT Images 2.0",
+      "below-threshold: Changes to GitHub Copilot individual plans",
+      "below-threshold: Meta to start capturing employee mouse movements, keystrokes for AI training",
+      "below-threshold: Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
       "below-threshold: Ternary Bonsai: Top Intelligence at 1.58 Bits",
       "below-threshold: Apple ignores DMA interoperability requests and contradicts own documentation",
-      "below-threshold: Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
       "below-threshold: The Beauty of Bonsai Styles",
       "below-threshold: Air is full of DNA",
+      "below-threshold: Claude Code no longer included in Pro tier",
       "below-threshold: Japan's cherry blossom database, 1,200 years old, has a new keeper",
-      "below-threshold: Monero Community Crowdfunding System",
-      "below-threshold: Soul Player C64 – A real transformer running on a 1 MHz Commodore 64",
-      "below-threshold: Salmon exposed to cocaine and its main byproduct roam more widely",
-      "below-threshold: How a subsea cable is repaired (2021)",
-      "below-threshold: As oceans warm, great white sharks are overheating",
-      "below-threshold: A type-safe, realtime collaborative Graph Database in a CRDT",
       "below-threshold: Show HN: GoModel – an open-source AI gateway in Go",
-      "below-threshold: Tindie store under \"scheduled maintenance\" for days",
+      "below-threshold: A type-safe, realtime collaborative Graph Database in a CRDT",
+      "below-threshold: Salmon exposed to cocaine and its main byproduct roam more widely",
+      "below-threshold: Stephen's Sausage Roll remains one of the most influential puzzle games",
       "below-threshold: Scaling Codex to enterprises worldwide",
       "below-threshold: OpenAI helps Hyatt advance AI among colleagues",
       "below-threshold: Codex for (almost) everything",
       "below-threshold: Introducing GPT-Rosalind for life sciences research",
       "below-threshold: Accelerating the cyber defense ecosystem that protects us all",
       "below-threshold: Trusted access for the next era of cyber defense",
+      "below-threshold: Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
       "below-threshold: Meta Partners With Broadcom to Co-Develop Custom AI Silicon",
       "below-threshold: Introducing Muse Spark: MSL’s First Model, Purpose-Built to Prioritize People",
       "below-threshold: Introducing Our First AI Glasses Built For Prescriptions",
       "below-threshold: How AI Is Ushering in the Next Era of Risk Review at Meta",
       "below-threshold: Meta Partners With Arm to Develop New Class of Data Center Silicon",
-      "below-threshold: Boosting Your Support and Safety on Meta’s Apps With AI",
       "below-threshold: New Future of Work: AI is driving rapid change, uneven benefits",
       "below-threshold: ADeLe: Predicting and explaining AI performance across tasks",
       "below-threshold: GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
@@ -260,13 +355,13 @@
       },
       "repo": {
         "budget": 2,
-        "hits": 0,
-        "matched_items": 0
+        "hits": 1,
+        "matched_items": 1
       },
       "paper": {
         "budget": 2,
-        "hits": 1,
-        "matched_items": 1
+        "hits": 0,
+        "matched_items": 0
       }
     }
   },
@@ -275,11 +370,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 20100,
-      "completion": 3985,
-      "total": 24085
+      "prompt": 15400,
+      "completion": 3305,
+      "total": 18705
     },
-    "latency_seconds": 120.59,
+    "latency_seconds": 132.72,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -288,11 +383,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 512,
-          "completion": 1109,
-          "total": 1621
+          "prompt": 495,
+          "completion": 592,
+          "total": 1087
         },
-        "latency_seconds": 21.3,
+        "latency_seconds": 22.7,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -312,10 +407,10 @@
         "calls": 3,
         "token_usage": {
           "prompt": 8256,
-          "completion": 1251,
-          "total": 9507
+          "completion": 1122,
+          "total": 9378
         },
-        "latency_seconds": 52.99,
+        "latency_seconds": 39.26,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -334,11 +429,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 4479,
-          "completion": 1211,
-          "total": 5690
+          "prompt": 44,
+          "completion": 1129,
+          "total": 1173
         },
-        "latency_seconds": 28.76,
+        "latency_seconds": 54.71,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -357,11 +452,11 @@
         "model": "deepseek-chat",
         "calls": 1,
         "token_usage": {
-          "prompt": 6853,
-          "completion": 414,
-          "total": 7267
+          "prompt": 6605,
+          "completion": 462,
+          "total": 7067
         },
-        "latency_seconds": 17.54,
+        "latency_seconds": 16.05,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -379,13 +474,15 @@
     "fallback_stages": []
   },
   "source_health": {
-    "total": 1,
-    "not_found": 0,
+    "total": 3,
+    "not_found": 2,
     "timeout": 0,
     "request_error": 1,
     "other": 0,
     "samples": [
-      "Website source failed: renesas-blog -> 403 Client Error: Forbidden for url: https://www.renesas.com/en/blogs"
+      "Website source failed: renesas-blog -> 403 Client Error: Forbidden for url: https://www.renesas.com/en/blogs",
+      "RSS source failed: youtube-google-developers -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers",
+      "RSS source failed: youtube-nvidia -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=nvidia"
     ],
     "sources": {
       "renesas-blog": {
@@ -408,6 +505,48 @@
           "request_error"
         ],
         "last_error": "Website source failed: renesas-blog -> 403 Client Error: Forbidden for url: https://www.renesas.com/en/blogs"
+      },
+      "youtube-google-developers": {
+        "collector": "rss",
+        "enabled": true,
+        "mode": "rss_feed",
+        "category_hint": "ai-x-electronics",
+        "source_group": "youtube-google-developers",
+        "url": "https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "feed-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "failure_count": 1,
+        "error_categories": [
+          "not_found"
+        ],
+        "last_error": "RSS source failed: youtube-google-developers -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers"
+      },
+      "youtube-nvidia": {
+        "collector": "rss",
+        "enabled": true,
+        "mode": "rss_feed",
+        "category_hint": "ai-x-electronics",
+        "source_group": "youtube-nvidia",
+        "url": "https://www.youtube.com/feeds/videos.xml?user=nvidia",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "feed-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "failure_count": 1,
+        "error_categories": [
+          "not_found"
+        ],
+        "last_error": "RSS source failed: youtube-nvidia -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=nvidia"
       }
     }
   },
@@ -1760,19 +1899,19 @@
   },
   "tracing": {
     "enabled": true,
-    "trace_id": "cd118f0360d5a0a745bf80ad36307e32",
-    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/cd118f0360d5a0a745bf80ad36307e32"
+    "trace_id": "4e9c18b228ace59bf101ca16cff4d9a0",
+    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/4e9c18b228ace59bf101ca16cff4d9a0"
   },
   "scheduler": {
-    "trigger_kind": "manual",
+    "trigger_kind": "schedule",
     "compensation_run": false
   },
   "timings": {
-    "collection": 16.97,
-    "dedup_score": 119.15,
+    "collection": 7.69,
+    "dedup_score": 200.84,
     "ai_total": 0.0,
     "rendering": 0.02,
-    "push_total": 0.0
+    "push_total": 5.04
   },
-  "total_elapsed": 136.14
+  "total_elapsed": 213.59
 }
