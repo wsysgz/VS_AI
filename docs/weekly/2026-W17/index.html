@@ -371,8 +371,8 @@
       <div class="archive-grid">
         <article class="archive-card">
   <span class="eyebrow">2026.04.22</span>
-  <h3>AI agent infrastructure matures toward production deployment while facing critical debugging and observability challenges; local LLM deployments near cloud parity on specific tasks but remain bottlenecked by context length; fairness algorithms attempt to systematize human negotiation.</h3>
-  <p>The AI agent ecosystem is experiencing a fundamental shift from capability demonstration to operational reliability, with Microsoft Research&#x27;s AgentRx framework addressing an emerging &#x27;observability gap&#x27; that threatens production adoption despite advancing autonomy. Local LLM deployments have reached approximate parity with mid-tier cloud models on structured extraction tasks (77-89% pass rate), but struggle significantly with interactive tasks requiring long-context reasoning, exposing memory constraints as the key bottleneck rather than model quality itself. Experimental fairness systems like Mediator.ai reveal the inherent tension between algorithmic systematization and the subjective, emotional dimensions of human negotiation, suggesting that quantifiable outcomes may not capture what parties actually perceive as &#x27;fair&#x27;.</p>
+  <h3>AI agent development is pivoting from experimental prototypes to production-ready systems, creating urgent demand for debugging frameworks, security guardrails, and execution infrastructure to address the autonomy-security tension.</h3>
+  <p>The AI agent ecosystem is experiencing a pivotal shift from proof-of-concept chatbots toward autonomous systems capable of managing complex, multi-step workflows in production environments. This transition has exposed a critical &#x27;debuggability gap&#x27; — as agents gain autonomy, understanding and fixing their failures becomes exponentially harder, threatening reliability and enterprise adoption. Three parallel developments illustrate this evolution: Microsoft introduced AgentRx to systematically diagnose agent failures, OpenAI updated its Agents SDK with native sandbox execution for security, and Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy for production safety.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
     <span>167 topics · 169 items</span>
@@ -404,15 +404,6 @@
       <h2 class="section-title">Top Signals</h2>
       <div class="signal-grid">
         <article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
-  <p>We present a systematic evaluation of large language model families -- spanning both proprietary cloud APIs and locally-hosted open-source models -- on two purpose-built benchmarks for System Dynamics AI assistance: the \textbf{CLD Leaderboard} (53 tests, structured causal loop diagram extraction) and the \textbf{Discussion Leaderboard} (interactive model discussion, feedback explanation, and model building coaching). On CLD extraction, cloud models achieve 77--89\% overall pass rates; the best local model reaches 77\% (Kimi~K2.5~GGUF~Q3, zero-shot engine), matching mid-tier cloud performance. On Discussion, the best local models achieve 50--100\% on model building steps and 47--75\% on feedback explanation, but only 0--50\% on error fixing -- a category dominated by long-context prompts that expose memory limits in local deployments. A central contribution of this paper is a systematic analysis of \textit{model type effects} on performance: we compare reasoning vs.\ instruction-tuned architectures, GGUF (llama.cpp) vs.\ MLX (mlx\_lm) backends, and quantization levels (Q3 / Q4\_K\_M / MLX-3bit / MLX-4bit / MLX-6bit) across the same underlying model families. We find that backend choice has larger practical impact than quantization level: mlx\_lm does not enforce JSON schema constraints, requiring explicit prompt-level JSON instructions, while llama.cpp grammar-constrained sampling handles JSON reliably but causes indefinite generation on long-context prompts for dense models. We document the full parameter sweep ($t$, $p$, $k$) for all local models, cleaned timing data (stuck requests excluded), and a practitioner guide for running 671B--123B parameter models on Apple~Silicon.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.HC</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.18566v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>From Benchmarking to Reasoning: A Dual-Aspect, Large-Scale Evaluation of LLMs on Vietnamese Legal Text</h3>
   <p>The complexity of Vietnam&#x27;s legal texts presents a significant barrier to public access to justice. While Large Language Models offer a promising solution for legal text simplification, evaluating their true capabilities requires a multifaceted approach that goes beyond surface-level metrics. This paper introduces a comprehensive dual-aspect evaluation framework to address this need. First, we establish a performance benchmark for four state-of-the-art large language models (GPT-4o, Claude 3 Opus, Gemini 1.5 Pro, and Grok-1) across three key dimensions: Accuracy, Readability, and Consistency. Second, to understand the &quot;why&quot; behind these performance scores, we conduct a large-scale error analysis on a curated dataset of 60 complex Vietnamese legal articles, using a novel, expert-validated error typology. Our results reveal a crucial trade-off: models like Grok-1 excel in Readability and Consistency but compromise on fine-grained legal Accuracy, while models like Claude 3 Opus achieve high Accuracy scores that mask a significant number of subtle but critical reasoning errors. The error analysis pinpoints \textit{Incorrect Example} and \textit{Misinterpretation} as the most prevalent failures, confirming that the primary challenge for current LLMs is not summarization but controlled, accurate legal reasoning. By integrating a quantitative benchmark with a qualitative deep dive, our work provides a holistic and actionable assessment of LLMs for legal applications.</p>
@@ -450,15 +441,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs</h3>
-  <p>We present BLF (Bayesian Linguistic Forecaster), an agentic system for binary forecasting that achieves state-of-the-art performance on the ForecastBench benchmark. The system is built on three ideas. (1) A Bayesian linguistic belief state: a semi-structured representation combining numerical probability estimates with natural-language evidence summaries, updated by the LLM at each step of an iterative tool-use loop. This contrasts with the common approach of appending all retrieved evidence to an ever-growing context. (2) Hierarchical multi-trial aggregation: running $K$ independent trials and combining them using logit-space shrinkage with a data-dependent prior. (3) Hierarchical calibration: Platt scaling with a hierarchical prior, which avoids over-shrinking extreme predictions for sources with skewed base rates. On 400 backtesting questions from the ForecastBench leaderboard, BLF outperforms all the top public methods, including Cassi, GPT-5, Grok~4.20, and Foresight-32B. Ablation studies show that the structured belief state is as impactful as web search access, and that shrinkage aggregation and hierarchical calibration each provide significant additional gains. In addition, we develop a robust back-testing framework with a leakage rate below 1.5\%, and use rigorous statistical methodology to compare different methods while controlling for various sources of noise.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.18576v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
   <p>The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
@@ -474,6 +456,24 @@
   <div class="signal-footer">
     <span>developer.nvidia.com · 2.5</span>
     <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
+  <p>Score: 95 | Comments: 27 | Text: https://www.brex.com/journal/building-crabtrap-open-source</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>brex.com · 2.5</span>
+    <a href="https://www.brex.com/crabtrap" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI</h3>
+  <p>Cloudflare brings OpenAI’s GPT-5.4 and Codex to Agent Cloud, enabling enterprises to build, deploy, and scale AI agents for real-world tasks with speed and security.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Global Affairs</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 2.5</span>
+    <a href="https://openai.com/index/cloudflare-openai-agent-cloud" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>
       </div>

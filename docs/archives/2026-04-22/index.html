@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.22</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent infrastructure matures toward production deployment while facing critical debugging and observability challenges; local LLM deployments near cloud parity on specific tasks but remain bottlenecked by context length; fairness algorithms attempt to systematize human negotiation.</h1>
-      <p class="subtle">The AI agent ecosystem is experiencing a fundamental shift from capability demonstration to operational reliability, with Microsoft Research&#x27;s AgentRx framework addressing an emerging &#x27;observability gap&#x27; that threatens production adoption despite advancing autonomy. Local LLM deployments have reached approximate parity with mid-tier cloud models on structured extraction tasks (77-89% pass rate), but struggle significantly with interactive tasks requiring long-context reasoning, exposing memory constraints as the key bottleneck rather than model quality itself. Experimental fairness systems like Mediator.ai reveal the inherent tension between algorithmic systematization and the subjective, emotional dimensions of human negotiation, suggesting that quantifiable outcomes may not capture what parties actually perceive as &#x27;fair&#x27;.</p>
+      <h1 class="section-title" style="font-size:34px;">AI agent development is pivoting from experimental prototypes to production-ready systems, creating urgent demand for debugging frameworks, security guardrails, and execution infrastructure to address the autonomy-security tension.</h1>
+      <p class="subtle">The AI agent ecosystem is experiencing a pivotal shift from proof-of-concept chatbots toward autonomous systems capable of managing complex, multi-step workflows in production environments. This transition has exposed a critical &#x27;debuggability gap&#x27; — as agents gain autonomy, understanding and fixing their failures becomes exponentially harder, threatening reliability and enterprise adoption. Three parallel developments illustrate this evolution: Microsoft introduced AgentRx to systematically diagnose agent failures, OpenAI updated its Agents SDK with native sandbox execution for security, and Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy for production safety.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">167 topics</span>
         <span class="tag warm">169 raw items</span>
         <span class="tag">人工复核版</span>
-        <span class="tag">2026-04-22T01:48:36.622783+08:00</span>
+        <span class="tag">2026-04-22T11:49:49.984824+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AI Agent Observability Gap Threatens Production Adoption</h3>
-  <p>As agents graduate from chatbots to autonomous cloud incident managers, the inability to trace failures (e.g., hallucinated tool outputs) becomes a blocker for mission-critical deployments. AgentRx represents the first systematic debugging framework, addressing a bottleneck that raw capability improvements cannot solve.</p>
+  <h3>AI agents face a critical &#x27;debuggability gap&#x27;</h3>
+  <p>As agents evolve from simple task executors into autonomous systems managing cloud incidents and multi-step API workflows, traditional debugging approaches break down. Unlike human errors that can be traced, AI agent failures (e.g., hallucinated tool outputs) create opaque failure modes that threaten adoption in critical production systems.</p>
 </article><article class="summary-card">
-  <h3>Local LLMs Match Cloud on Structured Tasks but Fail on Context-Heavy Interactions</h3>
-  <p>The benchmark reveals a nuanced reality: local models (Kimi K2.5) achieve 77% on causal loop diagram extraction comparable to mid-tier cloud services, yet drop to 0-50% on error修复 tasks dominated by long-context prompts. This suggests the real constraint for local deployment is hardware memory, not model architecture—a finding with significant cost and privacy implications.</p>
+  <h3>OpenAI is strategically maturing the agent development stack</h3>
+  <p>The updated Agents SDK with native sandbox execution and model-native harness signals a deliberate push from experimental prototypes toward reliable, secure, long-running agents. This indicates major platform providers are investing in production-grade infrastructure rather than just capability improvements.</p>
 </article><article class="summary-card">
-  <h3>Backend Selection Outweighs Quantization in Local Deployment</h3>
-  <p>The study demonstrates that llama.cpp vs mlx_lm backend choice has greater practical impact than quantization level, with implications for developers optimizing local LLM stacks. JSON constraint handling and context length limits differ substantially between backends, affecting reliability in production workflows.</p>
+  <h3>Security tooling for agents is emerging as a competitive differentiator</h3>
+  <p>Brex&#x27;s CrabTrap (95 HN score) represents a novel approach: using LLM-as-a-judge within an HTTP proxy to dynamically constrain and evaluate agent behavior. This &#x27;using AI to police AI&#x27; pattern addresses the autonomy-security contradiction but introduces new questions about judgment accuracy, latency, and operational cost.</p>
 </article>
       </div>
     </section>
@@ -334,24 +334,24 @@
       <div class="summary-grid">
         <article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The evolution of AI agents into operational systems is creating a critical &#x27;observability gap&#x27;; their value and adoption for serious tasks are bottlenecked not by raw capability, but by the lack of frameworks like AgentRx that make their failure modes diagnosable and fixable.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
-  </div>
-</article><article class="topic-card">
-  <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
-  <p>该项目试图用数学和AI技术解决人类最主观、最情境化的公平感知问题，核心挑战不在于算法精度，而在于能否捕捉并处理那些无法被量化的协商维度——如关系历史、情感价值、未来信任预期等，这些才是真实协商中决定‘公平感’的关键因素。</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">medium</span>
-  </div>
-</article><article class="topic-card">
-  <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
-  <p>本地大语言模型在系统动力学AI助手任务上已展现出与云端中端模型相当的潜力，但其实际应用效能并非单纯由模型参数或量化决定，而是更关键地受制于部署后端的选择和本地硬件的内存限制，尤其是在处理需要长上下文推理的复杂交互任务时，这一瓶颈暴露无遗。</p>
+  <p>The evolution of AI agents into complex autonomous systems is creating a critical &#x27;debuggability gap&#x27; that threatens their reliability and adoption for serious applications, necessitating a new class of diagnostic tools like AgentRx.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
+  </div>
+</article><article class="topic-card">
+  <h3>The next evolution of the Agents SDK</h3>
+  <p>OpenAI&#x27;s SDK evolution signals a strategic push to mature AI agents from experimental prototypes towards reliable, secure, and complex production systems, with the core battle being between unlocking powerful new applications and establishing the necessary safety guardrails.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">medium</span>
+  </div>
+</article><article class="topic-card">
+  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
+  <p>CrabTrap的出现标志着AI智能体应用正从概念验证迈向生产部署的关键转折点，其核心价值在于试图用LLM本身来动态约束和评估LLM智能体的行为，以解决自主性与安全性这一根本矛盾，但该方案自身的可靠性（LLM作为裁判的准确性、延迟、成本）将成为其能否被广泛采纳的主要挑战。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">medium</span>
   </div>
 </article>
       </div>
@@ -368,15 +368,6 @@
   <div class="signal-footer">
     <span>microsoft.com · 3.3</span>
     <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
-  <p>We present a systematic evaluation of large language model families -- spanning both proprietary cloud APIs and locally-hosted open-source models -- on two purpose-built benchmarks for System Dynamics AI assistance: the \textbf{CLD Leaderboard} (53 tests, structured causal loop diagram extraction) and the \textbf{Discussion Leaderboard} (interactive model discussion, feedback explanation, and model building coaching). On CLD extraction, cloud models achieve 77--89\% overall pass rates; the best local model reaches 77\% (Kimi~K2.5~GGUF~Q3, zero-shot engine), matching mid-tier cloud performance. On Discussion, the best local models achieve 50--100\% on model building steps and 47--75\% on feedback explanation, but only 0--50\% on error fixing -- a category dominated by long-context prompts that expose memory limits in local deployments. A central contribution of this paper is a systematic analysis of \textit{model type effects} on performance: we compare reasoning vs.\ instruction-tuned architectures, GGUF (llama.cpp) vs.\ MLX (mlx\_lm) backends, and quantization levels (Q3 / Q4\_K\_M / MLX-3bit / MLX-4bit / MLX-6bit) across the same underlying model families. We find that backend choice has larger practical impact than quantization level: mlx\_lm does not enforce JSON schema constraints, requiring explicit prompt-level JSON instructions, while llama.cpp grammar-constrained sampling handles JSON reliably but causes indefinite generation on long-context prompts for dense models. We document the full parameter sweep ($t$, $p$, $k$) for all local models, cleaned timing data (stuck requests excluded), and a practitioner guide for running 671B--123B parameter models on Apple~Silicon.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.HC</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.18566v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -398,21 +389,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
-  <p>Score: 118 | Comments: 62 | Text: Eight years ago, my then-fiancée and I decided to get a prenup, so we hired a local mediator. The meetings were useful, but I felt there was no systematic process to produce a final agreement. So I started to think about this problem, and after a bit of research, I discovered the Nash bargaining sol</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
-  <div class="signal-footer">
-    <span>mediator.ai · 2.5</span>
-    <a href="https://mediator.ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Less human AI agents, please</h3>
-  <p>Score: 100 | Comments: 117</p>
+  <p>Score: 138 | Comments: 149</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>nial.se · 2.5</span>
     <a href="https://nial.se/blog/less-human-ai-agents-please/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
+  <p>Score: 95 | Comments: 27 | Text: https://www.brex.com/journal/building-crabtrap-open-source</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>brex.com · 2.5</span>
+    <a href="https://www.brex.com/crabtrap" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -443,21 +434,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs</h3>
-  <p>We present BLF (Bayesian Linguistic Forecaster), an agentic system for binary forecasting that achieves state-of-the-art performance on the ForecastBench benchmark. The system is built on three ideas. (1) A Bayesian linguistic belief state: a semi-structured representation combining numerical probability estimates with natural-language evidence summaries, updated by the LLM at each step of an iterative tool-use loop. This contrasts with the common approach of appending all retrieved evidence to an ever-growing context. (2) Hierarchical multi-trial aggregation: running $K$ independent trials and combining them using logit-space shrinkage with a data-dependent prior. (3) Hierarchical calibration: Platt scaling with a hierarchical prior, which avoids over-shrinking extreme predictions for sources with skewed base rates. On 400 backtesting questions from the ForecastBench leaderboard, BLF outperforms all the top public methods, including Cassi, GPT-5, Grok~4.20, and Foresight-32B. Ablation studies show that the structured belief state is as impactful as web search access, and that shrinkage aggregation and hierarchical calibration each provide significant additional gains. In addition, we develop a robust back-testing framework with a leakage rate below 1.5\%, and use rigorous statistical methodology to compare different methods while controlling for various sources of noise.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
+  <h3>SpecAgent: A Speculative Retrieval and Forecasting Agent for Code Completion</h3>
+  <p>Large Language Models (LLMs) excel at code-related tasks but often struggle in realistic software repositories, where project-specific APIs and cross-file dependencies are crucial. Retrieval-augmented methods mitigate this by injecting repository context at inference time. The low inference-time latency budget affects either retrieval quality or the added latency adversely impacts user experience. We address this limitation with SpecAgent, an agent that improves both latency and code-generation quality by proactively exploring repository files during indexing and constructing speculative context that anticipates future edits in each file. This indexing-time asynchrony allows thorough context computation, masking latency, and the speculative nature of the context improves code-generation quality. Additionally, we identify the problem of future context leakage in existing benchmarks, which can inflate reported performance. To address this, we construct a synthetic, leakage-free benchmark that enables a more realistic evaluation of our agent against baselines. Experiments show that SpecAgent consistently achieves absolute gains of 9-11% (48-58% relative) compared to the best-performing baselines, while significantly reducing inference latency.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.SE</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.18576v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>When Can LLMs Learn to Reason with Weak Supervision?</h3>
-  <p>Large language models have achieved significant reasoning improvements through reinforcement learning with verifiable rewards (RLVR). Yet as model capabilities grow, constructing high-quality reward signals becomes increasingly difficult, making it essential to understand when RLVR can succeed under weaker forms of supervision. We conduct a systematic empirical study across diverse model families and reasoning domains under three weak supervision settings: scarce data, noisy rewards, and self-supervised proxy rewards. We find that generalization is governed by training reward saturation dynamics: models that generalize exhibit a prolonged pre-saturation phase during which training reward and downstream performance climb together, while models that saturate rapidly memorize rather than learn. We identify reasoning faithfulness, defined as the extent to which intermediate steps logically support the final answer, as the pre-RL property that predicts which regime a model falls into, while output diversity alone is uninformative. Motivated by these findings, we disentangle the contributions of continual pre-training and supervised fine-tuning, finding that SFT on explicit reasoning traces is necessary for generalization under weak supervision, while continual pre-training on domain data amplifies the effect. Applied together to Llama3.2-3B-Base, these interventions enable generalization across all three settings where the base model previously failed.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.18574v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2510.17925v2" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -512,6 +494,87 @@
   <div class="signal-footer">
     <span>blog.st.com · 2.5</span>
     <a href="https://blog.st.com/nanoedge-ai-machine-learning/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Framework Laptop 13 Pro</h3>
+  <p>Score: 1011 | Comments: 536</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>frame.work · 1.8</span>
+    <a href="https://frame.work/laptop13pro" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 1.8</span>
+    <a href="https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 1.8</span>
+    <a href="https://huggingface.co/blog/nvidia/build-korean-agents-with-nemotron-personas" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 1.8</span>
+    <a href="https://huggingface.co/blog/ecom-rlve" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 1.8</span>
+    <a href="https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>AsgardBench: A benchmark for visually grounded interactive planning</h3>
+  <p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don’t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems […] The post AsgardBench: A benchmark for visually grounded interactive planning appeared first on Microsoft Research .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>microsoft.com · 1.8</span>
+    <a href="https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>VLA Foundry: A Unified Framework for Training Vision-Language-Action Models</h3>
+  <p>We present VLA Foundry, an open-source framework that unifies LLM, VLM, and VLA training in a single codebase. Most open-source VLA efforts specialize on the action training stage, often stitching together incompatible pretraining pipelines. VLA Foundry instead provides a shared training stack with end-to-end control, from language pretraining to action-expert fine-tuning. VLA Foundry supports both from-scratch training and pretrained backbones from Hugging Face. To demonstrate the utility of our framework, we train and release two types of models: the first trained fully from scratch through our LLM--&gt;VLM--&gt;VLA pipeline and the second built on the pretrained Qwen3-VL backbone. We evaluate closed-loop policy performance of both models on LBM Eval, an open-data, open-source simulator. We also contribute usability improvements to the simulator and the STEP analysis tools for easier public use. In the nominal evaluation setting, our fully-open from-scratch model is on par with our prior closed-source work and substituting in the Qwen3-VL backbone leads to a strong multi-task table top manipulation policy outperforming our baseline by a wide margin. The VLA Foundry codebase is available at https://github.com/TRI-ML/vla_foundry and all multi-task model weights are released on https://huggingface.co/collections/TRI-ML/vla-foundry. Additional qualitative videos are available on the project website https://tri-ml.github.io/vla_foundry.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CV</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.8</span>
+    <a href="https://arxiv.org/abs/2604.19728v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models</h3>
+  <p>Large Language Models (LLMs) have been emerging as prominent AI models for solving many natural language tasks due to their high performance (e.g., accuracy) and capabilities in generating high-quality responses to the given inputs. However, their large computational cost, huge memory footprints, and high processing power/energy make it challenging for their embedded deployments. Amid several tinyLLMs, recent works have proposed spike-driven language models (SLMs) for significantly reducing the processing power/energy of LLMs. However, their memory footprints still remain too large for low-cost and resource-constrained embedded devices. Manual quantization approach may effectively compress SLM memory footprints, but it requires a huge design time and compute power to find the quantization setting for each network, hence making this approach not-scalable for handling different networks, performance requirements, and memory budgets. To bridge this gap, we propose QSLM, a novel framework that performs automated quantization for compressing pre-trained SLMs, while meeting the performance and memory constraints. To achieve this, QSLM first identifies the hierarchy of the given network architecture and the sensitivity of network layers under quantization, then employs a tiered quantization strategy (e.g., global-, block-, and module-level quantization) while leveraging a multi-objective performance-and-memory trade-off function to select the final quantization setting. Experimental results indicate that our QSLM reduces memory footprint by up to 86.5%, reduces power consumption by up to 20%, maintains high performance across different tasks (i.e., by up to 84.4% accuracy of sentiment classification on the SST-2 dataset and perplexity score of 23.2 for text generation on the WikiText-2 dataset) close to the original non-quantized model while meeting the performance and memory constraints.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.8</span>
+    <a href="https://arxiv.org/abs/2601.00679v2" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Arm announces earnings release date for fourth quarter fiscal year ended 2026</h3>
+  <p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its […] The post Arm announces earnings release date for fourth quarter fiscal year ended 2026 appeared first on Arm Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
+  <div class="signal-footer">
+    <span>newsroom.arm.com · 1.8</span>
+    <a href="https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -622,69 +685,6 @@
     <a href="https://www.mediatek.com/tek-talk-blogs/rethink-retail-discusses-edge-ai-in-retail-tech-with-mediatek" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/nvidia/build-korean-agents-with-nemotron-personas" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/ecom-rlve" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>AsgardBench: A benchmark for visually grounded interactive planning</h3>
-  <p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don’t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems […] The post AsgardBench: A benchmark for visually grounded interactive planning appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.8</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval</h3>
-  <p>Mathematical problem solving remains a challenging test of reasoning for large language and multimodal models, yet existing benchmarks are limited in size, language coverage, and task diversity. We introduce MathNet, a high-quality, large-scale, multimodal, and multilingual dataset of Olympiad-level math problems together with a benchmark for evaluating mathematical reasoning in generative models and mathematical retrieval in embedding-based systems. MathNet spans 47 countries, 17 languages, and two decades of competitions, comprising 30,676 expert-authored problems with solutions across diverse domains. In addition to the core dataset, we construct a retrieval benchmark consisting of mathematically equivalent and structurally similar problem pairs curated by human experts. MathNet supports three tasks: (i) Problem Solving, (ii) Math-Aware Retrieval, and (iii) Retrieval-Augmented Problem Solving. Experimental results show that even state-of-the-art reasoning models (78.4% for Gemini-3.1-Pro and 69.3% for GPT-5) remain challenged, while embedding models struggle to retrieve equivalent problems. We further show that retrieval-augmented generation performance is highly sensitive to retrieval quality; for example, DeepSeek-V3.2-Speciale achieves gains of up to 12%, obtaining the highest scores on the benchmark. MathNet provides the largest high-quality Olympiad dataset together with the first benchmark for evaluating mathematical problem retrieval, and we publicly release both the dataset and benchmark at https://mathnet.mit.edu.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.8</span>
-    <a href="https://arxiv.org/abs/2604.18584v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Arm announces earnings release date for fourth quarter fiscal year ended 2026</h3>
-  <p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its […] The post Arm announces earnings release date for fourth quarter fiscal year ended 2026 appeared first on Arm Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>newsroom.arm.com · 1.8</span>
-    <a href="https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
   <h3>Smarter Devices, Smaller Chips: Inside Embedded World 2026</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
@@ -730,6 +730,15 @@
     <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
+  <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
   <h3>tenstorrent/tt-metal</h3>
   <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
@@ -740,12 +749,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
-  <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
+  <h3>openai/swarm</h3>
+  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
-    <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -755,15 +764,6 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>openai/swarm</h3>
-  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -803,17 +803,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>John Ternus to become Apple CEO</h3>
-  <p>Score: 2126 | Comments: 1226</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>apple.com · 1.0</span>
-    <a href="https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Laws of Software Engineering</h3>
-  <p>Score: 576 | Comments: 296</p>
+  <p>Score: 870 | Comments: 433</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>lawsofsoftwareengineering.com · 1.0</span>
@@ -821,8 +812,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>ChatGPT Images 2.0</h3>
+  <p>Score: 548 | Comments: 478 | Text: Livestream: https://openai.com/live/ System card: https://deploymentsaf</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Anthropic says OpenClaw-style Claude CLI usage is allowed again</h3>
-  <p>Score: 400 | Comments: 230</p>
+  <p>Score: 482 | Comments: 274</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>docs.openclaw.ai · 1.0</span>
@@ -830,36 +830,36 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Kimi vendor verifier – verify accuracy of inference providers</h3>
-  <p>Score: 302 | Comments: 28</p>
+  <h3>Claude Code to be removed from Anthropic&#x27;s Pro plan?</h3>
+  <p>Score: 394 | Comments: 410 | Text: https://x.com/TheAmolAvasare/status/2046725498592722972 &lt;a href=&quot;https://xcancel.com/TheAmolAvasare/status/2046725498592722972&quot; rel=&quot;nofol</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>kimi.com · 1.0</span>
-    <a href="https://www.kimi.com/blog/kimi-vendor-verifier" target="_blank" rel="noopener">查看原文</a>
+    <span>bsky.app · 1.0</span>
+    <a href="https://bsky.app/profile/edzitron.com/post/3mjzxwfx3qs2a" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Ternary Bonsai: Top Intelligence at 1.58 Bits</h3>
-  <p>Score: 211 | Comments: 54</p>
+  <h3>Meta to start capturing employee mouse movements, keystrokes for AI training</h3>
+  <p>Score: 383 | Comments: 317 | Text: Alt link: https://tech.yahoo.com/ai/meta-ai/articles/exclusive-meta-st...</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>prismml.com · 1.0</span>
-    <a href="https://prismml.com/news/ternary-bonsai" target="_blank" rel="noopener">查看原文</a>
+    <span>reuters.com · 1.0</span>
+    <a href="https://www.reuters.com/sustainability/boards-policy-regulation/meta-start-capturing-employee-mouse-movements-keystrokes-ai-training-data-2026-04-21/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Apple ignores DMA interoperability requests and contradicts own documentation</h3>
-  <p>Score: 187 | Comments: 41</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <h3>Changes to GitHub Copilot individual plans</h3>
+  <p>Score: 359 | Comments: 127</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>fsfe.org · 1.0</span>
-    <a href="https://fsfe.org/news/2026/news-20260420-01.html" target="_blank" rel="noopener">查看原文</a>
+    <span>github.blog · 1.0</span>
+    <a href="https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return</h3>
-  <p>Score: 171 | Comments: 167</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 263 | Comments: 271</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>techcrunch.com · 1.0</span>
     <a href="https://techcrunch.com/2026/04/20/anthropic-takes-5b-from-amazon-and-pledges-100b-in-cloud-spending-in-return/" target="_blank" rel="noopener">查看原文</a>
@@ -867,16 +867,25 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>The Beauty of Bonsai Styles</h3>
-  <p>Score: 171 | Comments: 33</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 201 | Comments: 37</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>longwoodgardens.org · 1.0</span>
     <a href="https://longwoodgardens.org/blog/2023-05-17/beauty-bonsai-styles" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>I&#x27;m Sick of AI Everything</h3>
+  <p>Score: 179 | Comments: 77 | Text: A while back, I stopped using Facebook because I just couldn&#x27;t take it anymore. Just totally sick of it. I&#x27;m honestly getting there with AI. At this point, I would prefer to have anything AI related just be blocked at the browser level.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>news.ycombinator.com · 1.0</span>
+    <a href="https://news.ycombinator.com/item?id=47857461" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Air is full of DNA</h3>
-  <p>Score: 157 | Comments: 52</p>
+  <p>Score: 174 | Comments: 60</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>nature.com · 1.0</span>
@@ -884,71 +893,8 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Japan&#x27;s cherry blossom database, 1,200 years old, has a new keeper</h3>
-  <p>Score: 156 | Comments: 24</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>nytimes.com · 1.0</span>
-    <a href="https://www.nytimes.com/2026/04/17/climate/japan-cherry-blossom-database-scientist.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Monero Community Crowdfunding System</h3>
-  <p>Score: 144 | Comments: 120</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>ccs.getmonero.org · 1.0</span>
-    <a href="https://ccs.getmonero.org/ideas/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Soul Player C64 – A real transformer running on a 1 MHz Commodore 64</h3>
-  <p>Score: 143 | Comments: 44</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/gizmo64k/soulplayer-c64" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Salmon exposed to cocaine and its main byproduct roam more widely</h3>
-  <p>Score: 118 | Comments: 73</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>science.org · 1.0</span>
-    <a href="https://www.science.org/content/article/cocaine-pollution-gives-salmon-wanderlust" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>How a subsea cable is repaired (2021)</h3>
-  <p>Score: 118 | Comments: 33</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>onesteppower.com · 1.0</span>
-    <a href="https://www.onesteppower.com/post/subsea-cable-repair" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>As oceans warm, great white sharks are overheating</h3>
-  <p>Score: 113 | Comments: 100</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>e360.yale.edu · 1.0</span>
-    <a href="https://e360.yale.edu/digest/great-white-sharks-climate" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>A type-safe, realtime collaborative Graph Database in a CRDT</h3>
-  <p>Score: 110 | Comments: 31</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>codemix.com · 1.0</span>
-    <a href="https://codemix.com/graph" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Show HN: GoModel – an open-source AI gateway in Go</h3>
-  <p>Score: 88 | Comments: 27 | Text: Hi, I’m Jakub, a solo founder based in Warsaw. I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others. I built it for my startup to solve a few problems: &lt;</p>
+  <p>Score: 168 | Comments: 62 | Text: Hi, I’m Jakub, a solo founder based in Warsaw. I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others. I built it for my startup to solve a few problems: &lt;</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
@@ -956,12 +902,57 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>A type-safe, realtime collaborative Graph Database in a CRDT</h3>
+  <p>Score: 155 | Comments: 43</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>codemix.com · 1.0</span>
+    <a href="https://codemix.com/graph" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Stephen&#x27;s Sausage Roll remains one of the most influential puzzle games</h3>
+  <p>Score: 147 | Comments: 73</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>thinkygames.com · 1.0</span>
+    <a href="https://thinkygames.com/features/10-years-of-grilling-stephens-sausage-roll-remains-one-of-the-most-influential-puzzle-games-ever-created/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Salmon exposed to cocaine and its main byproduct roam more widely</h3>
+  <p>Score: 134 | Comments: 89</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>science.org · 1.0</span>
+    <a href="https://www.science.org/content/article/cocaine-pollution-gives-salmon-wanderlust" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Tindie store under &quot;scheduled maintenance&quot; for days</h3>
-  <p>Score: 84 | Comments: 33</p>
+  <p>Score: 109 | Comments: 61</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>tindie.com · 1.0</span>
     <a href="https://www.tindie.com/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Windows Server 2025 Runs Better on ARM</h3>
+  <p>Score: 75 | Comments: 62</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>jasoneckert.github.io · 1.0</span>
+    <a href="https://jasoneckert.github.io/myblog/server-2025-arm64/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Claude Code Removed from $20-a-Month &quot;Pro&quot; Subscription for New Users</h3>
+  <p>Score: 63 | Comments: 21</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>wheresyoured.at · 1.0</span>
+    <a href="https://www.wheresyoured.at/news-anthropic-removes-pro-cc/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1019,6 +1010,15 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</h3>
+  <p>We&#x27;re breaking ground on a new AI-optimized data center in Tulsa, Oklahoma. The post Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma appeared first on Meta Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
+  <div class="signal-footer">
+    <span>about.fb.com · 1.0</span>
+    <a href="https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Meta Partners With Broadcom to Co-Develop Custom AI Silicon</h3>
   <p>We’re partnering with Broadcom to co-develop multiple generations of custom silicon, ensuring we have the compute foundation to deliver on our long-term AI ambitions. The post Meta Partners With Broadcom to Co-Develop Custom AI Silicon appeared first on Meta Newsroom .</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Infrastructure</span><span class="tag">Meta</span><span class="tag">Recent News</span></div>
@@ -1064,15 +1064,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Boosting Your Support and Safety on Meta’s Apps With AI</h3>
-  <p>We’re launching new AI tools for support and content enforcement on our apps to make them work better for you. The post Boosting Your Support and Safety on Meta’s Apps With AI appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Community Standards and Enforcement</span><span class="tag">Meta</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/03/boosting-your-support-and-safety-on-metas-apps-with-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>New Future of Work: AI is driving rapid change, uneven benefits</h3>
   <p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI […] The post New Future of Work: AI is driving rapid change, uneven benefits appeared first on Microsoft Research .</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
@@ -1100,57 +1091,66 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Self-Correcting Text-to-Video Generation with Misalignment Detection and Localized Refinement</h3>
-  <p>Recent text-to-video (T2V) diffusion models have made remarkable progress in generating high-quality videos. However, they often struggle to align with complex text prompts, particularly when multiple objects, attributes, or spatial relations are specified. We introduce VideoRepair, the first self-correcting, training-free, and model-agnostic video refinement framework that automatically detects fine-grained text-video misalignments and performs targeted, localized corrections. Our key insight is that even misaligned videos usually contain correctly generated regions that should be preserved rather than regenerated. Building on this observation, VideoRepair proposes a novel region-preserving refinement strategy with three stages: (i) misalignment detection, where MLLM-based evaluation with automatically generated evaluation questions identifies misaligned regions; (ii) refinement planning, which preserves correctly generated entities, segments their regions across frames, and constructs targeted prompts for misaligned areas; and (iii) localized refinement, which selectively regenerates problematic regions while preserving faithful content through joint optimization of preserved and newly generated areas. On two benchmarks, EvalCrafter and T2V-CompBench with four recent T2V backbones, VideoRepair achieves substantial improvements over recent baselines across diverse alignment metrics. Comprehensive ablations further demonstrate the efficiency, robustness, and interpretability of our framework.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
+  <h3>Accurate and scalable exchange-correlation with deep learning</h3>
+  <p>Density Functional Theory (DFT) underpins much of modern computational chemistry and materials science. Yet, the reliability of DFT-derived predictions of experimentally measurable properties remains fundamentally limited by the need to approximate the unknown exchange-correlation (XC) functional. The traditional paradigm for improving accuracy has relied on increasingly elaborate hand-crafted functional forms. This approach has led to a longstanding trade-off between computational efficiency and accuracy, which remains insufficient for reliable predictive modelling of laboratory experiments. Here we introduce Skala, a deep learning-based XC functional that surpasses state-of-the-art hybrid functionals in accuracy across the main-group chemistry benchmark set GMTKN55 with an error of 2.8 kcal/mol, while retaining the lower computational cost characteristic of semi-local DFT. This demonstrated departure from the historical trade-off between accuracy and efficiency is enabled by learning non-local representations of electronic structure directly from data, bypassing the need for increasingly costly hand-engineered features. Leveraging an unprecedented volume of high-accuracy reference data from wavefunction-based methods, we establish that modern deep learning enables systematically improvable neural exchange-correlation models as training datasets expand, positioning first-principles simulations to become progressively more predictive.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CE</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2411.15115v3" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Sessa: Selective State Space Attention</h3>
-  <p>Modern sequence models are dominated by Transformers, where self-attention mixes information from the visible context in an input-dependent way. However, when retrieval is not sharp and attention remains diffuse over an effective support $S_{\mathrm{eff}}(t)$, the influence of any individual token is diluted, typically scaling as $O(1/S_{\mathrm{eff}}(t))$ and reaching $O(1/\ell)$ for old tokens in full-prefix settings. Structured state-space models process sequences recurrently through an explicit feedback path; selective variants such as Mamba make this feedback input-dependent, yet when freeze time cannot be sustained over long intervals, their long-range sensitivity decays exponentially with lag. Existing architectures therefore either retrieve from the past in a single read or propagate information through a single feedback chain. We introduce Sessa, a decoder that places attention inside a feedback path, enabling recurrent many-path aggregation within a layer. Under stated assumptions, Sessa admits regimes with a power-law memory tail in lag $\ell$ of order $O(\ell^{-β})$ for $0&lt;β&lt;1$, which is asymptotically slower than $1/\ell$; moreover, this rate is tight in an explicit diffuse uniform-routing setting where the influence is $Θ(\ell^{-β})$. Under the same conditions, only Sessa among the compared model classes realizes flexible selective retrieval, including non-decaying profiles. Empirically, under matched architectures and training budgets, Sessa achieves the strongest performance on our long-context benchmarks while remaining competitive with Transformer and Mamba style baselines on short-context language modeling.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.18580v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2506.14665v6" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Bounded Ratio Reinforcement Learning</h3>
-  <p>Proximal Policy Optimization (PPO) has become the predominant algorithm for on-policy reinforcement learning due to its scalability and empirical robustness across domains. However, there is a significant disconnect between the underlying foundations of trust region methods and the heuristic clipped objective used in PPO. In this paper, we bridge this gap by introducing the Bounded Ratio Reinforcement Learning (BRRL) framework. We formulate a novel regularized and constrained policy optimization problem and derive its analytical optimal solution. We prove that this solution ensures monotonic performance improvement. To handle parameterized policy classes, we develop a policy optimization algorithm called Bounded Policy Optimization (BPO) that minimizes an advantage-weighted divergence between the policy and the analytic optimal solution from BRRL. We further establish a lower bound on the expected performance of the resulting policy in terms of the BPO loss function. Notably, our framework also provides a new theoretical lens to interpret the success of the PPO loss, and connects trust region policy optimization and the Cross-Entropy Method (CEM). We additionally extend BPO to Group-relative BPO (GBPO) for LLM fine-tuning. Empirical evaluations of BPO across MuJoCo, Atari, and complex IsaacLab environments (e.g., Humanoid locomotion), and of GBPO for LLM fine-tuning tasks, demonstrate that BPO and GBPO generally match or outperform PPO and GRPO in stability and final performance.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.18578v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Back into Plato&#x27;s Cave: Examining Cross-modal Representational Convergence at Scale</h3>
-  <p>The Platonic Representation Hypothesis suggests that neural networks trained on different modalities (e.g., text and images) align and eventually converge toward the same representation of reality. If true, this has significant implications for whether modality choice matters at all. We show that the experimental evidence for this hypothesis is fragile and depends critically on the evaluation regime. Alignment is measured using mutual nearest neighbors on small datasets ($\approx$1K samples) and degrades substantially as the dataset is scaled to millions of samples. The alignment that remains between model representations reflects coarse semantic overlap rather than consistent fine-grained structure. Moreover, the evaluations in Huh et al. are done in a one-to-one image-caption setting, a constraint that breaks down in realistic many-to-many settings and further reduces alignment. We also find that the reported trend of stronger language models increasingly aligning with vision does not appear to hold for newer models. Overall, our findings suggest that the current evidence for cross-modal representational convergence is considerably weaker than subsequent works have taken it to be. Models trained on different modalities may learn equally rich representations of the world, just not the same one.</p>
+  <h3>Generalization at the Edge of Stability</h3>
+  <p>Training modern neural networks often relies on large learning rates, operating at the edge of stability, where the optimization dynamics exhibit oscillatory and chaotic behavior. Empirically, this regime often yields improved generalization performance, yet the underlying mechanism remains poorly understood. In this work, we represent stochastic optimizers as random dynamical systems, which often converge to a fractal attractor set (rather than a point) with a smaller intrinsic dimension. Building on this connection and inspired by Lyapunov dimension theory, we introduce a novel notion of dimension, coined the `sharpness dimension&#x27;, and prove a generalization bound based on this dimension. Our results show that generalization in the chaotic regime depends on the complete Hessian spectrum and the structure of its partial determinants, highlighting a complexity that cannot be captured by the trace or spectral norm considered in prior work. Experiments across various MLPs and transformers validate our theory while also providing new insights into the recently observed phenomenon of grokking.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CV</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.18572v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.19740v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>A multimodal and temporal foundation model for virtual patient representations at healthcare system scale</h3>
-  <p>Modern medicine generates vast multimodal data across siloed systems, yet no existing model integrates the full breadth and temporal depth of the clinical record into a unified patient representation. We introduce Apollo, a multimodal temporal foundation model trained and evaluated on over three decades of longitudinal hospital records from a major US hospital system, composed of 25 billion records from 7.2 million patients, representing 28 distinct medical modalities and 12 major medical specialties. Apollo learns a unified representation space integrating over 100 thousand unique medical events in our clinical vocabulary as well as images and clinical text. This &quot;atlas of medical concepts&quot; forms a computational substrate for modeling entire patient care journeys comprised of sequences of structured and unstructured events, which are compressed by Apollo into virtual patient representations. To assess the potential of these whole-patient representations, we created 322 prognosis and retrieval tasks from a held-out test set of 1.4 million patients. We demonstrate the generalized clinical forecasting potential of Apollo embeddings, including predicting new disease onset risk up to five years in advance (95 tasks), disease progression (78 tasks), treatment response (59 tasks), risk of treatment-related adverse events (17 tasks), and hospital operations endpoints (12 tasks). Using feature attribution techniques, we show that model predictions align with clinically-interpretable multimodal biomarkers. We evaluate semantic similarity search on 61 retrieval tasks, and moreover demonstrate the potential of Apollo as a multimodal medical search engine using text and image queries. Together, these modeling capabilities establish the foundation for computable medicine, where the full context of patient care becomes accessible to computational reasoning.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
+  <h3>UniT: Toward a Unified Physical Language for Human-to-Humanoid Policy Learning and World Modeling</h3>
+  <p>Scaling humanoid foundation models is bottlenecked by the scarcity of robotic data. While massive egocentric human data offers a scalable alternative, bridging the cross-embodiment chasm remains a fundamental challenge due to kinematic mismatches. We introduce UniT (Unified Latent Action Tokenizer via Visual Anchoring), a framework that establishes a unified physical language for human-to-humanoid transfer. Grounded in the philosophy that heterogeneous kinematics share universal visual consequences, UniT employs a tri-branch cross-reconstruction mechanism: actions predict vision to anchor kinematics to physical outcomes, while vision reconstructs actions to filter out irrelevant visual confounders. Concurrently, a fusion branch synergies these purified modalities into a shared discrete latent space of embodiment-agnostic physical intents. We validate UniT across two paradigms: 1) Policy Learning (VLA-UniT): By predicting these unified tokens, it effectively leverages diverse human data to achieve state-of-the-art data efficiency and robust out-of-distribution (OOD) generalization on both humanoid simulation benchmark and real-world deployments, notably demonstrating zero-shot task transfer. 2) World Modeling (WM-UniT): By aligning cross-embodiment dynamics via unified tokens as conditions, it realizes direct human-to-humanoid action transfer. This alignment ensures that human data seamlessly translates into enhanced action controllability for humanoid video generation. Ultimately, by inducing a highly aligned cross-embodiment representation (empirically verified by t-SNE visualizations revealing the convergence of human and humanoid features into a shared manifold), UniT offers a scalable path to distill vast human knowledge into general-purpose humanoid capabilities.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.RO</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.18570v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.19734v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Latent Phase-Shift Rollback: Inference-Time Error Correction via Residual Stream Monitoring and KV-Cache Steering</h3>
-  <p>Large language models frequently commit unrecoverable reasoning errors mid-generation: once a wrong step is taken, subsequent tokens compound the mistake rather than correct it. We introduce $\textbf{Latent Phase-Shift Rollback}$ (LPSR): at each generation step, we monitor the residual stream at a critical layer lcrit, detect abrupt directional reversals (phase shifts) via a cosine-similarity $+$ entropy dual gate, and respond by rolling back the KV-cache and injecting a pre-computed steering vector. No fine-tuning, gradient computation, or additional forward passes are required. LPSR achieves $\mathbf{44.0\%}$ on MATH-500 with an 8B model versus $28.8\%$ for standard AR ($+15.2$ pp; McNemar $χ^2 = 66.96$, $p &lt; 10^{-15}$). Critically, prompted self-correction, the most natural inference-time baseline, scores only $19.8\%$, below standard AR; LPSR exceeds it by $+24.2$ pp ($χ^2 = 89.4$, $p \approx 0$). LPSR also outperforms Best-of-16 ($+7.8$ pp) at $5.4\times$ lower token cost, and surpasses a standard 70B model ($35.2\%$) with $8.75\times$ fewer parameters at ${\sim}3\times$ the token budget. A 32-layer sweep reveals a novel \textbf{detection-correction dissociation}: error-detection AUC peaks at layer~14 ($0.718$) but task accuracy peaks at layer~16 ($44.0\%$ vs.\ $29.2\%$), demonstrating that optimal monitoring depth differs for detection and correction.</p>
+  <h3>FASTER: Value-Guided Sampling for Fast RL</h3>
+  <p>Some of the most performant reinforcement learning algorithms today can be prohibitively expensive as they use test-time scaling methods such as sampling multiple action candidates and selecting the best one. In this work, we propose FASTER, a method for getting the benefits of sampling-based test-time scaling of diffusion-based policies without the computational cost by tracing the performance gain of action samples back to earlier in the denoising process. Our key insight is that we can model the denoising of multiple action candidates and selecting the best one as a Markov Decision Process (MDP) where the goal is to progressively filter action candidates before denoising is complete. With this MDP, we can learn a policy and value function in the denoising space that predicts the downstream value of action candidates in the denoising process and filters them while maximizing returns. The result is a method that is lightweight and can be plugged into existing generative RL algorithms. Across challenging long-horizon manipulation tasks in online and batch-online RL, FASTER consistently improves the underlying policies and achieves the best overall performance among the compared methods. Applied to a pretrained VLA, FASTER achieves the same performance while substantially reducing training and inference compute requirements. Code is available at https://github.com/alexanderswerdlow/faster .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.0</span>
+    <a href="https://arxiv.org/abs/2604.19730v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Benign Overfitting in Adversarial Training for Vision Transformers</h3>
+  <p>Despite the remarkable success of Vision Transformers (ViTs) across a wide range of vision tasks, recent studies have revealed that they remain vulnerable to adversarial examples, much like Convolutional Neural Networks (CNNs). A common empirical defense strategy is adversarial training, yet the theoretical underpinnings of its robustness in ViTs remain largely unexplored. In this work, we present the first theoretical analysis of adversarial training under simplified ViT architectures. We show that, when trained under a signal-to-noise ratio that satisfies a certain condition and within a moderate perturbation budget, adversarial training enables ViTs to achieve nearly zero robust training loss and robust generalization error under certain regimes. Remarkably, this leads to strong generalization even in the presence of overfitting, a phenomenon known as \emph{benign overfitting}, previously only observed in CNNs (with adversarial training). Experiments on both synthetic and real-world datasets further validate our theoretical findings.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.0</span>
+    <a href="https://arxiv.org/abs/2604.19724v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Adaptive MSD-Splitting: Enhancing C4.5 and Random Forests for Skewed Continuous Attributes</h3>
+  <p>The discretization of continuous numerical attributes remains a persistent computational bottleneck in the induction of decision trees, particularly as dataset dimensions scale. Building upon the recently proposed MSD-Splitting technique -- which bins continuous data using the empirical mean and standard deviation to dramatically improve the efficiency and accuracy of the C4.5 algorithm -- we introduce Adaptive MSD-Splitting (AMSD). While standard MSD-Splitting is highly effective for approximately symmetric distributions, its rigid adherence to fixed one-standard-deviation cutoffs can lead to catastrophic information loss in highly skewed data, a common artifact in real-world biomedical and financial datasets. AMSD addresses this by dynamically adjusting the standard deviation multiplier based on feature skewness, narrowing intervals in dense regions to preserve discriminative resolution. Furthermore, we integrate AMSD into ensemble methods, specifically presenting the Random Forest-AMSD (RF-AMSD) framework. Empirical evaluations on the Census Income, Heart Disease, Breast Cancer, and Forest Covertype datasets demonstrate that AMSD yields a 2-4% accuracy improvement over standard MSD-Splitting, while maintaining near-identical O(N) time complexity reductions compared to the O(N log N) exhaustive search. Our Random Forest extension achieves state-of-the-art accuracy at a fraction of standard computational costs, confirming the viability of adaptive statistical binning in large-scale ensemble learning architectures.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.0</span>
+    <a href="https://arxiv.org/abs/2604.19722v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>OmniGen2: Towards Instruction-Aligned Multimodal Generation</h3>
+  <p>In this work, we introduce OmniGen2, a versatile and open-source generative model designed to provide a unified solution for diverse generation tasks, including text-to-image, image editing, and in-context generation. Unlike OmniGen v1, OmniGen2 features two distinct decoding pathways for text and image modalities, utilizing unshared parameters and a decoupled image tokenizer. This design enables OmniGen2 to build upon existing multimodal understanding models without the need to re-adapt VAE inputs, thereby preserving the original text generation capabilities. To facilitate the training of OmniGen2, we developed comprehensive data construction pipelines, encompassing image editing and in-context generation data. Additionally, we introduce a reflection mechanism tailored for image generation tasks and curate a dedicated reflection dataset based on OmniGen2. Despite its relatively modest parameter size, OmniGen2 achieves competitive results on multiple task benchmarks, including text-to-image and image editing. To further evaluate in-context generation, also referred to as subject-driven tasks, we introduce a new benchmark named OmniContext. OmniGen2 achieves state-of-the-art performance among open-source models in terms of consistency. We will release our models, training code, datasets, and data construction pipeline to support future research in this field. Project Page: https://vectorspacelab.github.io/OmniGen2; GitHub Link: https://github.com/VectorSpaceLab/OmniGen2</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.18567v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2506.18871v4" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1214,6 +1214,78 @@
   <div class="signal-footer">
     <span>anthropic.com · 0.6</span>
     <a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>AI and the Future of Cybersecurity: Why Openness Matters</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/cybersecurity-openness" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>The PR you would have opened yourself</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/transformers-to-mlx" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Training and Finetuning Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/train-multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Meet HoloTab by HCompany. Your AI browser companion.</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/Hcompany/holotab" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/waypoint-1-5" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Safetensors is Joining the PyTorch Foundation</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/safetensors-joins-pytorch-foundation" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Welcome Gemma 4: Frontier multimodal intelligence on device</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/gemma4" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1790,78 +1862,6 @@
   <div class="signal-footer">
     <span>mediatek.com · 0.3</span>
     <a href="https://www.mediatek.com/tek-talk-blogs/the-next-wave-of-ai-in-robotics-industrial-iot-beyond" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>AI and the Future of Cybersecurity: Why Openness Matters</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/cybersecurity-openness" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>The PR you would have opened yourself</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/transformers-to-mlx" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Training and Finetuning Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/train-multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Meet HoloTab by HCompany. Your AI browser companion.</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/Hcompany/holotab" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/waypoint-1-5" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Safetensors is Joining the PyTorch Foundation</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/safetensors-joins-pytorch-foundation" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Welcome Gemma 4: Frontier multimodal intelligence on device</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/gemma4" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>
       </div>
