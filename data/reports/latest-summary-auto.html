@@ -61,7 +61,7 @@
 <div class="wrap">
   <header>
     <h1>自动情报快报</h1>
-    <div class="meta">生成时间：2026-04-22T11:31:51.021741+08:00</div>
+    <div class="meta">生成时间：2026-04-22T08:01:33.263592+08:00</div>
     <div class="stats">
       <span class="stat-pill">📡 169 条原始信息</span>
       <span class="stat-pill">🎯 167 个主题</span>
@@ -71,24 +71,24 @@
   </header>
 
   <section id="judgment" class="section">
-    <div class="judgment">AI agent infrastructure is rapidly maturing with multiple solutions targeting security, reliability, and debuggability challenges, but the fundamental tension between capability and safety remains unsolved.</div>
+    <div class="judgment">AI代理系统正从工具向结构化决策框架演进，核心瓶颈在于可调试性和本地部署的长上下文处理能力，而非基础推理能力本身</div>
   </section>
 
   <section id="executive-summary" class="section">
     <h2 class="section-title">执行摘要</h2>
-    <ul><li>The AI agent ecosystem is experiencing a wave of infrastructure updates focused on security and reliability. OpenAI&#x27;s Agents SDK update introduces native sandbox execution and model-native harness to help developers build secure, long-running agents.</li><li>Brex has open-sourced CrabTrap, an LLM-as-a-judge HTTP proxy designed to secure AI agents in production environments, signaling a strategic push to shape security standards in the agent space.</li><li>Microsoft Research has released the AgentRx framework to address the growing opacity problem as AI agents become more autonomous and complex, treating debuggability as a first-class requirement rather than an afterthought.</li><li>The primary industry contradiction remains: developer demand for powerful, autonomous agents clashes with the security, reliability, and transparency risks such agents pose in production environments.</li></ul>
+    <ul><li>AI代理领域正在经历从简单聊天机器人向复杂自主系统的转型，但可调试性缺失成为制约其可靠性的关键瓶颈</li><li>微软AgentRx框架代表了对AI agent系统性调试方法论的探索，旨在解决工具幻觉等黑箱问题</li><li>本地大模型在结构化任务上可达到中端云模型水平（77%通过率），但在需要长上下文的错误修复任务上表现极差（0-50%），暴露了内存限制的根本性挑战</li><li>后端工程选择（GGUF vs MLX）对实际性能的影响超过量化级别差异，说明基础设施优化与模型质量同等重要</li><li>AI调解系统尝试将纳什议价理论工程化，象征AI从辅助工具向结构化决策框架的演进趋势</li></ul>
   </section>
 
   <section id="key-insights" class="section">
     <h2 class="section-title">关键洞察</h2>
-    <ul><li>The AI agent security market is consolidating around three vectors: development frameworks (OpenAI), runtime guards (Brex/CrabTrap), and debugging infrastructure (Microsoft/AgentRx), suggesting a maturing ecosystem with distinct but complementary solutions.</li><li>Open-source security tools like CrabTrap signal a shift from proprietary lock-in to ecosystem building—companies are trading immediate commercial advantage for influence in shaping emerging standards.</li><li>The debugging challenge identified by AgentRx reveals a fundamental &#x27;black box&#x27; operational risk that grows as agent autonomy increases; this will likely become a decisive factor in enterprise adoption.</li><li>Low-evidence items (MediaTek Edge AI, vLLM, &#x27;Less human AI agents&#x27;) suggest emerging signals worth monitoring but lacking sufficient depth for actionable analysis at this time.</li></ul>
+    <ul><li>AI agent的当前瓶颈不在于&#x27;能做什么&#x27;而在于&#x27;出错时能否定位和修复&#x27;——可调试性将成为评判AI系统成熟度的核心指标</li><li>本地大模型部署的实际性能边界由长上下文处理能力决定，而非原始推理指标，这要求重新评估&#x27;本地替代云端&#x27;的决策框架</li><li>基础设施层面（后端、推理引擎）的优化空间可能超过模型层面的改进空间，特别是在生产环境约束下</li><li>AI调解案例暗示未来AI系统将承担更多&#x27;规则执行者&#x27;而非&#x27;建议生成者&#x27;的角色，这对AI系统的确定性和可审计性提出更高要求</li></ul>
   </section>
 
   <section id="mainlines" class="section">
     <h2 class="section-title">重点主线</h2>
-    <ul style="padding-left:20px;"><li><strong>OpenAI Agents SDK Update Targets Secure Agent Development</strong> OpenAI is lowering the technical barrier for building agents through native sandbox execution, signaling that agent infrastructure is becoming a strategic priority. However, the fundamental tension between agent capability and safety remains the core unsolved challenge.</li>
-<li><strong>Brex Open-Sources CrabTrap for Production Agent Security</strong> Brex&#x27;s decision to open-source a production-grade security tool suggests a strategic choice to build ecosystem influence rather than direct monetization. This positions Brex as a potential standard-setter in agent security, though production readiness remains to be proven at scale.</li>
-<li><strong>Microsoft AgentRx Addresses AI Agent Debugging Gap</strong> As agents graduate from chatbots to autonomous systems handling critical workflows (cloud incidents, API workflows), their opacity becomes a liability. AgentRx represents a paradigm shift—treating debuggability as a first-class requirement—which could set a new standard for enterprise agent deployment.</li></ul>
+    <ul style="padding-left:20px;"><li><strong>AI Agent调试成为产业关键需求</strong> 随着AI代理承担云事故管理、多步骤API工作流等复杂任务，缺乏透明度导致无法追踪错误逻辑，威胁生产环境可靠性，AgentRx等系统化调试框架成为行业必需品而非可选项</li>
+<li><strong>本地部署的核心瓶颈是内存而非推理能力</strong> 本地模型在CLD提取任务达到77%通过率匹配中端云性能，但在需要长上下文的错误修复任务上仅0-50%，揭示从&#x27;静态任务执行&#x27;到&#x27;动态对话协作&#x27;的能力鸿沟根本源于内存约束</li>
+<li><strong>后端选择比量化级别更具实际影响</strong> llama.cpp能可靠处理JSON但可能导致无限生成，mlx_lm不强制约束但需显式指令——这种基础设施差异对生产部署的影响超过模型精度选择</li></ul>
   </section>
 
   <section id="memory" class="section">
@@ -100,47 +100,30 @@
     <h2 class="section-title">重点主题分析</h2>
     <div class="signal-card">
                 <div class="signal-header">
-                  <h3>The next evolution of the Agents SDK</h3>
+                  <h3>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness</h3>
                   <span class="badge badge--medium">medium</span>
                 </div>
                 <div class="signal-body">
                   <p><strong>主领域：</strong>ai-llm-agent</p>
-                  <p><strong>主要矛盾：</strong>Developer demand for powerful, autonomous agents vs. the security and reliability risks of such agents.</p>
-                  <p><strong>核心洞察：</strong>OpenAI&#x27;s SDK update is a strategic move to capture the developer ecosystem by lowering the technical barrier to building agents, but its success hinges on solving the fundamental tension between agent capability and safety/trust, which remains the primary industry challenge.</p>
+                  <p><strong>主要矛盾：</strong>人类调解的模糊经验性 vs AI系统化公平的精确可计算性</p>
+                  <p><strong>核心洞察：</strong>Mediator.ai试图通过将经典的纳什议价理论与现代LLM相结合，将传统上依赖经验和直觉的调解过程转化为可系统化、可计算的公平分配框架，这代表了AI从辅助工具向结构化决策框架的演进。</p>
                   <p><strong>生命周期：</strong>rising</p>
-                  <p><strong>风险等级：</strong>medium</p>
-                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
-                  <p><strong>佐证列表：</strong></p>
-                  <ul><li>official | <a href="https://www.anthropic.com/news/google-broadcom-partnership-compute" target="_blank" rel="noopener">Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute</a></li><li>official | <a href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/" target="_blank" rel="noopener">How AI Is Ushering in the Next Era of Risk Review at Meta</a></li><li>official | <a href="https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis" target="_blank" rel="noopener">Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents</a></li></ul>
-                </div>
-                <a class="signal-link" href="https://openai.com/index/the-next-evolution-of-the-agents-sdk" target="_blank" rel="noopener">查看原文 →</a>
-              </div>
-<div class="signal-card">
-                <div class="signal-header">
-                  <h3>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production</h3>
-                  <span class="badge badge--medium">medium</span>
-                </div>
-                <div class="signal-body">
-                  <p><strong>主领域：</strong>ai-llm-agent</p>
-                  <p><strong>主要矛盾：</strong>开源共享与商业保护</p>
-                  <p><strong>核心洞察：</strong>Brex通过开源CrabTrap，策略性地以生态建设换取在AI智能体安全领域的影响力与标准潜在制定权，而非直接商业变现。</p>
-                  <p><strong>生命周期：</strong>new</p>
                   <p><strong>风险等级：</strong>medium</p>
                   <p><strong>交叉印证：</strong>1 source(s) | community | 3 related support</p>
                   <p><strong>佐证列表：</strong></p>
-                  <ul><li>official | <a href="https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive" target="_blank" rel="noopener">An ecosystem approach to the future of automotive</a></li><li>official | <a href="https://newsroom.arm.com/news/arm-agi-cpu-launch" target="_blank" rel="noopener">Arm expands compute platform to silicon products in historic company first</a></li><li>official | <a href="https://developer.espressif.com/blog/2026/04/esp32-tagotip-cloud-connectivity/" target="_blank" rel="noopener">Connecting an ESP32 to the Cloud</a></li></ul>
+                  <ul><li>official | <a href="https://newsroom.arm.com/news/arm-monash-university-malaysia-semiconductor-talent-development-ai" target="_blank" rel="noopener">Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era</a></li><li>official | <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">Bringing AI Closer to the Edge and On-Device with Gemma 4</a></li><li>official | <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</a></li></ul>
                 </div>
-                <a class="signal-link" href="https://www.brex.com/crabtrap" target="_blank" rel="noopener">查看原文 →</a>
+                <a class="signal-link" href="https://mediator.ai/" target="_blank" rel="noopener">查看原文 →</a>
               </div>
 <div class="signal-card">
                 <div class="signal-header">
                   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-                  <span class="badge badge--high">high</span>
+                  <span class="badge badge--medium">medium</span>
                 </div>
                 <div class="signal-body">
                   <p><strong>主领域：</strong>ai-llm-agent</p>
-                  <p><strong>主要矛盾：</strong>Increasing autonomy and capability of AI agents vs. the decreasing transparency and debuggability of their failures.</p>
-                  <p><strong>核心洞察：</strong>The evolution of AI agents into complex autonomous systems is creating a fundamental &#x27;black box&#x27; operational risk; the AgentRx framework represents an attempt to reconcile this by building systematic observability and debugging *into* the agent paradigm, treating debuggability as a first-class requirement rather than an afterthought.</p>
+                  <p><strong>主要矛盾：</strong>The &#x27;black box&#x27; nature of agent failures vs. the requirement for systematic root cause analysis.</p>
+                  <p><strong>核心洞察：</strong>The advancement of AI agents is hitting a fundamental bottleneck: the lack of debuggability threatens their reliability and scalability in critical applications, making systematic debugging frameworks like AgentRx not just an improvement but a necessity for the field&#x27;s progression.</p>
                   <p><strong>生命周期：</strong>verified</p>
                   <p><strong>风险等级：</strong>low</p>
                   <p><strong>交叉印证：</strong>1 source(s) | official | 2 related support</p>
@@ -149,35 +132,52 @@
                 </div>
                 <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文 →</a>
               </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>本地AI助手在结构化任务（CLD提取）上可达到实用性能水平 vs 在需要复杂交互、长上下文理解和错误修复的系统动力学讨论任务上存在根本性能力缺陷</p>
+                  <p><strong>核心洞察：</strong>当前本地大模型在系统动力学AI助手场景中的核心瓶颈不是基础推理能力，而是长上下文处理、内存约束和交互可靠性——这揭示了从“静态任务执行”到“动态对话协作”的能力鸿沟，后端工程选择（如GGUF vs MLX）对实际可用性的影响甚至超过模型本身的质量差异。</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper | 5 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics</a></li><li>official | <a href="https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/" target="_blank" rel="noopener">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a></li><li>official | <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">Bringing AI Closer to the Edge and On-Device with Gemma 4</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2604.18566v1" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
   </section>
 
   <section id="forecast" class="section">
         <h2 class="section-title">📈 短期推演</h2>
         <div class="forecast-grid">
-          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>In the next 3-6 months, the AI agent ecosystem experiences accelerated but stable growth. OpenAI&#x27;s SDK update successfully lowers the barrier to entry, leading to a surge in developer experimentation. Brex&#x27;s CrabTrap gains initial traction as a de facto security layer for early production deployments, and Microsoft&#x27;s AgentRx framework sparks industry-wide discussion on debuggability standards. This creates a virtuous cycle: improved tooling reduces high-profile failures, boosting developer and enterprise confidence, leading to more investment and a clearer path toward mainstream, non-critical agent applications.</p></div>
-          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>Within 6 months, a high-profile security incident or catastrophic failure occurs in a widely publicized AI agent deployment, directly linked to the capability-safety contradiction. This could involve data exfiltration, unauthorized actions, or a critical debugging failure in a production system. The incident triggers a sharp backlash, causing enterprises to pause or roll back agent projects. Regulatory scrutiny increases, funding for agent-focused startups tightens, and the narrative shifts from rapid adoption to risk management, stalling ecosystem momentum for 12-18 months. The newly released tools (OpenAI SDK, CrabTrap, AgentRx) are perceived as insufficient or reactive.</p></div>
-          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>Over the next 6 months, the AI agent infrastructure layer will see fragmented, incremental progress without a breakthrough in resolving the core contradiction. Developer adoption of the new tools will be steady but cautious, primarily among early adopters and for internal, low-risk automation tasks. We will see multiple competing security and debugging approaches emerge (beyond Brex and Microsoft), leading to market confusion and integration challenges. Several minor, contained security incidents or reliability failures will be reported, keeping the capability-safety tension at the forefront of technical discussions but without causing a market-wide shock. The ecosystem will remain in a &#x27;tooling build-out&#x27; phase, with mainstream enterprise adoption still awaiting more proven safety and ROI case studies.</p></div>
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>AI代理调试框架（如AgentRx）在6个月内获得主流云服务商采纳，推动AI agent在生产环境的部署率提升30%；本地大模型通过内存优化和长上下文压缩技术，在特定结构化任务上的性能差距与云端缩小至10%以内；基于纳什议价理论的AI调解系统在标准化商业纠纷场景中验证可行性，引发第一波&#x27;结构化决策AI&#x27;创业浪潮。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>AgentRx等调试框架因复杂度高、适配成本大，在6个月内未能形成实际行业标准，AI agent的&#x27;黑箱&#x27;问题持续阻碍关键任务应用；本地模型的长上下文瓶颈无突破性进展，错误修复任务表现仍低于20%，导致本地部署仅限于简单场景；AI调解系统因现实谈判变量过多，无法满足个性化需求，市场接受度低迷。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>AI agent调试框架在头部科技公司内部试点取得进展，但行业标准化缓慢；本地大模型在CLD提取等结构化任务上保持与中端云模型的竞争力（75-80%通过率），但在需要长上下文的复杂交互任务上仍显著落后（错误修复率&lt;30%）；Mediator.ai类项目在细分场景（如标准化合同条款）获得早期采用，但大规模推广受限；后端工程优化（vLLM等）继续成为性能提升的关键杠杆。</p></div>
         </div>
         <p><strong>关键变量：</strong></p>
-        <ul><li>Occurrence and severity of the first major production agent security/ reliability failure</li><li>Enterprise adoption rate of the new security/debugging frameworks (CrabTrap, AgentRx)</li><li>Developer community feedback and build volume on the updated OpenAI Agents SDK</li><li>Regulatory statements or actions specifically targeting autonomous AI agent deployments</li><li>Emergence of a dominant, simplified use-case that demonstrates clear agent ROI without excessive risk</li></ul>
-        <p><strong>结论：</strong>The short-term trajectory of the AI agent ecosystem is constrained by the unresolved fundamental tension between autonomy and safety/reliability. While the flurry of infrastructure tooling (OpenAI, Brex, Microsoft) is a positive sign of maturation, it represents preparatory work rather than a solution. The most likely path is one of cautious, incremental progress within sandboxed or low-stakes environments, with the market awaiting a demonstrably safe and valuable &#x27;killer app&#x27; to catalyze broader adoption. The risk of a setback from a significant failure remains non-trivial and is the primary downside risk.</p>
+        <ul><li>长上下文本地内存优化进展</li><li>AgentRx类框架的行业采纳速度</li><li>纳什议价AI系统在真实场景的验证结果</li><li>云端与本地成本差距的变化</li><li>关键开源后端（llama.cpp/mlx_lm/vLLM）的迭代方向</li></ul>
+        <p><strong>结论：</strong>短期（6个月）内，AI代理领域将呈现&#x27;调试框架探索期、本地部署瓶颈期、结构化应用萌芽期&#x27;的三速发展格局。最可能的前景是局部优化而非突破性变革：基础设施（后端/内存）的渐进改进支撑结构化任务性能，但复杂交互和长上下文处理仍是关键短板；可调试性需求明确但解决方案尚未成熟。</p>
       </section>
 
   <section id="limitations" class="section">
     <h2 class="section-title">局限性</h2>
-    <ul><li>Three of six topics have low confidence due to insufficient evidence depth (1 source each), limiting the breadth of this briefing.</li><li>Long-term production performance of sandboxed agents (OpenAI), LLM-as-a-judge accuracy in diverse scenarios (Brex), and AgentRx adoption by enterprises remain unvalidated.</li><li>The rapidly evolving nature of AI agent technology means security approaches may become obsolete quickly as attack surfaces and agent capabilities expand.</li><li>Potential market fragmentation across different agent frameworks (OpenAI SDK vs. others) could create interoperability challenges, though this was not directly addressed in current sources.</li></ul>
+    <ul><li>三个数据源（MediaTek IoT边缘AI、&#x27;Less human AI agents&#x27;博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析</li><li>纳什议价理论在实际谈判场景中的假设条件与复杂现实之间的Gap未被验证</li><li>基准测试环境与生产环境存在差异，Apple Silicon上的实践指南适用性待验证</li><li>AgentRx框架的具体实现细节和评估指标未充分披露</li></ul>
   </section>
 
-  <p class="risk-note">⚠️ Three of six topics have low confidence due to insufficient evidence depth (1 source each), limiting the breadth of this briefing.</p>
+  <p class="risk-note">⚠️ 三个数据源（MediaTek IoT边缘AI、&#x27;Less human AI agents&#x27;博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析</p>
 
   <section id="actions" class="section">
     <h2 class="section-title">行动建议</h2>
-    <ul><li>Monitor for production case studies from Brex CrabTrap users to assess real-world effectiveness of LLM-as-a-judge security approaches.</li><li>Evaluate OpenAI&#x27;s sandbox execution capabilities against existing agent security solutions when documentation expands.</li><li>Track Microsoft AgentRx framework adoption and community contributions as a leading indicator of whether debuggability becomes a standard requirement in agent development.</li><li>Expand coverage of low-confidence signals (MediaTek Edge AI, vLLM updates) when additional sources become available.</li><li>Assess internal agent development priorities against this emerging security/debugging stack to identify potential integration points or gaps.</li></ul>
+    <ul><li>对需要长上下文处理的生产场景，优先考虑云端部署或扩展本地内存架构，避免依赖当前本地模型处理复杂交互任务</li><li>在选择本地部署后端时，优先评估JSON处理能力和长上下文稳定性，而非单纯追求量化精度</li><li>将可调试性纳入AI agent采购和评估标准，要求供应商提供明确的错误追踪和根因分析方法</li><li>关注AgentRx框架的社区反馈和实际部署案例，作为AI agent运维能力建设的参考</li></ul>
   </section>
 
   <section id="all-signals" class="section">
     <h2 class="section-title">全部信号</h2>
-    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Systematic debugging for AI agents: Introducing the AgentRx framework<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World<span class="domain-tag">ai-x-electronics</span></td><td>2.6</td><td>1</td><td><a href="https://www.mediatek.com/tek-talk-blogs/iot-gets-a-powerful-edge-ai-upgrade-mediatek-at-embedded-world" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Less human AI agents, please<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://nial.se/blog/less-human-ai-agents-please/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://www.brex.com/crabtrap" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>The next evolution of the Agents SDK<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/the-next-evolution-of-the-agents-sdk" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/cloudflare-openai-agent-cloud" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>PlugMem: Transforming raw agent interactions into reusable knowledge<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/from-raw-interaction-to-reusable-knowledge-rethinking-memory-for-ai-agents/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>SpecAgent: A Speculative Retrieval and Forecasting Agent for Code Completion<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2510.17925v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/stm32n6/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/nanoedge-ai-machine-learning/" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Systematic debugging for AI agents: Introducing the AgentRx framework<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2604.18566v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World<span class="domain-tag">ai-x-electronics</span></td><td>2.6</td><td>1</td><td><a href="https://www.mediatek.com/tek-talk-blogs/iot-gets-a-powerful-edge-ai-upgrade-mediatek-at-embedded-world" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://mediator.ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Less human AI agents, please<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://nial.se/blog/less-human-ai-agents-please/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>The next evolution of the Agents SDK<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/the-next-evolution-of-the-agents-sdk" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/cloudflare-openai-agent-cloud" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>PlugMem: Transforming raw agent interactions into reusable knowledge<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/from-raw-interaction-to-reusable-knowledge-rethinking-memory-for-ai-agents/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.18576v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>When Can LLMs Learn to Reason with Weak Supervision?<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.18574v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
   </section>
 
   <footer>

@@ -1,56 +1,157 @@
 {
   "meta": {
-    "generated_at": "2026-04-22T11:31:51.021741+08:00",
+    "generated_at": "2026-04-22T11:49:49.984824+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 169,
     "total_topics": 167,
-    "publication_mode": "auto",
+    "publication_mode": "reviewed",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI agent infrastructure is rapidly maturing with multiple solutions targeting security, reliability, and debuggability challenges, but the fundamental tension between capability and safety remains unsolved.",
+  "one_line_core": "AI agent development is pivoting from experimental prototypes to production-ready systems, creating urgent demand for debugging frameworks, security guardrails, and execution infrastructure to address the autonomy-security tension.",
   "executive_summary": [
-    "The AI agent ecosystem is experiencing a wave of infrastructure updates focused on security and reliability. OpenAI's Agents SDK update introduces native sandbox execution and model-native harness to help developers build secure, long-running agents.",
-    "Brex has open-sourced CrabTrap, an LLM-as-a-judge HTTP proxy designed to secure AI agents in production environments, signaling a strategic push to shape security standards in the agent space.",
-    "Microsoft Research has released the AgentRx framework to address the growing opacity problem as AI agents become more autonomous and complex, treating debuggability as a first-class requirement rather than an afterthought.",
-    "The primary industry contradiction remains: developer demand for powerful, autonomous agents clashes with the security, reliability, and transparency risks such agents pose in production environments."
+    "The AI agent ecosystem is experiencing a pivotal shift from proof-of-concept chatbots toward autonomous systems capable of managing complex, multi-step workflows in production environments.",
+    "This transition has exposed a critical 'debuggability gap' — as agents gain autonomy, understanding and fixing their failures becomes exponentially harder, threatening reliability and enterprise adoption.",
+    "Three parallel developments illustrate this evolution: Microsoft introduced AgentRx to systematically diagnose agent failures, OpenAI updated its Agents SDK with native sandbox execution for security, and Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy for production safety.",
+    "The core tension emerging across all developments is the inherent conflict between unlocking powerful autonomous applications and establishing the safety guardrails, transparency, and debugging tools necessary for production deployment.",
+    "Community signals (Hacker News engagement) indicate strong developer interest in both agent capability advancement and human-centric agent design principles."
   ],
   "key_points": [
     {
-      "title": "OpenAI Agents SDK Update Targets Secure Agent Development",
-      "why_it_matters": "OpenAI is lowering the technical barrier for building agents through native sandbox execution, signaling that agent infrastructure is becoming a strategic priority. However, the fundamental tension between agent capability and safety remains the core unsolved challenge."
+      "title": "AI agents face a critical 'debuggability gap'",
+      "why_it_matters": "As agents evolve from simple task executors into autonomous systems managing cloud incidents and multi-step API workflows, traditional debugging approaches break down. Unlike human errors that can be traced, AI agent failures (e.g., hallucinated tool outputs) create opaque failure modes that threaten adoption in critical production systems."
     },
     {
-      "title": "Brex Open-Sources CrabTrap for Production Agent Security",
-      "why_it_matters": "Brex's decision to open-source a production-grade security tool suggests a strategic choice to build ecosystem influence rather than direct monetization. This positions Brex as a potential standard-setter in agent security, though production readiness remains to be proven at scale."
+      "title": "OpenAI is strategically maturing the agent development stack",
+      "why_it_matters": "The updated Agents SDK with native sandbox execution and model-native harness signals a deliberate push from experimental prototypes toward reliable, secure, long-running agents. This indicates major platform providers are investing in production-grade infrastructure rather than just capability improvements."
     },
     {
-      "title": "Microsoft AgentRx Addresses AI Agent Debugging Gap",
-      "why_it_matters": "As agents graduate from chatbots to autonomous systems handling critical workflows (cloud incidents, API workflows), their opacity becomes a liability. AgentRx represents a paradigm shift—treating debuggability as a first-class requirement—which could set a new standard for enterprise agent deployment."
+      "title": "Security tooling for agents is emerging as a competitive differentiator",
+      "why_it_matters": "Brex's CrabTrap (95 HN score) represents a novel approach: using LLM-as-a-judge within an HTTP proxy to dynamically constrain and evaluate agent behavior. This 'using AI to police AI' pattern addresses the autonomy-security contradiction but introduces new questions about judgment accuracy, latency, and operational cost."
+    },
+    {
+      "title": "Community sentiment values human-centric agent design",
+      "why_it_matters": "High engagement on discussions about 'less human' agents (138 score, 149 comments) suggests developers and users are actively wrestling with the appropriate degree of autonomy and the balance between capability and human oversight in agent systems."
     }
   ],
   "key_insights": [
-    "The AI agent security market is consolidating around three vectors: development frameworks (OpenAI), runtime guards (Brex/CrabTrap), and debugging infrastructure (Microsoft/AgentRx), suggesting a maturing ecosystem with distinct but complementary solutions.",
-    "Open-source security tools like CrabTrap signal a shift from proprietary lock-in to ecosystem building—companies are trading immediate commercial advantage for influence in shaping emerging standards.",
-    "The debugging challenge identified by AgentRx reveals a fundamental 'black box' operational risk that grows as agent autonomy increases; this will likely become a decisive factor in enterprise adoption.",
-    "Low-evidence items (MediaTek Edge AI, vLLM, 'Less human AI agents') suggest emerging signals worth monitoring but lacking sufficient depth for actionable analysis at this time."
+    "The AI agent landscape is consolidating around a central conflict: enhanced autonomy enables powerful new applications but simultaneously increases unpredictability and reduces debuggability — creating a capability-security tradeoff that the ecosystem is scrambling to resolve.",
+    "Microsoft's AgentRx framework represents a new product category emerging specifically to address agent opacity — diagnostic tools for autonomous systems may become as essential as monitoring tools for traditional software.",
+    "OpenAI's SDK evolution signals that 'production-ready agents' are becoming a first-class platform priority, not just a capability benchmark, with sandboxing and security features being integrated into development tools rather than bolted on afterward.",
+    "The emergence of LLM-as-a-judge security proxies (CrabTrap) suggests the industry is exploring recursive solutions where AI systems are used to constrain and evaluate other AI systems — this pattern may become prevalent but raises questions about the reliability of using probabilistic systems as enforcement mechanisms.",
+    "The divergence between high engagement scores (community enthusiasm) and low evidence depth (limited production deployments) indicates a potential hype-adoption gap in the agent ecosystem — the technical community is excited, but enterprise adoption remains gated by reliability and debugging challenges."
   ],
   "limitations": [
-    "Three of six topics have low confidence due to insufficient evidence depth (1 source each), limiting the breadth of this briefing.",
-    "Long-term production performance of sandboxed agents (OpenAI), LLM-as-a-judge accuracy in diverse scenarios (Brex), and AgentRx adoption by enterprises remain unvalidated.",
-    "The rapidly evolving nature of AI agent technology means security approaches may become obsolete quickly as attack surfaces and agent capabilities expand.",
-    "Potential market fragmentation across different agent frameworks (OpenAI SDK vs. others) could create interoperability challenges, though this was not directly addressed in current sources."
+    "Limited visibility into actual production deployment rates — community signals and product announcements may not reflect real-world adoption patterns.",
+    "Three of six topic signals had insufficient evidence depth (confidence: low) to draw substantive conclusions, indicating potential blind spots in coverage.",
+    "The rapidly evolving nature of agent frameworks means specific tooling details (AgentRx, CrabTrap) may shift before wide adoption.",
+    "Open-source security projects like CrabTrap face adoption-vs-stability tensions — high community scores don't guarantee production reliability.",
+    "LLM-as-a-judge approaches have inherent accuracy, latency, and cost tradeoffs that weren't empirically validated in source materials."
   ],
   "actions": [
-    "Monitor for production case studies from Brex CrabTrap users to assess real-world effectiveness of LLM-as-a-judge security approaches.",
-    "Evaluate OpenAI's sandbox execution capabilities against existing agent security solutions when documentation expands.",
-    "Track Microsoft AgentRx framework adoption and community contributions as a leading indicator of whether debuggability becomes a standard requirement in agent development.",
-    "Expand coverage of low-confidence signals (MediaTek Edge AI, vLLM updates) when additional sources become available.",
-    "Assess internal agent development priorities against this emerging security/debugging stack to identify potential integration points or gaps."
+    "Evaluate AgentRx or similar debugging frameworks when deploying autonomous agents in production to address the debuggability gap before failures occur.",
+    "Assess OpenAI's updated Agents SDK capabilities against current development workflows, particularly the sandbox execution features for long-running agents.",
+    "Monitor CrabTrap's development trajectory and community adoption before committing to LLM-as-a-judge proxy patterns for production security.",
+    "Consider incorporating human oversight checkpoints in agent architectures where failure impact is high, balancing autonomy benefits against operational risk.",
+    "Track the evolving maturity of agent infrastructure tooling as a leading indicator of enterprise-ready agent deployment timelines."
   ],
   "analyses": [
+    {
+      "facts": [
+        "AI agents are transitioning from simple chatbots to autonomous systems capable of complex tasks like managing cloud incidents and executing multi-step API workflows.",
+        "A new challenge of transparency has emerged with this transition.",
+        "When a human makes a mistake, the logic can usually be traced, but when an AI agent fails (e.g., by hallucinating a tool output), the debugging process is not straightforward."
+      ],
+      "contradictions": [
+        "Increasing agent autonomy and capability vs. the decreasing transparency and debuggability of their actions.",
+        "The need for reliable, complex AI agents in production vs. the current lack of systematic tools to understand and fix their failures.",
+        "The expectation for agents to handle critical workflows vs. the inherent unpredictability and 'black-box' nature of their decision-making processes."
+      ],
+      "primary_contradiction": "The increasing complexity and autonomy of AI agents vs. the lack of systematic transparency and debugging frameworks.",
+      "core_insight": "The evolution of AI agents into complex autonomous systems is creating a critical 'debuggability gap' that threatens their reliability and adoption for serious applications, necessitating a new class of diagnostic tools like AgentRx.",
+      "confidence": "high",
+      "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+      "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "microsoft-research"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "external"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support",
+          "external-support"
+        ],
+        "summary": "1 source(s) | official | 2 related support"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 3.3,
+        "previous_confidence": "medium",
+        "previous_lifecycle_state": "verified",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "verified",
+      "risk_level": "low",
+      "support_evidence": [
+        {
+          "source_id": "espressif-blog",
+          "source_type": "official",
+          "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+          "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
+          "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
+          "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "external"
+        }
+      ]
+    },
     {
       "facts": [
         "OpenAI has updated its Agents SDK.",
@@ -60,13 +161,13 @@
         "These agents are designed to operate across files and tools."
       ],
       "contradictions": [
-        "Developer demand for powerful, autonomous agents vs. the security and reliability risks of such agents.",
-        "The complexity of building agents that work across diverse tools and files vs. the SDK's goal of simplifying development.",
-        "The need for agents to be long-running and persistent vs. the technical challenges of stability and resource management in sandboxed environments.",
-        "OpenAI's push for broader agent adoption (developer tooling) vs. the potential market fragmentation and unclear immediate user demand for agent-based applications."
+        "Enhanced agent capability (long-running, cross-file/tool) vs. inherent security and control risks.",
+        "Developer demand for powerful, autonomous agents vs. the complexity and reliability challenges of managing such agents.",
+        "OpenAI's push for advanced agent adoption vs. the current ecosystem's maturity and developer skill gap in deploying production-ready agents.",
+        "The promise of a simplified development harness vs. the potential for increased system resource consumption and operational overhead."
       ],
-      "primary_contradiction": "Developer demand for powerful, autonomous agents vs. the security and reliability risks of such agents.",
-      "core_insight": "OpenAI's SDK update is a strategic move to capture the developer ecosystem by lowering the technical barrier to building agents, but its success hinges on solving the fundamental tension between agent capability and safety/trust, which remains the primary industry challenge.",
+      "primary_contradiction": "Enhanced agent capability (long-running, cross-file/tool) vs. inherent security and control risks.",
+      "core_insight": "OpenAI's SDK evolution signals a strategic push to mature AI agents from experimental prototypes towards reliable, secure, and complex production systems, with the core battle being between unlocking powerful new applications and establishing the necessary safety guardrails.",
       "confidence": "medium",
       "title": "The next evolution of the Agents SDK",
       "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
@@ -159,16 +260,16 @@
     },
     {
       "facts": [
-        "Brex公司开源了CrabTrap项目，这是一个LLM-as-a-judge HTTP代理，旨在保护生产环境中的AI智能体。",
-        "该项目在Hacker News上获得了93分的高分和25条评论，表明技术社区对其有较高关注度。"
+        "Brex公司发布了一个名为CrabTrap的开源项目，这是一个基于LLM-as-a-judge模型的HTTP代理，旨在为生产环境中的AI智能体（agents）提供安全防护。该项目在Hacker News上获得了95分的高评分和27条评论，表明其在技术社区中引起了显著关注。"
       ],
       "contradictions": [
-        "开源共享与商业保护：将核心安全工具开源可能促进生态发展，但也可能削弱Brex自身的潜在商业优势或技术壁垒。",
-        "通用代理与专用场景：LLM-as-a-judge方案追求通用性以覆盖多种智能体场景，但生产环境的具体安全需求可能高度专业化，通用方案可能面临效果与精准度的权衡。",
-        "社区热度与生产就绪：Hacker News的高分反映技术前瞻性关注，但评论数相对有限，可能表明其实际生产应用案例或深度实践讨论尚不充分。"
+        "智能体追求自主执行与复杂环境下的不可预测风险之间的矛盾",
+        "开源项目快速迭代与生产环境对稳定性和安全性的高要求之间的矛盾",
+        "LLM作为判断器的灵活性与判断准确性、延迟及成本之间的矛盾",
+        "社区对创新工具的热情（高评分）与生产落地实际采纳率之间的矛盾"
       ],
-      "primary_contradiction": "开源共享与商业保护",
-      "core_insight": "Brex通过开源CrabTrap，策略性地以生态建设换取在AI智能体安全领域的影响力与标准潜在制定权，而非直接商业变现。",
+      "primary_contradiction": "智能体追求自主执行与复杂环境下的不可预测风险之间的矛盾",
+      "core_insight": "CrabTrap的出现标志着AI智能体应用正从概念验证迈向生产部署的关键转折点，其核心价值在于试图用LLM本身来动态约束和评估LLM智能体的行为，以解决自主性与安全性这一根本矛盾，但该方案自身的可靠性（LLM作为裁判的准确性、延迟、成本）将成为其能否被广泛采纳的主要挑战。",
       "confidence": "medium",
       "title": "CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production",
       "url": "https://www.brex.com/crabtrap",
@@ -250,101 +351,6 @@
           "url": "https://developer.espressif.com/blog/2026/04/esp32-tagotip-cloud-connectivity/",
           "summary": "",
           "evidence_scope": "current-run"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "AI agents are transitioning from simple chatbots to autonomous systems capable of complex tasks like managing cloud incidents and executing multi-step API workflows.",
-        "A new challenge of transparency has emerged with this increased complexity.",
-        "When a human makes a mistake, the logic can usually be traced, but when an AI agent fails (e.g., by hallucinating a tool output), the debugging process is not straightforward.",
-        "Microsoft Research is introducing the AgentRx framework to address the need for systematic debugging of AI agents."
-      ],
-      "contradictions": [
-        "Increasing autonomy and capability of AI agents vs. the decreasing transparency and debuggability of their failures.",
-        "The need for reliable, complex AI agents in critical workflows vs. the current opaque nature of their failure modes.",
-        "The structured, logical nature of the tasks agents are designed to perform (e.g., API workflows) vs. the unstructured, difficult-to-trace nature of their potential errors (e.g., hallucinations)."
-      ],
-      "primary_contradiction": "Increasing autonomy and capability of AI agents vs. the decreasing transparency and debuggability of their failures.",
-      "core_insight": "The evolution of AI agents into complex autonomous systems is creating a fundamental 'black box' operational risk; the AgentRx framework represents an attempt to reconcile this by building systematic observability and debugging *into* the agent paradigm, treating debuggability as a first-class requirement rather than an afterthought.",
-      "confidence": "high",
-      "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-      "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "microsoft-research"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
-            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support",
-          "external-support"
-        ],
-        "summary": "1 source(s) | official | 2 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 3.3,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "verified",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "espressif-blog",
-          "source_type": "official",
-          "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
-          "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-          "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-          "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "external"
         }
       ]
     },
@@ -448,7 +454,7 @@
       "url": "https://nial.se/blog/less-human-ai-agents-please/",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 137 | Comments: 148"
+        "[hacker-news] Score: 138 | Comments: 149"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
@@ -578,17 +584,17 @@
     }
   ],
   "forecast": {
-    "best_case": "In the next 3-6 months, the AI agent ecosystem experiences accelerated but stable growth. OpenAI's SDK update successfully lowers the barrier to entry, leading to a surge in developer experimentation. Brex's CrabTrap gains initial traction as a de facto security layer for early production deployments, and Microsoft's AgentRx framework sparks industry-wide discussion on debuggability standards. This creates a virtuous cycle: improved tooling reduces high-profile failures, boosting developer and enterprise confidence, leading to more investment and a clearer path toward mainstream, non-critical agent applications.",
-    "worst_case": "Within 6 months, a high-profile security incident or catastrophic failure occurs in a widely publicized AI agent deployment, directly linked to the capability-safety contradiction. This could involve data exfiltration, unauthorized actions, or a critical debugging failure in a production system. The incident triggers a sharp backlash, causing enterprises to pause or roll back agent projects. Regulatory scrutiny increases, funding for agent-focused startups tightens, and the narrative shifts from rapid adoption to risk management, stalling ecosystem momentum for 12-18 months. The newly released tools (OpenAI SDK, CrabTrap, AgentRx) are perceived as insufficient or reactive.",
-    "most_likely_case": "Over the next 6 months, the AI agent infrastructure layer will see fragmented, incremental progress without a breakthrough in resolving the core contradiction. Developer adoption of the new tools will be steady but cautious, primarily among early adopters and for internal, low-risk automation tasks. We will see multiple competing security and debugging approaches emerge (beyond Brex and Microsoft), leading to market confusion and integration challenges. Several minor, contained security incidents or reliability failures will be reported, keeping the capability-safety tension at the forefront of technical discussions but without causing a market-wide shock. The ecosystem will remain in a 'tooling build-out' phase, with mainstream enterprise adoption still awaiting more proven safety and ROI case studies.",
+    "best_case": "Within 6 months, the AI agent ecosystem successfully bridges the 'debuggability gap'. Frameworks like AgentRx gain traction, providing systematic failure diagnosis. Security tools like CrabTrap and SDK features like OpenAI's sandboxing are widely adopted, establishing a baseline of trust. This enables a surge in production deployments of complex, autonomous agents for critical workflows, accelerating enterprise adoption and validating the pivot towards production-ready systems.",
+    "worst_case": "Within 6 months, the autonomy-security tension escalates without resolution. Debugging tools prove insufficient for complex, real-world failures, and LLM-as-a-judge security proxies introduce unacceptable latency, cost, or new failure modes. A high-profile production failure involving an autonomous agent causes significant financial or operational damage, leading to a sharp pullback in enterprise adoption, increased regulatory scrutiny, and a 'winter' for complex agent deployment, stalling the ecosystem's evolution.",
+    "most_likely_case": "Over the next 6 months, the AI agent ecosystem will make incremental, uneven progress. AgentRx and similar debugging tools will see adoption by early technical adopters but face challenges scaling. Security proxies like CrabTrap will be tested in non-critical paths. OpenAI's SDK updates will lower the barrier for building more capable agents, but production deployments will remain cautious, focused on lower-risk, supervised use cases. The core tension between autonomy and safety will persist, acting as a governor on adoption speed, leading to a landscape of advanced prototypes and limited, carefully gated production rollouts.",
     "key_variables": [
-      "Occurrence and severity of the first major production agent security/ reliability failure",
-      "Enterprise adoption rate of the new security/debugging frameworks (CrabTrap, AgentRx)",
-      "Developer community feedback and build volume on the updated OpenAI Agents SDK",
-      "Regulatory statements or actions specifically targeting autonomous AI agent deployments",
-      "Emergence of a dominant, simplified use-case that demonstrates clear agent ROI without excessive risk"
+      "Incidence and severity of a high-profile agent failure in production",
+      "Measured effectiveness and adoption rates of AgentRx-class debugging tools",
+      "Performance benchmarks (accuracy, latency, cost) of LLM-as-a-judge security proxies like CrabTrap",
+      "Enterprise feedback and adoption patterns for OpenAI's updated Agents SDK",
+      "Regulatory or industry body statements/guidelines on autonomous agent deployment"
     ],
-    "forecast_conclusion": "The short-term trajectory of the AI agent ecosystem is constrained by the unresolved fundamental tension between autonomy and safety/reliability. While the flurry of infrastructure tooling (OpenAI, Brex, Microsoft) is a positive sign of maturation, it represents preparatory work rather than a solution. The most likely path is one of cautious, incremental progress within sandboxed or low-stakes environments, with the market awaiting a demonstrably safe and valuable 'killer app' to catalyze broader adoption. The risk of a setback from a significant failure remains non-trivial and is the primary downside risk.",
+    "forecast_conclusion": "The short-term trajectory of the AI agent ecosystem is constrained by the unresolved autonomy-security-debuggability contradiction. While tooling is rapidly evolving (AgentRx, CrabTrap, SDK updates), these are nascent solutions to a profound problem. The most likely path is cautious, incremental adoption in production, with the community's enthusiasm (high HN scores) running ahead of enterprise comfort levels. A breakthrough that credibly resolves the transparency gap could accelerate adoption; a significant failure could decelerate it.",
     "confidence": "medium"
   },
   "stage_status": {
@@ -601,11 +607,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 18739,
-      "completion": 3091,
-      "total": 21830
+      "prompt": 18842,
+      "completion": 3465,
+      "total": 22307
     },
-    "latency_seconds": 106.19,
+    "latency_seconds": 127.39,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -615,10 +621,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 483,
-          "completion": 605,
-          "total": 1088
+          "completion": 832,
+          "total": 1315
         },
-        "latency_seconds": 29.61,
+        "latency_seconds": 27.17,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -638,10 +644,10 @@
         "calls": 3,
         "token_usage": {
           "prompt": 7891,
-          "completion": 812,
-          "total": 8703
+          "completion": 760,
+          "total": 8651
         },
-        "latency_seconds": 34.09,
+        "latency_seconds": 31.73,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -660,11 +666,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 4038,
-          "completion": 1044,
-          "total": 5082
+          "prompt": 3993,
+          "completion": 1351,
+          "total": 5344
         },
-        "latency_seconds": 18.1,
+        "latency_seconds": 47.53,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -683,11 +689,11 @@
         "model": "deepseek-chat",
         "calls": 1,
         "token_usage": {
-          "prompt": 6327,
-          "completion": 630,
-          "total": 6957
+          "prompt": 6475,
+          "completion": 522,
+          "total": 6997
         },
-        "latency_seconds": 24.39,
+        "latency_seconds": 20.96,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -774,15 +780,15 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "AI agent infrastructure is rapidly maturing with multiple solutions targeting security, reliability, and debuggability challenges, but the fundamental tension between capability and safety remains unsolved.",
+    "AI agent development is pivoting from experimental prototypes to production-ready systems, creating urgent demand for debugging frameworks, security guardrails, and execution infrastructure to address the autonomy-security tension.",
     "本轮共采集到 169 条原始信息，去重后保留 167 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
   "risks": [
     "HN: fetched 59 raw, filtered to 20 relevant (min_score=10)",
-    "Website source failed: renesas-blog -> 403 Client Error: Forbidden for url: https://www.renesas.com/en/blogs",
     "RSS source failed: youtube-google-developers -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers",
-    "RSS source failed: youtube-nvidia -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=nvidia"
+    "RSS source failed: youtube-nvidia -> 404 Client Error: Not Found for url: https://www.youtube.com/feeds/videos.xml?user=nvidia",
+    "Website source failed: renesas-blog -> 403 Client Error: Forbidden for url: https://www.renesas.com/en/blogs"
   ],
   "signals": [
     {
@@ -1012,7 +1018,7 @@
     {
       "title": "Less human AI agents, please",
       "url": "https://nial.se/blog/less-human-ai-agents-please/",
-      "summary": "Score: 137 | Comments: 148",
+      "summary": "Score: 138 | Comments: 149",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1074,7 +1080,7 @@
     {
       "title": "CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production",
       "url": "https://www.brex.com/crabtrap",
-      "summary": "Score: 93 | Comments: 25 | Text: <a href=\"https:&#x2F;&#x2F;www.brex.com&#x2F;journal&#x2F;building-crabtrap-open-source\" rel=\"nofollow\">https:&#x2F;&#x2F;www.brex.com&#x2F;journal&#x2F;building-crabtrap-open-source</a>",
+      "summary": "Score: 95 | Comments: 27 | Text: <a href=\"https:&#x2F;&#x2F;www.brex.com&#x2F;journal&#x2F;building-crabtrap-open-source\" rel=\"nofollow\">https:&#x2F;&#x2F;www.brex.com&#x2F;journal&#x2F;building-crabtrap-open-source</a>",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1929,7 +1935,7 @@
     {
       "title": "Framework Laptop 13 Pro",
       "url": "https://frame.work/laptop13pro",
-      "summary": "Score: 1002 | Comments: 535",
+      "summary": "Score: 1011 | Comments: 536",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1970,6 +1976,497 @@
         ]
       },
       "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
+      "url": "https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-04-21",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas",
+      "url": "https://huggingface.co/blog/nvidia/build-korean-agents-with-nemotron-personas",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
+            "url": "https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Tulsa-Oklahoma-_Thumbnail.gif?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We're breaking ground on a new AI-optimized data center in Tulsa, Oklahoma.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/\">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "From prototype to production: How Qualcomm Dragonwing powers industrial and enterprise transformation with edge AI",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/how-qualcomm-dragonwing-powers-industrial-edge-ai",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-04-21",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
+      "url": "https://huggingface.co/blog/ecom-rlve",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 6,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+      "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "openai-news",
+            "source_type": "official",
+            "title": "The next evolution of the Agents SDK",
+            "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
+            "summary": "OpenAI updates the Agents SDK with native sandbox execution and a model-native harness, helping developers build secure, long-running agents across files and tools.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 7,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
+      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
+      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "microsoft-research"
+      ],
+      "tags": [
+        "Research Blog",
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "microsoft-research"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
+            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
+            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "VLA Foundry: A Unified Framework for Training Vision-Language-Action Models",
+      "url": "https://arxiv.org/abs/2604.19728v1",
+      "summary": "We present VLA Foundry, an open-source framework that unifies LLM, VLM, and VLA training in a single codebase. Most open-source VLA efforts specialize on the action training stage, often stitching together incompatible pretraining pipelines. VLA Foundry instead provides a shared training stack with end-to-end control, from language pretraining to action-expert fine-tuning. VLA Foundry supports both from-scratch training and pretrained backbones from Hugging Face. To demonstrate the utility of our framework, we train and release two types of models: the first trained fully from scratch through our LLM-->VLM-->VLA pipeline and the second built on the pretrained Qwen3-VL backbone. We evaluate closed-loop policy performance of both models on LBM Eval, an open-data, open-source simulator. We also contribute usability improvements to the simulator and the STEP analysis tools for easier public use. In the nominal evaluation setting, our fully-open from-scratch model is on par with our prior closed-source work and substituting in the Qwen3-VL backbone leads to a strong multi-task table top manipulation policy outperforming our baseline by a wide margin. The VLA Foundry codebase is available at https://github.com/TRI-ML/vla_foundry and all multi-task model weights are released on https://huggingface.co/collections/TRI-ML/vla-foundry. Additional qualitative videos are available on the project website https://tri-ml.github.io/vla_foundry.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "arxiv-cs-ai"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "cs.AI",
+        "cs.CV",
+        "cs.LG",
+        "cs.RO",
+        "cs.SE"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arxiv-cs-ai"
+        ],
+        "source_types": [
+          "paper"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
+            "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models",
+            "url": "https://arxiv.org/abs/2601.00679v2",
+            "summary": "Large Language Models (LLMs) have been emerging as prominent AI models for solving many natural language tasks due to their high performance (e.g., accuracy) and capabilities in generating high-quality responses to the given inputs. However, their large computational cost, huge memory footprints, and high processing power/energy make it challenging for their embedded deployments. Amid several tinyLLMs, recent works have proposed spike-driven language models (SLMs) for significantly reducing the processing power/energy of LLMs. However, their memory footprints still remain too large for low-cost and resource-constrained embedded devices. Manual quantization approach may effectively compress SLM memory footprints, but it requires a huge design time and compute power to find the quantization setting for each network, hence making this approach not-scalable for handling different networks, performance requirements, and memory budgets. To bridge this gap, we propose QSLM, a novel framework that performs automated quantization for compressing pre-trained SLMs, while meeting the performance and memory constraints. To achieve this, QSLM first identifies the hierarchy of the given network architecture and the sensitivity of network layers under quantization, then employs a tiered quantization strategy (e.g., global-, block-, and module-level quantization) while leveraging a multi-objective performance-and-memory trade-off function to select the final quantization setting. Experimental results indicate that our QSLM reduces memory footprint by up to 86.5%, reduces power consumption by up to 20%, maintains high performance across different tasks (i.e., by up to 84.4% accuracy of sentiment classification on the SST-2 dataset and perplexity score of 23.2 for text generation on the WikiText-2 dataset) close to the original non-quantized model while meeting the performance and memory constraints.",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Benign Overfitting in Adversarial Training for Vision Transformers",
+            "url": "https://arxiv.org/abs/2604.19724v1",
+            "summary": "Despite the remarkable success of Vision Transformers (ViTs) across a wide range of vision tasks, recent studies have revealed that they remain vulnerable to adversarial examples, much like Convolutional Neural Networks (CNNs). A common empirical defense strategy is adversarial training, yet the theoretical underpinnings of its robustness in ViTs remain largely unexplored. In this work, we present the first theoretical analysis of adversarial training under simplified ViT architectures. We show that, when trained under a signal-to-noise ratio that satisfies a certain condition and within a moderate perturbation budget, adversarial training enables ViTs to achieve nearly zero robust training loss and robust generalization error under certain regimes. Remarkably, this leads to strong generalization even in the presence of overfitting, a phenomenon known as \\emph{benign overfitting}, previously only observed in CNNs (with adversarial training). Experiments on both synthetic and real-world datasets further validate our theoretical findings.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "paper",
+          "related-support"
+        ],
+        "summary": "1 source(s) | paper | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-22",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models",
+      "url": "https://arxiv.org/abs/2601.00679v2",
+      "summary": "Large Language Models (LLMs) have been emerging as prominent AI models for solving many natural language tasks due to their high performance (e.g., accuracy) and capabilities in generating high-quality responses to the given inputs. However, their large computational cost, huge memory footprints, and high processing power/energy make it challenging for their embedded deployments. Amid several tinyLLMs, recent works have proposed spike-driven language models (SLMs) for significantly reducing the processing power/energy of LLMs. However, their memory footprints still remain too large for low-cost and resource-constrained embedded devices. Manual quantization approach may effectively compress SLM memory footprints, but it requires a huge design time and compute power to find the quantization setting for each network, hence making this approach not-scalable for handling different networks, performance requirements, and memory budgets. To bridge this gap, we propose QSLM, a novel framework that performs automated quantization for compressing pre-trained SLMs, while meeting the performance and memory constraints. To achieve this, QSLM first identifies the hierarchy of the given network architecture and the sensitivity of network layers under quantization, then employs a tiered quantization strategy (e.g., global-, block-, and module-level quantization) while leveraging a multi-objective performance-and-memory trade-off function to select the final quantization setting. Experimental results indicate that our QSLM reduces memory footprint by up to 86.5%, reduces power consumption by up to 20%, maintains high performance across different tasks (i.e., by up to 84.4% accuracy of sentiment classification on the SST-2 dataset and perplexity score of 23.2 for text generation on the WikiText-2 dataset) close to the original non-quantized model while meeting the performance and memory constraints.",
+      "primary_domain": "ai-x-electronics",
+      "matched_domains": [
+        "ai-x-electronics",
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "arxiv-cs-ai"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "cs.AI",
+        "cs.LG",
+        "cs.NE"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arxiv-cs-ai"
+        ],
+        "source_types": [
+          "paper"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson",
+            "url": "https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/",
+            "summary": "<img alt=\"Decorative image.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Robotics-Jetson-OSS-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Robotics-Jetson-OSS\" width=\"768\" />The boom in open source generative AI models is pushing beyond data centers into machines operating in the physical world. Developers are eager to deploy these...",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "VLA Foundry: A Unified Framework for Training Vision-Language-Action Models",
+            "url": "https://arxiv.org/abs/2604.19728v1",
+            "summary": "We present VLA Foundry, an open-source framework that unifies LLM, VLM, and VLA training in a single codebase. Most open-source VLA efforts specialize on the action training stage, often stitching together incompatible pretraining pipelines. VLA Foundry instead provides a shared training stack with end-to-end control, from language pretraining to action-expert fine-tuning. VLA Foundry supports both from-scratch training and pretrained backbones from Hugging Face. To demonstrate the utility of our framework, we train and release two types of models: the first trained fully from scratch through our LLM-->VLM-->VLA pipeline and the second built on the pretrained Qwen3-VL backbone. We evaluate closed-loop policy performance of both models on LBM Eval, an open-data, open-source simulator. We also contribute usability improvements to the simulator and the STEP analysis tools for easier public use. In the nominal evaluation setting, our fully-open from-scratch model is on par with our prior closed-source work and substituting in the Qwen3-VL backbone leads to a strong multi-task table top manipulation policy outperforming our baseline by a wide margin. The VLA Foundry codebase is available at https://github.com/TRI-ML/vla_foundry and all multi-task model weights are released on https://huggingface.co/collections/TRI-ML/vla-foundry. Additional qualitative videos are available on the project website https://tri-ml.github.io/vla_foundry.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "paper",
+          "related-support"
+        ],
+        "summary": "1 source(s) | paper | 2 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-22",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Arm announces earnings release date for fourth quarter fiscal year ended 2026",
+      "url": "https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026",
+      "summary": "<p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026\">Arm announces earnings release date for fourth quarter fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "arm-news"
+      ],
+      "tags": [
+        "ai-x-electronics"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arm-news"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "infineon-blog",
+            "source_type": "official",
+            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
+            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 5,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
@@ -2782,497 +3279,6 @@
       "risk_level": "low"
     },
     {
-      "title": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
-      "url": "https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-21",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas",
-      "url": "https://huggingface.co/blog/nvidia/build-korean-agents-with-nemotron-personas",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
-            "url": "https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Tulsa-Oklahoma-_Thumbnail.gif?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We're breaking ground on a new AI-optimized data center in Tulsa, Oklahoma.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/\">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "From prototype to production: How Qualcomm Dragonwing powers industrial and enterprise transformation with edge AI",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/how-qualcomm-dragonwing-powers-industrial-edge-ai",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-21",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
-      "url": "https://huggingface.co/blog/ecom-rlve",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 6,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-      "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "openai-news",
-            "source_type": "official",
-            "title": "The next evolution of the Agents SDK",
-            "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
-            "summary": "OpenAI updates the Agents SDK with native sandbox execution and a model-native harness, helping developers build secure, long-running agents across files and tools.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 7,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
-      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
-      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "microsoft-research"
-      ],
-      "tags": [
-        "Research Blog",
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "microsoft-research"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
-            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
-            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "VLA Foundry: A Unified Framework for Training Vision-Language-Action Models",
-      "url": "https://arxiv.org/abs/2604.19728v1",
-      "summary": "We present VLA Foundry, an open-source framework that unifies LLM, VLM, and VLA training in a single codebase. Most open-source VLA efforts specialize on the action training stage, often stitching together incompatible pretraining pipelines. VLA Foundry instead provides a shared training stack with end-to-end control, from language pretraining to action-expert fine-tuning. VLA Foundry supports both from-scratch training and pretrained backbones from Hugging Face. To demonstrate the utility of our framework, we train and release two types of models: the first trained fully from scratch through our LLM-->VLM-->VLA pipeline and the second built on the pretrained Qwen3-VL backbone. We evaluate closed-loop policy performance of both models on LBM Eval, an open-data, open-source simulator. We also contribute usability improvements to the simulator and the STEP analysis tools for easier public use. In the nominal evaluation setting, our fully-open from-scratch model is on par with our prior closed-source work and substituting in the Qwen3-VL backbone leads to a strong multi-task table top manipulation policy outperforming our baseline by a wide margin. The VLA Foundry codebase is available at https://github.com/TRI-ML/vla_foundry and all multi-task model weights are released on https://huggingface.co/collections/TRI-ML/vla-foundry. Additional qualitative videos are available on the project website https://tri-ml.github.io/vla_foundry.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "arxiv-cs-ai"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "cs.AI",
-        "cs.CV",
-        "cs.LG",
-        "cs.RO",
-        "cs.SE"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arxiv-cs-ai"
-        ],
-        "source_types": [
-          "paper"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
-            "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models",
-            "url": "https://arxiv.org/abs/2601.00679v2",
-            "summary": "Large Language Models (LLMs) have been emerging as prominent AI models for solving many natural language tasks due to their high performance (e.g., accuracy) and capabilities in generating high-quality responses to the given inputs. However, their large computational cost, huge memory footprints, and high processing power/energy make it challenging for their embedded deployments. Amid several tinyLLMs, recent works have proposed spike-driven language models (SLMs) for significantly reducing the processing power/energy of LLMs. However, their memory footprints still remain too large for low-cost and resource-constrained embedded devices. Manual quantization approach may effectively compress SLM memory footprints, but it requires a huge design time and compute power to find the quantization setting for each network, hence making this approach not-scalable for handling different networks, performance requirements, and memory budgets. To bridge this gap, we propose QSLM, a novel framework that performs automated quantization for compressing pre-trained SLMs, while meeting the performance and memory constraints. To achieve this, QSLM first identifies the hierarchy of the given network architecture and the sensitivity of network layers under quantization, then employs a tiered quantization strategy (e.g., global-, block-, and module-level quantization) while leveraging a multi-objective performance-and-memory trade-off function to select the final quantization setting. Experimental results indicate that our QSLM reduces memory footprint by up to 86.5%, reduces power consumption by up to 20%, maintains high performance across different tasks (i.e., by up to 84.4% accuracy of sentiment classification on the SST-2 dataset and perplexity score of 23.2 for text generation on the WikiText-2 dataset) close to the original non-quantized model while meeting the performance and memory constraints.",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Benign Overfitting in Adversarial Training for Vision Transformers",
-            "url": "https://arxiv.org/abs/2604.19724v1",
-            "summary": "Despite the remarkable success of Vision Transformers (ViTs) across a wide range of vision tasks, recent studies have revealed that they remain vulnerable to adversarial examples, much like Convolutional Neural Networks (CNNs). A common empirical defense strategy is adversarial training, yet the theoretical underpinnings of its robustness in ViTs remain largely unexplored. In this work, we present the first theoretical analysis of adversarial training under simplified ViT architectures. We show that, when trained under a signal-to-noise ratio that satisfies a certain condition and within a moderate perturbation budget, adversarial training enables ViTs to achieve nearly zero robust training loss and robust generalization error under certain regimes. Remarkably, this leads to strong generalization even in the presence of overfitting, a phenomenon known as \\emph{benign overfitting}, previously only observed in CNNs (with adversarial training). Experiments on both synthetic and real-world datasets further validate our theoretical findings.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "paper",
-          "related-support"
-        ],
-        "summary": "1 source(s) | paper | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-22",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models",
-      "url": "https://arxiv.org/abs/2601.00679v2",
-      "summary": "Large Language Models (LLMs) have been emerging as prominent AI models for solving many natural language tasks due to their high performance (e.g., accuracy) and capabilities in generating high-quality responses to the given inputs. However, their large computational cost, huge memory footprints, and high processing power/energy make it challenging for their embedded deployments. Amid several tinyLLMs, recent works have proposed spike-driven language models (SLMs) for significantly reducing the processing power/energy of LLMs. However, their memory footprints still remain too large for low-cost and resource-constrained embedded devices. Manual quantization approach may effectively compress SLM memory footprints, but it requires a huge design time and compute power to find the quantization setting for each network, hence making this approach not-scalable for handling different networks, performance requirements, and memory budgets. To bridge this gap, we propose QSLM, a novel framework that performs automated quantization for compressing pre-trained SLMs, while meeting the performance and memory constraints. To achieve this, QSLM first identifies the hierarchy of the given network architecture and the sensitivity of network layers under quantization, then employs a tiered quantization strategy (e.g., global-, block-, and module-level quantization) while leveraging a multi-objective performance-and-memory trade-off function to select the final quantization setting. Experimental results indicate that our QSLM reduces memory footprint by up to 86.5%, reduces power consumption by up to 20%, maintains high performance across different tasks (i.e., by up to 84.4% accuracy of sentiment classification on the SST-2 dataset and perplexity score of 23.2 for text generation on the WikiText-2 dataset) close to the original non-quantized model while meeting the performance and memory constraints.",
-      "primary_domain": "ai-x-electronics",
-      "matched_domains": [
-        "ai-x-electronics",
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "arxiv-cs-ai"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "cs.AI",
-        "cs.LG",
-        "cs.NE"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arxiv-cs-ai"
-        ],
-        "source_types": [
-          "paper"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson",
-            "url": "https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/",
-            "summary": "<img alt=\"Decorative image.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Robotics-Jetson-OSS-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Robotics-Jetson-OSS\" width=\"768\" />The boom in open source generative AI models is pushing beyond data centers into machines operating in the physical world. Developers are eager to deploy these...",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "VLA Foundry: A Unified Framework for Training Vision-Language-Action Models",
-            "url": "https://arxiv.org/abs/2604.19728v1",
-            "summary": "We present VLA Foundry, an open-source framework that unifies LLM, VLM, and VLA training in a single codebase. Most open-source VLA efforts specialize on the action training stage, often stitching together incompatible pretraining pipelines. VLA Foundry instead provides a shared training stack with end-to-end control, from language pretraining to action-expert fine-tuning. VLA Foundry supports both from-scratch training and pretrained backbones from Hugging Face. To demonstrate the utility of our framework, we train and release two types of models: the first trained fully from scratch through our LLM-->VLM-->VLA pipeline and the second built on the pretrained Qwen3-VL backbone. We evaluate closed-loop policy performance of both models on LBM Eval, an open-data, open-source simulator. We also contribute usability improvements to the simulator and the STEP analysis tools for easier public use. In the nominal evaluation setting, our fully-open from-scratch model is on par with our prior closed-source work and substituting in the Qwen3-VL backbone leads to a strong multi-task table top manipulation policy outperforming our baseline by a wide margin. The VLA Foundry codebase is available at https://github.com/TRI-ML/vla_foundry and all multi-task model weights are released on https://huggingface.co/collections/TRI-ML/vla-foundry. Additional qualitative videos are available on the project website https://tri-ml.github.io/vla_foundry.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "paper",
-          "related-support"
-        ],
-        "summary": "1 source(s) | paper | 2 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-22",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Arm announces earnings release date for fourth quarter fiscal year ended 2026",
-      "url": "https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026",
-      "summary": "<p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026\">Arm announces earnings release date for fourth quarter fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "arm-news"
-      ],
-      "tags": [
-        "ai-x-electronics"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arm-news"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "infineon-blog",
-            "source_type": "official",
-            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
-            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 5,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "Smarter Devices, Smaller Chips: Inside Embedded World 2026",
       "url": "https://www.edgeimpulse.com/blog/smarter-devices-smaller-chips-inside-embedded-world-2026/",
       "summary": "来源共 1 条，等待后续 AI 深度摘要。",
@@ -3474,141 +3480,6 @@
       "risk_level": "low"
     },
     {
-      "title": "pytorch/executorch",
-      "url": "https://github.com/pytorch/executorch",
-      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
-      "primary_domain": "ai-x-electronics",
-      "matched_domains": [
-        "ai-x-electronics",
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "embedded",
-        "gpu",
-        "machine-learning",
-        "mobile",
-        "neural-network",
-        "tensor"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "tenstorrent/tt-metal",
-      "url": "https://github.com/tenstorrent/tt-metal",
-      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
-      "primary_domain": "ai-x-electronics",
-      "matched_domains": [
-        "ai-x-electronics",
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "accelerator",
-        "ai",
-        "ai-llm-agent",
-        "cuda",
-        "deepseek",
-        "gpu",
-        "img-gen",
-        "kernels",
-        "llama",
-        "llm",
-        "metal",
-        "scale-out",
-        "stable-diffusion",
-        "tenstorrent",
-        "video-gen"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "alibaba/MNN",
       "url": "https://github.com/alibaba/MNN",
       "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
@@ -3635,6 +3506,70 @@
         "transformer",
         "vulkan",
         "winograd-algorithm"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "pytorch/executorch",
+      "url": "https://github.com/pytorch/executorch",
+      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
+      "primary_domain": "ai-x-electronics",
+      "matched_domains": [
+        "ai-x-electronics",
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "embedded",
+        "gpu",
+        "machine-learning",
+        "mobile",
+        "neural-network",
+        "tensor"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3725,11 +3660,12 @@
       "risk_level": "low"
     },
     {
-      "title": "mem0ai/mem0",
-      "url": "https://github.com/mem0ai/mem0",
-      "summary": "Universal memory layer for AI Agents",
-      "primary_domain": "ai-llm-agent",
+      "title": "tenstorrent/tt-metal",
+      "url": "https://github.com/tenstorrent/tt-metal",
+      "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
+      "primary_domain": "ai-x-electronics",
       "matched_domains": [
+        "ai-x-electronics",
         "ai-llm-agent"
       ],
       "score": 1.0,
@@ -3738,21 +3674,21 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
+        "accelerator",
         "ai",
-        "ai-agents",
         "ai-llm-agent",
-        "application",
-        "chatbots",
-        "chatgpt",
-        "genai",
+        "cuda",
+        "deepseek",
+        "gpu",
+        "img-gen",
+        "kernels",
+        "llama",
         "llm",
-        "long-term-memory",
-        "memory",
-        "memory-management",
-        "python",
-        "rag",
-        "state-management"
+        "metal",
+        "scale-out",
+        "stable-diffusion",
+        "tenstorrent",
+        "video-gen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -3851,6 +3787,76 @@
       "risk_level": "low"
     },
     {
+      "title": "mem0ai/mem0",
+      "url": "https://github.com/mem0ai/mem0",
+      "summary": "Universal memory layer for AI Agents",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "ai-llm-agent",
+        "application",
+        "chatbots",
+        "chatgpt",
+        "genai",
+        "llm",
+        "long-term-memory",
+        "memory",
+        "memory-management",
+        "python",
+        "rag",
+        "state-management"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "anthropics/claude-cookbooks",
       "url": "https://github.com/anthropics/claude-cookbooks",
       "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
@@ -3894,6 +3900,71 @@
           "2026-04-13",
           "2026-04-14",
           "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "NVIDIA/TensorRT",
+      "url": "https://github.com/NVIDIA/TensorRT",
+      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "gpu-acceleration",
+        "inference",
+        "nvidia",
+        "tensorrt"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "related-support"
+        ],
+        "summary": "1 source(s) | repo | 1 related support"
+      },
+      "memory": {
+        "days_seen": 7,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-22",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
           "2026-04-16",
           "2026-04-17",
           "2026-04-18",
@@ -4033,74 +4104,9 @@
       "risk_level": "low"
     },
     {
-      "title": "NVIDIA/TensorRT",
-      "url": "https://github.com/NVIDIA/TensorRT",
-      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "gpu-acceleration",
-        "inference",
-        "nvidia",
-        "tensorrt"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-support"
-        ],
-        "summary": "1 source(s) | repo | 1 related support"
-      },
-      "memory": {
-        "days_seen": 7,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-22",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "Laws of Software Engineering",
       "url": "https://lawsofsoftwareengineering.com",
-      "summary": "Score: 861 | Comments: 431",
+      "summary": "Score: 870 | Comments: 433",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4147,7 +4153,7 @@
     {
       "title": "ChatGPT Images 2.0",
       "url": "https://openai.com/index/introducing-chatgpt-images-2-0/",
-      "summary": "Score: 533 | Comments: 466 | Text: Livestream: <a href=\"https:&#x2F;&#x2F;openai.com&#x2F;live&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;openai.com&#x2F;live&#x2F;</a><p>System card: <a href=\"https:&#x2F;&#x2F;deploymentsafety.openai.com&#x2F;chatgpt-images-2-0&#x2F;chatgpt-images-2-0.pdf\" rel=\"nofollow\">https:&#x2F;&#x2F;deploymentsaf",
+      "summary": "Score: 548 | Comments: 478 | Text: Livestream: <a href=\"https:&#x2F;&#x2F;openai.com&#x2F;live&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;openai.com&#x2F;live&#x2F;</a><p>System card: <a href=\"https:&#x2F;&#x2F;deploymentsafety.openai.com&#x2F;chatgpt-images-2-0&#x2F;chatgpt-images-2-0.pdf\" rel=\"nofollow\">https:&#x2F;&#x2F;deploymentsaf",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4257,7 +4263,7 @@
     {
       "title": "Claude Code to be removed from Anthropic's Pro plan?",
       "url": "https://bsky.app/profile/edzitron.com/post/3mjzxwfx3qs2a",
-      "summary": "Score: 388 | Comments: 408 | Text: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972</a><p><a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972\" rel=\"nofol",
+      "summary": "Score: 394 | Comments: 410 | Text: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972</a><p><a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;TheAmolAvasare&#x2F;status&#x2F;2046725498592722972\" rel=\"nofol",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4328,7 +4334,7 @@
     {
       "title": "Meta to start capturing employee mouse movements, keystrokes for AI training",
       "url": "https://www.reuters.com/sustainability/boards-policy-regulation/meta-start-capturing-employee-mouse-movements-keystrokes-ai-training-data-2026-04-21/",
-      "summary": "Score: 373 | Comments: 316 | Text: Alt link: <a href=\"https:&#x2F;&#x2F;tech.yahoo.com&#x2F;ai&#x2F;meta-ai&#x2F;articles&#x2F;exclusive-meta-start-capturing-employee-162745587.html\" rel=\"nofollow\">https:&#x2F;&#x2F;tech.yahoo.com&#x2F;ai&#x2F;meta-ai&#x2F;articles&#x2F;exclusive-meta-st...</a>",
+      "summary": "Score: 383 | Comments: 317 | Text: Alt link: <a href=\"https:&#x2F;&#x2F;tech.yahoo.com&#x2F;ai&#x2F;meta-ai&#x2F;articles&#x2F;exclusive-meta-start-capturing-employee-162745587.html\" rel=\"nofollow\">https:&#x2F;&#x2F;tech.yahoo.com&#x2F;ai&#x2F;meta-ai&#x2F;articles&#x2F;exclusive-meta-st...</a>",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4399,7 +4405,7 @@
     {
       "title": "Changes to GitHub Copilot individual plans",
       "url": "https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/",
-      "summary": "Score: 353 | Comments: 123",
+      "summary": "Score: 359 | Comments: 127",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4444,7 +4450,7 @@
     {
       "title": "Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
       "url": "https://techcrunch.com/2026/04/20/anthropic-takes-5b-from-amazon-and-pledges-100b-in-cloud-spending-in-return/",
-      "summary": "Score: 262 | Comments: 271",
+      "summary": "Score: 263 | Comments: 271",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4499,7 +4505,7 @@
     {
       "title": "The Beauty of Bonsai Styles",
       "url": "https://longwoodgardens.org/blog/2023-05-17/beauty-bonsai-styles",
-      "summary": "Score: 200 | Comments: 36",
+      "summary": "Score: 201 | Comments: 37",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4540,6 +4546,76 @@
         ]
       },
       "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "I'm Sick of AI Everything",
+      "url": "https://news.ycombinator.com/item?id=47857461",
+      "summary": "Score: 179 | Comments: 77 | Text: A while back, I stopped using Facebook because I just couldn&#x27;t take it anymore. Just totally sick of it. I&#x27;m honestly getting there with AI. At this point, I would prefer to have anything AI related just be blocked at the browser level.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "AI and the Future of Cybersecurity: Why Openness Matters",
+            "url": "https://huggingface.co/blog/cybersecurity-openness",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "mediatek-blog",
+            "source_type": "official",
+            "title": "Genio Pro 5100: Extreme Compute & Multimedia Platform Unleashes the Full Potential of IoT AI",
+            "url": "https://www.mediatek.com/tek-talk-blogs/genio-pro-5100-extreme-compute-multimedia-platform-unleashes-the-full-potential-of-iot-ai",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
+            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-22",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -4617,7 +4693,7 @@
     {
       "title": "Show HN: GoModel – an open-source AI gateway in Go",
       "url": "https://github.com/ENTERPILOT/GOModel/",
-      "summary": "Score: 168 | Comments: 61 | Text: Hi, I’m Jakub, a solo founder based in Warsaw.<p>I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others.<p>I built it for my startup to solve a few problems:<p><pre><",
+      "summary": "Score: 168 | Comments: 62 | Text: Hi, I’m Jakub, a solo founder based in Warsaw.<p>I’ve been building GoModel since December with a couple of contributors. It&#x27;s an open-source AI gateway that sits between your app and model providers like OpenAI, Anthropic or others.<p>I built it for my startup to solve a few problems:<p><pre><",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4730,79 +4806,9 @@
       "risk_level": "low"
     },
     {
-      "title": "I'm Sick of AI Everything",
-      "url": "https://news.ycombinator.com/item?id=47857461",
-      "summary": "Score: 154 | Comments: 63 | Text: A while back, I stopped using Facebook because I just couldn&#x27;t take it anymore. Just totally sick of it. I&#x27;m honestly getting there with AI. At this point, I would prefer to have anything AI related just be blocked at the browser level.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "AI and the Future of Cybersecurity: Why Openness Matters",
-            "url": "https://huggingface.co/blog/cybersecurity-openness",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "Genio Pro 5100: Extreme Compute & Multimedia Platform Unleashes the Full Potential of IoT AI",
-            "url": "https://www.mediatek.com/tek-talk-blogs/genio-pro-5100-extreme-compute-multimedia-platform-unleashes-the-full-potential-of-iot-ai",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "How AI Is Ushering in the Next Era of Risk Review at Meta",
-            "url": "https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/03/How-AI-is-Ushering-in-the-Next-Era-of-Risk-Review-at-Meta_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We've developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/\">How AI Is Ushering in the Next Era of Risk Review at Meta</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-22",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
       "title": "Stephen's Sausage Roll remains one of the most influential puzzle games",
       "url": "https://thinkygames.com/features/10-years-of-grilling-stephens-sausage-roll-remains-one-of-the-most-influential-puzzle-games-ever-created/",
-      "summary": "Score: 145 | Comments: 73",
+      "summary": "Score: 147 | Comments: 73",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4910,7 +4916,7 @@
     {
       "title": "Tindie store under \"scheduled maintenance\" for days",
       "url": "https://www.tindie.com/",
-      "summary": "Score: 109 | Comments: 59",
+      "summary": "Score: 109 | Comments: 61",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4954,7 +4960,7 @@
     {
       "title": "Windows Server 2025 Runs Better on ARM",
       "url": "https://jasoneckert.github.io/myblog/server-2025-arm64/",
-      "summary": "Score: 72 | Comments: 60",
+      "summary": "Score: 75 | Comments: 62",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4998,7 +5004,7 @@
     {
       "title": "Claude Code Removed from $20-a-Month \"Pro\" Subscription for New Users",
       "url": "https://www.wheresyoured.at/news-anthropic-removes-pro-cc/",
-      "summary": "Score: 62 | Comments: 21",
+      "summary": "Score: 63 | Comments: 21",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -6941,6 +6947,535 @@
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "AI and the Future of Cybersecurity: Why Openness Matters",
+      "url": "https://huggingface.co/blog/cybersecurity-openness",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "An ecosystem approach to the future of automotive",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Driving the AI-powered software-defined future: Inside Qualcomm’s automotive evolution and unprecedented scale",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-automotive-market-traction-and-scale",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-22",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "The PR you would have opened yourself",
+      "url": "https://huggingface.co/blog/transformers-to-mlx",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 6,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
+            "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qwen-blog",
+            "source_type": "official",
+            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
+            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Benign Overfitting in Adversarial Training for Vision Transformers",
+            "url": "https://arxiv.org/abs/2604.19724v1",
+            "summary": "Despite the remarkable success of Vision Transformers (ViTs) across a wide range of vision tasks, recent studies have revealed that they remain vulnerable to adversarial examples, much like Convolutional Neural Networks (CNNs). A common empirical defense strategy is adversarial training, yet the theoretical underpinnings of its robustness in ViTs remain largely unexplored. In this work, we present the first theoretical analysis of adversarial training under simplified ViT architectures. We show that, when trained under a signal-to-noise ratio that satisfies a certain condition and within a moderate perturbation budget, adversarial training enables ViTs to achieve nearly zero robust training loss and robust generalization error under certain regimes. Remarkably, this leads to strong generalization even in the presence of overfitting, a phenomenon known as \\emph{benign overfitting}, previously only observed in CNNs (with adversarial training). Experiments on both synthetic and real-world datasets further validate our theoretical findings.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Meet HoloTab by HCompany. Your AI browser companion.",
+      "url": "https://huggingface.co/blog/Hcompany/holotab",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Personal AI, now on your wrist — and beyond",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-wear-elite-platform",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Why the Snapdragon Digital Chassis is your lifeline in the AI-defined vehicle era",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-digital-chassis-ai-defined-vehicles",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 7,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
+      "url": "https://huggingface.co/blog/waypoint-1-5",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
+            "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qwen-blog",
+            "source_type": "official",
+            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
+            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 2 related support"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Safetensors is Joining the PyTorch Foundation",
+      "url": "https://huggingface.co/blog/safetensors-joins-pytorch-foundation",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
+      "url": "https://huggingface.co/blog/gemma4",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 13,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-22",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
           "2026-04-18",
           "2026-04-19",
           "2026-04-20",
@@ -11049,539 +11584,10 @@
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
-    },
-    {
-      "title": "AI and the Future of Cybersecurity: Why Openness Matters",
-      "url": "https://huggingface.co/blog/cybersecurity-openness",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "An ecosystem approach to the future of automotive",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Driving the AI-powered software-defined future: Inside Qualcomm’s automotive evolution and unprecedented scale",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-automotive-market-traction-and-scale",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-22",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "The PR you would have opened yourself",
-      "url": "https://huggingface.co/blog/transformers-to-mlx",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 6,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
-      "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
-            "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qwen-blog",
-            "source_type": "official",
-            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
-            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Benign Overfitting in Adversarial Training for Vision Transformers",
-            "url": "https://arxiv.org/abs/2604.19724v1",
-            "summary": "Despite the remarkable success of Vision Transformers (ViTs) across a wide range of vision tasks, recent studies have revealed that they remain vulnerable to adversarial examples, much like Convolutional Neural Networks (CNNs). A common empirical defense strategy is adversarial training, yet the theoretical underpinnings of its robustness in ViTs remain largely unexplored. In this work, we present the first theoretical analysis of adversarial training under simplified ViT architectures. We show that, when trained under a signal-to-noise ratio that satisfies a certain condition and within a moderate perturbation budget, adversarial training enables ViTs to achieve nearly zero robust training loss and robust generalization error under certain regimes. Remarkably, this leads to strong generalization even in the presence of overfitting, a phenomenon known as \\emph{benign overfitting}, previously only observed in CNNs (with adversarial training). Experiments on both synthetic and real-world datasets further validate our theoretical findings.",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Meet HoloTab by HCompany. Your AI browser companion.",
-      "url": "https://huggingface.co/blog/Hcompany/holotab",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
-            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Personal AI, now on your wrist — and beyond",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-wear-elite-platform",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Why the Snapdragon Digital Chassis is your lifeline in the AI-defined vehicle era",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-digital-chassis-ai-defined-vehicles",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 7,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
-      "url": "https://huggingface.co/blog/waypoint-1-5",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Multimodal Embedding & Reranker Models with Sentence Transformers",
-      "url": "https://huggingface.co/blog/multimodal-sentence-transformers",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
-            "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qwen-blog",
-            "source_type": "official",
-            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
-            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 2 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Safetensors is Joining the PyTorch Foundation",
-      "url": "https://huggingface.co/blog/safetensors-joins-pytorch-foundation",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Welcome Gemma 4: Frontier multimodal intelligence on device",
-      "url": "https://huggingface.co/blog/gemma4",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-22",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
     }
   ],
   "predictions": [
-    "The short-term trajectory of the AI agent ecosystem is constrained by the unresolved fundamental tension between autonomy and safety/reliability. While the flurry of infrastructure tooling (OpenAI, Brex, Microsoft) is a positive sign of maturation, it represents preparatory work rather than a solution. The most likely path is one of cautious, incremental progress within sandboxed or low-stakes environments, with the market awaiting a demonstrably safe and valuable 'killer app' to catalyze broader adoption. The risk of a setback from a significant failure remains non-trivial and is the primary downside risk."
+    "The short-term trajectory of the AI agent ecosystem is constrained by the unresolved autonomy-security-debuggability contradiction. While tooling is rapidly evolving (AgentRx, CrabTrap, SDK updates), these are nascent solutions to a profound problem. The most likely path is cautious, incremental adoption in production, with the community's enthusiasm (high HN scores) running ahead of enterprise comfort levels. A breakthrough that credibly resolves the transparency gap could accelerate adoption; a significant failure could decelerate it."
   ],
   "sources": {
     "github": {
