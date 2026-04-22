@@ -27,6 +27,10 @@ from auto_report.integrations.langfuse_tracing import (
     start_stage_span,
 )
 from auto_report.integrations.lark_cli import sync_feishu_workspace as sync_feishu_workspace_sidecar
+from auto_report.integrations.lark_cli import (
+    pull_feishu_ops_status as pull_feishu_ops_status_sidecar,
+)
+from auto_report.integrations.lark_cli import sync_feishu_ops_desk as sync_feishu_ops_desk_sidecar
 from auto_report.integrations.llm_client import is_llm_enabled
 from auto_report.integrations.pushplus import send_pushplus
 from auto_report.integrations.telegram import send_telegram_messages
@@ -1144,6 +1148,24 @@ def cmd_sync_feishu_workspace(root_dir: Path, publication_mode: str = "reviewed"
         print("[FeishuSidecar] Skipped in GitHub Actions runtime.")
         return status
     return sync_feishu_workspace_sidecar(root_dir, settings, publication_mode=publication_mode)
+
+
+def cmd_sync_feishu_ops_desk(root_dir: Path) -> dict[str, object]:
+    settings = load_settings(root_dir)
+    if _is_github_actions_runtime():
+        status = _disabled_feishu_sidecar_status(reason="github_actions")
+        print("[FeishuOpsDesk] Skipped in GitHub Actions runtime.")
+        return status
+    return sync_feishu_ops_desk_sidecar(root_dir, settings)
+
+
+def cmd_pull_feishu_ops_status(root_dir: Path) -> dict[str, object]:
+    settings = load_settings(root_dir)
+    if _is_github_actions_runtime():
+        status = _disabled_feishu_sidecar_status(reason="github_actions")
+        print("[FeishuOpsDesk] Pull-back skipped in GitHub Actions runtime.")
+        return status
+    return pull_feishu_ops_status_sidecar(root_dir, settings)
 
 
 def cmd_build_ops_dashboard(root_dir: Path) -> Path:

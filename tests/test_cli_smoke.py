@@ -135,6 +135,22 @@ def test_sync_feishu_workspace_command_accepts_publication_mode():
     assert args.publication_mode == "reviewed"
 
 
+def test_sync_feishu_ops_desk_command_exists():
+    parser = build_parser()
+
+    args = parser.parse_args(["sync-feishu-ops-desk"])
+
+    assert args.command == "sync-feishu-ops-desk"
+
+
+def test_pull_feishu_ops_status_command_exists():
+    parser = build_parser()
+
+    args = parser.parse_args(["pull-feishu-ops-status"])
+
+    assert args.command == "pull-feishu-ops-status"
+
+
 def test_apply_source_updates_command_accepts_dry_run():
     parser = build_parser()
 
