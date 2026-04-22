@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T08:01:33.263592+08:00",
+  "generated_at": "2026-04-22T11:31:51.021741+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
@@ -7,158 +7,63 @@
     "data/reports/latest-summary-auto.md",
     "data/reports/latest-summary-auto.json",
     "data/reports/latest-summary-auto.html",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.md",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.json",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary.html",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.md",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.json",
-    "data/archives/2026-04-22/2026-04-22T08-01-33.263592+08-00-summary-auto.html",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary.md",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary.json",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary.html",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary-auto.md",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary-auto.json",
+    "data/archives/2026-04-22/2026-04-22T11-31-51.021741+08-00-summary-auto.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
-  "pushed": true,
-  "push_channel": "feishu,pushplus,telegram",
+  "pushed": false,
+  "push_channel": "",
   "publication_mode": "auto",
-  "push_response": {
-    "pushplus": {
-      "code": 200,
-      "msg": "执行成功",
-      "data": "38f2641eaeb2401283341b0decfccad1"
-    },
-    "telegram": {
-      "ok": true,
-      "messages_sent": 1,
-      "message_ids": [
-        70
-      ]
-    },
-    "feishu": {
-      "ok": true,
-      "messages_sent": 1,
-      "message_ids": [
-        "om_x100b51b5443d84a8b103e6da1c24257"
-      ],
-      "description": "success"
-    }
-  },
+  "push_response": {},
   "delivery_results": {
     "channels": {
       "feishu": {
         "name": "feishu",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "success",
-        "response": [
-          {
-            "code": 0,
-            "data": {
-              "body": {
-                "content": "{\"title\":\"AI情报飞书简报 | 2026-04-22 | 北京时间 07:00\",\"elements\":[[{\"tag\":\"text\",\"text\":\"生成时间\"},{\"tag\":\"text\",\"text\":\"\\n2026-04-22T08:01:33.263592+08:00\\n\\n\"},{\"tag\":\"text\",\"text\":\"今日判断\"},{\"tag\":\"text\",\"text\":\"\\nAI代理系统正从工具向结构化决策框架演进，核心瓶颈在于可调试性和本地部署的长上下文处理能力，而非基础推理能力本身\"}],[{\"tag\":\"text\",\"text\":\"执行摘要\"},{\"tag\":\"text\",\"text\":\"\\n- AI代理领域正在经历从简单聊天机器人向复杂自主系统的转型，但可调试性缺失成为制约其可靠性的关键瓶颈\\n- 微软AgentRx框架代表了对AI agent系统性调试方法论的探索，旨在解决工具幻觉等黑箱问题\"},{\"tag\":\"text\",\"text\":\"关键主线\"},{\"tag\":\"text\",\"text\":\"\\n- AI Agent调试成为产业关键需求：随着AI代理承担云事故管理、多步骤API工作流等复杂任务，缺乏透明度导致无法追踪错误逻辑，威胁生产环境可靠性，AgentRx等系统化调试框架成为行业必需品而非可选项\\n- 本地部署的核心瓶颈是内存而非推理能力：本地模型在CLD提取任务达到77%通过率匹配中端云性能，但在需要长上下文的错误修复任务上仅0-50%，揭示从'静态任务执行'到'动态对话协作'的能力鸿沟根本源于内存约束\\n- 后端选择比量化级别更具实际影响：llama.cpp能可靠处理JSON但可能导致无限生成，mlx_lm不强制约束但需显式指令——这种基础设施差异对生产部署的影响超过模型精度选择\"}],[{\"tag\":\"text\",\"text\":\"局限与提醒\"},{\"tag\":\"text\",\"text\":\"\\n- 三个数据源（MediaTek IoT边缘AI、'Less human AI agents'博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析\"}],[{\"tag\":\"text\",\"text\":\"行动建议\"},{\"tag\":\"text\",\"text\":\"\\n- 对需要长上下文处理的生产场景，优先考虑云端部署或扩展本地内存架构，避免依赖当前本地模型处理复杂交互任务\\n- 在选择本地部署后端时，优先评估JSON处理能力和长上下文稳定性，而非单纯追求量化精度\"}],[{\"tag\":\"button\",\"text\":\"公开阅读\",\"type\":\"primary\"},{\"tag\":\"button\",\"text\":\"GitHub 原文\",\"type\":\"default\"}]]}"
-              },
-              "chat_id": "oc_1e327a2c66bc7eca3fe914414117c13c",
-              "create_time": "1776816303369",
-              "deleted": false,
-              "message_id": "om_x100b51b5443d84a8b103e6da1c24257",
-              "msg_type": "interactive",
-              "sender": {
-                "id": "cli_a953a33ee3b99cce",
-                "id_type": "app_id",
-                "sender_type": "app",
-                "tenant_key": "1a4d8a64161ddb94"
-              },
-              "update_time": "1776816303369",
-              "updated": false
-            },
-            "msg": "success"
-          }
-        ],
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-22T00:05:01+00:00"
+        "attempted_at": null
       },
       "pushplus": {
         "name": "pushplus",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "code=200 执行成功 (ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '52.165.251.244 IP未授权'})",
-        "response": {
-          "code": 200,
-          "msg": "执行成功",
-          "data": "38f2641eaeb2401283341b0decfccad1",
-          "verification": {
-            "available": false,
-            "reason": "openapi_unavailable",
-            "note": "ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '52.165.251.244 IP未授权'}"
-          }
-        },
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-22T00:05:03+00:00"
+        "attempted_at": null
       },
       "telegram": {
         "name": "telegram",
         "configured": true,
-        "attempted": true,
-        "ok": true,
-        "status": "ok",
-        "detail": "1 message(s)",
-        "response": [
-          {
-            "ok": true,
-            "result": {
-              "message_id": 70,
-              "from": {
-                "id": 8650164336,
-                "is_bot": true,
-                "first_name": "wsysgz",
-                "username": "xfl888bot"
-              },
-              "chat": {
-                "id": 8566057843,
-                "first_name": "Christi",
-                "last_name": "Card",
-                "username": "wsysgz",
-                "type": "private"
-              },
-              "date": 1776816306,
-              "text": "AI情报完整简报 | 2026-04-22 | 北京时间 07:00\n生成时间：2026-04-22T08:01:33.263592+08:00\n\n今日判断：\nAI代理系统正从工具向结构化决策框架演进，核心瓶颈在于可调试性和本地部署的长上下文处理能力，而非基础推理能力本身\n\n执行摘要\n- AI代理领域正在经历从简单聊天机器人向复杂自主系统的转型，但可调试性缺失成为制约其可靠性的关键瓶颈\n- 微软AgentRx框架代表了对AI agent系统性调试方法论的探索，旨在解决工具幻觉等黑箱问题\n- 本地大模型在结构化任务上可达到中端云模型水平（77%通过率），但在需要长上下文的错误修复任务上表现极差（0-50%），暴露了内存限制的根本性挑战\n- 后端工程选择（GGUF vs MLX）对实际性能的影响超过量化级别差异，说明基础设施优化与模型质量同等重要\n- AI调解系统尝试将纳什议价理论工程化，象征AI从辅助工具向结构化决策框架的演进趋势\n\n关键主线\n- AI Agent调试成为产业关键需求：随着AI代理承担云事故管理、多步骤API工作流等复杂任务，缺乏透明度导致无法追踪错误逻辑，威胁生产环境可靠性，AgentRx等系统化调试框架成为行业必需品而非可选项\n- 本地部署的核心瓶颈是内存而非推理能力：本地模型在CLD提取任务达到77%通过率匹配中端云性能，但在需要长上下文的错误修复任务上仅0-50%，揭示从'静态任务执行'到'动态对话协作'的能力鸿沟根本源于内存约束\n- 后端选择比量化级别更具实际影响：llama.cpp能可靠处理JSON但可能导致无限生成，mlx_lm不强制约束但需显式指令——这种基础设施差异对生产部署的影响超过模型精度选择\n\n重点主题\n- Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness：Mediator.ai试图通过将经典的纳什议价理论与现代LLM相结合，将传统上依赖经验和直觉的调解过程转化为可系统化、可计算的公平分配框架，这代表了AI从辅助工具向结构化决策框架的演进。\n- Systematic debugging for AI agents: Introducing the AgentRx framework：The advancement of AI agents is hitting a fundamental bottleneck: the lack of debuggability threatens their reliability and scalability in critical applications, making systematic debugging frameworks like AgentRx not just an improvement but a necessity for the field's progression.\n- Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion：当前本地大模型在系统动力学AI助手场景中的核心瓶颈不是基础推理能力，而是长上下文处理、内存约束和交互可靠性——这揭示了从“静态任务执行”到“动态对话协作”的能力鸿沟，后端工程选择（如GGUF vs MLX）对实际可用性的影响甚至超过模型本身的质量差异。\n\n短期观察\n- AI agent调试框架在头部科技公司内部试点取得进展，但行业标准化缓慢；本地大模型在CLD提取等结构化任务上保持与中端云模型的竞争力（75-80%通过率），但在需要长上下文的复杂交互任务上仍显著落后（错误修复率<30%）；Mediator.ai类项目在细分场景（如标准化合同条款）获得早期采用，但大规模推广受限；后端工程优化（vLLM等）继续成为性能提升的关键杠杆。\n\n局限与提醒\n- 三个数据源（MediaTek IoT边缘AI、'Less human AI agents'博客、vllm仓库）仅出现1次，缺乏深度内容，无法进行实质分析\n\n公开阅读：\nhttps://wsysgz.github.io/VS_AI/\nGitHub 原文：\nhttps://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md",
-              "entities": [
-                {
-                  "offset": 744,
-                  "length": 11,
-                  "type": "url"
-                },
-                {
-                  "offset": 1778,
-                  "length": 31,
-                  "type": "url"
-                },
-                {
-                  "offset": 1821,
-                  "length": 77,
-                  "type": "url"
-                }
-              ],
-              "link_preview_options": {
-                "is_disabled": true
-              }
-            }
-          }
-        ],
+        "attempted": false,
+        "ok": false,
+        "status": "skipped",
+        "detail": "configured",
+        "response": null,
         "error_type": null,
-        "attempted_at": "2026-04-22T00:05:06+00:00"
+        "attempted_at": null
       }
     },
-    "successful_channels": [
+    "successful_channels": [],
+    "failed_channels": [],
+    "skipped_channels": [
       "feishu",
       "pushplus",
       "telegram"
-    ],
-    "failed_channels": [],
-    "skipped_channels": []
+    ]
   },
   "stage_status": {
     "analysis": "ok",
@@ -173,23 +78,22 @@
   "external_enrichment": {
     "enabled": true,
     "max_signals": 2,
-    "attempted": 2,
-    "succeeded": 2,
+    "attempted": 1,
+    "succeeded": 1,
     "failed": 0,
-    "skipped": 165,
-    "budget_used": 2,
+    "skipped": 166,
+    "budget_used": 1,
     "success_rate": 1.0,
     "circuit_open": false,
     "reasons": [
       "below-threshold: IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World",
       "below-threshold: vllm-project/vllm",
-      "below-threshold: Show HN: Mediator.ai – Using Nash bargaining and LLMs to systematize fairness",
       "below-threshold: Less human AI agents, please",
+      "below-threshold: CrabTrap: An LLM-as-a-judge HTTP proxy to secure agents in production",
       "below-threshold: The next evolution of the Agents SDK",
       "below-threshold: Enterprises power agentic workflows in Cloudflare Agent Cloud with OpenAI",
       "below-threshold: PlugMem: Transforming raw agent interactions into reusable knowledge",
-      "below-threshold: Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs",
-      "below-threshold: When Can LLMs Learn to Reason with Weak Supervision?",
+      "below-threshold: SpecAgent: A Speculative Retrieval and Forecasting Agent for Code Completion",
       "below-threshold: Bringing AI Closer to the Edge and On-Device with Gemma 4",
       "below-threshold: Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
       "below-threshold: Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
@@ -214,38 +118,39 @@
       "below-threshold: Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
       "below-threshold: Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
       "below-threshold: AsgardBench: A benchmark for visually grounded interactive planning",
-      "below-threshold: MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval",
+      "below-threshold: VLA Foundry: A Unified Framework for Training Vision-Language-Action Models",
+      "below-threshold: QSLM: A Performance- and Memory-aware Quantization Framework with Tiered Search Strategy for Spike-driven Language Models",
       "below-threshold: Arm announces earnings release date for fourth quarter fiscal year ended 2026",
       "below-threshold: Smarter Devices, Smaller Chips: Inside Embedded World 2026",
-      "below-threshold: langchain-ai/langgraph",
       "below-threshold: ollama/ollama",
-      "below-threshold: alibaba/MNN",
+      "below-threshold: langchain-ai/langgraph",
       "below-threshold: pytorch/executorch",
-      "below-threshold: nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
       "below-threshold: tenstorrent/tt-metal",
+      "below-threshold: alibaba/MNN",
+      "below-threshold: nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
       "below-threshold: mem0ai/mem0",
       "below-threshold: openai/swarm",
       "below-threshold: anthropics/claude-cookbooks",
       "below-threshold: onnx/onnx",
-      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: jax-ml/jax",
+      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: Laws of Software Engineering",
-      "below-threshold: Anthropic says OpenClaw-style Claude CLI usage is allowed again",
-      "below-threshold: Claude Code removed from Anthropic's Pro plan",
       "below-threshold: ChatGPT Images 2.0",
-      "below-threshold: Changes to GitHub Copilot individual plans",
+      "below-threshold: Anthropic says OpenClaw-style Claude CLI usage is allowed again",
+      "below-threshold: Claude Code to be removed from Anthropic's Pro plan?",
       "below-threshold: Meta to start capturing employee mouse movements, keystrokes for AI training",
+      "below-threshold: Changes to GitHub Copilot individual plans",
       "below-threshold: Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
-      "below-threshold: Ternary Bonsai: Top Intelligence at 1.58 Bits",
-      "below-threshold: Apple ignores DMA interoperability requests and contradicts own documentation",
       "below-threshold: The Beauty of Bonsai Styles",
       "below-threshold: Air is full of DNA",
-      "below-threshold: Claude Code no longer included in Pro tier",
-      "below-threshold: Japan's cherry blossom database, 1,200 years old, has a new keeper",
       "below-threshold: Show HN: GoModel – an open-source AI gateway in Go",
       "below-threshold: A type-safe, realtime collaborative Graph Database in a CRDT",
-      "below-threshold: Salmon exposed to cocaine and its main byproduct roam more widely",
+      "below-threshold: I'm Sick of AI Everything",
       "below-threshold: Stephen's Sausage Roll remains one of the most influential puzzle games",
+      "below-threshold: Salmon exposed to cocaine and its main byproduct roam more widely",
+      "below-threshold: Tindie store under \"scheduled maintenance\" for days",
+      "below-threshold: Windows Server 2025 Runs Better on ARM",
+      "below-threshold: Claude Code Removed from $20-a-Month \"Pro\" Subscription for New Users",
       "below-threshold: Scaling Codex to enterprises worldwide",
       "below-threshold: OpenAI helps Hyatt advance AI among colleagues",
       "below-threshold: Codex for (almost) everything",
@@ -261,12 +166,13 @@
       "below-threshold: New Future of Work: AI is driving rapid change, uneven benefits",
       "below-threshold: ADeLe: Predicting and explaining AI performance across tasks",
       "below-threshold: GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
-      "below-threshold: Self-Correcting Text-to-Video Generation with Misalignment Detection and Localized Refinement",
-      "below-threshold: Sessa: Selective State Space Attention",
-      "below-threshold: Bounded Ratio Reinforcement Learning",
-      "below-threshold: Back into Plato's Cave: Examining Cross-modal Representational Convergence at Scale",
-      "below-threshold: A multimodal and temporal foundation model for virtual patient representations at healthcare system scale",
-      "below-threshold: Latent Phase-Shift Rollback: Inference-Time Error Correction via Residual Stream Monitoring and KV-Cache Steering",
+      "below-threshold: Accurate and scalable exchange-correlation with deep learning",
+      "below-threshold: Generalization at the Edge of Stability",
+      "below-threshold: UniT: Toward a Unified Physical Language for Human-to-Humanoid Policy Learning and World Modeling",
+      "below-threshold: FASTER: Value-Guided Sampling for Fast RL",
+      "below-threshold: Benign Overfitting in Adversarial Training for Vision Transformers",
+      "below-threshold: Adaptive MSD-Splitting: Enhancing C4.5 and Random Forests for Skewed Continuous Attributes",
+      "below-threshold: OmniGen2: Towards Instruction-Aligned Multimodal Generation",
       "below-threshold: Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era",
       "below-threshold: Arm expands compute platform to silicon products in historic company first",
       "below-threshold: Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson",
@@ -349,17 +255,17 @@
     ],
     "source_type_stats": {
       "official": {
-        "budget": 2,
-        "hits": 2,
-        "matched_items": 2
-      },
-      "repo": {
-        "budget": 2,
+        "budget": 1,
         "hits": 1,
         "matched_items": 1
       },
+      "repo": {
+        "budget": 1,
+        "hits": 0,
+        "matched_items": 0
+      },
       "paper": {
-        "budget": 2,
+        "budget": 1,
         "hits": 0,
         "matched_items": 0
       }
@@ -370,11 +276,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 15400,
-      "completion": 3305,
-      "total": 18705
+      "prompt": 18739,
+      "completion": 3091,
+      "total": 21830
     },
-    "latency_seconds": 132.72,
+    "latency_seconds": 106.19,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -383,11 +289,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 495,
-          "completion": 592,
-          "total": 1087
+          "prompt": 483,
+          "completion": 605,
+          "total": 1088
         },
-        "latency_seconds": 22.7,
+        "latency_seconds": 29.61,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -406,11 +312,11 @@
         "model": "deepseek-chat",
         "calls": 3,
         "token_usage": {
-          "prompt": 8256,
-          "completion": 1122,
-          "total": 9378
+          "prompt": 7891,
+          "completion": 812,
+          "total": 8703
         },
-        "latency_seconds": 39.26,
+        "latency_seconds": 34.09,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -429,11 +335,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 44,
-          "completion": 1129,
-          "total": 1173
+          "prompt": 4038,
+          "completion": 1044,
+          "total": 5082
         },
-        "latency_seconds": 54.71,
+        "latency_seconds": 18.1,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -452,11 +358,11 @@
         "model": "deepseek-chat",
         "calls": 1,
         "token_usage": {
-          "prompt": 6605,
-          "completion": 462,
-          "total": 7067
+          "prompt": 6327,
+          "completion": 630,
+          "total": 6957
         },
-        "latency_seconds": 16.05,
+        "latency_seconds": 24.39,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1899,19 +1805,19 @@
   },
   "tracing": {
     "enabled": true,
-    "trace_id": "4e9c18b228ace59bf101ca16cff4d9a0",
-    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/4e9c18b228ace59bf101ca16cff4d9a0"
+    "trace_id": "5f87f630a6dbab1bf9eaa2925fb59919",
+    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/5f87f630a6dbab1bf9eaa2925fb59919"
   },
   "scheduler": {
-    "trigger_kind": "schedule",
+    "trigger_kind": "push",
     "compensation_run": false
   },
   "timings": {
-    "collection": 7.69,
-    "dedup_score": 200.84,
+    "collection": 5.29,
+    "dedup_score": 192.21,
     "ai_total": 0.0,
     "rendering": 0.02,
-    "push_total": 5.04
+    "push_total": 0.0
   },
-  "total_elapsed": 213.59
+  "total_elapsed": 197.52
 }
