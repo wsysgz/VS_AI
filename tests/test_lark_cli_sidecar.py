@@ -180,6 +180,12 @@ def _settings_for(tmp_path: Path, monkeypatch) -> object:
     return load_settings(tmp_path)
 
 
+def _opsdesk_tmp_dir() -> Path:
+    base_dir = Path.cwd() / "output"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    return Path(tempfile.mkdtemp(prefix="codex-opsdesk-", dir=base_dir))
+
+
 def test_sync_feishu_workspace_creates_resources_and_persists_state(tmp_path, monkeypatch):
     _write_reviewed_report(tmp_path)
     _write_governance_artifact(tmp_path)
@@ -280,7 +286,7 @@ def test_sync_feishu_workspace_updates_existing_resources(tmp_path, monkeypatch)
 
 
 def test_sync_feishu_ops_desk_creates_base_tables_and_dashboard(monkeypatch):
-    tmp_path = Path(tempfile.mkdtemp(prefix="codex-opsdesk-", dir=Path.cwd() / "output"))
+    tmp_path = _opsdesk_tmp_dir()
     _write_governance_artifact(tmp_path)
     _write_lead_review_status(tmp_path)
     _write_candidate_updates(tmp_path)
@@ -359,7 +365,7 @@ def test_sync_feishu_ops_desk_creates_base_tables_and_dashboard(monkeypatch):
 
 
 def test_pull_feishu_ops_status_updates_repo_json_files(monkeypatch):
-    tmp_path = Path(tempfile.mkdtemp(prefix="codex-opsdesk-", dir=Path.cwd() / "output"))
+    tmp_path = _opsdesk_tmp_dir()
     _write_governance_artifact(tmp_path)
     _write_lead_review_status(tmp_path)
     _write_candidate_updates(tmp_path)
@@ -442,7 +448,7 @@ def test_pull_feishu_ops_status_updates_repo_json_files(monkeypatch):
 
 
 def test_sync_feishu_ops_desk_cleans_up_legacy_english_resources(monkeypatch):
-    tmp_path = Path(tempfile.mkdtemp(prefix="codex-opsdesk-", dir=Path.cwd() / "output"))
+    tmp_path = _opsdesk_tmp_dir()
     _write_governance_artifact(tmp_path)
     _write_lead_review_status(tmp_path)
     _write_candidate_updates(tmp_path)
