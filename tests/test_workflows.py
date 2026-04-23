@@ -282,8 +282,8 @@ def test_source_reachability_canary_probes_google_and_openvino_from_github_runne
     assert 'https://blog.google/innovation-and-ai/technology/ai/rss/' in content
     assert 'https://blog.openvino.ai/' in content
     assert 'https://blog.openvino.ai/feed' not in content
-    assert 'https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw' in content
-    assert 'https://www.youtube.com/feeds/videos.xml?user=nvidia' in content
+    assert 'https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw' not in content
+    assert 'https://www.youtube.com/feeds/videos.xml?user=nvidia' not in content
     assert 'https://www.youtube.com/feeds/videos.xml?user=Microsoftdeveloper' not in content
     assert 'https://www.youtube.com/feeds/videos.xml?user=pytorch' not in content
     assert 'actions/upload-artifact@v4' in content
