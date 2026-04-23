@@ -4,7 +4,7 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-22
+> 最后更新：2026-04-23
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
@@ -29,8 +29,8 @@
 - 当前本地验证基线：`312 passed`
 - 当前主线优先级：`P3-A 收口尾项 + P3-B 第二轮 polish：飞书推送界面优化已完成首轮发布级验收，飞书多维表格运营台第一版已落地`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
-- 当前批次已 `push` 到远端：`2026-04-22 / commit 479f5fb`
-- 当前批次已触发远端发布级确认：`push run 24778735719` + `workflow_dispatch run 24778755577`（以 GitHub Actions 页面为准）
+- 当前最新远端 `Collect And Report` 已成功：`2026-04-23 / run 24817834003 / commit ce3b090`
+- 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-23 / run 24817844639 / commit ce3b090`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
@@ -382,7 +382,8 @@ Get-Content out/source-governance/source-governance.json
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
-- `2026-04-22` 已 `push` `479f5fb` 并触发远端发布级确认（run `24778735719` / `24778755577`）
+- `2026-04-23` 已确认最新远端 `Collect And Report` 成功（run `24817834003` / commit `ce3b090`）
+- `2026-04-23` 已确认最新远端 `Source Reachability Canary` 成功（run `24817844639` / commit `ce3b090`）
 - 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：
@@ -408,7 +409,8 @@ Get-Content out/source-governance/source-governance.json
 - `P3-A` 当前剩余缺口：
   1. `2026-04-22` 本地已实测卡片主路径命中：`delivery_kind=card_success`
   2. `run-status` / diagnose 输出已区分 `card_success / text_fallback`
-  3. 当前剩余差距只剩远端持续 canary 覆盖与最终确认收口
+  3. `2026-04-23` 最新远端 `Collect And Report` 已成功
+  4. 当前唯一剩余差距是：`Delivery Canary` 仍跑 `--mode canary` 文本探针，尚未升级到远端卡片主路径验证
 - `P3-B` 第一版已经落地：
   1. `VS_AI 今日运营台` dashboard 已建成
   2. 四张表已建成：`治理总表` / `审批协作` / `交付验收` / `待应用变更`
@@ -421,6 +423,7 @@ Get-Content out/source-governance/source-governance.json
   5. 第二轮 polish 已开始落地：
       - `审批协作.pending` 已中文化为 `待审批`
       - 视图过滤条件已与中文状态值对齐
+      - `Source Reachability Canary` 已移除 YouTube 硬失败探测并恢复远端成功
 - `renesas-blog` 仍 blocked，需要替代入口或局部 fallback
 - `OpenCLI` 侧车 pilot 继续延后，不与当前批次混做
 
