@@ -266,10 +266,10 @@ def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
     assert 'git push origin HEAD:"$GITHUB_REF_NAME"' in content or 'git push origin HEAD:$GITHUB_REF_NAME' in content
 
 
-def test_canary_workflow_uses_canary_mode_and_issue_rule():
+def test_canary_workflow_uses_feishu_card_path_and_issue_rule():
     content = (ROOT_DIR / ".github" / "workflows" / "delivery-canary.yml").read_text(encoding="utf-8")
 
-    assert "--mode canary --send" in content
+    assert "--mode full-report --send --channels feishu --require-feishu-card-success" in content
     assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
     assert "actions/github-script@v9.0.0" in content
     assert "consecutive canary failures" in content

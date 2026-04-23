@@ -489,6 +489,37 @@ def _normalize_delivery_channels(channels: str = "") -> set[str] | None:
     return selected
 
 
+def _enforce_feishu_card_success(results: dict[str, dict[str, object]]) -> None:
+    feishu_result = results.get("feishu")
+    if not isinstance(feishu_result, dict):
+        return
+    if not feishu_result.get("configured") or not feishu_result.get("attempted") or not feishu_result.get("ok"):
+        return
+
+    delivery_kind = str(feishu_result.get("delivery_kind", "")).strip()
+    if delivery_kind == "card_success":
+        return
+
+    detail = str(feishu_result.get("detail", "")).strip()
+    requirement_note = f"required delivery_kind=card_success, got {delivery_kind or 'missing'}"
+    if detail:
+        detail = f"{detail}; {requirement_note}"
+    else:
+        detail = requirement_note
+
+    results["feishu"] = build_channel_result(
+        "feishu",
+        configured=bool(feishu_result.get("configured")),
+        attempted=bool(feishu_result.get("attempted")),
+        ok=False,
+        detail=detail,
+        response=feishu_result.get("response"),
+        error_type="fallback" if delivery_kind == "text_fallback" else "unknown",
+        attempted_at=str(feishu_result.get("attempted_at") or "") or None,
+        delivery_kind=delivery_kind,
+    )
+
+
 def _collect_delivery_results(
     root_dir: Path,
     settings,
@@ -496,6 +527,7 @@ def _collect_delivery_results(
     mode: str = "full-report",
     publication_mode: str = "auto",
     channels: str = "",
+    require_feishu_card_success: bool = False,
 ) -> tuple[dict[str, object], dict[str, object]]:
     responses: dict[str, object] = {}
     results: dict[str, dict[str, object]] = {}
@@ -620,6 +652,9 @@ def _collect_delivery_results(
                 error_type=classify_channel_error(channel_name, error_response, str(exc)),
                 attempted_at=datetime.now().astimezone().isoformat(timespec="seconds"),
             )
+
+    if require_feishu_card_success:
+        _enforce_feishu_card_success(results)
 
     return summarize_delivery_results(results), responses
 
@@ -1147,9 +1182,17 @@ def cmd_diagnose_delivery(
     send: bool = False,
     mode: str = "canary",
     channels: str = "",
+    require_feishu_card_success: bool = False,
 ) -> dict[str, object]:
     settings = load_settings(root_dir)
-    summary, _ = _collect_delivery_results(root_dir, settings, send=send, mode=mode, channels=channels)
+    summary, _ = _collect_delivery_results(
+        root_dir,
+        settings,
+        send=send,
+        mode=mode,
+        channels=channels,
+        require_feishu_card_success=require_feishu_card_success,
+    )
     for name, item in summary["channels"].items():
         print(
             f"[{name}] status={item['status']} configured={item['configured']} "

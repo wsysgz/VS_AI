@@ -996,7 +996,13 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
     monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
 
-    summary = cmd_diagnose_delivery(tmp_path, send=True, mode="full-report", channels="feishu")
+    summary = cmd_diagnose_delivery(
+        tmp_path,
+        send=True,
+        mode="full-report",
+        channels="feishu",
+        require_feishu_card_success=True,
+    )
 
     assert captured["text"] == "feishu text"
     assert captured["card"] == {"header": {"title": {"content": "card"}}, "elements": []}
@@ -1006,6 +1012,51 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     assert summary["channels"]["pushplus"]["detail"] == "filtered"
     assert summary["channels"]["telegram"]["attempted"] is False
     assert summary["channels"]["telegram"]["detail"] == "filtered"
+
+
+def test_cmd_diagnose_delivery_fails_when_feishu_falls_back_to_text(monkeypatch):
+    tmp_path = Path.cwd()
+
+    monkeypatch.setattr("auto_report.app._build_text_notification", lambda *args, **kwargs: "pushplus text")
+    monkeypatch.setattr("auto_report.app._build_telegram_notification", lambda *args, **kwargs: "telegram text")
+    monkeypatch.setattr("auto_report.app._build_feishu_notification", lambda *args, **kwargs: "feishu text")
+    monkeypatch.setattr(
+        "auto_report.app._build_feishu_notification_card",
+        lambda *args, **kwargs: {"header": {"title": {"content": "card"}}, "elements": []},
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_feishu_messages",
+        lambda *args, **kwargs: [{"code": 0, "data": {"message_id": "om_1"}, "delivery_kind": "text_fallback"}],
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pushplus should not send")),
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should not send")),
+    )
+    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
+    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    summary = cmd_diagnose_delivery(
+        tmp_path,
+        send=True,
+        mode="full-report",
+        channels="feishu",
+        require_feishu_card_success=True,
+    )
+
+    assert summary["successful_channels"] == []
+    assert summary["failed_channels"] == ["feishu"]
+    assert summary["channels"]["feishu"]["delivery_kind"] == "text_fallback"
+    assert summary["channels"]["feishu"]["status"] == "error"
+    assert "card_success" in summary["channels"]["feishu"]["detail"]
 
 def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatch):
     root = Path.cwd()

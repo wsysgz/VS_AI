@@ -69,6 +69,25 @@ def test_diagnose_delivery_accepts_channel_filter():
     assert args.channels == "feishu"
 
 
+def test_diagnose_delivery_accepts_feishu_card_success_requirement():
+    parser = build_parser()
+
+    args = parser.parse_args(
+        [
+            "diagnose-delivery",
+            "--mode",
+            "full-report",
+            "--send",
+            "--channels",
+            "feishu",
+            "--require-feishu-card-success",
+        ]
+    )
+
+    assert args.command == "diagnose-delivery"
+    assert args.require_feishu_card_success is True
+
+
 def test_run_once_command_accepts_publication_mode():
     parser = build_parser()
 

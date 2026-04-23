@@ -35,7 +35,7 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           FEISHU_CHAT_ID: ${{ secrets.FEISHU_CHAT_ID }}
-        run: python -m auto_report.cli diagnose-delivery --mode canary --send
+        run: python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu --require-feishu-card-success
 
   reliability-issue:
     needs: canary

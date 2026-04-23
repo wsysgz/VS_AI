@@ -44,6 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Optional comma-separated channels to test (feishu,pushplus,telegram)",
     )
+    diagnose_parser.add_argument(
+        "--require-feishu-card-success",
+        action="store_true",
+        help="Fail if Feishu delivery falls back to text instead of card_success",
+    )
 
     # CI 专用命令 — Phase 0: 拆分为三个独立阶段供多 job workflow 使用
     subparsers.add_parser("collect-only", help="[CI] Collect + dedup + classify + score, save intermediate result")
@@ -130,6 +135,7 @@ def main() -> int:
             send=getattr(args, "send", False),
             mode=getattr(args, "mode", "canary"),
             channels=getattr(args, "channels", ""),
+            require_feishu_card_success=getattr(args, "require_feishu_card_success", False),
         )
         return 1 if summary["failed_channels"] else 0
 
