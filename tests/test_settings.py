@@ -307,7 +307,7 @@ def test_load_settings_includes_youtube_v0_official_channel_feeds():
         source["id"]: source for source in settings.sources["rss"]["sources"]
     }
 
-    assert rss_sources["youtube-google-developers"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers"
+    assert rss_sources["youtube-google-developers"]["url"] == "https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw"
     assert rss_sources["youtube-google-developers"]["category_hint"] == "ai-x-electronics"
     assert rss_sources["youtube-google-developers"]["timeout_seconds"] == 8
     assert rss_sources["youtube-nvidia"]["url"] == "https://www.youtube.com/feeds/videos.xml?user=nvidia"

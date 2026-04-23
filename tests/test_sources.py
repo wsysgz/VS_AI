@@ -831,7 +831,7 @@ def test_collect_rss_uses_source_specific_timeout(monkeypatch):
             {
                 "id": "youtube-google-developers",
                 "enabled": True,
-                "url": "https://www.youtube.com/feeds/videos.xml?user=GoogleDevelopers",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw",
                 "category_hint": "ai-x-electronics",
                 "max_items": 2,
                 "timeout_seconds": 8,
