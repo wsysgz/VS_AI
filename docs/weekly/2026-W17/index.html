@@ -371,8 +371,8 @@
       <div class="archive-grid">
         <article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
-  <h3>AI agent systems are maturing rapidly but face a critical bottleneck: the lack of transparency and debuggability at the architectural level, which threatens reliability in production environments.</h3>
-  <p>AI agents are transitioning from simple chatbots to autonomous systems managing cloud incidents, complex web interfaces, and multi-step API workflows—creating new demands for system transparency that traditional approaches cannot meet. Microsoft Research&#x27;s AgentRx framework addresses this gap by providing systematic debugging capabilities for autonomous AI agents, representing a shift from treating agents as black boxes to engineering them as transparent, verifiable systems. The credential management problem for AI agents remains unsolved: Agent Vault offers a promising open-source solution targeting HTTP-based credential proxying, but must balance security against the low-latency requirements of automated, high-frequency agent operations.</p>
+  <h3>AI agent development is shifting from raw capability to production-readiness: new frameworks address debugging opacity and latency bottlenecks, while stark benchmarking reveals massive capability gaps in real-world security tasks.</h3>
+  <p>Microsoft Research introduced AgentRx, a systematic debugging framework for AI agents, addressing the critical transparency gap as agents evolve from simple chatbots to autonomous incident managers handling multi-step API workflows. Speculative Actions emerged as a lossless latency reduction framework achieving up to 20% speedup by using faster models to predict and parallelize likely actions, transforming sequential agent execution into a tunable cost-latency tradeoff. The Cyber Defense Benchmark exposed a catastrophic disconnect: top LLMs achieve 50%+ scores on structured security quizzes but average only 3.8% recall on real-world threat hunting tasks, with no model meeting minimum deployment standards across all MITRE ATT&amp;CK tactics.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">自动版</span></div>
   <div class="archive-footer">
     <span>166 topics · 168 items</span>
@@ -423,12 +423,30 @@
       <div class="signal-grid">
         <article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
+  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CR</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 3.3</span>
+    <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>From Benchmarking to Reasoning: A Dual-Aspect, Large-Scale Evaluation of LLMs on Vietnamese Legal Text</h3>
   <p>The complexity of Vietnam&#x27;s legal texts presents a significant barrier to public access to justice. While Large Language Models offer a promising solution for legal text simplification, evaluating their true capabilities requires a multifaceted approach that goes beyond surface-level metrics. This paper introduces a comprehensive dual-aspect evaluation framework to address this need. First, we establish a performance benchmark for four state-of-the-art large language models (GPT-4o, Claude 3 Opus, Gemini 1.5 Pro, and Grok-1) across three key dimensions: Accuracy, Readability, and Consistency. Second, to understand the &quot;why&quot; behind these performance scores, we conduct a large-scale error analysis on a curated dataset of 60 complex Vietnamese legal articles, using a novel, expert-validated error typology. Our results reveal a crucial trade-off: models like Grok-1 excel in Readability and Consistency but compromise on fine-grained legal Accuracy, while models like Claude 3 Opus achieve high Accuracy scores that mask a significant number of subtle but critical reasoning errors. The error analysis pinpoints \textit{Incorrect Example} and \textit{Misinterpretation} as the most prevalent failures, confirming that the primary challenge for current LLMs is not summarization but controlled, accurate legal reasoning. By integrating a quantitative benchmark with a qualitative deep dive, our work provides a holistic and actionable assessment of LLMs for legal applications.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 3.3</span>
     <a href="https://arxiv.org/abs/2604.16270v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+  <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DC</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 3.3</span>
+    <a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -474,24 +492,6 @@
   <div class="signal-footer">
     <span>microsoft.github.io · 2.5</span>
     <a href="https://microsoft.github.io/teams-sdk/blog/bring-your-agent-to-teams/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
-  <p>The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
-  <p>Physical AI is rapidly evolving, from next-generation software-defined autonomous vehicles (AVs) to humanoid robots. The challenge is no longer how to run a...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>
       </div>

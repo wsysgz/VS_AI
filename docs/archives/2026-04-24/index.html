@@ -303,13 +303,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.24</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent systems are maturing rapidly but face a critical bottleneck: the lack of transparency and debuggability at the architectural level, which threatens reliability in production environments.</h1>
-      <p class="subtle">AI agents are transitioning from simple chatbots to autonomous systems managing cloud incidents, complex web interfaces, and multi-step API workflows—creating new demands for system transparency that traditional approaches cannot meet. Microsoft Research&#x27;s AgentRx framework addresses this gap by providing systematic debugging capabilities for autonomous AI agents, representing a shift from treating agents as black boxes to engineering them as transparent, verifiable systems. The credential management problem for AI agents remains unsolved: Agent Vault offers a promising open-source solution targeting HTTP-based credential proxying, but must balance security against the low-latency requirements of automated, high-frequency agent operations.</p>
+      <h1 class="section-title" style="font-size:34px;">AI agent development is shifting from raw capability to production-readiness: new frameworks address debugging opacity and latency bottlenecks, while stark benchmarking reveals massive capability gaps in real-world security tasks.</h1>
+      <p class="subtle">Microsoft Research introduced AgentRx, a systematic debugging framework for AI agents, addressing the critical transparency gap as agents evolve from simple chatbots to autonomous incident managers handling multi-step API workflows. Speculative Actions emerged as a lossless latency reduction framework achieving up to 20% speedup by using faster models to predict and parallelize likely actions, transforming sequential agent execution into a tunable cost-latency tradeoff. The Cyber Defense Benchmark exposed a catastrophic disconnect: top LLMs achieve 50%+ scores on structured security quizzes but average only 3.8% recall on real-world threat hunting tasks, with no model meeting minimum deployment standards across all MITRE ATT&amp;CK tactics.</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">166 topics</span>
         <span class="tag warm">168 raw items</span>
         <span class="tag">自动版</span>
-        <span class="tag">2026-04-24T08:11:45.994307+08:00</span>
+        <span class="tag">2026-04-24T21:52:43.067158+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AgentRx: A new debugging framework for autonomous AI agents</h3>
-  <p>As AI agents take on high-stakes tasks like cloud incident management, their untraceable failures create reliability and trust bottlenecks. AgentRx addresses the core tension between agent autonomy and system transparency, making production deployment viable by enabling systematic error diagnosis.</p>
+  <h3>AgentRx addresses the traceability crisis in autonomous agents</h3>
+  <p>As agents handle increasingly critical operations like cloud incident response and multi-step API workflows, their failure modes (e.g., hallucinated tool outputs) remain untraceable—a liability in production environments where accountability and safety matter.</p>
 </article><article class="summary-card">
-  <h3>Agent Vault: Open-source credential proxying for AI agents</h3>
-  <p>Traditional credential management (env vars, hardcoded secrets) is insecure and operationally complex for automated agents. Agent Vault fills a critical middleware gap by providing lightweight, HTTP-native credential management, though its success hinges on whether it can balance security with low-latency requirements.</p>
+  <h3>Speculative execution reduces agent latency by up to 20% without accuracy loss</h3>
+  <p>Sequential execution creates hours-long delays (a chess game between agents can take hours); Speculative Actions reframes this as a principled tradeoff between speculative breadth and wasted computation, with 55% next-action prediction accuracy enabling practical speedup.</p>
 </article><article class="summary-card">
-  <h3>RoboGrid reveals fundamental limits in LLM grammar interpretation</h3>
-  <p>LLMs maintain surface syntax but collapse under structural complexity (deep recursion, high branching). This hierarchical state-tracking gap threatens reliability in grammar-agnostic agentic systems. The discovery that LLMs rely on semantic bootstrapping from keywords rather than true symbolic induction suggests current architectures have inherent limits for formal language tasks.</p>
+  <h3>LLM agents fail catastrophically at real-world threat hunting despite strong quiz performance</h3>
+  <p>Claude Opus 4.6—the best performer—correctly identifies only 3.8% of malicious events, and no model reaches the 50% recall threshold needed for SOC deployment, revealing that structured benchmark success dramatically overstates operational capability.</p>
 </article>
       </div>
     </section>
@@ -334,21 +334,21 @@
       <div class="summary-grid">
         <article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>The AgentRx framework represents a shift from treating AI agents as black boxes to engineering them as transparent, debuggable systems, which is a necessary condition for their deployment in production environments.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">high</span>
-  </div>
-</article><article class="topic-card">
-  <h3>Show HN: Agent Vault – Open-source credential proxy and vault for agents</h3>
-  <p>Agent Vault 试图填补 AI 代理生态中一个关键但尚未被充分满足的中间件需求——为自动化代理提供轻量级、专为 HTTP 调用设计的凭证代理，其成功与否取决于能否在安全性与低延迟之间找到比现有通用方案更优的平衡点。</p>
+  <p>The AgentRx framework represents a necessary shift in focus from building more capable agents to building agents that are inherently debuggable, acknowledging that autonomy without transparency is a liability in production environments.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">medium</span>
   </div>
 </article><article class="topic-card">
-  <h3>Diagnosing CFG Interpretation in LLMs</h3>
-  <p>LLMs&#x27; ability to follow formal grammars is a fragile surface-level mimicry that breaks down under structural complexity, revealing a core limitation in hierarchical reasoning that threatens their reliability in agentic systems.</p>
+  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+  <p>Speculative Actions transforms the latency bottleneck of sequential agent execution into a tunable cost-latency tradeoff, where the key to practical speedup lies not in perfect prediction but in principled selective branching that balances speculative breadth against wasted computation.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">high</span>
+  </div>
+</article><article class="topic-card">
+  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
+  <p>当前 LLM agent 在需要主动探索、多步推理和证据驱动的开放式安全任务中几乎完全失效，表明其能力被现有基准严重高估，距离实际 SOC 部署仍有巨大差距。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
@@ -371,17 +371,35 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Parallel agents in Zed</h3>
-  <p>Score: 271 | Comments: 157</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
+  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CR</span></div>
   <div class="signal-footer">
-    <span>zed.dev · 2.5</span>
-    <a href="https://zed.dev/blog/parallel-agents" target="_blank" rel="noopener">查看原文</a>
+    <span>arxiv.org · 3.3</span>
+    <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+  <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DC</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 3.3</span>
+    <a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Show HN: How LLMs Work – Interactive visual guide based on Karpathy&#x27;s lecture</h3>
+  <p>Score: 137 | Comments: 33 | Text: All content is based on Andrej Karpathy&#x27;s &quot;Intro to Large Language Models&quot; lecture (youtube.com/watch?v=7xTGNNLPyMI). I downloaded the transcript and used Claude Code to generate the entire interactive site from it — single HTML file. I find it useful to revisit this content time</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
+  <div class="signal-footer">
+    <span>ynarwal.github.io · 2.5</span>
+    <a href="https://ynarwal.github.io/how-llms-work/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Show HN: Agent Vault – Open-source credential proxy and vault for agents</h3>
-  <p>Score: 53 | Comments: 14 | Text: Hey HN! Today we&#x27;re launching Agent Vault - an open source HTTP credential proxy and vault for AI agents. Repo is at https://github.com/Infisical/agent-vault , and there&#x27;s an in-dep</p>
+  <p>Score: 121 | Comments: 41 | Text: Hey HN! Today we&#x27;re launching Agent Vault - an open source HTTP credential proxy and vault for AI agents. Repo is at https://github.com/Infisical/agent-vault , and there&#x27;s an in-dep</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
   <div class="signal-footer">
     <span>github.com · 2.5</span>
@@ -398,30 +416,39 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Diagnosing CFG Interpretation in LLMs</h3>
-  <p>As LLMs are increasingly integrated into agentic systems, they must adhere to dynamically defined, machine-interpretable interfaces. We evaluate LLMs as in-context interpreters: given a novel context-free grammar, can LLMs generate syntactically valid, behaviorally functional, and semantically faithful outputs? We introduce RoboGrid, a framework that disentangles syntax, behavior, and semantics through controlled stress-tests of recursion depth, expression complexity, and surface styles. Our experiments reveal a consistent hierarchical degradation: LLMs often maintain surface syntax but fail to preserve structural semantics. Despite the partial mitigation provided by CoT reasoning, performance collapses under structural density, specifically deep recursion and high branching, with semantic alignment vanishing at extreme depths. Furthermore, &quot;Alien&quot; lexicons reveal that LLMs rely on semantic bootstrapping from keywords rather than pure symbolic induction. These findings pinpoint critical gaps in hierarchical state-tracking required for reliable, grammar-agnostic agents.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
+  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
+  <p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta&#x27;s compute portfolio to support agentic AI workloads. The post Meta Partners With AWS on Graviton Chips to Power Agentic AI appeared first on Meta Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
   <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.20811v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>Automatic Ontology Construction Using LLMs as an External Layer of Memory, Verification, and Planning for Hybrid Intelligent Systems</h3>
-  <p>This paper presents a hybrid architecture for intelligent systems in which large language models (LLMs) are extended with an external ontological memory layer. Instead of relying solely on parametric knowledge and vector-based retrieval (RAG), the proposed approach constructs and maintains a structured knowledge graph using RDF/OWL representations, enabling persistent, verifiable, and semantically grounded reasoning. The core contribution is an automated pipeline for ontology construction from heterogeneous data sources, including documents, APIs, and dialogue logs. The system performs entity recognition, relation extraction, normalization, and triple generation, followed by validation using SHACL and OWL constraints, and continuous graph updates. During inference, LLMs operate over a combined context that integrates vector-based retrieval with graph-based reasoning and external tool interaction. Experimental observations on planning tasks, including the Tower of Hanoi benchmark, indicate that ontology augmentation improves performance in multi-step reasoning scenarios compared to baseline LLM systems. In addition, the ontology layer enables formal validation of generated outputs, transforming the system into a generation-verification-correction pipeline. The proposed architecture addresses key limitations of current LLM-based systems, including lack of long-term memory, weak structural understanding, and limited reasoning capabilities. It provides a foundation for building agent-based systems, robotics applications, and enterprise AI solutions that require persistent knowledge, explainability, and reliable decision-making.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.20795v1" target="_blank" rel="noopener">查看原文</a>
+    <span>about.fb.com · 2.5</span>
+    <a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Can &quot;AI&quot; Be a Doctor? A Study of Empathy, Readability, and Alignment in Clinical LLMs</h3>
-  <p>Large Language Models (LLMs) are increasingly deployed in healthcare, yet their communicative alignment with clinical standards remains insufficiently quantified. We conduct a multidimensional evaluation of general-purpose and domain-specialized LLMs across structured medical explanations and real-world physician-patient interactions, analyzing semantic fidelity, readability, and affective resonance. Baseline models amplify affective polarity relative to physicians (Very Negative: 43.14-45.10% vs. 37.25%) and, in larger architectures such as GPT-5 and Claude, produce substantially higher linguistic complexity (FKGL up to 16.91-17.60 vs. 11.47-12.50 in physician-authored responses). Empathy-oriented prompting reduces extreme negativity and lowers grade-level complexity (up to -6.87 FKGL points for GPT-5) but does not significantly increase semantic fidelity. Collaborative rewriting yields the strongest overall alignment. Rephrase configurations achieve the highest semantic similarity to physician answers (up to mean = 0.93) while consistently improving readability and reducing affective extremity. Dual stakeholder evaluation shows that no model surpasses physicians on epistemic criteria, whereas patients consistently prefer rewritten variants for clarity and emotional tone. These findings suggest that LLMs function most effectively as collaborative communication enhancers rather than replacements for clinical expertise.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
+  <h3>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation</h3>
+  <p>Scientific workflow systems automate execution -- scheduling, fault tolerance, resource management -- but not the semantic translation that precedes it. Scientists still manually convert research questions into workflow specifications, a task requiring both domain knowledge and infrastructure expertise. We propose an agentic architecture that closes this gap through three layers: an LLM interprets natural language into structured intents (semantic layer); validated generators produce reproducible workflow DAGs (deterministic layer); and domain experts author ``Skills&#x27;&#x27;: markdown documents encoding vocabulary mappings, parameter constraints, and optimization strategies (knowledge layer). This decomposition confines LLM non-determinism to intent extraction: identical intents always yield identical workflows. We implement and evaluate the architecture on the 1000 Genomes population genetics workflow and Hyperflow WMS running on Kubernetes. In an ablation study on 150 queries, Skills raise full-match intent accuracy from 44% to 83%; skill-driven deferred workflow generation reduces data transfer by 92\%; and the end-to-end pipeline completes queries on Kubernetes with LLM overhead below 15 seconds and cost under $0.001 per query.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.20791v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.21910v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</h3>
+  <p>This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon&#x27;s taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 2.5</span>
+    <a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>NPU Design for Diffusion Language Model Inference</h3>
+  <p>Diffusion-based LLMs (dLLMs) fundamentally depart from traditional autoregressive (AR) LLM inference: they leverage bidirectional attention, block-wise KV cache refreshing, cross-step reuse, and a non-GEMM-centric sampling phase. These characteristics make current dLLMs incompatible with most existing NPUs, as their inference patterns, in particular the reduction-heavy, top-$k$-driven sampling stage, demand new ISA and memory hierarchy support beyond that of AR accelerators. In addition, the blocked diffusion KV cache breaks from the append-only paradigm assumed by AR NPUs, and conventional AR-derived KV quantization schemes were designed for static activation distributions and do not account for the step-wise distribution shifts introduced by iterative block-wise refinement in dLLMs. In this paper, we introduce the first NPU accelerator specifically designed for dLLMs. It delivers: a dLLM-oriented ISA and compiler; a hardware-optimized execution model for both the transformer inference and diffusion sampling used in dLLMs; a novel Block-Adaptive Online Smoothing (BAOS) for quantizing KV cache in dLLMs; and a complete RTL implementation synthesized in 7nm. To evaluate and validate our design, we introduce a tri-path simulation framework that comprises analytical, cycle-accurate, and accuracy simulators, together with cross-validations against physical hardware. The full NPU stack, including ISA, simulation tools, and quantization software, will be open-sourced upon acceptance.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.AR</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 2.5</span>
+    <a href="https://arxiv.org/abs/2601.20706v2" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -578,6 +605,15 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>DeepSeek-V4: a million-token context that agents can actually use</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 1.8</span>
+    <a href="https://huggingface.co/blog/deepseekv4" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -613,31 +649,13 @@
     <a href="https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>SpeechParaling-Bench: A Comprehensive Benchmark for Paralinguistic-Aware Speech Generation</h3>
-  <p>Paralinguistic cues are essential for natural human-computer interaction, yet their evaluation in Large Audio-Language Models (LALMs) remains limited by coarse feature coverage and the inherent subjectivity of assessment. To address these challenges, we introduce SpeechParaling-Bench, a comprehensive benchmark for paralinguistic-aware speech generation. It expands existing coverage from fewer than 50 to over 100 fine-grained features, supported by more than 1,000 English-Chinese parallel speech queries, and is organized into three progressively challenging tasks: fine-grained control, intra-utterance variation, and context-aware adaptation. To enable reliable evaluation, we further develop a pairwise comparison pipeline, in which candidate responses are evaluated against a fixed baseline by an LALM-based judge. By framing evaluation as relative preference rather than absolute scoring, this approach mitigates subjectivity and yields more stable and scalable assessments without costly human annotation. Extensive experiments reveal substantial limitations in current LALMs. Even leading proprietary models struggle with comprehensive static control and dynamic modulation of paralinguistic features, while failure to correctly interpret paralinguistic cues accounts for 43.3% of errors in situational dialogue. These findings underscore the need for more robust paralinguistic modeling toward human-aligned voice assistants.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
+  <span class="tag alt">AI × Electronics</span>
+  <h3>A Scale-Adaptive Framework for Joint Spatiotemporal Super-Resolution with Diffusion Models</h3>
+  <p>Deep-learning video super-resolution has progressed rapidly, but climate applications typically super-resolve (increase resolution) either space or time, and joint spatiotemporal models are often designed for a single pair of super-resolution (SR) factors (upscaling spatial and temporal ratio between the low-resolution sequence and the high-resolution sequence), limiting transfer across spatial resolutions and temporal cadences (frame rates). We present a scale-adaptive framework that reuses the same architecture across factors by decomposing spatiotemporal SR into a deterministic prediction of the conditional mean, with attention, and a residual conditional diffusion model, with an optional mass-conservation (same precipitation amount in inputs and outputs) transform to preserve aggregated totals. Assuming that larger SR factors primarily increase underdetermination (hence required context and residual uncertainty) rather than changing the conditional-mean structure, scale adaptivity is achieved by retuning three factor-dependent hyperparameters before retraining: the diffusion noise schedule amplitude beta (larger for larger factors to increase diversity), the temporal context length L (set to maintain comparable attention horizons across cadences) and optionally a third, the mass-conservation function f (tapered to limit the amplification of extremes for large factors). Demonstrated on reanalysis precipitation over France (Comephore), the same architecture spans super-resolution factors from 1 to 25 in space and 1 to 6 in time, yielding a reusable architecture and tuning recipe for joint spatiotemporal super-resolution across scales.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.8</span>
-    <a href="https://arxiv.org/abs/2604.20842v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>AVISE: Framework for Evaluating the Security of AI Systems</h3>
-  <p>As artificial intelligence (AI) systems are increasingly deployed across critical domains, their security vulnerabilities pose growing risks of high-profile exploits and consequential system failures. Yet systematic approaches to evaluating AI security remain underdeveloped. In this paper, we introduce AVISE (AI Vulnerability Identification and Security Evaluation), a modular open-source framework for identifying vulnerabilities in and evaluating the security of AI systems and models. As a demonstration of the framework, we extend the theory-of-mind-based multi-turn Red Queen attack into an Adversarial Language Model (ALM) augmented attack and develop an automated Security Evaluation Test (SET) for discovering jailbreak vulnerabilities in language models. The SET comprises 25 test cases and an Evaluation Language Model (ELM) that determines whether each test case was able to jailbreak the target model, achieving 92% accuracy, an F1-score of 0.91, and a Matthews correlation coefficient of 0.83. We evaluate nine recently released language models of diverse sizes with the SET and find that all are vulnerable to the augmented Red Queen attack to varying degrees. AVISE provides researchers and industry practitioners with an extensible foundation for developing and deploying automated SETs, offering a concrete step toward more rigorous and reproducible AI security evaluation.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.8</span>
-    <a href="https://arxiv.org/abs/2604.20833v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>OMIBench: Benchmarking Olympiad-Level Multi-Image Reasoning in Large Vision-Language Model</h3>
-  <p>Large vision-language models (LVLMs) have made substantial advances in reasoning tasks at the Olympiad level. Nevertheless, current Olympiad-level multimodal reasoning benchmarks for these models often emphasize single-image analysis and fail to exploit contextual information across multiple images. We present OMIBench, a benchmark designed to evaluate Olympiad-level reasoning when the required evidence is distributed over multiple images. It contains problems from biology, chemistry, mathematics, and physics Olympiads, together with manually annotated rationales and evaluation protocols for both exact and semantic answer matching. Across extensive experiments on OMIBench, we observe meaningful performance gaps in existing models. Even the strongest LVLMs, such as Gemini-3-Pro, attain only about 50% on the benchmark. These results position OMIBench as a focused resources for studying and improving multi-image reasoning in LVLMs.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.8</span>
-    <a href="https://arxiv.org/abs/2604.20806v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.21903v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -660,7 +678,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Alberta startup sells no-tech tractors for half price</h3>
-  <p>Score: 2138 | Comments: 731</p>
+  <p>Score: 2229 | Comments: 750</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>wheelfront.com · 1.0</span>
@@ -669,7 +687,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>GPT-5.5</h3>
-  <p>Score: 1006 | Comments: 657</p>
+  <p>Score: 1433 | Comments: 952</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
@@ -677,8 +695,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>DeepSeek v4</h3>
+  <p>Score: 1284 | Comments: 917 | Text: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>api-docs.deepseek.com · 1.0</span>
+    <a href="https://api-docs.deepseek.com/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model</h3>
-  <p>Score: 943 | Comments: 433</p>
+  <p>Score: 964 | Comments: 437</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>qwen.ai · 1.0</span>
@@ -687,7 +714,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Apple fixes bug that cops used to extract deleted chat messages from iPhones</h3>
-  <p>Score: 843 | Comments: 183</p>
+  <p>Score: 863 | Comments: 186</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>techcrunch.com · 1.0</span>
@@ -696,7 +723,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Bitwarden CLI compromised in ongoing Checkmarx supply chain campaign</h3>
-  <p>Score: 612 | Comments: 288</p>
+  <p>Score: 803 | Comments: 383</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>socket.dev · 1.0</span>
@@ -705,7 +732,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>An update on recent Claude Code quality reports</h3>
-  <p>Score: 526 | Comments: 399</p>
+  <p>Score: 802 | Comments: 615</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>anthropic.com · 1.0</span>
@@ -713,89 +740,71 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Website streamed live directly from a model</h3>
-  <p>Score: 414 | Comments: 110 | Text: https://x.com/zan2434/status/2046982383430496444 ( https://</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <h3>Meta tells staff it will cut 10% of jobs</h3>
+  <p>Score: 681 | Comments: 660 | Text: https://techcrunch.com/2026/04/23/meta-job-cuts-10-percent-8...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>flipbook.page · 1.0</span>
-    <a href="https://flipbook.page/" target="_blank" rel="noopener">查看原文</a>
+    <span>bloomberg.com · 1.0</span>
+    <a href="https://www.bloomberg.com/news/articles/2026-04-23/meta-tells-staff-it-will-cut-10-of-jobs-in-push-for-efficiency" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Over-editing refers to a model modifying code beyond what is necessary</h3>
-  <p>Score: 412 | Comments: 239</p>
+  <h3>US special forces soldier arrested after allegedly winning $400k on Maduro raid</h3>
+  <p>Score: 387 | Comments: 425 | Text: &lt;a href=&quot;https://www.justice.gov/usao-sdny/pr/us-soldier-charged-using-classified-information-profit-prediction-market-bets?bm-verify=AAQAAAAN_____y6To7sZYZ502biZwIHXlr-7zXZUqV4H0xLTfW__wDA3SjNLqifXRaQwsikyuz6IJknyuL8xfVYRkesxcDk5V10m-HoXl2K93f17rygBphL77WVFoQ_XvlmUo922IwM_D</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>nrehiew.github.io · 1.0</span>
-    <a href="https://nrehiew.github.io/blog/minimal_editing/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Meta to cut 10% of jobs</h3>
-  <p>Score: 373 | Comments: 346</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>techcrunch.com · 1.0</span>
-    <a href="https://techcrunch.com/2026/04/23/meta-job-cuts-10-percent-8000-employees/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Investigation uncovers two sophisticated telecom surveillance campaigns</h3>
-  <p>Score: 367 | Comments: 127 | Text: https://citizenlab.ca/research/uncovering-global-telecom-exp...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>techcrunch.com · 1.0</span>
-    <a href="https://techcrunch.com/2026/04/23/surveillance-vendors-caught-abusing-access-to-telcos-to-track-peoples-phone-locations-researchers-say/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Arch Linux Now Has a Bit-for-Bit Reproducible Docker Image</h3>
-  <p>Score: 296 | Comments: 103</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>antiz.fr · 1.0</span>
-    <a href="https://antiz.fr/blog/archlinux-now-has-a-reproducible-docker-image/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>&#x27;Hairdryer used to trick weather sensor&#x27; to win Polymarket bet</h3>
-  <p>Score: 227 | Comments: 221</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>telegraph.co.uk · 1.0</span>
-    <a href="https://www.telegraph.co.uk/business/2026/04/23/hairdryer-used-trick-weather-sensor-34000-polymarket-bet/" target="_blank" rel="noopener">查看原文</a>
+    <span>cnn.com · 1.0</span>
+    <a href="https://www.cnn.com/2026/04/23/politics/us-special-forces-soldier-arrested-maduro-raid-trade" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Incident with multple GitHub services</h3>
-  <p>Score: 194 | Comments: 97</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 257 | Comments: 124</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>githubstatus.com · 1.0</span>
     <a href="https://www.githubstatus.com/incidents/myrbk7jvvs6p" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Our newsroom AI policy</h3>
-  <p>Score: 181 | Comments: 124</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>arstechnica.com · 1.0</span>
-    <a href="https://arstechnica.com/staff/2026/04/our-newsroom-ai-policy/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>MeshCore development team splits over trademark dispute and AI-generated code</h3>
-  <p>Score: 142 | Comments: 82</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 241 | Comments: 128</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>blog.meshcore.io · 1.0</span>
     <a href="https://blog.meshcore.io/2026/04/23/the-split" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Our newsroom AI policy</h3>
+  <p>Score: 200 | Comments: 128</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>arstechnica.com · 1.0</span>
+    <a href="https://arstechnica.com/staff/2026/04/our-newsroom-ai-policy/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>UK Biobank health data keeps ending up on GitHub</h3>
+  <p>Score: 167 | Comments: 41 | Text: I&#x27;m a researcher studying privacy, and I started tracking the DMCA notices that UK Biobank sends to GitHub. I tracked 110 notices filed so far, targeting 197 code repositories by 170 developers across the world. The exposure of Biobank data on GitHub is the latest in a long series of governan</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>biobank.rocher.lc · 1.0</span>
+    <a href="https://biobank.rocher.lc" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>S. Korea police arrest man over AI image of runaway wolf that misled authorities</h3>
+  <p>Score: 166 | Comments: 94</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>bbc.com · 1.0</span>
+    <a href="https://www.bbc.com/news/articles/c4gx1n0dl9no" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Writing a C Compiler, in Zig (2025)</h3>
-  <p>Score: 133 | Comments: 36</p>
+  <p>Score: 166 | Comments: 52</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>ar-ms.me · 1.0</span>
@@ -803,21 +812,30 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>A Renaissance gambling dispute spawned probability theory</h3>
-  <p>Score: 96 | Comments: 15</p>
+  <h3>TorchTPU: Running PyTorch Natively on TPUs at Google Scale</h3>
+  <p>Score: 159 | Comments: 14</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
-    <span>scientificamerican.com · 1.0</span>
-    <a href="https://www.scientificamerican.com/article/how-a-renaissance-gambling-dispute-spawned-probability-theory/" target="_blank" rel="noopener">查看原文</a>
+    <span>developers.googleblog.com · 1.0</span>
+    <a href="https://developers.googleblog.com/torchtpu-running-pytorch-natively-on-tpus-at-google-scale/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>OpenAI&#x27;s response to the Axios developer tool compromise</h3>
-  <p>Score: 93 | Comments: 59</p>
+  <h3>Spinel: Ruby AOT Native Compiler</h3>
+  <p>Score: 148 | Comments: 35</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/axios-developer-tool-compromise/" target="_blank" rel="noopener">查看原文</a>
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/matz/spinel" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>UK Biobank leak: Health details of 500 000 people are offered for sale</h3>
+  <p>Score: 145 | Comments: 51</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>bmj.com · 1.0</span>
+    <a href="https://www.bmj.com/content/393/bmj.s781" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -847,6 +865,15 @@
     <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
+  <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
   <h3>alibaba/MNN</h3>
   <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
@@ -866,12 +893,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
-  <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <h3>mem0ai/mem0</h3>
+  <p>Universal memory layer for AI Agents</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
-    <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -881,15 +908,6 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>mem0ai/mem0</h3>
-  <p>Universal memory layer for AI Agents</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -938,21 +956,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>What is Codex?</h3>
-  <p>Learn how Codex helps you go beyond chat by automating tasks, connecting tools, and producing real outputs like docs and dashboards.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/what-is-codex" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Automations</h3>
   <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
     <a href="https://openai.com/academy/codex-automations" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Top 10 uses for Codex at work</h3>
+  <p>Explore 10 practical Codex use cases to automate tasks, create deliverables, and turn real inputs into outputs across tools, files, and workflows.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/academy/top-10-use-cases-codex-for-work" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -974,21 +992,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>How to get started with Codex</h3>
-  <p>Learn how to get started with Codex by setting up projects, creating threads, and completing your first tasks with step-by-step guidance.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/codex-how-to-start" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Codex settings</h3>
   <p>Learn how to configure Codex settings, including personalization, detail level, and permissions, to run tasks smoothly and customize your workflow.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
     <a href="https://openai.com/academy/codex-settings" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>What is Codex?</h3>
+  <p>Learn how Codex helps you go beyond chat by automating tasks, connecting tools, and producing real outputs like docs and dashboards.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/academy/what-is-codex" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1037,15 +1055,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>How AI Is Ushering in the Next Era of Risk Review at Meta</h3>
-  <p>We&#x27;ve developed an AI-powered Risk Review program that enables us to identify and address potential privacy, safety, and security concerns faster and more accurately. The post How AI Is Ushering in the Next Era of Risk Review at Meta appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data and Privacy</span><span class="tag">Integrity and Security</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>AutoAdapt: Automated domain adaptation for large language models</h3>
   <p>Deploying large language models (LLMs) in real-world, high-stakes settings is harder than it should be. In high-stakes settings like law, medicine, and cloud incident response, performance and reliability can quickly break down because adapting models to domain-specific requirements is a slow and manual process that is difficult to reproduce. The core challenge is domain adaptation, […] The post AutoAdapt: Automated domain adaptation for large language models appeared first on Microsoft Research .</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
@@ -1082,39 +1091,39 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>FedSIR: Spectral Client Identification and Relabeling for Federated Learning with Noisy Labels</h3>
-  <p>Federated learning (FL) enables collaborative model training without sharing raw data; however, the presence of noisy labels across distributed clients can severely degrade the learning performance. In this paper, we propose FedSIR, a multi-stage framework for robust FL under noisy labels. Different from existing approaches that mainly rely on designing noise-tolerant loss functions or exploiting loss dynamics during training, our method leverages the spectral structure of client feature representations to identify and mitigate label noise. Our framework consists of three key components. First, we identify clean and noisy clients by analyzing the spectral consistency of class-wise feature subspaces with minimal communication overhead. Second, clean clients provide spectral references that enable noisy clients to relabel potentially corrupted samples using both dominant class directions and residual subspaces. Third, we employ a noise-aware training strategy that integrates logit-adjusted loss, knowledge distillation, and distance-aware aggregation to further stabilize federated optimization. Extensive experiments on standard FL benchmarks demonstrate that FedSIR consistently outperforms state-of-the-art methods for FL with noisy labels. The code is available at https://github.com/sinagh72/FedSIR.</p>
+  <h3>Seeing Fast and Slow: Learning the Flow of Time in Videos</h3>
+  <p>How can we tell whether a video has been sped up or slowed down? How can we generate videos at different speeds? Although videos have been central to modern computer vision research, little attention has been paid to perceiving and controlling the passage of time. In this paper, we study time as a learnable visual concept and develop models for reasoning about and manipulating the flow of time in videos. We first exploit the multimodal cues and temporal structure naturally present in videos to learn, in a self-supervised manner, to detect speed changes and estimate playback speed. We then show that these learned temporal reasoning models enable us to curate the largest slow-motion video dataset to date from noisy in-the-wild sources. Such slow-motion footage, typically filmed by high-speed cameras, contains substantially richer temporal detail than standard videos. Using this data, we further develop models capable of temporal control, including speed-conditioned video generation, which produces motion at specified playback speed, and temporal super-resolution, which tranforms low-FPS, blurry videos into high-FPS sequences with fine-grained temporal details. Our findings highlight time as a manipulable, perceptual dimension in video learning, opening doors to temporally controllable video generation, temporal forensics detection, and potentially richer world-models that understand how events unfold over time.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CV</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.20825v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.21931v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Convergent Evolution: How Different Language Models Learn Similar Number Representations</h3>
-  <p>Language models trained on natural text learn to represent numbers using periodic features with dominant periods at $T=2, 5, 10$. In this paper, we identify a two-tiered hierarchy of these features: while Transformers, Linear RNNs, LSTMs, and classical word embeddings trained in different ways all learn features that have period-$T$ spikes in the Fourier domain, only some learn geometrically separable features that can be used to linearly classify a number mod-$T$. To explain this incongruity, we prove that Fourier domain sparsity is necessary but not sufficient for mod-$T$ geometric separability. Empirically, we investigate when model training yields geometrically separable features, finding that the data, architecture, optimizer, and tokenizer all play key roles. In particular, we identify two different routes through which models can acquire geometrically separable features: they can learn them from complementary co-occurrence signals in general language data, including text-number co-occurrence and cross-number interaction, or from multi-token (but not single-token) addition problems. Overall, our results highlight the phenomenon of convergent evolution in feature learning: A diverse range of models learn similar features from different training signals.</p>
+  <span class="tag alt">AI × Electronics</span>
+  <h3>When Prompts Override Vision: Prompt-Induced Hallucinations in LVLMs</h3>
+  <p>Despite impressive progress in capabilities of large vision-language models (LVLMs), these systems remain vulnerable to hallucinations, i.e., outputs that are not grounded in the visual input. Prior work has attributed hallucinations in LVLMs to factors such as limitations of the vision backbone or the dominance of the language component, yet the relative importance of these factors remains unclear. To resolve this ambiguity, We propose HalluScope, a benchmark to better understand the extent to which different factors induce hallucinations. Our analysis indicates that hallucinations largely stem from excessive reliance on textual priors and background knowledge, especially information introduced through textual instructions. To mitigate hallucinations induced by textual instruction priors, we propose HalluVL-DPO, a framework for fine-tuning off-the-shelf LVLMs towards more visually grounded responses. HalluVL-DPO leverages preference optimization using a curated training dataset that we construct, guiding the model to prefer grounded responses over hallucinated ones. We demonstrate that our optimized model effectively mitigates the targeted hallucination failure mode, while preserving or improving performance on other hallucination benchmarks and visual capability evaluations. To support reproducibility and further research, we will publicly release our evaluation benchmark, preference training dataset, and code at https://pegah-kh.github.io/projects/prompts-override-vision/ .</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.20817v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2604.21911v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Relative Principals, Pluralistic Alignment, and the Structural Value Alignment Problem</h3>
-  <p>The value alignment problem for artificial intelligence (AI) is often framed as a purely technical or normative challenge, sometimes focused on hypothetical future systems. I argue that the problem is better understood as a structural question about governance: not whether an AI system is aligned in the abstract, but whether it is aligned enough, for whom, and at what cost. Drawing on the principal-agent framework from economics, this paper reconceptualises misalignment as arising along three interacting axes: objectives, information, and principals. The three-axis framework provides a systematic way of diagnosing why misalignment arises in real-world systems and clarifies that alignment cannot be treated as a single technical property of models but an outcome shaped by how objectives are specified, how information is distributed, and whose interests count in practice. The core contribution of this paper is to show that the three-axis decomposition implies that alignment is fundamentally a problem of governance rather than engineering alone. From this perspective, alignment is inherently pluralistic and context-dependent, and resolving misalignment involves trade-offs among competing values. Because misalignment can occur along each axis -- and affect stakeholders differently -- the structural description shows that alignment cannot be &quot;solved&quot; through technical design alone, but must be managed through ongoing institutional processes that determine how objectives are set, how systems are evaluated, and how affected communities can contest or reshape those decisions.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CY</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.20805v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Working Memory Constraints Scaffold Learning in Transformers under Data Scarcity</h3>
-  <p>We investigate the integration of human-like working memory constraints into the Transformer architecture and implement several cognitively inspired attention variants, including fixed-width windows based and temporal decay based attention mechanisms. Our modified GPT-2 models are trained from scratch on developmentally plausible datasets (10M and 100M words). Performance is evaluated on grammatical judgment tasks (BLiMP) and alignment with human reading time data. Our results indicate that these cognitively-inspired constraints, particularly fixed-width attention, can significantly improve grammatical accuracy especially when training data is scarce. These constrained models also tend to show a stronger alignment with human processing metrics. The findings suggest that such constraints may serve as a beneficial inductive bias, guiding models towards more robust linguistic representations, especially in data-limited settings.</p>
+  <h3>Crystal: Characterizing Relative Impact of Scholarly Publications</h3>
+  <p>Assessing a cited paper&#x27;s impact is typically done by analyzing its citation context in isolation within the citing paper. While this focuses on the most directly relevant text, it prevents relative comparisons across all the works a paper cites. We propose Crystal, which instead jointly ranks all cited papers within a citing paper using large language models (LLMs). To mitigate LLMs&#x27; positional bias, we rank each list three times in a randomized order and aggregate the impact labels through majority voting. This joint approach leverages the full citation context, rather than evaluating citations independently, to more reliably distinguish impactful references. Crystal outperforms a prior state-of-the-art impact classifier by +9.5% accuracy and +8.3% F1 on a dataset of human-annotated citations. Crystal further gains efficiency through fewer LLM calls and performs competitively with an open-source model, enabling scalable, cost-effective citation impact analysis. We release our rankings, impact labels, and codebase to support future research.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
   <div class="signal-footer">
     <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.20789v1" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://arxiv.org/abs/2603.26791v2" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>GiVA: Gradient-Informed Bases for Vector-Based Adaptation</h3>
+  <p>As model sizes continue to grow, parameter-efficient fine-tuning has emerged as a powerful alternative to full fine-tuning. While LoRA is widely adopted among these methods, recent research has explored vector-based adaptation methods due to their extreme parameter efficiency. However, these methods typically require substantially higher ranks than LoRA to match its performance, leading to increased training costs. This work introduces GiVA, a gradient-based initialization strategy for vector-based adaptation. It achieves training times comparable to LoRA and maintains the extreme parameter efficiency of vector-based adaptation. We evaluate GiVA across diverse benchmarks, including natural language understanding, natural language generation, and image classification. Experiments show that our approach consistently outperforms or achieves performance competitive with existing vector-based adaptation methods and LoRA while reducing rank requirements by a factor of eight ($8\times$).</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
+  <div class="signal-footer">
+    <span>arxiv.org · 1.0</span>
+    <a href="https://arxiv.org/abs/2604.21901v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1190,6 +1199,24 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>An update on our election safeguards</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>anthropic.com · 0.3</span>
+    <a href="https://www.anthropic.com/news/election-safeguards-update" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>anthropic.com · 0.3</span>
+    <a href="https://www.anthropic.com/news/anthropic-nec" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -1199,21 +1226,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute</h3>
+  <h3>DeepSeek-V4 â</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/google-broadcom-partnership-compute" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Australian government and Anthropic sign MOU for AI safety and research</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/australia-MOU" target="_blank" rel="noopener">查看原文</a>
+    <span>api-docs.deepseek.com · 0.3</span>
+    <a href="https://api-docs.deepseek.com/updates/#deepseek-v4" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1277,15 +1295,6 @@
   <div class="signal-footer">
     <span>api-docs.deepseek.com · 0.3</span>
     <a href="https://api-docs.deepseek.com/updates/#deepseek-chat" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>deepseek-reasoner â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-reasoner-1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1766,6 +1775,15 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>How to Use Transformers.js in a Chrome Extension</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>huggingface.co · 0.3</span>
+    <a href="https://huggingface.co/blog/transformersjs-chrome-extension" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Gemma 4 VLA Demo on Jetson Orin Nano Super</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -1826,24 +1844,6 @@
   <div class="signal-footer">
     <span>huggingface.co · 0.3</span>
     <a href="https://huggingface.co/blog/multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Safetensors is Joining the PyTorch Foundation</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/safetensors-joins-pytorch-foundation" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Welcome Gemma 4: Frontier multimodal intelligence on device</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/gemma4" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
