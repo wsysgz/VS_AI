@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026.04.23 | VS_AI</title>
+<title>2026.04.24 | VS_AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -302,14 +302,14 @@
     </header>
 
     <section class="section">
-      <div class="eyebrow">2026.04.23</div>
-      <h1 class="section-title" style="font-size:34px;">AI代理领域正经历从能力扩展向可问责性基础设施的关键转型，调试框架、硬件优化和开发者工具同步演进，但真实部署中的风险控制仍存显著缺口</h1>
-      <p class="subtle">本周AI代理领域呈现三条主线并行推进：Microsoft发布AgentRx调试框架填补透明度空白、Google第八代TPU瞄准代理时代算力需求、Zed编辑器推出并行代理功能提升协作效率，三者共同指向构建更可靠、可控的AI代理生态。 与此同时，LLM生成安全报告导致内核代码误删事件暴露了自动化信任陷阱——LLM输出的不可逆决策风险远超预期，社区对LLM安全工具的可靠性存疑。 OpenAI的Workspace Agents虽获高关注，但信源单一且缺乏细节，无法评估其实际价值；MediaTek边缘AI升级信息过于稀缺，仅作信号标记。</p>
+      <div class="eyebrow">2026.04.24</div>
+      <h1 class="section-title" style="font-size:34px;">AI agent systems are maturing rapidly but face a critical bottleneck: the lack of transparency and debuggability at the architectural level, which threatens reliability in production environments.</h1>
+      <p class="subtle">AI agents are transitioning from simple chatbots to autonomous systems managing cloud incidents, complex web interfaces, and multi-step API workflows—creating new demands for system transparency that traditional approaches cannot meet. Microsoft Research&#x27;s AgentRx framework addresses this gap by providing systematic debugging capabilities for autonomous AI agents, representing a shift from treating agents as black boxes to engineering them as transparent, verifiable systems. The credential management problem for AI agents remains unsolved: Agent Vault offers a promising open-source solution targeting HTTP-based credential proxying, but must balance security against the low-latency requirements of automated, high-frequency agent operations.</p>
       <div class="archive-meta" style="margin-top:14px;">
-        <span class="tag alt">167 topics</span>
-        <span class="tag warm">169 raw items</span>
+        <span class="tag alt">166 topics</span>
+        <span class="tag warm">168 raw items</span>
         <span class="tag">自动版</span>
-        <span class="tag">2026-04-23T17:17:18.270539+08:00</span>
+        <span class="tag">2026-04-24T08:11:45.994307+08:00</span>
       </div>
     </section>
 
@@ -317,14 +317,14 @@
       <h2 class="section-title">Briefing Mainlines</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AgentRx框架：AI代理从&quot;能做什么&quot;转向&quot;做对了没有&quot;</h3>
-  <p>Microsoft Research推出的AgentRx标志着行业思路转变——不再是追求更强的自主能力，而是解决&quot;自主之后如何追责&quot;。当AI代理处理云端事故、API工作流等高风险任务时，决策链路不可追溯是部署最大障碍。该框架若成熟，可能成为企业级代理系统的标配组件。</p>
+  <h3>AgentRx: A new debugging framework for autonomous AI agents</h3>
+  <p>As AI agents take on high-stakes tasks like cloud incident management, their untraceable failures create reliability and trust bottlenecks. AgentRx addresses the core tension between agent autonomy and system transparency, making production deployment viable by enabling systematic error diagnosis.</p>
 </article><article class="summary-card">
-  <h3>Google TPU v8：硬件定义代理时代的战略赌注</h3>
-  <p>Google将TPU v8定位为&quot;代理时代&quot;基础设施，但现实挑战严峻：当前主流代理框架仍依赖NVIDIA GPU生态，TPU封闭性带来的迁移成本和锁定效应可能阻碍采纳。Google能否以性能优势打破GPU惯性，将决定其在AI基础设施市场的长期地位。</p>
+  <h3>Agent Vault: Open-source credential proxying for AI agents</h3>
+  <p>Traditional credential management (env vars, hardcoded secrets) is insecure and operationally complex for automated agents. Agent Vault fills a critical middleware gap by providing lightweight, HTTP-native credential management, though its success hinges on whether it can balance security with low-latency requirements.</p>
 </article><article class="summary-card">
-  <h3>Zed并行代理：开发者工具的协作范式探索</h3>
-  <p>代码编辑器的并行代理功能试图解决AI辅助编程的单点瓶颈，但多代理协调带来的上下文冲突、资源竞争等问题尚未被充分验证。社区高热度(224分)与实际落地效果之间存在落差，需关注后续用户反馈。</p>
+  <h3>RoboGrid reveals fundamental limits in LLM grammar interpretation</h3>
+  <p>LLMs maintain surface syntax but collapse under structural complexity (deep recursion, high branching). This hierarchical state-tracking gap threatens reliability in grammar-agnostic agentic systems. The discovery that LLMs rely on semantic bootstrapping from keywords rather than true symbolic induction suggests current architectures have inherent limits for formal language tasks.</p>
 </article>
       </div>
     </section>
@@ -333,25 +333,25 @@
       <h2 class="section-title">Deep Reads</h2>
       <div class="summary-grid">
         <article class="topic-card">
-  <h3>Workspace Agents in ChatGPT</h3>
-  <p>Workspace Agents在Hacker News上的高热度表明社区对AI智能体工作场景有强烈需求，但缺乏功能细节意味着当前无法评估其是否真正解决了现有痛点，需等待更多信源和用户反馈才能形成有效判断</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">low</span>
-  </div>
-</article><article class="topic-card">
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>AgentRx represents a necessary shift from building more capable agents to building more accountable ones, addressing the fundamental bottleneck of trust in autonomous AI systems.</p>
+  <p>The AgentRx framework represents a shift from treating AI agents as black boxes to engineering them as transparent, debuggable systems, which is a necessary condition for their deployment in production environments.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">high</span>
   </div>
 </article><article class="topic-card">
-  <h3>Parallel agents in Zed</h3>
-  <p>Zed 的并行代理试图解决 AI 辅助编程中的单点瓶颈，但多代理协调带来的新问题（如上下文冲突、资源竞争）可能成为实际应用的主要障碍。</p>
+  <h3>Show HN: Agent Vault – Open-source credential proxy and vault for agents</h3>
+  <p>Agent Vault 试图填补 AI 代理生态中一个关键但尚未被充分满足的中间件需求——为自动化代理提供轻量级、专为 HTTP 调用设计的凭证代理，其成功与否取决于能否在安全性与低延迟之间找到比现有通用方案更优的平衡点。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">medium</span>
+  </div>
+</article><article class="topic-card">
+  <h3>Diagnosing CFG Interpretation in LLMs</h3>
+  <p>LLMs&#x27; ability to follow formal grammars is a fragile surface-level mimicry that breaks down under structural complexity, revealing a core limitation in hierarchical reasoning that threatens their reliability in agentic systems.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">high</span>
   </div>
 </article>
       </div>
@@ -370,27 +370,9 @@
     <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
-  <h3>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>mediatek.com · 2.6</span>
-    <a href="https://www.mediatek.com/tek-talk-blogs/iot-gets-a-powerful-edge-ai-upgrade-mediatek-at-embedded-world" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Our eighth generation TPUs: two chips for the agentic era</h3>
-  <p>Score: 431 | Comments: 212 | Text: https://cloud.google.com/blog/products/compute/tpu-8t-and-tp...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>blog.google · 2.5</span>
-    <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/eighth-generation-tpu-agentic-era/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Parallel agents in Zed</h3>
-  <p>Score: 224 | Comments: 122</p>
+  <p>Score: 271 | Comments: 157</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>zed.dev · 2.5</span>
@@ -398,39 +380,12 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Workspace Agents in ChatGPT</h3>
-  <p>Score: 135 | Comments: 51</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 2.5</span>
-    <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Kernel code removals driven by LLM-created security reports</h3>
-  <p>Score: 114 | Comments: 97</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>lwn.net · 2.5</span>
-    <a href="https://lwn.net/Articles/1068928/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Show HN: Broccoli, one shot coding agent on the cloud</h3>
-  <p>Score: 61 | Comments: 41 | Text: Hi HN — we built Broccoli, an open-source harness for taking coding tasks from Linear, running them in isolated cloud sandboxes, and opening PRs for a human to review. We’re a small team, and our main company supplies voice data. But we kept running into the same problem with coding agents. We’d</p>
+  <h3>Show HN: Agent Vault – Open-source credential proxy and vault for agents</h3>
+  <p>Score: 53 | Comments: 14 | Text: Hey HN! Today we&#x27;re launching Agent Vault - an open source HTTP credential proxy and vault for AI agents. Repo is at https://github.com/Infisical/agent-vault , and there&#x27;s an in-dep</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
   <div class="signal-footer">
     <span>github.com · 2.5</span>
-    <a href="https://github.com/besimple-oss/broccoli" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Bring your own Agent to MS Teams</h3>
-  <p>Score: 59 | Comments: 46</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>microsoft.github.io · 2.5</span>
-    <a href="https://microsoft.github.io/teams-sdk/blog/bring-your-agent-to-teams/" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://github.com/Infisical/agent-vault" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -440,33 +395,6 @@
   <div class="signal-footer">
     <span>github.com · 2.5</span>
     <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Workspace agents</h3>
-  <p>Learn how to build, use, and scale workspace agents in ChatGPT to automate repeatable workflows, connect tools, and streamline team operations.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 2.5</span>
-    <a href="https://openai.com/academy/workspace-agents" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Introducing workspace agents in ChatGPT</h3>
-  <p>Workspace agents in ChatGPT are Codex-powered agents that automate complex workflows, run in the cloud, and help teams scale work across tools securely.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Product</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 2.5</span>
-    <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Speeding up agentic workflows with WebSockets in the Responses API</h3>
-  <p>A deep dive into the Codex agent loop, showing how WebSockets and connection-scoped caching reduced API overhead and improved model latency.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Engineering</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 2.5</span>
-    <a href="https://openai.com/index/speeding-up-agentic-workflows-with-websockets" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -578,6 +506,15 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
+  <h3>Figma - MultiAgents</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>cerebras.ai · 1.8</span>
+    <a href="https://www.cerebras.ai/blog/figma-multiagents" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
   <h3>Lessons learned from building multi-agent workflows</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -614,21 +551,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
-  <h3>Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 1.8</span>
-    <a href="https://www.edgeimpulse.com/blog/announcing-arduino-app-lab-full-integration-and-ventuno-q/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
   <h3>A Look Inside my Edge AI Inspection Robot (ROS 2–Native)</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
   <div class="signal-footer">
     <span>edgeimpulse.com · 1.8</span>
     <a href="https://www.edgeimpulse.com/blog/edge-ai-inspection-robot-ros-2-native/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
+  <div class="signal-footer">
+    <span>edgeimpulse.com · 1.8</span>
+    <a href="https://www.edgeimpulse.com/blog/announcing-arduino-app-lab-full-integration-and-ventuno-q/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -723,7 +660,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Alberta startup sells no-tech tractors for half price</h3>
-  <p>Score: 1746 | Comments: 557</p>
+  <p>Score: 2138 | Comments: 731</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>wheelfront.com · 1.0</span>
@@ -731,17 +668,17 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>ChatGPT Images 2.0</h3>
-  <p>Score: 1012 | Comments: 938 | Text: Livestream: https://openai.com/live/ System card: https://deploymentsaf</p>
+  <h3>GPT-5.5</h3>
+  <p>Score: 1006 | Comments: 657</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/index/introducing-gpt-5-5/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model</h3>
-  <p>Score: 838 | Comments: 386</p>
+  <p>Score: 943 | Comments: 433</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>qwen.ai · 1.0</span>
@@ -750,7 +687,7 @@
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Apple fixes bug that cops used to extract deleted chat messages from iPhones</h3>
-  <p>Score: 585 | Comments: 146</p>
+  <p>Score: 843 | Comments: 183</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>techcrunch.com · 1.0</span>
@@ -758,26 +695,26 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Over-editing refers to a model modifying code beyond what is necessary</h3>
-  <p>Score: 360 | Comments: 205</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <h3>Bitwarden CLI compromised in ongoing Checkmarx supply chain campaign</h3>
+  <p>Score: 612 | Comments: 288</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>nrehiew.github.io · 1.0</span>
-    <a href="https://nrehiew.github.io/blog/minimal_editing/" target="_blank" rel="noopener">查看原文</a>
+    <span>socket.dev · 1.0</span>
+    <a href="https://socket.dev/blog/bitwarden-cli-compromised" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Scoring Show HN submissions for AI design patterns</h3>
-  <p>Score: 306 | Comments: 219</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span><span class="tag">trending</span></div>
+  <h3>An update on recent Claude Code quality reports</h3>
+  <p>Score: 526 | Comments: 399</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>adriankrebs.ch · 1.0</span>
-    <a href="https://www.adriankrebs.ch/blog/design-slop/" target="_blank" rel="noopener">查看原文</a>
+    <span>anthropic.com · 1.0</span>
+    <a href="https://www.anthropic.com/engineering/april-23-postmortem" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Website streamed live directly from a model</h3>
-  <p>Score: 265 | Comments: 77 | Text: https://x.com/zan2434/status/2046982383430496444 ( https://</p>
+  <p>Score: 414 | Comments: 110 | Text: https://x.com/zan2434/status/2046982383430496444 ( https://</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>flipbook.page · 1.0</span>
@@ -785,62 +722,62 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Columnar Storage Is Normalization</h3>
-  <p>Score: 110 | Comments: 37</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <h3>Over-editing refers to a model modifying code beyond what is necessary</h3>
+  <p>Score: 412 | Comments: 239</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>buttondown.com · 1.0</span>
-    <a href="https://buttondown.com/jaffray/archive/columnar-storage-is-normalization/" target="_blank" rel="noopener">查看原文</a>
+    <span>nrehiew.github.io · 1.0</span>
+    <a href="https://nrehiew.github.io/blog/minimal_editing/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Iran claims US exploited networking equipment backdoors during strikes</h3>
-  <p>Score: 75 | Comments: 39</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <h3>Meta to cut 10% of jobs</h3>
+  <p>Score: 373 | Comments: 346</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>tomshardware.com · 1.0</span>
-    <a href="https://www.tomshardware.com/tech-industry/cyber-security/iran-claims-us-exploited-networking-equipment-backdoors-during-strikes" target="_blank" rel="noopener">查看原文</a>
+    <span>techcrunch.com · 1.0</span>
+    <a href="https://techcrunch.com/2026/04/23/meta-job-cuts-10-percent-8000-employees/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>OpenAI&#x27;s response to the Axios developer tool compromise</h3>
-  <p>Score: 74 | Comments: 42</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <h3>Investigation uncovers two sophisticated telecom surveillance campaigns</h3>
+  <p>Score: 367 | Comments: 127 | Text: https://citizenlab.ca/research/uncovering-global-telecom-exp...</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/axios-developer-tool-compromise/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>The Illuminated Man: an unconventional portrait of JG Ballard</h3>
-  <p>Score: 55 | Comments: 18</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>theguardian.com · 1.0</span>
-    <a href="https://www.theguardian.com/books/2026/apr/20/the-illuminated-man-by-christopher-priest-and-nina-allan-review-an-unconventional-portrait-of-jg-ballard" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Verus is a tool for verifying the correctness of code written in Rust</h3>
-  <p>Score: 52 | Comments: 10</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>verus-lang.github.io · 1.0</span>
-    <a href="https://verus-lang.github.io/verus/guide/" target="_blank" rel="noopener">查看原文</a>
+    <span>techcrunch.com · 1.0</span>
+    <a href="https://techcrunch.com/2026/04/23/surveillance-vendors-caught-abusing-access-to-telcos-to-track-peoples-phone-locations-researchers-say/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
   <h3>Arch Linux Now Has a Bit-for-Bit Reproducible Docker Image</h3>
-  <p>Score: 49 | Comments: 10</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <p>Score: 296 | Comments: 103</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
   <div class="signal-footer">
     <span>antiz.fr · 1.0</span>
     <a href="https://antiz.fr/blog/archlinux-now-has-a-reproducible-docker-image/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>&#x27;Hairdryer used to trick weather sensor&#x27; to win Polymarket bet</h3>
+  <p>Score: 227 | Comments: 221</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
+  <div class="signal-footer">
+    <span>telegraph.co.uk · 1.0</span>
+    <a href="https://www.telegraph.co.uk/business/2026/04/23/hairdryer-used-trick-weather-sensor-34000-polymarket-bet/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Ars Technica: Our newsroom AI policy</h3>
-  <p>Score: 45 | Comments: 27</p>
+  <h3>Incident with multple GitHub services</h3>
+  <p>Score: 194 | Comments: 97</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>githubstatus.com · 1.0</span>
+    <a href="https://www.githubstatus.com/incidents/myrbk7jvvs6p" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Our newsroom AI policy</h3>
+  <p>Score: 181 | Comments: 124</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
     <span>arstechnica.com · 1.0</span>
@@ -848,12 +785,39 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>langchain-ai/langgraph</h3>
-  <p>Build resilient language agents as graphs.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <h3>MeshCore development team splits over trademark dispute and AI-generated code</h3>
+  <p>Score: 142 | Comments: 82</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
   <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
+    <span>blog.meshcore.io · 1.0</span>
+    <a href="https://blog.meshcore.io/2026/04/23/the-split" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Writing a C Compiler, in Zig (2025)</h3>
+  <p>Score: 133 | Comments: 36</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>ar-ms.me · 1.0</span>
+    <a href="https://ar-ms.me/thoughts/c-compiler-1-zig/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>A Renaissance gambling dispute spawned probability theory</h3>
+  <p>Score: 96 | Comments: 15</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>scientificamerican.com · 1.0</span>
+    <a href="https://www.scientificamerican.com/article/how-a-renaissance-gambling-dispute-spawned-probability-theory/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>OpenAI&#x27;s response to the Axios developer tool compromise</h3>
+  <p>Score: 93 | Comments: 59</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/index/axios-developer-tool-compromise/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -863,6 +827,15 @@
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>langchain-ai/langgraph</h3>
+  <p>Build resilient language agents as graphs.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
@@ -875,21 +848,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI × Electronics</span>
-  <h3>tenstorrent/tt-metal</h3>
-  <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
   <h3>alibaba/MNN</h3>
   <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI × Electronics</span>
+  <h3>tenstorrent/tt-metal</h3>
+  <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -902,21 +875,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>mem0ai/mem0</h3>
-  <p>Universal memory layer for AI Agents</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>openai/swarm</h3>
   <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>mem0ai/mem0</h3>
+  <p>Universal memory layer for AI Agents</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -929,21 +902,21 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>NVIDIA/TensorRT</h3>
-  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>onnx/onnx</h3>
   <p>Open standard for machine learning interoperability</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
   <div class="signal-footer">
     <span>github.com · 1.0</span>
     <a href="https://github.com/onnx/onnx" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>NVIDIA/TensorRT</h3>
+  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
+  <div class="signal-footer">
+    <span>github.com · 1.0</span>
+    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -956,48 +929,75 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Making ChatGPT better for clinicians</h3>
-  <p>OpenAI makes ChatGPT for Clinicians free for verified U.S. physicians, nurse practitioners, and pharmacists, supporting clinical care, documentation, and research.</p>
+  <h3>Introducing GPT-5.5</h3>
+  <p>Introducing GPT-5.5, our smartest model yet—faster, more capable, and built for complex tasks like coding, research, and data analysis across tools.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Product</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/making-chatgpt-better-for-clinicians" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/index/introducing-gpt-5-5" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Introducing OpenAI Privacy Filter</h3>
-  <p>OpenAI Privacy Filter is an open-weight model for detecting and redacting personally identifiable information (PII) in text with state-of-the-art accuracy</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research</span><span class="tag">ai-llm-agent</span></div>
+  <h3>What is Codex?</h3>
+  <p>Learn how Codex helps you go beyond chat by automating tasks, connecting tools, and producing real outputs like docs and dashboards.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/introducing-openai-privacy-filter" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/academy/what-is-codex" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Introducing ChatGPT Images 2.0</h3>
-  <p>ChatGPT Images 2.0 introduces a state-of-the-art image generation model with improved text rendering, multilingual support, and advanced visual reasoning.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Product</span><span class="tag">ai-llm-agent</span></div>
+  <h3>Automations</h3>
+  <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/introducing-chatgpt-images-2-0" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/academy/codex-automations" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>Scaling Codex to enterprises worldwide</h3>
-  <p>OpenAI launches Codex Labs, partners with with Accenture, PwC, Infosys, and others to help enterprises deploy and scale Codex across the software development lifecycle, and hits 4M Codex WAU.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Company</span><span class="tag">ai-llm-agent</span></div>
+  <h3>Plugins and skills</h3>
+  <p>Learn how to use Codex plugins and skills to connect tools, access data, and follow repeatable workflows to automate tasks and improve results.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/scaling-codex-to-enterprises-worldwide" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/academy/codex-plugins-and-skills" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>OpenAI helps Hyatt advance AI among colleagues</h3>
-  <p>Hyatt deploys ChatGPT Enterprise across its global workforce, using GPT-5.4 and Codex to improve productivity, operations, and guest experiences.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Global Affairs</span><span class="tag">ai-llm-agent</span></div>
+  <h3>Working with Codex</h3>
+  <p>Learn how to set up your Codex workspace, create threads and projects, manage files, and start completing tasks with step-by-step guidance.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
   <div class="signal-footer">
     <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/hyatt-advances-ai-with-chatgpt-enterprise" target="_blank" rel="noopener">查看原文</a>
+    <a href="https://openai.com/academy/working-with-codex" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>How to get started with Codex</h3>
+  <p>Learn how to get started with Codex by setting up projects, creating threads, and completing your first tasks with step-by-step guidance.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/academy/codex-how-to-start" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Codex settings</h3>
+  <p>Learn how to configure Codex settings, including personalization, detail level, and permissions, to run tasks smoothly and customize your workflow.</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 1.0</span>
+    <a href="https://openai.com/academy/codex-settings" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>Helping Parents Understand the Conversations Their Teens Are Having With AI</h3>
+  <p>We&#x27;re introducing new tools for parents supervising Teen Accounts to help them understand how their teens are using AI. The post Helping Parents Understand the Conversations Their Teens Are Having With AI appeared first on Meta Newsroom .</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Meta</span><span class="tag">Recent News</span></div>
+  <div class="signal-footer">
+    <span>about.fb.com · 1.0</span>
+    <a href="https://about.fb.com/news/2026/04/helping-parents-understand-conversations-their-teens-are-having-with-ai/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1043,15 +1043,6 @@
   <div class="signal-footer">
     <span>about.fb.com · 1.0</span>
     <a href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
-  <h3>Meta Partners With Arm to Develop New Class of Data Center Silicon</h3>
-  <p>We’re partnering with Arm to develop a new class of CPUs purpose-built to support data centers and large-scale AI deployments. The post Meta Partners With Arm to Develop New Class of Data Center Silicon appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/03/meta-partners-with-arm-to-develop-new-class-of-data-center-silicon/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
@@ -1469,15 +1460,6 @@
   </div>
 </article><article class="signal">
   <span class="tag alt">AI / Agent</span>
-  <h3>The Year of Latency Debt (And How Big Tech Is Paying It Down)</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 0.3</span>
-    <a href="https://www.cerebras.ai/blog/latency-debt" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
   <h3>Canopy Labs’ Orpheus TTS is live on GroqCloud</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
@@ -1862,6 +1844,15 @@
   <div class="signal-footer">
     <span>huggingface.co · 0.3</span>
     <a href="https://huggingface.co/blog/gemma4" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="signal">
+  <span class="tag alt">AI / Agent</span>
+  <h3>GPT-5.5 System Card</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Safety</span><span class="tag">ai-llm-agent</span></div>
+  <div class="signal-footer">
+    <span>openai.com · 0.3</span>
+    <a href="https://openai.com/index/gpt-5-5-system-card" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>
       </div>
