@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T17:17:18.270539+08:00",
+  "generated_at": "2026-04-24T08:11:45.994307+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
@@ -7,63 +7,178 @@
     "data/reports/latest-summary-auto.md",
     "data/reports/latest-summary-auto.json",
     "data/reports/latest-summary-auto.html",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary.md",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary.json",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary.html",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary-auto.md",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary-auto.json",
-    "data/archives/2026-04-23/2026-04-23T17-17-18.270539+08-00-summary-auto.html",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary.md",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary.json",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary.html",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary-auto.md",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary-auto.json",
+    "data/archives/2026-04-24/2026-04-24T08-11-45.994307+08-00-summary-auto.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
-  "pushed": false,
-  "push_channel": "",
+  "pushed": true,
+  "push_channel": "feishu,pushplus,telegram",
   "publication_mode": "auto",
-  "push_response": {},
+  "push_response": {
+    "pushplus": {
+      "code": 200,
+      "msg": "执行成功",
+      "data": "542a0c51a8e745c4a95a76261c96f12d"
+    },
+    "telegram": {
+      "ok": true,
+      "messages_sent": 2,
+      "message_ids": [
+        73,
+        74
+      ]
+    },
+    "feishu": {
+      "ok": true,
+      "messages_sent": 1,
+      "message_ids": [
+        "om_x100b519f15ce58acc4e243dae4f2e6f"
+      ],
+      "description": "success",
+      "delivery_kind": "card_success"
+    }
+  },
   "delivery_results": {
     "channels": {
       "feishu": {
         "name": "feishu",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "success",
+        "response": [
+          {
+            "code": 0,
+            "data": {
+              "body": {
+                "content": "{\"title\":\"AI情报飞书简报 | 2026-04-24 | 北京时间 07:00\",\"elements\":[[{\"tag\":\"text\",\"text\":\"生成时间\"},{\"tag\":\"text\",\"text\":\"\\n2026-04-24T08:11:45.994307+08:00\\n\\n\"},{\"tag\":\"text\",\"text\":\"今日判断\"},{\"tag\":\"text\",\"text\":\"\\nAI agent systems are maturing rapidly but face a critical bottleneck: the lack of transparency and debuggability at the architectural level, which threatens reliability in production environments.\"}],[{\"tag\":\"text\",\"text\":\"执行摘要\"},{\"tag\":\"text\",\"text\":\"\\n- AI agents are transitioning from simple chatbots to autonomous systems managing cloud incidents, complex web interfaces, and multi-step API workflows—creating new demands for system transparency that traditional approaches cannot meet.\\n- Microsoft Research's AgentRx framework addresses this gap by providing systematic debugging capabilities for autonomous AI agents, representing a shift from treating agents as black boxes to engineering them as transparent, verifiable systems.\"},{\"tag\":\"text\",\"text\":\"关键主线\"},{\"tag\":\"text\",\"text\":\"\\n- AgentRx: A new debugging framework for autonomous AI agents：As AI agents take on high-stakes tasks like cloud incident management, their untraceable failures create reliability and trust bottlenecks. AgentRx addresses the core tension between agent autonomy and system transparency, making production deployment viable by enabling systematic error diagnosis.\\n- Agent Vault: Open-source credential proxying for AI agents：Traditional credential management (env vars, hardcoded secrets) is insecure and operationally complex for automated agents. Agent Vault fills a critical middleware gap by providing lightweight, HTTP-native credential management, though its success hinges on whether it can balance security with low-latency requirements.\\n- RoboGrid reveals fundamental limits in LLM grammar interpretation：LLMs maintain surface syntax but collapse under structural complexity (deep recursion, high branching). This hierarchical state-tracking gap threatens reliability in grammar-agnostic agentic systems. The discovery that LLMs rely on semantic bootstrapping from keywords rather than true symbolic induction suggests current architectures have inherent limits for formal language tasks.\"}],[{\"tag\":\"text\",\"text\":\"局限与提醒\"},{\"tag\":\"text\",\"text\":\"\\n- Three entries (Automatic Ontology Construction paper, Zed parallel agents, vllm project) have confidence=low with single sources and limited evidence depth—these require deeper verification before inclusion in strategic analysis.\"}],[{\"tag\":\"text\",\"text\":\"行动建议\"},{\"tag\":\"text\",\"text\":\"\\n- For agent platform teams: Prioritize observability infrastructure—implement structured logging, decision tracing, and systematic error attribution before scaling agent autonomy.\\n- For security teams: Evaluate Agent Vault or similar credential proxy solutions in sandboxed agent environments; prototype integration with existing secrets management to assess latency impact.\"}],[{\"tag\":\"button\",\"text\":\"公开阅读\",\"type\":\"primary\"},{\"tag\":\"button\",\"text\":\"GitHub 原文\",\"type\":\"default\"}]]}"
+              },
+              "chat_id": "oc_1e327a2c66bc7eca3fe914414117c13c",
+              "create_time": "1776989616582",
+              "deleted": false,
+              "message_id": "om_x100b519f15ce58acc4e243dae4f2e6f",
+              "msg_type": "interactive",
+              "sender": {
+                "id": "cli_a953a33ee3b99cce",
+                "id_type": "app_id",
+                "sender_type": "app",
+                "tenant_key": "1a4d8a64161ddb94"
+              },
+              "update_time": "1776989616582",
+              "updated": false
+            },
+            "msg": "success",
+            "delivery_kind": "card_success"
+          }
+        ],
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-24T00:13:34+00:00",
+        "delivery_kind": "card_success"
       },
       "pushplus": {
         "name": "pushplus",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "code=200 执行成功 (ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '13.83.161.18 IP未授权'})",
+        "response": {
+          "code": 200,
+          "msg": "执行成功",
+          "data": "542a0c51a8e745c4a95a76261c96f12d",
+          "verification": {
+            "available": false,
+            "reason": "openapi_unavailable",
+            "note": "ClawBot verification unavailable: PushPlus getAccessKey failed: {'code': 403, 'msg': 'IP未授权', 'data': '13.83.161.18 IP未授权'}"
+          }
+        },
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-24T00:13:36+00:00"
       },
       "telegram": {
         "name": "telegram",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "2 message(s)",
+        "response": [
+          {
+            "ok": true,
+            "result": {
+              "message_id": 73,
+              "from": {
+                "id": 8650164336,
+                "is_bot": true,
+                "first_name": "wsysgz",
+                "username": "xfl888bot"
+              },
+              "chat": {
+                "id": 8566057843,
+                "first_name": "Christi",
+                "last_name": "Card",
+                "username": "wsysgz",
+                "type": "private"
+              },
+              "date": 1776989619,
+              "text": "AI情报完整简报 | 2026-04-24 | 北京时间 07:00\n生成时间：2026-04-24T08:11:45.994307+08:00\n\n今日判断：\nAI agent systems are maturing rapidly but face a critical bottleneck: the lack of transparency and debuggability at the architectural level, which threatens reliability in production environments.\n\n执行摘要\n- AI agents are transitioning from simple chatbots to autonomous systems managing cloud incidents, complex web interfaces, and multi-step API workflows—creating new demands for system transparency that traditional approaches cannot meet.\n- Microsoft Research's AgentRx framework addresses this gap by providing systematic debugging capabilities for autonomous AI agents, representing a shift from treating agents as black boxes to engineering them as transparent, verifiable systems.\n- The credential management problem for AI agents remains unsolved: Agent Vault offers a promising open-source solution targeting HTTP-based credential proxying, but must balance security against the low-latency requirements of automated, high-frequency agent operations.\n- RoboGrid research reveals that LLMs' ability to follow formal grammars is fragile surface-level mimicry—LLMs maintain syntactic patterns while failing to preserve structural semantics under complexity, relying on keyword bootstrapping rather than true symbolic induction.\n- Together, these findings indicate that reliable agentic systems require not just better models, but new infrastructure layers for observability, security, and structured reasoning that are currently nascent or missing.\n\n关键主线\n- AgentRx: A new debugging framework for autonomous AI agents：As AI agents take on high-stakes tasks like cloud incident management, their untraceable failures create reliability and trust bottlenecks. AgentRx addresses the core tension between agent autonomy and system transparency, making production deployment viable by enabling systematic error diagnosis.\n- Agent Vault: Open-source credential proxying for AI agents：Traditional credential management (env vars, hardcoded secrets) is insecure and operationally complex for automated agents. Agent Vault fills a critical middleware gap by providing lightweight, HTTP-native credential management, though its success hinges on whether it can balance security with low-latency requirements.\n- RoboGrid reveals fundamental limits in LLM grammar interpretation：LLMs maintain surface syntax but collapse under structural complexity (deep recursion, high branching). This hierarchical state-tracking gap threatens reliability in grammar-agnostic agentic systems. The discovery that LLMs rely on semantic bootstrapping from keywords rather than true symbolic induction suggests current architectures have inherent limits for formal language tasks.\n\n重点主题\n- Systematic debugging for AI agents: Introducing the AgentRx framework：The AgentRx framework represents a shift from treating AI agents as black boxes to engineering them as transparent, debuggable systems, which is a necessary condition for their deployment in production environments.\n- Show HN: Agent Vault – Open-source credential proxy and vault for agents：Agent Vault 试图填补 AI 代理生态中一个关键但尚未被充分满足的中间件需求——为自动化代理提供轻量级、专为 HTTP 调用设计的凭证代理，其成功与否取决于能否在安全性与低延迟之间找到比现有通用方案更优的平衡点。\n- Diagnosing CFG Interpretation in LLMs：LLMs' ability to follow formal grammars is a fragile surface-level mimicry that breaks down under structural complexity, revealing a core limitation in hierarchical reasoning that threatens their reliability in agentic systems."
+            }
+          },
+          {
+            "ok": true,
+            "result": {
+              "message_id": 74,
+              "from": {
+                "id": 8650164336,
+                "is_bot": true,
+                "first_name": "wsysgz",
+                "username": "xfl888bot"
+              },
+              "chat": {
+                "id": 8566057843,
+                "first_name": "Christi",
+                "last_name": "Card",
+                "username": "wsysgz",
+                "type": "private"
+              },
+              "date": 1776989620,
+              "text": "短期观察\n- Over the next 3-6 months, the industry will acknowledge the debuggability bottleneck as a critical issue, but progress will be incremental. AgentRx will influence the design of debugging tools in a few leading platforms (e.g., Microsoft's own Copilot stack). Agent Vault will see moderate adoption in the open-source community and among startups, but will not become a universal standard. The RoboGrid findings will prompt deeper research into hierarchical reasoning for LLMs, but will not immediately change the architecture of production agents. The net result is a slow, uneven improvement in agent reliability, with the most advanced teams gaining an edge, while the broader ecosystem remains vulnerable to the failure modes identified. The 'most likely case' is a period of consolidation and infrastructure building, not a breakthrough.\n\n局限与提醒\n- Three entries (Automatic Ontology Construction paper, Zed parallel agents, vllm project) have confidence=low with single sources and limited evidence depth—these require deeper verification before inclusion in strategic analysis.\n\n公开阅读：\nhttps://wsysgz.github.io/VS_AI/\nGitHub 原文：\nhttps://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md",
+              "entities": [
+                {
+                  "offset": 1095,
+                  "length": 31,
+                  "type": "url"
+                },
+                {
+                  "offset": 1138,
+                  "length": 77,
+                  "type": "url"
+                }
+              ],
+              "link_preview_options": {
+                "is_disabled": true
+              }
+            }
+          }
+        ],
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-04-24T00:13:39+00:00"
       }
     },
-    "successful_channels": [],
-    "failed_channels": [],
-    "skipped_channels": [
+    "successful_channels": [
       "feishu",
       "pushplus",
       "telegram"
-    ]
+    ],
+    "failed_channels": [],
+    "skipped_channels": []
   },
   "stage_status": {
     "analysis": "ok",
@@ -71,8 +186,8 @@
     "forecast": "ok"
   },
   "source_stats": {
-    "collected_items": 169,
-    "report_topics": 167
+    "collected_items": 168,
+    "report_topics": 166
   },
   "risk_level": "medium",
   "external_enrichment": {
@@ -81,22 +196,14 @@
     "attempted": 1,
     "succeeded": 1,
     "failed": 0,
-    "skipped": 166,
+    "skipped": 165,
     "budget_used": 1,
     "success_rate": 1.0,
     "circuit_open": false,
     "reasons": [
-      "below-threshold: IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World",
-      "below-threshold: Our eighth generation TPUs: two chips for the agentic era",
       "below-threshold: Parallel agents in Zed",
-      "below-threshold: Workspace Agents in ChatGPT",
-      "below-threshold: Kernel code removals driven by LLM-created security reports",
-      "below-threshold: Show HN: Broccoli, one shot coding agent on the cloud",
-      "below-threshold: Bring your own Agent to MS Teams",
+      "below-threshold: Show HN: Agent Vault – Open-source credential proxy and vault for agents",
       "below-threshold: vllm-project/vllm",
-      "below-threshold: Workspace agents",
-      "below-threshold: Introducing workspace agents in ChatGPT",
-      "below-threshold: Speeding up agentic workflows with WebSockets in the Responses API",
       "below-threshold: Diagnosing CFG Interpretation in LLMs",
       "below-threshold: Automatic Ontology Construction Using LLMs as an External Layer of Memory, Verification, and Planning for Hybrid Intelligent Systems",
       "below-threshold: Can \"AI\" Be a Doctor? A Study of Empathy, Readability, and Alignment in Clinical LLMs",
@@ -109,12 +216,13 @@
       "below-threshold: Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力",
       "below-threshold: GLM-PC 基座模型，CogAgent-9B 开源",
       "below-threshold: Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
+      "below-threshold: Figma - MultiAgents",
       "below-threshold: Lessons learned from building multi-agent workflows",
       "below-threshold: Q3'25: Technology Update – Low Precision and Model Optimization",
       "below-threshold: Q2'25: Technology Update – Low Precision and Model Optimization",
       "below-threshold: Building tomorrow's innovations with today's edge AI-enabled devices",
-      "below-threshold: Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI",
       "below-threshold: A Look Inside my Edge AI Inspection Robot (ROS 2–Native)",
+      "below-threshold: Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI",
       "below-threshold: Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
       "below-threshold: QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
       "below-threshold: Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
@@ -126,42 +234,48 @@
       "below-threshold: Arm announces earnings release date for fourth quarter fiscal year ended 2026",
       "below-threshold: Smarter Devices, Smaller Chips: Inside Embedded World 2026",
       "below-threshold: Alberta startup sells no-tech tractors for half price",
-      "below-threshold: ChatGPT Images 2.0",
+      "below-threshold: GPT-5.5",
       "below-threshold: Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model",
       "below-threshold: Apple fixes bug that cops used to extract deleted chat messages from iPhones",
-      "below-threshold: Over-editing refers to a model modifying code beyond what is necessary",
-      "below-threshold: Scoring Show HN submissions for AI design patterns",
+      "below-threshold: Bitwarden CLI compromised in ongoing Checkmarx supply chain campaign",
+      "below-threshold: An update on recent Claude Code quality reports",
       "below-threshold: Website streamed live directly from a model",
-      "below-threshold: Columnar Storage Is Normalization",
-      "below-threshold: Iran claims US exploited networking equipment backdoors during strikes",
-      "below-threshold: OpenAI's response to the Axios developer tool compromise",
-      "below-threshold: The Illuminated Man: an unconventional portrait of JG Ballard",
-      "below-threshold: Verus is a tool for verifying the correctness of code written in Rust",
+      "below-threshold: Over-editing refers to a model modifying code beyond what is necessary",
+      "below-threshold: Meta to cut 10% of jobs",
+      "below-threshold: Investigation uncovers two sophisticated telecom surveillance campaigns",
       "below-threshold: Arch Linux Now Has a Bit-for-Bit Reproducible Docker Image",
-      "below-threshold: Ars Technica: Our newsroom AI policy",
-      "below-threshold: langchain-ai/langgraph",
+      "below-threshold: 'Hairdryer used to trick weather sensor' to win Polymarket bet",
+      "below-threshold: Incident with multple GitHub services",
+      "below-threshold: Our newsroom AI policy",
+      "below-threshold: MeshCore development team splits over trademark dispute and AI-generated code",
+      "below-threshold: Writing a C Compiler, in Zig (2025)",
+      "below-threshold: A Renaissance gambling dispute spawned probability theory",
+      "below-threshold: OpenAI's response to the Axios developer tool compromise",
       "below-threshold: ollama/ollama",
+      "below-threshold: langchain-ai/langgraph",
       "below-threshold: pytorch/executorch",
-      "below-threshold: tenstorrent/tt-metal",
       "below-threshold: alibaba/MNN",
+      "below-threshold: tenstorrent/tt-metal",
       "below-threshold: nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "below-threshold: mem0ai/mem0",
       "below-threshold: openai/swarm",
+      "below-threshold: mem0ai/mem0",
       "below-threshold: anthropics/claude-cookbooks",
-      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: onnx/onnx",
+      "below-threshold: NVIDIA/TensorRT",
       "below-threshold: jax-ml/jax",
-      "below-threshold: Making ChatGPT better for clinicians",
-      "below-threshold: Introducing OpenAI Privacy Filter",
-      "below-threshold: Introducing ChatGPT Images 2.0",
-      "below-threshold: Scaling Codex to enterprises worldwide",
-      "below-threshold: OpenAI helps Hyatt advance AI among colleagues",
+      "below-threshold: Introducing GPT-5.5",
+      "below-threshold: What is Codex?",
+      "below-threshold: Automations",
+      "below-threshold: Plugins and skills",
+      "below-threshold: Working with Codex",
+      "below-threshold: How to get started with Codex",
+      "below-threshold: Codex settings",
+      "below-threshold: Helping Parents Understand the Conversations Their Teens Are Having With AI",
       "below-threshold: Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
       "below-threshold: Meta Partners With Broadcom to Co-Develop Custom AI Silicon",
       "below-threshold: Introducing Muse Spark: MSL’s First Model, Purpose-Built to Prioritize People",
       "below-threshold: Introducing Our First AI Glasses Built For Prescriptions",
       "below-threshold: How AI Is Ushering in the Next Era of Risk Review at Meta",
-      "below-threshold: Meta Partners With Arm to Develop New Class of Data Center Silicon",
       "below-threshold: AutoAdapt: Automated domain adaptation for large language models",
       "below-threshold: New Future of Work: AI is driving rapid change, uneven benefits",
       "below-threshold: ADeLe: Predicting and explaining AI performance across tasks",
@@ -208,7 +322,6 @@
       "below-threshold: The Debate of MCP vs. CLI Centers on Speed",
       "below-threshold: Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy",
       "below-threshold: Introducing OpenAI GPT-5.3-Codex-Spark Powered by Cerebras",
-      "below-threshold: The Year of Latency Debt (And How Big Tech Is Paying It Down)",
       "below-threshold: Canopy Labs’ Orpheus TTS is live on GroqCloud",
       "below-threshold: GroqCloud: Expanding to Meet Demand",
       "below-threshold: Introducing MCP Connectors in Beta on GroqCloud",
@@ -251,7 +364,8 @@
       "below-threshold: Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
       "below-threshold: Multimodal Embedding & Reranker Models with Sentence Transformers",
       "below-threshold: Safetensors is Joining the PyTorch Foundation",
-      "below-threshold: Welcome Gemma 4: Frontier multimodal intelligence on device"
+      "below-threshold: Welcome Gemma 4: Frontier multimodal intelligence on device",
+      "below-threshold: GPT-5.5 System Card"
     ],
     "source_type_stats": {
       "official": {
@@ -261,26 +375,26 @@
       },
       "repo": {
         "budget": 1,
-        "hits": 1,
-        "matched_items": 1
+        "hits": 0,
+        "matched_items": 0
       },
       "paper": {
         "budget": 1,
-        "hits": 1,
-        "matched_items": 1
+        "hits": 0,
+        "matched_items": 0
       }
     }
   },
   "ai_metrics": {
     "provider": "mixed",
     "model": "mixed",
-    "calls": 8,
+    "calls": 6,
     "token_usage": {
-      "prompt": 20308,
-      "completion": 4397,
-      "total": 24705
+      "prompt": 19428,
+      "completion": 4038,
+      "total": 23466
     },
-    "latency_seconds": 153.87,
+    "latency_seconds": 98.08,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -289,11 +403,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 497,
-          "completion": 1053,
-          "total": 1550
+          "prompt": 489,
+          "completion": 886,
+          "total": 1375
         },
-        "latency_seconds": 30.25,
+        "latency_seconds": 31.04,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -310,14 +424,14 @@
       "analysis": {
         "provider": "deepseek",
         "model": "deepseek-chat",
-        "calls": 5,
+        "calls": 3,
         "token_usage": {
-          "prompt": 12980,
-          "completion": 1403,
-          "total": 14383
+          "prompt": 8087,
+          "completion": 992,
+          "total": 9079
         },
-        "latency_seconds": 66.34,
-        "attempts": 5,
+        "latency_seconds": 13.94,
+        "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
         "guardrail_reason": "",
@@ -335,11 +449,11 @@
         "model": "MiniMax-M2.7",
         "calls": 1,
         "token_usage": {
-          "prompt": 34,
-          "completion": 1443,
-          "total": 1477
+          "prompt": 4171,
+          "completion": 1453,
+          "total": 5624
         },
-        "latency_seconds": 47.01,
+        "latency_seconds": 43.47,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -358,11 +472,11 @@
         "model": "deepseek-chat",
         "calls": 1,
         "token_usage": {
-          "prompt": 6797,
-          "completion": 498,
-          "total": 7295
+          "prompt": 6681,
+          "completion": 707,
+          "total": 7388
         },
-        "latency_seconds": 10.27,
+        "latency_seconds": 9.63,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1761,19 +1875,19 @@
   },
   "tracing": {
     "enabled": true,
-    "trace_id": "e1bce3ae3aa08a72f762590e84e0720e",
-    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/e1bce3ae3aa08a72f762590e84e0720e"
+    "trace_id": "d4869b45d91610ff05dd9a015c149ca0",
+    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/d4869b45d91610ff05dd9a015c149ca0"
   },
   "scheduler": {
-    "trigger_kind": "push",
+    "trigger_kind": "schedule",
     "compensation_run": false
   },
   "timings": {
-    "collection": 7.84,
-    "dedup_score": 164.35,
+    "collection": 8.98,
+    "dedup_score": 99.48,
     "ai_total": 0.0,
     "rendering": 0.02,
-    "push_total": 0.0
+    "push_total": 6.03
   },
-  "total_elapsed": 172.21
+  "total_elapsed": 114.51
 }
