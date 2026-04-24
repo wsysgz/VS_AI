@@ -98,7 +98,7 @@ Recommended provider examples / 推荐可直接复用的模型配置示例:
 # Option A: DeepSeek official (default / 当前主力推荐)
 AI_PROVIDER=deepseek
 AI_BASE_URL=https://api.deepseek.com
-AI_MODEL=deepseek-chat
+AI_MODEL=deepseek-v4-flash
 DEEPSEEK_API_KEY=<your-deepseek-key>
 
 # Option B: MiniMax-M2.7 via OpenAI-compatible third-party endpoint
@@ -127,48 +127,46 @@ Current capability note / 当前能力说明:
   active globally by default.
 - Stage-level routing is now supported via environment overrides. Example:
 - Recommended P2 stage ownership:
-  - `analysis` -> DeepSeek
-  - `summary` -> MiniMax-M2.7
-  - `forecast` -> DeepSeek
-  - `pre_filter` -> MiniMax-M2.7
-  - future helper stages `discovery` / `search` -> MiniMax-M2.7
+  - `analysis` -> DeepSeek V4 Pro
+  - `summary` -> DeepSeek V4 Pro
+  - `forecast` -> DeepSeek V4 Pro
+  - `pre_filter` -> DeepSeek V4 Flash
+  - future helper stages `discovery` / `search` -> DeepSeek V4 Flash
 - Recommended LiteLLM alias ownership for the first rollout:
-  - `vs-ai-default` -> direct DeepSeek-compatible fallback
-  - `vs-ai-analysis` -> DeepSeek
-  - `vs-ai-summary` -> MiniMax-M2.7
-  - `vs-ai-forecast` -> DeepSeek
-  - `vs-ai-prefilter` -> MiniMax-M2.7
-  - `vs-ai-discovery` -> MiniMax-M2.7
-  - `vs-ai-search` -> MiniMax-M2.7
+  - `vs-ai-default` -> DeepSeek V4 Flash
+  - `vs-ai-analysis` -> DeepSeek V4 Pro
+  - `vs-ai-summary` -> DeepSeek V4 Pro
+  - `vs-ai-forecast` -> DeepSeek V4 Pro
+  - `vs-ai-prefilter` -> DeepSeek V4 Flash
+  - `vs-ai-discovery` -> DeepSeek V4 Flash
+  - `vs-ai-search` -> DeepSeek V4 Flash
 - Use `D:\GitHub\auto\config\litellm\litellm-config.example.yaml` as the
   starting point for the local gateway config.
 
 ```env
 ANALYSIS_AI_PROVIDER=deepseek
 ANALYSIS_AI_BASE_URL=https://api.deepseek.com
-ANALYSIS_AI_MODEL=deepseek-chat
+ANALYSIS_AI_MODEL=deepseek-v4-pro
 
-SUMMARY_AI_PROVIDER=minimax_svips
-SUMMARY_AI_BASE_URL=https://api.svips.org/v1
-SUMMARY_AI_MODEL=MiniMax-M2.7
-SUMMARY_AI_API_KEY=<your-minimax-key>
+SUMMARY_AI_PROVIDER=deepseek
+SUMMARY_AI_BASE_URL=https://api.deepseek.com
+SUMMARY_AI_MODEL=deepseek-v4-pro
 
 FORECAST_AI_PROVIDER=deepseek
 FORECAST_AI_BASE_URL=https://api.deepseek.com
-FORECAST_AI_MODEL=deepseek-chat
+FORECAST_AI_MODEL=deepseek-v4-pro
 
-PREFILTER_AI_PROVIDER=minimax_svips
-PREFILTER_AI_BASE_URL=https://api.svips.org/v1
-PREFILTER_AI_MODEL=MiniMax-M2.7
-PREFILTER_AI_API_KEY=<your-minimax-key>
+PREFILTER_AI_PROVIDER=deepseek
+PREFILTER_AI_BASE_URL=https://api.deepseek.com
+PREFILTER_AI_MODEL=deepseek-v4-flash
 
-DISCOVERY_AI_PROVIDER=minimax_svips
-DISCOVERY_AI_BASE_URL=https://api.svips.org/v1
-DISCOVERY_AI_MODEL=MiniMax-M2.7
+DISCOVERY_AI_PROVIDER=deepseek
+DISCOVERY_AI_BASE_URL=https://api.deepseek.com
+DISCOVERY_AI_MODEL=deepseek-v4-flash
 
-SEARCH_AI_PROVIDER=minimax_svips
-SEARCH_AI_BASE_URL=https://api.svips.org/v1
-SEARCH_AI_MODEL=MiniMax-M2.7
+SEARCH_AI_PROVIDER=deepseek
+SEARCH_AI_BASE_URL=https://api.deepseek.com
+SEARCH_AI_MODEL=deepseek-v4-flash
 ```
 
 LiteLLM alias example / LiteLLM 首轮 alias 示例:

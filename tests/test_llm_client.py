@@ -25,7 +25,14 @@ class TestProviderConfigResolution:
             config = _resolve_provider_config()
             assert config["provider"] == "deepseek"
             assert "deepseek.com" in config["base_url"]
-            assert config["model"] == "deepseek-chat"
+            assert config["model"] == "deepseek-v4-flash"
+
+    def test_deepseek_stage_defaults_use_pro_for_key_stages(self):
+        with patch.dict(os.environ, {}, clear=True):
+            assert _resolve_provider_config(stage="analysis")["model"] == "deepseek-v4-pro"
+            assert _resolve_provider_config(stage="summary")["model"] == "deepseek-v4-pro"
+            assert _resolve_provider_config(stage="forecast")["model"] == "deepseek-v4-pro"
+            assert _resolve_provider_config(stage="prefilter")["model"] == "deepseek-v4-flash"
 
     def test_openai_provider(self):
         with patch.dict(os.environ, {"AI_PROVIDER": "openai", "AI_BASE_URL": "", "AI_MODEL": ""}, clear=False):
@@ -93,7 +100,7 @@ class TestProviderConfigResolution:
             {
                 "AI_PROVIDER": "deepseek",
                 "AI_BASE_URL": "https://api.deepseek.com",
-                "AI_MODEL": "deepseek-chat",
+                "AI_MODEL": "deepseek-v4-flash",
                 "SUMMARY_AI_PROVIDER": "minimax_svips",
                 "SUMMARY_AI_BASE_URL": "https://api.svips.org/v1",
                 "SUMMARY_AI_MODEL": "MiniMax-M2.7",
@@ -114,7 +121,7 @@ class TestProviderConfigResolution:
             {
                 "AI_PROVIDER": "deepseek",
                 "AI_BASE_URL": "https://api.deepseek.com",
-                "AI_MODEL": "deepseek-chat",
+                "AI_MODEL": "deepseek-v4-flash",
                 "PREFILTER_AI_PROVIDER": "minimax_svips",
                 "PREFILTER_AI_BASE_URL": "https://api.svips.org/v1",
                 "PREFILTER_AI_MODEL": "MiniMax-M2.7",
@@ -153,7 +160,7 @@ class TestProviderConfigResolution:
             {
                 "AI_PROVIDER": "deepseek",
                 "AI_BASE_URL": "https://api.deepseek.com",
-                "AI_MODEL": "deepseek-chat",
+                "AI_MODEL": "deepseek-v4-flash",
                 "DEEPSEEK_API_KEY": "deepseek-key",
                 "SUMMARY_AI_PROVIDER": "litellm_proxy",
                 "SUMMARY_AI_BASE_URL": "",
@@ -200,7 +207,7 @@ class TestProviderConfigResolution:
                 "OPENAI_API_KEY": "",
                 "ANALYSIS_AI_PROVIDER": "deepseek",
                 "ANALYSIS_AI_BASE_URL": "https://api.deepseek.com",
-                "ANALYSIS_AI_MODEL": "deepseek-chat",
+                "ANALYSIS_AI_MODEL": "deepseek-v4-pro",
                 "ANALYSIS_DEEPSEEK_API_KEY": "analysis-key",
             },
             clear=False,
@@ -303,7 +310,7 @@ class TestBuildPayload:
         with patch.dict(
             os.environ,
             {
-                "AI_MODEL": "deepseek-chat",
+                "AI_MODEL": "deepseek-v4-flash",
                 "SUMMARY_AI_MODEL": "MiniMax-M2.7",
             },
             clear=False,

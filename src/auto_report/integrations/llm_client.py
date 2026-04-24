@@ -29,7 +29,7 @@ from auto_report.integrations.langfuse_tracing import (
 _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
     "deepseek": {
         "base_url": "https://api.deepseek.com",
-        "model": "deepseek-chat",
+        "model": "deepseek-v4-flash",
         "key_env": "DEEPSEEK_API_KEY",
     },
     "openai": {
@@ -42,6 +42,15 @@ _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
         "model": "vs-ai-default",
         "key_env": "LITELLM_MASTER_KEY",
     },
+}
+
+_DEEPSEEK_STAGE_MODEL_DEFAULTS: dict[str, str] = {
+    "analysis": "deepseek-v4-pro",
+    "summary": "deepseek-v4-pro",
+    "forecast": "deepseek-v4-pro",
+    "prefilter": "deepseek-v4-flash",
+    "discovery": "deepseek-v4-flash",
+    "search": "deepseek-v4-flash",
 }
 
 
@@ -96,6 +105,15 @@ def _resolve_provider_config(stage: str | None = None) -> dict[str, str]:
     use_global_fallback = not stage_provider or stage_provider == global_provider
     stage_base_url = os.environ.get(f"{prefix}AI_BASE_URL", "")
     stage_model = os.environ.get(f"{prefix}AI_MODEL", "")
+    global_model = os.environ.get("AI_MODEL", "") if use_global_fallback else ""
+    stage_name = str(stage or "").strip().lower()
+    stage_default_model = _DEEPSEEK_STAGE_MODEL_DEFAULTS.get(stage_name, "") if provider == "deepseek" else ""
+    if stage_model:
+        resolved_model = stage_model
+    elif stage_default_model and not global_model:
+        resolved_model = stage_default_model
+    else:
+        resolved_model = global_model or defaults["model"]
 
     return {
         "base_url": (
@@ -103,11 +121,7 @@ def _resolve_provider_config(stage: str | None = None) -> dict[str, str]:
             or (os.environ.get("AI_BASE_URL") if use_global_fallback else "")
             or ""
         ).rstrip("/") or defaults["base_url"],
-        "model": (
-            stage_model
-            or (os.environ.get("AI_MODEL", "") if use_global_fallback else "")
-            or defaults["model"]
-        ),
+        "model": resolved_model,
         "api_key": api_key,
         "api_key_env": api_key_env,
         "provider": provider,

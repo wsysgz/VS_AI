@@ -33,6 +33,15 @@ LEAD_REVIEW_STATUS_DISPLAY = {
     "deferred": "已延后",
 }
 LEAD_REVIEW_STATUS_REPO = {value: key for key, value in LEAD_REVIEW_STATUS_DISPLAY.items()}
+LEAD_REVIEW_STATUS_REPO.update(
+    {
+        "待处理": "pending",
+        "pending": "pending",
+        "approved": "approved",
+        "rejected": "rejected",
+        "deferred": "deferred",
+    }
+)
 OPS_DESK_TABLE_SPECS = {
     "governance_main": {
         "name": "治理总表",
@@ -101,10 +110,10 @@ OPS_DESK_TABLE_SPECS = {
             "priority_score": "优先分",
         },
         "views": [
-            {"name": "待审批", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": ("status", "==", "待审批")},
-            {"name": "已批准", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已批准")},
-            {"name": "已延后", "fields": ["title", "status", "note", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已延后")},
-            {"name": "最近更新", "fields": ["title", "status", "note", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": None},
+            {"name": "待审批", "fields": ["status", "note", "title", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": ("status", "==", "待审批")},
+            {"name": "已批准", "fields": ["status", "note", "title", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已批准")},
+            {"name": "已延后", "fields": ["status", "note", "title", "priority_label", "keyword", "updated_at"], "filter": ("status", "==", "已延后")},
+            {"name": "最近更新", "fields": ["status", "note", "title", "priority_label", "keyword", "bucket", "updated_at", "lead_key"], "filter": None},
         ],
         "field_types": {
             "status": {
@@ -146,10 +155,10 @@ OPS_DESK_TABLE_SPECS = {
             "reviewer": "审核人",
         },
         "views": [
-            {"name": "待验收", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "fallback_observed", "delivery_note", "risk_level"], "filter": ("card_verified", "!=", "true")},
-            {"name": "最近交付", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "fallback_observed", "delivery_note", "risk_level"], "filter": None},
-            {"name": "发现回退", "fields": ["generated_at", "publication_mode", "feishu_status", "fallback_observed", "delivery_note", "risk_level"], "filter": ("fallback_observed", "==", "true")},
-            {"name": "已确认卡片", "fields": ["generated_at", "publication_mode", "feishu_status", "card_verified", "delivery_note", "risk_level"], "filter": ("card_verified", "==", "true")},
+            {"name": "待验收", "fields": ["card_verified", "fallback_observed", "delivery_note", "feishu_status", "generated_at", "publication_mode", "risk_level"], "filter": ("card_verified", "!=", "true")},
+            {"name": "最近交付", "fields": ["card_verified", "fallback_observed", "delivery_note", "feishu_status", "generated_at", "publication_mode", "risk_level"], "filter": None},
+            {"name": "发现回退", "fields": ["fallback_observed", "delivery_note", "card_verified", "feishu_status", "generated_at", "publication_mode", "risk_level"], "filter": ("fallback_observed", "==", "true")},
+            {"name": "已确认卡片", "fields": ["card_verified", "delivery_note", "fallback_observed", "feishu_status", "generated_at", "publication_mode", "risk_level"], "filter": ("card_verified", "==", "true")},
         ],
         "field_types": {
             "card_verified": {"type": "checkbox"},
@@ -454,7 +463,8 @@ def _build_lead_review_table(review_payload: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(item, dict):
             continue
         record = {field: _coerce_cell_value(item.get(field, "")) for field in OPS_DESK_TABLE_SPECS["lead_review"]["fields"]}
-        record["status"] = LEAD_REVIEW_STATUS_DISPLAY.get(record["status"], record["status"])
+        repo_status = LEAD_REVIEW_STATUS_REPO.get(record["status"], _coerce_cell_value(record["status"]).lower())
+        record["status"] = LEAD_REVIEW_STATUS_DISPLAY.get(repo_status, record["status"])
         records.append(record)
     return {
         **OPS_DESK_TABLE_SPECS["lead_review"],

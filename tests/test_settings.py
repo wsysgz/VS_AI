@@ -49,6 +49,30 @@ def test_load_settings_exposes_ai_reading_paths():
     assert settings.env["AI_MAX_ANALYSIS_TOPICS"] == "6"
 
 
+def test_load_settings_defaults_to_deepseek_v4_stage_routing(tmp_path, monkeypatch):
+    shutil.copytree(Path.cwd() / "config", tmp_path / "config")
+    for key in [
+        "AI_MODEL",
+        "ANALYSIS_AI_MODEL",
+        "SUMMARY_AI_MODEL",
+        "FORECAST_AI_MODEL",
+        "PREFILTER_AI_MODEL",
+        "DISCOVERY_AI_MODEL",
+        "SEARCH_AI_MODEL",
+    ]:
+        monkeypatch.delenv(key, raising=False)
+
+    settings = load_settings(tmp_path)
+
+    assert settings.env["AI_MODEL"] == "deepseek-v4-flash"
+    assert settings.env["ANALYSIS_AI_MODEL"] == "deepseek-v4-pro"
+    assert settings.env["SUMMARY_AI_MODEL"] == "deepseek-v4-pro"
+    assert settings.env["FORECAST_AI_MODEL"] == "deepseek-v4-pro"
+    assert settings.env["PREFILTER_AI_MODEL"] == "deepseek-v4-flash"
+    assert settings.env["DISCOVERY_AI_MODEL"] == "deepseek-v4-flash"
+    assert settings.env["SEARCH_AI_MODEL"] == "deepseek-v4-flash"
+
+
 def test_load_settings_includes_stage_level_ai_env(monkeypatch):
     monkeypatch.setenv("ANALYSIS_AI_PROVIDER", "deepseek")
     monkeypatch.setenv("ANALYSIS_AI_BASE_URL", "https://api.deepseek.com")

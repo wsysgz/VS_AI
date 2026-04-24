@@ -370,6 +370,149 @@ def test_ops_desk_lead_review_uses_waiting_for_approval_label():
     assert OPS_DESK_TABLE_SPECS["lead_review"]["views"][0]["filter"] == ("status", "==", "待审批")
 
 
+def test_ops_desk_views_put_writable_fields_on_the_first_screen():
+    assert OPS_DESK_TABLE_SPECS["lead_review"]["views"][0]["fields"][:2] == ["status", "note"]
+    assert OPS_DESK_TABLE_SPECS["delivery_audit"]["views"][0]["fields"][:3] == [
+        "card_verified",
+        "fallback_observed",
+        "delivery_note",
+    ]
+
+
+def test_pull_feishu_ops_status_accepts_legacy_waiting_label(monkeypatch):
+    tmp_path = _opsdesk_tmp_dir()
+    _write_governance_artifact(tmp_path)
+    _write_lead_review_status(tmp_path)
+    _write_candidate_updates(tmp_path)
+    _write_run_status(tmp_path)
+    _write_delivery_audit_review(tmp_path)
+    settings = _settings_for(tmp_path, monkeypatch)
+    state_path = tmp_path / SIDE_CAR_STATE_PATH
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(
+        json.dumps(
+            {
+                "ops_desk": {
+                    "base": {"app_token": "base_1", "url": "https://base/1"},
+                    "tables": {
+                        "lead_review": {"table_id": "tbl_leads", "name": "Lead Review"},
+                        "delivery_audit": {"table_id": "tbl_delivery", "name": "Delivery Audit"},
+                    },
+                }
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    def fake_run(command, capture_output, text, check, cwd=None, encoding=None, errors=None):
+        joined = " ".join(command)
+        if "base +record-list" in joined and "tbl_leads" in joined:
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                stdout=json.dumps(
+                    {
+                        "data": {
+                            "data": [
+                                ["NO.001", "lead-1", "待处理", "legacy row"],
+                            ],
+                            "fields": ["ID", "lead_key", "status", "note"],
+                            "record_id_list": ["rec_1"],
+                        }
+                    }
+                ),
+                stderr="",
+            )
+        if "base +record-list" in joined and "tbl_delivery" in joined:
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                stdout=json.dumps({"data": {"data": [], "fields": ["ID"], "record_id_list": []}}),
+                stderr="",
+            )
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr("auto_report.integrations.lark_cli.subprocess.run", fake_run)
+
+    result = pull_feishu_ops_status(tmp_path, settings)
+
+    lead_payload = json.loads((tmp_path / "out" / "review-queue" / "source-lead-review-status.json").read_text(encoding="utf-8"))
+    lead = lead_payload["items"][0]
+    assert lead["status"] == "pending"
+    assert lead["note"] == "legacy row"
+    assert result["lead_review"]["updated_count"] == 1
+
+
+def test_sync_feishu_ops_desk_replays_first_screen_visible_field_order(monkeypatch):
+    tmp_path = _opsdesk_tmp_dir()
+    _write_governance_artifact(tmp_path)
+    _write_lead_review_status(tmp_path)
+    _write_candidate_updates(tmp_path)
+    _write_run_status(tmp_path)
+    _write_delivery_audit_review(tmp_path)
+    settings = _settings_for(tmp_path, monkeypatch)
+
+    calls: list[list[str]] = []
+
+    def fake_run(command, capture_output, text, check, cwd=None, encoding=None, errors=None):
+        calls.append(command)
+        joined = " ".join(command)
+        if "base +base-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"base": {"app_token": "base_1", "url": "https://base/1"}}), stderr="")
+        if "base +table-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +table-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"table": {"table_id": "tbl_1"}}), stderr="")
+        if "base +table-update" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"table": {"table_id": "tbl_1"}}), stderr="")
+        if "base +field-list" in joined:
+            fields = [
+                {"field_id": f"fld_{idx}", "id": f"fld_{idx}", "field_name": name, "name": name, "type": "text"}
+                for idx, name in enumerate(
+                    [
+                        "标题", "状态", "备注", "优先级", "关键词", "来源桶", "更新时间", "线索键",
+                        "生成时间", "发布轨", "飞书状态", "卡片已确认", "发现回退", "验收备注", "风险等级",
+                    ],
+                    start=1,
+                )
+            ]
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"fields": fields}}), stderr="")
+        if "base +field-create" in joined or "base +field-update" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"field": {"field_id": "fld_1"}}), stderr="")
+        if "base +record-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +record-upsert" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"record": {"record_id": "rec_1"}}), stderr="")
+        if "base +view-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"data": {"views": []}}), stderr="")
+        if "base +view-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"view": {"view_id": "vew_1"}}), stderr="")
+        if "base +view-set-visible-fields" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        if "base +view-set-filter" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        if "base +dashboard-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +dashboard-create" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"dashboard": {"dashboard_id": "dsh_1", "url": "https://dashboard/1"}}), stderr="")
+        if "base +dashboard-block-list" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"items": []}), stderr="")
+        if "base +dashboard-block-create" in joined or "base +dashboard-block-delete" in joined:
+            return subprocess.CompletedProcess(command, 0, stdout=json.dumps({"ok": True}), stderr="")
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr("auto_report.integrations.lark_cli.subprocess.run", fake_run)
+
+    sync_feishu_ops_desk(tmp_path, settings)
+
+    visible_field_calls = [cmd for cmd in calls if "base +view-set-visible-fields" in " ".join(cmd)]
+    joined = "\n".join(" ".join(cmd) for cmd in visible_field_calls)
+    assert '"visible_fields": ["fld_2", "fld_3"' in joined
+    assert '"visible_fields": ["fld_12", "fld_13", "fld_14"' in joined
+
+
 def test_pull_feishu_ops_status_updates_repo_json_files(monkeypatch):
     tmp_path = _opsdesk_tmp_dir()
     _write_governance_artifact(tmp_path)

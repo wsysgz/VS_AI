@@ -291,11 +291,17 @@ sources:
       - register
       - invitation
   - id: renesas-blog
-    enabled: true
+    enabled: false
     mode: article_listing
     url: https://www.renesas.com/en/blogs
     category_hint: ai-x-electronics
     max_items: 6
+    stability_tier: manual-watch
+    replacement_hint: Keep disabled until a stable Renesas blog or newsroom entry point is confirmed; the current public pages return 403 to the requests-based collector.
+    watch_strategy: disabled
+    replacement_target: none
+    candidate_kind: none
+    next_action: Keep disabled until a stable Renesas feed or crawlable page is confirmed.
     link_selector: "a[href*='/en/blogs/']"
     include_url_patterns:
       - /en/blogs/

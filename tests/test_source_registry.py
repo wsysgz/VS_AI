@@ -147,3 +147,26 @@ def test_build_source_registry_marks_anthropic_news_as_validated_listing():
     assert registry["anthropic-news"]["replacement_target"] == "none"
     assert registry["anthropic-news"]["candidate_kind"] == "validated_listing"
     assert registry["anthropic-news"]["candidate_value"] == "https://www.anthropic.com/news"
+
+
+def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry_points_return():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+    governance = build_source_governance_queue(registry)
+
+    manual_review_ids = [item["source_id"] for item in governance["manual_review"]]
+    replacement_ids = [item["source_id"] for item in governance["replacement_candidates"]]
+    changedetection_ids = [item["source_id"] for item in governance["changedetection_candidates"]]
+    priority_ids = [item["source_id"] for item in governance["priority_queue"]]
+
+    for source_id in ["youtube-google-developers", "youtube-nvidia", "renesas-blog"]:
+        assert registry[source_id]["enabled"] is False
+        assert registry[source_id]["stability_tier"] == "manual-watch"
+        assert registry[source_id]["watch_strategy"] == "disabled"
+        assert registry[source_id]["replacement_target"] == "none"
+        assert registry[source_id]["candidate_kind"] == "none"
+        assert source_id not in manual_review_ids
+        assert source_id not in replacement_ids
+        assert source_id not in changedetection_ids
+        assert source_id not in priority_ids

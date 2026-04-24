@@ -47,6 +47,23 @@ def test_collect_report_workflow_keeps_schedule_and_dispatch_push_toggle():
     assert 'EXTERNAL_ENRICHMENT_TIMEOUT_SECONDS: "8"' in content
 
 
+def test_reusable_workflows_default_to_deepseek_v4_stage_routing():
+    analyze_content = (ROOT_DIR / ".github" / "workflows" / "reusable-analyze.yml").read_text(encoding="utf-8")
+    report_content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
+    compensate_content = (ROOT_DIR / ".github" / "workflows" / "compensate-report.yml").read_text(encoding="utf-8")
+
+    for content in (analyze_content, report_content, compensate_content):
+        assert "AI_MODEL: ${{ vars.AI_MODEL || 'deepseek-v4-flash' }}" in content
+        assert "ANALYSIS_AI_MODEL: ${{ vars.ANALYSIS_AI_MODEL || 'deepseek-v4-pro' }}" in content
+        assert "SUMMARY_AI_MODEL: ${{ vars.SUMMARY_AI_MODEL || 'deepseek-v4-pro' }}" in content
+        assert "FORECAST_AI_MODEL: ${{ vars.FORECAST_AI_MODEL || 'deepseek-v4-pro' }}" in content
+
+    for content in (analyze_content, report_content):
+        assert "PREFILTER_AI_MODEL: ${{ vars.PREFILTER_AI_MODEL || 'deepseek-v4-flash' }}" in content
+        assert "DISCOVERY_AI_MODEL: ${{ vars.DISCOVERY_AI_MODEL || 'deepseek-v4-flash' }}" in content
+        assert "SEARCH_AI_MODEL: ${{ vars.SEARCH_AI_MODEL || 'deepseek-v4-flash' }}" in content
+
+
 def test_reusable_report_workflow_accepts_boolean_scheduler_flags():
     workflow = _load_workflow("reusable-report.yml")
     inputs = _workflow_on(workflow)["workflow_call"]["inputs"]
@@ -198,15 +215,15 @@ def test_reusable_workflows_expose_helper_stage_ai_env_contract():
     for content in (analyze_content, report_content):
         assert "PREFILTER_AI_PROVIDER: ${{ vars.PREFILTER_AI_PROVIDER || '' }}" in content
         assert "PREFILTER_AI_BASE_URL: ${{ vars.PREFILTER_AI_BASE_URL || '' }}" in content
-        assert "PREFILTER_AI_MODEL: ${{ vars.PREFILTER_AI_MODEL || '' }}" in content
+        assert "PREFILTER_AI_MODEL: ${{ vars.PREFILTER_AI_MODEL || 'deepseek-v4-flash' }}" in content
         assert "PREFILTER_AI_API_KEY: ${{ secrets.PREFILTER_AI_API_KEY }}" in content
         assert "DISCOVERY_AI_PROVIDER: ${{ vars.DISCOVERY_AI_PROVIDER || '' }}" in content
         assert "DISCOVERY_AI_BASE_URL: ${{ vars.DISCOVERY_AI_BASE_URL || '' }}" in content
-        assert "DISCOVERY_AI_MODEL: ${{ vars.DISCOVERY_AI_MODEL || '' }}" in content
+        assert "DISCOVERY_AI_MODEL: ${{ vars.DISCOVERY_AI_MODEL || 'deepseek-v4-flash' }}" in content
         assert "DISCOVERY_AI_API_KEY: ${{ secrets.DISCOVERY_AI_API_KEY }}" in content
         assert "SEARCH_AI_PROVIDER: ${{ vars.SEARCH_AI_PROVIDER || '' }}" in content
         assert "SEARCH_AI_BASE_URL: ${{ vars.SEARCH_AI_BASE_URL || '' }}" in content
-        assert "SEARCH_AI_MODEL: ${{ vars.SEARCH_AI_MODEL || '' }}" in content
+        assert "SEARCH_AI_MODEL: ${{ vars.SEARCH_AI_MODEL || 'deepseek-v4-flash' }}" in content
         assert "SEARCH_AI_API_KEY: ${{ secrets.SEARCH_AI_API_KEY }}" in content
 
 

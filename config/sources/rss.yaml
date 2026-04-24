@@ -71,11 +71,17 @@ sources:
       - register
       - partner
   - id: youtube-google-developers
-    enabled: true
+    enabled: false
     url: https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw
     category_hint: ai-x-electronics
     max_items: 6
     timeout_seconds: 8
+    stability_tier: manual-watch
+    replacement_hint: Keep disabled until a stable official Google Developers video feed is confirmed; use the Google AI Edge feed for current coverage.
+    watch_strategy: disabled
+    replacement_target: none
+    candidate_kind: none
+    next_action: Keep disabled until the YouTube feed stops failing across local and GitHub Actions runs.
     include_title_patterns:
       - litert
       - gemma
@@ -88,11 +94,17 @@ sources:
       - live at
       - recap
   - id: youtube-nvidia
-    enabled: true
+    enabled: false
     url: https://www.youtube.com/feeds/videos.xml?user=nvidia
     category_hint: ai-x-electronics
     max_items: 6
     timeout_seconds: 8
+    stability_tier: manual-watch
+    replacement_hint: Keep disabled until NVIDIA exposes a stable official video feed again; use the NVIDIA embedded feed for current coverage.
+    watch_strategy: disabled
+    replacement_target: none
+    candidate_kind: none
+    next_action: Keep disabled until the deprecated YouTube user feed is replaced with a stable official endpoint.
     include_title_patterns:
       - jetson
       - tensorrt

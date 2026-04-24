@@ -30,6 +30,7 @@
 - 当前主线优先级：`P3-A 收口尾项 + P3-B 第二轮 polish：飞书推送界面优化已完成首轮发布级验收，飞书多维表格运营台第一版已落地`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-23 / run 24817834003 / commit ce3b090`
+- 当前最新远端 `Delivery Canary` 已成功：`2026-04-23 / run 24826780399 / commit e67f36f`
 - 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-23 / run 24817844639 / commit ce3b090`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
@@ -270,7 +271,7 @@ collect
 1. 默认层
    - `AI_PROVIDER=deepseek`
    - `AI_BASE_URL=https://api.deepseek.com`
-   - `AI_MODEL=deepseek-chat`
+   - `AI_MODEL=deepseek-v4-flash`
    - Secret 仍以 `DEEPSEEK_API_KEY` 为默认主路径
 2. 全局切换层
    - Repository Variables:
@@ -355,7 +356,7 @@ Get-Content out/source-governance/source-governance.json
 读 `V1升级方案.md`，确认：
 
 - 当前主阶段是不是已经切到 `P3-A / P3-B`
-- `P3-A` 当前还差哪些收口项（持续 canary / 可观测性）
+- `P3-A` 当前还剩哪些收口项（`Delivery Canary` 已升级为飞书卡片主路径 canary，剩余以交付面小修为主）
 - `P3-B` 当前是否只是铺底，还是已经进入正式实现
 
 ### 5.5 看交接备忘录
@@ -368,7 +369,7 @@ Get-Content out/source-governance/source-governance.json
 
 这份文件是最快的方向校准器。
 
-## 6. 当前确认过的状态快照（2026-04-22）
+## 6. 当前确认过的状态快照（2026-04-23）
 
 当前确定成立的项目状态：
 
@@ -383,6 +384,7 @@ Get-Content out/source-governance/source-governance.json
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
 - `2026-04-23` 已确认最新远端 `Collect And Report` 成功（run `24817834003` / commit `ce3b090`）
+- `2026-04-23` 已确认最新远端 `Delivery Canary` 成功，且已升级为飞书卡片主路径 canary（run `24826780399` / commit `e67f36f`）
 - `2026-04-23` 已确认最新远端 `Source Reachability Canary` 成功（run `24817844639` / commit `ce3b090`）
 - 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
@@ -406,11 +408,11 @@ Get-Content out/source-governance/source-governance.json
   1. 飞书静态卡片真实发送成功
   2. 文本 fallback 保留
   3. `diagnose-delivery --mode full-report --send --channels feishu` 已可做 Feishu-only 验证
-- `P3-A` 当前剩余缺口：
+- `P3-A` 当前交付面收口状态：
   1. `2026-04-22` 本地已实测卡片主路径命中：`delivery_kind=card_success`
   2. `run-status` / diagnose 输出已区分 `card_success / text_fallback`
   3. `2026-04-23` 最新远端 `Collect And Report` 已成功
-  4. 当前唯一剩余差距是：`Delivery Canary` 仍跑 `--mode canary` 文本探针，尚未升级到远端卡片主路径验证
+  4. `2026-04-23` `Delivery Canary` 已升级为飞书卡片主路径 canary，并已远端成功（run `24826780399` / commit `e67f36f`）
 - `P3-B` 第一版已经落地：
   1. `VS_AI 今日运营台` dashboard 已建成
   2. 四张表已建成：`治理总表` / `审批协作` / `交付验收` / `待应用变更`
@@ -437,8 +439,8 @@ Get-Content out/source-governance/source-governance.json
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
 - 下一阶段默认优先顺序：
-  1. 完成 `P3-A` 的收口项（持续 canary + delivery observability）
-  2. 继续 `P3-B` 的第二轮优化（中文化、按钮优先、轻自动化）
+  1. 继续 `P3-B` 的第二轮优化（中文化、按钮优先、轻自动化）
+  2. `P3-A` 的 `Delivery Canary` / delivery observability 已收口，剩余只保留交付面小修
   3. `P1` 尾项继续只保留 `renesas-blog`
   4. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
@@ -485,7 +487,7 @@ Get-Content out/source-governance/source-governance.json
 # DeepSeek 官方
 $env:AI_PROVIDER='deepseek'
 $env:AI_BASE_URL='https://api.deepseek.com'
-$env:AI_MODEL='deepseek-chat'
+$env:AI_MODEL='deepseek-v4-flash'
 $env:DEEPSEEK_API_KEY='<your-deepseek-key>'
 
 # MiniMax-M2.7（通过 OpenAI-compatible 第三方入口）
@@ -505,12 +507,12 @@ $env:LITELLM_MASTER_KEY='sk-change-me'
 
 - 当前已经支持按 `analysis / summary / forecast` 分阶段切换 provider。
 - 当前建议默认分工：
-  - `analysis` -> DeepSeek
-  - `summary` -> MiniMax-M2.7
-  - `forecast` -> DeepSeek
-  - `pre_filter` -> MiniMax-M2.7
-  - 未来 `discovery` / `search` helper stage -> MiniMax-M2.7
-- `DeepSeek / MiniMax` 可以在同一轮运行中并存。
+  - `analysis` -> DeepSeek V4 Pro
+  - `summary` -> DeepSeek V4 Pro
+  - `forecast` -> DeepSeek V4 Pro
+  - `pre_filter` -> DeepSeek V4 Flash
+  - 未来 `discovery` / `search` helper stage -> DeepSeek V4 Flash
+- 当前默认推荐已切到 DeepSeek V4：关键阶段用 `pro`，常规阶段用 `flash`。
 - 预筛选阶段现已支持独立的 `PREFILTER_*` provider 设置。
 - LiteLLM Gateway 首轮接入建议作为可选路径保留直连回退，不要一上来把所有环境强制切到 Gateway。
 - 当前仓库内置的 LiteLLM provider 名称为 `litellm_proxy`，推荐配合 `config/litellm/litellm-config.example.yaml` 中的 alias 使用。
@@ -536,29 +538,27 @@ $env:LITELLM_MASTER_KEY='sk-change-me'
 ```powershell
 $env:ANALYSIS_AI_PROVIDER='deepseek'
 $env:ANALYSIS_AI_BASE_URL='https://api.deepseek.com'
-$env:ANALYSIS_AI_MODEL='deepseek-chat'
+$env:ANALYSIS_AI_MODEL='deepseek-v4-pro'
 
-$env:SUMMARY_AI_PROVIDER='minimax_svips'
-$env:SUMMARY_AI_BASE_URL='https://api.svips.org/v1'
-$env:SUMMARY_AI_MODEL='MiniMax-M2.7'
-$env:SUMMARY_AI_API_KEY='<your-minimax-key>'
+$env:SUMMARY_AI_PROVIDER='deepseek'
+$env:SUMMARY_AI_BASE_URL='https://api.deepseek.com'
+$env:SUMMARY_AI_MODEL='deepseek-v4-pro'
 
 $env:FORECAST_AI_PROVIDER='deepseek'
 $env:FORECAST_AI_BASE_URL='https://api.deepseek.com'
-$env:FORECAST_AI_MODEL='deepseek-chat'
+$env:FORECAST_AI_MODEL='deepseek-v4-pro'
 
-$env:PREFILTER_AI_PROVIDER='minimax_svips'
-$env:PREFILTER_AI_BASE_URL='https://api.svips.org/v1'
-$env:PREFILTER_AI_MODEL='MiniMax-M2.7'
-$env:PREFILTER_AI_API_KEY='<your-minimax-key>'
+$env:PREFILTER_AI_PROVIDER='deepseek'
+$env:PREFILTER_AI_BASE_URL='https://api.deepseek.com'
+$env:PREFILTER_AI_MODEL='deepseek-v4-flash'
 
-$env:DISCOVERY_AI_PROVIDER='minimax_svips'
-$env:DISCOVERY_AI_BASE_URL='https://api.svips.org/v1'
-$env:DISCOVERY_AI_MODEL='MiniMax-M2.7'
+$env:DISCOVERY_AI_PROVIDER='deepseek'
+$env:DISCOVERY_AI_BASE_URL='https://api.deepseek.com'
+$env:DISCOVERY_AI_MODEL='deepseek-v4-flash'
 
-$env:SEARCH_AI_PROVIDER='minimax_svips'
-$env:SEARCH_AI_BASE_URL='https://api.svips.org/v1'
-$env:SEARCH_AI_MODEL='MiniMax-M2.7'
+$env:SEARCH_AI_PROVIDER='deepseek'
+$env:SEARCH_AI_BASE_URL='https://api.deepseek.com'
+$env:SEARCH_AI_MODEL='deepseek-v4-flash'
 ```
 
 如果走 LiteLLM Gateway，推荐 alias 对应如下：
@@ -637,6 +637,7 @@ python -m auto_report.cli diagnose-delivery --mode canary
 python -m auto_report.cli diagnose-delivery --mode canary --send
 python -m auto_report.cli diagnose-delivery --mode full-report --send
 python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu
+python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu --require-feishu-card-success
 python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
 python -m auto_report.cli sync-feishu-ops-desk
 python -m auto_report.cli pull-feishu-ops-status
@@ -648,7 +649,8 @@ python -m auto_report.cli pull-feishu-ops-status
 - 远端 workflow 继续使用仓库原生 Feishu API 推送
 - 若 `GITHUB_ACTIONS=true`，sidecar 会自动跳过
 - 如果只想验证飞书卡片路径，优先用：
-  - `python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu`
+  - `python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu --require-feishu-card-success`
+- 远端 `Delivery Canary` 当前也已切到同一口径：只验证 Feishu 卡片主路径，`text_fallback` 不再算通过
 - 如果要同步 / 回写 `P3-B` 运营台，优先用：
   - `python -m auto_report.cli sync-feishu-ops-desk`
   - `python -m auto_report.cli pull-feishu-ops-status`
@@ -861,7 +863,7 @@ ClawBot 额外事实：
 
 如果你是临时接手，不确定该优先干什么，默认优先：
 
-1. P3-A：飞书推送界面优化收口（持续 canary / 可观测性 / 小修）
+1. P3-A：飞书推送界面优化尾部小修（`Delivery Canary` 已升级为飞书卡片主路径 canary）
 2. P3-B：飞书多维表格运营台第二轮优化（中文化 / 按钮优先 / 轻自动化判断）
 3. 治理尾项：看 `changedetection-watch-registry.json` 和 `watch-run-results.json`，优先处理 blocked/changed
 4. 做发布级本地验收

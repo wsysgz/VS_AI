@@ -38,7 +38,7 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     assert outputs["summary"]["one_line_core"].startswith("Agent evaluation")
     assert outputs["forecast"]["most_likely_case"] == "benchmark competition intensifies"
     assert outputs["ai_metrics"]["provider"] == "deepseek"
-    assert outputs["ai_metrics"]["model"] == "deepseek-chat"
+    assert outputs["ai_metrics"]["model"] == "deepseek-v4-flash"
     assert outputs["ai_metrics"]["token_usage"]["total"] == 0
     assert outputs["ai_metrics"]["fallback_stages"] == []
 
