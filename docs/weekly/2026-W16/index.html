@@ -77,6 +77,7 @@
   .section,
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -163,6 +164,7 @@
   .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -180,6 +182,7 @@
   }
   .stat span { color: var(--muted); font-size: 13px; }
   .signal h3,
+  .article-card h3,
   .archive-card h3,
   .summary-card h3,
   .topic-card h3,
@@ -190,6 +193,7 @@
     line-height: 1.42;
   }
   .signal p,
+  .article-card p,
   .archive-card p,
   .summary-card p,
   .topic-card p,
@@ -207,6 +211,35 @@
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
   .signal-footer,
   .archive-footer {
     display: flex;
@@ -218,11 +251,13 @@
     font-size: 13px;
   }
   .signal a,
+  .article-card a,
   .archive-card a,
   .feed-links a {
     text-decoration: none;
   }
   .signal a:hover,
+  .article-card a:hover,
   .archive-card a:hover,
   .feed-links a:hover {
     color: var(--accent);
@@ -306,7 +341,7 @@
       <div class="archive-grid">
         <article class="archive-card">
   <span class="eyebrow">出现 7 次</span>
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
   <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
@@ -433,78 +468,46 @@
     <section class="section">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
-        <article class="signal">
-  <span class="tag alt">AI/智能体</span>
+        <article class="article-card">
+  <p class="article-date">2026.04.19</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-19/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.19</p>
   <h3>CoopEval: Benchmarking Cooperation-Sustaining Mechanisms and LLM Agents in Social Dilemmas</h3>
-  <p>It is increasingly important that LLM agents interact effectively and safely with other goal-pursuing agents, yet, recent works report the opposite trend: LLMs with stronger reasoning capabilities behave _less_ cooperatively in mixed-motive games such as the prisoner&#x27;s dilemma and public goods settings. Indeed, our experiments show that recent models -- with or without reasoning enabled -- consistently defect in single-shot social dilemmas. To tackle this safety concern, we present the first comparative study of game-theoretic mechanisms that are designed to enable cooperative outcomes between rational agents _in equilibrium_. Across four social dilemmas testing distinct components of robust cooperation, we evaluate the following mechanisms: (1) repeating the game for many rounds, (2) reputation systems, (3) third-party mediators to delegate decision making to, and (4) contract agreements for outcome-conditional payments between players. Among our findings, we establish that contracting and mediation are most effective in achieving cooperative outcomes between capable LLM models, and that repetition-induced cooperation deteriorates drastically when co-players vary. Moreover, we demonstrate that these cooperation mechanisms become _more effective_ under evolutionary pressures to maximize individual payoffs.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.15267v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="../../archives/2026-04-19/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.14</p>
   <h3>Exploiting the most prominent AI agent benchmarks</h3>
-  <p>Score: 574 | Comments: 137</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>rdi.berkeley.edu · 3.3</span>
-    <a href="https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">rdi.berkeley.edu</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-14/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.15</p>
   <h3>GAIA – Open-source framework for building AI agents that run on local hardware</h3>
-  <p>Score: 145 | Comments: 33</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>amd-gaia.ai · 3.3</span>
-    <a href="https://amd-gaia.ai/docs" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">amd-gaia.ai</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-15/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.15</p>
   <h3>Show HN: Plain – The full-stack Python framework designed for humans and agents</h3>
-  <p>Score: 53 | Comments: 21</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
-  <div class="signal-footer">
-    <span>github.com · 3.3</span>
-    <a href="https://github.com/dropseed/plain" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 3.3</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-04-15/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.16</p>
   <h3>LiteRT: The Universal Framework for On-Device AI</h3>
-  <p>来源共 2 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developers.googleblog.com · 2.9</span>
-    <a href="https://developers.googleblog.com/litert-the-universal-framework-for-on-device-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developers.googleblog.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-16/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.19</p>
   <h3>Claude Design</h3>
-  <p>Score: 1193 | Comments: 741 | Text: Related: https://x.com/flomerboy/status/2045162321589252458 ( ht</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">hacker-news</span><span class="tag">hot</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 2.8</span>
-    <a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-19/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.17</p>
   <h3>Claude Opus 4.7</h3>
-  <p>Score: 1856 | Comments: 1342</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">hacker-news</span><span class="tag">hot</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 2.8</span>
-    <a href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank" rel="noopener">查看原文</a>
-  </div>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-17/signals/3/">阅读文章</a>
 </article>
       </div>
     </section>

@@ -24,6 +24,46 @@ DOMAIN_LABELS = {
     "ai-x-electronics": "AI × 电子",
 }
 PUBLICATION_PRIORITY = {"reviewed": 1, "auto": 0}
+TRACK_LABELS = {
+    "embedded": "嵌入式",
+    "frontier-ai": "前沿 AI",
+    "compute-infra": "算力基础设施",
+    "agent-reliability": "智能体可靠性",
+    "ai-infra": "AI 基础设施",
+}
+SOURCE_LABELS = {
+    "espressif-blog": "乐鑫开发者博客",
+    "nvidia-embedded": "英伟达嵌入式博客",
+    "openai-news": "OpenAI 新闻",
+    "zhipu-news": "智谱新闻",
+}
+TAG_LABELS = {
+    "ai-llm-agent": "AI/智能体",
+    "ai-x-electronics": "AI × 电子",
+    "microsoft.com": "微软",
+    "github.com": "GitHub",
+    "arxiv.org": "arXiv",
+    "Research Blog": "研究博客",
+    "cs.AI": "AI 论文",
+    "cs.LG": "机器学习论文",
+    "hacker-news": "Hacker News",
+    "show-hn": "展示项目",
+    "release": "发布",
+    "infra": "基础设施",
+    "search": "检索",
+    "archives": "归档",
+}
+TITLE_TRANSLATIONS = {
+    "Systematic debugging for AI agents: Introducing the AgentRx framework": "AI 智能体系统化调试：AgentRx 框架",
+    "Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps": "网络防御基准：安全运营中的智能体威胁狩猎评估",
+    "Speculative Actions: A Lossless Framework for Faster Agentic Systems": "推测式动作：加速智能体系统的无损框架",
+    "Hear your agent suffer through your code": "让智能体在代码中暴露问题",
+    "Show HN: Browser Harness – Gives LLM freedom to complete any browser task": "Browser Harness：让大模型自主完成浏览器任务",
+    "vllm-project/vllm": "vLLM 项目",
+    "Automations": "自动化任务",
+    "AI agent development is shifting from raw capability to production-readiness: new frameworks address debugging opacity and latency bottlenecks, while stark benchmarking reveals massive capability gaps in real-world security tasks.": "AI 智能体开发正在从单纯能力展示转向生产可用：新框架开始处理调试黑箱和延迟瓶颈，而安全任务基准暴露出现实能力缺口。",
+    "The AI agent ecosystem is rapidly evolving from capability-focused to security-first, with OpenAI, Brex, and Microsoft independently addressing the core tension between agent autonomy and production safety.": "AI 智能体生态正在从能力优先转向安全优先，OpenAI、Brex 和 Microsoft 分别处理智能体自主性与生产安全之间的核心张力。",
+}
 
 
 def _normalize_publication_mode(value: object) -> str:
@@ -56,10 +96,61 @@ def _domain_label(domain: str) -> str:
     return DOMAIN_LABELS.get(domain, domain or "unknown")
 
 
+def _track_label(value: object) -> str:
+    raw = _safe_text(value)
+    return TRACK_LABELS.get(raw, raw)
+
+
+def _localize_known_text(value: object) -> str:
+    text = _safe_text(value)
+    if not text:
+        return ""
+    if text in TITLE_TRANSLATIONS:
+        return TITLE_TRANSLATIONS[text]
+    if " appeared across " in text and "Requires deeper verification" in text:
+        title = text.split(" appeared across ", 1)[0]
+        return f"{_localize_known_text(title)} 已进入信号池，仍需继续复核。"
+    for raw, label in TRACK_LABELS.items():
+        text = text.replace(raw, label)
+    for raw, label in TITLE_TRANSLATIONS.items():
+        text = text.replace(raw, label)
+    return text
+
+
+def _source_id_label(source_ids: object) -> str:
+    if not isinstance(source_ids, list):
+        return ""
+    labels = [SOURCE_LABELS.get(str(source_id).strip(), str(source_id).strip()) for source_id in source_ids]
+    labels = [label for label in labels if label]
+    return "、".join(labels[:2])
+
+
+def _comparison_signal_label(title: object, track: object, source_ids: object) -> str:
+    track_text = _track_label(track) or "相关赛道"
+    source_text = _source_id_label(source_ids)
+    if source_text:
+        return f"{source_text}：{track_text} 方向信号"
+    return _localize_known_text(title)
+
+
+def _href(url: object, prefix: str = "") -> str:
+    text = _safe_text(url)
+    if not text:
+        return "#"
+    if text.startswith(("http://", "https://", "#", "/")):
+        return text
+    return f"{prefix}{text}"
+
+
+def _tag_label(value: object) -> str:
+    text = _safe_text(value)
+    return TAG_LABELS.get(text, _domain_label(text))
+
+
 def _source_label(url: str) -> str:
     parsed = urlparse(url)
     host = parsed.netloc.lower().replace("www.", "")
-    return host or "unknown"
+    return _tag_label(host) if host else "unknown"
 
 
 def _format_date(date_text: str) -> str:
@@ -87,13 +178,13 @@ def _normalize_review(meta: object) -> dict[str, str]:
 
 def _comparison_item_text(item: object) -> str:
     if isinstance(item, dict):
-        return (
+        return _localize_known_text(
             _safe_text(item.get("readout"))
             or _safe_text(item.get("title"))
             or _safe_text(item.get("summary"))
             or _safe_text(item.get("delta"))
         )
-    return _safe_text(item)
+    return _localize_known_text(item)
 
 
 def _normalize_comparison_highlights(value: object) -> list[dict[str, str]]:
@@ -102,14 +193,18 @@ def _normalize_comparison_highlights(value: object) -> list[dict[str, str]]:
     highlights: list[dict[str, str]] = []
     for item in value:
         if isinstance(item, dict):
-            title = _safe_text(item.get("title")) or _safe_text(item.get("readout"))
+            title = _comparison_signal_label(
+                _safe_text(item.get("title")) or _safe_text(item.get("readout")),
+                item.get("tech_track") or item.get("track"),
+                item.get("source_ids", []),
+            )
             if not title:
                 continue
             highlights.append(
                 {
                     "title": title,
-                    "meta": _safe_text(item.get("tech_track")) or _safe_text(item.get("track")),
-                    "summary": _safe_text(item.get("summary")),
+                    "meta": _track_label(item.get("tech_track") or item.get("track")),
+                    "summary": _localize_known_text(item.get("summary")),
                 }
             )
             continue
@@ -125,11 +220,20 @@ def _normalize_comparison_rows(value: object) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for item in value:
         if isinstance(item, dict):
-            track = _safe_text(item.get("tech_track")) or _safe_text(item.get("track"))
-            cn = _safe_text(item.get("cn_title")) or _safe_text(item.get("cn"))
-            intl = _safe_text(item.get("intl_title")) or _safe_text(item.get("intl"))
-            delta = _safe_text(item.get("delta"))
-            readout = _safe_text(item.get("readout"))
+            track = _track_label(item.get("tech_track") or item.get("track"))
+            cn = _comparison_signal_label(
+                _safe_text(item.get("cn_title")) or _safe_text(item.get("cn")),
+                item.get("tech_track") or item.get("track"),
+                item.get("cn_source_ids", []),
+            )
+            intl = _comparison_signal_label(
+                _safe_text(item.get("intl_title")) or _safe_text(item.get("intl")),
+                item.get("tech_track") or item.get("track"),
+                item.get("intl_source_ids", []),
+            )
+            delta = _localize_known_text(item.get("delta"))
+            has_structured_sources = bool(item.get("cn_source_ids")) or bool(item.get("intl_source_ids"))
+            readout = "" if has_structured_sources and not delta else _localize_known_text(item.get("readout"))
             if not any((track, cn, intl, delta, readout)):
                 continue
             rows.append(
@@ -233,17 +337,22 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         if not title:
             continue
         url = _safe_text(raw_signal.get("url"))
+        signal_index = len(normalized_signals) + 1
         source = _source_label(url)
         domain = _safe_text(raw_signal.get("primary_domain")) or "unknown"
         tags = [str(tag).strip() for tag in raw_signal.get("tags", []) if str(tag).strip()]
         summary = _strip_html(raw_signal.get("summary"))
         signal = {
-            "title": title,
+            "title": _localize_known_text(title),
+            "raw_title": title,
             "url": url,
             "summary": summary or "暂无摘要",
             "domain": domain,
             "domain_label": _domain_label(domain),
             "source": source,
+            "date": date_text,
+            "date_label": _format_date(date_text),
+            "article_url": f"archives/{date_text}/signals/{signal_index}/",
             "score": round(float(raw_signal.get("score", 0.0)), 1),
             "evidence_count": int(raw_signal.get("evidence_count", 0)),
             "lifecycle_state": _safe_text(raw_signal.get("lifecycle_state")) or "new",
@@ -259,12 +368,12 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         "date": date_text,
         "date_label": _format_date(date_text),
         "generated_at": generated_at,
-        "judgment": brief["judgment"],
-        "executive_summary": brief["executive_summary"][:3],
+        "judgment": _localize_known_text(brief["judgment"]),
+        "executive_summary": [_localize_known_text(item) for item in brief["executive_summary"][:3]],
         "mainlines": brief["mainlines"][:3],
         "topic_briefs": brief["topic_briefs"][:3],
-        "watchlist": brief["watchlist"],
-        "forecast_conclusion": brief["forecast_conclusion"],
+        "watchlist": _localize_known_text(brief["watchlist"]),
+        "forecast_conclusion": _localize_known_text(brief["forecast_conclusion"]),
         "comparison_brief": comparison_brief,
         "publication_mode": publication_mode,
         "publication_label": _publication_label(publication_mode),
@@ -276,6 +385,7 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         "total_items": int(meta.get("total_items", 0)),
         "total_topics": int(meta.get("total_topics", 0)),
         "archive_url": f"archives/{date_text}/",
+        "brief_url": f"archives/{date_text}/brief/",
     }
 
 
@@ -457,8 +567,10 @@ def _build_search_index(reports: list[dict[str, object]]) -> dict[str, object]:
                     "summary": signal["summary"],
                     "domain": signal["domain_label"],
                     "source": signal["source"],
-                    "tags": signal["tags"],
+                    "tags": [_tag_label(tag) for tag in signal["tags"]],
+                    "raw_tags": signal["tags"],
                     "url": signal["url"],
+                    "article_url": signal["article_url"],
                     "archive_url": report["archive_url"],
                     "publication_mode": report["publication_mode"],
                     "score": signal["score"],
@@ -593,6 +705,7 @@ def _base_css() -> str:
   .section,
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -679,6 +792,7 @@ def _base_css() -> str:
   .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -696,6 +810,7 @@ def _base_css() -> str:
   }
   .stat span { color: var(--muted); font-size: 13px; }
   .signal h3,
+  .article-card h3,
   .archive-card h3,
   .summary-card h3,
   .topic-card h3,
@@ -706,6 +821,7 @@ def _base_css() -> str:
     line-height: 1.42;
   }
   .signal p,
+  .article-card p,
   .archive-card p,
   .summary-card p,
   .topic-card p,
@@ -723,6 +839,35 @@ def _base_css() -> str:
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
   .signal-footer,
   .archive-footer {
     display: flex;
@@ -734,11 +879,13 @@ def _base_css() -> str:
     font-size: 13px;
   }
   .signal a,
+  .article-card a,
   .archive-card a,
   .feed-links a {
     text-decoration: none;
   }
   .signal a:hover,
+  .article-card a:hover,
   .archive-card a:hover,
   .feed-links a:hover {
     color: var(--accent);
@@ -805,8 +952,8 @@ def _summary_cards(report: dict[str, object]) -> str:
     for line in report["mainlines"]:
         cards.append(
             f"""<article class="summary-card">
-  <h3>{html.escape(line["title"])}</h3>
-  <p>{html.escape(line["why_it_matters"])}</p>
+  <h3>{html.escape(_localize_known_text(line["title"]))}</h3>
+  <p>{html.escape(_localize_known_text(line["why_it_matters"]))}</p>
 </article>"""
         )
     return "".join(cards) or '<article class="summary-card"><h3>暂无主线</h3><p>等待更多高置信度信号。</p></article>'
@@ -829,8 +976,8 @@ def _topic_cards(report: dict[str, object]) -> str:
     for topic in report["topic_briefs"]:
         cards.append(
             f"""<article class="topic-card">
-  <h3>{html.escape(topic["title"])}</h3>
-  <p>{html.escape(topic["core_insight"])}</p>
+  <h3>{html.escape(_localize_known_text(topic["title"]))}</h3>
+  <p>{html.escape(_localize_known_text(topic["core_insight"]))}</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">{html.escape(_domain_label(topic["primary_domain"]))}</span>
     <span class="tag warm">{html.escape(topic["confidence"])}</span>
@@ -840,42 +987,70 @@ def _topic_cards(report: dict[str, object]) -> str:
     return "".join(cards) or '<article class="topic-card"><h3>暂无重点分析</h3><p>等待下一轮信号收敛。</p></article>'
 
 
-def _signal_cards(signals: list[dict[str, object]]) -> str:
+def _tag_chips(tags: object, limit: int = 4) -> str:
+    if not isinstance(tags, list):
+        return ""
+    labels: list[str] = []
+    seen: set[str] = set()
+    for tag in tags:
+        label = _tag_label(tag)
+        if not label or label in seen:
+            continue
+        seen.add(label)
+        labels.append(label)
+        if len(labels) >= limit:
+            break
+    return "".join(f'<span class="tag">{html.escape(label)}</span>' for label in labels)
+
+
+def _article_card(
+    title: object,
+    date_label: object,
+    tags: object,
+    article_url: object,
+    link_prefix: str,
+    button_label: str = "阅读文章",
+) -> str:
+    tag_html = _tag_chips(tags)
+    return f"""<article class="article-card">
+  <p class="article-date">{html.escape(_safe_text(date_label))}</p>
+  <h3>{html.escape(_localize_known_text(title))}</h3>
+  <div class="archive-meta" style="margin-top:12px;">{tag_html}</div>
+  <a class="article-action" href="{html.escape(_href(article_url, link_prefix))}">{html.escape(button_label)}</a>
+</article>"""
+
+
+def _signal_cards(signals: list[dict[str, object]], link_prefix: str = "./") -> str:
     cards = []
     for signal in signals:
-        tags = "".join(f'<span class="tag">{html.escape(tag)}</span>' for tag in signal["tags"][:3])
+        tags = [signal["domain_label"], signal["source"], *signal["tags"]]
         cards.append(
-            f"""<article class="signal">
-  <span class="tag alt">{html.escape(signal["domain_label"])}</span>
-  <h3>{html.escape(signal["title"])}</h3>
-  <p>{html.escape(signal["summary"])}</p>
-  <div class="signal-tags" style="margin-top:12px;">{tags}</div>
-  <div class="signal-footer">
-    <span>{html.escape(signal["source"])} · {signal["score"]:.1f}</span>
-    <a href="{html.escape(signal["url"])}" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article>"""
+            _article_card(
+                signal["title"],
+                signal.get("date_label", ""),
+                tags,
+                signal.get("article_url", signal.get("url", "")),
+                link_prefix,
+            )
         )
-    return "".join(cards) or '<article class="signal"><h3>暂无信号</h3><p>等待下一次构建。</p></article>'
+    return "".join(cards) or '<article class="article-card"><h3>暂无信号</h3><p>等待下一次构建。</p></article>'
 
 
-def _archive_cards(reports: list[dict[str, object]]) -> str:
+def _archive_cards(reports: list[dict[str, object]], link_prefix: str = "./") -> str:
     cards = []
     for report in reports:
-        domain_tags = "".join(f'<span class="tag alt">{html.escape(name)}</span>' for name in list(report["domain_counts"].keys())[:2])
-        source_tags = "".join(f'<span class="tag warm">{html.escape(name)}</span>' for name in list(report["source_counts"].keys())[:2])
-        publication_tag = f'<span class="tag">{html.escape(report["publication_label"])}</span>'
+        tags = [*list(report["domain_counts"].keys())[:2], report["publication_label"]]
         cards.append(
-            f"""<article class="archive-card" data-domain="{' '.join(report['domain_counts'].keys())}" data-source="{' '.join(report['source_counts'].keys())}">
-  <span class="eyebrow">{html.escape(report["date_label"])}</span>
-  <h3>{html.escape(report["judgment"])}</h3>
-  <p>{html.escape(" ".join(report["executive_summary"]) or report["watchlist"])}</p>
-  <div class="archive-meta" style="margin-top:12px;">{domain_tags}{source_tags}{publication_tag}</div>
-  <div class="archive-footer">
-    <span>{report["total_topics"]} 个主题 · {report["total_items"]} 条原始信息</span>
-    <a href="{html.escape(report["archive_url"])}">打开日报</a>
-  </div>
-</article>"""
+            _article_card(
+                report["judgment"],
+                report["date_label"],
+                tags,
+                report.get("brief_url", report["archive_url"]),
+                link_prefix,
+            ).replace(
+                '<article class="article-card">',
+                f'<article class="article-card" data-domain="{" ".join(report["domain_counts"].keys())}" data-source="{" ".join(report["source_counts"].keys())}">',
+            )
         )
     return "".join(cards)
 
@@ -967,13 +1142,13 @@ def _comparison_row_cards(rows: list[dict[str, str]]) -> str:
     cards = []
     for row in rows[:3]:
         delta = f'<dt>差异</dt><dd>{html.escape(row["delta"])}</dd>' if row["delta"] else ""
+        delta_line = f"\n    {delta}" if delta else ""
         cards.append(
             f"""<article class="comparison-card">
   <span class="tag">{html.escape(row["track"])}</span>
   <dl>
     <dt>国内侧</dt><dd>{html.escape(row["cn"])}</dd>
-    <dt>海外侧</dt><dd>{html.escape(row["intl"])}</dd>
-    {delta}
+    <dt>海外侧</dt><dd>{html.escape(row["intl"])}</dd>{delta_line}
   </dl>
 </article>"""
         )
@@ -1004,6 +1179,8 @@ def _comparison_section(comparison: object, compact: bool = False) -> str:
         if not content:
             content = _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [])
             content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [])
+        content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger")
+        content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm")
         return f"""<section class="section">
       <h2 class="section-title">国内外对比</h2>
       <div class="comparison-grid">{content}</div>
@@ -1018,6 +1195,82 @@ def _comparison_section(comparison: object, compact: bool = False) -> str:
       <h2 class="section-title">国内外对比</h2>
       <div class="comparison-grid">{content}</div>
     </section>"""
+
+
+def _build_signal_article_page(report: dict[str, object], signal: dict[str, object]) -> str:
+    tags = [signal["domain_label"], signal["source"], *signal["tags"]]
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(str(signal["title"]))} | VS_AI 文章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../assets/site.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../../">返回日报</a>
+        <a href="../../../../archives/">归档</a>
+        <a href="../../../../weekly/">周报</a>
+        <a href="../../../../special/">专题</a>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <div class="eyebrow">文章</div>
+      <p class="article-date">{html.escape(str(report["date_label"]))}</p>
+      <h1 class="page-title">{html.escape(str(signal["title"]))}</h1>
+      <div class="archive-meta" style="margin-top:16px;">{_tag_chips(tags)}</div>
+      <a class="article-action" href="{html.escape(str(signal["url"]))}" target="_blank" rel="noopener">查看正文</a>
+    </section>
+  </div>
+</body>
+</html>
+"""
+
+
+def _build_report_teaser_page(report: dict[str, object]) -> str:
+    tags = [*list(report["domain_counts"].keys())[:3], report["publication_label"]]
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(str(report["judgment"]))} | VS_AI 日报</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/site.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">返回正文</a>
+        <a href="../../../archives/">归档</a>
+        <a href="../../../weekly/">周报</a>
+        <a href="../../../special/">专题</a>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <div class="eyebrow">日报文章</div>
+      <p class="article-date">{html.escape(str(report["date_label"]))}</p>
+      <h1 class="page-title">{html.escape(str(report["judgment"]))}</h1>
+      <div class="archive-meta" style="margin-top:16px;">{_tag_chips(tags)}</div>
+      <a class="article-action" href="../">查看正文</a>
+    </section>
+  </div>
+</body>
+</html>
+"""
 
 
 def _build_homepage(report: dict[str, object], reports: list[dict[str, object]]) -> str:
@@ -1089,7 +1342,7 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
     <section class="section">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
-        {_signal_cards(report["top_signals"])}
+        {_signal_cards(report["top_signals"], link_prefix="./")}
       </div>
     </section>
 
@@ -1110,7 +1363,7 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        {_archive_cards(recent_archives)}
+        {_archive_cards(recent_archives, link_prefix="./")}
       </div>
     </section>
 
@@ -1133,16 +1386,14 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
           return;
         }}
         results.innerHTML = list.slice(0, 8).map((entry) => {{
-          const tags = (entry.tags || []).slice(0, 3).map((tag) => `<span class="tag">${{tag}}</span>`).join("");
+          const tags = [entry.domain, entry.source, ...(entry.tags || [])].filter(Boolean).slice(0, 4).map((tag) => `<span class="tag">${{tag}}</span>`).join("");
+          const articleUrl = entry.article_url || entry.archive_url || entry.url;
           return `
-            <article class="search-hit">
-              <h4><a href="${{entry.url}}" target="_blank" rel="noopener">${{entry.title}}</a></h4>
-              <p>${{entry.summary}}</p>
-              <div class="archive-meta" style="margin-top:10px;">
-                <span class="tag alt">${{entry.domain}}</span>
-                <span class="tag warm">${{entry.source}}</span>
-                ${{tags}}
-              </div>
+            <article class="article-card search-hit">
+              <p class="article-date">${{entry.date || ""}}</p>
+              <h3>${{entry.title}}</h3>
+              <div class="archive-meta" style="margin-top:10px;">${{tags}}</div>
+              <a class="article-action" href="./${{articleUrl}}">阅读文章</a>
             </article>
           `;
         }}).join("");
@@ -1233,7 +1484,7 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
 
     <section class="section">
       <div id="archive-grid" class="archive-grid">
-        {_archive_cards(reports)}
+        {_archive_cards(reports, link_prefix="../")}
       </div>
     </section>
   </div>
@@ -1316,7 +1567,7 @@ def _build_day_page(report: dict[str, object]) -> str:
     <section class="section">
       <h2 class="section-title">全部信号</h2>
       <div class="signal-grid">
-        {_signal_cards(report["signals"])}
+        {_signal_cards(report["signals"], link_prefix="../../")}
       </div>
     </section>
   </div>
@@ -1448,7 +1699,7 @@ def _build_week_page(week: dict[str, object]) -> str:
     <section class="section">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
-        {_signal_cards(week["top_signals"])}
+        {_signal_cards(week["top_signals"], link_prefix="../../")}
       </div>
     </section>
   </div>
@@ -1542,6 +1793,7 @@ def build_pages_site(root_dir: Path) -> Path:
     reports_dir = root_dir / "data" / "reports"
     archives_dir = root_dir / "data" / "archives"
     dist_dir = root_dir / "docs"
+    assets_dist = dist_dir / "assets"
     archives_dist = dist_dir / "archives"
     weekly_dist = dist_dir / "weekly"
     special_dist = dist_dir / "special"
@@ -1564,6 +1816,7 @@ def build_pages_site(root_dir: Path) -> Path:
         target = dist_dir / generated_file
         if target.exists():
             target.unlink()
+    assets_dist.mkdir(parents=True, exist_ok=True)
     archives_dist.mkdir(parents=True, exist_ok=True)
     weekly_dist.mkdir(parents=True, exist_ok=True)
     special_dist.mkdir(parents=True, exist_ok=True)
@@ -1581,12 +1834,19 @@ def build_pages_site(root_dir: Path) -> Path:
     _write_text(dist_dir / "search-index.json", json.dumps(search_index, ensure_ascii=False, indent=2))
     _write_text(dist_dir / "feed.json", json.dumps(json_feed, ensure_ascii=False, indent=2))
     _write_text(dist_dir / "rss.xml", rss_feed)
+    _write_text(assets_dist / "site.css", _base_css())
     _write_text(archives_dist / "index.html", _build_archives_index(reports))
     _write_text(weekly_dist / "index.html", _build_weekly_index(weekly_reports))
     _write_text(special_dist / "index.html", _build_special_index(special_collections))
 
     for report in reports:
         _write_text(archives_dist / str(report["date"]) / "index.html", _build_day_page(report))
+        _write_text(archives_dist / str(report["date"]) / "brief" / "index.html", _build_report_teaser_page(report))
+        for index, signal in enumerate(report["signals"], start=1):
+            _write_text(
+                archives_dist / str(report["date"]) / "signals" / str(index) / "index.html",
+                _build_signal_article_page(report, signal),
+            )
     for week in weekly_reports:
         _write_text(weekly_dist / str(week["week_key"]) / "index.html", _build_week_page(week))
     for collection in special_collections:

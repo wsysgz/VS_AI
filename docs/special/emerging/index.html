@@ -77,6 +77,7 @@
   .section,
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -163,6 +164,7 @@
   .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -180,6 +182,7 @@
   }
   .stat span { color: var(--muted); font-size: 13px; }
   .signal h3,
+  .article-card h3,
   .archive-card h3,
   .summary-card h3,
   .topic-card h3,
@@ -190,6 +193,7 @@
     line-height: 1.42;
   }
   .signal p,
+  .article-card p,
   .archive-card p,
   .summary-card p,
   .topic-card p,
@@ -207,6 +211,35 @@
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
   .signal-footer,
   .archive-footer {
     display: flex;
@@ -218,11 +251,13 @@
     font-size: 13px;
   }
   .signal a,
+  .article-card a,
   .archive-card a,
   .feed-links a {
     text-decoration: none;
   }
   .signal a:hover,
+  .article-card a:hover,
   .archive-card a:hover,
   .feed-links a:hover {
     color: var(--accent);
@@ -2615,7 +2650,7 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.13</span>
-  <h3>vllm-project/vllm</h3>
+  <h3>vLLM 项目</h3>
   <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
@@ -2720,7 +2755,7 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.13</span>
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
   <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
@@ -3094,21 +3129,6 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
-  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">medium</span>
-    <span class="tag">人工复核版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 2 次 · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.14</span>
   <h3>Exploiting the most prominent AI agent benchmarks</h3>
   <p>Score: 574 | Comments: 137</p>
@@ -3140,12 +3160,27 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+  <h3>推测式动作：加速智能体系统的无损框架</h3>
   <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
     <span class="tag">high</span>
+    <span class="tag">人工复核版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 2 次 · 2026.04.24 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">medium</span>
     <span class="tag">人工复核版</span>
   </div>
   <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
@@ -3437,21 +3472,6 @@
   <div class="archive-footer">
     <span>出现 2 次 · 2026.04.23 → 2026.04.24</span>
     <a href="archives/2026-04-24/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Automations</h3>
-  <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">人工复核版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 2 次 · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.14</span>
@@ -3965,6 +3985,21 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
+  <h3>自动化任务</h3>
+  <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">low</span>
+    <span class="tag">人工复核版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 2 次 · 2026.04.24 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
   <h3>An update on our election safeguards</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="archive-meta" style="margin-top:12px;">
@@ -4219,6 +4254,21 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>Browser Harness：让大模型自主完成浏览器任务</h3>
+  <p>Score: 99 | Comments: 53 | Text: Hey HN, We got tired of browser frameworks restricting the LLM, so we removed the framework and gave the LLM maximum freedom to do whatever it&#x27;s trained on. We gave the harness the ability to self correct and add new tools if the LLM wants (is pre-trained on) that. Our Browser Use library i</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">人工复核版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.23</span>
   <h3>Can &quot;AI&quot; Be a Doctor? A Study of Empathy, Readability, and Alignment in Clinical LLMs</h3>
   <p>Large Language Models (LLMs) are increasingly deployed in healthcare, yet their communicative alignment with clinical standards remains insufficiently quantified. We conduct a multidimensional evaluation of general-purpose and domain-specialized LLMs across structured medical explanations and real-world physician-patient interactions, analyzing semantic fidelity, readability, and affective resonance. Baseline models amplify affective polarity relative to physicians (Very Negative: 43.14-45.10% vs. 37.25%) and, in larger architectures such as GPT-5 and Claude, produce substantially higher linguistic complexity (FKGL up to 16.91-17.60 vs. 11.47-12.50 in physician-authored responses). Empathy-oriented prompting reduces extreme negativity and lowers grade-level complexity (up to -6.87 FKGL points for GPT-5) but does not significantly increase semantic fidelity. Collaborative rewriting yields the strongest overall alignment. Rephrase configurations achieve the highest semantic similarity to physician answers (up to mean = 0.93) while consistently improving readability and reducing affective extremity. Dual stakeholder evaluation shows that no model surpasses physicians on epistemic criteria, whereas patients consistently prefer rewritten variants for clarity and emotional tone. These findings suggest that LLMs function most effectively as collaborative communication enhancers rather than replacements for clinical expertise.</p>
@@ -4307,21 +4357,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.04.16 → 2026.04.16</span>
     <a href="archives/2026-04-16/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Hear your agent suffer through your code</h3>
-  <p>Score: 188 | Comments: 84</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">medium</span>
-    <span class="tag">人工复核版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.04.25 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.23</span>
@@ -4564,21 +4599,6 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Show HN: Browser Harness – Gives LLM freedom to complete any browser task</h3>
-  <p>Score: 99 | Comments: 53 | Text: Hey HN, We got tired of browser frameworks restricting the LLM, so we removed the framework and gave the LLM maximum freedom to do whatever it&#x27;s trained on. We gave the harness the ability to self correct and add new tools if the LLM wants (is pre-trained on) that. Our Browser Use library i</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">medium</span>
-    <span class="tag">人工复核版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.04.25 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
   <h3>Show HN: How LLMs Work – Interactive visual guide based on Karpathy&#x27;s lecture</h3>
   <p>Score: 137 | Comments: 33 | Text: All content is based on Andrej Karpathy&#x27;s &quot;Intro to Large Language Models&quot; lecture (youtube.com/watch?v=7xTGNNLPyMI). I downloaded the transcript and used Claude Code to generate the entire interactive site from it — single HTML file. I find it useful to revisit this content time</p>
@@ -4712,6 +4732,21 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.04.23 → 2026.04.23</span>
     <a href="archives/2026-04-23/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>让智能体在代码中暴露问题</h3>
+  <p>Score: 188 | Comments: 84</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">人工复核版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.23</span>

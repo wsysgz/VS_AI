@@ -77,6 +77,7 @@
   .section,
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -163,6 +164,7 @@
   .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -180,6 +182,7 @@
   }
   .stat span { color: var(--muted); font-size: 13px; }
   .signal h3,
+  .article-card h3,
   .archive-card h3,
   .summary-card h3,
   .topic-card h3,
@@ -190,6 +193,7 @@
     line-height: 1.42;
   }
   .signal p,
+  .article-card p,
   .archive-card p,
   .summary-card p,
   .topic-card p,
@@ -207,6 +211,35 @@
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
   .signal-footer,
   .archive-footer {
     display: flex;
@@ -218,11 +251,13 @@
     font-size: 13px;
   }
   .signal a,
+  .article-card a,
   .archive-card a,
   .feed-links a {
     text-decoration: none;
   }
   .signal a:hover,
+  .article-card a:hover,
   .archive-card a:hover,
   .feed-links a:hover {
     color: var(--accent);
@@ -298,7 +333,7 @@
     <section class="section">
       <div class="eyebrow">2026.04.25</div>
       <h1 class="section-title" style="font-size:34px;">本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。</h1>
-      <p class="subtle">重点关注：Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps Hear your agent suffer through your code Systematic debugging for AI agents: Introducing the AgentRx framework</p>
+      <p class="subtle">重点关注：网络防御基准：安全运营中的智能体威胁狩猎评估 让智能体在代码中暴露问题 AI 智能体系统化调试：AgentRx 框架</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">166 个主题</span>
         <span class="tag warm">168 条原始信息</span>
@@ -311,14 +346,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
-  <p>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <p>网络防御基准：安全运营中的智能体威胁狩猎评估 已进入信号池，仍需继续复核。</p>
 </article><article class="summary-card">
-  <h3>Hear your agent suffer through your code</h3>
-  <p>Hear your agent suffer through your code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>让智能体在代码中暴露问题</h3>
+  <p>让智能体在代码中暴露问题 已进入信号池，仍需继续复核。</p>
 </article><article class="summary-card">
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>Systematic debugging for AI agents: Introducing the AgentRx framework appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <p>AI 智能体系统化调试：AgentRx 框架 已进入信号池，仍需继续复核。</p>
 </article>
       </div>
     </section>
@@ -326,55 +361,53 @@
 <section class="section">
       <h2 class="section-title">国内外对比</h2>
       <div class="comparison-grid"><article class="comparison-card">
-  <span class="tag">embedded</span>
+  <span class="tag">嵌入式</span>
   <dl>
-    <dt>国内侧</dt><dd>Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</dd>
-    <dt>海外侧</dt><dd>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</dd>
-    <dt>差异</dt><dd>embedded：国内 Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。</dd>
+    <dt>国内侧</dt><dd>乐鑫开发者博客：嵌入式 方向信号</dd>
+    <dt>海外侧</dt><dd>英伟达嵌入式博客：嵌入式 方向信号</dd>
   </dl>
 </article><article class="comparison-card">
-  <span class="tag">frontier-ai</span>
+  <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd>Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay</dd>
-    <dt>海外侧</dt><dd>Automations</dd>
-    <dt>差异</dt><dd>frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Automations。</dd>
+    <dt>国内侧</dt><dd>智谱新闻：前沿 AI 方向信号</dd>
+    <dt>海外侧</dt><dd>OpenAI 新闻：前沿 AI 方向信号</dd>
   </dl>
 </article><article class="comparison-list">
   <h3>国内信号</h3>
   <ul><li>
-  <strong>Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</strong>
-  <span class="tag alt">embedded</span>
+  <strong>乐鑫开发者博客：嵌入式 方向信号</strong>
+  <span class="tag alt">嵌入式</span>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
 </li><li>
-  <strong>Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay</strong>
-  <span class="tag alt">frontier-ai</span>
+  <strong>智谱新闻：前沿 AI 方向信号</strong>
+  <span class="tag alt">前沿 AI</span>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
 </li><li>
-  <strong>GLM-PC 基座模型，CogAgent-9B 开源</strong>
-  <span class="tag alt">frontier-ai</span>
+  <strong>智谱新闻：前沿 AI 方向信号</strong>
+  <span class="tag alt">前沿 AI</span>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
 </li></ul>
 </article><article class="comparison-list">
   <h3>海外信号</h3>
   <ul><li>
-  <strong>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</strong>
-  <span class="tag alt">embedded</span>
+  <strong>英伟达嵌入式博客：嵌入式 方向信号</strong>
+  <span class="tag alt">嵌入式</span>
   <p>&lt;img alt=&quot;&quot; class=&quot;webfeedsFeaturedVisual wp-post-image&quot; height=&quot;432&quot; src=&quot;https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp&quot; style=&quot;display: block; margin-bottom: 5px; clear: both;&quot; title=&quot;car-robot-graphic&quot; width=&quot;768&quot; /&gt;Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
 </li><li>
-  <strong>Bringing AI Closer to the Edge and On-Device with Gemma 4</strong>
-  <span class="tag alt">embedded</span>
+  <strong>英伟达嵌入式博客：嵌入式 方向信号</strong>
+  <span class="tag alt">嵌入式</span>
   <p>&lt;img alt=&quot;&quot; class=&quot;webfeedsFeaturedVisual wp-post-image&quot; height=&quot;432&quot; src=&quot;https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png&quot; style=&quot;display: block; margin-bottom: 5px; clear: both;&quot; title=&quot;Gemma 4 TechBlog featured&quot; width=&quot;768&quot; /&gt;The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...</p>
 </li><li>
-  <strong>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</strong>
-  <span class="tag alt">embedded</span>
+  <strong>英伟达嵌入式博客：嵌入式 方向信号</strong>
+  <span class="tag alt">嵌入式</span>
   <p>&lt;img alt=&quot;&quot; class=&quot;webfeedsFeaturedVisual wp-post-image&quot; height=&quot;432&quot; src=&quot;https://developer-blogs.nvidia.com/wp-content/uploads/2026/03/autonomous-vehicle-backseat-view-768x432.jpg&quot; style=&quot;display: block; margin-bottom: 5px; clear: both;&quot; title=&quot;autonomous-vehicle-backseat-view&quot; width=&quot;768&quot; /&gt;Physical AI is rapidly evolving, from next-generation software-defined autonomous vehicles (AVs) to humanoid robots. The challenge is no longer how to run a...</p>
 </li></ul>
 </article><article class="comparison-list">
   <h3><span class="tag danger">覆盖缺口</span></h3>
-  <ul><li>compute-infra：仅看到海外信号，需补齐国内来源。</li></ul>
+  <ul><li>算力基础设施：仅看到海外信号，需补齐国内来源。</li></ul>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
-  <ul><li>继续跟踪 embedded 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
+  <ul><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
     </section>
 
@@ -382,22 +415,22 @@
       <h2 class="section-title">深度解读</h2>
       <div class="summary-grid">
         <article class="topic-card">
-  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
-  <p>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <p>网络防御基准：安全运营中的智能体威胁狩猎评估 已进入信号池，仍需继续复核。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">low</span>
   </div>
 </article><article class="topic-card">
-  <h3>Hear your agent suffer through your code</h3>
-  <p>Hear your agent suffer through your code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>让智能体在代码中暴露问题</h3>
+  <p>让智能体在代码中暴露问题 已进入信号池，仍需继续复核。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">low</span>
   </div>
 </article><article class="topic-card">
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>Systematic debugging for AI agents: Introducing the AgentRx framework appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <p>AI 智能体系统化调试：AgentRx 框架 已进入信号池，仍需继续复核。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">low</span>
@@ -409,1500 +442,836 @@
     <section class="section">
       <h2 class="section-title">全部信号</h2>
       <div class="signal-grid">
-        <article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 3.3</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
-  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CR</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
-  <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DC</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Hear your agent suffer through your code</h3>
-  <p>Score: 188 | Comments: 84</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>github.com · 2.5</span>
-    <a href="https://github.com/AndrewVos/endless-toil" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Show HN: Browser Harness – Gives LLM freedom to complete any browser task</h3>
-  <p>Score: 99 | Comments: 53 | Text: Hey HN, We got tired of browser frameworks restricting the LLM, so we removed the framework and gave the LLM maximum freedom to do whatever it&#x27;s trained on. We gave the harness the ability to self correct and add new tools if the LLM wants (is pre-trained on) that. Our Browser Use library i</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
-  <div class="signal-footer">
-    <span>github.com · 2.5</span>
-    <a href="https://github.com/browser-use/browser-harness" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>vllm-project/vllm</h3>
-  <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <div class="signal-footer">
-    <span>github.com · 2.5</span>
-    <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+        <article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CR</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>推测式动作：加速智能体系统的无损框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.DC</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>让智能体在代码中暴露问题</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/4/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>Browser Harness：让大模型自主完成浏览器任务</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>vLLM 项目</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/6/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
-  <p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta&#x27;s compute portfolio to support agentic AI workloads. The post Meta Partners With AWS on Graviton Chips to Power Agentic AI appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 2.5</span>
-    <a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/7/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation</h3>
-  <p>Scientific workflow systems automate execution -- scheduling, fault tolerance, resource management -- but not the semantic translation that precedes it. Scientists still manually convert research questions into workflow specifications, a task requiring both domain knowledge and infrastructure expertise. We propose an agentic architecture that closes this gap through three layers: an LLM interprets natural language into structured intents (semantic layer); validated generators produce reproducible workflow DAGs (deterministic layer); and domain experts author ``Skills&#x27;&#x27;: markdown documents encoding vocabulary mappings, parameter constraints, and optimization strategies (knowledge layer). This decomposition confines LLM non-determinism to intent extraction: identical intents always yield identical workflows. We implement and evaluate the architecture on the 1000 Genomes population genetics workflow and Hyperflow WMS running on Kubernetes. In an ablation study on 150 queries, Skills raise full-match intent accuracy from 44% to 83%; skill-driven deferred workflow generation reduces data transfer by 92\%; and the end-to-end pipeline completes queries on Kubernetes with LLM overhead below 15 seconds and cost under $0.001 per query.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.21910v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/8/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</h3>
-  <p>This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon&#x27;s taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/9/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>NPU Design for Diffusion Language Model Inference</h3>
-  <p>Diffusion-based LLMs (dLLMs) fundamentally depart from traditional autoregressive (AR) LLM inference: they leverage bidirectional attention, block-wise KV cache refreshing, cross-step reuse, and a non-GEMM-centric sampling phase. These characteristics make current dLLMs incompatible with most existing NPUs, as their inference patterns, in particular the reduction-heavy, top-$k$-driven sampling stage, demand new ISA and memory hierarchy support beyond that of AR accelerators. In addition, the blocked diffusion KV cache breaks from the append-only paradigm assumed by AR NPUs, and conventional AR-derived KV quantization schemes were designed for static activation distributions and do not account for the step-wise distribution shifts introduced by iterative block-wise refinement in dLLMs. In this paper, we introduce the first NPU accelerator specifically designed for dLLMs. It delivers: a dLLM-oriented ISA and compiler; a hardware-optimized execution model for both the transformer inference and diffusion sampling used in dLLMs; a novel Block-Adaptive Online Smoothing (BAOS) for quantizing KV cache in dLLMs; and a complete RTL implementation synthesized in 7nm. To evaluate and validate our design, we introduce a tri-path simulation framework that comprises analytical, cycle-accurate, and accuracy simulators, together with cross-validations against physical hardware. The full NPU stack, including ISA, simulation tools, and quantization software, will be open-sourced upon acceptance.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.AR</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2601.20706v2" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">arXiv</span><span class="tag">AI/智能体</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/10/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
-  <p>The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.nvidia.com</span><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/11/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
-  <p>Physical AI is rapidly evolving, from next-generation software-defined autonomous vehicles (AVs) to humanoid robots. The challenge is no longer how to run a...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/12/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
-  <p>Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Agent</span><span class="tag">AI Inference</span><span class="tag">Agentic AI / Generative AI</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">AI Inference</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/13/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics</h3>
-  <p>Running advanced AI and computer vision workloads on small, power-efficient devices at the edge is a growing challenge. Robots, smart cameras, and autonomous...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Computer Vision / Video Analytics</span><span class="tag">Edge Computing</span><span class="tag">LLMs</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">Computer Vision / Video Analytics</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/14/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing</h3>
-  <p>The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Internet of Things</span><span class="tag">Our products</span><span class="tag">STM32</span></div>
-  <div class="signal-footer">
-    <span>blog.st.com · 2.5</span>
-    <a href="https://blog.st.com/stm32n6/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">Internet of Things</span><span class="tag">Our products</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/15/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds</h3>
-  <p>What if a system could use machine learning to train models and run them on the same microcontroller? It’s, in</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Application Examples</span><span class="tag">Internet of Things</span></div>
-  <div class="signal-footer">
-    <span>blog.st.com · 2.5</span>
-    <a href="https://blog.st.com/nanoedge-ai-machine-learning/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">AI</span><span class="tag">Application Examples</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/16/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>OpenAI releases GPT-5.5 and GPT-5.5 Pro in the API</h3>
-  <p>Score: 234 | Comments: 129 | Text: GPT-5.5 - https://news.ycombinator.com/item?id=47879092 - April 2026 (1010 comments)</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>developers.openai.com · 1.8</span>
-    <a href="https://developers.openai.com/api/docs/changelog" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developers.openai.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/17/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Show HN: Gova – The declarative GUI framework for Go</h3>
-  <p>Score: 120 | Comments: 26</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">show-hn</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.8</span>
-    <a href="https://github.com/NV404/gova" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/18/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 1.8</span>
-    <a href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/19/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GLM-PC 基座模型，CogAgent-9B 开源</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 1.8</span>
-    <a href="https://www.zhipuai.cn/zh/news/76" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/20/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 1.8</span>
-    <a href="https://www.zhipuai.cn/zh/news/68" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/21/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Figma - MultiAgents</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 1.8</span>
-    <a href="https://www.cerebras.ai/blog/figma-multiagents" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/22/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Lessons learned from building multi-agent workflows</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 1.8</span>
-    <a href="https://www.cerebras.ai/blog/lessons-learned-from-building-multi-agent-workflows" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/23/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Q3&#x27;25: Technology Update – Low Precision and Model Optimization</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 1.8</span>
-    <a href="https://blog.openvino.ai/blog-posts/q325-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/24/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Q2&#x27;25: Technology Update – Low Precision and Model Optimization</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 1.8</span>
-    <a href="https://blog.openvino.ai/blog-posts/q225-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/25/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Building tomorrow&#x27;s innovations with today&#x27;s edge AI-enabled devices</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>ti.com · 1.8</span>
-    <a href="https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">ti.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/26/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>A Look Inside my Edge AI Inspection Robot (ROS 2–Native)</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 1.8</span>
-    <a href="https://www.edgeimpulse.com/blog/edge-ai-inspection-robot-ros-2-native/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">edgeimpulse.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/27/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 1.8</span>
-    <a href="https://www.edgeimpulse.com/blog/announcing-arduino-app-lab-full-integration-and-ventuno-q/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">edgeimpulse.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/28/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 1.8</span>
-    <a href="https://developer.espressif.com/blog/2026/04/doc-mcp-server/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/29/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V4: a million-token context that agents can actually use</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/deepseekv4" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/30/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/31/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/ecom-rlve" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/32/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 1.8</span>
-    <a href="https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/33/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>AsgardBench: A benchmark for visually grounded interactive planning</h3>
-  <p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don’t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems […] The post AsgardBench: A benchmark for visually grounded interactive planning appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.8</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/34/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>A Scale-Adaptive Framework for Joint Spatiotemporal Super-Resolution with Diffusion Models</h3>
-  <p>Deep-learning video super-resolution has progressed rapidly, but climate applications typically super-resolve (increase resolution) either space or time, and joint spatiotemporal models are often designed for a single pair of super-resolution (SR) factors (upscaling spatial and temporal ratio between the low-resolution sequence and the high-resolution sequence), limiting transfer across spatial resolutions and temporal cadences (frame rates). We present a scale-adaptive framework that reuses the same architecture across factors by decomposing spatiotemporal SR into a deterministic prediction of the conditional mean, with attention, and a residual conditional diffusion model, with an optional mass-conservation (same precipitation amount in inputs and outputs) transform to preserve aggregated totals. Assuming that larger SR factors primarily increase underdetermination (hence required context and residual uncertainty) rather than changing the conditional-mean structure, scale adaptivity is achieved by retuning three factor-dependent hyperparameters before retraining: the diffusion noise schedule amplitude beta (larger for larger factors to increase diversity), the temporal context length L (set to maintain comparable attention horizons across cadences) and optionally a third, the mass-conservation function f (tapered to limit the amplification of extremes for large factors). Demonstrated on reanalysis precipitation over France (Comephore), the same architecture spans super-resolution factors from 1 to 25 in space and 1 to 6 in time, yielding a reusable architecture and tuning recipe for joint spatiotemporal super-resolution across scales.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.LG</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.8</span>
-    <a href="https://arxiv.org/abs/2604.21903v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">arXiv</span><span class="tag">AI/智能体</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/35/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Arm announces earnings release date for fourth quarter fiscal year ended 2026</h3>
-  <p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its […] The post Arm announces earnings release date for fourth quarter fiscal year ended 2026 appeared first on Arm Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>newsroom.arm.com · 1.8</span>
-    <a href="https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/36/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Smarter Devices, Smaller Chips: Inside Embedded World 2026</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 1.1</span>
-    <a href="https://www.edgeimpulse.com/blog/smarter-devices-smaller-chips-inside-embedded-world-2026/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">edgeimpulse.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/37/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Alberta startup sells no-tech tractors for half price</h3>
-  <p>Score: 2272 | Comments: 771</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>wheelfront.com · 1.0</span>
-    <a href="https://wheelfront.com/this-alberta-startup-sells-no-tech-tractors-for-half-price/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">wheelfront.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/38/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek v4</h3>
-  <p>Score: 1898 | Comments: 1474 | Text: https://api-docs.deepseek.com/ https://huggingface.co/de</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 1.0</span>
-    <a href="https://api-docs.deepseek.com/news/news260424" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/39/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GPT-5.5</h3>
-  <p>Score: 1543 | Comments: 1028</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/introducing-gpt-5-5/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/40/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>An update on recent Claude Code quality reports</h3>
-  <p>Score: 921 | Comments: 703</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 1.0</span>
-    <a href="https://www.anthropic.com/engineering/april-23-postmortem" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/41/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>I cancelled Claude: Token issues, declining quality, and poor support</h3>
-  <p>Score: 871 | Comments: 508</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>nickyreinert.de · 1.0</span>
-    <a href="https://nickyreinert.de/en/2026/2026-04-24-claude-critics/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">nickyreinert.de</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/42/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>US special forces soldier arrested after allegedly winning $400k on Maduro raid</h3>
-  <p>Score: 657 | Comments: 710 | Text: &lt;a href=&quot;https://www.justice.gov/usao-sdny/pr/us-soldier-charged-using-classified-information-profit-prediction-market-bets?bm-verify=AAQAAAAN_____y6To7sZYZ502biZwIHXlr-7zXZUqV4H0xLTfW__wDA3SjNLqifXRaQwsikyuz6IJknyuL8xfVYRkesxcDk5V10m-HoXl2K93f17rygBphL77WVFoQ_XvlmUo922IwM_D</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>cnn.com · 1.0</span>
-    <a href="https://www.cnn.com/2026/04/23/politics/us-special-forces-soldier-arrested-maduro-raid-trade" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cnn.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/43/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Google plans to invest up to $40B in Anthropic</h3>
-  <p>Score: 569 | Comments: 552</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">hot</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>bloomberg.com · 1.0</span>
-    <a href="https://www.bloomberg.com/news/articles/2026-04-24/google-plans-to-invest-up-to-40-billion-in-anthropic" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">bloomberg.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/44/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Spinel: Ruby AOT Native Compiler</h3>
-  <p>Score: 324 | Comments: 86</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span><span class="tag">trending</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/matz/spinel" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/45/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Iliad fragment found in Roman-era mummy</h3>
-  <p>Score: 171 | Comments: 49</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>thehistoryblog.com · 1.0</span>
-    <a href="https://www.thehistoryblog.com/archives/75877" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">thehistoryblog.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/46/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Email could have been X.400 times better</h3>
-  <p>Score: 170 | Comments: 148</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>buttondown.com · 1.0</span>
-    <a href="https://buttondown.com/blog/x400-vs-smtp-email" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">buttondown.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/47/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Work with the garage door up (2024)</h3>
-  <p>Score: 155 | Comments: 114</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>notes.andymatuschak.org · 1.0</span>
-    <a href="https://notes.andymatuschak.org/Work_with_the_garage_door_up" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">notes.andymatuschak.org</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/48/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>SFO Quiet Airport (2025)</h3>
-  <p>Score: 142 | Comments: 84</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>viewfromthewing.com · 1.0</span>
-    <a href="https://viewfromthewing.com/san-francisco-airport-removed-90-minutes-of-daily-noise-travelers-say-it-changed-everything/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">viewfromthewing.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/49/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>The operating cost of adult and gambling startups</h3>
-  <p>Score: 122 | Comments: 194</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>orchidfiles.com · 1.0</span>
-    <a href="https://orchidfiles.com/stigma-is-a-tax-on-every-operational-decision/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">orchidfiles.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/50/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Different language models learn similar number representations</h3>
-  <p>Score: 95 | Comments: 38</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.20817" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/51/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Plain text has been around for decades and it’s here to stay</h3>
-  <p>Score: 88 | Comments: 17</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>unsung.aresluna.org · 1.0</span>
-    <a href="https://unsung.aresluna.org/plain-text-has-been-around-for-decades-and-its-here-to-stay/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">unsung.aresluna.org</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/52/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>CC-Canary: Detect early signs of regressions in Claude Code</h3>
-  <p>Score: 54 | Comments: 24</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/delta-hq/cc-canary" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/53/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>langchain-ai/langgraph</h3>
-  <p>Build resilient language agents as graphs.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/54/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>ollama/ollama</h3>
-  <p>Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/55/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>alibaba/MNN</h3>
-  <p>MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">arm</span><span class="tag">convolution</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/alibaba/MNN" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">arm</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/56/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>tenstorrent/tt-metal</h3>
-  <p>:metal: TT-NN operator library, and TT-Metalium low level kernel programming model.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">accelerator</span><span class="tag">ai</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/tenstorrent/tt-metal" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">accelerator</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/57/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>pytorch/executorch</h3>
-  <p>On-device AI across mobile, embedded and edge for PyTorch</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">embedded</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/pytorch/executorch" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">deep-learning</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/58/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
-  <p>The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/59/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>openai/swarm</h3>
-  <p>Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/openai/swarm" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/60/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>mem0ai/mem0</h3>
-  <p>Universal memory layer for AI Agents</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/61/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>anthropics/claude-cookbooks</h3>
-  <p>A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/anthropics/claude-cookbooks" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/62/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>NVIDIA/TensorRT</h3>
-  <p>NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/NVIDIA/TensorRT" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/63/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>onnx/onnx</h3>
-  <p>Open standard for machine learning interoperability</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai</span><span class="tag">ai-llm-agent</span><span class="tag">artificial-intelligence</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/onnx/onnx" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">ai</span><span class="tag">artificial-intelligence</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/64/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>jax-ml/jax</h3>
-  <p>Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">jax</span></div>
-  <div class="signal-footer">
-    <span>github.com · 1.0</span>
-    <a href="https://github.com/jax-ml/jax" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">jax</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/65/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing GPT-5.5</h3>
-  <p>Introducing GPT-5.5, our smartest model yet—faster, more capable, and built for complex tasks like coding, research, and data analysis across tools.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Product</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/index/introducing-gpt-5-5" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Automations</h3>
-  <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/codex-automations" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Product</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/66/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>自动化任务</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/67/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Top 10 uses for Codex at work</h3>
-  <p>Explore 10 practical Codex use cases to automate tasks, create deliverables, and turn real inputs into outputs across tools, files, and workflows.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/top-10-use-cases-codex-for-work" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span><span class="tag">AI/智能体</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/68/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Plugins and skills</h3>
-  <p>Learn how to use Codex plugins and skills to connect tools, access data, and follow repeatable workflows to automate tasks and improve results.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/codex-plugins-and-skills" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/69/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Working with Codex</h3>
-  <p>Learn how to set up your Codex workspace, create threads and projects, manage files, and start completing tasks with step-by-step guidance.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/working-with-codex" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/70/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Codex settings</h3>
-  <p>Learn how to configure Codex settings, including personalization, detail level, and permissions, to run tasks smoothly and customize your workflow.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/codex-settings" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/71/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>What is Codex?</h3>
-  <p>Learn how Codex helps you go beyond chat by automating tasks, connecting tools, and producing real outputs like docs and dashboards.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">OpenAI Academy</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 1.0</span>
-    <a href="https://openai.com/academy/what-is-codex" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">OpenAI Academy</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/72/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Helping Parents Understand the Conversations Their Teens Are Having With AI</h3>
-  <p>We&#x27;re introducing new tools for parents supervising Teen Accounts to help them understand how their teens are using AI. The post Helping Parents Understand the Conversations Their Teens Are Having With AI appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Meta</span><span class="tag">Recent News</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/04/helping-parents-understand-conversations-their-teens-are-having-with-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Meta</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/73/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</h3>
-  <p>We&#x27;re breaking ground on a new AI-optimized data center in Tulsa, Oklahoma. The post Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/74/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Meta Partners With Broadcom to Co-Develop Custom AI Silicon</h3>
-  <p>We’re partnering with Broadcom to co-develop multiple generations of custom silicon, ensuring we have the compute foundation to deliver on our long-term AI ambitions. The post Meta Partners With Broadcom to Co-Develop Custom AI Silicon appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Infrastructure</span><span class="tag">Meta</span><span class="tag">Recent News</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">Infrastructure</span><span class="tag">Meta</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/75/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing Muse Spark: MSL’s First Model, Purpose-Built to Prioritize People</h3>
-  <p>Muse Spark is Meta&#x27;s most powerful model yet — it currently powers the Meta AI app and website, and will be rolling out to WhatsApp, Instagram, Facebook, Messenger, and AI glasses in the coming weeks. The post Introducing Muse Spark: MSL’s First Model, Purpose-Built to Prioritize People appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Meta</span><span class="tag">Product News</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Meta</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/76/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing Our First AI Glasses Built For Prescriptions</h3>
-  <p>Our newest Ray-Ban Meta glasses are built to better serve people who rely on prescription glasses and all-day eyewear. The post Introducing Our First AI Glasses Built For Prescriptions appeared first on Meta Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Glasses</span><span class="tag">Meta</span><span class="tag">Oakley Meta Glasses</span></div>
-  <div class="signal-footer">
-    <span>about.fb.com · 1.0</span>
-    <a href="https://about.fb.com/news/2026/03/meta-ai-glasses-built-for-prescriptions/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI Glasses</span><span class="tag">Meta</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/77/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>AutoAdapt: Automated domain adaptation for large language models</h3>
-  <p>Deploying large language models (LLMs) in real-world, high-stakes settings is harder than it should be. In high-stakes settings like law, medicine, and cloud incident response, performance and reliability can quickly break down because adapting models to domain-specific requirements is a slow and manual process that is difficult to reproduce. The core challenge is domain adaptation, […] The post AutoAdapt: Automated domain adaptation for large language models appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.0</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/autoadapt-automated-domain-adaptation-for-large-language-models/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/78/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>New Future of Work: AI is driving rapid change, uneven benefits</h3>
-  <p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI […] The post New Future of Work: AI is driving rapid change, uneven benefits appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.0</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/79/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>ADeLe: Predicting and explaining AI performance across tasks</h3>
-  <p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and Universitat Politècnica de València introduce ADeLe (opens in new tab) (AI […] The post ADeLe: Predicting and explaining AI performance across tasks appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.0</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/80/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</h3>
-  <p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks […] The post GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 1.0</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/81/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Seeing Fast and Slow: Learning the Flow of Time in Videos</h3>
-  <p>How can we tell whether a video has been sped up or slowed down? How can we generate videos at different speeds? Although videos have been central to modern computer vision research, little attention has been paid to perceiving and controlling the passage of time. In this paper, we study time as a learnable visual concept and develop models for reasoning about and manipulating the flow of time in videos. We first exploit the multimodal cues and temporal structure naturally present in videos to learn, in a self-supervised manner, to detect speed changes and estimate playback speed. We then show that these learned temporal reasoning models enable us to curate the largest slow-motion video dataset to date from noisy in-the-wild sources. Such slow-motion footage, typically filmed by high-speed cameras, contains substantially richer temporal detail than standard videos. Using this data, we further develop models capable of temporal control, including speed-conditioned video generation, which produces motion at specified playback speed, and temporal super-resolution, which tranforms low-FPS, blurry videos into high-FPS sequences with fine-grained temporal details. Our findings highlight time as a manipulable, perceptual dimension in video learning, opening doors to temporally controllable video generation, temporal forensics detection, and potentially richer world-models that understand how events unfold over time.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CV</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.21931v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CV</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/82/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>When Prompts Override Vision: Prompt-Induced Hallucinations in LVLMs</h3>
-  <p>Despite impressive progress in capabilities of large vision-language models (LVLMs), these systems remain vulnerable to hallucinations, i.e., outputs that are not grounded in the visual input. Prior work has attributed hallucinations in LVLMs to factors such as limitations of the vision backbone or the dominance of the language component, yet the relative importance of these factors remains unclear. To resolve this ambiguity, We propose HalluScope, a benchmark to better understand the extent to which different factors induce hallucinations. Our analysis indicates that hallucinations largely stem from excessive reliance on textual priors and background knowledge, especially information introduced through textual instructions. To mitigate hallucinations induced by textual instruction priors, we propose HalluVL-DPO, a framework for fine-tuning off-the-shelf LVLMs towards more visually grounded responses. HalluVL-DPO leverages preference optimization using a curated training dataset that we construct, guiding the model to prefer grounded responses over hallucinated ones. We demonstrate that our optimized model effectively mitigates the targeted hallucination failure mode, while preserving or improving performance on other hallucination benchmarks and visual capability evaluations. To support reproducibility and further research, we will publicly release our evaluation benchmark, preference training dataset, and code at https://pegah-kh.github.io/projects/prompts-override-vision/ .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.21911v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">arXiv</span><span class="tag">AI/智能体</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/83/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Crystal: Characterizing Relative Impact of Scholarly Publications</h3>
-  <p>Assessing a cited paper&#x27;s impact is typically done by analyzing its citation context in isolation within the citing paper. While this focuses on the most directly relevant text, it prevents relative comparisons across all the works a paper cites. We propose Crystal, which instead jointly ranks all cited papers within a citing paper using large language models (LLMs). To mitigate LLMs&#x27; positional bias, we rank each list three times in a randomized order and aggregate the impact labels through majority voting. This joint approach leverages the full citation context, rather than evaluating citations independently, to more reliably distinguish impactful references. Crystal outperforms a prior state-of-the-art impact classifier by +9.5% accuracy and +8.3% F1 on a dataset of human-annotated citations. Crystal further gains efficiency through fewer LLM calls and performs competitively with an open-source model, enabling scalable, cost-effective citation impact analysis. We release our rankings, impact labels, and codebase to support future research.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2603.26791v2" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/84/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GiVA: Gradient-Informed Bases for Vector-Based Adaptation</h3>
-  <p>As model sizes continue to grow, parameter-efficient fine-tuning has emerged as a powerful alternative to full fine-tuning. While LoRA is widely adopted among these methods, recent research has explored vector-based adaptation methods due to their extreme parameter efficiency. However, these methods typically require substantially higher ranks than LoRA to match its performance, leading to increased training costs. This work introduces GiVA, a gradient-based initialization strategy for vector-based adaptation. It achieves training times comparable to LoRA and maintains the extreme parameter efficiency of vector-based adaptation. We evaluate GiVA across diverse benchmarks, including natural language understanding, natural language generation, and image classification. Experiments show that our approach consistently outperforms or achieves performance competitive with existing vector-based adaptation methods and LoRA while reducing rank requirements by a factor of eight ($8\times$).</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 1.0</span>
-    <a href="https://arxiv.org/abs/2604.21901v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/85/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era</h3>
-  <p>Kuala Lumpur, Malaysia, March 31, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, today announced a collaboration with the School of Engineering at Monash University Malaysia, on future AI workforce development. The collaboration aims to deepen industry–academic engagement and support the development of the semiconductor workforce as demand […] The post Arm and Monash University Malaysia collaborate to advance semiconductor talent evelopment for the AI Era appeared first on Arm Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>newsroom.arm.com · 1.0</span>
-    <a href="https://newsroom.arm.com/news/arm-monash-university-malaysia-semiconductor-talent-development-ai" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/86/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Arm expands compute platform to silicon products in historic company first</h3>
-  <p>News highlights Cambridge, England – Mar. 24, 2026 – Arm Holdings plc (NASDAQ: ARM) today announced the next evolution of the Arm compute platform, extending into production silicon products for the first time in the company’s history. This begins with the launch of the Arm AGI CPU, an Arm-designed CPU for AI data centers, built […] The post Arm expands compute platform to silicon products in historic company first appeared first on Arm Newsroom .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>newsroom.arm.com · 1.0</span>
-    <a href="https://newsroom.arm.com/news/arm-agi-cpu-launch" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/87/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson</h3>
-  <p>The boom in open source generative AI models is pushing beyond data centers into machines operating in the physical world. Developers are eager to deploy these...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span><span class="tag">Robotics</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.0</span>
-    <a href="https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/88/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1</h3>
-  <p>NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Agentic AI / Generative AI</span><span class="tag">CES26</span><span class="tag">Edge Computing</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 1.0</span>
-    <a href="https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">Agentic AI / Generative AI</span><span class="tag">CES26</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/89/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>electronica 2022 teaser: Industrial AI, What will emerging innovations reveal about us?</h3>
-  <p>Join us for our live stream at electronica 2022 to talk about Industrial AI on November 17! AI is already</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI</span><span class="tag">Application Examples</span><span class="tag">Events</span></div>
-  <div class="signal-footer">
-    <span>blog.st.com · 1.0</span>
-    <a href="https://blog.st.com/electronica-2022-teaser-industrial-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">AI</span><span class="tag">Application Examples</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/90/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing Claude Opus 4.7</h3>
-  <p>来源共 2 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.6</span>
-    <a href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/91/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing Claude Design by Anthropic Labs</h3>
-  <p>来源共 2 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.6</span>
-    <a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/92/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Claude is a space to think</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/claude-is-a-space-to-think" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/93/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>An update on our election safeguards</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/election-safeguards-update" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/94/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/anthropic-nec" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/95/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>anthropic.com · 0.3</span>
-    <a href="https://www.anthropic.com/news/anthropic-amazon-compute" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/96/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V4 â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v4" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/97/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V3.2 â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v32" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/98/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V3.2-Speciale â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v32-speciale" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/99/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V3.2-Exp â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v32-exp" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/100/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V3.1-Terminus â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v31-terminus" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/101/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>DeepSeek-V3.1 â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-v31" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/102/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>deepseek-reasoner â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-reasoner" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/103/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>deepseek-chat â</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>api-docs.deepseek.com · 0.3</span>
-    <a href="https://api-docs.deepseek.com/updates/#deepseek-chat" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/104/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Qwen DeepResearch: 当灵感不再需要理由</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=qwen-deepresearch" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/105/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>SAPO：一种稳定且高性能的大语言模型强化学习方法</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=sapo" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/106/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Qwen-Image-Edit-2511: 一致性再提升</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=qwen-image-edit-2511" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/107/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Qwen-Image-Layered: 面向内在可编辑性的图层分解</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=qwen-image-layered" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/108/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Qwen3-TTS 全面升级: 音色设计与音色克隆！</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=qwen3-tts-vc-voicedesign" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/109/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Qwen3-VL-Embedding &amp; Qwen3-VL-Reranker：统一多模态表征与排序</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>qwen.ai · 0.3</span>
-    <a href="https://qwen.ai/blog?id=qwen3-vl-embedding" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/110/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi 开放平台：新功能发布记录</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 0.3</span>
-    <a href="https://platform.moonshot.cn/blog/posts/changelog" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/111/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi K2 Turbo API 价格调整通知</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 0.3</span>
-    <a href="https://platform.moonshot.cn/blog/posts/k2-turbo-discount" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/112/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi K2 官方高速版 API 开启 5 折特惠</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 0.3</span>
-    <a href="https://platform.moonshot.cn/blog/posts/k2-prom" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/113/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi K2 模型更新，带来更强的代码能力、更快的 API</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 0.3</span>
-    <a href="https://platform.moonshot.cn/blog/posts/kimi-k2-0905" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/114/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Kimi K2 又又又提速了</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>platform.moonshot.cn · 0.3</span>
-    <a href="https://platform.moonshot.cn/blog/posts/k2-turbo-enhance" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/115/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>智谱与英特尔深化智能生态合作，落地端侧智谱清言和CodeGeeX智能编程助手</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 0.3</span>
-    <a href="https://www.zhipuai.cn/zh/news/20" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/116/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>智谱荣耀AI大模型技术联合实验室揭牌</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 0.3</span>
-    <a href="https://www.zhipuai.cn/zh/news/138" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/117/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>智谱携基座大模型 GLM-4-Plus 亮相 KDD，清言全新升级视频通话功能</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 0.3</span>
-    <a href="https://www.zhipuai.cn/zh/news/69" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/118/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>智谱携手英特尔，加速开启未来座舱时代，共同探索AI CAR未来</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>zhipuai.cn · 0.3</span>
-    <a href="https://www.zhipuai.cn/zh/news/96" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/119/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Why the AI Race Shifted to Speed</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 0.3</span>
-    <a href="https://www.cerebras.ai/blog/why-the-ai-race-shifted-to-speed" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/120/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>The Debate of MCP vs. CLI Centers on Speed</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 0.3</span>
-    <a href="https://www.cerebras.ai/blog/MCPvsCLI" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/121/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 0.3</span>
-    <a href="https://www.cerebras.ai/blog/speedandaccuracyblog" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/122/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing OpenAI GPT-5.3-Codex-Spark Powered by Cerebras</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>cerebras.ai · 0.3</span>
-    <a href="https://www.cerebras.ai/blog/openai-codexspark" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/123/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Canopy Labs’ Orpheus TTS is live on GroqCloud</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/canopy-labs-orpheus-tts-is-live-on-groqcloud" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/124/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GroqCloud: Expanding to Meet Demand</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/groqcloud-expanding-to-meet-demand" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/125/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing MCP Connectors in Beta on GroqCloud</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/introducing-mcp-connectors-in-beta-on-groqcloud" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/126/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Day Zero Support for OpenAI Open Safety Model</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/day-zero-support-for-openai-open-safety-model" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/127/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing Remote MCP Support in Beta on GroqCloud</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/introducing-remote-mcp-support-in-beta-on-groqcloud" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/128/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Introducing the Next Generation of Compound on GroqCloud</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>groq.com · 0.3</span>
-    <a href="https://groq.com/blog/introducing-the-next-generation-of-compound-on-groqcloud" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">groq.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/129/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Intelligence everywhere: What OpenClaw tells us about the future of AI</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/04/openclaw-ai-agent-orchestration" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/130/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Personal AI, now on your wrist — and beyond</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/03/snapdragon-wear-elite-platform" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/131/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>From hardware to intelligence: The Qualcomm AI camera platform for scalable security solutions</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/03/qualcomm-insight-platform-edge-ai-security" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/132/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Why the Snapdragon Digital Chassis is your lifeline in the AI-defined vehicle era</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/03/snapdragon-digital-chassis-ai-defined-vehicles" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/133/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Driving the AI-powered software-defined future: Inside Qualcomm’s automotive evolution and unprecedented scale</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/03/snapdragon-automotive-market-traction-and-scale" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/134/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>An ecosystem approach to the future of automotive</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>qualcomm.com · 0.3</span>
-    <a href="https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qualcomm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/135/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Q4&#x27;25: Technology Update – Low Precision and Inference Optimizations</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 0.3</span>
-    <a href="https://blog.openvino.ai/blog-posts/q425-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/136/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>OpenVINO GenAI GGUF Feature Update</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 0.3</span>
-    <a href="https://blog.openvino.ai/blog-posts/openvino-genai-gguf-feature-update" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/137/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>OpenVINO GenAI Supports GGUF Models</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 0.3</span>
-    <a href="https://blog.openvino.ai/blog-posts/openvino-genai-supports-gguf-models" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/138/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Dynamic shapes support in OpenVINO JIT compiler boosts inference performance by 40%</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>blog.openvino.ai · 0.3</span>
-    <a href="https://blog.openvino.ai/blog-posts/dynamic-shapes-support-in-openvino-jit-compiler-boosts-inference-performance-by-40" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.openvino.ai</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/139/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Mission accomplished: Infineon technology proves reliable once again in space on Artemis II</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infxx202604-077.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">infineon.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/140/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Infineon further extends its global leadership in the automotive semiconductor market</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infatv202604-078.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">infineon.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/141/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Infineon and DG Matrix leverage silicon carbide technology to advance power infrastructure for AI data centers</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infgip202603-075.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">infineon.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/142/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Infineon completes the sale of its manufacturing site in Bangkok/Nonthaburi, Thailand</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-044.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">infineon.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/143/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">infineon.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/144/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Infineon further strengthens its leading position in sensors and acquires non-optical analog/mixed-signal sensor portfolio from ams OSRAM</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>infineon.com · 0.3</span>
-    <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-0431.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">infineon.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/145/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>The semiconductor technology shaping the autonomous driving experience</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>ti.com · 0.3</span>
-    <a href="https://www.ti.com/about-ti/newsroom/company-blog/the-semiconductor-technology-shaping-the-autonomous-driving-experience.html" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ti.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/146/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>How LoRa and AI Are Protecting Our Forests</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 0.3</span>
-    <a href="https://www.edgeimpulse.com/blog/how-lora-and-ai-are-protecting-our-forests/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">edgeimpulse.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/147/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Vision-Based Smart Parking Meter with YOLO-Pro</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 0.3</span>
-    <a href="https://www.edgeimpulse.com/blog/vision-based-smart-parking-meter-with-yolo-pro/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">edgeimpulse.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/148/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Edge Impulse × Zephyr: New West Extension Commands</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>edgeimpulse.com · 0.3</span>
-    <a href="https://www.edgeimpulse.com/blog/edge-impulse-x-zephyr-new-west-extension-commands/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">edgeimpulse.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/149/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Developing a Rust-based IoT device with AI</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 0.3</span>
-    <a href="https://developer.espressif.com/blog/2026/04/developing-a-rust-iot-app-with-ai/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/150/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Connecting an ESP32 to the Cloud</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 0.3</span>
-    <a href="https://developer.espressif.com/blog/2026/04/esp32-tagotip-cloud-connectivity/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/151/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Gesture Recognition Based on TFLite</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 0.3</span>
-    <a href="https://developer.espressif.com/blog/2026/04/gesture-recognition-based-on-tflite/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/152/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>RED DA Assessment Tool: Streamline Your ESP32 Cybersecurity Compliance</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 0.3</span>
-    <a href="https://developer.espressif.com/blog/2026/03/red_da_assessment_tool_overview/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/153/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Staying Ahead with ESP32 Security Updates</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>developer.espressif.com · 0.3</span>
-    <a href="https://developer.espressif.com/blog/2026/03/esp32-security-updates/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/154/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>How MediaTek is Leading the Next Generation of AI Chromebooks</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>mediatek.com · 0.3</span>
-    <a href="https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">mediatek.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/155/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Genio Pro 5100: Extreme Compute &amp; Multimedia Platform Unleashes the Full Potential of IoT AI</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>mediatek.com · 0.3</span>
-    <a href="https://www.mediatek.com/tek-talk-blogs/genio-pro-5100-extreme-compute-multimedia-platform-unleashes-the-full-potential-of-iot-ai" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">mediatek.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/156/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Podcast: The Next Wave of AI in Robotics, Industrial IoT &amp; Beyond</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>mediatek.com · 0.3</span>
-    <a href="https://www.mediatek.com/tek-talk-blogs/the-next-wave-of-ai-in-robotics-industrial-iot-beyond" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">mediatek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/157/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>How to Use Transformers.js in a Chrome Extension</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/transformersjs-chrome-extension" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/158/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Gemma 4 VLA Demo on Jetson Orin Nano Super</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/nvidia/gemma4" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/159/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>AI and the Future of Cybersecurity: Why Openness Matters</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/cybersecurity-openness" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/160/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>The PR you would have opened yourself</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/transformers-to-mlx" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/161/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Training and Finetuning Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/train-multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/162/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Meet HoloTab by HCompany. Your AI browser companion.</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/Hcompany/holotab" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/163/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/waypoint-1-5" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/164/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Multimodal Embedding &amp; Reranker Models with Sentence Transformers</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>huggingface.co · 0.3</span>
-    <a href="https://huggingface.co/blog/multimodal-sentence-transformers" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/165/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>GPT-5.5 System Card</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Safety</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>openai.com · 0.3</span>
-    <a href="https://openai.com/index/gpt-5-5-system-card" target="_blank" rel="noopener">查看原文</a>
-  </div>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Safety</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/166/">阅读文章</a>
 </article>
       </div>
     </section>

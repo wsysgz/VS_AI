@@ -77,6 +77,7 @@
   .section,
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -163,6 +164,7 @@
   .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .stat,
   .signal,
+  .article-card,
   .archive-card,
   .summary-card,
   .topic-card,
@@ -180,6 +182,7 @@
   }
   .stat span { color: var(--muted); font-size: 13px; }
   .signal h3,
+  .article-card h3,
   .archive-card h3,
   .summary-card h3,
   .topic-card h3,
@@ -190,6 +193,7 @@
     line-height: 1.42;
   }
   .signal p,
+  .article-card p,
   .archive-card p,
   .summary-card p,
   .topic-card p,
@@ -207,6 +211,35 @@
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
   .signal-footer,
   .archive-footer {
     display: flex;
@@ -218,11 +251,13 @@
     font-size: 13px;
   }
   .signal a,
+  .article-card a,
   .archive-card a,
   .feed-links a {
     text-decoration: none;
   }
   .signal a:hover,
+  .article-card a:hover,
   .archive-card a:hover,
   .feed-links a:hover {
     color: var(--accent);
@@ -306,7 +341,7 @@
       <div class="archive-grid">
         <article class="archive-card">
   <span class="eyebrow">出现 6 次</span>
-  <h3>vllm-project/vllm</h3>
+  <h3>vLLM 项目</h3>
   <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
@@ -366,7 +401,7 @@
         <article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。</h3>
-  <p>重点关注：Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps Hear your agent suffer through your code Systematic debugging for AI agents: Introducing the AgentRx framework</p>
+  <p>重点关注：网络防御基准：安全运营中的智能体威胁狩猎评估 让智能体在代码中暴露问题 AI 智能体系统化调试：AgentRx 框架</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
     <span>166 个主题 · 168 条原始信息</span>
@@ -374,7 +409,7 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
-  <h3>AI agent development is shifting from raw capability to production-readiness: new frameworks address debugging opacity and latency bottlenecks, while stark benchmarking reveals massive capability gaps in real-world security tasks.</h3>
+  <h3>AI 智能体开发正在从单纯能力展示转向生产可用：新框架开始处理调试黑箱和延迟瓶颈，而安全任务基准暴露出现实能力缺口。</h3>
   <p>Microsoft Research introduced AgentRx, a systematic debugging framework for AI agents, addressing the critical transparency gap as agents evolve from simple chatbots to autonomous incident managers handling multi-step API workflows. Speculative Actions emerged as a lossless latency reduction framework achieving up to 20% speedup by using faster models to predict and parallelize likely actions, transforming sequential agent execution into a tunable cost-latency tradeoff. The Cyber Defense Benchmark exposed a catastrophic disconnect: top LLMs achieve 50%+ scores on structured security quizzes but average only 3.8% recall on real-world threat hunting tasks, with no model meeting minimum deployment standards across all MITRE ATT&amp;CK tactics.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">自动版</span></div>
   <div class="archive-footer">
@@ -392,7 +427,7 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.22</span>
-  <h3>The AI agent ecosystem is rapidly evolving from capability-focused to security-first, with OpenAI, Brex, and Microsoft independently addressing the core tension between agent autonomy and production safety.</h3>
+  <h3>AI 智能体生态正在从能力优先转向安全优先，OpenAI、Brex 和 Microsoft 分别处理智能体自主性与生产安全之间的核心张力。</h3>
   <p>Three major developments this cycle signal a pivotal shift in AI agent infrastructure: OpenAI&#x27;s Agents SDK now includes native sandbox execution, Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy, and Microsoft Research introduced AgentRx for systematic agent debugging. These releases converge on a critical insight—AI agents are transitioning from simple chatbots to autonomous systems capable of managing production incidents and multi-step workflows, but their failure modes remain opaque and difficult to diagnose. The primary contradiction emerging across all three is the inherent tension between empowering agents with greater autonomy while maintaining safety, security, and developer control over increasingly powerful systems.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
@@ -424,78 +459,46 @@
     <section class="section">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
-        <article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
-  <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CR</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+        <article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.20</p>
   <h3>From Benchmarking to Reasoning: A Dual-Aspect, Large-Scale Evaluation of LLMs on Vietnamese Legal Text</h3>
-  <p>The complexity of Vietnam&#x27;s legal texts presents a significant barrier to public access to justice. While Large Language Models offer a promising solution for legal text simplification, evaluating their true capabilities requires a multifaceted approach that goes beyond surface-level metrics. This paper introduces a comprehensive dual-aspect evaluation framework to address this need. First, we establish a performance benchmark for four state-of-the-art large language models (GPT-4o, Claude 3 Opus, Gemini 1.5 Pro, and Grok-1) across three key dimensions: Accuracy, Readability, and Consistency. Second, to understand the &quot;why&quot; behind these performance scores, we conduct a large-scale error analysis on a curated dataset of 60 complex Vietnamese legal articles, using a novel, expert-validated error typology. Our results reveal a crucial trade-off: models like Grok-1 excel in Readability and Consistency but compromise on fine-grained legal Accuracy, while models like Claude 3 Opus achieve high Accuracy scores that mask a significant number of subtle but critical reasoning errors. The error analysis pinpoints \textit{Incorrect Example} and \textit{Misinterpretation} as the most prevalent failures, confirming that the primary challenge for current LLMs is not summarization but controlled, accurate legal reasoning. By integrating a quantitative benchmark with a qualitative deep dive, our work provides a holistic and actionable assessment of LLMs for legal applications.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2604.16270v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
-  <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DC</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 3.3</span>
-    <a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
-  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
-  <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
-  <div class="signal-footer">
-    <span>microsoft.com · 3.3</span>
-    <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="../../archives/2026-04-20/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>推测式动作：加速智能体系统的无损框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.DC</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CR</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.23</p>
   <h3>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World</h3>
-  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
-  <div class="signal-footer">
-    <span>mediatek.com · 2.6</span>
-    <a href="https://www.mediatek.com/tek-talk-blogs/iot-gets-a-powerful-edge-ai-upgrade-mediatek-at-embedded-world" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">mediatek.com</span></div>
+  <a class="article-action" href="../../archives/2026-04-23/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.25</p>
   <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
-  <p>Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Agent</span><span class="tag">AI Inference</span><span class="tag">Agentic AI / Generative AI</span></div>
-  <div class="signal-footer">
-    <span>developer.nvidia.com · 2.5</span>
-    <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI × 电子</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">AI Inference</span></div>
+  <a class="article-action" href="../../archives/2026-04-25/signals/13/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.23</p>
   <h3>Automatic Ontology Construction Using LLMs as an External Layer of Memory, Verification, and Planning for Hybrid Intelligent Systems</h3>
-  <p>This paper presents a hybrid architecture for intelligent systems in which large language models (LLMs) are extended with an external ontological memory layer. Instead of relying solely on parametric knowledge and vector-based retrieval (RAG), the proposed approach constructs and maintains a structured knowledge graph using RDF/OWL representations, enabling persistent, verifiable, and semantically grounded reasoning. The core contribution is an automated pipeline for ontology construction from heterogeneous data sources, including documents, APIs, and dialogue logs. The system performs entity recognition, relation extraction, normalization, and triple generation, followed by validation using SHACL and OWL constraints, and continuous graph updates. During inference, LLMs operate over a combined context that integrates vector-based retrieval with graph-based reasoning and external tool interaction. Experimental observations on planning tasks, including the Tower of Hanoi benchmark, indicate that ontology augmentation improves performance in multi-step reasoning scenarios compared to baseline LLM systems. In addition, the ontology layer enables formal validation of generated outputs, transforming the system into a generation-verification-correction pipeline. The proposed architecture addresses key limitations of current LLM-based systems, including lack of long-term memory, weak structural understanding, and limited reasoning capabilities. It provides a foundation for building agent-based systems, robotics applications, and enterprise AI solutions that require persistent knowledge, explainability, and reliable decision-making.</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
-  <div class="signal-footer">
-    <span>arxiv.org · 2.5</span>
-    <a href="https://arxiv.org/abs/2604.20795v1" target="_blank" rel="noopener">查看原文</a>
-  </div>
-</article><article class="signal">
-  <span class="tag alt">AI/智能体</span>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">arXiv</span><span class="tag">AI/智能体</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="../../archives/2026-04-23/signals/14/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.23</p>
   <h3>Bring your own Agent to MS Teams</h3>
-  <p>Score: 59 | Comments: 46</p>
-  <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>
-  <div class="signal-footer">
-    <span>microsoft.github.io · 2.5</span>
-    <a href="https://microsoft.github.io/teams-sdk/blog/bring-your-agent-to-teams/" target="_blank" rel="noopener">查看原文</a>
-  </div>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">microsoft.github.io</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-23/signals/8/">阅读文章</a>
 </article>
       </div>
     </section>
