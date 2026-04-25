@@ -3,45 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026-W17 | VS_AI Weekly</title>
+<title>2026-W17 | VS_AI 周报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #eef4fb;
-    --muted: #9fb2c8;
-    --line: rgba(255,255,255,0.10);
-    --surface: rgba(6, 18, 31, 0.78);
-    --surface-strong: #08192a;
-    --accent: #7be0d6;
-    --accent-2: #f3b562;
-    --accent-3: #7ca6ff;
-    --bg: #03101d;
-    --hero: linear-gradient(135deg, #061c31 0%, #0f3a52 42%, #174a49 72%, #80603a 100%);
-    --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
-    font-family: "Space Grotesk", "IBM Plex Sans", "Segoe UI", sans-serif;
+    --bg: #081018;
+    --panel: #101a24;
+    --panel-strong: #142231;
+    --panel-soft: #0c1620;
+    --ink: #edf4f7;
+    --muted: #9fb0bd;
+    --line: rgba(181, 200, 211, 0.18);
+    --accent: #43d1bf;
+    --accent-soft: rgba(67, 209, 191, 0.12);
+    --blue: #8fb8ff;
+    --amber: #e9b56f;
+    --danger: #f08d8d;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
     color: var(--ink);
-    background:
-      radial-gradient(circle at 12% 0%, rgba(123, 224, 214, 0.18), transparent 24%),
-      radial-gradient(circle at 100% 20%, rgba(243, 181, 98, 0.14), transparent 28%),
-      linear-gradient(180deg, #020b14 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, #071019 0%, #0a121b 58%, #071019 100%);
   }
   a { color: inherit; }
-  .site-shell { max-width: 1200px; margin: 0 auto; padding: 0 20px 56px; }
+  .site-shell { max-width: 1240px; margin: 0 auto; padding: 0 20px 48px; }
   .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 16px;
-    padding: 18px 0;
-    font-size: 14px;
+    align-items: center;
+    padding: 16px 0;
     color: var(--muted);
+    font-size: 14px;
   }
   .brand {
     display: inline-flex;
@@ -49,159 +48,167 @@
     gap: 10px;
     text-decoration: none;
     font-weight: 700;
-    letter-spacing: 0.02em;
   }
   .brand-mark {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     border-radius: 999px;
     background: var(--accent);
-    box-shadow: 0 0 18px rgba(123, 224, 214, 0.55);
+    box-shadow: 0 0 18px rgba(67, 209, 191, 0.5);
   }
   .nav-links {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
+    justify-content: flex-end;
   }
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
   }
   .nav-links a:hover { color: var(--ink); }
-  .hero {
-    position: relative;
-    min-height: calc(100svh - 72px);
+  .workbench {
     display: grid;
-    align-items: end;
-    padding: 72px 28px 36px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .panel,
+  .section,
+  .stat,
+  .signal,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
     border: 1px solid var(--line);
-    border-radius: 30px;
-    background: var(--hero);
-    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(16, 26, 36, 0.88);
     box-shadow: var(--shadow);
   }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(130deg, rgba(255,255,255,0.04), transparent 35%),
-      linear-gradient(0deg, rgba(2,11,20,0.58), rgba(2,11,20,0.18));
-    pointer-events: none;
+  .panel { padding: 22px; }
+  .section { margin-top: 16px; padding: 22px; }
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.35;
   }
-  .hero-grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: 24px;
+  .page-title {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
   }
   .eyebrow {
+    color: var(--accent);
     font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(238,244,251,0.72);
-  }
-  .hero h1 {
-    margin: 0;
-    max-width: 9ch;
-    font-size: clamp(42px, 9vw, 96px);
-    line-height: 0.92;
-    letter-spacing: -0.05em;
-  }
-  .hero-copy {
-    max-width: 620px;
-    color: rgba(238,244,251,0.84);
-    font-size: 16px;
-    line-height: 1.8;
-  }
-  .hero-meta {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(2,11,20,0.18);
-    color: rgba(238,244,251,0.78);
-    font-size: 13px;
-    text-decoration: none;
-    backdrop-filter: blur(10px);
-  }
-  .chip:hover { background: rgba(2,11,20,0.28); }
-  .section {
-    margin-top: 28px;
-    padding: 28px;
-    border: 1px solid var(--line);
-    border-radius: 26px;
-    background: var(--surface);
-    backdrop-filter: blur(14px);
-  }
-  .section-title {
-    margin: 0 0 18px;
-    font-size: 21px;
-    letter-spacing: -0.02em;
+    font-weight: 700;
   }
   .subtle { color: var(--muted); }
+  .lead {
+    margin: 14px 0 0;
+    max-width: 820px;
+    font-size: 18px;
+    line-height: 1.78;
+  }
+  .compact-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .meta-row,
+  .hero-meta,
+  .signal-tags,
+  .filter-group,
+  .archive-meta,
+  .feed-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .meta-row { margin-top: 16px; }
+  .chip,
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(181, 200, 211, 0.16);
+    background: rgba(12, 22, 32, 0.88);
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(67, 209, 191, 0.36); }
+  .tag { color: var(--accent); background: var(--accent-soft); }
+  .tag.alt { color: var(--blue); background: rgba(143, 184, 255, 0.12); }
+  .tag.warm { color: var(--amber); background: rgba(233, 181, 111, 0.12); }
+  .tag.danger { color: var(--danger); background: rgba(240, 141, 141, 0.12); }
   .stats-grid,
   .signal-grid,
   .archive-grid,
-  .summary-grid {
+  .summary-grid,
+  .comparison-grid {
     display: grid;
-    gap: 16px;
+    gap: 12px;
   }
-  .stats-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .summary-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .signal-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .archive-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .stat, .signal, .archive-card, .summary-card, .topic-card {
-    padding: 18px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    background: rgba(4, 15, 28, 0.54);
+  .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .stat,
+  .signal,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    padding: 16px;
+    box-shadow: none;
   }
-  .stat strong, .summary-card strong {
+  .stat strong {
     display: block;
-    margin-top: 8px;
-    font-size: 30px;
-    letter-spacing: -0.04em;
+    margin-top: 6px;
+    font-size: 28px;
+    line-height: 1;
   }
-  .signal h3, .archive-card h3, .topic-card h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-    letter-spacing: -0.02em;
+  .stat span { color: var(--muted); font-size: 13px; }
+  .signal h3,
+  .archive-card h3,
+  .summary-card h3,
+  .topic-card h3,
+  .comparison-card h3,
+  .comparison-list h3 {
+    margin: 8px 0 8px;
+    font-size: 17px;
+    line-height: 1.42;
   }
-  .signal p, .archive-card p, .summary-card p, .topic-card p {
+  .signal p,
+  .archive-card p,
+  .summary-card p,
+  .topic-card p,
+  .comparison-card p,
+  .comparison-list p {
     margin: 0;
     color: var(--muted);
     line-height: 1.72;
   }
-  .signal-tags, .filter-group, .archive-meta {
-    display: flex;
+  .comparison-card dl {
+    display: grid;
     gap: 8px;
-    flex-wrap: wrap;
+    margin: 12px 0 0;
   }
-  .tag {
-    display: inline-flex;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(123, 224, 214, 0.08);
-    color: var(--accent);
-    font-size: 12px;
-  }
-  .tag.alt {
-    background: rgba(124, 166, 255, 0.10);
-    color: #9bb7ff;
-  }
-  .tag.warm {
-    background: rgba(243, 181, 98, 0.10);
-    color: #ffd089;
-  }
-  .signal-footer, .archive-footer {
+  .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
+  .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
+  .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .signal-footer,
+  .archive-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -210,55 +217,29 @@
     color: var(--muted);
     font-size: 13px;
   }
-  .signal a, .archive-card a, .feed-links a {
+  .signal a,
+  .archive-card a,
+  .feed-links a {
     text-decoration: none;
   }
-  .signal a:hover, .archive-card a:hover, .feed-links a:hover {
+  .signal a:hover,
+  .archive-card a:hover,
+  .feed-links a:hover {
     color: var(--accent);
   }
-  .search-shell {
-    display: grid;
-    gap: 16px;
-  }
+  .search-shell { display: grid; gap: 14px; }
   .search-shell input {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
     border: 1px solid var(--line);
-    background: rgba(1, 9, 17, 0.56);
+    background: var(--panel-soft);
     color: var(--ink);
     font: inherit;
   }
-  .search-results {
-    display: grid;
-    gap: 12px;
-  }
-  .search-hit {
-    padding: 14px 16px;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    background: rgba(4, 15, 28, 0.48);
-  }
-  .search-hit h4 {
-    margin: 0 0 8px;
-    font-size: 16px;
-  }
-  .search-hit p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-  .feed-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-  }
-  .archive-filters {
-    display: grid;
-    gap: 14px;
-    margin-bottom: 20px;
-  }
+  .search-results { display: grid; gap: 10px; }
+  .feed-links { margin-top: 14px; }
+  .archive-filters { display: grid; gap: 14px; margin-bottom: 16px; }
   .filter-group button {
     padding: 8px 12px;
     border-radius: 999px;
@@ -271,21 +252,34 @@
   .filter-group button.is-active,
   .filter-group button:hover {
     color: var(--ink);
-    border-color: rgba(123, 224, 214, 0.32);
-    background: rgba(123, 224, 214, 0.08);
+    border-color: rgba(67, 209, 191, 0.4);
+    background: var(--accent-soft);
   }
   .footer {
-    margin-top: 28px;
-    padding: 24px 0 8px;
+    margin-top: 18px;
+    padding: 18px 0 6px;
     color: var(--muted);
     text-align: center;
     font-size: 13px;
   }
-  @media (max-width: 760px) {
-    .site-shell { padding: 0 14px 40px; }
-    .hero { min-height: auto; padding: 56px 18px 24px; border-radius: 24px; }
-    .section { padding: 18px; border-radius: 20px; }
-    .topbar { flex-direction: column; align-items: flex-start; }
+  @media (max-width: 880px) {
+    .site-shell { padding: 0 14px 36px; }
+    .topbar { grid-template-columns: 1fr; gap: 10px; }
+    .nav-links { justify-content: flex-start; }
+    .workbench { grid-template-columns: 1fr; }
+    .panel, .section { padding: 18px; }
+    .page-title { font-size: 28px; }
+    .lead { font-size: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-footer,
+    .archive-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 10px; }
   }
 </style>
 </head>
@@ -294,72 +288,72 @@
     <header class="topbar">
       <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Weekly</a>
-        <a href="../../archives/">Archives</a>
-        <a href="../../special/">Special</a>
-        <a href="../../">Home</a>
+        <a href="../">周报</a>
+        <a href="../../archives/">归档</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
       </nav>
     </header>
 
     <section class="section">
       <div class="eyebrow">2026-W17</div>
       <h1 class="section-title" style="font-size:34px;">2026.04.20 - 2026.04.25</h1>
-      <p class="subtle">6 daily brief(s) · 876 topics · 888 raw items</p>
+      <p class="subtle">6 份日报 · 876 个主题 · 888 条原始信息</p>
     </section>
 
     <section class="section">
       <h2 class="section-title">持续主线</h2>
       <div class="archive-grid">
         <article class="archive-card">
-  <span class="eyebrow">6 appearance(s)</span>
+  <span class="eyebrow">出现 6 次</span>
   <h3>vllm-project/vllm</h3>
   <p>A high-throughput and memory-efficient inference and serving engine for LLMs</p>
   <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
+    <span class="tag alt">AI/智能体</span>
     <span class="tag warm">verified</span>
     <span class="tag">人工复核版</span>
   </div>
   <div class="archive-footer">
-    <span>score 2.5</span>
+    <span>评分 2.5</span>
     <a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">6 appearance(s)</span>
+  <span class="eyebrow">出现 6 次</span>
   <h3>Building tomorrow&#x27;s innovations with today&#x27;s edge AI-enabled devices</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI × Electronics</span>
+    <span class="tag alt">AI × 电子</span>
     <span class="tag warm">rising</span>
     <span class="tag">人工复核版</span>
   </div>
   <div class="archive-footer">
-    <span>score 1.8</span>
+    <span>评分 1.8</span>
     <a href="https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">6 appearance(s)</span>
+  <span class="eyebrow">出现 6 次</span>
   <h3>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
+    <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
     <span class="tag">人工复核版</span>
   </div>
   <div class="archive-footer">
-    <span>score 1.8</span>
+    <span>评分 1.8</span>
     <a href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">6 appearance(s)</span>
+  <span class="eyebrow">出现 6 次</span>
   <h3>Q2&#x27;25: Technology Update – Low Precision and Model Optimization</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
+    <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
     <span class="tag">人工复核版</span>
   </div>
   <div class="archive-footer">
-    <span>score 1.8</span>
+    <span>评分 1.8</span>
     <a href="https://blog.openvino.ai/blog-posts/q225-technology-update---low-precision-and-model-optimization" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>
@@ -367,7 +361,7 @@
     </section>
 
     <section class="section">
-      <h2 class="section-title">Weekly Stream</h2>
+      <h2 class="section-title">日报流</h2>
       <div class="archive-grid">
         <article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
@@ -375,7 +369,7 @@
   <p>重点关注：Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps Hear your agent suffer through your code Systematic debugging for AI agents: Introducing the AgentRx framework</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
-    <span>166 topics · 168 items</span>
+    <span>166 个主题 · 168 条原始信息</span>
     <a href="../../archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
@@ -384,7 +378,7 @@
   <p>Microsoft Research introduced AgentRx, a systematic debugging framework for AI agents, addressing the critical transparency gap as agents evolve from simple chatbots to autonomous incident managers handling multi-step API workflows. Speculative Actions emerged as a lossless latency reduction framework achieving up to 20% speedup by using faster models to predict and parallelize likely actions, transforming sequential agent execution into a tunable cost-latency tradeoff. The Cyber Defense Benchmark exposed a catastrophic disconnect: top LLMs achieve 50%+ scores on structured security quizzes but average only 3.8% recall on real-world threat hunting tasks, with no model meeting minimum deployment standards across all MITRE ATT&amp;CK tactics.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">自动版</span></div>
   <div class="archive-footer">
-    <span>166 topics · 168 items</span>
+    <span>166 个主题 · 168 条原始信息</span>
     <a href="../../archives/2026-04-24/">打开日报</a>
   </div>
 </article><article class="archive-card">
@@ -393,7 +387,7 @@
   <p>本周AI代理领域呈现三条主线并行推进：Microsoft发布AgentRx调试框架填补透明度空白、Google第八代TPU瞄准代理时代算力需求、Zed编辑器推出并行代理功能提升协作效率，三者共同指向构建更可靠、可控的AI代理生态。 与此同时，LLM生成安全报告导致内核代码误删事件暴露了自动化信任陷阱——LLM输出的不可逆决策风险远超预期，社区对LLM安全工具的可靠性存疑。 OpenAI的Workspace Agents虽获高关注，但信源单一且缺乏细节，无法评估其实际价值；MediaTek边缘AI升级信息过于稀缺，仅作信号标记。</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">自动版</span></div>
   <div class="archive-footer">
-    <span>167 topics · 169 items</span>
+    <span>167 个主题 · 169 条原始信息</span>
     <a href="../../archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
@@ -402,7 +396,7 @@
   <p>Three major developments this cycle signal a pivotal shift in AI agent infrastructure: OpenAI&#x27;s Agents SDK now includes native sandbox execution, Brex open-sourced CrabTrap as an LLM-as-a-judge HTTP proxy, and Microsoft Research introduced AgentRx for systematic agent debugging. These releases converge on a critical insight—AI agents are transitioning from simple chatbots to autonomous systems capable of managing production incidents and multi-step workflows, but their failure modes remain opaque and difficult to diagnose. The primary contradiction emerging across all three is the inherent tension between empowering agents with greater autonomy while maintaining safety, security, and developer control over increasingly powerful systems.</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
-    <span>167 topics · 169 items</span>
+    <span>167 个主题 · 169 条原始信息</span>
     <a href="../../archives/2026-04-22/">打开日报</a>
   </div>
 </article><article class="archive-card">
@@ -411,7 +405,7 @@
   <p>智谱AI与月之暗面相继发布并开源新模型（GLM-PC、CogAgent-9B、Kimi K2 Thinking），核心宣称聚焦于Agent与推理能力提升，但均面临第三方验证证据不足的共性问题。 底层推理服务引擎vLLM的分析揭示了该领域规模化应用的根本矛盾：高吞吐量需求与内存效率约束之间的持续博弈。 Cerebras与智谱Agent OpenDay等主题因证据深度不足，其宣称的“经验教训”或“新进展”尚无法进行实质性评估，凸显了当前信息流的表面化特征。</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
-    <span>93 topics · 95 items</span>
+    <span>93 个主题 · 95 条原始信息</span>
     <a href="../../archives/2026-04-21/">打开日报</a>
   </div>
 </article><article class="archive-card">
@@ -420,7 +414,7 @@
   <p>AI智能体正经历从简单对话系统向复杂自主执行系统的关键跃迁，但在生产环境部署面临透明度缺失的根本挑战。 Microsoft Research推出AgentRx框架，标志着AI可靠性研究从能力导向转向系统化调试能力建设。 OpenAI更新Agents SDK，通过原生沙箱和测试框架在智能体功能与安全可控之间建立新的工程平衡。</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">人工复核版</span></div>
   <div class="archive-footer">
-    <span>117 topics · 119 items</span>
+    <span>117 个主题 · 119 条原始信息</span>
     <a href="../../archives/2026-04-20/">打开日报</a>
   </div>
 </article>
@@ -428,10 +422,10 @@
     </section>
 
     <section class="section">
-      <h2 class="section-title">Top Signals</h2>
+      <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="signal">
-  <span class="tag alt">AI / Agent</span>
+  <span class="tag alt">AI/智能体</span>
   <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
   <p>We introduce the Cyber Defense Benchmark, a benchmark for measuring how well large language model (LLM) agents perform the core SOC analyst task of threat hunting: given a database of raw Windows event logs with no guided questions or hints, identify the exact timestamps of malicious events. The benchmark wraps 106 real attack procedures from the OTRF Security-Datasets corpus - spanning 86 MITRE ATT&amp;CK sub-techniques across 12 tactics - into a Gymnasium reinforcement-learning environment. Each episode presents the agent with an in-memory SQLite database of 75,000-135,000 log records produced by a deterministic campaign simulator that time-shifts and entity-obfuscates the raw recordings. The agent must iteratively submit SQL queries to discover malicious event timestamps and explicitly flag them, scored CTF-style against Sigma-rule-derived ground truth. Evaluating five frontier models - Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, and Gemini 3 Flash - on 26 campaigns covering 105 of 106 procedures, we find that all models fail dramatically: the best model (Claude Opus 4.6) submits correct flags for only 3.8% of malicious events on average, and no run across any model ever finds all flags. We define a passing score as &gt;= 50% recall on every ATT&amp;CK tactic - the minimum bar for unsupervised SOC deployment. No model passes: the leader clears this bar on 5 of 13 tactics and the remaining four on zero. These results suggest that current LLMs are poorly suited for open-ended, evidence-driven threat hunting despite strong performance on curated Q&amp;A security benchmarks.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CR</span></div>
@@ -440,7 +434,7 @@
     <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
+  <span class="tag alt">AI/智能体</span>
   <h3>From Benchmarking to Reasoning: A Dual-Aspect, Large-Scale Evaluation of LLMs on Vietnamese Legal Text</h3>
   <p>The complexity of Vietnam&#x27;s legal texts presents a significant barrier to public access to justice. While Large Language Models offer a promising solution for legal text simplification, evaluating their true capabilities requires a multifaceted approach that goes beyond surface-level metrics. This paper introduces a comprehensive dual-aspect evaluation framework to address this need. First, we establish a performance benchmark for four state-of-the-art large language models (GPT-4o, Claude 3 Opus, Gemini 1.5 Pro, and Grok-1) across three key dimensions: Accuracy, Readability, and Consistency. Second, to understand the &quot;why&quot; behind these performance scores, we conduct a large-scale error analysis on a curated dataset of 60 complex Vietnamese legal articles, using a novel, expert-validated error typology. Our results reveal a crucial trade-off: models like Grok-1 excel in Readability and Consistency but compromise on fine-grained legal Accuracy, while models like Claude 3 Opus achieve high Accuracy scores that mask a significant number of subtle but critical reasoning errors. The error analysis pinpoints \textit{Incorrect Example} and \textit{Misinterpretation} as the most prevalent failures, confirming that the primary challenge for current LLMs is not summarization but controlled, accurate legal reasoning. By integrating a quantitative benchmark with a qualitative deep dive, our work provides a holistic and actionable assessment of LLMs for legal applications.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.CL</span></div>
@@ -449,7 +443,7 @@
     <a href="https://arxiv.org/abs/2604.16270v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
+  <span class="tag alt">AI/智能体</span>
   <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
   <p>AI agents are increasingly deployed in complex, interactive environments, yet their runtime remains a major bottleneck for training, evaluation, and real-world use. Typical agent behavior unfolds sequentially, with each action requiring an API call that can incur substantial latency. For example, a game of chess between two state-of-the-art agents can take hours. We introduce Speculative Actions, a lossless acceleration framework for general agentic systems. Inspired by speculative execution in microprocessors and speculative decoding in LLM inference, our method uses faster models to predict likely future actions and execute them in parallel, committing only when predictions match. We evaluate speculative actions across gaming, e-commerce, and web search environments, and additionally study a lossy extension in an operating systems setting. Across domains, we achieve up to 55% next-action prediction accuracy, translating into up to 20% latency reductions. Finally, we present a cost-latency analysis that formalizes the tradeoff between speculative breadth and time savings. This analysis enables principled tuning and selective branch launching to ensure that multi-branch speculation delivers practical speedups without prohibitive cost growth.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span><span class="tag">cs.DC</span></div>
@@ -458,7 +452,7 @@
     <a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
+  <span class="tag alt">AI/智能体</span>
   <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
   <p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or […] The post Systematic debugging for AI agents: Introducing the AgentRx framework appeared first on Microsoft Research .</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">Research Blog</span><span class="tag">ai-llm-agent</span></div>
@@ -467,7 +461,7 @@
     <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
+  <span class="tag alt">AI × 电子</span>
   <h3>IoT Gets a Powerful Edge AI Upgrade: MediaTek at Embedded World</h3>
   <p>来源共 1 条，等待后续 AI 深度摘要。</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-x-electronics</span></div>
@@ -476,7 +470,7 @@
     <a href="https://www.mediatek.com/tek-talk-blogs/iot-gets-a-powerful-edge-ai-upgrade-mediatek-at-embedded-world" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
+  <span class="tag alt">AI × 电子</span>
   <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
   <p>Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">AI Agent</span><span class="tag">AI Inference</span><span class="tag">Agentic AI / Generative AI</span></div>
@@ -485,7 +479,7 @@
     <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI × Electronics</span>
+  <span class="tag alt">AI × 电子</span>
   <h3>Automatic Ontology Construction Using LLMs as an External Layer of Memory, Verification, and Planning for Hybrid Intelligent Systems</h3>
   <p>This paper presents a hybrid architecture for intelligent systems in which large language models (LLMs) are extended with an external ontological memory layer. Instead of relying solely on parametric knowledge and vector-based retrieval (RAG), the proposed approach constructs and maintains a structured knowledge graph using RDF/OWL representations, enabling persistent, verifiable, and semantically grounded reasoning. The core contribution is an automated pipeline for ontology construction from heterogeneous data sources, including documents, APIs, and dialogue logs. The system performs entity recognition, relation extraction, normalization, and triple generation, followed by validation using SHACL and OWL constraints, and continuous graph updates. During inference, LLMs operate over a combined context that integrates vector-based retrieval with graph-based reasoning and external tool interaction. Experimental observations on planning tasks, including the Tower of Hanoi benchmark, indicate that ontology augmentation improves performance in multi-step reasoning scenarios compared to baseline LLM systems. In addition, the ontology layer enables formal validation of generated outputs, transforming the system into a generation-verification-correction pipeline. The proposed architecture addresses key limitations of current LLM-based systems, including lack of long-term memory, weak structural understanding, and limited reasoning capabilities. It provides a foundation for building agent-based systems, robotics applications, and enterprise AI solutions that require persistent knowledge, explainability, and reliable decision-making.</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">ai-llm-agent</span><span class="tag">cs.AI</span></div>
@@ -494,7 +488,7 @@
     <a href="https://arxiv.org/abs/2604.20795v1" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article><article class="signal">
-  <span class="tag alt">AI / Agent</span>
+  <span class="tag alt">AI/智能体</span>
   <h3>Bring your own Agent to MS Teams</h3>
   <p>Score: 59 | Comments: 46</p>
   <div class="signal-tags" style="margin-top:12px;"><span class="tag">hacker-news</span></div>

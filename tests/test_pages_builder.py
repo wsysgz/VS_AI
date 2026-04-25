@@ -97,6 +97,32 @@ def _sample_payload(
     }
 
 
+def _with_comparison_brief(payload: dict[str, object]) -> dict[str, object]:
+    payload["comparison_brief"] = {
+        "cn_highlights": [
+            "国内侧：DeepSeek 与 ModelScope 继续强化中文模型生态。"
+        ],
+        "intl_highlights": [
+            "海外侧：OpenAI 与 Microsoft Research 继续推进智能体可靠性工程。"
+        ],
+        "head_to_head": [
+            {
+                "track": "智能体可靠性",
+                "cn": "国内更关注模型生态和应用落地。",
+                "intl": "海外更关注沙箱、调试和运行时安全。",
+                "delta": "国内需要补齐可观测性与安全工具链信号。",
+            }
+        ],
+        "gaps": [
+            "智能体可靠性：国内侧工程调试信号偏少。"
+        ],
+        "watchpoints": [
+            "观察国内厂商是否补充沙箱执行、调试框架和安全网关。"
+        ],
+    }
+    return payload
+
+
 def _write_report_set(root: Path, archive_date: str, payload: dict[str, object]) -> None:
     reports_dir = root / "data" / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
@@ -185,13 +211,56 @@ def test_build_pages_site_homepage_and_archives_are_data_driven(tmp_path: Path):
     archive_index = (tmp_path / "docs" / "archives" / "index.html").read_text(encoding="utf-8")
     archive_day = (tmp_path / "docs" / "archives" / "2026-04-10" / "index.html").read_text(encoding="utf-8")
 
-    assert "Briefing" in index_html
+    assert "情报工作台" in index_html
     assert "search-index.json" in index_html
     assert "OpenAI 发布新版本" in index_html
     assert "归档检索" in index_html
     assert "Anthropic 平台更新" in archive_day
     assert "按领域浏览" in archive_index
     assert "按来源浏览" in archive_index
+
+
+def test_build_pages_site_homepage_renders_chinese_workbench_and_comparison(tmp_path: Path):
+    latest = _with_comparison_brief(_sample_payload("2026-04-11", "ai-llm-agent", "OpenAI"))
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+
+    assert "情报工作台" in index_html
+    assert "今日判断" in index_html
+    assert "国内外对比" in index_html
+    assert "智能体可靠性" in index_html
+    assert "国内更关注模型生态和应用落地" in index_html
+    assert "海外更关注沙箱、调试和运行时安全" in index_html
+    assert "Briefing For AI Signals" not in index_html
+    assert ">Archives<" not in index_html
+
+
+def test_build_pages_site_day_page_renders_comparison_when_available(tmp_path: Path):
+    latest = _with_comparison_brief(_sample_payload("2026-04-11", "ai-llm-agent", "OpenAI"))
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    day_html = (tmp_path / "docs" / "archives" / "2026-04-11" / "index.html").read_text(encoding="utf-8")
+
+    assert "国内外对比" in day_html
+    assert "智能体可靠性" in day_html
+
+
+def test_build_pages_site_homepage_omits_comparison_when_missing(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+
+    assert "情报工作台" in index_html
+    assert "国内外对比" not in index_html
+    assert "Briefing For AI Signals" not in index_html
 
 
 def test_build_pages_site_keeps_private_ops_fields_out_of_public_pages(tmp_path: Path):
@@ -248,7 +317,7 @@ def test_build_pages_site_generates_weekly_index_and_detail_pages(tmp_path: Path
     current_week_page = (tmp_path / "docs" / "weekly" / "2026-W15" / "index.html").read_text(encoding="utf-8")
     previous_week_page = (tmp_path / "docs" / "weekly" / "2026-W14" / "index.html").read_text(encoding="utf-8")
 
-    assert "Weekly Briefs" in weekly_index
+    assert "周报" in weekly_index
     assert "2026-W15" in weekly_index
     assert "2026-W14" in weekly_index
     assert "OpenAI 成为本轮最强主线" in current_week_page
@@ -270,9 +339,9 @@ def test_build_pages_site_generates_special_index_and_category_pages(tmp_path: P
     verified_page = (tmp_path / "docs" / "special" / "verified" / "index.html").read_text(encoding="utf-8")
     risk_page = (tmp_path / "docs" / "special" / "risk-watch" / "index.html").read_text(encoding="utf-8")
 
-    assert "Special Briefs" in special_index
-    assert "Verified Themes" in special_index
-    assert "Risk Watch" in special_index
+    assert "专题" in special_index
+    assert "已验证主线" in special_index
+    assert "风险观察" in special_index
     assert "OpenAI 发布新版本" in verified_page
     assert "Anthropic 发布新版本" in verified_page
     assert "OpenAI 推出归档检索" in risk_page
@@ -342,6 +411,6 @@ def test_build_pages_site_surfaces_review_metadata_and_emerging_specials(tmp_pat
     assert "持续主线" in weekly_page
     assert "Alice" in weekly_page
     assert "人工复核版" in weekly_page
-    assert "Emerging Themes" in special_index
+    assert "新兴主题" in special_index
     assert "OpenAI 推出归档检索" in emerging_page
     assert "Alice" in emerging_page

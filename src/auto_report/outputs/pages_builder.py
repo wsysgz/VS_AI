@@ -17,11 +17,11 @@ from auto_report.pipeline.briefing import compose_executive_brief
 
 SITE_TITLE = "VS_AI 情报阅读站"
 SITE_URL = "https://wsysgz.github.io/VS_AI"
-SITE_DESCRIPTION = "AI / Agent / Electronics daily intelligence briefing with archives, search, and feeds."
+SITE_DESCRIPTION = "AI、智能体与电子信息每日情报工作台，提供归档、周报、专题、检索和订阅。"
 
 DOMAIN_LABELS = {
-    "ai-llm-agent": "AI / Agent",
-    "ai-x-electronics": "AI × Electronics",
+    "ai-llm-agent": "AI/智能体",
+    "ai-x-electronics": "AI × 电子",
 }
 PUBLICATION_PRIORITY = {"reviewed": 1, "auto": 0}
 
@@ -85,6 +85,97 @@ def _normalize_review(meta: object) -> dict[str, str]:
     }
 
 
+def _comparison_item_text(item: object) -> str:
+    if isinstance(item, dict):
+        return (
+            _safe_text(item.get("readout"))
+            or _safe_text(item.get("title"))
+            or _safe_text(item.get("summary"))
+            or _safe_text(item.get("delta"))
+        )
+    return _safe_text(item)
+
+
+def _normalize_comparison_highlights(value: object) -> list[dict[str, str]]:
+    if not isinstance(value, list):
+        return []
+    highlights: list[dict[str, str]] = []
+    for item in value:
+        if isinstance(item, dict):
+            title = _safe_text(item.get("title")) or _safe_text(item.get("readout"))
+            if not title:
+                continue
+            highlights.append(
+                {
+                    "title": title,
+                    "meta": _safe_text(item.get("tech_track")) or _safe_text(item.get("track")),
+                    "summary": _safe_text(item.get("summary")),
+                }
+            )
+            continue
+        text = _safe_text(item)
+        if text:
+            highlights.append({"title": text, "meta": "", "summary": ""})
+    return highlights[:4]
+
+
+def _normalize_comparison_rows(value: object) -> list[dict[str, str]]:
+    if not isinstance(value, list):
+        return []
+    rows: list[dict[str, str]] = []
+    for item in value:
+        if isinstance(item, dict):
+            track = _safe_text(item.get("tech_track")) or _safe_text(item.get("track"))
+            cn = _safe_text(item.get("cn_title")) or _safe_text(item.get("cn"))
+            intl = _safe_text(item.get("intl_title")) or _safe_text(item.get("intl"))
+            delta = _safe_text(item.get("delta"))
+            readout = _safe_text(item.get("readout"))
+            if not any((track, cn, intl, delta, readout)):
+                continue
+            rows.append(
+                {
+                    "track": track or "同轨对比",
+                    "cn": cn or "暂无国内侧摘要",
+                    "intl": intl or "暂无海外侧摘要",
+                    "delta": delta or readout,
+                }
+            )
+            continue
+        text = _safe_text(item)
+        if text:
+            rows.append({"track": "同轨对比", "cn": text, "intl": "", "delta": ""})
+    return rows[:4]
+
+
+def _normalize_comparison_brief(raw: object) -> dict[str, object]:
+    if not isinstance(raw, dict):
+        return {
+            "cn_highlights": [],
+            "intl_highlights": [],
+            "head_to_head": [],
+            "gaps": [],
+            "watchpoints": [],
+        }
+    comparison = {
+        "cn_highlights": _normalize_comparison_highlights(raw.get("cn_highlights", [])),
+        "intl_highlights": _normalize_comparison_highlights(raw.get("intl_highlights", [])),
+        "head_to_head": _normalize_comparison_rows(raw.get("head_to_head", [])),
+        "gaps": [_comparison_item_text(item) for item in raw.get("gaps", []) if _comparison_item_text(item)],
+        "watchpoints": [
+            _comparison_item_text(item)
+            for item in raw.get("watchpoints", [])
+            if _comparison_item_text(item)
+        ],
+    }
+    return comparison
+
+
+def _has_comparison_content(comparison: object) -> bool:
+    if not isinstance(comparison, dict):
+        return False
+    return any(comparison.get(key) for key in ("cn_highlights", "intl_highlights", "head_to_head", "gaps", "watchpoints"))
+
+
 def _read_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -126,6 +217,9 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
     publication_mode = _normalize_publication_mode(meta.get("publication_mode"))
     review = _normalize_review(meta)
     brief = compose_executive_brief("自动情报快报", generated_at, payload)
+    comparison_brief = _normalize_comparison_brief(payload.get("comparison_brief", {}))
+    if not _has_comparison_content(comparison_brief):
+        comparison_brief = _normalize_comparison_brief(brief.get("comparison_brief", {}))
     date_text = archive_date or (generated_at[:10] if generated_at else "unknown")
     signals = payload.get("signals", [])
 
@@ -171,6 +265,7 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         "topic_briefs": brief["topic_briefs"][:3],
         "watchlist": brief["watchlist"],
         "forecast_conclusion": brief["forecast_conclusion"],
+        "comparison_brief": comparison_brief,
         "publication_mode": publication_mode,
         "publication_label": _publication_label(publication_mode),
         "review": review,
@@ -269,19 +364,19 @@ def _build_special_collections(reports: list[dict[str, object]]) -> list[dict[st
     definitions = [
         (
             "verified",
-            "Verified Themes",
+            "已验证主线",
             "聚合跨日持续和多源印证后已经形成确认主线的主题。",
             lambda signal: str(signal.get("lifecycle_state", "new")) == "verified",
         ),
         (
             "emerging",
-            "Emerging Themes",
+            "新兴主题",
             "聚合仍在抬升中的新主题，方便提前观察后续是否进入持续主线。",
             lambda signal: str(signal.get("lifecycle_state", "new")) in {"new", "rising"},
         ),
         (
             "risk-watch",
-            "Risk Watch",
+            "风险观察",
             "聚合当前仍需要继续盯防和人工复核的高风险主题。",
             lambda signal: str(signal.get("risk_level", "low")) == "high",
         ),
@@ -430,39 +525,38 @@ def _build_rss(reports: list[dict[str, object]]) -> str:
 def _base_css() -> str:
     return """
   :root {
-    --ink: #eef4fb;
-    --muted: #9fb2c8;
-    --line: rgba(255,255,255,0.10);
-    --surface: rgba(6, 18, 31, 0.78);
-    --surface-strong: #08192a;
-    --accent: #7be0d6;
-    --accent-2: #f3b562;
-    --accent-3: #7ca6ff;
-    --bg: #03101d;
-    --hero: linear-gradient(135deg, #061c31 0%, #0f3a52 42%, #174a49 72%, #80603a 100%);
-    --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
-    font-family: "Space Grotesk", "IBM Plex Sans", "Segoe UI", sans-serif;
+    --bg: #081018;
+    --panel: #101a24;
+    --panel-strong: #142231;
+    --panel-soft: #0c1620;
+    --ink: #edf4f7;
+    --muted: #9fb0bd;
+    --line: rgba(181, 200, 211, 0.18);
+    --accent: #43d1bf;
+    --accent-soft: rgba(67, 209, 191, 0.12);
+    --blue: #8fb8ff;
+    --amber: #e9b56f;
+    --danger: #f08d8d;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
     color: var(--ink);
-    background:
-      radial-gradient(circle at 12% 0%, rgba(123, 224, 214, 0.18), transparent 24%),
-      radial-gradient(circle at 100% 20%, rgba(243, 181, 98, 0.14), transparent 28%),
-      linear-gradient(180deg, #020b14 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, #071019 0%, #0a121b 58%, #071019 100%);
   }
   a { color: inherit; }
-  .site-shell { max-width: 1200px; margin: 0 auto; padding: 0 20px 56px; }
+  .site-shell { max-width: 1240px; margin: 0 auto; padding: 0 20px 48px; }
   .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 16px;
-    padding: 18px 0;
-    font-size: 14px;
+    align-items: center;
+    padding: 16px 0;
     color: var(--muted);
+    font-size: 14px;
   }
   .brand {
     display: inline-flex;
@@ -470,159 +564,167 @@ def _base_css() -> str:
     gap: 10px;
     text-decoration: none;
     font-weight: 700;
-    letter-spacing: 0.02em;
   }
   .brand-mark {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     border-radius: 999px;
     background: var(--accent);
-    box-shadow: 0 0 18px rgba(123, 224, 214, 0.55);
+    box-shadow: 0 0 18px rgba(67, 209, 191, 0.5);
   }
   .nav-links {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
+    justify-content: flex-end;
   }
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
   }
   .nav-links a:hover { color: var(--ink); }
-  .hero {
-    position: relative;
-    min-height: calc(100svh - 72px);
+  .workbench {
     display: grid;
-    align-items: end;
-    padding: 72px 28px 36px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .panel,
+  .section,
+  .stat,
+  .signal,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
     border: 1px solid var(--line);
-    border-radius: 30px;
-    background: var(--hero);
-    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(16, 26, 36, 0.88);
     box-shadow: var(--shadow);
   }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(130deg, rgba(255,255,255,0.04), transparent 35%),
-      linear-gradient(0deg, rgba(2,11,20,0.58), rgba(2,11,20,0.18));
-    pointer-events: none;
+  .panel { padding: 22px; }
+  .section { margin-top: 16px; padding: 22px; }
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.35;
   }
-  .hero-grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: 24px;
+  .page-title {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
   }
   .eyebrow {
+    color: var(--accent);
     font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(238,244,251,0.72);
-  }
-  .hero h1 {
-    margin: 0;
-    max-width: 9ch;
-    font-size: clamp(42px, 9vw, 96px);
-    line-height: 0.92;
-    letter-spacing: -0.05em;
-  }
-  .hero-copy {
-    max-width: 620px;
-    color: rgba(238,244,251,0.84);
-    font-size: 16px;
-    line-height: 1.8;
-  }
-  .hero-meta {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(2,11,20,0.18);
-    color: rgba(238,244,251,0.78);
-    font-size: 13px;
-    text-decoration: none;
-    backdrop-filter: blur(10px);
-  }
-  .chip:hover { background: rgba(2,11,20,0.28); }
-  .section {
-    margin-top: 28px;
-    padding: 28px;
-    border: 1px solid var(--line);
-    border-radius: 26px;
-    background: var(--surface);
-    backdrop-filter: blur(14px);
-  }
-  .section-title {
-    margin: 0 0 18px;
-    font-size: 21px;
-    letter-spacing: -0.02em;
+    font-weight: 700;
   }
   .subtle { color: var(--muted); }
+  .lead {
+    margin: 14px 0 0;
+    max-width: 820px;
+    font-size: 18px;
+    line-height: 1.78;
+  }
+  .compact-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .meta-row,
+  .hero-meta,
+  .signal-tags,
+  .filter-group,
+  .archive-meta,
+  .feed-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .meta-row { margin-top: 16px; }
+  .chip,
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(181, 200, 211, 0.16);
+    background: rgba(12, 22, 32, 0.88);
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(67, 209, 191, 0.36); }
+  .tag { color: var(--accent); background: var(--accent-soft); }
+  .tag.alt { color: var(--blue); background: rgba(143, 184, 255, 0.12); }
+  .tag.warm { color: var(--amber); background: rgba(233, 181, 111, 0.12); }
+  .tag.danger { color: var(--danger); background: rgba(240, 141, 141, 0.12); }
   .stats-grid,
   .signal-grid,
   .archive-grid,
-  .summary-grid {
+  .summary-grid,
+  .comparison-grid {
     display: grid;
-    gap: 16px;
+    gap: 12px;
   }
-  .stats-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .summary-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .signal-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .archive-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .stat, .signal, .archive-card, .summary-card, .topic-card {
-    padding: 18px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    background: rgba(4, 15, 28, 0.54);
+  .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .stat,
+  .signal,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    padding: 16px;
+    box-shadow: none;
   }
-  .stat strong, .summary-card strong {
+  .stat strong {
     display: block;
-    margin-top: 8px;
-    font-size: 30px;
-    letter-spacing: -0.04em;
+    margin-top: 6px;
+    font-size: 28px;
+    line-height: 1;
   }
-  .signal h3, .archive-card h3, .topic-card h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-    letter-spacing: -0.02em;
+  .stat span { color: var(--muted); font-size: 13px; }
+  .signal h3,
+  .archive-card h3,
+  .summary-card h3,
+  .topic-card h3,
+  .comparison-card h3,
+  .comparison-list h3 {
+    margin: 8px 0 8px;
+    font-size: 17px;
+    line-height: 1.42;
   }
-  .signal p, .archive-card p, .summary-card p, .topic-card p {
+  .signal p,
+  .archive-card p,
+  .summary-card p,
+  .topic-card p,
+  .comparison-card p,
+  .comparison-list p {
     margin: 0;
     color: var(--muted);
     line-height: 1.72;
   }
-  .signal-tags, .filter-group, .archive-meta {
-    display: flex;
+  .comparison-card dl {
+    display: grid;
     gap: 8px;
-    flex-wrap: wrap;
+    margin: 12px 0 0;
   }
-  .tag {
-    display: inline-flex;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(123, 224, 214, 0.08);
-    color: var(--accent);
-    font-size: 12px;
-  }
-  .tag.alt {
-    background: rgba(124, 166, 255, 0.10);
-    color: #9bb7ff;
-  }
-  .tag.warm {
-    background: rgba(243, 181, 98, 0.10);
-    color: #ffd089;
-  }
-  .signal-footer, .archive-footer {
+  .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
+  .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
+  .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .signal-footer,
+  .archive-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -631,55 +733,29 @@ def _base_css() -> str:
     color: var(--muted);
     font-size: 13px;
   }
-  .signal a, .archive-card a, .feed-links a {
+  .signal a,
+  .archive-card a,
+  .feed-links a {
     text-decoration: none;
   }
-  .signal a:hover, .archive-card a:hover, .feed-links a:hover {
+  .signal a:hover,
+  .archive-card a:hover,
+  .feed-links a:hover {
     color: var(--accent);
   }
-  .search-shell {
-    display: grid;
-    gap: 16px;
-  }
+  .search-shell { display: grid; gap: 14px; }
   .search-shell input {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
     border: 1px solid var(--line);
-    background: rgba(1, 9, 17, 0.56);
+    background: var(--panel-soft);
     color: var(--ink);
     font: inherit;
   }
-  .search-results {
-    display: grid;
-    gap: 12px;
-  }
-  .search-hit {
-    padding: 14px 16px;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    background: rgba(4, 15, 28, 0.48);
-  }
-  .search-hit h4 {
-    margin: 0 0 8px;
-    font-size: 16px;
-  }
-  .search-hit p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-  .feed-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-  }
-  .archive-filters {
-    display: grid;
-    gap: 14px;
-    margin-bottom: 20px;
-  }
+  .search-results { display: grid; gap: 10px; }
+  .feed-links { margin-top: 14px; }
+  .archive-filters { display: grid; gap: 14px; margin-bottom: 16px; }
   .filter-group button {
     padding: 8px 12px;
     border-radius: 999px;
@@ -692,21 +768,34 @@ def _base_css() -> str:
   .filter-group button.is-active,
   .filter-group button:hover {
     color: var(--ink);
-    border-color: rgba(123, 224, 214, 0.32);
-    background: rgba(123, 224, 214, 0.08);
+    border-color: rgba(67, 209, 191, 0.4);
+    background: var(--accent-soft);
   }
   .footer {
-    margin-top: 28px;
-    padding: 24px 0 8px;
+    margin-top: 18px;
+    padding: 18px 0 6px;
     color: var(--muted);
     text-align: center;
     font-size: 13px;
   }
-  @media (max-width: 760px) {
-    .site-shell { padding: 0 14px 40px; }
-    .hero { min-height: auto; padding: 56px 18px 24px; border-radius: 24px; }
-    .section { padding: 18px; border-radius: 20px; }
-    .topbar { flex-direction: column; align-items: flex-start; }
+  @media (max-width: 880px) {
+    .site-shell { padding: 0 14px 36px; }
+    .topbar { grid-template-columns: 1fr; gap: 10px; }
+    .nav-links { justify-content: flex-start; }
+    .workbench { grid-template-columns: 1fr; }
+    .panel, .section { padding: 18px; }
+    .page-title { font-size: 28px; }
+    .lead { font-size: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-footer,
+    .archive-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 10px; }
   }
 """
 
@@ -783,7 +872,7 @@ def _archive_cards(reports: list[dict[str, object]]) -> str:
   <p>{html.escape(" ".join(report["executive_summary"]) or report["watchlist"])}</p>
   <div class="archive-meta" style="margin-top:12px;">{domain_tags}{source_tags}{publication_tag}</div>
   <div class="archive-footer">
-    <span>{report["total_topics"]} topics · {report["total_items"]} items</span>
+    <span>{report["total_topics"]} 个主题 · {report["total_items"]} 条原始信息</span>
     <a href="{html.escape(report["archive_url"])}">打开日报</a>
   </div>
 </article>"""
@@ -804,7 +893,7 @@ def _weekly_cards(weeks: list[dict[str, object]]) -> str:
             f"""<article class="archive-card">
   <span class="eyebrow">{html.escape(week["week_label"])}</span>
   <h3>{html.escape(week["range_label"])}</h3>
-  <p>{week["report_count"]} daily brief(s) · {week["total_topics"]} topics · {week["total_items"]} raw items</p>
+  <p>{week["report_count"]} 份日报 · {week["total_topics"]} 个主题 · {week["total_items"]} 条原始信息</p>
   <div class="archive-meta" style="margin-top:12px;">{domain_tags}{review_tags}</div>
   <div class="archive-footer">
     <span>{html.escape(week["reports"][0]["judgment"])}</span>
@@ -821,7 +910,7 @@ def _special_collection_cards(collections: list[dict[str, object]]) -> str:
         cards.append(
             f"""<article class="archive-card">
   <span class="eyebrow">{html.escape(collection["title"])}</span>
-  <h3>{collection["entry_count"]} curated theme(s)</h3>
+  <h3>{collection["entry_count"]} 个聚合主题</h3>
   <p>{html.escape(collection["description"])}</p>
   <div class="archive-footer">
     <span>专题聚合页</span>
@@ -849,7 +938,7 @@ def _special_signal_cards(entries: list[dict[str, object]]) -> str:
   </div>
   <p class="subtle" style="margin-top:12px;">{html.escape(str(item["enrichment_summary"]))}</p>
   <div class="archive-footer">
-    <span>{item["appearances"]} appearance(s) · {_format_date(str(item["first_date"]))} → {_format_date(str(item["last_date"]))}</span>
+    <span>出现 {item["appearances"]} 次 · {_format_date(str(item["first_date"]))} → {_format_date(str(item["last_date"]))}</span>
     <a href="{html.escape(item["archive_url"])}">打开日报</a>
   </div>
 </article>"""
@@ -857,8 +946,83 @@ def _special_signal_cards(entries: list[dict[str, object]]) -> str:
     return "".join(cards) or '<article class="archive-card"><h3>暂无专题主题</h3><p>等待后续日报累积更多信号。</p></article>'
 
 
+def _comparison_highlight_list(title: str, items: list[dict[str, str]]) -> str:
+    if not items:
+        return ""
+    rows = "".join(
+        f"""<li>
+  <strong>{html.escape(item["title"])}</strong>
+  {f'<span class="tag alt">{html.escape(item["meta"])}</span>' if item["meta"] else ""}
+  {f'<p>{html.escape(item["summary"])}</p>' if item["summary"] else ""}
+</li>"""
+        for item in items[:3]
+    )
+    return f"""<article class="comparison-list">
+  <h3>{html.escape(title)}</h3>
+  <ul>{rows}</ul>
+</article>"""
+
+
+def _comparison_row_cards(rows: list[dict[str, str]]) -> str:
+    cards = []
+    for row in rows[:3]:
+        delta = f'<dt>差异</dt><dd>{html.escape(row["delta"])}</dd>' if row["delta"] else ""
+        cards.append(
+            f"""<article class="comparison-card">
+  <span class="tag">{html.escape(row["track"])}</span>
+  <dl>
+    <dt>国内侧</dt><dd>{html.escape(row["cn"])}</dd>
+    <dt>海外侧</dt><dd>{html.escape(row["intl"])}</dd>
+    {delta}
+  </dl>
+</article>"""
+        )
+    return "".join(cards)
+
+
+def _comparison_bullet_list(title: str, items: list[str], tag_class: str = "warm") -> str:
+    if not items:
+        return ""
+    rows = "".join(f"<li>{html.escape(item)}</li>" for item in items[:4])
+    return f"""<article class="comparison-list">
+  <h3><span class="tag {tag_class}">{html.escape(title)}</span></h3>
+  <ul>{rows}</ul>
+</article>"""
+
+
+def _comparison_section(comparison: object, compact: bool = False) -> str:
+    if not _has_comparison_content(comparison):
+        return ""
+    assert isinstance(comparison, dict)
+    rows = comparison.get("head_to_head", [])
+    cn_highlights = comparison.get("cn_highlights", [])
+    intl_highlights = comparison.get("intl_highlights", [])
+    gaps = comparison.get("gaps", [])
+    watchpoints = comparison.get("watchpoints", [])
+    if compact:
+        content = _comparison_row_cards(rows if isinstance(rows, list) else [])
+        if not content:
+            content = _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [])
+            content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [])
+        return f"""<section class="section">
+      <h2 class="section-title">国内外对比</h2>
+      <div class="comparison-grid">{content}</div>
+    </section>"""
+
+    content = _comparison_row_cards(rows if isinstance(rows, list) else [])
+    content += _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [])
+    content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [])
+    content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger")
+    content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm")
+    return f"""<section class="section">
+      <h2 class="section-title">国内外对比</h2>
+      <div class="comparison-grid">{content}</div>
+    </section>"""
+
+
 def _build_homepage(report: dict[str, object], reports: list[dict[str, object]]) -> str:
     recent_archives = reports[:6]
+    comparison_html = _comparison_section(report.get("comparison_brief", {}), compact=True)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -868,7 +1032,7 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
 <meta name="description" content="{html.escape(report["judgment"])}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{_base_css()}</style>
 </head>
 <body>
@@ -876,58 +1040,61 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
     <header class="topbar">
       <a class="brand" href="./"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="./archives/">Archives</a>
-        <a href="./weekly/">Weekly</a>
-        <a href="./special/">Special</a>
-        <a href="./feed.json">JSON Feed</a>
-        <a href="./rss.xml">RSS</a>
-        <a href="https://github.com/wsysgz/VS_AI" target="_blank" rel="noopener">GitHub</a>
+        <a href="./archives/">归档</a>
+        <a href="./weekly/">周报</a>
+        <a href="./special/">专题</a>
+        <a href="./feed.json">JSON</a>
+        <a href="./rss.xml">订阅</a>
+        <a href="https://github.com/wsysgz/VS_AI" target="_blank" rel="noopener">仓库</a>
       </nav>
     </header>
 
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="eyebrow">Daily Briefing</div>
-        <h1>Briefing For AI Signals.</h1>
-        <p class="hero-copy">{html.escape(report["judgment"])}</p>
-        <div class="hero-meta">
+    <section class="workbench">
+      <article class="panel">
+        <div class="eyebrow">情报工作台</div>
+        <h1 class="page-title">今日判断</h1>
+        <p class="lead">{html.escape(report["judgment"])}</p>
+        <ul class="compact-list">
+          {"".join(f"<li>{html.escape(item)}</li>" for item in report["executive_summary"][:3])}
+        </ul>
+        <div class="meta-row">
           <span class="chip">最新更新 {html.escape(report["generated_at"])}</span>
           <span class="chip">{html.escape(report["publication_label"])}</span>
-          <a class="chip" href="./archives/">进入归档检索</a>
-          <a class="chip" href="./weekly/">进入周报</a>
-          <a class="chip" href="./special/">进入专题</a>
-          <a class="chip" href="./rss.xml">订阅 RSS</a>
+          <a class="chip" href="./archives/">归档检索</a>
+          <a class="chip" href="./weekly/">周报</a>
+          <a class="chip" href="./special/">专题</a>
         </div>
-      </div>
+      </article>
+      <aside class="panel">
+        <h2 class="section-title">覆盖状态</h2>
+        <div class="stats-grid">
+          <article class="stat"><span>原始条目</span><strong>{report["total_items"]}</strong></article>
+          <article class="stat"><span>主题数量</span><strong>{report["total_topics"]}</strong></article>
+          <article class="stat"><span>领域覆盖</span><strong>{len(report["domain_counts"])}</strong></article>
+          <article class="stat"><span>来源数量</span><strong>{len(report["source_counts"])}</strong></article>
+        </div>
+        <p class="subtle" style="margin-top:14px;">{html.escape(report["watchlist"])}</p>
+      </aside>
     </section>
 
-    <section class="section">
-      <h2 class="section-title">今日面板</h2>
-      <div class="stats-grid">
-        <article class="stat"><span class="subtle">Raw items</span><strong>{report["total_items"]}</strong></article>
-        <article class="stat"><span class="subtle">Topics</span><strong>{report["total_topics"]}</strong></article>
-        <article class="stat"><span class="subtle">Domains</span><strong>{len(report["domain_counts"])}</strong></article>
-        <article class="stat"><span class="subtle">Sources</span><strong>{len(report["source_counts"])}</strong></article>
-      </div>
-    </section>
+{comparison_html}
 
     <section class="section">
-      <h2 class="section-title">AI Insight</h2>
+      <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         {_summary_cards(report)}
       </div>
-      <p class="subtle" style="margin-top:16px;">{html.escape(report["watchlist"])}</p>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Theme Signals</h2>
+      <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         {_signal_cards(report["top_signals"])}
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Search</h2>
+      <h2 class="section-title">检索</h2>
       <div class="search-shell">
         <p class="subtle">基础检索覆盖标题、标签、领域、来源，索引来自 <code>search-index.json</code>。</p>
         <input id="site-search" type="search" placeholder="搜索标题、标签、领域、来源">
@@ -941,14 +1108,14 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
     </section>
 
     <section class="section">
-      <h2 class="section-title">Archive Stream</h2>
+      <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
         {_archive_cards(recent_archives)}
       </div>
     </section>
 
     <footer class="footer">
-      <p>Public reading site only. Operations diagnostics stay in the private ops dashboard.</p>
+      <p>公开站只展示可公开阅读内容；运维诊断保留在私有看板。</p>
     </footer>
   </div>
 
@@ -1023,7 +1190,7 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VS_AI Archives</title>
+<title>VS_AI 归档</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1034,16 +1201,16 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
     <header class="topbar">
       <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Home</a>
-        <a href="../weekly/">Weekly</a>
-        <a href="../special/">Special</a>
-        <a href="../feed.json">JSON Feed</a>
-        <a href="../rss.xml">RSS</a>
+        <a href="../">首页</a>
+        <a href="../weekly/">周报</a>
+        <a href="../special/">专题</a>
+        <a href="../feed.json">JSON</a>
+        <a href="../rss.xml">订阅</a>
       </nav>
     </header>
 
     <section class="section">
-      <h1 class="section-title">Archives</h1>
+      <h1 class="section-title">归档</h1>
       <p class="subtle">按日期、领域、来源浏览过去的每日情报摘要。</p>
     </section>
 
@@ -1094,6 +1261,7 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
 
 
 def _build_day_page(report: dict[str, object]) -> str:
+    comparison_html = _comparison_section(report.get("comparison_brief", {}))
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1110,10 +1278,10 @@ def _build_day_page(report: dict[str, object]) -> str:
     <header class="topbar">
       <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Archives</a>
-        <a href="../../weekly/">Weekly</a>
-        <a href="../../special/">Special</a>
-        <a href="../../">Home</a>
+        <a href="../">归档</a>
+        <a href="../../weekly/">周报</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
       </nav>
     </header>
 
@@ -1122,29 +1290,31 @@ def _build_day_page(report: dict[str, object]) -> str:
       <h1 class="section-title" style="font-size:34px;">{html.escape(report["judgment"])}</h1>
       <p class="subtle">{html.escape(" ".join(report["executive_summary"]) or report["watchlist"])}</p>
       <div class="archive-meta" style="margin-top:14px;">
-        <span class="tag alt">{report["total_topics"]} topics</span>
-        <span class="tag warm">{report["total_items"]} raw items</span>
+        <span class="tag alt">{report["total_topics"]} 个主题</span>
+        <span class="tag warm">{report["total_items"]} 条原始信息</span>
         <span class="tag">{html.escape(report["publication_label"])}</span>
         <span class="tag">{html.escape(report["generated_at"])}</span>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Briefing Mainlines</h2>
+      <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         {_summary_cards(report)}
       </div>
     </section>
 
+{comparison_html}
+
     <section class="section">
-      <h2 class="section-title">Deep Reads</h2>
+      <h2 class="section-title">深度解读</h2>
       <div class="summary-grid">
         {_topic_cards(report)}
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">All Signals</h2>
+      <h2 class="section-title">全部信号</h2>
       <div class="signal-grid">
         {_signal_cards(report["signals"])}
       </div>
@@ -1161,7 +1331,7 @@ def _build_weekly_index(weeks: list[dict[str, object]]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VS_AI Weekly Briefs</title>
+<title>VS_AI 周报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1172,15 +1342,15 @@ def _build_weekly_index(weeks: list[dict[str, object]]) -> str:
     <header class="topbar">
       <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Home</a>
-        <a href="../archives/">Archives</a>
-        <a href="../special/">Special</a>
-        <a href="../feed.json">JSON Feed</a>
+        <a href="../">首页</a>
+        <a href="../archives/">归档</a>
+        <a href="../special/">专题</a>
+        <a href="../feed.json">JSON</a>
       </nav>
     </header>
 
     <section class="section">
-      <h1 class="section-title">Weekly Briefs</h1>
+      <h1 class="section-title">周报</h1>
       <p class="subtle">按周聚合过去的日报，帮助快速回看一周内延续的主线和高分信号。</p>
     </section>
 
@@ -1206,7 +1376,7 @@ def _build_week_page(week: dict[str, object]) -> str:
   <p>{html.escape(" ".join(report["executive_summary"]) or report["watchlist"])}</p>
   <div class="archive-meta" style="margin-top:12px;">{review_tags}</div>
   <div class="archive-footer">
-    <span>{report["total_topics"]} topics · {report["total_items"]} items</span>
+    <span>{report["total_topics"]} 个主题 · {report["total_items"]} 条原始信息</span>
     <a href="../../archives/{html.escape(report["date"])}/">打开日报</a>
   </div>
 </article>"""
@@ -1217,7 +1387,7 @@ def _build_week_page(week: dict[str, object]) -> str:
         review_tags = _review_meta_tags(str(signal.get("publication_label", "自动版")), signal.get("review", {}))
         mainline_cards.append(
             f"""<article class="archive-card">
-  <span class="eyebrow">{int(signal.get("appearances", 1))} appearance(s)</span>
+  <span class="eyebrow">出现 {int(signal.get("appearances", 1))} 次</span>
   <h3>{html.escape(str(signal["title"]))}</h3>
   <p>{html.escape(str(signal["summary"]))}</p>
   <div class="archive-meta" style="margin-top:12px;">
@@ -1226,7 +1396,7 @@ def _build_week_page(week: dict[str, object]) -> str:
     {review_tags}
   </div>
   <div class="archive-footer">
-    <span>score {float(signal.get("score", 0.0)):.1f}</span>
+    <span>评分 {float(signal.get("score", 0.0)):.1f}</span>
     <a href="{html.escape(str(signal["url"]))}" target="_blank" rel="noopener">查看原文</a>
   </div>
 </article>"""
@@ -1237,7 +1407,7 @@ def _build_week_page(week: dict[str, object]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{html.escape(week["week_label"])} | VS_AI Weekly</title>
+<title>{html.escape(week["week_label"])} | VS_AI 周报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1248,17 +1418,17 @@ def _build_week_page(week: dict[str, object]) -> str:
     <header class="topbar">
       <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Weekly</a>
-        <a href="../../archives/">Archives</a>
-        <a href="../../special/">Special</a>
-        <a href="../../">Home</a>
+        <a href="../">周报</a>
+        <a href="../../archives/">归档</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
       </nav>
     </header>
 
     <section class="section">
       <div class="eyebrow">{html.escape(week["week_label"])}</div>
       <h1 class="section-title" style="font-size:34px;">{html.escape(week["range_label"])}</h1>
-      <p class="subtle">{week["report_count"]} daily brief(s) · {week["total_topics"]} topics · {week["total_items"]} raw items</p>
+      <p class="subtle">{week["report_count"]} 份日报 · {week["total_topics"]} 个主题 · {week["total_items"]} 条原始信息</p>
     </section>
 
     <section class="section">
@@ -1269,14 +1439,14 @@ def _build_week_page(week: dict[str, object]) -> str:
     </section>
 
     <section class="section">
-      <h2 class="section-title">Weekly Stream</h2>
+      <h2 class="section-title">日报流</h2>
       <div class="archive-grid">
         {"".join(daily_cards)}
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Top Signals</h2>
+      <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         {_signal_cards(week["top_signals"])}
       </div>
@@ -1293,7 +1463,7 @@ def _build_special_index(collections: list[dict[str, object]]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VS_AI Special Briefs</title>
+<title>VS_AI 专题</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1304,14 +1474,14 @@ def _build_special_index(collections: list[dict[str, object]]) -> str:
     <header class="topbar">
       <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Home</a>
-        <a href="../archives/">Archives</a>
-        <a href="../weekly/">Weekly</a>
+        <a href="../">首页</a>
+        <a href="../archives/">归档</a>
+        <a href="../weekly/">周报</a>
       </nav>
     </header>
 
     <section class="section">
-      <h1 class="section-title">Special Briefs</h1>
+      <h1 class="section-title">专题</h1>
       <p class="subtle">按“已验证主线”和“高风险观察”聚合跨日报的重点主题，方便长期跟踪。</p>
     </section>
 
@@ -1332,7 +1502,7 @@ def _build_special_page(collection: dict[str, object]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{html.escape(collection["title"])} | VS_AI Special</title>
+<title>{html.escape(collection["title"])} | VS_AI 专题</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1343,16 +1513,16 @@ def _build_special_page(collection: dict[str, object]) -> str:
     <header class="topbar">
       <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
       <nav class="nav-links">
-        <a href="../">Special</a>
-        <a href="../../weekly/">Weekly</a>
-        <a href="../../archives/">Archives</a>
-        <a href="../../">Home</a>
+        <a href="../">专题</a>
+        <a href="../../weekly/">周报</a>
+        <a href="../../archives/">归档</a>
+        <a href="../../">首页</a>
       </nav>
     </header>
 
     <section class="section">
       <div class="eyebrow">{html.escape(collection["title"])}</div>
-      <h1 class="section-title" style="font-size:34px;">{collection["entry_count"]} curated theme(s)</h1>
+      <h1 class="section-title" style="font-size:34px;">{collection["entry_count"]} 个聚合主题</h1>
       <p class="subtle">{html.escape(collection["description"])}</p>
     </section>
 
