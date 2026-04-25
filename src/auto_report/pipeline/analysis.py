@@ -12,6 +12,7 @@ from auto_report.pipeline.prompt_loader import load_ai_readings
 from auto_report.pipeline.scoring import score_topic
 from auto_report.pipeline.topic_builder import build_topic_candidates
 from auto_report.settings import Settings
+from auto_report.source_registry import build_source_registry
 
 
 RISK_ORDER = {"low": 0, "medium": 1, "high": 2}
@@ -61,6 +62,133 @@ def _topic_summary(topic: TopicGroup) -> str:
     if summaries:
         return summaries[0]
     return f"来源共 {len(topic.evidence_items)} 条，等待后续 AI 深度摘要。"
+
+
+def _safe_float(value: object) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _comparison_source_ids(signal: dict[str, object]) -> list[str]:
+    source_ids = signal.get("source_ids", [])
+    if not isinstance(source_ids, list):
+        return []
+    return [str(source_id).strip() for source_id in source_ids if str(source_id).strip()]
+
+
+def _comparison_signal_rows(
+    signals: list[dict[str, object]],
+    source_registry: dict[str, dict[str, object]],
+) -> dict[str, dict[str, list[dict[str, object]]]]:
+    rows: dict[str, dict[str, list[dict[str, object]]]] = {"cn": {}, "intl": {}}
+    for signal in signals:
+        title = str(signal.get("title", "")).strip()
+        if not title:
+            continue
+        source_ids = _comparison_source_ids(signal)
+        source_labels = [
+            source_registry.get(source_id, {})
+            for source_id in source_ids
+            if isinstance(source_registry.get(source_id, {}), dict)
+        ]
+        regions = sorted(
+            {
+                str(label.get("region_scope", "")).strip()
+                for label in source_labels
+                if str(label.get("region_scope", "")).strip() in {"cn", "intl"}
+            }
+        )
+        tracks = sorted(
+            {
+                str(label.get("tech_track", "")).strip()
+                for label in source_labels
+                if str(label.get("tech_track", "")).strip()
+            }
+        )
+        if not regions or not tracks:
+            continue
+        for region in regions:
+            for track in tracks:
+                rows[region].setdefault(track, []).append(
+                    {
+                        "title": title,
+                        "url": str(signal.get("url", "")).strip(),
+                        "summary": str(signal.get("summary", "")).strip(),
+                        "tech_track": track,
+                        "source_ids": source_ids,
+                        "score": _safe_float(signal.get("score", 0)),
+                    }
+                )
+    return rows
+
+
+def _sorted_comparison_items(items: list[dict[str, object]]) -> list[dict[str, object]]:
+    unique: dict[tuple[str, str], dict[str, object]] = {}
+    for item in items:
+        key = (str(item.get("tech_track", "")), str(item.get("title", "")))
+        unique.setdefault(key, item)
+    return sorted(
+        unique.values(),
+        key=lambda item: (-_safe_float(item.get("score", 0)), str(item.get("tech_track", "")), str(item.get("title", ""))),
+    )
+
+
+def _flatten_comparison_region(region_rows: dict[str, list[dict[str, object]]]) -> list[dict[str, object]]:
+    items: list[dict[str, object]] = []
+    for track_items in region_rows.values():
+        items.extend(track_items)
+    return _sorted_comparison_items(items)[:5]
+
+
+def _build_comparison_brief(
+    signals: list[dict[str, object]],
+    source_registry: dict[str, dict[str, object]],
+) -> dict[str, object]:
+    rows = _comparison_signal_rows(signals, source_registry)
+    cn_tracks = set(rows["cn"])
+    intl_tracks = set(rows["intl"])
+    head_to_head: list[dict[str, object]] = []
+
+    for track in sorted(cn_tracks & intl_tracks):
+        cn_item = _sorted_comparison_items(rows["cn"][track])[0]
+        intl_item = _sorted_comparison_items(rows["intl"][track])[0]
+        cn_title = str(cn_item.get("title", ""))
+        intl_title = str(intl_item.get("title", ""))
+        head_to_head.append(
+            {
+                "tech_track": track,
+                "cn_title": cn_title,
+                "intl_title": intl_title,
+                "cn_source_ids": cn_item.get("source_ids", []),
+                "intl_source_ids": intl_item.get("source_ids", []),
+                "readout": f"{track}：国内 {cn_title}；海外 {intl_title}。",
+            }
+        )
+
+    gaps = [
+        f"{track}：仅看到国内信号，需补齐海外来源。"
+        for track in sorted(cn_tracks - intl_tracks)
+    ] + [
+        f"{track}：仅看到海外信号，需补齐国内来源。"
+        for track in sorted(intl_tracks - cn_tracks)
+    ]
+
+    watchpoints = [
+        f"继续跟踪 {item['tech_track']} 的国内外同轨发布、生态采用与真实交付反馈。"
+        for item in head_to_head[:3]
+    ]
+    if not watchpoints and gaps:
+        watchpoints = ["优先补齐单侧覆盖赛道的对侧来源，再做趋势判断。"]
+
+    return {
+        "cn_highlights": _flatten_comparison_region(rows["cn"]),
+        "intl_highlights": _flatten_comparison_region(rows["intl"]),
+        "head_to_head": head_to_head,
+        "gaps": gaps,
+        "watchpoints": watchpoints,
+    }
 
 
 def build_report_package(
@@ -127,6 +255,11 @@ def build_report_package(
         stage_risk = "high" if ai_outputs["stage_status"].get("analysis") == "fallback" else "medium"
         risk_level = max((risk_level, stage_risk), key=lambda item: RISK_ORDER.get(item, -1))
 
+    comparison_brief = _build_comparison_brief(
+        signals=intelligence["signals"],
+        source_registry=build_source_registry(settings),
+    )
+
     summary_payload = {
         "meta": {
             "generated_at": "",
@@ -146,6 +279,7 @@ def build_report_package(
         "ai_metrics": ai_outputs.get("ai_metrics", _default_ai_metrics()),
         "mainline_memory": intelligence["mainline_memory"],
         "lifecycle_summary": intelligence["lifecycle_summary"],
+        "comparison_brief": comparison_brief,
         "risk_level": risk_level,
         "highlights": [
             ai_outputs["summary"]["one_line_core"],

@@ -42,6 +42,65 @@ def _link_lines(public_site_url: str, raw_report_url: str) -> list[str]:
     ]
 
 
+def _comparison_highlight_lines(items: object) -> list[str]:
+    if not isinstance(items, list):
+        return []
+    lines: list[str] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title", "")).strip()
+        if not title:
+            continue
+        track = str(item.get("tech_track", "")).strip()
+        source_ids = item.get("source_ids", [])
+        source_text = ""
+        if isinstance(source_ids, list) and source_ids:
+            source_text = f"（来源：{', '.join(str(source_id) for source_id in source_ids[:3])}）"
+        lines.append(f"- {track}：{title}{source_text}" if track else f"- {title}{source_text}")
+    return lines
+
+
+def _comparison_markdown_lines(brief: dict[str, object]) -> list[str]:
+    comparison = brief.get("comparison_brief", {})
+    if not isinstance(comparison, dict):
+        comparison = {}
+    head_to_head = "\n".join(
+        f"- {item.get('readout')}"
+        for item in comparison.get("head_to_head", [])
+        if isinstance(item, dict) and str(item.get("readout", "")).strip()
+    ) or "- 暂无"
+    gaps = "\n".join(f"- {item}" for item in comparison.get("gaps", []) if str(item).strip()) or "- 暂无"
+    watchpoints = "\n".join(f"- {item}" for item in comparison.get("watchpoints", []) if str(item).strip()) or "- 暂无"
+    return [
+        "## 国内外对比",
+        "### 国内高亮信号",
+        "\n".join(_comparison_highlight_lines(comparison.get("cn_highlights", []))) or "- 暂无",
+        "",
+        "### 海外高亮信号",
+        "\n".join(_comparison_highlight_lines(comparison.get("intl_highlights", []))) or "- 暂无",
+        "",
+        "### 同轨对照",
+        head_to_head,
+        "",
+        "### 覆盖缺口",
+        gaps,
+        "",
+        "### 观察点",
+        watchpoints,
+    ]
+
+
+def _comparison_delivery_lines(brief: dict[str, object]) -> list[str]:
+    items = brief.get("comparison_head_to_head", [])
+    if not isinstance(items, list):
+        return []
+    lines = [str(item).strip() for item in items if str(item).strip()]
+    if not lines:
+        return []
+    return ["国内外对比："] + [f"- {line}" for line in lines]
+
+
 def render_markdown_report(
     title: str,
     generated_at: str,
@@ -78,6 +137,8 @@ def render_markdown_report(
         "",
         "## 关键洞察",
         key_insights,
+        "",
+        *_comparison_markdown_lines(brief),
         "",
         "## 重点主线",
         mainlines,
@@ -151,6 +212,10 @@ def render_pushplus_notification(
     for index, item in enumerate(brief["mainlines"], start=1):
         lines.append(f"{index}. {item['title']}：{item['why_it_matters']}")
 
+    comparison_lines = _comparison_delivery_lines(brief)
+    if comparison_lines:
+        lines.extend(comparison_lines)
+
     if brief["risk_note"]:
         lines.extend(["提醒：", brief["risk_note"]])
 
@@ -213,6 +278,10 @@ def render_telegram_notification(
         f"- {brief['watchlist']}",
     ]
 
+    comparison_lines = _comparison_delivery_lines(brief)
+    if comparison_lines:
+        lines.extend([""] + comparison_lines)
+
     if brief["risk_note"]:
         lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
 
@@ -252,6 +321,10 @@ def render_feishu_notification(
         "关键主线",
         mainlines,
     ]
+
+    comparison_lines = _comparison_delivery_lines(brief)
+    if comparison_lines:
+        lines.extend([""] + comparison_lines)
 
     if brief["risk_note"]:
         lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
@@ -302,6 +375,15 @@ def render_feishu_card_notification(
             ],
         },
     ]
+
+    comparison_lines = _comparison_delivery_lines(brief)
+    if comparison_lines:
+        elements.append(
+            {
+                "tag": "div",
+                "text": {"tag": "lark_md", "content": "**国内外对比**\n" + "\n".join(comparison_lines[1:])},
+            }
+        )
 
     if brief["risk_note"]:
         elements.append(

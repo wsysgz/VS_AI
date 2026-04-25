@@ -52,6 +52,44 @@ def test_compose_executive_brief_builds_mainlines_topics_and_notes():
             "limitations": ["部分信号仍需复核"],
             "actions": ["继续跟踪评估框架"],
             "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+            "comparison_brief": {
+                "cn_highlights": [
+                    {
+                        "title": "Qwen edge agent release",
+                        "tech_track": "frontier-ai",
+                        "source_ids": ["qwen-blog"],
+                    }
+                ],
+                "intl_highlights": [
+                    {
+                        "title": "OpenAI agent runtime release",
+                        "tech_track": "frontier-ai",
+                        "source_ids": ["openai-news"],
+                    }
+                ],
+                "head_to_head": [
+                    {
+                        "tech_track": "frontier-ai",
+                        "cn_title": "Qwen edge agent release",
+                        "intl_title": "OpenAI agent runtime release",
+                        "readout": "frontier-ai：国内 Qwen edge agent release；海外 OpenAI agent runtime release。",
+                    },
+                    {
+                        "tech_track": "embedded",
+                        "cn_title": "RISC-V edge update",
+                        "intl_title": "NXP edge AI update",
+                        "readout": "embedded：国内 RISC-V edge update；海外 NXP edge AI update。",
+                    },
+                    {
+                        "tech_track": "fpga",
+                        "cn_title": "FPGA update CN",
+                        "intl_title": "AMD Vitis update",
+                        "readout": "fpga：国内 FPGA update CN；海外 AMD Vitis update。",
+                    },
+                ],
+                "gaps": ["personal-hpc：仅看到海外信号，需补齐国内来源。"],
+                "watchpoints": ["继续跟踪 frontier-ai 的同轨交付反馈。"],
+            },
         },
     )
 
@@ -65,6 +103,11 @@ def test_compose_executive_brief_builds_mainlines_topics_and_notes():
     assert brief["watchlist"] == "短期继续围绕评估与部署演进"
     assert brief["risk_note"] == "部分信号仍需复核"
     assert brief["action_note"] == "继续跟踪评估框架"
+    assert brief["comparison_brief"]["gaps"][0] == "personal-hpc：仅看到海外信号，需补齐国内来源。"
+    assert brief["comparison_head_to_head"] == [
+        "frontier-ai：国内 Qwen edge agent release；海外 OpenAI agent runtime release。",
+        "embedded：国内 RISC-V edge update；海外 NXP edge AI update。",
+    ]
 
 
 def test_compose_executive_brief_degrades_gracefully_with_sparse_payload():
@@ -92,3 +135,11 @@ def test_compose_executive_brief_degrades_gracefully_with_sparse_payload():
     assert brief["watchlist"] == "本轮先保持观察，等待更多高置信度信号。"
     assert brief["risk_note"] == ""
     assert brief["action_note"] == ""
+    assert brief["comparison_brief"] == {
+        "cn_highlights": [],
+        "intl_highlights": [],
+        "head_to_head": [],
+        "gaps": [],
+        "watchpoints": [],
+    }
+    assert brief["comparison_head_to_head"] == []

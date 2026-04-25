@@ -4,7 +4,7 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-23
+> 最后更新：2026-04-25
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
@@ -26,12 +26,13 @@
 - Canonical remote：`git@github.com:wsysgz/VS_AI.git`
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
-- 当前本地验证基线：`312 passed`
-- 当前主线优先级：`P3-A 收口尾项 + P3-B 第二轮 polish：飞书推送界面优化已完成首轮发布级验收，飞书多维表格运营台第一版已落地`
+- 当前本地验证基线：`337 passed`
+- 当前主线优先级：`P3-C 国内外对比分析（A 方案）已完成，下一步先讨论公开站整理 / 优化方案；未确认方案前不改 Pages 结构，P3-B 只保留小修与回归验证`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
-- 当前最新远端 `Collect And Report` 已成功：`2026-04-23 / run 24817834003 / commit ce3b090`
-- 当前最新远端 `Delivery Canary` 已成功：`2026-04-23 / run 24826780399 / commit e67f36f`
-- 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-23 / run 24817844639 / commit ce3b090`
+- 当前最新远端 `Collect And Report` 已成功：`2026-04-24 / run 24892691284 / commit a2f1455`
+- 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
+- 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-24 / run 24864003455 / commit 780dcfd`
+- GitHub Repository Variables 已切换到 DeepSeek V4 默认路由：`analysis/summary/forecast=pro`，`prefilter/discovery/search=flash`
 - 运行态唯一权威文件：`data/state/run-status.json`
 - 来源治理权威产物：`out/source-governance/source-governance.json`
 - 本地 watch 真相文件：`out/source-governance/changedetection-watch-registry.json` / `out/source-governance/watch-run-results.json`
@@ -111,7 +112,7 @@ git log --oneline -5
 补充执行纪律：
 
 - 如果当前会话已经确认处于 `P2-B LiteLLM Gateway`，就先把 Gateway 接入、文档、测试、回退路径做完
-- 当前默认阶段顺序已经切到：先完成 `P3-A` 收口，再进入 `P3-B` 的表结构 / 视图 / 自动化设计；不要把 P3-B 和来源治理尾项、OpenCLI pilot 混做
+- 当前默认阶段顺序已经切到：`P3-C` 已完成，下一步先讨论公开站整理 / 优化方案；不要把公开站讨论和来源治理尾项、OpenCLI pilot 混做
 
 ## 2. 项目是什么
 
@@ -242,11 +243,10 @@ collect
 当前治理摘要（以当前仓库 artifact 为准）：
 
 - `manual_review_count = 1`
-- `rsshub_candidate_count = 5`
-- `changedetection_candidate_count = 5`
-- `replacement_candidate_count = 6`
+- `rsshub_candidate_count = 4`
+- `changedetection_candidate_count = 4`
+- `replacement_candidate_count = 5`
 - `changedetection_watch_registry.status_counts.active_local = 4`
-- `changedetection_watch_registry.status_counts.blocked = 1`
 
 ### 4.3 远端执行真相
 
@@ -369,23 +369,25 @@ Get-Content out/source-governance/source-governance.json
 
 这份文件是最快的方向校准器。
 
-## 6. 当前确认过的状态快照（2026-04-23）
+## 6. 当前确认过的状态快照（2026-04-25）
 
 当前确定成立的项目状态：
 
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
-- 当前主线已切到 `P3-A 收口尾项 + P3-B 第二轮 polish`
+- 当前主线已完成 `P3-B 阶段性收口 + P3-C 国内外对比分析（A 方案）`
 - PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
-- 本地验证基线已经提升并固定到 `312 passed`
+- 本地验证基线已经提升并固定到 `337 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
-- 当前仅剩一个明确 blocked 来源：`renesas-blog`（403）
+- `renesas-blog` / `youtube-google-developers` / `youtube-nvidia` 已从活跃采集里降噪处理，等待稳定入口恢复后再启用
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
-- `2026-04-23` 已确认最新远端 `Collect And Report` 成功（run `24817834003` / commit `ce3b090`）
-- `2026-04-23` 已确认最新远端 `Delivery Canary` 成功，且已升级为飞书卡片主路径 canary（run `24826780399` / commit `e67f36f`）
-- `2026-04-23` 已确认最新远端 `Source Reachability Canary` 成功（run `24817844639` / commit `ce3b090`）
+- `2026-04-24` 已确认最新远端 `Collect And Report` 成功（run `24892691284` / commit `a2f1455`）
+- `2026-04-24` 已确认最新远端 `Delivery Canary` 成功（run `24864175041` / commit `780dcfd`）
+- `2026-04-24` 已确认最新远端 `Source Reachability Canary` 成功（run `24864003455` / commit `780dcfd`）
+- `2026-04-25` 已在本地真实 `auto` 轨验收 DeepSeek V4 路由，`summary/forecast` 输出与将要用于推送的摘要字段均为中文
+- `2026-04-25` 已完成飞书运营台现有表的第一屏字段重排真实同步：`python -m auto_report.cli sync-feishu-ops-desk`
 - 当前精确运行快照、主题数和风险等级仍以 `data/state/run-status.json` 为准
 
 目前已经落地的关键收口：
@@ -411,8 +413,8 @@ Get-Content out/source-governance/source-governance.json
 - `P3-A` 当前交付面收口状态：
   1. `2026-04-22` 本地已实测卡片主路径命中：`delivery_kind=card_success`
   2. `run-status` / diagnose 输出已区分 `card_success / text_fallback`
-  3. `2026-04-23` 最新远端 `Collect And Report` 已成功
-  4. `2026-04-23` `Delivery Canary` 已升级为飞书卡片主路径 canary，并已远端成功（run `24826780399` / commit `e67f36f`）
+  3. `2026-04-24` 最新远端 `Collect And Report` 已成功
+  4. `2026-04-24` `Delivery Canary` 已在远端持续成功；本地 `2026-04-25` 已补中文输出约束，避免再次出现英文推送
 - `P3-B` 第一版已经落地：
   1. `VS_AI 今日运营台` dashboard 已建成
   2. 四张表已建成：`治理总表` / `审批协作` / `交付验收` / `待应用变更`
@@ -425,8 +427,16 @@ Get-Content out/source-governance/source-governance.json
   5. 第二轮 polish 已开始落地：
       - `审批协作.pending` 已中文化为 `待审批`
       - 视图过滤条件已与中文状态值对齐
-      - `Source Reachability Canary` 已移除 YouTube 硬失败探测并恢复远端成功
-- `renesas-blog` 仍 blocked，需要替代入口或局部 fallback
+      - `审批协作 / 交付验收` 可写字段已前置到左侧第一屏
+      - 旧值 `待处理` 已纳入迁移兼容
+      - 旧版英文表 / 仪表盘已支持删除优先、失败则改名停用，并已有 `test_lark_cli_sidecar.py` 覆盖
+      - 轻自动化本阶段不新增，继续保留 `sync-feishu-ops-desk` / `pull-feishu-ops-status` 手动闭环
+- 已完成主线：`P3-C 国内外对比分析（A 方案）`
+  1. `P3-C-1`：source 标签层已完成：`region_scope / org_origin / tech_track / comparison_priority` 已进入 registry，覆盖 `frontier-ai / fpga / embedded / personal-hpc / compute-infra`
+  2. `P3-C-2`：已在 summary payload 中新增 `comparison_brief.cn_highlights / intl_highlights / head_to_head / gaps / watchpoints`，Markdown 长报告完整展示，PushPlus / Telegram / 飞书文本 / 飞书卡片只消费前 1~2 条 `head_to_head`
+  3. `P3-C-3`：已完成本地发布级验收、文档、运行态说明与生成产物清理；reviewed 样例中 `comparison_brief` 已可见
+  4. P3-C 三阶段已完成；公开站 `https://wsysgz.github.io/VS_AI/` 的整理 / 优化进入下一步讨论，确认方案前不实施
+  5. 后续再吸收事件级配对（C 方案）
 - `OpenCLI` 侧车 pilot 继续延后，不与当前批次混做
 
 最近可见的 source failure 示例：
@@ -439,16 +449,18 @@ Get-Content out/source-governance/source-governance.json
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
 - 下一阶段默认优先顺序：
-  1. 继续 `P3-B` 的第二轮优化（中文化、按钮优先、轻自动化）
-  2. `P3-A` 的 `Delivery Canary` / delivery observability 已收口，剩余只保留交付面小修
-  3. `P1` 尾项继续只保留 `renesas-blog`
-  4. `P2.5 OpenCLI pilot` 继续留在 backlog
+  1. 先讨论公开站 `https://wsysgz.github.io/VS_AI/` 的整理 / 优化方案
+  2. 方案确认后再实施公开站改造
+  3. 实施前保留当前 Pages 结构，不做顺手优化
+  4. `P3-B` 只保留小修、真实同步回归和交付前验证
+  5. 持续观察 `openvino-blog`、`huggingface-blog`、`st-blog` 的超时/连通性噪音
+  6. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
-  - `analysis` -> DeepSeek
-  - `summary` -> MiniMax-M2.7
-  - `forecast` -> DeepSeek
-  - `pre_filter` -> MiniMax-M2.7
-  - `discovery` / `search` helper stage -> MiniMax-M2.7
+  - `analysis` -> DeepSeek V4 Pro
+  - `summary` -> DeepSeek V4 Pro
+  - `forecast` -> DeepSeek V4 Pro
+  - `pre_filter` -> DeepSeek V4 Flash
+  - `discovery` / `search` helper stage -> DeepSeek V4 Flash
 - `build-discovery-search` 已可从关键词列表生成：
   - `out/discovery-search/discovery-search.json`
   - `out/discovery-search/discovery-search.md`
@@ -831,7 +843,7 @@ ClawBot 额外事实：
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级已转到：`P3-A` 收口 + `P3-B` 第二轮优化 + repo 内原生 watch runner 收尾
+- 当前优先级已转到：公开站整理 / 优化方案讨论；`P3-C-1 / P3-C-2 / P3-C-3` 已完成，公开站方案确认前不改 Pages 结构；repo 内原生 watch runner 只保留例行观察
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
@@ -848,7 +860,7 @@ ClawBot 额外事实：
 5. 看 `data/state/run-status.json`
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
-8. 再判断是继续处理 `watch-run-results.json` 里的 blocked/changed，还是直接进入 `P3-B` 的按钮优先 / 中文化 / 轻自动化优化
+8. 当前默认进入公开站整理 / 优化方案讨论；不要回头重做 `P3-C-1 / P3-C-2 / P3-C-3`，方案确认前不要改 Pages
 - Telegram 暂不作为当前优化优先级
 
 ## 12. AI 接手后的首小时清单
@@ -864,7 +876,8 @@ ClawBot 额外事实：
 如果你是临时接手，不确定该优先干什么，默认优先：
 
 1. P3-A：飞书推送界面优化尾部小修（`Delivery Canary` 已升级为飞书卡片主路径 canary）
-2. P3-B：飞书多维表格运营台第二轮优化（中文化 / 按钮优先 / 轻自动化判断）
-3. 治理尾项：看 `changedetection-watch-registry.json` 和 `watch-run-results.json`，优先处理 blocked/changed
-4. 做发布级本地验收
-5. 如需发布级确认，`push` + workflow_dispatch
+2. P3-C-2：comparison brief 与交付消费（已完成）
+3. P3-C-3：验收、文档、发布收口（已完成）
+4. 先讨论公开站 `https://wsysgz.github.io/VS_AI/` 的整理 / 优化方案，再实施
+5. 做公开站方案对应的本地验收
+6. 如需发布级确认，`push` + workflow_dispatch

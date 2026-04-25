@@ -4,12 +4,15 @@ from dataclasses import asdict
 import json
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import re
 
 from auto_report.integrations.llm_client import call_llm, get_llm_metrics, reset_llm_metrics
 from auto_report.integrations.langfuse_tracing import finish_stage_span, start_stage_span
 from auto_report.models.records import TopicCandidate
 
 logger = logging.getLogger(__name__)
+
+CJK_PATTERN = re.compile(r"[\u4e00-\u9fff]")
 
 ANALYSIS_REQUIRED_KEYS = {"facts", "primary_contradiction", "core_insight", "confidence"}
 SUMMARY_REQUIRED_KEYS = {
@@ -59,6 +62,44 @@ def _validate_required_keys(payload: dict[str, object], required_keys: set[str])
     return payload
 
 
+def _contains_cjk(text: str) -> bool:
+    return bool(CJK_PATTERN.search(str(text or "")))
+
+
+def _summary_payload_has_cjk(payload: dict[str, object]) -> bool:
+    scalar_fields = ("one_line_core",)
+    for field in scalar_fields:
+        if _contains_cjk(str(payload.get(field, ""))):
+            return True
+
+    for item in payload.get("executive_summary", []):
+        if _contains_cjk(str(item)):
+            return True
+
+    for item in payload.get("key_insights", []):
+        if _contains_cjk(str(item)):
+            return True
+
+    for point in payload.get("key_points", []):
+        if not isinstance(point, dict):
+            continue
+        if _contains_cjk(str(point.get("title", ""))) or _contains_cjk(str(point.get("why_it_matters", ""))):
+            return True
+    return False
+
+
+def _forecast_payload_has_cjk(payload: dict[str, object]) -> bool:
+    scalar_fields = ("best_case", "worst_case", "most_likely_case", "forecast_conclusion")
+    for field in scalar_fields:
+        if _contains_cjk(str(payload.get(field, ""))):
+            return True
+
+    for item in payload.get("key_variables", []):
+        if _contains_cjk(str(item)):
+            return True
+    return False
+
+
 def _build_analysis_prompt(reading: str, candidate: TopicCandidate) -> str:
     return "\n\n".join(
         [
@@ -79,7 +120,7 @@ def _build_summary_prompt(reading: str, analyses: list[dict[str, object]]) -> st
             reading,
             "你正在自动情报快报流水线中工作。输入已经是完成初步分析的主题列表，不要回到信息充分性检测，不要索要额外背景。",
             "任务：把这些主题分析整理为晨报综合摘要。",
-            "要求：不要复述输入结构；不要输出 analyses、analysis、summary 作为顶层键；只输出一个 JSON 对象。",
+            "要求：不要复述输入结构；不要输出 analyses、analysis、summary 作为顶层键；只输出一个 JSON 对象；所有面向报告与推送的文本必须使用简体中文。",
             '输出 JSON 字段必须包含：{"one_line_core":"...","executive_summary":["..."],"key_points":[{"title":"...","why_it_matters":"..."}],"key_insights":["..."],"limitations":["..."],"actions":["..."]}',
             "主题分析列表：",
             json.dumps(analyses, ensure_ascii=False, indent=2),
@@ -97,7 +138,7 @@ def _build_forecast_prompt(
             reading,
             "你正在自动情报快报流水线中工作。输入已经包含主题分析和综合摘要。",
             "任务：给出谨慎、可追溯的短期预测。",
-            "要求：不要回显 analyses 或 summary 输入结构；不要索要补充信息；只输出一个 JSON 对象。",
+            "要求：不要回显 analyses 或 summary 输入结构；不要索要补充信息；只输出一个 JSON 对象；所有面向报告与推送的文本必须使用简体中文。",
             '输出 JSON 字段必须包含：{"best_case":"...","worst_case":"...","most_likely_case":"...","key_variables":["..."],"forecast_conclusion":"...","confidence":"low|medium|high"}',
             "输入：",
             json.dumps({"analyses": analyses, "summary": summary}, ensure_ascii=False, indent=2),
@@ -324,6 +365,8 @@ def run_staged_ai_pipeline(
             summary = _parse_json_block(call_llm(prompt, stage="summary"))
             summary = _unwrap_named_payload(summary, "summary")
             summary = _validate_required_keys(summary, SUMMARY_REQUIRED_KEYS)
+            if not _summary_payload_has_cjk(summary):
+                raise ValueError("summary output must contain Chinese text")
             stage_status["summary"] = "ok"
             finish_stage_span(
                 "summary",
@@ -356,6 +399,8 @@ def run_staged_ai_pipeline(
             forecast = _parse_json_block(call_llm(prompt, stage="forecast"))
             forecast = _unwrap_named_payload(forecast, "forecast")
             forecast = _validate_required_keys(forecast, FORECAST_REQUIRED_KEYS)
+            if not _forecast_payload_has_cjk(forecast):
+                raise ValueError("forecast output must contain Chinese text")
             stage_status["forecast"] = "ok"
             finish_stage_span(
                 "forecast",

@@ -3,6 +3,8 @@ from auto_report.pipeline.ai_pipeline import run_staged_ai_pipeline
 
 
 def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
+    monkeypatch.setenv("AI_MODEL", "deepseek-v4-flash")
+
     candidate = TopicCandidate(
         topic_id="topic-1",
         title="Agent benchmark release",
@@ -16,12 +18,12 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     )
 
     responses = iter(
-        [
-            '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}',
-            '{"one_line_core":"Agent evaluation becomes a core battleground","executive_summary":["A","B"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track benchmarks"]}',
-            '{"most_likely_case":"benchmark competition intensifies","best_case":"better reliability","worst_case":"benchmark theater","key_variables":["real deployment"],"forecast_conclusion":"watch evaluation quality","confidence":"medium"}',
-        ]
-    )
+            [
+                '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}',
+            '{"one_line_core":"Agent 评测正成为核心战场","executive_summary":["A","B"],"key_points":[{"title":"信号","why_it_matters":"重要"}],"key_insights":["Insight"],"limitations":["需要验证"],"actions":["跟踪基准"]}',
+            '{"most_likely_case":"基准竞争继续升温","best_case":"更好的可靠性","worst_case":"基准表演化","key_variables":["真实部署"],"forecast_conclusion":"关注评测质量","confidence":"medium"}',
+            ]
+        )
 
     monkeypatch.setattr(
         "auto_report.pipeline.ai_pipeline.call_llm",
@@ -35,8 +37,8 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     )
 
     assert outputs["stage_status"]["analysis"] == "ok"
-    assert outputs["summary"]["one_line_core"].startswith("Agent evaluation")
-    assert outputs["forecast"]["most_likely_case"] == "benchmark competition intensifies"
+    assert outputs["summary"]["one_line_core"].startswith("Agent 评测")
+    assert outputs["forecast"]["most_likely_case"] == "基准竞争继续升温"
     assert outputs["ai_metrics"]["provider"] == "deepseek"
     assert outputs["ai_metrics"]["model"] == "deepseek-v4-flash"
     assert outputs["ai_metrics"]["token_usage"]["total"] == 0
@@ -96,8 +98,8 @@ def test_run_staged_ai_pipeline_limits_analysis_scope(monkeypatch):
     responses = iter(
         [
             '{"facts":["Fact"],"contradictions":["A vs B"],"primary_contradiction":"A vs B","core_insight":"Insight","confidence":"medium"}',
-            '{"one_line_core":"Core","executive_summary":["A"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track"]}',
-            '{"most_likely_case":"Likely","best_case":"Best","worst_case":"Worst","key_variables":["Variable"],"forecast_conclusion":"Conclusion","confidence":"medium"}',
+            '{"one_line_core":"核心判断","executive_summary":["A"],"key_points":[{"title":"信号","why_it_matters":"重要"}],"key_insights":["Insight"],"limitations":["需要验证"],"actions":["跟踪"]}',
+            '{"most_likely_case":"大概率继续","best_case":"最佳","worst_case":"最差","key_variables":["变量"],"forecast_conclusion":"结论","confidence":"medium"}',
         ]
     )
 
@@ -159,6 +161,44 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_shape_is_invalid(monkeyp
     assert outputs["stage_status"]["forecast"] == "fallback"
 
 
+def test_run_staged_ai_pipeline_falls_back_when_summary_and_forecast_are_english_only(monkeypatch):
+    candidate = TopicCandidate(
+        topic_id="topic-1",
+        title="Agent benchmark release",
+        url="https://example.com/agent",
+        primary_domain="ai-llm-agent",
+        matched_domains=["ai-llm-agent"],
+        evidence_count=2,
+        source_ids=["openai-news", "anthropic-news"],
+        tags=["agent", "benchmark"],
+        evidence_snippets=["Release notes", "Independent commentary"],
+    )
+
+    responses = iter(
+        [
+            '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}',
+            '{"one_line_core":"The latest AI agent evaluation wave is intensifying rapidly","executive_summary":["A","B"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track benchmarks"]}',
+            '{"best_case":"Improves","worst_case":"Lags","most_likely_case":"Continues","key_variables":["deployment"],"forecast_conclusion":"Watch evaluation quality","confidence":"medium"}',
+        ]
+    )
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.ai_pipeline.call_llm",
+        lambda prompt, stage=None: next(responses),
+    )
+
+    outputs = run_staged_ai_pipeline(
+        candidates=[candidate],
+        ai_readings={"analysis": "analysis-rules", "summary": "summary-rules", "forecast": "forecast-rules"},
+        ai_enabled=True,
+    )
+
+    assert outputs["stage_status"]["summary"] == "fallback"
+    assert outputs["stage_status"]["forecast"] == "fallback"
+    assert outputs["summary"]["one_line_core"].startswith("本轮采集到")
+    assert outputs["forecast"]["forecast_conclusion"].startswith("本轮预测阶段已回退")
+
+
 def test_run_staged_ai_pipeline_routes_each_stage_to_named_provider(monkeypatch):
     candidate = TopicCandidate(
         topic_id="topic-1",
@@ -179,9 +219,9 @@ def test_run_staged_ai_pipeline_routes_each_stage_to_named_provider(monkeypatch)
         if stage == "analysis":
             return '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}'
         if stage == "summary":
-            return '{"one_line_core":"Agent evaluation becomes a core battleground","executive_summary":["A","B"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track benchmarks"]}'
+            return '{"one_line_core":"Agent 评测正成为核心战场","executive_summary":["A","B"],"key_points":[{"title":"信号","why_it_matters":"重要"}],"key_insights":["Insight"],"limitations":["需要验证"],"actions":["跟踪基准"]}'
         if stage == "forecast":
-            return '{"most_likely_case":"benchmark competition intensifies","best_case":"better reliability","worst_case":"benchmark theater","key_variables":["real deployment"],"forecast_conclusion":"watch evaluation quality","confidence":"medium"}'
+            return '{"most_likely_case":"基准竞争继续升温","best_case":"更好的可靠性","worst_case":"基准表演化","key_variables":["真实部署"],"forecast_conclusion":"关注评测质量","confidence":"medium"}'
         raise AssertionError(f"unexpected stage: {stage}")
 
     monkeypatch.setattr("auto_report.pipeline.ai_pipeline.call_llm", fake_call)

@@ -170,3 +170,41 @@ def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry
         assert source_id not in replacement_ids
         assert source_id not in changedetection_ids
         assert source_id not in priority_ids
+
+
+def test_build_source_registry_exposes_p3c_comparison_labels():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    expected = {
+        "openai-news": ("intl", "openai", "frontier-ai", "high"),
+        "qwen-blog": ("cn", "alibaba-qwen", "frontier-ai", "high"),
+        "Xilinx/Vitis-AI": ("intl", "amd-xilinx", "fpga", "high"),
+        "st-blog": ("intl", "stmicroelectronics", "embedded", "high"),
+        "tenstorrent/tt-metal": ("intl", "tenstorrent", "personal-hpc", "high"),
+        "NVIDIA/TensorRT": ("intl", "nvidia", "compute-infra", "high"),
+    }
+
+    for source_id, (region_scope, org_origin, tech_track, comparison_priority) in expected.items():
+        assert registry[source_id]["region_scope"] == region_scope
+        assert registry[source_id]["org_origin"] == org_origin
+        assert registry[source_id]["tech_track"] == tech_track
+        assert registry[source_id]["comparison_priority"] == comparison_priority
+
+    tracks = {str(item.get("tech_track", "")) for item in registry.values()}
+    assert {"frontier-ai", "fpga", "embedded", "personal-hpc", "compute-infra"} <= tracks
+
+
+def test_build_source_governance_queue_preserves_p3c_comparison_labels_for_review_rows():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+    governance = build_source_governance_queue(registry)
+
+    nxp_row = next(item for item in governance["replacement_candidates"] if item["source_id"] == "nxp-edge-ai")
+
+    assert nxp_row["region_scope"] == "intl"
+    assert nxp_row["org_origin"] == "nxp"
+    assert nxp_row["tech_track"] == "embedded"
+    assert nxp_row["comparison_priority"] == "medium"

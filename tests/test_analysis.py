@@ -49,6 +49,94 @@ def test_build_report_package_generates_domain_signals(monkeypatch):
     assert "ai-x-electronics" in package.domain_payloads
 
 
+def test_build_report_package_adds_p3c_comparison_brief(monkeypatch):
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.load_ai_readings",
+        lambda root_dir: {"analysis": "a", "summary": "s", "forecast": "f"},
+    )
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.run_staged_ai_pipeline",
+        lambda **kwargs: {
+            "analyses": [
+                {
+                    "title": "Qwen edge agent release",
+                    "url": "https://qwen.ai/research/qwen-edge-agent",
+                    "primary_domain": "ai-llm-agent",
+                    "confidence": "medium",
+                    "core_insight": "国产前沿模型继续补齐 Agent 能力。",
+                },
+                {
+                    "title": "OpenAI agent runtime release",
+                    "url": "https://openai.com/news/agent-runtime",
+                    "primary_domain": "ai-llm-agent",
+                    "confidence": "medium",
+                    "core_insight": "海外前沿模型继续推进 Agent 运行时。",
+                },
+            ],
+            "summary": {
+                "one_line_core": "国内外前沿模型继续围绕 Agent 交付竞争。",
+                "executive_summary": [],
+                "key_points": [],
+                "key_insights": [],
+                "limitations": [],
+                "actions": [],
+            },
+            "forecast": {"forecast_conclusion": "watch"},
+            "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+        },
+    )
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.apply_intelligence_layer",
+        lambda **kwargs: {
+            "signals": kwargs["signals"],
+            "analyses": kwargs["analyses"],
+            "mainline_memory": [],
+            "lifecycle_summary": {"new": 2, "rising": 0, "verified": 0, "fading": 0},
+            "risk_level": "medium",
+        },
+    )
+
+    settings = load_settings(Path.cwd())
+    items = [
+        CollectedItem(
+            source_id="qwen-blog",
+            item_id="qwen-1",
+            title="Qwen edge agent release",
+            url="https://qwen.ai/research/qwen-edge-agent",
+            summary="Qwen adds agent delivery capabilities.",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["agent", "qwen"],
+            language="zh",
+            metadata={},
+        ),
+        CollectedItem(
+            source_id="openai-news",
+            item_id="openai-1",
+            title="OpenAI agent runtime release",
+            url="https://openai.com/news/agent-runtime",
+            summary="OpenAI adds agent runtime delivery capabilities.",
+            published_at="2026-04-09T00:10:00+00:00",
+            collected_at="2026-04-09T01:10:00+00:00",
+            tags=["agent", "openai"],
+            language="en",
+            metadata={},
+        ),
+    ]
+
+    package = build_report_package(settings, items, diagnostics=[])
+
+    comparison = package.summary_payload["comparison_brief"]
+    assert comparison["cn_highlights"][0]["title"] == "Qwen edge agent release"
+    assert comparison["intl_highlights"][0]["title"] == "OpenAI agent runtime release"
+    assert comparison["head_to_head"][0]["tech_track"] == "frontier-ai"
+    assert comparison["head_to_head"][0]["cn_title"] == "Qwen edge agent release"
+    assert comparison["head_to_head"][0]["intl_title"] == "OpenAI agent runtime release"
+    assert "frontier-ai" in comparison["watchpoints"][0]
+
+
 def test_build_report_package_enables_ai_for_openai_provider(monkeypatch):
     monkeypatch.setenv("AI_PROVIDER", "openai")
     monkeypatch.setenv("OPENAI_API_KEY", "openai-test-key")

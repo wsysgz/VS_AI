@@ -1,6 +1,14 @@
 from __future__ import annotations
 
 
+COMPARISON_METADATA_FIELDS = (
+    "region_scope",
+    "org_origin",
+    "tech_track",
+    "comparison_priority",
+)
+
+
 def _default_stability_tier(collector: str, enabled: bool, mode: str) -> str:
     if not enabled:
         return "manual-watch"
@@ -146,7 +154,7 @@ def _source_metadata(source: dict[str, object], *, collector: str, mode: str) ->
         resolved_replacement_target = replacement_target or _default_replacement_target(collector, enabled)
     candidate_kind = explicit_candidate_kind or _default_candidate_kind(collector, resolved_watch_strategy, resolved_replacement_target)
     candidate_value = explicit_candidate_value or _default_candidate_value(url, candidate_kind, resolved_replacement_target)
-    return {
+    metadata = {
         "stability_tier": stability_tier or _default_stability_tier(collector, enabled, mode),
         "replacement_hint": replacement_hint or _default_replacement_hint(collector, enabled, mode),
         "watch_strategy": resolved_watch_strategy,
@@ -156,6 +164,9 @@ def _source_metadata(source: dict[str, object], *, collector: str, mode: str) ->
         "automation_ready": bool(source.get("automation_ready", candidate_kind in {"rsshub_route", "changedetection_watch"})),
         "next_action": explicit_next_action or _default_next_action(candidate_kind),
     }
+    for field in COMPARISON_METADATA_FIELDS:
+        metadata[field] = str(source.get(field, "")).strip()
+    return metadata
 
 
 def build_source_registry(settings) -> dict[str, dict[str, object]]:
@@ -197,7 +208,15 @@ def build_source_registry(settings) -> dict[str, dict[str, object]]:
             if str(repository).strip()
         ]
         mode = str(source.get("mode", "curated_repositories")).strip() or "curated_repositories"
+        repository_metadata = source.get("repository_metadata", {})
+        repository_metadata = repository_metadata if isinstance(repository_metadata, dict) else {}
         for repository in repositories:
+            metadata = _source_metadata(source, collector="github", mode=mode)
+            raw_repo_metadata = repository_metadata.get(repository, {})
+            repo_metadata = raw_repo_metadata if isinstance(raw_repo_metadata, dict) else {}
+            for field in COMPARISON_METADATA_FIELDS:
+                value = str(repo_metadata.get(field, metadata.get(field, ""))).strip()
+                metadata[field] = value
             registry[repository] = {
                 "collector": "github",
                 "enabled": bool(source.get("enabled", False)),
@@ -205,7 +224,7 @@ def build_source_registry(settings) -> dict[str, dict[str, object]]:
                 "category_hint": str(source.get("category_hint", "")).strip(),
                 "source_group": source_id,
                 "url": f"https://github.com/{repository}",
-                **_source_metadata(source, collector="github", mode=mode),
+                **metadata,
             }
 
     registry["hacker_news"] = {
@@ -219,6 +238,10 @@ def build_source_registry(settings) -> dict[str, dict[str, object]]:
         "replacement_hint": _default_replacement_hint("hacker_news", bool(settings.sources.get("hacker_news", {}).get("enabled", False))),
         "watch_strategy": _default_watch_strategy("hacker_news", bool(settings.sources.get("hacker_news", {}).get("enabled", False)), "top_stories"),
         "replacement_target": _default_replacement_target("hacker_news", bool(settings.sources.get("hacker_news", {}).get("enabled", False))),
+        "region_scope": "",
+        "org_origin": "",
+        "tech_track": "",
+        "comparison_priority": "",
     }
 
     return registry
@@ -245,6 +268,10 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
                 "replacement_hint": str(item.get("replacement_hint") or ""),
                 "source_group": str(item.get("source_group") or ""),
                 "url": str(item.get("url") or ""),
+                "region_scope": str(item.get("region_scope") or ""),
+                "org_origin": str(item.get("org_origin") or ""),
+                "tech_track": str(item.get("tech_track") or ""),
+                "comparison_priority": str(item.get("comparison_priority") or ""),
             }
         )
 

@@ -73,6 +73,86 @@ def _build_mainline_memory(payload: dict[str, object]) -> list[dict[str, object]
     return lines
 
 
+def _comparison_empty() -> dict[str, list[object]]:
+    return {
+        "cn_highlights": [],
+        "intl_highlights": [],
+        "head_to_head": [],
+        "gaps": [],
+        "watchpoints": [],
+    }
+
+
+def _string_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _comparison_highlights(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        return []
+    highlights: list[dict[str, object]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title", "")).strip()
+        if not title:
+            continue
+        source_ids = item.get("source_ids", [])
+        if not isinstance(source_ids, list):
+            source_ids = []
+        highlights.append(
+            {
+                "title": title,
+                "tech_track": str(item.get("tech_track", "")).strip(),
+                "url": str(item.get("url", "")).strip(),
+                "summary": str(item.get("summary", "")).strip(),
+                "source_ids": [str(source_id).strip() for source_id in source_ids if str(source_id).strip()],
+            }
+        )
+    return highlights
+
+
+def _comparison_head_to_head(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        return []
+    rows: list[dict[str, object]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        tech_track = str(item.get("tech_track", "")).strip()
+        cn_title = str(item.get("cn_title", "")).strip()
+        intl_title = str(item.get("intl_title", "")).strip()
+        readout = str(item.get("readout", "")).strip()
+        if not readout and tech_track and (cn_title or intl_title):
+            readout = f"{tech_track}：国内 {cn_title or '暂无'}；海外 {intl_title or '暂无'}。"
+        if not readout:
+            continue
+        rows.append(
+            {
+                "tech_track": tech_track,
+                "cn_title": cn_title,
+                "intl_title": intl_title,
+                "readout": readout,
+            }
+        )
+    return rows
+
+
+def _build_comparison_brief(payload: dict[str, object]) -> dict[str, object]:
+    raw = payload.get("comparison_brief", {})
+    if not isinstance(raw, dict):
+        return _comparison_empty()
+    return {
+        "cn_highlights": _comparison_highlights(raw.get("cn_highlights", [])),
+        "intl_highlights": _comparison_highlights(raw.get("intl_highlights", [])),
+        "head_to_head": _comparison_head_to_head(raw.get("head_to_head", [])),
+        "gaps": _string_list(raw.get("gaps", [])),
+        "watchpoints": _string_list(raw.get("watchpoints", [])),
+    }
+
+
 def compose_executive_brief(
     title: str,
     generated_at: str,
@@ -81,6 +161,7 @@ def compose_executive_brief(
     limitations = [str(item).strip() for item in payload.get("limitations", []) if str(item).strip()]
     actions = [str(item).strip() for item in payload.get("actions", []) if str(item).strip()]
     forecast = payload.get("forecast", {})
+    comparison_brief = _build_comparison_brief(payload)
 
     return {
         "title": title,
@@ -104,6 +185,12 @@ def compose_executive_brief(
         "risk_note": limitations[0] if limitations else "",
         "action_note": actions[0] if actions else "",
         "risk_level": str(payload.get("risk_level", "low")).strip() or "low",
+        "comparison_brief": comparison_brief,
+        "comparison_head_to_head": [
+            str(item.get("readout", "")).strip()
+            for item in comparison_brief["head_to_head"][:2]
+            if str(item.get("readout", "")).strip()
+        ],
         "limitations": limitations,
         "actions": actions,
         "stage_status": payload.get("stage_status", {}),

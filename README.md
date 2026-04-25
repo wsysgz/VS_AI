@@ -23,12 +23,14 @@ Public site / 公开站入口:
   - every notification includes the public site entry
   - every notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `312 passed`
+  - `337 passed`
 - Current project phase / 当前阶段:
   - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
   - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
   - `P3-A 已完成首轮发布级验收：飞书静态卡片 + 文本 fallback 已真实验证`
   - `P3-B 第一版已落地：飞书多维表格运营台已建成 4 张表 + 中文 dashboard，并支持审批/交付状态回写到仓库 JSON`
+  - `P3-C 国内外对比分析（A 方案）已完成：source 标签层、comparison brief、交付消费与本地发布级验收已闭环`
+  - `下一步先讨论公开站整理 / 优化方案；方案确认前不改 Pages 结构`
   - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
 
 ## What It Does / 系统能力
