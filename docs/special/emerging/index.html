@@ -303,7 +303,7 @@
 
     <section class="section">
       <div class="eyebrow">Emerging Themes</div>
-      <h1 class="section-title" style="font-size:34px;">502 curated theme(s)</h1>
+      <h1 class="section-title" style="font-size:34px;">506 curated theme(s)</h1>
       <p class="subtle">聚合仍在抬升中的新主题，方便提前观察后续是否进入持续主线。</p>
     </section>
 
@@ -2832,7 +2832,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Alberta startup sells no-tech tractors for half price</h3>
-  <p>Score: 2255 | Comments: 769</p>
+  <p>Score: 2271 | Comments: 771</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -3145,21 +3145,6 @@
     <a href="archives/2026-04-17/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation</h3>
-  <p>Scientific workflow systems automate execution -- scheduling, fault tolerance, resource management -- but not the semantic translation that precedes it. Scientists still manually convert research questions into workflow specifications, a task requiring both domain knowledge and infrastructure expertise. We propose an agentic architecture that closes this gap through three layers: an LLM interprets natural language into structured intents (semantic layer); validated generators produce reproducible workflow DAGs (deterministic layer); and domain experts author ``Skills&#x27;&#x27;: markdown documents encoding vocabulary mappings, parameter constraints, and optimization strategies (knowledge layer). This decomposition confines LLM non-determinism to intent extraction: identical intents always yield identical workflows. We implement and evaluate the architecture on the 1000 Genomes population genetics workflow and Hyperflow WMS running on Kubernetes. In an ablation study on 150 queries, Skills raise full-match intent accuracy from 44% to 83%; skill-driven deferred workflow generation reduces data transfer by 92\%; and the end-to-end pipeline completes queries on Kubernetes with LLM overhead below 15 seconds and cost under $0.001 per query.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.11</span>
   <h3>Launch HN: Twill.ai (YC S25) – Delegate to cloud agents, get back PRs</h3>
   <p>Score: 75 | Comments: 81 | Text: Hey HN, we&#x27;re Willy and Dan, co-founders of Twill.ai ( https://twill.ai/ ). Twill runs coding CLIs like Claude Code and Codex in isolated cloud sandboxes. You hand it work through Slack, GitHub, Linear, our web app or CLI, and it comes</p>
@@ -3176,42 +3161,12 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>NPU Design for Diffusion Language Model Inference</h3>
-  <p>Diffusion-based LLMs (dLLMs) fundamentally depart from traditional autoregressive (AR) LLM inference: they leverage bidirectional attention, block-wise KV cache refreshing, cross-step reuse, and a non-GEMM-centric sampling phase. These characteristics make current dLLMs incompatible with most existing NPUs, as their inference patterns, in particular the reduction-heavy, top-$k$-driven sampling stage, demand new ISA and memory hierarchy support beyond that of AR accelerators. In addition, the blocked diffusion KV cache breaks from the append-only paradigm assumed by AR NPUs, and conventional AR-derived KV quantization schemes were designed for static activation distributions and do not account for the step-wise distribution shifts introduced by iterative block-wise refinement in dLLMs. In this paper, we introduce the first NPU accelerator specifically designed for dLLMs. It delivers: a dLLM-oriented ISA and compiler; a hardware-optimized execution model for both the transformer inference and diffusion sampling used in dLLMs; a novel Block-Adaptive Online Smoothing (BAOS) for quantizing KV cache in dLLMs; and a complete RTL implementation synthesized in 7nm. To evaluate and validate our design, we introduce a tri-path simulation framework that comprises analytical, cycle-accurate, and accuracy simulators, together with cross-validations against physical hardware. The full NPU stack, including ISA, simulation tools, and quantization software, will be open-sourced upon acceptance.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI × Electronics</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</h3>
-  <p>This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon&#x27;s taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.</p>
+  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
+  <p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta&#x27;s compute portfolio to support agentic AI workloads. The post Meta Partners With AWS on Graviton Chips to Power Agentic AI appeared first on Meta Newsroom .</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
     <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>A Scale-Adaptive Framework for Joint Spatiotemporal Super-Resolution with Diffusion Models</h3>
-  <p>Deep-learning video super-resolution has progressed rapidly, but climate applications typically super-resolve (increase resolution) either space or time, and joint spatiotemporal models are often designed for a single pair of super-resolution (SR) factors (upscaling spatial and temporal ratio between the low-resolution sequence and the high-resolution sequence), limiting transfer across spatial resolutions and temporal cadences (frame rates). We present a scale-adaptive framework that reuses the same architecture across factors by decomposing spatiotemporal SR into a deterministic prediction of the conditional mean, with attention, and a residual conditional diffusion model, with an optional mass-conservation (same precipitation amount in inputs and outputs) transform to preserve aggregated totals. Assuming that larger SR factors primarily increase underdetermination (hence required context and residual uncertainty) rather than changing the conditional-mean structure, scale adaptivity is achieved by retuning three factor-dependent hyperparameters before retraining: the diffusion noise schedule amplitude beta (larger for larger factors to increase diversity), the temporal context length L (set to maintain comparable attention horizons across cadences) and optionally a third, the mass-conservation function f (tapered to limit the amplification of extremes for large factors). Demonstrated on reanalysis precipitation over France (Comephore), the same architecture spans super-resolution factors from 1 to 25 in space and 1 to 6 in time, yielding a reusable architecture and tuning recipe for joint spatiotemporal super-resolution across scales.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI × Electronics</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
     <span class="tag">自动版</span>
   </div>
   <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
@@ -3370,21 +3325,6 @@
     <a href="archives/2026-04-15/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>An update on recent Claude Code quality reports</h3>
-  <p>Score: 912 | Comments: 687</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
   <h3>Apple fixes bug that cops used to extract deleted chat messages from iPhones</h3>
   <p>Score: 863 | Comments: 186</p>
@@ -3403,21 +3343,6 @@
   <span class="eyebrow">2026.04.25</span>
   <h3>Automations</h3>
   <p>Learn how to automate tasks in Codex using schedules and triggers to create reports, summaries, and recurring workflows without manual effort.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Bitwarden CLI compromised in ongoing Checkmarx supply chain campaign</h3>
-  <p>Score: 847 | Comments: 413</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -3520,21 +3445,6 @@
     <a href="archives/2026-04-20/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Crystal: Characterizing Relative Impact of Scholarly Publications</h3>
-  <p>Assessing a cited paper&#x27;s impact is typically done by analyzing its citation context in isolation within the citing paper. While this focuses on the most directly relevant text, it prevents relative comparisons across all the works a paper cites. We propose Crystal, which instead jointly ranks all cited papers within a citing paper using large language models (LLMs). To mitigate LLMs&#x27; positional bias, we rank each list three times in a randomized order and aggregate the impact labels through majority voting. This joint approach leverages the full citation context, rather than evaluating citations independently, to more reliably distinguish impactful references. Crystal outperforms a prior state-of-the-art impact classifier by +9.5% accuracy and +8.3% F1 on a dataset of human-annotated citations. Crystal further gains efficiency through fewer LLM calls and performs competitively with an open-source model, enabling scalable, cost-effective citation impact analysis. We release our rankings, impact labels, and codebase to support future research.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.17</span>
   <h3>Darkbloom – Private inference on idle Macs</h3>
   <p>Score: 486 | Comments: 239</p>
@@ -3551,38 +3461,8 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>DeepSeek v4</h3>
-  <p>Score: 1782 | Comments: 1388 | Text: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main...</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
   <h3>GPT-5.5</h3>
-  <p>Score: 1524 | Comments: 1017</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>GiVA: Gradient-Informed Bases for Vector-Based Adaptation</h3>
-  <p>As model sizes continue to grow, parameter-efficient fine-tuning has emerged as a powerful alternative to full fine-tuning. While LoRA is widely adopted among these methods, recent research has explored vector-based adaptation methods due to their extreme parameter efficiency. However, these methods typically require substantially higher ranks than LoRA to match its performance, leading to increased training costs. This work introduces GiVA, a gradient-based initialization strategy for vector-based adaptation. It achieves training times comparable to LoRA and maintains the extreme parameter efficiency of vector-based adaptation. We evaluate GiVA across diverse benchmarks, including natural language understanding, natural language generation, and image classification. Experiments show that our approach consistently outperforms or achieves performance competitive with existing vector-based adaptation methods and LoRA while reducing rank requirements by a factor of eight ($8\times$).</p>
+  <p>Score: 1543 | Comments: 1028</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -3760,21 +3640,6 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Seeing Fast and Slow: Learning the Flow of Time in Videos</h3>
-  <p>How can we tell whether a video has been sped up or slowed down? How can we generate videos at different speeds? Although videos have been central to modern computer vision research, little attention has been paid to perceiving and controlling the passage of time. In this paper, we study time as a learnable visual concept and develop models for reasoning about and manipulating the flow of time in videos. We first exploit the multimodal cues and temporal structure naturally present in videos to learn, in a self-supervised manner, to detect speed changes and estimate playback speed. We then show that these learned temporal reasoning models enable us to curate the largest slow-motion video dataset to date from noisy in-the-wild sources. Such slow-motion footage, typically filmed by high-speed cameras, contains substantially richer temporal detail than standard videos. Using this data, we further develop models capable of temporal control, including speed-conditioned video generation, which produces motion at specified playback speed, and temporal super-resolution, which tranforms low-FPS, blurry videos into high-FPS sequences with fine-grained temporal details. Our findings highlight time as a manipulable, perceptual dimension in video learning, opening doors to temporally controllable video generation, temporal forensics detection, and potentially richer world-models that understand how events unfold over time.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.12</span>
   <h3>Show HN: Pardonned.com – A searchable database of US Pardons</h3>
   <p>Score: 430 | Comments: 238 | Text: https://pardonned.com Inspired by the videos of Liz Oyer, I wanted to be able to verify her claims and just look up all the pardons more easily. Tech Stack: Playwright - to sccrape the DOJ website SQLite - local database</p>
@@ -3807,7 +3672,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Spinel: Ruby AOT Native Compiler</h3>
-  <p>Score: 299 | Comments: 81</p>
+  <p>Score: 324 | Comments: 86</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -3881,23 +3746,8 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>UK Biobank health data keeps ending up on GitHub</h3>
-  <p>Score: 189 | Comments: 56 | Text: I&#x27;m a researcher studying privacy, and I started tracking the DMCA notices that UK Biobank sends to GitHub. I tracked 110 notices filed so far, targeting 197 code repositories by 170 developers across the world. The exposure of Biobank data on GitHub is the latest in a long series of governan</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
   <h3>US special forces soldier arrested after allegedly winning $400k on Maduro raid</h3>
-  <p>Score: 637 | Comments: 689 | Text: &lt;a href=&quot;https://www.justice.gov/usao-sdny/pr/us-soldier-charged-using-classified-information-profit-prediction-market-bets?bm-verify=AAQAAAAN_____y6To7sZYZ502biZwIHXlr-7zXZUqV4H0xLTfW__wDA3SjNLqifXRaQwsikyuz6IJknyuL8xfVYRkesxcDk5V10m-HoXl2K93f17rygBphL77WVFoQ_XvlmUo922IwM_D</p>
+  <p>Score: 656 | Comments: 710 | Text: &lt;a href=&quot;https://www.justice.gov/usao-sdny/pr/us-soldier-charged-using-classified-information-profit-prediction-market-bets?bm-verify=AAQAAAAN_____y6To7sZYZ502biZwIHXlr-7zXZUqV4H0xLTfW__wDA3SjNLqifXRaQwsikyuz6IJknyuL8xfVYRkesxcDk5V10m-HoXl2K93f17rygBphL77WVFoQ_XvlmUo922IwM_D</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -3930,21 +3780,6 @@
   <p>Learn how Codex helps you go beyond chat by automating tasks, connecting tools, and producing real outputs like docs and dashboards.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">rising</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>2 appearance(s) · 2026.04.24 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>When Prompts Override Vision: Prompt-Induced Hallucinations in LVLMs</h3>
-  <p>Despite impressive progress in capabilities of large vision-language models (LVLMs), these systems remain vulnerable to hallucinations, i.e., outputs that are not grounded in the visual input. Prior work has attributed hallucinations in LVLMs to factors such as limitations of the vision backbone or the dominance of the language component, yet the relative importance of these factors remains unclear. To resolve this ambiguity, We propose HalluScope, a benchmark to better understand the extent to which different factors induce hallucinations. Our analysis indicates that hallucinations largely stem from excessive reliance on textual priors and background knowledge, especially information introduced through textual instructions. To mitigate hallucinations induced by textual instruction priors, we propose HalluVL-DPO, a framework for fine-tuning off-the-shelf LVLMs towards more visually grounded responses. HalluVL-DPO leverages preference optimization using a curated training dataset that we construct, guiding the model to prefer grounded responses over hallucinated ones. We demonstrate that our optimized model effectively mitigates the targeted hallucination failure mode, while preserving or improving performance on other hallucination benchmarks and visual capability evaluations. To support reproducibility and further research, we will publicly release our evaluation benchmark, preference training dataset, and code at https://pegah-kh.github.io/projects/prompts-override-vision/ .</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI × Electronics</span>
     <span class="tag warm">rising</span>
     <span class="tag">low</span>
     <span class="tag">自动版</span>
@@ -4345,9 +4180,24 @@
     <a href="archives/2026-04-16/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation</h3>
+  <p>Scientific workflow systems automate execution -- scheduling, fault tolerance, resource management -- but not the semantic translation that precedes it. Scientists still manually convert research questions into workflow specifications, a task requiring both domain knowledge and infrastructure expertise. We propose an agentic architecture that closes this gap through three layers: an LLM interprets natural language into structured intents (semantic layer); validated generators produce reproducible workflow DAGs (deterministic layer); and domain experts author ``Skills&#x27;&#x27;: markdown documents encoding vocabulary mappings, parameter constraints, and optimization strategies (knowledge layer). This decomposition confines LLM non-determinism to intent extraction: identical intents always yield identical workflows. We implement and evaluate the architecture on the 1000 Genomes population genetics workflow and Hyperflow WMS running on Kubernetes. In an ablation study on 150 queries, Skills raise full-match intent accuracy from 44% to 83%; skill-driven deferred workflow generation reduces data transfer by 92\%; and the end-to-end pipeline completes queries on Kubernetes with LLM overhead below 15 seconds and cost under $0.001 per query.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Hear your agent suffer through your code</h3>
-  <p>Score: 175 | Comments: 84</p>
+  <p>Score: 188 | Comments: 84</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -4405,21 +4255,6 @@
     <a href="archives/2026-04-22/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.24</span>
-  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
-  <p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta&#x27;s compute portfolio to support agentic AI workloads. The post Meta Partners With AWS on Graviton Chips to Power Agentic AI appeared first on Meta Newsroom .</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">new</span>
-    <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
-    <a href="archives/2026-04-24/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.15</span>
   <h3>Multi-Agentic Software Development Is a Distributed Systems Problem</h3>
   <p>Score: 102 | Comments: 54</p>
@@ -4448,6 +4283,36 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.14 → 2026.04.14</span>
     <a href="archives/2026-04-14/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>NPU Design for Diffusion Language Model Inference</h3>
+  <p>Diffusion-based LLMs (dLLMs) fundamentally depart from traditional autoregressive (AR) LLM inference: they leverage bidirectional attention, block-wise KV cache refreshing, cross-step reuse, and a non-GEMM-centric sampling phase. These characteristics make current dLLMs incompatible with most existing NPUs, as their inference patterns, in particular the reduction-heavy, top-$k$-driven sampling stage, demand new ISA and memory hierarchy support beyond that of AR accelerators. In addition, the blocked diffusion KV cache breaks from the append-only paradigm assumed by AR NPUs, and conventional AR-derived KV quantization schemes were designed for static activation distributions and do not account for the step-wise distribution shifts introduced by iterative block-wise refinement in dLLMs. In this paper, we introduce the first NPU accelerator specifically designed for dLLMs. It delivers: a dLLM-oriented ISA and compiler; a hardware-optimized execution model for both the transformer inference and diffusion sampling used in dLLMs; a novel Block-Adaptive Online Smoothing (BAOS) for quantizing KV cache in dLLMs; and a complete RTL implementation synthesized in 7nm. To evaluate and validate our design, we introduce a tri-path simulation framework that comprises analytical, cycle-accurate, and accuracy simulators, together with cross-validations against physical hardware. The full NPU stack, including ISA, simulation tools, and quantization software, will be open-sourced upon acceptance.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI × Electronics</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</h3>
+  <p>This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon&#x27;s taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.23</span>
@@ -4615,6 +4480,21 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>Show HN: Browser Harness – Gives LLM freedom to complete any browser task</h3>
+  <p>Score: 98 | Comments: 52 | Text: Hey HN, We got tired of browser frameworks restricting the LLM, so we removed the framework and gave the LLM maximum freedom to do whatever it&#x27;s trained on. We gave the harness the ability to self correct and add new tools if the LLM wants (is pre-trained on) that. Our Browser Use library i</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
   <h3>Show HN: How LLMs Work – Interactive visual guide based on Karpathy&#x27;s lecture</h3>
   <p>Score: 137 | Comments: 33 | Text: All content is based on Andrej Karpathy&#x27;s &quot;Intro to Large Language Models&quot; lecture (youtube.com/watch?v=7xTGNNLPyMI). I downloaded the transcript and used Claude Code to generate the entire interactive site from it — single HTML file. I find it useful to revisit this content time</p>
@@ -4750,6 +4630,21 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>A Scale-Adaptive Framework for Joint Spatiotemporal Super-Resolution with Diffusion Models</h3>
+  <p>Deep-learning video super-resolution has progressed rapidly, but climate applications typically super-resolve (increase resolution) either space or time, and joint spatiotemporal models are often designed for a single pair of super-resolution (SR) factors (upscaling spatial and temporal ratio between the low-resolution sequence and the high-resolution sequence), limiting transfer across spatial resolutions and temporal cadences (frame rates). We present a scale-adaptive framework that reuses the same architecture across factors by decomposing spatiotemporal SR into a deterministic prediction of the conditional mean, with attention, and a residual conditional diffusion model, with an optional mass-conservation (same precipitation amount in inputs and outputs) transform to preserve aggregated totals. Assuming that larger SR factors primarily increase underdetermination (hence required context and residual uncertainty) rather than changing the conditional-mean structure, scale adaptivity is achieved by retuning three factor-dependent hyperparameters before retraining: the diffusion noise schedule amplitude beta (larger for larger factors to increase diversity), the temporal context length L (set to maintain comparable attention horizons across cadences) and optionally a third, the mass-conservation function f (tapered to limit the amplification of extremes for large factors). Demonstrated on reanalysis precipitation over France (Comephore), the same architecture spans super-resolution factors from 1 to 25 in space and 1 to 6 in time, yielding a reusable architecture and tuning recipe for joint spatiotemporal super-resolution across scales.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI × Electronics</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.23</span>
   <h3>AVISE: Framework for Evaluating the Security of AI Systems</h3>
   <p>As artificial intelligence (AI) systems are increasingly deployed across critical domains, their security vulnerabilities pose growing risks of high-profile exploits and consequential system failures. Yet systematic approaches to evaluating AI security remain underdeveloped. In this paper, we introduce AVISE (AI Vulnerability Identification and Security Evaluation), a modular open-source framework for identifying vulnerabilities in and evaluating the security of AI systems and models. As a demonstration of the framework, we extend the theory-of-mind-based multi-turn Red Queen attack into an Adversarial Language Model (ALM) augmented attack and develop an automated Security Evaluation Test (SET) for discovering jailbreak vulnerabilities in language models. The SET comprises 25 test cases and an Evaluation Language Model (ELM) that determines whether each test case was able to jailbreak the target model, achieving 92% accuracy, an F1-score of 0.91, and a Matthews correlation coefficient of 0.83. We evaluate nine recently released language models of diverse sizes with the SET and find that all are vulnerable to the augmented Red Queen attack to varying degrees. AVISE provides researchers and industry practitioners with an extensible foundation for developing and deploying automated SETs, offering a concrete step toward more rigorous and reproducible AI security evaluation.</p>
@@ -4842,7 +4737,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>OpenAI releases GPT-5.5 and GPT-5.5 Pro in the API</h3>
-  <p>Score: 199 | Comments: 110 | Text: GPT-5.5 - https://news.ycombinator.com/item?id=47879092 - April 2026 (1010 comments)</p>
+  <p>Score: 234 | Comments: 129 | Text: GPT-5.5 - https://news.ycombinator.com/item?id=47879092 - April 2026 (1010 comments)</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -4872,7 +4767,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Show HN: Gova – The declarative GUI framework for Go</h3>
-  <p>Score: 112 | Comments: 24</p>
+  <p>Score: 119 | Comments: 26</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -4945,6 +4840,21 @@
     <a href="archives/2026-04-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>&quot;Plain text has been around for decades and it&#x27;s here to stay.&quot; – Unsung</h3>
+  <p>Score: 78 | Comments: 16</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.20</span>
   <h3>2,100 Swiss municipalities showing which provider handles their official email</h3>
   <p>Score: 150 | Comments: 41 | Text: Related ongoing thread: Swiss authorities want to reduce dependency on Microsoft - https://news.ycombinator.com/item?id=47827383</p>
@@ -4988,6 +4898,21 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.15 → 2026.04.15</span>
     <a href="archives/2026-04-15/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>A 3D Body from Eight Questions – No Photo, No GPU</h3>
+  <p>Score: 47 | Comments: 8</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.18</span>
@@ -5093,6 +5018,21 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.19 → 2026.04.19</span>
     <a href="archives/2026-04-19/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>An update on recent Claude Code quality reports</h3>
+  <p>Score: 802 | Comments: 615</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.19</span>
@@ -5335,6 +5275,21 @@
     <a href="archives/2026-04-19/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>Bitwarden CLI compromised in ongoing Checkmarx supply chain campaign</h3>
+  <p>Score: 803 | Comments: 383</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.20</span>
   <h3>Blue Origin&#x27;s rocket reuse achievement marred by upper stage failure</h3>
   <p>Score: 71 | Comments: 29</p>
@@ -5408,6 +5363,21 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.12 → 2026.04.12</span>
     <a href="archives/2026-04-12/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>CC-Canary: Detect early signs of regressions in Claude Code</h3>
+  <p>Score: 53 | Comments: 24</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.14</span>
@@ -5665,6 +5635,21 @@
     <a href="archives/2026-04-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>Crystal: Characterizing Relative Impact of Scholarly Publications</h3>
+  <p>Assessing a cited paper&#x27;s impact is typically done by analyzing its citation context in isolation within the citing paper. While this focuses on the most directly relevant text, it prevents relative comparisons across all the works a paper cites. We propose Crystal, which instead jointly ranks all cited papers within a citing paper using large language models (LLMs). To mitigate LLMs&#x27; positional bias, we rank each list three times in a randomized order and aggregate the impact labels through majority voting. This joint approach leverages the full citation context, rather than evaluating citations independently, to more reliably distinguish impactful references. Crystal outperforms a prior state-of-the-art impact classifier by +9.5% accuracy and +8.3% F1 on a dataset of human-annotated citations. Crystal further gains efficiency through fewer LLM calls and performs competitively with an open-source model, enabling scalable, cost-effective citation impact analysis. We release our rankings, impact labels, and codebase to support future research.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.16</span>
   <h3>Cybersecurity looks like proof of work now</h3>
   <p>Score: 495 | Comments: 181</p>
@@ -5696,8 +5681,38 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>Different Language Models Learn Similar Number Representations</h3>
-  <p>Score: 89 | Comments: 35</p>
+  <h3>DeepSeek v4</h3>
+  <p>Score: 1892 | Comments: 1474 | Text: https://api-docs.deepseek.com/ https://huggingface.co/de</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
+    <a href="archives/2026-04-25/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>DeepSeek v4</h3>
+  <p>Score: 1284 | Comments: 917 | Text: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main...</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.25</span>
+  <h3>Different language models learn similar number representations</h3>
+  <p>Score: 95 | Comments: 38</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">rising</span>
@@ -5757,7 +5772,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Email could have been X.400 times better</h3>
-  <p>Score: 108 | Comments: 101</p>
+  <p>Score: 169 | Comments: 148</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -5980,6 +5995,21 @@
     <a href="archives/2026-04-11/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>GiVA: Gradient-Informed Bases for Vector-Based Adaptation</h3>
+  <p>As model sizes continue to grow, parameter-efficient fine-tuning has emerged as a powerful alternative to full fine-tuning. While LoRA is widely adopted among these methods, recent research has explored vector-based adaptation methods due to their extreme parameter efficiency. However, these methods typically require substantially higher ranks than LoRA to match its performance, leading to increased training costs. This work introduces GiVA, a gradient-based initialization strategy for vector-based adaptation. It achieves training times comparable to LoRA and maintains the extreme parameter efficiency of vector-based adaptation. We evaluate GiVA across diverse benchmarks, including natural language understanding, natural language generation, and image classification. Experiments show that our approach consistently outperforms or achieves performance competitive with existing vector-based adaptation methods and LoRA while reducing rank requirements by a factor of eight ($8\times$).</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.16</span>
   <h3>Google broke its promise to me – now ICE has my data</h3>
   <p>Score: 1597 | Comments: 694</p>
@@ -5997,7 +6027,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Google plans to invest up to $40B in Anthropic</h3>
-  <p>Score: 251 | Comments: 315</p>
+  <p>Score: 565 | Comments: 545</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -6162,7 +6192,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>I cancelled Claude: Token issues, declining quality, and poor support</h3>
-  <p>Score: 742 | Comments: 443</p>
+  <p>Score: 870 | Comments: 506</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -6222,7 +6252,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>Iliad fragment found in Roman-era mummy</h3>
-  <p>Score: 78 | Comments: 17</p>
+  <p>Score: 169 | Comments: 48</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -6837,7 +6867,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>SFO Quiet Airport (2025)</h3>
-  <p>Score: 123 | Comments: 73</p>
+  <p>Score: 142 | Comments: 84</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -6893,6 +6923,21 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.23 → 2026.04.23</span>
     <a href="archives/2026-04-23/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>Seeing Fast and Slow: Learning the Flow of Time in Videos</h3>
+  <p>How can we tell whether a video has been sped up or slowed down? How can we generate videos at different speeds? Although videos have been central to modern computer vision research, little attention has been paid to perceiving and controlling the passage of time. In this paper, we study time as a learnable visual concept and develop models for reasoning about and manipulating the flow of time in videos. We first exploit the multimodal cues and temporal structure naturally present in videos to learn, in a self-supervised manner, to detect speed changes and estimate playback speed. We then show that these learned temporal reasoning models enable us to curate the largest slow-motion video dataset to date from noisy in-the-wild sources. Such slow-motion footage, typically filmed by high-speed cameras, contains substantially richer temporal detail than standard videos. Using this data, we further develop models capable of temporal control, including speed-conditioned video generation, which produces motion at specified playback speed, and temporal super-resolution, which tranforms low-FPS, blurry videos into high-FPS sequences with fine-grained temporal details. Our findings highlight time as a manipulable, perceptual dimension in video learning, opening doors to temporally controllable video generation, temporal forensics detection, and potentially richer world-models that understand how events unfold over time.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.14</span>
@@ -7210,21 +7255,6 @@
     <a href="archives/2026-04-16/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.04.25</span>
-  <h3>Tariffs Raised Consumers&#x27; Prices, but the Refunds Go Only to Businesses</h3>
-  <p>Score: 124 | Comments: 48</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI / Agent</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>1 appearance(s) · 2026.04.25 → 2026.04.25</span>
-    <a href="archives/2026-04-25/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.04.13</span>
   <h3>Tech valuations are back to pre-AI boom levels</h3>
   <p>Score: 124 | Comments: 32</p>
@@ -7332,7 +7362,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
   <h3>The operating cost of adult and gambling startups</h3>
-  <p>Score: 109 | Comments: 171</p>
+  <p>Score: 122 | Comments: 193</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
@@ -7433,6 +7463,21 @@
   <div class="archive-footer">
     <span>1 appearance(s) · 2026.04.16 → 2026.04.16</span>
     <a href="archives/2026-04-16/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>UK Biobank health data keeps ending up on GitHub</h3>
+  <p>Score: 167 | Comments: 41 | Text: I&#x27;m a researcher studying privacy, and I started tracking the DMCA notices that UK Biobank sends to GitHub. I tracked 110 notices filed so far, targeting 197 code repositories by 170 developers across the world. The exposure of Biobank data on GitHub is the latest in a long series of governan</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI / Agent</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.24</span>
@@ -7675,6 +7720,21 @@
     <a href="archives/2026-04-20/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.04.24</span>
+  <h3>When Prompts Override Vision: Prompt-Induced Hallucinations in LVLMs</h3>
+  <p>Despite impressive progress in capabilities of large vision-language models (LVLMs), these systems remain vulnerable to hallucinations, i.e., outputs that are not grounded in the visual input. Prior work has attributed hallucinations in LVLMs to factors such as limitations of the vision backbone or the dominance of the language component, yet the relative importance of these factors remains unclear. To resolve this ambiguity, We propose HalluScope, a benchmark to better understand the extent to which different factors induce hallucinations. Our analysis indicates that hallucinations largely stem from excessive reliance on textual priors and background knowledge, especially information introduced through textual instructions. To mitigate hallucinations induced by textual instruction priors, we propose HalluVL-DPO, a framework for fine-tuning off-the-shelf LVLMs towards more visually grounded responses. HalluVL-DPO leverages preference optimization using a curated training dataset that we construct, guiding the model to prefer grounded responses over hallucinated ones. We demonstrate that our optimized model effectively mitigates the targeted hallucination failure mode, while preserving or improving performance on other hallucination benchmarks and visual capability evaluations. To support reproducibility and further research, we will publicly release our evaluation benchmark, preference training dataset, and code at https://pegah-kh.github.io/projects/prompts-override-vision/ .</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI × Electronics</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>1 appearance(s) · 2026.04.24 → 2026.04.24</span>
+    <a href="archives/2026-04-24/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.13</span>
   <h3>Why AI Sucks at Front End</h3>
   <p>Score: 73 | Comments: 79</p>
@@ -7721,8 +7781,8 @@
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.25</span>
-  <h3>Work with the garage door up</h3>
-  <p>Score: 99 | Comments: 80</p>
+  <h3>Work with the garage door up (2024)</h3>
+  <p>Score: 155 | Comments: 114</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI / Agent</span>
     <span class="tag warm">new</span>
