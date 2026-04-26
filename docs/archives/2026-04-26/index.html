@@ -332,13 +332,13 @@
 
     <section class="section">
       <div class="eyebrow">2026.04.26</div>
-      <h1 class="section-title" style="font-size:34px;">AI agent 正从“能跑”走向“可靠”，记忆、调试、性能加速与协作评估四个方向形成基础设施化趋势。</h1>
-      <p class="subtle">本周AI agent领域出现四个关键信号：开源通用记忆层试图将持久上下文商品化；微软 AgentRx 框架直面自主代理的调试黑洞；推测动作框架首次实现代理无损失延迟降低；安全代理评估基准填补LLM攻防狩猎的盲区。 这些进展指向同一判断：当代理从 demo 走向生产，记忆、可观测性、延迟优化和安全评测等非智能能力正在成为与模型智能同等重要的竞争力。 同时，多个低热点项目（代理维基、多代理辩论）暗示社区在探索 agent 协同与知识沉淀的长期方向。</p>
+      <h1 class="section-title" style="font-size:34px;">AI Agent 正从对话玩具进化为自治系统，但透明性缺失与自主推理能力缺陷已成为其进入高可靠性生产环境的根本性瓶颈。</h1>
+      <p class="subtle">本周 AI Agent 领域的研究高度聚焦于安全性、可靠性与执行效率的矛盾：Agent 越自治，其内部决策越难被人类审计；模型在标准评测中表现越强，在真实开放环境中越容易暴露出缺乏主动推理能力的缺陷。 微软研究院发布的 AgentRx 框架直面 Agent 调试难题，试图构建系统级的透明层以应对多步骤执行中出现的幻觉与异常。 多篇新研究显示，推测执行（Speculative Actions）可无损降低 Agent 延迟最高达 20%，为此类系统的实用化部署扫清了关键的速度障碍。</p>
       <div class="archive-meta" style="margin-top:14px;">
         <span class="tag alt">164 个主题</span>
         <span class="tag warm">166 条原始信息</span>
         <span class="tag">自动版</span>
-        <span class="tag">2026-04-26T08:06:04.716305+08:00</span>
+        <span class="tag">2026-04-26T08:07:59.271578+08:00</span>
       </div>
     </section>
 
@@ -346,14 +346,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>开源内存层出现，agent 记忆开始从平台锁定走向基础设施化</h3>
-  <p>Stash 等项目尝试将持久记忆从 Claude、ChatGPT 等产品中剥离，降低 agent 开发者的切换成本，但也面临平台原生功能快速内卷的威胁。</p>
+  <h3>信任危机：当 Agent 自治性与透明性脱钩</h3>
+  <p>Agent 正在从单轮对话走向多步自主执行（如云事故处理、复杂网页操作），但其出错模式难以追溯——人类错误有逻辑链，而 Agent 的幻觉输出则近乎黑箱。微软研究院提出的 AgentRx 框架首次将 AI Agent 调试提升为系统级问题，直接回应了“越强大越不可信”的矛盾，这决定了企业能否真正将 Agent 部署到支付、运维等高利害场景。</p>
 </article><article class="summary-card">
-  <h3>微软 AgentRx 框架揭示：agent 的透明度和调试能力已成为规模化部署的核心瓶颈</h3>
-  <p>当 agent 自主执行复杂任务时，不可追溯的失败会带来业务风险，系统化调试框架因此成为 agent 进入关键生产环境的前提。</p>
+  <h3>实验室神话破灭：强模型在真实调查中全面失败</h3>
+  <p>在包含 106 个真实攻击、超 10 万条日志的威胁狩猎基准中，Claude Opus 4.6 仅正确标出 3.8% 的恶意事件，所有模型均未通过最低及格线（每个战术召回率 ≥ 50%）。这与它们在策划好的安全问答中的强劲表现形成刺眼对比，揭示了现有 LLM 的根本性缺陷：不具备主动生成假设、自主查询证据的推理闭环能力，不适合直接部署为无人监督的 SOC 分析师。</p>
 </article><article class="summary-card">
-  <h3>推测动作框架首次实现 agent 无损失加速，延迟降低最多 20%</h3>
-  <p>通过快速模型预测并并行执行未来动作，将 agent 的顺序执行延迟转化为可控制的并行预判，在算力成本和速度之间建立了可调优的均衡。</p>
+  <h3>速度突破：用“推测执行”换取低延迟</h3>
+  <p>顺序执行每一步都需 API 调用，使复杂 Agent 运行极慢（下一盘棋可能需数小时）。Speculative Actions 框架通过引入更快的模型并行预测未来动作，在保证无损的前提下将延迟最高降低 20%，且给出了平衡计算成本与速度的最优推测宽度。这让 Agent 从“不可用”向“可交互”迈进了关键一步。</p>
 </article>
       </div>
     </section>
@@ -415,22 +415,22 @@
       <h2 class="section-title">深度解读</h2>
       <div class="summary-grid">
         <article class="topic-card">
-  <h3>Open source memory layer so any AI agent can do what Claude.ai and ChatGPT do</h3>
-  <p>AI 代理的记忆能力正在从平台独有特性向可剥离的基础设施层迁移，但刚出现的开源方案必须在生态整合速度上跑赢平台方的功能内卷，否则容易退化为无差异的插件。</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">medium</span>
-  </div>
-</article><article class="topic-card">
   <h3>AI 智能体系统化调试：AgentRx 框架</h3>
-  <p>AI智能体进入生产级自主任务时代后，其不可解释的失败将成为规模化部署的最大制约因素，系统调试能力正在成为与智能能力同等关键的基础设施。</p>
+  <p>AgentRx treats AI agent debugging as a first-class system problem, aiming to close the transparency gap that widens as agents move from single-turn chat to multi-step autonomous execution.</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">medium</span>
+    <span class="tag warm">high</span>
   </div>
 </article><article class="topic-card">
   <h3>推测式动作：加速智能体系统的无损框架</h3>
-  <p>通过让快速模型预测智能体未来动作并并行执行，将顺序等待转化为可选择性提交的并行预判，同时在精度与成本间建立可调优的均衡，实现代理系统首次无损加速。</p>
+  <p>无损推测加速的关键不在于无限制增加猜测，而在于通过成本-延迟分析找到推测宽度的最优平衡点，以实现可控成本下的实用化速度提升。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">high</span>
+  </div>
+</article><article class="topic-card">
+  <h3>网络防御基准：安全运营中的智能体威胁狩猎评估</h3>
+  <p>当前LLM在无引导的、证据驱动的开放域威胁狩猎中完全失败，暴露出其缺乏主动推理和假设测试能力的根本局限，不宜直接部署到无人监督的SOC环境。</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">high</span>
@@ -464,23 +464,23 @@
   <a class="article-action" href="../../archives/2026-04-26/signals/4/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
+  <h3>vLLM 项目</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
   <h3>Show HN: A Karpathy-style LLM wiki your agents maintain (Markdown and Git)</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/5/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/6/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>AI agents that argue with each other to improve decisions</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/6/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/7/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>Nicholas Carlini – Black-hat LLMs [video]</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/7/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>vLLM 项目</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
   <a class="article-action" href="../../archives/2026-04-26/signals/8/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
@@ -634,128 +634,128 @@
   <a class="article-action" href="../../archives/2026-04-26/signals/38/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
-  <h3>DeepSeek v4</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/39/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>GPT-5.5</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/40/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Google plans to invest up to $40B in Anthropic</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">bloomberg.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/41/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>1-Bit Hokusai&#x27;s &quot;The Great Wave&quot; (2023)</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">hypertalking.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/42/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Plain text has been around for decades and it’s here to stay</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">unsung.aresluna.org</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/43/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Iliad fragment found in Roman-era mummy</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">thehistoryblog.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/44/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Work with the garage door up (2024)</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">notes.andymatuschak.org</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/45/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Discret 11, the French TV encryption of the 80s</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">fabiensanglard.net</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/46/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>The mail sent to a video game publisher</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">gamefile.news</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/47/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>A 3D Body from Eight Questions – No Photo, No GPU</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">clad.you</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/48/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>GPT‑5.5 Bio Bug Bounty</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/49/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Hokusai and Tesselations</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">dl.ndl.go.jp</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/50/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Lute: A Standalone Runtime for Luau</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">lute.luau.org</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/51/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
   <h3>langchain-ai/langgraph</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/52/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/39/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>ollama/ollama</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/53/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>pytorch/executorch</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">deep-learning</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/54/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/40/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>alibaba/MNN</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">arm</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/55/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/41/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>pytorch/executorch</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">deep-learning</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/42/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/56/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/43/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>tenstorrent/tt-metal</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">accelerator</span><span class="tag">ai</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/57/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/44/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>mem0ai/mem0</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/58/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/45/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>openai/swarm</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/59/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/46/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>anthropics/claude-cookbooks</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/60/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/47/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>NVIDIA/TensorRT</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/61/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/48/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>onnx/onnx</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">ai</span><span class="tag">artificial-intelligence</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/62/">阅读文章</a>
+  <a class="article-action" href="../../archives/2026-04-26/signals/49/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
   <h3>jax-ml/jax</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">jax</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/50/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>DeepSeek v4</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">api-docs.deepseek.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/51/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>GPT-5.5</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/52/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Google plans to invest up to $40B in Anthropic</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">bloomberg.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/53/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>1-Bit Hokusai&#x27;s &quot;The Great Wave&quot; (2023)</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">hypertalking.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/54/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Plain text has been around for decades and it’s here to stay</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">unsung.aresluna.org</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/55/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Iliad fragment found in Roman-era mummy</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">thehistoryblog.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/56/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Work with the garage door up (2024)</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">notes.andymatuschak.org</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/57/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Discret 11, the French TV encryption of the 80s</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">fabiensanglard.net</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/58/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>The mail sent to a video game publisher</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">gamefile.news</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/59/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>A 3D Body from Eight Questions – No Photo, No GPU</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">clad.you</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/60/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>GPT‑5.5 Bio Bug Bounty</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/61/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Hokusai and Tesselations</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">dl.ndl.go.jp</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/62/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Lute: A Standalone Runtime for Luau</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">lute.luau.org</span><span class="tag">Hacker News</span></div>
   <a class="article-action" href="../../archives/2026-04-26/signals/63/">阅读文章</a>
 </article><article class="article-card">
   <p class="article-date">2026.04.26</p>
