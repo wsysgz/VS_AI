@@ -27,10 +27,10 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`337 passed`
-- 当前主线优先级：`公开站 IA V2 第一批已完成并已推送；远端发布级确认 run 25009334909 已触发，等待结果；之后评估 IA V2 第二批`
+- 当前主线优先级：`公开站 IA V2 第一批已完成、已推送、已远端确认；下次先回看手动补触发 run 25009334909，再评估 IA V2 第二批`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
-- 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / run 25007010720 / trigger commit 9b3d010 / output commit a329642`
-- 当前待确认远端 `Collect And Report`：`2026-04-28 / run 25009334909 / workflow_dispatch / commit d743668 / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
+- 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / push run 25009309491 / trigger commit d743668 / output commit ba23ec5 / https://github.com/wsysgz/VS_AI/actions/runs/25009309491`
+- 当前待回看远端 `Collect And Report`：`2026-04-28 / workflow_dispatch run 25009334909 / commit d743668 / 截至 01:46 已通过 analyze，正在 report / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
 - 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
 - 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-24 / run 24864003455 / commit 780dcfd`
 - GitHub Repository Variables 已切换到 DeepSeek V4 默认路由：`analysis/summary/forecast=pro`，`prefilter/discovery/search=flash`
@@ -46,6 +46,13 @@
 3. `out/source-governance/source-governance.json`
 4. `.github/workflows/collect-report.yml`
 5. 最近 5 条 `git log`
+
+下次接手第一条动作：
+
+```powershell
+git pull --ff-only origin main
+gh run view 25009334909 --repo wsysgz/VS_AI --json status,conclusion,url,updatedAt
+```
 
 ## 1. 新会话 AI 的前 10 分钟
 
@@ -368,7 +375,7 @@ Get-Content out/source-governance/source-governance.json
 
 这份文件是最快的方向校准器。
 
-## 6. 当前确认过的状态快照（2026-04-25）
+## 6. 当前确认过的状态快照（2026-04-28）
 
 当前确定成立的项目状态：
 
@@ -379,6 +386,8 @@ Get-Content out/source-governance/source-governance.json
 - 本地验证基线已随公开站 IA V2 第一批刷新到 `337 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - `renesas-blog` / `youtube-google-developers` / `youtube-nvidia` 已从活跃采集里降噪处理，等待稳定入口恢复后再启用
+- 公开站 IA V2 第一批已完成并通过远端发布级确认：push run `25009309491` 成功，触发 commit `d743668`，远端产物推进到 `ba23ec5`
+- 手动补触发 run `25009334909` 截至 2026-04-28 01:46 已通过 `analyze`，正在 `report`；下次接手先回看；它是重复确认 run，不阻塞 IA V2 第一批收口
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
@@ -862,6 +871,6 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 1. P3-A：飞书推送界面优化尾部小修（`Delivery Canary` 已升级为飞书卡片主路径 canary）
 2. P3-C-2：comparison brief 与交付消费（已完成）
 3. P3-C-3：验收、文档、发布收口（已完成）
-4. 公开站 IA V2 第一批已完成；优先做提交、推送和必要的远端发布级确认
-5. 后续再评估 IA V2 第二批：来源总览页、赛道/来源交叉视图、移动端筛选体验
-6. 如需发布级确认，`push` + workflow_dispatch
+4. 公开站 IA V2 第一批已完成并通过远端 push run `25009309491` 确认
+5. 下次先回看手动补触发 run `25009334909`，只记录结果；若失败先看失败 job，不回滚 IA V2 第一批
+6. 后续再评估 IA V2 第二批：来源总览页、赛道/来源交叉视图、移动端筛选体验
