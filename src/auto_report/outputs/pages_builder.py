@@ -18,6 +18,12 @@ from auto_report.pipeline.briefing import compose_executive_brief
 SITE_TITLE = "VS_AI 情报阅读站"
 SITE_URL = "https://wsysgz.github.io/VS_AI"
 SITE_DESCRIPTION = "AI、智能体与电子信息每日情报工作台，提供归档、周报、专题、检索和订阅。"
+FAVICON_LINK = (
+    '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 '
+    'viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 '
+    'fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 '
+    'fill=%22%2343d1bf%22/%3E%3C/svg%3E">'
+)
 
 DOMAIN_LABELS = {
     "ai-llm-agent": "AI/智能体",
@@ -554,6 +560,18 @@ def _build_special_collections(reports: list[dict[str, object]]) -> list[dict[st
     return collections
 
 
+def _search_result_tags(signal: dict[str, object]) -> list[str]:
+    seen = {_safe_text(signal.get("domain_label")), _safe_text(signal.get("source"))}
+    tags: list[str] = []
+    for tag in signal.get("tags", []):
+        label = _tag_label(tag)
+        if not label or label in seen:
+            continue
+        seen.add(label)
+        tags.append(label)
+    return tags
+
+
 def _build_search_index(reports: list[dict[str, object]]) -> dict[str, object]:
     entries: list[dict[str, object]] = []
     for report in reports:
@@ -567,7 +585,7 @@ def _build_search_index(reports: list[dict[str, object]]) -> dict[str, object]:
                     "summary": signal["summary"],
                     "domain": signal["domain_label"],
                     "source": signal["source"],
-                    "tags": [_tag_label(tag) for tag in signal["tags"]],
+                    "tags": _search_result_tags(signal),
                     "raw_tags": signal["tags"],
                     "url": signal["url"],
                     "article_url": signal["article_url"],
@@ -1205,6 +1223,7 @@ def _build_signal_article_page(report: dict[str, object], signal: dict[str, obje
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(str(signal["title"]))} | VS_AI 文章</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1243,6 +1262,7 @@ def _build_report_teaser_page(report: dict[str, object]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(str(report["judgment"]))} | VS_AI 日报</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1283,6 +1303,7 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(SITE_TITLE)}</title>
 <meta name="description" content="{html.escape(report["judgment"])}">
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1380,20 +1401,47 @@ def _build_homepage(report: dict[str, object], reports: list[dict[str, object]])
       const payload = await response.json();
       const entries = payload.entries || [];
 
+      function escapeHtml(value) {{
+        return String(value || "").replace(/[&<>"']/g, (char) => ({{
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }}[char] || char));
+      }}
+
+      function safeSearchHref(value) {{
+        const text = String(value || "").trim();
+        if (!text) {{
+          return "#";
+        }}
+        if (text.startsWith("archives/") || text.startsWith("weekly/") || text.startsWith("special/")) {{
+          return `./${{text}}`;
+        }}
+        if (text.startsWith("./") || text.startsWith("../") || text.startsWith("#")) {{
+          return text;
+        }}
+        if (text.startsWith("http://") || text.startsWith("https://")) {{
+          return text;
+        }}
+        return "#";
+      }}
+
       function render(list) {{
         if (!list.length) {{
           results.innerHTML = '<div class="search-hit"><h4>暂无结果</h4><p>换一个关键词试试。</p></div>';
           return;
         }}
         results.innerHTML = list.slice(0, 8).map((entry) => {{
-          const tags = [entry.domain, entry.source, ...(entry.tags || [])].filter(Boolean).slice(0, 4).map((tag) => `<span class="tag">${{tag}}</span>`).join("");
+          const tags = [entry.domain, entry.source, ...(entry.tags || [])].filter(Boolean).slice(0, 4).map((tag) => `<span class="tag">${{escapeHtml(tag)}}</span>`).join("");
           const articleUrl = entry.article_url || entry.archive_url || entry.url;
           return `
             <article class="article-card search-hit">
-              <p class="article-date">${{entry.date || ""}}</p>
-              <h3>${{entry.title}}</h3>
+              <p class="article-date">${{escapeHtml(entry.date || "")}}</p>
+              <h3>${{escapeHtml(entry.title || "")}}</h3>
               <div class="archive-meta" style="margin-top:10px;">${{tags}}</div>
-              <a class="article-action" href="./${{articleUrl}}">阅读文章</a>
+              <a class="article-action" href="${{escapeHtml(safeSearchHref(articleUrl))}}">阅读文章</a>
             </article>
           `;
         }}).join("");
@@ -1442,6 +1490,7 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 归档</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1519,6 +1568,7 @@ def _build_day_page(report: dict[str, object]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(report["date_label"])} | VS_AI</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1583,6 +1633,7 @@ def _build_weekly_index(weeks: list[dict[str, object]]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 周报</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1659,6 +1710,7 @@ def _build_week_page(week: dict[str, object]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(week["week_label"])} | VS_AI 周报</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1715,6 +1767,7 @@ def _build_special_index(collections: list[dict[str, object]]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 专题</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1754,6 +1807,7 @@ def _build_special_page(collection: dict[str, object]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(collection["title"])} | VS_AI 专题</title>
+{FAVICON_LINK}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">

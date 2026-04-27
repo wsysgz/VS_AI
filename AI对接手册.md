@@ -26,7 +26,7 @@
 - Canonical remote：`git@github.com:wsysgz/VS_AI.git`
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
-- 当前本地验证基线：`337 passed`
+- 当前本地验证基线：`333 passed`
 - 当前主线优先级：`P3-C 国内外对比分析（A 方案）已完成，下一步先讨论公开站整理 / 优化方案；未确认方案前不改 Pages 结构，P3-B 只保留小修与回归验证`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-24 / run 24892691284 / commit a2f1455`
@@ -138,7 +138,7 @@ collect
 输出面：
 
 - Markdown / HTML / JSON 报告
-- PushPlus / Telegram / Feishu 推送
+- Feishu 推送
 - GitHub Pages 公开站
 - ops dashboard
 - source governance artifact
@@ -175,8 +175,6 @@ collect
 - `src/auto_report/outputs/renderers.py`
 - `src/auto_report/outputs/pages_builder.py`
 - `src/auto_report/outputs/ops_dashboard.py`
-- `src/auto_report/integrations/pushplus.py`
-- `src/auto_report/integrations/telegram.py`
 - `src/auto_report/integrations/feishu.py`
 - `src/auto_report/integrations/llm_client.py`
 
@@ -376,8 +374,8 @@ Get-Content out/source-governance/source-governance.json
 - 直接在 `main` 上工作，不建立功能分支
 - 文档主入口已经统一收口到仓库根目录
 - 当前主线已完成 `P3-B 阶段性收口 + P3-C 国内外对比分析（A 方案）`
-- PushPlus / ClawBot 已经不是“接口成功即成功”，而是看最终送达状态
-- 本地验证基线已经提升并固定到 `337 passed`
+- 交付面已收敛为飞书单通道；不再维护旧非飞书渠道
+- 本地验证基线已随飞书单通道收敛刷新到 `333 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - `renesas-blog` / `youtube-google-developers` / `youtube-nvidia` 已从活跃采集里降噪处理，等待稳定入口恢复后再启用
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
@@ -392,7 +390,7 @@ Get-Content out/source-governance/source-governance.json
 
 目前已经落地的关键收口：
 
-- PushPlus / ClawBot 最终送达验证
+- 飞书单通道交付策略
 - `source_health` per-source breakdown
 - `source_health` failure-only 统计
 - 统一 `source_registry` builder
@@ -433,7 +431,7 @@ Get-Content out/source-governance/source-governance.json
       - 轻自动化本阶段不新增，继续保留 `sync-feishu-ops-desk` / `pull-feishu-ops-status` 手动闭环
 - 已完成主线：`P3-C 国内外对比分析（A 方案）`
   1. `P3-C-1`：source 标签层已完成：`region_scope / org_origin / tech_track / comparison_priority` 已进入 registry，覆盖 `frontier-ai / fpga / embedded / personal-hpc / compute-infra`
-  2. `P3-C-2`：已在 summary payload 中新增 `comparison_brief.cn_highlights / intl_highlights / head_to_head / gaps / watchpoints`，Markdown 长报告完整展示，PushPlus / Telegram / 飞书文本 / 飞书卡片只消费前 1~2 条 `head_to_head`
+  2. `P3-C-2`：已在 summary payload 中新增 `comparison_brief.cn_highlights / intl_highlights / head_to_head / gaps / watchpoints`，Markdown 长报告完整展示，飞书文本 / 飞书卡片只消费前 1~2 条 `head_to_head`
   3. `P3-C-3`：已完成本地发布级验收、文档、运行态说明与生成产物清理；reviewed 样例中 `comparison_brief` 已可见
   4. P3-C 三阶段已完成；公开站 `https://wsysgz.github.io/VS_AI/` 的整理 / 优化进入下一步讨论，确认方案前不实施
   5. 后续再吸收事件级配对（C 方案）
@@ -687,6 +685,7 @@ $env:PYTHONPATH='src'
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AI_DISABLE_LLM='true'
 $env:AUTO_PUSH_ENABLED='false'
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
@@ -701,7 +700,7 @@ git status --short
 - workflow guard 通过
 - pytest 通过
 - prompt eval 通过
-- reviewed 轨本地跑通
+- reviewed 轨本地跑通；常规本地验收设置 `AI_DISABLE_LLM=true`，由 Codex 代替 DeepSeek 做验证审查
 - Pages / ops dashboard / source governance / review queue 能重建
 - 没有异常运行产物残留
 - 平时默认停在本地验证闭环；只有项目计划完成、阶段性完成、或明确需要发布级确认时，才触发远端 GitHub workflow
@@ -745,40 +744,24 @@ gh workflow run collect-report.yml --ref main -f push_enabled=false -f publicati
 - `deploy-pages`、`ops-dashboard`、`review-queue` 都通过
 - 没有新出现的 reliability issue
 
-## 9. PushPlus / ClawBot 接入要点
+## 9. 飞书单通道交付要点
 
-当前仓库默认 PushPlus 可走 `clawbot`，但判定标准已经升级：
+当前仓库只维护飞书交付面：
 
-- 不是 `/send` 返回 `code=200` 就算成功
-- 必须进一步检查 OpenAPI 的最终送达状态
+- `run-once` 只读取 `FEISHU_APP_ID / FEISHU_APP_SECRET / FEISHU_CHAT_ID`
+- `diagnose-delivery --channels` 只接受 `feishu`
+- 旧非飞书渠道已经从主链、workflow、配置和文档中移除
+- 发布级交付验证继续使用：
 
-`.env` 至少需要：
-
-```env
-PUSHPLUS_TOKEN=...
-PUSHPLUS_SECRETKEY=...
-PUSHPLUS_CHANNEL=clawbot
+```powershell
+python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu --require-feishu-card-success
 ```
 
-PushPlus 后台要确认：
+判定标准：
 
-1. 开启开放接口
-2. 配置 `secretKey`
-3. 调用机器公网 IP 已进白名单
-
-ClawBot 额外事实：
-
-- 首次要扫码绑定
-- 绑定后要主动发起一次对话
-- 每 10 次消息需要重新主动对话一次
-- 每隔 24 小时也需要一次主动对话
-
-当前仓库中的判定逻辑：
-
-- `haveContextToken=1` 且 `delivery_status=2` -> 真正送达成功
-- `haveContextToken=0` -> ClawBot 失活，需要用户主动发消息恢复
-- `delivery_status=3` -> 明确投递失败
-- OpenAPI `401/403` -> 授权或安全 IP 配置问题
+- `delivery_kind=card_success` 才算飞书卡片主路径通过
+- `delivery_kind=text_fallback` 说明卡片失败后走了飞书文本 fallback，诊断命令在 `--require-feishu-card-success` 下必须失败
+- `data/state/run-status.json` 中的 `delivery_results.channels` 只应出现 `feishu`
 
 ## 10. 最容易踩的坑
 
@@ -787,7 +770,7 @@ ClawBot 额外事实：
 - 改了 workflow 却没 push 就去手动 dispatch
 - 把候选 feed / RSSHub 链接直接当正式 source，不先验证真实可用性
 - 看到 `candidate-updates.json` 就直接改配置，不先看 `apply_ready / blocking_reason / validation_mode`
-- 把 PushPlus `/send` 的成功误认为真正送达成功
+- 把飞书文本 fallback 误认为卡片主路径成功
 - 修改状态 schema 但没同步 dashboard / 页面 / 测试
 - 把信息性诊断误记入 `source_health`
 - 把远端 workflow 当成必须前台盯到结束、或每次都必须专门补做最终结果核对
@@ -861,7 +844,7 @@ ClawBot 额外事实：
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
 8. 当前默认进入公开站整理 / 优化方案讨论；不要回头重做 `P3-C-1 / P3-C-2 / P3-C-3`，方案确认前不要改 Pages
-- Telegram 暂不作为当前优化优先级
+- 旧非飞书渠道不再作为当前优化对象
 
 ## 12. AI 接手后的首小时清单
 

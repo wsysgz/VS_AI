@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       push_enabled:
-        description: "Send PushPlus notification for this manual run"
+        description: "Send Feishu notification for this manual run"
         required: false
         default: false
         type: boolean
@@ -111,15 +111,15 @@ jobs:
             const skipped = status.delivery_results?.skipped_channels || [];
             const riskLevel = String(status.risk_level || "low");
             const stageStatus = status.stage_status || {};
-            const allChannelsFailed = failed.length > 0 && successful.length === 0;
+            const feishuDeliveryFailed = failed.includes("feishu") && successful.length === 0;
             const highRiskReport = riskLevel === "high";
-            if (!allChannelsFailed && !highRiskReport) {
+            if (!feishuDeliveryFailed && !highRiskReport) {
               core.info("No reliability issue needed");
               return;
             }
 
             const reasons = [];
-            if (allChannelsFailed) reasons.push("all delivery channels failed");
+            if (feishuDeliveryFailed) reasons.push("Feishu delivery failed");
             if (highRiskReport) reasons.push("high risk report detected");
             const stageSummary = Object.entries(stageStatus)
               .map(([stage, value]) => `${stage}=${value}`)
@@ -154,7 +154,7 @@ jobs:
               body,
               labels: [
                 "reliability",
-                ...(allChannelsFailed ? ["delivery-failure"] : []),
+                ...(feishuDeliveryFailed ? ["delivery-failure"] : []),
                 ...(highRiskReport ? ["risk-high"] : []),
               ],
             });

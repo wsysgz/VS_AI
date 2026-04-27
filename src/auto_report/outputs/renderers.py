@@ -193,7 +193,7 @@ def render_json_report(payload: dict[str, object]) -> str:
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
 
-def render_pushplus_notification(
+def render_text_notification(
     title: str,
     generated_at: str,
     payload: dict[str, object],
@@ -221,75 +221,6 @@ def render_pushplus_notification(
 
     lines.extend(["观察：", brief["watchlist"]])
     lines.extend(_link_lines(public_site_url, raw_report_url))
-    return "\n".join(lines)
-
-
-def render_text_notification(
-    title: str,
-    generated_at: str,
-    payload: dict[str, object],
-    public_site_url: str,
-    raw_report_url: str,
-) -> str:
-    return render_pushplus_notification(
-        title=title,
-        generated_at=generated_at,
-        payload=payload,
-        public_site_url=public_site_url,
-        raw_report_url=raw_report_url,
-    )
-
-
-def render_telegram_notification(
-    title: str,
-    generated_at: str,
-    payload: dict[str, object],
-    public_site_url: str,
-    raw_report_url: str,
-) -> str:
-    brief = compose_executive_brief(title, generated_at, payload)
-    executive_summary = "\n".join(f"- {item}" for item in brief["executive_summary"]) or "- 暂无"
-    mainlines = "\n".join(
-        f"- {item['title']}：{item['why_it_matters']}"
-        for item in brief["mainlines"]
-    ) or "- 暂无"
-    topics = "\n".join(
-        f"- {item['title']}：{item['core_insight']}"
-        for item in brief["topic_briefs"]
-    ) or "- 暂无"
-
-    lines = [
-        title,
-        f"生成时间：{generated_at}",
-        "",
-        "今日判断：",
-        str(brief["judgment"]),
-        "",
-        "执行摘要",
-        executive_summary,
-        "",
-        "关键主线",
-        mainlines,
-        "",
-        "重点主题",
-        topics,
-        "",
-        "短期观察",
-        f"- {brief['watchlist']}",
-    ]
-
-    comparison_lines = _comparison_delivery_lines(brief)
-    if comparison_lines:
-        lines.extend([""] + comparison_lines)
-
-    if brief["risk_note"]:
-        lines.extend(["", "局限与提醒", f"- {brief['risk_note']}"])
-
-    review_lines = _review_lines(payload)
-    if review_lines:
-        lines.extend([""] + review_lines)
-
-    lines.extend([""] + _link_lines(public_site_url, raw_report_url))
     return "\n".join(lines)
 
 

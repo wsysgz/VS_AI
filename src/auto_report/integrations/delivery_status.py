@@ -47,22 +47,6 @@ def channel_response_succeeded(name: str, response: object) -> bool:
     if not items:
         return False
 
-    if name == "pushplus":
-        first = items[0]
-        if first.get("code") not in (0, 200):
-            return False
-        verification = first.get("verification")
-        if isinstance(verification, dict):
-            # Token-level API success is sufficient when clawbot delivery cannot
-            # be verified via OpenAPI from the current environment.
-            if verification.get("available") is False:
-                return True
-            delivery = verification.get("delivery")
-            if isinstance(delivery, dict) and delivery.get("status") == 3:
-                return False
-        return True
-    if name == "telegram":
-        return all(bool(item.get("ok")) for item in items)
     if name == "feishu":
         return all(item.get("code") == 0 for item in items)
     return False
@@ -76,28 +60,6 @@ def describe_channel_response(name: str, response: object) -> str:
     first = items[0]
     if isinstance(first.get("error"), str):
         return str(first["error"])
-
-    if name == "pushplus":
-        code = first.get("code")
-        msg = first.get("msg")
-        detail = f"code={code}" if not msg else f"code={code} {msg}"
-        verification = first.get("verification")
-        if isinstance(verification, dict):
-            note = verification.get("note")
-            if isinstance(note, str) and note:
-                return f"{detail} ({note})"
-            delivery = verification.get("delivery")
-            if isinstance(delivery, dict) and delivery:
-                status = delivery.get("status")
-                if status is not None:
-                    return f"{detail} (delivery_status={status})"
-        return detail
-
-    if name == "telegram":
-        description = first.get("description")
-        if isinstance(description, str) and description:
-            return description
-        return f"{len(items)} message(s)"
 
     if name == "feishu":
         msg = first.get("msg")

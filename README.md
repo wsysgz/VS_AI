@@ -2,7 +2,7 @@
 
 VS_AI is an engineering-focused daily AI intelligence pipeline that collects signals, builds structured analysis, publishes multi-channel reports, and maintains a public reading site.
 
-VS_AI 是一个工程化的每日 AI 情报生产系统，负责采集多源信号、生成结构化分析、输出多渠道报告，并持续维护公开阅读站。
+VS_AI 是一个工程化的每日 AI 情报生产系统，负责采集多源信号、生成结构化分析、通过飞书交付报告，并持续维护公开阅读站。
 
 Public site / 公开站入口:
 `https://wsysgz.github.io/VS_AI/`
@@ -20,17 +20,19 @@ Public site / 公开站入口:
   - `auto`
   - `reviewed`
 - Notification rule / 推送规则:
-  - every notification includes the public site entry
-  - every notification includes the matching GitHub raw report link
+  - Feishu is the only active notification channel
+  - every Feishu notification includes the public site entry
+  - every Feishu notification includes the matching GitHub raw report link
 - Verification baseline / 当前验证基线:
-  - `337 passed`
+  - `333 passed`
 - Current project phase / 当前阶段:
   - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
   - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
   - `P3-A 已完成首轮发布级验收：飞书静态卡片 + 文本 fallback 已真实验证`
   - `P3-B 第一版已落地：飞书多维表格运营台已建成 4 张表 + 中文 dashboard，并支持审批/交付状态回写到仓库 JSON`
   - `P3-C 国内外对比分析（A 方案）已完成：source 标签层、comparison brief、交付消费与本地发布级验收已闭环`
-  - `下一步先讨论公开站整理 / 优化方案；方案确认前不改 Pages 结构`
+  - `公开站首轮优化已完成：搜索安全、favicon、搜索标签去重已验证`
+  - `交付面已收敛为飞书单通道；后续不再维护旧非飞书端`
   - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
 
 ## What It Does / 系统能力
@@ -38,7 +40,7 @@ Public site / 公开站入口:
 - Collects from RSS, GitHub, Hacker News, and curated websites.
 - Deduplicates, scores, clusters, and builds topic packages for report generation.
 - Runs AI analysis, summary, and forecast stages with unified `ai_metrics`.
-- Publishes Markdown, HTML, JSON, PushPlus, Feishu, and Telegram outputs.
+- Publishes Markdown, HTML, JSON, and Feishu outputs.
 - Builds a public Pages site with archives, weekly pages, special topics, feed, and RSS.
 - Exposes delivery, review, risk, and source health signals through `run-status.json`.
 
@@ -81,10 +83,8 @@ Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
   - `AI_PROVIDER`
   - `AI_BASE_URL`
   - `AI_MODEL`
+  - `AI_DISABLE_LLM`
 - Delivery:
-  - `PUSHPLUS_TOKEN`
-  - `TELEGRAM_BOT_TOKEN`
-  - `TELEGRAM_CHAT_ID`
   - `FEISHU_APP_ID`
   - `FEISHU_APP_SECRET`
   - `FEISHU_CHAT_ID`
@@ -320,6 +320,7 @@ $env:PYTHONPATH='src'
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AI_DISABLE_LLM='true'
 $env:AUTO_PUSH_ENABLED='false'
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
@@ -394,17 +395,11 @@ Internal ops outputs / 内部治理产物:
 
 Push channel behavior / 推送渠道策略:
 
-- PushPlus:
-  - short
-  - risk-alert
-- Feishu:
-  - medium
-  - reviewed-note
-- Telegram:
-  - long
-  - reviewed-long
+- Feishu is the only active delivery channel.
+- Retired channels are rejected by `diagnose-delivery --channels` and ignored by `run-once`.
+- The Feishu card path remains the release-grade path; text fallback is preserved only inside the Feishu sender.
 
-All three channels always include / 三条推送始终同时带:
+Every Feishu notification includes / 每条飞书推送始终带:
 
 - `公开阅读： https://wsysgz.github.io/VS_AI/`
 - `GitHub 原文： <当前 latest-summary 对应链接>`

@@ -32,8 +32,6 @@ from auto_report.integrations.lark_cli import (
 )
 from auto_report.integrations.lark_cli import sync_feishu_ops_desk as sync_feishu_ops_desk_sidecar
 from auto_report.integrations.llm_client import is_llm_enabled
-from auto_report.integrations.pushplus import send_pushplus
-from auto_report.integrations.telegram import send_telegram_messages
 from auto_report.outputs.archive import write_text
 from auto_report.outputs.ops_dashboard import build_ops_dashboard
 from auto_report.outputs.renderers import (
@@ -42,8 +40,6 @@ from auto_report.outputs.renderers import (
     render_html_report,
     render_json_report,
     render_markdown_report,
-    render_pushplus_notification,
-    render_telegram_notification,
 )
 from auto_report.pipeline.analysis import build_report_package
 from auto_report.pipeline.run_once import build_run_status, _to_relative_paths
@@ -325,38 +321,6 @@ def _build_raw_report_url(settings, publication_mode: str) -> str:
     return f"{base_url}/blob/main/data/reports/{_summary_track_stem(publication_mode)}.md"
 
 
-def _build_text_notification(root_dir: Path, settings, publication_mode: str) -> str:
-    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
-    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
-    local_date = generated_at[:10]
-    review = payload.get("meta", {}).get("review", {})
-    if not isinstance(review, dict):
-        review = {}
-    return render_pushplus_notification(
-        title=_notification_title("AI情报早报", publication_mode, local_date, review=review),
-        generated_at=generated_at,
-        payload=payload,
-        public_site_url=PUBLIC_SITE_URL,
-        raw_report_url=_build_raw_report_url(settings, publication_mode),
-    )
-
-
-def _build_telegram_notification(root_dir: Path, settings, publication_mode: str) -> str:
-    payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
-    generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
-    local_date = generated_at[:10]
-    review = payload.get("meta", {}).get("review", {})
-    if not isinstance(review, dict):
-        review = {}
-    return render_telegram_notification(
-        title=_notification_title("AI情报完整简报", publication_mode, local_date, review=review),
-        generated_at=generated_at,
-        payload=payload,
-        public_site_url=PUBLIC_SITE_URL,
-        raw_report_url=_build_raw_report_url(settings, publication_mode),
-    )
-
-
 def _build_feishu_notification(root_dir: Path, settings, publication_mode: str) -> str:
     payload = _load_summary_payload(root_dir, publication_mode=publication_mode)
     generated_at = str(payload.get("meta", {}).get("generated_at", _now_in_configured_timezone(settings).isoformat()))
@@ -413,13 +377,6 @@ def send_feishu_messages(
 def _build_delivery_probe_messages() -> dict[str, dict[str, str]]:
     timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
     return {
-        "pushplus": {
-            "title": "VS_AI delivery diagnostic",
-            "content": f"VS_AI delivery diagnostic\n{timestamp}\nPushPlus/WeChat channel check.",
-        },
-        "telegram": {
-            "text": f"VS_AI delivery diagnostic\n{timestamp}\nTelegram channel check.",
-        },
         "feishu": {
             "text": f"VS_AI delivery diagnostic\n{timestamp}\nFeishu channel check.",
         },
@@ -482,7 +439,7 @@ def _normalize_delivery_channels(channels: str = "") -> set[str] | None:
         return None
 
     selected = {item.strip().lower() for item in raw.split(",") if item.strip()}
-    valid = {"feishu", "pushplus", "telegram"}
+    valid = {"feishu"}
     invalid = sorted(selected - valid)
     if invalid:
         raise ValueError(f"Unsupported delivery channels: {', '.join(invalid)}")
@@ -535,20 +492,12 @@ def _collect_delivery_results(
     probe_messages = _build_delivery_probe_messages()
     selected_channels = _normalize_delivery_channels(channels)
 
-    pushplus_title = _report_title(publication_mode)
-    pushplus_content = ""
-    telegram_content = ""
     feishu_content = ""
     feishu_card: dict[str, object] | None = None
     if send:
         if mode == "canary":
-            pushplus_title = probe_messages["pushplus"]["title"]
-            pushplus_content = probe_messages["pushplus"]["content"]
-            telegram_content = probe_messages["telegram"]["text"]
             feishu_content = probe_messages["feishu"]["text"]
         else:
-            pushplus_content = _build_text_notification(root_dir, settings, publication_mode)
-            telegram_content = _build_telegram_notification(root_dir, settings, publication_mode)
             feishu_content = _build_feishu_notification(root_dir, settings, publication_mode)
             feishu_card = _build_feishu_notification_card(root_dir, settings, publication_mode)
 
@@ -563,31 +512,6 @@ def _collect_delivery_results(
                 feishu_content,
                 card=feishu_card,
                 api_base_url=settings.env["FEISHU_API_BASE_URL"],
-                timeout=request_timeout,
-            ),
-        ),
-        (
-            "pushplus",
-            bool(settings.env["PUSHPLUS_TOKEN"]),
-            lambda: send_pushplus(
-                settings.env["PUSHPLUS_TOKEN"],
-                pushplus_title,
-                pushplus_content,
-                channel=settings.env["PUSHPLUS_CHANNEL"],
-                template="txt",
-                secret_key=settings.env.get("PUSHPLUS_SECRETKEY", ""),
-                base_url=settings.env["PUSHPLUS_BASE_URL"],
-                timeout=request_timeout,
-            ),
-        ),
-        (
-            "telegram",
-            bool(settings.env["TELEGRAM_BOT_TOKEN"] and settings.env["TELEGRAM_CHAT_ID"]),
-            lambda: send_telegram_messages(
-                settings.env["TELEGRAM_BOT_TOKEN"],
-                settings.env["TELEGRAM_CHAT_ID"],
-                telegram_content,
-                api_base_url=settings.env["TELEGRAM_API_BASE_URL"],
                 timeout=request_timeout,
             ),
         ),
@@ -1168,7 +1092,7 @@ def cmd_render_and_push(
     reviewer: str = "",
     review_note: str = "",
 ) -> list[str]:
-    """CI Job 3: 渲染 MD+JSON+HTML -> 三通道推送 -> 归档"""
+    """CI Job 3: 渲染 MD+JSON+HTML -> 飞书推送 -> 归档"""
     return run_once(
         root_dir,
         publication_mode=publication_mode,

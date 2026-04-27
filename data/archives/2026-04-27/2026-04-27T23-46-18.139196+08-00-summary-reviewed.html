@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报（人工复核版）</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报（人工复核版）</h1>
+    <div class="meta">生成时间：2026-04-27T23:46:18.139196+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 130 条原始信息</span>
+      <span class="stat-pill">🎯 128 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">AI代理正从黑盒工具走向可调试的系统，但算力依赖和边缘部署的瓶颈正在重塑整个技术栈的竞争格局。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>AI代理正经历从简单聊天机器人到自主系统的关键转型，但其黑盒特性带来的不可调试风险成为核心矛盾。微软提出的AgentRx框架标志着行业开始为AI代理构建系统化的调试基础设施，这类似于软件工程自身的演进历程。</li><li>Meta与AWS的Graviton芯片合作揭示了AI算力军备竞赛中的战略妥协：Meta自研芯片（MTIA）的规模化速度无法满足代理AI的爆发式需求，被迫依赖竞争对手的芯片生态，这既是短期效率的胜利，也是长期战略的隐患。</li><li>边缘AI部署取得突破：一项研究通过硬件感知框架，在三星Galaxy S24/S25上实现了多任务LLM的高效推理，结合LoRA动态集成、多流解码和自推测解码等技术，将内存和延迟优化了4-6倍，证明了移动端生成式AI的商业可行性。</li><li>世界模型研究正从碎片化走向统一：一篇综述论文提出了&#x27;层级×法则&#x27;分类法，将物理、数字、社会、科学等领域的世界模型纳入统一框架，但社会和科学领域的复杂法则使得统一评估和落地成为关键瓶颈。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>AI代理的&#x27;可调试性&#x27;正在成为继&#x27;性能&#x27;和&#x27;成本&#x27;之后的第三大竞争维度。谁先建立系统化的调试基础设施，谁就能在关键业务场景中赢得信任。</li><li>Meta与AWS的芯片合作揭示了AI算力生态的&#x27;竞合悖论&#x27;：在技术爆发期，即使是巨头也不得不向竞争对手购买关键组件，这种短期效率与长期自主性的矛盾将反复出现。</li><li>边缘AI的突破表明，&#x27;端侧智能&#x27;的商业化拐点正在到来。硬件感知的优化框架（如LoRA动态集成、自推测解码）将成为移动AI应用的标准配置，而非锦上添花。</li><li>世界模型的统一框架是AI从&#x27;感知&#x27;走向&#x27;行动&#x27;的关键理论支撑。但当前研究仍集中在物理和数字领域，社会和科学领域的模型落地将面临更复杂的验证和伦理挑战。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>AI代理的可调试性成为行业新焦点</strong> 随着AI代理从聊天工具升级为管理云事件、操作API的自主系统，其失败（如幻觉工具输出）变得不可追溯。AgentRx框架的出现，意味着行业开始正视&#x27;AI代理的可靠性&#x27;这一核心问题，这直接决定了企业是否敢将关键业务交给AI代理。</li>
+<li><strong>Meta与AWS的芯片合作：战略妥协还是长期隐患？</strong> Meta自研芯片（MTIA）的规模化速度跟不上代理AI的算力需求，被迫引入AWS的Graviton芯片。这暴露了一个残酷现实：即使是科技巨头，在AI算力竞赛中也难以完全自主。短期看，这解决了算力瓶颈；长期看，Meta将核心AI基础设施的关键部分交给了竞争对手。</li>
+<li><strong>边缘AI部署取得里程碑式突破</strong> 在智能手机上运行多任务LLM曾是技术难题。这项研究通过硬件感知框架，在三星旗舰机上实现了4-6倍的内存和延迟优化，且保持了多语言多任务的准确性。这意味着生成式AI的&#x27;端侧化&#x27;不再是理论，而是可商业化的现实，将极大推动移动AI应用的爆发。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>Systematic debugging for AI agents: Introducing the AgentRx framework</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 17 天 · 1 source(s) | official | 1 related support</li><li><strong>vllm-project/vllm</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 17 天 · 1 source(s) | repo</li><li><strong>Bringing AI Closer to the Edge and On-Device with Gemma 4</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li><li><strong>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li><li><strong>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>The need for autonomous, complex AI agent capabilities vs. the lack of transparency and debuggability in their failures.</p>
+                  <p><strong>核心洞察：</strong>AgentRx represents a necessary shift from treating AI agents as black boxes to building systematic debugging infrastructure, mirroring the evolution of software engineering itself.</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 1 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.espressif.com/blog/2026/04/doc-mcp-server/" target="_blank" rel="noopener">Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>Meta&#x27;s strategic imperative to control its AI infrastructure vs. the tactical necessity of leveraging a competitor&#x27;s (AWS) proprietary chip technology to meet immediate agentic AI compute demands.</p>
+                  <p><strong>核心洞察：</strong>This deal signals that Meta&#x27;s internal chip development (MTIA) is not scaling fast enough to meet the explosive compute requirements of agentic AI, forcing a pragmatic but risky dependency on AWS&#x27;s Graviton ecosystem.</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/" target="_blank" rel="noopener">Meta Partners With Broadcom to Co-Develop Custom AI Silicon</a></li><li>official | <a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">Bringing AI Closer to the Edge and On-Device with Gemma 4</a></li><li>official | <a href="https://www.infineon.com/content/ifx/en/press-release/2026/infgip202603-075.html" target="_blank" rel="noopener">Infineon and DG Matrix leverage silicon carbide technology to advance power infrastructure for AI data centers</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Unlocking the Edge deployment and ondevice acceleration of multi-LoRA enabled one-for-all foundational LLM</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-x-electronics</p>
+                  <p><strong>主要矛盾：</strong>边缘设备上部署多任务LLM的高性能需求 vs 智能手机严格的内存、延迟和运行时灵活性约束</p>
+                  <p><strong>核心洞察：</strong>该工作通过硬件感知的框架设计，将LoRA动态集成、多流解码和自推测解码等创新技术组合，在严格资源约束下实现了多任务LLM的边缘部署，证明了移动端生成式AI商业化的技术可行性。</p>
+                  <p><strong>生命周期：</strong>new</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper | 2 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</a></li><li>official | <a href="https://www.ti.com/about-ti/newsroom/company-blog/building-tomorrows-innovations-with-todays-edge-AI-enabled-devices.html" target="_blank" rel="noopener">Building tomorrow&#x27;s innovations with today&#x27;s edge AI-enabled devices</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2604.18655v2" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+  <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>AI代理的可调试性工具链（如AgentRx）在6个月内获得行业广泛采用，成为企业级AI代理部署的标准组件；Meta与AWS的芯片合作推动Graviton生态快速成熟，同时Meta自研芯片（MTIA）加速迭代，形成双轨并行的算力格局；边缘AI部署技术（如LoRA动态集成、自推测解码）在主流移动平台上实现商业化落地，推动移动端生成式AI应用爆发；世界模型统一框架（层级×法则分类法）被多个研究社区采纳，催生跨领域协作和统一基准测试。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>AgentRx框架在真实大规模生产环境中暴露出可扩展性瓶颈，未能有效解决AI代理的可靠性问题，导致企业级部署信心受挫；Meta对AWS Graviton的依赖加深，自研芯片（MTIA）进展不及预期，长期战略自主性受损；边缘AI部署技术因硬件平台碎片化而难以通用化，商业化进程受阻；世界模型统一框架因社会和科学领域的复杂法则难以标准化，社区碎片化问题加剧，跨领域协作停滞。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>AI代理的可调试性成为行业共识，AgentRx等工具在特定场景（如云事件管理）中逐步落地，但全面推广仍需6-12个月；Meta与AWS的芯片合作在短期内缓解算力压力，但Meta将继续加大自研芯片投入，形成混合算力架构；边缘AI部署技术在高通/三星生态中率先商业化，其他平台跟进需1-2年；世界模型统一框架在物理和数字领域获得初步认可，但社会和科学领域的落地仍面临验证和伦理挑战。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>AgentRx框架在真实生产环境中的可扩展性和实际效果验证</li><li>Meta自研芯片（MTIA）的迭代速度与AWS Graviton的替代成本对比</li><li>边缘AI部署技术在不同移动硬件平台上的通用性和性能表现</li><li>世界模型统一框架在物理、数字、社会、科学领域的标准化进展和基准测试建立</li></ul>
+        <p><strong>结论：</strong>未来6个月内，AI代理的可调试性将成为行业焦点，但全面落地仍需时间；Meta与AWS的芯片合作将维持短期算力优势，但长期自主性风险需警惕；边缘AI部署将在特定硬件生态中率先突破，推动移动端AI应用商业化；世界模型统一框架的理论价值将被认可，但跨领域标准化仍是主要瓶颈。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>AgentRx框架目前仅为研究原型，尚未在真实大规模生产环境中验证其可扩展性和实际效果。</li><li>Meta与AWS的合作细节尚未完全公开，无法评估Meta自研芯片（MTIA）的实际进展与Graviton的替代成本。</li><li>边缘AI部署的研究基于特定硬件（三星Galaxy S24/S25和高通芯片组），其方法在其他移动平台上的通用性有待验证。</li><li>世界模型综述论文的分类法虽具理论价值，但缺乏统一的基准测试和可复现的评估标准，社区碎片化问题短期内难以解决。</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ AgentRx框架目前仅为研究原型，尚未在真实大规模生产环境中验证其可扩展性和实际效果。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>关注AI代理的可调试性工具链（如AgentRx）的后续进展，评估其对企业级AI代理部署的潜在影响。</li><li>跟踪Meta与AWS的芯片合作后续动态，特别是Meta自研芯片（MTIA）的迭代节奏，以判断其长期战略走向。</li><li>评估边缘AI部署技术（如LoRA动态集成、自推测解码）在自身业务场景中的适用性，提前布局移动端AI应用。</li><li>深入研究世界模型综述论文的分类法，将其作为评估和选择AI系统环境建模能力的理论框架。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Systematic debugging for AI agents: Introducing the AgentRx framework<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Unlocking the Edge deployment and ondevice acceleration of multi-LoRA enabled one-for-all foundational LLM<span class="domain-tag">ai-x-electronics</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2604.18655v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Meta Partners With AWS on Graviton Chips to Power Agentic AI<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.22748v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Aligning Dense Retrievers with LLM Utility via DistillationAligning Dense Retrievers with LLM Utility via Distillation<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.22722v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Asymmetric Goal Drift in Coding Agents Under Value Conflict<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2603.03456v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/stm32n6/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/nanoedge-ai-machine-learning/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://platform.moonshot.cn/blog/posts/k2-think" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>GLM-PC 基座模型，CogAgent-9B 开源<span class="domain-tag">ai-llm-agent</span></td><td>1.8</td><td>1</td><td><a href="https://www.zhipuai.cn/zh/news/76" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -80,8 +80,6 @@ def _write_run_status(root_dir: Path) -> None:
                 "delivery_results": {
                     "channels": {
                         "feishu": {"status": "ok"},
-                        "pushplus": {"status": "ok"},
-                        "telegram": {"status": "ok"},
                     }
                 },
                 "push_response": {

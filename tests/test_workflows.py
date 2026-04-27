@@ -118,12 +118,12 @@ def test_reusable_python_test_workflow_uses_matrix_and_max_parallel():
     assert "python-version:" in content
 
 
-def test_collect_report_workflow_creates_issue_for_all_channel_delivery_failure():
+def test_collect_report_workflow_creates_issue_for_feishu_delivery_failure():
     content = (ROOT_DIR / ".github" / "workflows" / "collect-report.yml").read_text(encoding="utf-8")
 
     assert 'FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"' in content
     assert "actions/github-script@v9.0.0" in content
-    assert "all delivery channels failed" in content
+    assert "Feishu delivery failed" in content
 
 
 def test_collect_report_workflow_creates_issue_for_high_risk_report_with_run_status_summary():
@@ -165,8 +165,6 @@ def test_reusable_backfill_workflow_builds_pages_and_ops_dashboard():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-backfill.yml").read_text(encoding="utf-8")
 
     assert 'run: python -m auto_report.cli backfill --target-date "${{ inputs.target_date }}"' in content
-    assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
-    assert "TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}" in content
     assert "FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}" in content
     assert "REPORT_REVIEWER: ${{ inputs.reviewer }}" in content
     assert "REPORT_REVIEW_NOTE: ${{ inputs.review_note }}" in content
@@ -196,7 +194,9 @@ def test_reusable_ops_dashboard_workflow_uploads_source_governance_artifact():
 def test_reusable_report_workflow_replays_rendered_data_on_latest_branch_before_pushing():
     content = (ROOT_DIR / ".github" / "workflows" / "reusable-report.yml").read_text(encoding="utf-8")
 
-    assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
+    assert "PUSHPLUS_SECRETKEY" not in content
+    assert "TELEGRAM_BOT_TOKEN" not in content
+    assert "FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}" in content
     assert "stefanzweifel/git-auto-commit-action@v4" not in content
     assert "mktemp -d" in content
     assert "for attempt in 1 2 3; do" in content
@@ -267,7 +267,9 @@ def test_compensation_workflow_sets_scheduler_context_and_issue_rule():
 
     assert "SCHEDULER_TRIGGER_KIND: compensation" in content
     assert "SCHEDULER_COMPENSATION_RUN: \"true\"" in content
-    assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
+    assert "PUSHPLUS_SECRETKEY" not in content
+    assert "TELEGRAM_BOT_TOKEN" not in content
+    assert "FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}" in content
     assert "actions/github-script@v9.0.0" in content
     assert "consecutive compensation failures" in content
     assert "stefanzweifel/git-auto-commit-action@v4" not in content
@@ -287,7 +289,9 @@ def test_canary_workflow_uses_feishu_card_path_and_issue_rule():
     content = (ROOT_DIR / ".github" / "workflows" / "delivery-canary.yml").read_text(encoding="utf-8")
 
     assert "--mode full-report --send --channels feishu --require-feishu-card-success" in content
-    assert "PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}" in content
+    assert "PUSHPLUS_SECRETKEY" not in content
+    assert "TELEGRAM_BOT_TOKEN" not in content
+    assert "FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}" in content
     assert "actions/github-script@v9.0.0" in content
     assert "consecutive canary failures" in content
 

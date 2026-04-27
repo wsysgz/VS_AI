@@ -223,6 +223,8 @@ def test_build_pages_site_generates_search_index_feed_and_rss(tmp_path: Path):
     assert search_index["entries"][0]["domain"]
     assert search_index["entries"][0]["source"]
     assert "tags" in search_index["entries"][0]
+    assert search_index["entries"][0]["domain"] not in search_index["entries"][0]["tags"]
+    assert search_index["entries"][0]["source"] not in search_index["entries"][0]["tags"]
     assert feed["version"] == "https://jsonfeed.org/version/1.1"
     assert len(feed["items"]) == 2
     assert "<rss" in rss
@@ -249,6 +251,24 @@ def test_build_pages_site_homepage_and_archives_are_data_driven(tmp_path: Path):
     assert "Anthropic 平台更新" in archive_day
     assert "按领域浏览" in archive_index
     assert "按来源浏览" in archive_index
+
+
+def test_build_pages_site_pages_define_inline_favicon(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    archive_index = (tmp_path / "docs" / "archives" / "index.html").read_text(encoding="utf-8")
+    day_html = (tmp_path / "docs" / "archives" / "2026-04-11" / "index.html").read_text(encoding="utf-8")
+    article_html = (tmp_path / "docs" / "archives" / "2026-04-11" / "signals" / "1" / "index.html").read_text(
+        encoding="utf-8"
+    )
+
+    for page_html in (index_html, archive_index, day_html, article_html):
+        assert 'rel="icon"' in page_html
+        assert "data:image/svg+xml" in page_html
 
 
 def test_build_pages_site_homepage_renders_chinese_workbench_and_comparison(tmp_path: Path):
@@ -352,6 +372,26 @@ def test_build_pages_site_signal_cards_link_to_article_teasers(tmp_path: Path):
     assert "OpenAI 发布新版本，强调推理效率与稳定交付" not in article_html
 
 
+def test_build_pages_site_search_results_escape_dynamic_fields(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    latest["signals"][0]["title"] = 'OpenAI <img src=x onerror="alert(1)">'
+    latest["signals"][0]["tags"] = ["<script>alert(1)</script>", "release"]
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+
+    assert "function escapeHtml" in index_html
+    assert "function safeSearchHref" in index_html
+    assert "${escapeHtml(entry.date || \"\")}" in index_html
+    assert "${escapeHtml(entry.title || \"\")}" in index_html
+    assert "${escapeHtml(tag)}" in index_html
+    assert "safeSearchHref(articleUrl)" in index_html
+    assert "${entry.title}" not in index_html
+    assert "${tag}" not in index_html
+
+
 def test_build_pages_site_recent_archive_cards_link_to_report_teasers(tmp_path: Path):
     latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
     _write_report_set(tmp_path, "2026-04-11", latest)
@@ -378,7 +418,7 @@ def test_build_pages_site_keeps_private_ops_fields_out_of_public_pages(tmp_path:
     (tmp_path / "data" / "state" / "run-status.json").write_text(
         json.dumps(
             {
-                "delivery_results": {"channels": {"pushplus": {"error_type": "network"}}},
+                "delivery_results": {"channels": {"feishu": {"error_type": "network"}}},
                 "scheduler": {"trigger_kind": "compensation", "compensation_run": True},
             },
             ensure_ascii=False,

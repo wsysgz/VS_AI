@@ -42,7 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
     diagnose_parser.add_argument(
         "--channels",
         default="",
-        help="Optional comma-separated channels to test (feishu,pushplus,telegram)",
+        help="Optional comma-separated channels to test (feishu)",
     )
     diagnose_parser.add_argument(
         "--require-feishu-card-success",
@@ -53,7 +53,7 @@ def build_parser() -> argparse.ArgumentParser:
     # CI 专用命令 — Phase 0: 拆分为三个独立阶段供多 job workflow 使用
     subparsers.add_parser("collect-only", help="[CI] Collect + dedup + classify + score, save intermediate result")
     subparsers.add_parser("analyze-only", help="[CI] Run AI 3-stage pipeline on collected data")
-    render_and_push_parser = subparsers.add_parser("render-and-push", help="[CI] Render MD/JSON/HTML + push to all channels + archive")
+    render_and_push_parser = subparsers.add_parser("render-and-push", help="[CI] Render MD/JSON/HTML + push to Feishu + archive")
     _add_publication_mode_argument(render_and_push_parser)
     _add_review_metadata_arguments(render_and_push_parser)
     subparsers.add_parser("build-pages", help="[CI] Build GitHub Pages site (index + archives)")

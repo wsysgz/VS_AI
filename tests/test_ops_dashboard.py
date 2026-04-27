@@ -19,27 +19,15 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
                     "compensation_run": True,
                 },
                 "delivery_results": {
-                    "successful_channels": ["telegram"],
-                    "failed_channels": ["pushplus"],
-                    "skipped_channels": ["feishu"],
+                    "successful_channels": [],
+                    "failed_channels": ["feishu"],
+                    "skipped_channels": [],
                     "channels": {
-                        "pushplus": {
+                        "feishu": {
                             "status": "error",
                             "detail": "request timed out",
                             "error_type": "network",
                             "attempted_at": "2026-04-11T07:29:00+08:00",
-                        },
-                        "telegram": {
-                            "status": "ok",
-                            "detail": "1 message(s)",
-                            "error_type": None,
-                            "attempted_at": "2026-04-11T07:29:05+08:00",
-                        },
-                        "feishu": {
-                            "status": "skipped",
-                            "detail": "missing config",
-                            "error_type": None,
-                            "attempted_at": None,
                         },
                     },
                 },
@@ -98,7 +86,7 @@ def test_build_ops_dashboard_writes_private_dashboard(tmp_path: Path):
     html = output_path.read_text(encoding="utf-8")
     assert "Operations Dashboard" in html
     assert "compensation" in html
-    assert "pushplus" in html
+    assert "feishu" in html
     assert "network" in html
     assert "request timed out" in html
     assert "AI Metrics" in html
@@ -122,15 +110,15 @@ def test_build_ops_dashboard_renders_prompt_eval_history_and_regression_watch(tm
             {
                 "generated_at": "2026-04-11T07:30:00+08:00",
                 "pushed": True,
-                "push_channel": "telegram",
+                "push_channel": "feishu",
                 "risk_level": "medium",
                 "scheduler": {"trigger_kind": "schedule", "compensation_run": False},
                 "delivery_results": {
-                    "successful_channels": ["telegram"],
+                    "successful_channels": ["feishu"],
                     "failed_channels": [],
                     "skipped_channels": [],
                     "channels": {
-                        "telegram": {
+                        "feishu": {
                             "status": "ok",
                             "detail": "1 message(s)",
                             "error_type": None,

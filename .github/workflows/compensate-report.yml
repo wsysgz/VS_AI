@@ -34,8 +34,8 @@ jobs:
           if (Test-Path $runStatusPath) {
             $status = Get-Content -Raw $runStatusPath | ConvertFrom-Json
             $isTodayStatus = $status.generated_at -like "$today*"
-            $allChannelsFailed = ($status.delivery_results.failed_channels.Count -gt 0) -and ($status.delivery_results.successful_channels.Count -eq 0)
-            if ($isTodayStatus -and $allChannelsFailed) {
+            $feishuDeliveryFailed = ($status.delivery_results.failed_channels -contains "feishu") -and ($status.delivery_results.successful_channels.Count -eq 0)
+            if ($isTodayStatus -and $feishuDeliveryFailed) {
               $shouldCompensate = $true
             }
           }
@@ -87,10 +87,6 @@ jobs:
           FORECAST_AI_BASE_URL: ${{ vars.FORECAST_AI_BASE_URL || '' }}
           FORECAST_AI_MODEL: ${{ vars.FORECAST_AI_MODEL || 'deepseek-v4-pro' }}
           FORECAST_AI_API_KEY: ${{ secrets.FORECAST_AI_API_KEY }}
-          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
-          PUSHPLUS_SECRETKEY: ${{ secrets.PUSHPLUS_SECRETKEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           FEISHU_CHAT_ID: ${{ secrets.FEISHU_CHAT_ID }}

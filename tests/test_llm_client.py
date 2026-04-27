@@ -233,6 +233,33 @@ class TestProviderConfigResolution:
         ):
             assert is_llm_enabled() is True
 
+    def test_ai_disable_llm_forces_local_validation_off(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_DISABLE_LLM": "true",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+                "ANALYSIS_DEEPSEEK_API_KEY": "analysis-key",
+            },
+            clear=False,
+        ):
+            assert is_llm_enabled() is False
+
+    def test_ai_disable_llm_marks_metrics_disabled(self):
+        with patch.dict(
+            os.environ,
+            {
+                "AI_DISABLE_LLM": "true",
+                "DEEPSEEK_API_KEY": "deepseek-key",
+            },
+            clear=False,
+        ):
+            reset_llm_metrics()
+            metrics = get_llm_metrics()
+            assert metrics["provider"] == "disabled"
+            assert metrics["model"] == ""
+            assert metrics["calls"] == 0
+
     def test_global_backup_provider_resolution(self):
         with patch.dict(
             os.environ,

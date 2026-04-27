@@ -11,15 +11,12 @@ def test_load_settings_reads_domains_and_sources():
     assert "rss" in settings.sources
 
 
-def test_load_settings_includes_morning_schedule_and_push_channel_defaults(monkeypatch):
-    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
-    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
+def test_load_settings_includes_morning_schedule_and_report_defaults(monkeypatch):
     settings = load_settings(Path.cwd())
     assert settings.schedules["jobs"]["daily"]["cron"] == "13 23 * * *"
-    assert settings.env["PUSHPLUS_CHANNEL"] == "clawbot"
     assert settings.env["REPORT_REPO_URL"] == "https://github.com/wsysgz/VS_AI"
-    assert "TELEGRAM_BOT_TOKEN" in settings.env
-    assert "TELEGRAM_CHAT_ID" in settings.env
+    assert "PUSHPLUS_TOKEN" not in settings.env
+    assert "TELEGRAM_BOT_TOKEN" not in settings.env
 
 
 def test_load_settings_exposes_scheduler_defaults():
@@ -183,8 +180,6 @@ def test_load_settings_includes_delivery_endpoint_defaults(tmp_path, monkeypatch
     monkeypatch.delenv("LARK_CLI_PATH", raising=False)
     monkeypatch.delenv("LARK_CLI_PROFILE", raising=False)
     settings = load_settings(tmp_path)
-    assert settings.env["PUSHPLUS_BASE_URL"] == "https://www.pushplus.plus"
-    assert settings.env["TELEGRAM_API_BASE_URL"] == "https://api.telegram.org"
     assert settings.env["FEISHU_API_BASE_URL"] == "https://open.feishu.cn"
     assert settings.env["DELIVERY_REQUEST_TIMEOUT"] == "20"
     assert settings.env["LARK_CLI_PATH"] == "D:\\AI\\Feishu\\feushu_cli\\lark-cli.exe"

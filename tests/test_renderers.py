@@ -3,8 +3,6 @@ from auto_report.outputs.renderers import (
     render_feishu_notification,
     render_html_report,
     render_markdown_report,
-    render_pushplus_notification,
-    render_telegram_notification,
     render_text_notification,
 )
 
@@ -121,50 +119,6 @@ def test_render_text_notification_uses_executive_brief_short_shape():
     assert "1. 评估框架增加" in text
     assert "提醒：" in text
     assert "观察：" in text
-    assert "公开阅读：" in text
-    assert "GitHub 原文：" in text
-
-
-def test_render_pushplus_notification_uses_short_shape():
-    text = render_pushplus_notification(
-        title="AI情报早报 | 2026-04-10 | 北京时间 07:00",
-        generated_at="2026-04-10T07:00:00+08:00",
-        payload=_sample_payload(),
-        public_site_url="https://wsysgz.github.io/VS_AI/",
-        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
-    )
-
-    assert text.startswith("AI情报早报 |")
-    assert "今日判断：" in text
-    assert "三条主线：" in text
-    assert "国内外对比：" in text
-    assert "frontier-ai：国内 Qwen edge agent release；海外 OpenAI agent runtime release。" in text
-    assert "embedded：国内 RISC-V edge update；海外 NXP edge AI update。" in text
-    assert "fpga：国内 FPGA update CN；海外 AMD Vitis update。" not in text
-    assert "公开阅读：" in text
-    assert "GitHub 原文：" in text
-    assert "执行摘要" not in text
-    assert "重点主题" not in text
-
-
-def test_render_telegram_notification_uses_full_brief_shape():
-    payload = _sample_payload()
-    payload["meta"]["publication_mode"] = "reviewed"
-    payload["meta"]["review"] = {"reviewer": "Alice", "review_note": "checked key sources"}
-    text = render_telegram_notification(
-        title="AI情报完整简报 | 2026-04-10 | 北京时间 07:00",
-        generated_at="2026-04-10T07:00:00+08:00",
-        payload=payload,
-        public_site_url="https://wsysgz.github.io/VS_AI/",
-        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
-    )
-
-    assert "执行摘要" in text
-    assert "关键主线" in text
-    assert "重点主题" in text
-    assert "局限与提醒" in text
-    assert "复核信息" in text
-    assert "Alice" in text
     assert "公开阅读：" in text
     assert "GitHub 原文：" in text
 

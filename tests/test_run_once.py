@@ -73,48 +73,25 @@ def test_build_run_status_includes_scheduler_context():
     }
 
 
-def test_build_run_status_summarizes_push_responses():
+def test_build_run_status_ignores_retired_delivery_responses():
     status = build_run_status(
         generated_files=["data/reports/latest-summary.md"],
         pushed=True,
-        push_channel="clawbot",
+        push_channel="feishu",
         push_response={
-            "pushplus": {
-                "code": 200,
-                "msg": "执行成功",
-                "data": "pushplus-id",
-                "extra": "should-not-be-copied",
-            },
-            "telegram": [
-                {
-                    "ok": True,
-                    "result": {
-                        "message_id": 7,
-                        "text": "# 自动情报快报",
-                        "chat": {"id": 8566057843, "username": "wsysgz"},
-                    },
-                },
-                {
-                    "ok": True,
-                    "result": {
-                        "message_id": 8,
-                        "text": "详情链接",
-                        "chat": {"id": 8566057843, "username": "wsysgz"},
-                    },
-                },
-            ],
+            "pushplus": {"code": 200, "msg": "retired"},
+            "telegram": [{"ok": True, "result": {"message_id": 7}}],
+            "feishu": [{"code": 0, "msg": "success", "data": {"message_id": "om_1"}}],
         },
     )
 
-    assert status["push_response"]["pushplus"] == {
-        "code": 200,
-        "msg": "执行成功",
-        "data": "pushplus-id",
-    }
-    assert status["push_response"]["telegram"] == {
-        "ok": True,
-        "messages_sent": 2,
-        "message_ids": [7, 8],
+    assert status["push_response"] == {
+        "feishu": {
+            "ok": True,
+            "messages_sent": 1,
+            "message_ids": ["om_1"],
+            "description": "success",
+        }
     }
 
 
@@ -564,7 +541,7 @@ def test_run_once_skips_push_when_disabled(tmp_path, monkeypatch):
         lambda settings: (sample_items, ["测试诊断"]),
     )
     monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
+        "auto_report.app.send_feishu_messages",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("push should be skipped")),
     )
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "false")
@@ -598,21 +575,24 @@ def test_run_once_records_reviewed_publication_mode_and_detail_link(tmp_path, mo
         )
     ]
 
-    captured: dict[str, str] = {}
+    captured: dict[str, object] = {}
 
     monkeypatch.setattr(
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
 
-    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key="", **kwargs):
-        captured["title"] = title
-        captured["content"] = content
-        return {"code": 200}
+    def fake_send_feishu_messages(app_id, app_secret, chat_id, text, **kwargs):
+        captured["app_id"] = app_id
+        captured["chat_id"] = chat_id
+        captured["text"] = text
+        captured["card"] = kwargs.get("card")
+        return [{"code": 0, "msg": "success", "data": {"message_id": "om_1"}, "delivery_kind": "card_success"}]
 
-    monkeypatch.setattr("auto_report.app.send_pushplus", fake_send_pushplus)
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
+    monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
 
     run_once(
@@ -628,120 +608,9 @@ def test_run_once_records_reviewed_publication_mode_and_detail_link(tmp_path, mo
     assert status["review"]["reviewer"] == "Alice"
     assert status["review"]["review_note"] == "checked key sources"
     assert any(path.endswith("latest-summary-reviewed.md") for path in status["generated_files"])
-    assert "https://wsysgz.github.io/VS_AI/" in captured["content"]
-    assert "latest-summary-reviewed.md" in captured["content"]
-
-
-def test_run_once_uses_configured_pushplus_channel(tmp_path, monkeypatch):
-    root = Path.cwd()
-    shutil.copytree(root / "config", tmp_path / "config")
-
-    sample_items = [
-        CollectedItem(
-            source_id="rss",
-            item_id="1",
-            title="Agent platform launched",
-            url="https://example.com/agent-platform",
-            summary="A new reasoning agent stack for enterprise deployment",
-            published_at="2026-04-09T00:00:00+00:00",
-            collected_at="2026-04-09T01:00:00+00:00",
-            tags=["agent", "reasoning"],
-            language="en",
-            metadata={},
-        )
-    ]
-
-    captured: dict[str, str] = {}
-
-    monkeypatch.setattr(
-        "auto_report.app.collect_all_items",
-        lambda settings: (sample_items, ["测试诊断"]),
-    )
-
-    def fake_send_pushplus(token, title, content, channel="", template="markdown", secret_key="", **kwargs):
-        captured["channel"] = channel
-        captured["template"] = template
-        captured["content"] = content
-        return {"code": 200}
-
-    monkeypatch.setattr("auto_report.app.send_pushplus", fake_send_pushplus)
-    monkeypatch.setattr(
-        "auto_report.app.send_telegram_messages",
-        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should be skipped")),
-    )
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
-    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
-    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
-
-    run_once(tmp_path)
-
-    assert captured["content"].startswith("AI情报早报 |")
-    assert captured["channel"] == "clawbot"
-    assert captured["template"] == "txt"
-    assert "今日判断：" in captured["content"]
-    assert "三条主线：" in captured["content"]
-    assert "公开阅读：" in captured["content"]
-    assert "GitHub 原文：" in captured["content"]
-    assert "https://wsysgz.github.io/VS_AI/" in captured["content"]
-    assert "https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary-auto.md" in captured["content"]
-    assert "执行摘要" not in captured["content"]
-
-
-def test_run_once_sends_full_telegram_report_when_configured(tmp_path, monkeypatch):
-    root = Path.cwd()
-    shutil.copytree(root / "config", tmp_path / "config")
-
-    sample_items = [
-        CollectedItem(
-            source_id="rss",
-            item_id="1",
-            title="Agent platform launched",
-            url="https://example.com/agent-platform",
-            summary="A new reasoning agent stack for enterprise deployment",
-            published_at="2026-04-09T00:00:00+00:00",
-            collected_at="2026-04-09T01:00:00+00:00",
-            tags=["agent", "reasoning"],
-            language="en",
-            metadata={},
-        )
-    ]
-
-    captured: dict[str, str] = {}
-
-    monkeypatch.setattr(
-        "auto_report.app.collect_all_items",
-        lambda settings: (sample_items, ["测试诊断"]),
-    )
-    monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
-        lambda *args, **kwargs: {"code": 200},
-    )
-
-    def fake_send_telegram_messages(token, chat_id, text, **kwargs):
-        captured["token"] = token
-        captured["chat_id"] = chat_id
-        captured["text"] = text
-        return [{"ok": True}]
-
-    monkeypatch.setattr("auto_report.app.send_telegram_messages", fake_send_telegram_messages)
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "8566057843")
-    monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
-
-    run_once(tmp_path)
-
-    assert captured["token"] == "telegram-token"
-    assert captured["chat_id"] == "8566057843"
-    assert captured["text"].startswith("AI情报完整简报 |")
-    assert "执行摘要" in captured["text"]
-    assert "关键主线" in captured["text"]
-    assert "重点主题" in captured["text"]
-    assert "公开阅读：" in captured["text"]
-    assert "GitHub 原文：" in captured["text"]
+    assert "https://wsysgz.github.io/VS_AI/" in str(captured["text"])
+    assert "latest-summary-reviewed.md" in str(captured["text"])
+    assert captured["card"]
 
 
 def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monkeypatch):
@@ -769,15 +638,6 @@ def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monke
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
-    monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
-        lambda *args, **kwargs: {"code": 200},
-    )
-    monkeypatch.setattr(
-        "auto_report.app.send_telegram_messages",
-        lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}],
-    )
-
     def fake_send_feishu_messages(app_id, app_secret, chat_id, text, **kwargs):
         captured["app_id"] = app_id
         captured["chat_id"] = chat_id
@@ -785,10 +645,6 @@ def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monke
         return [{"code": 0, "data": {"message_id": "om_1"}}]
 
     monkeypatch.setattr("auto_report.app.send_feishu_messages", fake_send_feishu_messages)
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "8566057843")
     monkeypatch.setenv("FEISHU_APP_ID", "feishu-app")
     monkeypatch.setenv("FEISHU_APP_SECRET", "feishu-secret")
     monkeypatch.setenv("FEISHU_CHAT_ID", "oc_xxx")
@@ -807,7 +663,7 @@ def test_run_once_sends_feishu_mid_length_report_when_configured(tmp_path, monke
     assert "GitHub 原文：" in captured["text"]
 
 
-def test_run_once_prefers_feishu_as_primary_delivery_channel(tmp_path, monkeypatch):
+def test_run_once_ignores_retired_channels_even_when_configured(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
 
@@ -830,8 +686,16 @@ def test_run_once_prefers_feishu_as_primary_delivery_channel(tmp_path, monkeypat
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
-    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
-    monkeypatch.setattr("auto_report.app.send_telegram_messages", lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}])
+    monkeypatch.setattr(
+        "auto_report.app.send_pushplus",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pushplus should be retired")),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        "auto_report.app.send_telegram_messages",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should be retired")),
+        raising=False,
+    )
     monkeypatch.setattr("auto_report.app.send_feishu_messages", lambda *args, **kwargs: [{"code": 0, "data": {"message_id": "om_1"}}])
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
     monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
@@ -845,8 +709,9 @@ def test_run_once_prefers_feishu_as_primary_delivery_channel(tmp_path, monkeypat
     run_once(tmp_path)
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
-    assert status["push_channel"] == "feishu,pushplus,telegram"
-    assert status["delivery_results"]["successful_channels"] == ["feishu", "pushplus", "telegram"]
+    assert status["push_channel"] == "feishu"
+    assert status["delivery_results"]["successful_channels"] == ["feishu"]
+    assert set(status["delivery_results"]["channels"]) == {"feishu"}
 
 
 def test_run_once_records_feishu_sidecar_status_when_enabled(tmp_path, monkeypatch):
@@ -872,7 +737,6 @@ def test_run_once_records_feishu_sidecar_status_when_enabled(tmp_path, monkeypat
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
-    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
     monkeypatch.setattr(
         "auto_report.app.sync_feishu_workspace_sidecar",
         lambda *args, **kwargs: {"report_doc": {"doc_token": "doc_1"}},
@@ -880,10 +744,6 @@ def test_run_once_records_feishu_sidecar_status_when_enabled(tmp_path, monkeypat
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
     monkeypatch.setenv("FEISHU_SIDECAR_ENABLED", "true")
     monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
-    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     monkeypatch.delenv("FEISHU_APP_ID", raising=False)
     monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
     monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
@@ -919,8 +779,6 @@ def test_run_once_skips_feishu_sidecar_in_github_actions(tmp_path, monkeypatch):
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
-    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
-
     def _unexpected_sidecar(*args, **kwargs):
         raise AssertionError("sidecar should not run in GitHub Actions")
 
@@ -928,10 +786,6 @@ def test_run_once_skips_feishu_sidecar_in_github_actions(tmp_path, monkeypatch):
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
     monkeypatch.setenv("FEISHU_SIDECAR_ENABLED", "true")
     monkeypatch.setenv("GITHUB_ACTIONS", "true")
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
-    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     monkeypatch.delenv("FEISHU_APP_ID", raising=False)
     monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
     monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
@@ -961,13 +815,11 @@ def test_cmd_sync_feishu_workspace_skips_in_github_actions(tmp_path, monkeypatch
     assert status["reason"] == "github_actions"
 
 
-def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
+def test_cmd_diagnose_delivery_uses_feishu_only(monkeypatch):
     tmp_path = Path.cwd()
 
     captured: dict[str, object] = {}
 
-    monkeypatch.setattr("auto_report.app._build_text_notification", lambda *args, **kwargs: "pushplus text")
-    monkeypatch.setattr("auto_report.app._build_telegram_notification", lambda *args, **kwargs: "telegram text")
     monkeypatch.setattr("auto_report.app._build_feishu_notification", lambda *args, **kwargs: "feishu text")
     monkeypatch.setattr(
         "auto_report.app._build_feishu_notification_card",
@@ -983,10 +835,12 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     monkeypatch.setattr(
         "auto_report.app.send_pushplus",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pushplus should not send")),
+        raising=False,
     )
     monkeypatch.setattr(
         "auto_report.app.send_telegram_messages",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should not send")),
+        raising=False,
     )
     monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
     monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
@@ -1000,7 +854,6 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
         tmp_path,
         send=True,
         mode="full-report",
-        channels="feishu",
         require_feishu_card_success=True,
     )
 
@@ -1008,17 +861,25 @@ def test_cmd_diagnose_delivery_can_filter_to_feishu_only(monkeypatch):
     assert captured["card"] == {"header": {"title": {"content": "card"}}, "elements": []}
     assert summary["successful_channels"] == ["feishu"]
     assert summary["channels"]["feishu"]["delivery_kind"] == "card_success"
-    assert summary["channels"]["pushplus"]["attempted"] is False
-    assert summary["channels"]["pushplus"]["detail"] == "filtered"
-    assert summary["channels"]["telegram"]["attempted"] is False
-    assert summary["channels"]["telegram"]["detail"] == "filtered"
+    assert set(summary["channels"]) == {"feishu"}
+
+
+def test_cmd_diagnose_delivery_rejects_retired_channels(monkeypatch):
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
+
+    try:
+        cmd_diagnose_delivery(Path.cwd(), send=False, channels="pushplus,telegram")
+    except ValueError as exc:
+        assert "Unsupported delivery channels: pushplus, telegram" in str(exc)
+    else:
+        raise AssertionError("retired channels should be rejected")
 
 
 def test_cmd_diagnose_delivery_fails_when_feishu_falls_back_to_text(monkeypatch):
     tmp_path = Path.cwd()
 
-    monkeypatch.setattr("auto_report.app._build_text_notification", lambda *args, **kwargs: "pushplus text")
-    monkeypatch.setattr("auto_report.app._build_telegram_notification", lambda *args, **kwargs: "telegram text")
     monkeypatch.setattr("auto_report.app._build_feishu_notification", lambda *args, **kwargs: "feishu text")
     monkeypatch.setattr(
         "auto_report.app._build_feishu_notification_card",
@@ -1031,15 +892,13 @@ def test_cmd_diagnose_delivery_fails_when_feishu_falls_back_to_text(monkeypatch)
     monkeypatch.setattr(
         "auto_report.app.send_pushplus",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pushplus should not send")),
+        raising=False,
     )
     monkeypatch.setattr(
         "auto_report.app.send_telegram_messages",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("telegram should not send")),
+        raising=False,
     )
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
     monkeypatch.setenv("FEISHU_APP_ID", "app-id")
     monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
     monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
@@ -1082,21 +941,10 @@ def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatc
         lambda settings: (sample_items, ["测试诊断"]),
     )
     monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
-        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("pushplus down")),
-    )
-    monkeypatch.setattr(
-        "auto_report.app.send_telegram_messages",
-        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("telegram down")),
-    )
-    monkeypatch.setattr(
         "auto_report.app.send_feishu_messages",
         lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("feishu down")),
     )
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
     monkeypatch.setenv("FEISHU_APP_ID", "app-id")
     monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
     monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
@@ -1105,10 +953,11 @@ def test_run_once_marks_pushed_false_when_all_channels_fail(tmp_path, monkeypatc
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
     assert status["pushed"] is False
-    assert status["delivery_results"]["failed_channels"] == ["feishu", "pushplus", "telegram"]
+    assert status["delivery_results"]["failed_channels"] == ["feishu"]
+    assert set(status["delivery_results"]["channels"]) == {"feishu"}
 
 
-def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monkeypatch):
+def test_run_once_leaves_push_channel_empty_when_feishu_fails(tmp_path, monkeypatch):
     root = Path.cwd()
     shutil.copytree(root / "config", tmp_path / "config")
 
@@ -1131,14 +980,8 @@ def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monke
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
     )
-    monkeypatch.setattr("auto_report.app.send_pushplus", lambda *args, **kwargs: {"code": 200})
-    monkeypatch.setattr("auto_report.app.send_telegram_messages", lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}])
     monkeypatch.setattr("auto_report.app.send_feishu_messages", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("feishu down")))
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
     monkeypatch.setenv("FEISHU_APP_ID", "app-id")
     monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
     monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
@@ -1146,8 +989,8 @@ def test_run_once_marks_only_successful_channels_in_push_channel(tmp_path, monke
     run_once(tmp_path)
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
-    assert status["push_channel"] == "pushplus,telegram"
-    assert status["delivery_results"]["successful_channels"] == ["pushplus", "telegram"]
+    assert status["push_channel"] == ""
+    assert status["delivery_results"]["successful_channels"] == []
     assert status["delivery_results"]["failed_channels"] == ["feishu"]
 
 
@@ -1175,36 +1018,28 @@ def test_run_once_persists_scheduler_and_delivery_error_metadata(tmp_path, monke
         lambda settings: (sample_items, ["测试诊断"]),
     )
     monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
+        "auto_report.app.send_feishu_messages",
         lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("request timed out")),
     )
-    monkeypatch.setattr(
-        "auto_report.app.send_telegram_messages",
-        lambda *args, **kwargs: [{"ok": True, "result": {"message_id": 1}}],
-    )
-    monkeypatch.delenv("FEISHU_APP_ID", raising=False)
-    monkeypatch.delenv("FEISHU_APP_SECRET", raising=False)
-    monkeypatch.delenv("FEISHU_CHAT_ID", raising=False)
+    monkeypatch.setenv("FEISHU_APP_ID", "app-id")
+    monkeypatch.setenv("FEISHU_APP_SECRET", "app-secret")
+    monkeypatch.setenv("FEISHU_CHAT_ID", "chat-id")
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "true")
-    monkeypatch.setenv("PUSHPLUS_TOKEN", "token")
-    monkeypatch.setenv("PUSHPLUS_CHANNEL", "clawbot")
-    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-token")
-    monkeypatch.setenv("TELEGRAM_CHAT_ID", "chat-id")
     monkeypatch.setenv("SCHEDULER_TRIGGER_KIND", "compensation")
     monkeypatch.setenv("SCHEDULER_COMPENSATION_RUN", "true")
 
     run_once(tmp_path)
 
     status = json.loads((tmp_path / "data" / "state" / "run-status.json").read_text(encoding="utf-8"))
-    pushplus = status["delivery_results"]["channels"]["pushplus"]
+    feishu = status["delivery_results"]["channels"]["feishu"]
 
     assert status["scheduler"] == {
         "trigger_kind": "compensation",
         "compensation_run": True,
     }
-    assert pushplus["error_type"] == "network"
-    assert pushplus["attempted_at"]
-    assert status["delivery_results"]["channels"]["telegram"]["attempted_at"]
+    assert feishu["error_type"] == "network"
+    assert feishu["attempted_at"]
+    assert set(status["delivery_results"]["channels"]) == {"feishu"}
 
 
 def test_run_once_writes_external_enrichment_metrics_into_run_status(tmp_path, monkeypatch):
@@ -1229,10 +1064,6 @@ def test_run_once_writes_external_enrichment_metrics_into_run_status(tmp_path, m
     monkeypatch.setattr(
         "auto_report.app.collect_all_items",
         lambda settings: (sample_items, ["测试诊断"]),
-    )
-    monkeypatch.setattr(
-        "auto_report.app.send_pushplus",
-        lambda *args, **kwargs: {"code": 200},
     )
     monkeypatch.setenv("AUTO_PUSH_ENABLED", "false")
 

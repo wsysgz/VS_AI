@@ -97,9 +97,9 @@ def test_build_run_status_with_error():
     status = build_run_status(
         generated_files=["test.md"],
         pushed=False,
-        error="Telegram API timeout",
+        error="Feishu API timeout",
     )
-    assert status["error"] == "Telegram API timeout"
+    assert status["error"] == "Feishu API timeout"
 
 
 def test_build_run_status_preserves_existing_fields():
@@ -107,13 +107,13 @@ def test_build_run_status_preserves_existing_fields():
     status = build_run_status(
         generated_files=["data/test.md"],
         pushed=True,
-        push_channel="clawbot",
+        push_channel="feishu",
         stage_status={"analysis": "ok"},
         source_stats={"collected_items": 42, "report_topics": 10},
         timings={"total": 120.5},
     )
     assert status["pushed"] is True
-    assert status["push_channel"] == "clawbot"
+    assert status["push_channel"] == "feishu"
     assert status["stage_status"]["analysis"] == "ok"
     assert status["source_stats"]["collected_items"] == 42
     assert status["source_stats"]["report_topics"] == 10

@@ -136,8 +136,6 @@ OPS_DESK_TABLE_SPECS = {
             "risk_level",
             "feishu_message_id",
             "trace_url",
-            "pushplus_status",
-            "telegram_status",
             "reviewer",
         ],
         "field_labels": {
@@ -150,8 +148,6 @@ OPS_DESK_TABLE_SPECS = {
             "risk_level": "风险等级",
             "feishu_message_id": "飞书消息 ID",
             "trace_url": "Trace 链接",
-            "pushplus_status": "PushPlus 状态",
-            "telegram_status": "Telegram 状态",
             "reviewer": "审核人",
         },
         "views": [
@@ -516,8 +512,6 @@ def _build_delivery_audit_table(run_status_payload: dict[str, Any], review_paylo
         "risk_level": _coerce_cell_value(run_status_payload.get("risk_level", "")),
         "feishu_status": _coerce_cell_value(channels.get("feishu", {}).get("status", "")),
         "feishu_message_id": _coerce_cell_value(message_ids[0] if isinstance(message_ids, list) and message_ids else ""),
-        "pushplus_status": _coerce_cell_value(channels.get("pushplus", {}).get("status", "")),
-        "telegram_status": _coerce_cell_value(channels.get("telegram", {}).get("status", "")),
         "card_verified": _coerce_cell_value(review_item.get("card_verified", "")),
         "fallback_observed": _coerce_cell_value(review_item.get("fallback_observed", "")),
         "delivery_note": _coerce_cell_value(review_item.get("delivery_note", "")),

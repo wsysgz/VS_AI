@@ -65,6 +65,10 @@ def _stage_prefix(stage: str | None = None) -> str:
     return f"{normalized}_" if normalized else ""
 
 
+def _llm_forced_disabled() -> bool:
+    return os.environ.get("AI_DISABLE_LLM", "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _resolve_api_key(provider: str, defaults: dict[str, str], stage: str | None = None) -> tuple[str, str]:
     prefix = _stage_prefix(stage)
     stage_ai_key_env = f"{prefix}AI_API_KEY" if prefix else ""
@@ -238,6 +242,17 @@ def _empty_token_usage() -> dict[str, int]:
 
 
 def _default_llm_metrics(config: dict[str, str] | None = None) -> dict[str, object]:
+    if _llm_forced_disabled():
+        return {
+            "provider": "disabled",
+            "model": "",
+            "calls": 0,
+            "token_usage": _empty_token_usage(),
+            "latency_seconds": 0.0,
+            "backup_stages": [],
+            "guardrail_stages": [],
+            "stage_breakdown": {},
+        }
     resolved = config or _resolve_provider_config()
     return {
         "provider": resolved.get("provider", ""),
@@ -662,6 +677,8 @@ def _call_provider_with_retries(
 
 
 def is_llm_enabled() -> bool:
+    if _llm_forced_disabled():
+        return False
     if _resolve_provider_config().get("api_key"):
         return True
 
@@ -688,6 +705,9 @@ def call_llm(prompt: str, stage: str | None = None) -> str:
       - HTTP 429 Rate Limit: 等 60s 后重试
       - 超时时间递增: 45s -> 55s -> 65s
     """
+    if _llm_forced_disabled():
+        raise RuntimeError("LLM calls are disabled by AI_DISABLE_LLM")
+
     primary_config = _resolve_provider_config(stage=stage)
     backup_config = _resolve_backup_provider_config(stage=stage)
     budget = _resolve_stage_budget(stage=stage)

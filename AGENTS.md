@@ -9,7 +9,7 @@
 
 ## Project Status
 
-- Current baseline: `292 passed`
+- Current baseline: `333 passed`
 - Main workflow chain:
   - workflow guard
   - tests
@@ -38,6 +38,7 @@ $env:PYTHONPATH = "src"
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AI_DISABLE_LLM = "true"
 $env:AUTO_PUSH_ENABLED = "false"
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
@@ -45,6 +46,13 @@ python -m auto_report.cli build-ops-dashboard
 python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
+
+### Codex Local Review Policy
+
+- Local validation is executed and reviewed by Codex in this workspace.
+- Do not call DeepSeek solely to validate local code changes.
+- Set `$env:AI_DISABLE_LLM='true'` for local validation runs that only need deterministic pipeline checks.
+- When DeepSeek-generated reports, `ai_metrics`, or historical analysis are present, compare them against repo truth, tests, and rendered artifacts; record gaps and patch prompts, tests, docs, or code as needed.
 
 ### Remote Run Policy
 
@@ -61,6 +69,11 @@ python -m auto_report.cli build-review-queue
 - Do not mix P2 infrastructure work, P3 delivery-surface work, and governance tail work in one batch unless the user explicitly asks for a combined push.
 - If a new idea belongs to a later stage, record it in the roadmap and keep the current session focused on the active stage.
 
+## Web Preview Preference
+
+- When webpage preview is useful, start or reuse the local preview server as needed and send the URL directly to the user.
+- Do not pause to ask whether the user wants a browser/visual companion unless the user explicitly asks for mockups, visual comparison, or design review flow.
+
 ## AI Provider Notes
 
 - The current repo already supports OpenAI-compatible providers through `src/auto_report/integrations/llm_client.py`.
@@ -74,11 +87,12 @@ python -m auto_report.cli build-review-queue
 
 1. `data/state/run-status.json` is the source of truth for delivery, risk, AI metrics, source health, source registry, and source governance.
 2. `workflow_dispatch` runs the pushed remote ref, not local unpushed changes.
-3. Notifications always include both:
+3. Feishu is the only active delivery channel; retired non-Feishu channels must not be reintroduced.
+4. Notifications always include both:
    - `https://wsysgz.github.io/VS_AI/`
    - the current GitHub raw report link
-4. `publication_mode=reviewed` writes reviewed metadata into reports, state, notifications, and Pages cards.
-5. Local workflow validation profiles are fixed to `daily`, `recovery`, and `full`.
+5. `publication_mode=reviewed` writes reviewed metadata into reports, state, notifications, and Pages cards.
+6. Local workflow validation profiles are fixed to `daily`, `recovery`, and `full`.
 
 ## Key Paths
 
