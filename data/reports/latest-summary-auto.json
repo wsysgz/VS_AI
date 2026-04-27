@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-28T01:32:27.200841+08:00",
+    "generated_at": "2026-04-28T00:39:56.546350+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 168,
     "total_topics": 166,
@@ -10,117 +10,71 @@
       "review_note": ""
     }
   },
-  "one_line_core": "本周 AI 代理领域同时出现能力跃升与安全警钟：自主工具创建代理出现，系统性调试框架发布，边缘多任务 LLM 部署取得 4‑6 倍加速，而一起 AI 代理误删生产数据库的事件则暴露出可观测性与治理的严重滞后。",
+  "one_line_core": "AI Agent 发展正从能力突破转向运维可信与边缘落地双线并进：一方面可调试性成为规模化部署的关键瓶颈，另一方面多用途大模型在移动设备上的工程可行性首次得到量产验证。",
   "executive_summary": [
-    "新兴项目 Tendril 让代理从工具使用者变为工具创造者，但在自主性与控制之间引发激烈矛盾。",
-    "微软研究院发布 AgentRx 框架，专门解决多步自主代理在黑箱决策下难以追溯故障的问题。",
-    "一篇边缘部署论文展示在三星 Galaxy 手机上通过多 LoRA 与动态自推测解码实现 4‑6 倍性能提升，但尚未验证广泛商用可行性。",
-    "Hacker News 上一则 AI 代理删除生产数据库的事件获得极高关注（803 分），揭示生产环境中代理行为审计与安全兜底的紧迫性。",
-    "本地离线运行 LLM 的实践（如飞行中运行模型）反映出个人边缘智能的持续实用化趋势。"
+    "微软研究院发布 AgentRx 框架，系统化解决自主 AI Agent 的调试难题，标志着 Agent 从“能干活”向“敢放手让其干活”的运维能力跃迁。",
+    "三星在旗舰手机上成功实现多语言、多任务且风格可控的大模型边缘部署，通过硬件感知冻结图、多 LoRA 注入和新型解码策略，将内存与延迟压缩 4-6 倍。",
+    "与此同时，开源 Agent Dirac 在 TerminalBench 上取得高分，但因基准测试曝出作弊争议，其真实能力受到质疑，凸显基准公信力危机。",
+    "社区中热议的 AI Agent 误删生产数据库事件和本地离线运行大模型分享，进一步反映出 Agent 在生产环境下的可靠性焦虑与边缘智能的实用需求。",
+    "整体而言，Agent 生态正在经历从“追求高分数”到“验证真可靠”、从“云端集中”到“端侧可行”的双重转折。"
   ],
   "key_points": [
     {
-      "title": "代理从工具使用到工具创造的跃迁（Tendril）",
-      "why_it_matters": "自主构建和注册工具的能力会大幅扩展代理的能力边界，但也引入未经测试的工具风险，要求更严格的安全沙箱和治理。"
+      "title": "可调试性成为 Agent 规模化落地的核心障碍",
+      "why_it_matters": "Agent 越自主，其内部逻辑越不透明，微软 AgentRx 框架尝试为自主 Agent 提供系统化调试手段，是解决生产级可靠性的关键一步。"
     },
     {
-      "title": "系统性代理调试框架 AgentRx 出现",
-      "why_it_matters": "多步动作链的不可解释故障是代理生产化的最大障碍，AgentRx 提供了可追溯性方案，是把代理从实验推向关键任务的必要条件。"
+      "title": "基准测试公信力动摇，高分不足以自证能力",
+      "why_it_matters": "Dirac 开源 Agent 声称性能超过 Google 和最佳闭源模型，但 TerminalBench 2.0 的作弊争议令分数本身贬值，独立复现和反作弊机制变得比分数更重要。"
     },
     {
-      "title": "边缘端多 LoRA 基础模型部署突破",
-      "why_it_matters": "手机有望从“调用云端的瘦客户端”变为可离线运行的高质量生成 AI 宿主机，但商业泛化能力和安全性问题仍需验证。"
+      "title": "三星旗舰手机证明多用途大模型边缘部署的工业可行性",
+      "why_it_matters": "在量产设备上实现 9 语言、8 任务且风格可控的单模型运行，内存和延迟优化达 4-6 倍，为移动端生成式 AI 从演示走向多场景商用扫清了工程障碍。"
     },
     {
-      "title": "AI 代理误删生产数据库事件警示安全基线",
-      "why_it_matters": "即使单一来源且细节有限，事件热度说明行业对代理失控的焦虑极高，可观测性、人类确认节点和权限管控机制远未跟上代理的决策自主性。"
+      "title": "AI Agent 生产事故暴露信任与风控缺口",
+      "why_it_matters": "Agent 删除生产数据库的事件在 Hacker News 引发近千条讨论，强烈反映出业界对自主 Agent 操作关键基础设施的担忧，亟需配套的权限控制与回滚机制。"
     },
     {
-      "title": "离线本地 LLM 运行的普及化",
-      "why_it_matters": "在飞机等场景下运行本地大模型的应用实践越来越普遍，与边缘部署技术合流，将推高对设备端算力、隐私保护和离线推理的需求。"
+      "title": "离线本地运行大模型的需求与日俱增",
+      "why_it_matters": "飞行途中离线使用 LLM 的分享获得关注，结合边缘部署进展，说明高移动性、无联网场景下的智能能力正在成为新的刚需和工程重点。"
     }
   ],
   "key_insights": [
-    "AI 代理从“用工具”到“造工具”的变化不是在改进安全，而是在增加一类新的风险：工具生成链上的不确定性可能产生难以预料的交互效应。",
-    "可追溯性不是辅助特性，而是自主代理进入生产环境的许可证。AgentRx 的系统性调试思路标志着该领域的工程化从“尽力而为”转向“可审计”。",
-    "边缘部署 4‑6 倍的性能提升是工程上的重要里程碑，但它是在受控环境中取得的，在多样化用户行为、网络抖动和恶意输入下的健壮性仍为未知数。",
-    "一起生产数据库删除事件的高热度，折射出行业对代理鲁棒性的集体焦虑——透明的责任追溯和自动熔断机制需要比代理能力跑得更快。"
+    "AI Agent 的瓶颈正从能力层转向运维层：Agent 的透明度、可调试性和行为可预测性，成为决定其能否被“放手”用于关键业务的先决条件。",
+    "基准分数的通货膨胀与公信力下降同时发生，社区和投资者将更看重独立复现、鲁棒性测试和环境透明，而非单次高分声明。",
+    "硬件感知的联合优化（冻结图、多 LoRA、多流解码、自推测解码）使极端受限的边缘芯片得以承载多用途大模型，这不再是单点技术突破，而是一套可复用的系统工程范式。",
+    "Agent 的自主性越强，其越可能触发灾难性错误，但当前行业在安全护栏、执行回滚和人机协作协议上的投入远落后于能力提升速度，构成系统性风险。",
+    "离线本地推理与边缘部署的进展相互印证，预示着不依赖云端的私密、低延迟 AI 将首先在移动助手、旅途协作和工业现场等场景爆发。"
   ],
   "limitations": [
-    "Tendril、OSS 代理基准、数据库删除事件和本地飞行运行 LLM 的源数量均较少，部分主题仅来自单一社交媒体或项目页面，事实深度有限。",
-    "边缘部署论文的结论基于单一芯片平台（高通）和受控实验，尚不能直接推广到所有移动设备或真实网络条件。",
-    "数据库删除事件的具体经过、根因和修复措施未公开，无法判断是一次性操作失误还是模型行为缺陷。"
+    "Tendril 自扩展 Agent 和 AI Agent 删数据库事件仅基于社交媒体或开源仓库的早期信号，缺乏详细技术报告和多方验证，置信度较低，需后续深入追踪。",
+    "TerminalBench 2.0 的作弊争议尚未定论，Dirac 的性能声明在本环境未经过独立复现，高分可能来源于基准漏洞而非真实泛化能力。",
+    "三星论文仍处于 arXiv 预印本阶段，其方案在更多现实应用中的兼容性、功耗表现和长期稳定性待第三方验证。",
+    "本次总结部分条目信息深度不足，可能遗漏更细致的竞争动态或技术细节，仅能提供趋势性判断。"
   ],
   "actions": [
-    "对于评估引入自主代理的团队：将工具创建行为纳入沙箱策略，要求所有创建的新工具必须经过人类确认或静态安全扫描。",
-    "立即检查现有代理流程中是否存在“无删除确认”或“无回滚”路径，参考 AgentRx 思路增强动作链的日志和回放能力。",
-    "跟踪边缘端多 LoRA 部署方案在更多硬件和现实网络条件下的验证结果，评估将其转化为离线、隐私敏感型产品的可行性。"
+    "持续跟踪微软 AgentRx 或同类 Agent 可调试框架的开源与产品化进展，评估其对 Agent 安全中间件和 DevOps 流程的影响。",
+    "对高分开源 Agent 项目保持审慎，要求补充独立基准评测和反作弊条件下的复现结果，再纳入技术决策。",
+    "将三星的边缘部署方案作为移动端 AI 架构参考，验证在自有或客户场景下的适配性，尤其是多 LoRA 动态切换的工程复杂度。",
+    "推动内部 Agent 项目建立严格的权限分级、执行预览、自动回滚和人机确认机制，避免“删库”级事故重演。",
+    "关注离线 LLM 应用场景的可行性和用户体验，探索在航空、野外和工业巡检等无网环境中的差异化产品机会。"
   ],
   "analyses": [
     {
       "facts": [
-        "Tendril is a GitHub repository titled 'a self-extending agent that builds and registers its own tools'.",
-        "The project appeared on Hacker News with a score of 45 and 18 comments, indicating community interest.",
-        "The project falls under the AI/LLM agent domain, emphasizing autonomous tool creation and registration."
+        "微软研究院发布 AgentRx 框架，旨在系统化调试自主 AI Agent。",
+        "AI Agent 正从简单聊天机器人进化为能执行云事件管理、复杂网页导航和多步 API 工作流的自主系统。",
+        "当 AI Agent 失败时，其内部逻辑（如幻觉工具输出）缺乏透明性，难以追溯原因。"
       ],
       "contradictions": [
-        "autonomy vs control: agent freely builds tools, but humans may lose oversight over what tools are created",
-        "capability expansion vs reliability: self-extending behavior increases capability but risks introducing untested or unsafe tools",
-        "innovation speed vs safety: rapid tool generation could outpace safety checks and lead to unintended behaviors",
-        "scalability vs resource consumption: unlimited tool creation may consume excessive computational resources without clear governance"
+        "AI Agent 自主执行复杂任务的能力 vs Agent 失败时内部逻辑的不可观测性与不可调试性",
+        "对更高阶自主智能体的需求 vs 缺乏与之匹配的透明度和可解释性保障",
+        "Agent 快速迭代部署的商业压力 vs 因调试困难导致的生产级可靠性风险"
       ],
-      "primary_contradiction": "autonomy vs control: the agent's ability to independently build and register tools directly conflicts with the need for human oversight and safety guarantees.",
-      "core_insight": "Tendril embodies the emerging shift from agents as tool-users to agents as tool-creators, introducing a new risk surface where the agent's generative power must be bounded by robust governance frameworks.",
-      "confidence": "low",
-      "title": "Tendril – a self-extending agent that builds and registers its own tools",
-      "url": "https://github.com/serverless-dna/tendril",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": []
-    },
-    {
-      "facts": [
-        "微软研究院发布了AgentRx框架，用于AI代理的系统性调试。",
-        "AI代理正从简单聊天机器人演进为能管理云事件、操作复杂界面和执行多步API的自主系统。",
-        "代理失败时透明性不足，例如幻觉出的工具输出导致难以追踪错误逻辑。",
-        "AgentRx旨在解决代理在黑箱决策下的可追溯性挑战。"
-      ],
-      "contradictions": [
-        "日益增长的自主代理能力与调试透明性不足之间的矛盾。",
-        "高复杂度多步操作需求与缺乏系统化故障追踪方法的矛盾。",
-        "代理自主决策的黑箱特性与责任追溯要求之间的矛盾。",
-        "快速部署自主代理的压力与可靠性和安全性保障之间的矛盾。"
-      ],
-      "primary_contradiction": "AI代理日益复杂和自主的决策能力与其不可追溯的黑箱故障模式之间的矛盾，这是制约其在关键任务中落地的核心瓶颈。",
-      "core_insight": "当AI代理从对话助手变成自主行动者后，其故障不再仅是答案错误，而是不可解释的动作链断裂，系统性调试框架因此成为从实验走向生产的必要条件。",
-      "confidence": "medium",
+      "primary_contradiction": "AI Agent 的自主性与可调试性之间的冲突：Agent 越自主，其行为越难被理解和修正，这构成了规模化落地的核心障碍。",
+      "core_insight": "AI Agent 发展的瓶颈正从能力层转向运维层，可调试性是实现 Agent 从“能干活”到“敢放手让它干活”的关键一跃。",
+      "confidence": "high",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
       "primary_domain": "ai-llm-agent",
@@ -133,14 +87,6 @@
           "official"
         ],
         "support_evidence": [
-          {
-            "source_id": "openai-news",
-            "source_type": "official",
-            "title": "Choco automates food distribution with AI agents",
-            "url": "https://openai.com/index/choco",
-            "summary": "How Choco used OpenAI APIs to streamline food distribution, boost productivity, and unlock growth—an in-depth customer story on real-world AI impact.",
-            "evidence_scope": "current-run"
-          },
           {
             "source_id": "espressif-blog",
             "source_type": "official",
@@ -163,10 +109,10 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 3 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 3.3,
@@ -190,21 +136,12 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "verified",
       "risk_level": "low",
       "support_evidence": [
-        {
-          "source_id": "openai-news",
-          "source_type": "official",
-          "title": "Choco automates food distribution with AI agents",
-          "url": "https://openai.com/index/choco",
-          "summary": "How Choco used OpenAI APIs to streamline food distribution, boost productivity, and unlock growth—an in-depth customer story on real-world AI impact.",
-          "evidence_scope": "current-run"
-        },
         {
           "source_id": "espressif-blog",
           "source_type": "official",
@@ -225,22 +162,72 @@
     },
     {
       "facts": [
-        "Framework deploys LLaMA-based multilingual foundation model on Samsung Galaxy S24 (SM8650) and S25 (SM8750) with Qualcomm chipsets.",
-        "Uses application-specific LoRAs as runtime inputs to a single frozen inference graph for dynamic task switching without recompilation or memory overhead.",
-        "Multi-stream decoding mechanism concurrently generates stylistic variations (e.g., formal, polite, jovial) within a single forward pass, reducing latency up to 6x.",
-        "Dynamic Self-Speculative Decoding (DS2D) accelerates token generation by up to 2.3x without requiring a draft model.",
-        "System achieves 4-6x overall improvements in memory and latency with INT4 quantization and architecture-level optimizations while maintaining accuracy across 9 languages and 8 tasks."
+        "Dirac是开源AI Agent，在TerminalBench使用Gemini-3-flash-preview中获得65.2%的分数",
+        "Google官方成绩为47.8%，现有的最佳闭源模型Junie CLI为64.3%",
+        "近期TerminalBench 2.0被报告存在故意作弊行为"
       ],
       "contradictions": [
-        "Model capability vs edge hardware constraints: Foundation models demand large memory and compute, while smartphones have strict memory, latency, and thermal limits.",
-        "Single frozen inference graph vs dynamic multi-task serving: Need to support multiple use cases without recompilation or memory overhead, traditionally two conflicting requirements.",
-        "Generation quality vs inference speed: Speculative decoding and aggressive quantization can reduce latency but risk degrading output quality and accuracy.",
-        "Generality of a foundation model vs specificity of task-optimized LoRAs: Balancing one-for-all model capability with application-specific fine-tuning requirements.",
-        "Commercial viability vs engineering feasibility: The paper demonstrates technical feasibility, but real-world deployment across diverse edge devices, network conditions, and user behaviors remains unvalidated."
+        "开源项目声称的顶尖性能 vs 基准测试本身被质疑存在作弊可行性",
+        "宣称超越谷歌官方和闭源模型的分数 vs 可能因基准漏洞或作弊手段获得的成绩",
+        "短期博取关注的Show HN发布方式 vs 长期需要可信复现来验证的真实能力",
+        "开发者想要的诚实声望 vs 社区对基准测试真实性的日益怀疑"
       ],
-      "primary_contradiction": "Model capability vs edge hardware constraints — the fundamental tension between deploying increasingly capable, multi-use-case LLMs and the severe memory, latency, and power limits of mobile SoCs. Resolving this contradiction through hardware-aware co-design (quantization, speculative decoding, multi-stream inference) is what unlocks the others.",
-      "core_insight": "Multi-LoRA edge deployment with dynamic self-speculative decoding transforms the smartphone from a thin client to a capable generative AI host, but the claimed 4-6x improvement is measured in a controlled single-vendor setting and does not yet prove general commercial readiness.",
+      "primary_contradiction": "声称的65.2%基准测试成绩与TerminalBench 2.0当前面临的系统性作弊质疑之间的矛盾",
+      "core_insight": "在基准测试的公信力因作弊报告而动摇的时期，单纯展示高分已不足以证明能力，独立复现和反作弊机制的透明性成为区分真实突破与投机行为的关键。",
       "confidence": "medium",
+      "title": "Show HN: OSS Agent I built topped the TerminalBench on Gemini-3-flash-preview",
+      "url": "https://github.com/dirac-run/dirac",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium",
+      "support_evidence": []
+    },
+    {
+      "facts": [
+        "三星 Galaxy S24 和 S25 设备（搭载 SM8650 和 SM8750 骁龙芯片）上部署大语言模型面临内存、延迟和运行时灵活性等严格约束。",
+        "研究提出一种硬件感知框架，基于 LLaMA 多语言基础模型，集成应用专用 LoRA，在单次冻结推理图上实现动态任务切换，无需重编译或额外内存开销。",
+        "引入多流解码机制，在同一前向传播中同时生成正式、礼貌、诙谐等风格变体，延迟降低最多 6 倍。",
+        "采用动态自推测解码 DS2D，通过树型策略预测未来 token，无需草稿模型，解码时间提速最高 2.3 倍。",
+        "结合 INT4 量化和架构级优化，整体内存和延迟改进达 4-6 倍，同时保持 9 种语言、8 项任务的精度。",
+        "结果证明了在边缘设备上部署多用途大语言模型的工业可行性，推动移动端生成式 AI 商业落地。"
+      ],
+      "contradictions": [
+        "多任务、多风格灵活生成需求 vs 移动端严格内存与延迟限制",
+        "动态任务切换与个性化需求 vs 传统单模型固化的部署方式",
+        "追求低延迟与高吞吐 vs 保持生成精度与多语言能力",
+        "INT4 量化压缩 vs 模型精度与语言覆盖面",
+        "多 LoRA 在线加载与任务扩展需求 vs 设备端推理图的冻结与编译限制",
+        "自推测解码提速方案 vs 无额外草稿模型的约束",
+        "多应用场景商业落地期望 vs 移动芯片对持续高算力的能效约束"
+      ],
+      "primary_contradiction": "多用途大模型在移动设备上的全面商业应用需求 vs 边缘芯片极度受限的计算、内存和能效条件",
+      "core_insight": "通过硬件感知冻结推理图、多 LoRA 动态注入、多流解码和自推测解码的组合优化，首次在三星量产旗舰机型上证明了一个模型同时覆盖多语言多任务且风格可控的边缘部署可行性，为移动端生成式 AI 从单功能演示走向多用途商用扫清了关键工程障碍。",
+      "confidence": "high",
       "title": "Unlocking the Edge deployment and ondevice acceleration of multi-LoRA enabled one-for-all foundational LLM",
       "url": "https://arxiv.org/abs/2604.18655v2",
       "primary_domain": "ai-x-electronics",
@@ -270,11 +257,11 @@
             "evidence_scope": "current-run"
           },
           {
-            "source_id": "nvidia-embedded",
+            "source_id": "st-blog",
             "source_type": "official",
-            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
-            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
-            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
+            "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
+            "url": "https://blog.st.com/stm32n6/",
+            "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
             "evidence_scope": "external"
           },
           {
@@ -294,19 +281,18 @@
         "summary": "1 source(s) | paper | 4 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 3.3,
-        "previous_confidence": "high",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
+      "lifecycle_state": "new",
+      "risk_level": "low",
       "support_evidence": [
         {
           "source_id": "nvidia-embedded",
@@ -325,11 +311,11 @@
           "evidence_scope": "current-run"
         },
         {
-          "source_id": "nvidia-embedded",
+          "source_id": "st-blog",
           "source_type": "official",
-          "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
-          "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
-          "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
+          "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
+          "url": "https://blog.st.com/stm32n6/",
+          "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
           "evidence_scope": "external"
         },
         {
@@ -343,17 +329,17 @@
       ]
     },
     {
-      "title": "Show HN: OSS Agent I built topped the TerminalBench on Gemini-3-flash-preview",
-      "url": "https://github.com/dirac-run/dirac",
+      "title": "Tendril – a self-extending agent that builds and registers its own tools",
+      "url": "https://github.com/serverless-dna/tendril",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 202 | Comments: 71 | Text: Scored 65.2% vs google&#x27;s official 47.8%, and the existing top close"
+        "[hacker-news] Score: 35 | Comments: 13"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
       ],
       "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Show HN: OSS Agent I built topped the TerminalBench on Gemini-3-flash-preview appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "core_insight": "Tendril – a self-extending agent that builds and registers its own tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
       "confidence": "low",
       "source_count": 1,
       "enrichment": {
@@ -371,18 +357,17 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium",
       "support_evidence": []
     },
@@ -391,7 +376,7 @@
       "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 803 | Comments: 940"
+        "[hacker-news] Score: 795 | Comments: 934"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
@@ -441,18 +426,17 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium",
       "support_evidence": [
         {
@@ -486,7 +470,7 @@
       "url": "https://deploy.live/blog/running-local-llms-offline-on-a-ten-hour-flight/",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 71 | Comments: 59"
+        "[hacker-news] Score: 64 | Comments: 47"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
@@ -520,18 +504,17 @@
         "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium",
       "support_evidence": [
         {
@@ -546,17 +529,17 @@
     }
   ],
   "forecast": {
-    "best_case": "一起高影响力的生产事故（如误删数据库事件）成为行业转折点，推动主要云厂商和开源社区在6个月内将AgentRx式可追溯调试与自动熔断机制内置为代理开发标准，代理安全事故的发现和响应时间缩短一个数量级。",
-    "worst_case": "在工具自主创建（类似Tendril）和代理自主决策的组合效应下，一个未受沙箱限制的代理在关键基础设施中引发不可逆的数据破坏或合规事故，导致企业级客户对自主代理的信任倒退2年以上，监管机构仓促出台严苛且粗放的限制性规定。",
-    "most_likely_case": "代理能力与安全治理在激烈摩擦中螺旋式前进。未来6-12个月内，可追溯调试（AgentRx思路）和权限管控将成为代理框架的准入门槛而非差异化优势，但工具自主创建能力仍主要限于实验性项目，企业级部署会强制执行‘人类确认节点’和‘静态工具扫描’作为硬性护栏。",
+    "best_case": "AI Agent 的可调试性框架（如 AgentRx）在 12 个月内被主流平台集成并开源，形成事实标准，Agent 生产事故率显著下降；同时三星方案在更多手机品牌复制成功，推动多用途大模型在移动端商用爆发，形成‘云端自主、边缘可信’的协同格局。",
+    "worst_case": "Agent 可调试性工具进展缓慢，因基准公信力崩塌引发多起‘伪高分’Agent 在生产环境酿成严重事故，导致企业大规模暂停自主 Agent 的自动执行权限，商业化进程受阻 1-2 年；移动端大模型则因功耗和兼容性问题局限于旗舰机型演示，无法规模化。",
+    "most_likely_case": "可调试性和安全护栏成为 Agent 产品化的准入门槛，微软、Google 等头部厂商在 2025 年推出内建调试与权限控制的 Agent 平台，社区项目面临重构适配压力；边缘端多 LoRA 方案被三星和一两家厂商采用，但行业整体仍以云端协同架构为主，纯边缘大模型的商用场景限于高端设备。",
     "key_variables": [
-      "是否发生一起广泛传播、后果严重的代理安全事故（不限于数据库误删）",
-      "OpenAI、Google、微软等厂商能否在6个月内将系统性调试接口集成至其主流代理SDK中",
-      "Tendril等自主工具创建项目是否在开源社区中快速获得生产级关注，从而倒逼安全沙箱方案",
-      "单一芯片平台（高通）的边缘端多LoRA部署方案能否在多样化真实网络条件下被复现",
-      "监管机构对代理安全的关注是聚焦于技术标准还是直接施加操作禁令"
+      "AgentRx 或同类调试框架被主流 LLM 平台（如 OpenAI、Google）采纳的速度",
+      "TerminalBench 等基准测试引入反作弊与独立复现机制的有效性",
+      "三星边缘 AI 部署方案的功耗、热效应对中低端机型的适配进展",
+      "AI Agent 领域是否发生一起引发监管介入的重大安全事故",
+      "开源 Agent 社区对安全护栏与执行回滚的集成意愿"
     ],
-    "forecast_conclusion": "代理安全治理将从一个‘可选项’变为生产部署的‘必选项’。2025年下半年将是代理可观测性与自动熔断机制的工程化落地窗口期，未能在此窗口内建立健壮治理方案的代理系统将被企业客户拒绝。但根本性的‘自主工具创建’安全问题在6-12个月内仍难以彻底解决，人类确认仍是主要的兜底手段。",
+    "forecast_conclusion": "未来 6-12 个月，AI Agent 发展将从“追求高分与自主性”向“证明可信与可操作性”过渡。具备系统化调试能力、权限控制和边缘可行性验证的 Agent 将获得商业先机，社区高分项目若无独立复现和安全机制支撑将快速退潮；边缘部署在旗舰机型上验证工程可行性后，多用途多语言模型将成高端手机的主打 AI 特性，但向中低端普及仍需 1-2 年。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -569,11 +552,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 19617,
-      "completion": 5227,
-      "total": 24844
+      "prompt": 19953,
+      "completion": 5236,
+      "total": 25189
     },
-    "latency_seconds": 146.09,
+    "latency_seconds": 159.61,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -583,10 +566,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 516,
-          "completion": 646,
-          "total": 1162
+          "completion": 572,
+          "total": 1088
         },
-        "latency_seconds": 8.58,
+        "latency_seconds": 8.83,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -605,11 +588,11 @@
         "model": "deepseek-v4-pro",
         "calls": 3,
         "token_usage": {
-          "prompt": 8066,
-          "completion": 2203,
-          "total": 10269
+          "prompt": 8188,
+          "completion": 2390,
+          "total": 10578
         },
-        "latency_seconds": 70.15,
+        "latency_seconds": 76.55,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -628,11 +611,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 4400,
-          "completion": 1648,
-          "total": 6048
+          "prompt": 4383,
+          "completion": 1521,
+          "total": 5904
         },
-        "latency_seconds": 43.23,
+        "latency_seconds": 48.21,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -651,11 +634,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 6635,
-          "completion": 730,
-          "total": 7365
+          "prompt": 6866,
+          "completion": 753,
+          "total": 7619
         },
-        "latency_seconds": 24.13,
+        "latency_seconds": 26.02,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -674,18 +657,6 @@
   },
   "mainline_memory": [
     {
-      "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-      "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-      "primary_domain": "ai-llm-agent",
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "score": 3.3,
-      "days_seen": 19,
-      "first_seen": "2026-04-09",
-      "last_seen": "2026-04-27",
-      "enrichment_summary": "1 source(s) | official | 3 related support"
-    },
-    {
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
@@ -698,45 +669,57 @@
       "enrichment_summary": "1 source(s) | repo"
     },
     {
-      "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-      "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+      "title": "Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力",
+      "url": "https://platform.moonshot.cn/blog/posts/k2-think",
       "primary_domain": "ai-llm-agent",
       "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "score": 2.5,
+      "risk_level": "low",
+      "score": 1.8,
       "days_seen": 19,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-27",
       "enrichment_summary": "1 source(s) | official | 3 related support"
     },
     {
-      "title": "Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
-      "url": "https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/",
-      "primary_domain": "ai-x-electronics",
+      "title": "ollama/ollama",
+      "url": "https://github.com/ollama/ollama",
+      "primary_domain": "ai-llm-agent",
       "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "score": 2.5,
+      "risk_level": "low",
+      "score": 1.0,
       "days_seen": 19,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-27",
-      "enrichment_summary": "1 source(s) | official | 3 related support"
+      "enrichment_summary": "1 source(s) | repo"
     },
     {
-      "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-      "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-      "primary_domain": "ai-x-electronics",
+      "title": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "primary_domain": "ai-llm-agent",
       "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "score": 2.5,
+      "risk_level": "low",
+      "score": 1.0,
       "days_seen": 19,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-27",
-      "enrichment_summary": "1 source(s) | official | 3 related support"
+      "enrichment_summary": "1 source(s) | repo"
+    },
+    {
+      "title": "tenstorrent/tt-metal",
+      "url": "https://github.com/tenstorrent/tt-metal",
+      "primary_domain": "ai-x-electronics",
+      "lifecycle_state": "rising",
+      "risk_level": "low",
+      "score": 1.0,
+      "days_seen": 19,
+      "first_seen": "2026-04-09",
+      "last_seen": "2026-04-27",
+      "enrichment_summary": "1 source(s) | repo"
     }
   ],
   "lifecycle_summary": {
-    "new": 2,
-    "rising": 162,
+    "new": 34,
+    "rising": 130,
     "verified": 2,
     "fading": 0
   },
@@ -861,14 +844,14 @@
       {
         "tech_track": "frontier-ai",
         "cn_title": "Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
-        "intl_title": "Choco automates food distribution with AI agents",
+        "intl_title": "Automations",
         "cn_source_ids": [
           "zhipu-news"
         ],
         "intl_source_ids": [
           "openai-news"
         ],
-        "readout": "frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Choco automates food distribution with AI agents。"
+        "readout": "frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Automations。"
       }
     ],
     "gaps": [
@@ -881,7 +864,7 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "本周 AI 代理领域同时出现能力跃升与安全警钟：自主工具创建代理出现，系统性调试框架发布，边缘多任务 LLM 部署取得 4‑6 倍加速，而一起 AI 代理误删生产数据库的事件则暴露出可观测性与治理的严重滞后。",
+    "AI Agent 发展正从能力突破转向运维可信与边缘落地双线并进：一方面可调试性成为规模化部署的关键瓶颈，另一方面多用途大模型在移动设备上的工程可行性首次得到量产验证。",
     "本轮共采集到 168 条原始信息，去重后保留 166 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -916,14 +899,6 @@
         ],
         "support_evidence": [
           {
-            "source_id": "openai-news",
-            "source_type": "official",
-            "title": "Choco automates food distribution with AI agents",
-            "url": "https://openai.com/index/choco",
-            "summary": "How Choco used OpenAI APIs to streamline food distribution, boost productivity, and unlock growth—an in-depth customer story on real-world AI impact.",
-            "evidence_scope": "current-run"
-          },
-          {
             "source_id": "espressif-blog",
             "source_type": "official",
             "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
@@ -945,10 +920,10 @@
           "related-support",
           "external-support"
         ],
-        "summary": "1 source(s) | official | 3 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 3.3,
@@ -972,8 +947,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "verified",
@@ -1025,11 +999,11 @@
             "evidence_scope": "current-run"
           },
           {
-            "source_id": "nvidia-embedded",
+            "source_id": "st-blog",
             "source_type": "official",
-            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
-            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
-            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
+            "title": "STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing",
+            "url": "https://blog.st.com/stm32n6/",
+            "summary": "The STM32N6 is the most powerful STM32 microcontroller with a built-in Neural-ART NPU accelerator delivering 600 GOPS for edge AI applications.",
             "evidence_scope": "external"
           },
           {
@@ -1049,24 +1023,23 @@
         "summary": "1 source(s) | paper | 4 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 3.3,
-        "previous_confidence": "high",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "medium"
+      "lifecycle_state": "new",
+      "risk_level": "low"
     },
     {
       "title": "An AI agent deleted our production database. The agent's confession is below",
       "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
-      "summary": "Score: 803 | Comments: 940",
+      "summary": "Score: 795 | Comments: 934",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1122,24 +1095,23 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
       "title": "Show HN: OSS Agent I built topped the TerminalBench on Gemini-3-flash-preview",
       "url": "https://github.com/dirac-run/dirac",
-      "summary": "Score: 202 | Comments: 71 | Text: Scored 65.2% vs google&#x27;s official 47.8%, and the existing top closed source model Junie CLI&#x27;s 64.3%.<p>Since there are a lot of reports of deliberate cheating on TerminalBench 2.0 lately (<a href=\"https:&#x2F;&#x2F;debugml.github.io&#x2F;cheating-agents&#x2F;\" rel=\"nofollow\">https:&#x2F;&#",
+      "summary": "Score: 179 | Comments: 65 | Text: Scored 65.2% vs google&#x27;s official 47.8%, and the existing top closed source model Junie CLI&#x27;s 64.3%.<p>Since there are a lot of reports of deliberate cheating on TerminalBench 2.0 lately (<a href=\"https:&#x2F;&#x2F;debugml.github.io&#x2F;cheating-agents&#x2F;\" rel=\"nofollow\">https:&#x2F;&#",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1151,8 +1123,7 @@
       ],
       "tags": [
         "hacker-news",
-        "show-hn",
-        "trending"
+        "show-hn"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -1169,24 +1140,23 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
       "title": "Running local LLMs offline on a ten-hour flight",
       "url": "https://deploy.live/blog/running-local-llms-offline-on-a-ten-hour-flight/",
-      "summary": "Score: 71 | Comments: 59",
+      "summary": "Score: 64 | Comments: 47",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1224,24 +1194,23 @@
         "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
       "title": "Tendril – a self-extending agent that builds and registers its own tools",
       "url": "https://github.com/serverless-dna/tendril",
-      "summary": "Score: 45 | Comments: 18",
+      "summary": "Score: 35 | Comments: 13",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1269,18 +1238,17 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
@@ -1366,69 +1334,6 @@
       "risk_level": "low"
     },
     {
-      "title": "Choco automates food distribution with AI agents",
-      "url": "https://openai.com/index/choco",
-      "summary": "How Choco used OpenAI APIs to streamline food distribution, boost productivity, and unlock growth—an in-depth customer story on real-world AI impact.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 2.5,
-      "evidence_count": 1,
-      "source_ids": [
-        "openai-news"
-      ],
-      "tags": [
-        "B2B Story",
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "openai-news"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
-            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 2 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-04-27",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-04-27"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium"
-    },
-    {
       "title": "Meta Partners With AWS on Graviton Chips to Power Agentic AI",
       "url": "https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/",
       "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Partnership-Announcement_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta's compute portfolio to support agentic AI workloads. </p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/\">Meta Partners With AWS on Graviton Chips to Power Agentic AI</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
@@ -1492,7 +1397,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 4,
         "first_seen": "2026-04-24",
         "last_seen": "2026-04-27",
         "previous_score": 2.5,
@@ -1502,8 +1407,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -1541,18 +1445,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
@@ -1589,18 +1492,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
@@ -1637,18 +1539,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "medium"
     },
     {
@@ -1713,7 +1614,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 2.5,
@@ -1737,8 +1638,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -1815,7 +1715,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 2.5,
@@ -1839,8 +1739,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -1916,7 +1815,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -1940,8 +1839,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -2012,7 +1910,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -2036,8 +1934,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -2108,7 +2005,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 2.5,
@@ -2124,8 +2021,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -2198,7 +2094,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 2.5,
@@ -2214,17 +2110,16 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "medium"
     },
     {
-      "title": "Show HN: Utilyze – an open source GPU monitoring tool more accurate than nvtop",
-      "url": "https://www.systalyze.com/utilyze",
-      "summary": "Score: 26 | Comments: 4 | Text: The standard GPU utilization metric reported by nvidia-smi, nvtop, Weights &amp; Biases, Amazon CloudWatch, Google Cloud Monitoring, and Azure Monitor is highly misleading. It reports the fraction of time that any kernel is running on the GPU, which means a GPU can report 100% utilization even if on",
+      "title": "DeepSeek-V4: a million-token context that agents can actually use",
+      "url": "https://huggingface.co/blog/deepseekv4",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -2232,35 +2127,333 @@
       "score": 1.8,
       "evidence_count": 1,
       "source_ids": [
-        "hacker-news"
+        "huggingface-blog"
       ],
       "tags": [
-        "hacker-news",
-        "show-hn"
+        "ai-llm-agent"
       ],
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
-          "hacker-news"
+          "huggingface-blog"
         ],
         "source_types": [
-          "community"
+          "official"
         ],
         "support_evidence": [
           {
-            "source_id": "cerebras-blog",
+            "source_id": "deepseek-updates",
             "source_type": "official",
-            "title": "Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy",
-            "url": "https://www.cerebras.ai/blog/speedandaccuracyblog",
+            "title": "DeepSeek-V4 â",
+            "url": "https://api-docs.deepseek.com/updates/#deepseek-v4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
             "summary": "",
             "evidence_scope": "current-run"
           }
         ],
         "verification_flags": [
-          "community",
+          "official-source",
           "related-support"
         ],
-        "summary": "1 source(s) | community | 1 related support"
+        "summary": "1 source(s) | official | 2 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
+      "url": "https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 7,
+        "first_seen": "2026-04-21",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
+      "url": "https://huggingface.co/blog/ecom-rlve",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 11,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
+      "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "DeepSeek-V4: a million-token context that agents can actually use",
+            "url": "https://huggingface.co/blog/deepseekv4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 12,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
+      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
+      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "microsoft-research"
+      ],
+      "tags": [
+        "Research Blog",
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "microsoft-research"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
+            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
+            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 18,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "VLAA-GUI: Knowing When to Stop, Recover, and Search, A Modular Framework for GUI Automation",
+      "url": "https://arxiv.org/abs/2604.21375v2",
+      "summary": "Autonomous GUI agents face two fundamental challenges: early stopping, where agents prematurely declare success without verifiable evidence, and repetitive loops, where agents cycle through the same failing actions without recovery. We present VLAA-GUI, a modular GUI agentic framework built around three integrated components that guide the system on when to Stop, Recover, and Search. First, a mandatory Completeness Verifier enforces UI-observable success criteria and verification at every finish step -- with an agent-level verifier that cross-examines completion claims with decision rules, rejecting those lacking direct visual evidence. Second, a mandatory Loop Breaker provides multi-tier filtering: switching interaction mode after repeated failures, forcing strategy changes after persistent screen-state recurrence, and binding reflection signals to strategy shifts. Third, an on-demand Search Agent searches online for unfamiliar workflows by directly querying a capable LLM with search ability, returning results as plain text. We additionally integrate a Coding Agent for code-intensive actions and a Grounding Agent for precise action grounding, both invoked on demand when required. We evaluate VLAA-GUI across five top-tier backbones, including Opus 4.5, 4.6 and Gemini 3.1 Pro, on two benchmarks with Linux and Windows tasks, achieving top performance on both (77.5% on OSWorld and 61.0% on WindowsAgentArena). Notably, three of the five backbones surpass human performance (72.4%) on OSWorld in a single pass. Ablation studies show that all three proposed components consistently improve a strong backbone, while a weaker backbone benefits more from these tools when the step budget is sufficient. Further analysis also shows that the Loop Breaker nearly halves wasted steps for loop-prone models.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "arxiv-cs-ai"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arxiv-cs-ai"
+        ],
+        "source_types": [
+          "paper"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "paper"
+        ],
+        "summary": "1 source(s) | paper"
       },
       "memory": {
         "days_seen": 1,
@@ -2274,6 +2467,69 @@
         ]
       },
       "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Arm announces earnings release date for fourth quarter fiscal year ended 2026",
+      "url": "https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026",
+      "summary": "<p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026\">Arm announces earnings release date for fourth quarter fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.8,
+      "evidence_count": 1,
+      "source_ids": [
+        "arm-news"
+      ],
+      "tags": [
+        "ai-x-electronics"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arm-news"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "infineon-blog",
+            "source_type": "official",
+            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
+            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 10,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.8,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
@@ -2614,7 +2870,7 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -2638,8 +2894,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -2694,7 +2949,7 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -2718,8 +2973,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -2988,14 +3242,6 @@
         ],
         "support_evidence": [
           {
-            "source_id": "openai-news",
-            "source_type": "official",
-            "title": "Choco automates food distribution with AI agents",
-            "url": "https://openai.com/index/choco",
-            "summary": "How Choco used OpenAI APIs to streamline food distribution, boost productivity, and unlock growth—an in-depth customer story on real-world AI impact.",
-            "evidence_scope": "current-run"
-          },
-          {
             "source_id": "infineon-blog",
             "source_type": "official",
             "title": "Infineon and DG Matrix leverage silicon carbide technology to advance power infrastructure for AI data centers",
@@ -3009,6 +3255,14 @@
             "title": "Meet HoloTab by HCompany. Your AI browser companion.",
             "url": "https://huggingface.co/blog/Hcompany/holotab",
             "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "meta-ai-blog",
+            "source_type": "official",
+            "title": "Meta Partners With AWS on Graviton Chips to Power Agentic AI",
+            "url": "https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/",
+            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Partnership-Announcement_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta's compute portfolio to support agentic AI workloads. </p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/\">Meta Partners With AWS on Graviton Chips to Power Agentic AI</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
             "evidence_scope": "current-run"
           }
         ],
@@ -3026,429 +3280,6 @@
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "DeepSeek-V4: a million-token context that agents can actually use",
-      "url": "https://huggingface.co/blog/deepseekv4",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "deepseek-updates",
-            "source_type": "official",
-            "title": "DeepSeek-V4 â",
-            "url": "https://api-docs.deepseek.com/updates/#deepseek-v4",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-            "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 2 related support"
-      },
-      "memory": {
-        "days_seen": 5,
-        "first_seen": "2026-04-24",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
-      "url": "https://huggingface.co/blog/tiiuae/qimma-arabic-leaderboard",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 8,
-        "first_seen": "2026-04-21",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
-      "url": "https://huggingface.co/blog/ecom-rlve",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 12,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Inside VAKRA: Reasoning, Tool Use, and Failure Modes of Agents",
-      "url": "https://huggingface.co/blog/ibm-research/vakra-benchmark-analysis",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "DeepSeek-V4: a million-token context that agents can actually use",
-            "url": "https://huggingface.co/blog/deepseekv4",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "AsgardBench: A benchmark for visually grounded interactive planning",
-      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
-      "summary": "<p>Imagine a robot tasked with cleaning a kitchen. It needs to observe its environment, decide what to do, and adjust when things don&#8217;t go as expected, for example, when the mug it was tasked to wash is already clean, or the sink is full of other items. This is the domain of embodied AI: systems [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/\">AsgardBench: A benchmark for visually grounded interactive planning</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "microsoft-research"
-      ],
-      "tags": [
-        "Research Blog",
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "microsoft-research"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation",
-            "url": "https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/",
-            "summary": "<p>Vision-language models (VLMs) use images and text to plan robot actions, but they still struggle to decide what actions to take and where to take them. Most systems split these decisions into two steps: a VLM generates a plan in natural language, and a separate model translates it into executable actions. This approach often breaks [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/groundedplanbench-spatially-grounded-long-horizon-task-planning-for-robot-manipulation/\">GroundedPlanBench: Spatially grounded long-horizon task planning for robot manipulation</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 19,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "VLAA-GUI: Knowing When to Stop, Recover, and Search, A Modular Framework for GUI Automation",
-      "url": "https://arxiv.org/abs/2604.21375v2",
-      "summary": "Autonomous GUI agents face two fundamental challenges: early stopping, where agents prematurely declare success without verifiable evidence, and repetitive loops, where agents cycle through the same failing actions without recovery. We present VLAA-GUI, a modular GUI agentic framework built around three integrated components that guide the system on when to Stop, Recover, and Search. First, a mandatory Completeness Verifier enforces UI-observable success criteria and verification at every finish step -- with an agent-level verifier that cross-examines completion claims with decision rules, rejecting those lacking direct visual evidence. Second, a mandatory Loop Breaker provides multi-tier filtering: switching interaction mode after repeated failures, forcing strategy changes after persistent screen-state recurrence, and binding reflection signals to strategy shifts. Third, an on-demand Search Agent searches online for unfamiliar workflows by directly querying a capable LLM with search ability, returning results as plain text. We additionally integrate a Coding Agent for code-intensive actions and a Grounding Agent for precise action grounding, both invoked on demand when required. We evaluate VLAA-GUI across five top-tier backbones, including Opus 4.5, 4.6 and Gemini 3.1 Pro, on two benchmarks with Linux and Windows tasks, achieving top performance on both (77.5% on OSWorld and 61.0% on WindowsAgentArena). Notably, three of the five backbones surpass human performance (72.4%) on OSWorld in a single pass. Ablation studies show that all three proposed components consistently improve a strong backbone, while a weaker backbone benefits more from these tools when the step budget is sufficient. Further analysis also shows that the Loop Breaker nearly halves wasted steps for loop-prone models.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "arxiv-cs-ai"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "cs.AI",
-        "cs.CL",
-        "cs.SE"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arxiv-cs-ai"
-        ],
-        "source_types": [
-          "paper"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "paper"
-        ],
-        "summary": "1 source(s) | paper"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Arm announces earnings release date for fourth quarter fiscal year ended 2026",
-      "url": "https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026",
-      "summary": "<p>Cambridge, England, April 8, 2026: Arm Holdings plc (NASDAQ: ARM) will report financial results for the fourth quarter of fiscal year 2026 on Wednesday, May 6, 2026, after market close. The company will host a conference call via audio webcast at 14:00 Pacific Time (17:00 Eastern Time / 22:00 British Summer Time) to review its [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-fourth-quarter-fiscal-year-ended-2026\">Arm announces earnings release date for fourth quarter fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "arm-news"
-      ],
-      "tags": [
-        "ai-x-electronics"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arm-news"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "infineon-blog",
-            "source_type": "official",
-            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
-            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 11,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.8,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
           "2026-04-21",
           "2026-04-22",
           "2026-04-23",
@@ -3517,7 +3348,7 @@
     {
       "title": "AI should elevate your thinking, not replace it",
       "url": "https://www.koshyjohn.com/blog/ai-should-elevate-your-thinking-not-replace-it/",
-      "summary": "Score: 758 | Comments: 540",
+      "summary": "Score: 736 | Comments: 522",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3573,24 +3404,113 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Pgbackrest is no longer being maintained",
+      "url": "https://github.com/pgbackrest/pgbackrest",
+      "summary": "Score: 319 | Comments: 153",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Three constraints before I build anything",
+      "url": "https://jordanlord.co.uk/blog/3-constraints/",
+      "summary": "Score: 319 | Comments: 49",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Microsoft and OpenAI end their exclusive and revenue-sharing deal",
       "url": "https://www.bloomberg.com/news/articles/2026-04-27/microsoft-to-stop-sharing-revenue-with-main-ai-partner-openai",
-      "summary": "Score: 350 | Comments: 299 | Text: Gift Article: <a href=\"https:&#x2F;&#x2F;www.bloomberg.com&#x2F;news&#x2F;articles&#x2F;2026-04-27&#x2F;microsoft-to-stop-sharing-revenue-with-main-ai-partner-openai?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc3NzI5NjE3MiwiZXhwIjoxNzc3O",
+      "summary": "Score: 252 | Comments: 229 | Text: Gift Article: <a href=\"https:&#x2F;&#x2F;www.bloomberg.com&#x2F;news&#x2F;articles&#x2F;2026-04-27&#x2F;microsoft-to-stop-sharing-revenue-with-main-ai-partner-openai?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc3NzI5NjE3MiwiZXhwIjoxNzc3O",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3629,116 +3549,23 @@
         "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Pgbackrest is no longer being maintained",
-      "url": "https://github.com/pgbackrest/pgbackrest",
-      "summary": "Score: 338 | Comments: 166",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Three constraints before I build anything",
-      "url": "https://jordanlord.co.uk/blog/3-constraints/",
-      "summary": "Score: 325 | Comments: 49",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "4TB of voice samples just stolen from 40k AI contractors at Mercor",
       "url": "https://app.oravys.com/blog/mercor-breach-2026",
-      "summary": "Score: 263 | Comments: 106",
+      "summary": "Score: 220 | Comments: 88",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3793,142 +3620,23 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Mistral built a $14B AI empire by not being American",
-      "url": "https://www.forbes.com/sites/iainmartin/2026/04/16/how-frances-mistral-built-a-14-billion-ai-empire-by-not-being-american/",
-      "summary": "Score: 180 | Comments: 138",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Meet HoloTab by HCompany. Your AI browser companion.",
-            "url": "https://huggingface.co/blog/Hcompany/holotab",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 1 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "GitHub Copilot is moving to usage-based billing",
-      "url": "https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/",
-      "summary": "Score: 172 | Comments: 123",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Claude is a space to think",
-            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "cerebras-blog",
-            "source_type": "official",
-            "title": "Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy",
-            "url": "https://www.cerebras.ai/blog/speedandaccuracyblog",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 2 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Box to save memory in Rust",
       "url": "https://dystroy.org/blog/box-to-save-memory/",
-      "summary": "Score: 170 | Comments: 49",
+      "summary": "Score: 169 | Comments: 49",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3982,24 +3690,23 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
-      "title": "Dutch central bank ditches AWS and chooses Lidl for European Cloud",
-      "url": "https://www.techzine.eu/news/infrastructure/140634/dutch-central-bank-chooses-lidl-for-european-cloud/",
-      "summary": "Score: 148 | Comments: 43",
+      "title": "Mistral built a $14B AI empire by not being American",
+      "url": "https://www.forbes.com/sites/iainmartin/2026/04/16/how-frances-mistral-built-a-14-billion-ai-empire-by-not-being-american/",
+      "summary": "Score: 169 | Comments: 136",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4020,25 +3727,34 @@
         "source_types": [
           "community"
         ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Meet HoloTab by HCompany. Your AI browser companion.",
+            "url": "https://huggingface.co/blog/Hcompany/holotab",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
         ],
-        "summary": "1 source(s) | community"
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -4072,24 +3788,23 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Running Bare-Metal Rust Alongside ESP-IDF on the ESP32-S3's Second Core",
       "url": "https://tingouw.com/blog/embedded/esp32/run_rust_on_app_core",
-      "summary": "Score: 89 | Comments: 18",
+      "summary": "Score: 87 | Comments: 17",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4117,24 +3832,173 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "GitHub Copilot is moving to usage-based billing",
+      "url": "https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/",
+      "summary": "Score: 81 | Comments: 48",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Claude is a space to think",
+            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "cerebras-blog",
+            "source_type": "official",
+            "title": "Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy",
+            "url": "https://www.cerebras.ai/blog/speedandaccuracyblog",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 2 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Getting my daily news from a dot matrix printer 2024",
+      "url": "https://aschmelyun.com/blog/getting-my-daily-news-from-a-dot-matrix-printer/",
+      "summary": "Score: 61 | Comments: 10",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Dutch central bank ditches AWS and chooses Lidl for European Cloud",
+      "url": "https://www.techzine.eu/news/infrastructure/140634/dutch-central-bank-chooses-lidl-for-european-cloud/",
+      "summary": "Score: 57 | Comments: 20",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Apple is dropping AFP/TimeCapsule support in macOS 27",
       "url": "https://eclecticlight.co/2026/04/23/networking-changes-coming-in-macos-27/",
-      "summary": "Score: 75 | Comments: 58",
+      "summary": "Score: 50 | Comments: 34",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4188,69 +4052,23 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Getting my daily news from a dot matrix printer 2024",
-      "url": "https://aschmelyun.com/blog/getting-my-daily-news-from-a-dot-matrix-printer/",
-      "summary": "Score: 69 | Comments: 10",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Canva apologizes after its AI tool replaces 'Palestine' in designs",
       "url": "https://www.theverge.com/ai-artificial-intelligence/919028/canva-magic-layers-ai-replacing-palestine",
-      "summary": "Score: 38 | Comments: 15",
+      "summary": "Score: 29 | Comments: 6",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4304,24 +4122,23 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
       "title": "Silicon Valley has forgotten what normal people want",
       "url": "https://www.theverge.com/tldr/915176/nft-metaverse-ai-weirdos",
-      "summary": "Score: 27 | Comments: 15",
+      "summary": "Score: 19 | Comments: 12",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4349,18 +4166,87 @@
         "summary": "1 source(s) | community"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Ubuntu Linux Will Begin Landing AI Features Throughout the Next Year",
+      "url": "https://www.phoronix.com/news/Ubuntu-AI-Features-2026",
+      "summary": "Score: 18 | Comments: 11",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics",
+            "url": "https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/03/autonomous-vehicle-backseat-view-768x432.jpg\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"autonomous-vehicle-backseat-view\" width=\"768\" />Physical AI is rapidly evolving, from next-generation software-defined autonomous vehicles (AVs) to humanoid robots. The challenge is no longer how to run a...",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "edge-impulse-blog",
+            "source_type": "official",
+            "title": "Edge Impulse + Arduino VENTUNO Q and Arduino App Lab: Empowering Next-Gen Edge AI",
+            "url": "https://www.edgeimpulse.com/blog/announcing-arduino-app-lab-full-integration-and-ventuno-q/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "mediatek-blog",
+            "source_type": "official",
+            "title": "How MediaTek is Leading the Next Generation of AI Chromebooks",
+            "url": "https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -4504,60 +4390,6 @@
           "2026-04-15",
           "2026-04-16",
           "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 11,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
           "2026-04-18",
           "2026-04-19",
           "2026-04-20",
@@ -4796,6 +4628,122 @@
       "risk_level": "low"
     },
     {
+      "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+      "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+      "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 11,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "openai/swarm",
+      "url": "https://github.com/openai/swarm",
+      "summary": "Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 19,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "mem0ai/mem0",
       "url": "https://github.com/mem0ai/mem0",
       "summary": "Universal memory layer for AI Agents",
@@ -4934,9 +4882,9 @@
       "risk_level": "low"
     },
     {
-      "title": "openai/swarm",
-      "url": "https://github.com/openai/swarm",
-      "summary": "Educational framework exploring ergonomic, lightweight multi-agent orchestration. Managed by OpenAI Solution team.",
+      "title": "onnx/onnx",
+      "url": "https://github.com/onnx/onnx",
+      "summary": "Open standard for machine learning interoperability",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4947,7 +4895,20 @@
         "curated-repos"
       ],
       "tags": [
-        "ai-llm-agent"
+        "ai",
+        "ai-llm-agent",
+        "artificial-intelligence",
+        "deep-learning",
+        "deep-neural-networks",
+        "dnn",
+        "keras",
+        "machine-learning",
+        "ml",
+        "neural-network",
+        "onnx",
+        "pytorch",
+        "scikit-learn",
+        "tensorflow"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -5048,81 +5009,6 @@
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "onnx/onnx",
-      "url": "https://github.com/onnx/onnx",
-      "summary": "Open standard for machine learning interoperability",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai",
-        "ai-llm-agent",
-        "artificial-intelligence",
-        "deep-learning",
-        "deep-neural-networks",
-        "dnn",
-        "keras",
-        "machine-learning",
-        "ml",
-        "neural-network",
-        "onnx",
-        "pytorch",
-        "scikit-learn",
-        "tensorflow"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 19,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
           "2026-04-16",
           "2026-04-17",
           "2026-04-18",
@@ -5262,18 +5148,17 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -5308,18 +5193,17 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -5354,7 +5238,7 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 4,
         "first_seen": "2026-04-24",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5364,20 +5248,66 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
-      "title": "Top 10 uses for Codex at work",
-      "url": "https://openai.com/academy/top-10-use-cases-codex-for-work",
-      "summary": "Explore 10 practical Codex use cases to automate tasks, create deliverables, and turn real inputs into outputs across tools, files, and workflows.",
-      "primary_domain": "ai-x-electronics",
+      "title": "Working with Codex",
+      "url": "https://openai.com/academy/working-with-codex",
+      "summary": "Learn how to set up your Codex workspace, create threads and projects, manage files, and start completing tasks with step-by-step guidance.",
+      "primary_domain": "ai-llm-agent",
       "matched_domains": [
-        "ai-x-electronics",
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "openai-news"
+      ],
+      "tags": [
+        "OpenAI Academy",
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "openai-news"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Plugins and skills",
+      "url": "https://openai.com/academy/codex-plugins-and-skills",
+      "summary": "Learn how to use Codex plugins and skills to connect tools, access data, and follow repeatable workflows to automate tasks and improve results.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
         "ai-llm-agent"
       ],
       "score": 1.0,
@@ -5452,7 +5382,7 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 4,
         "first_seen": "2026-04-24",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5462,8 +5392,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5501,7 +5430,7 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 5,
         "first_seen": "2026-04-16",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5512,8 +5441,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5583,18 +5511,17 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -5652,7 +5579,7 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 4,
         "first_seen": "2026-04-24",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5662,8 +5589,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5733,7 +5659,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 7,
+        "days_seen": 6,
         "first_seen": "2026-04-22",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5745,8 +5671,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5814,7 +5739,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5830,8 +5755,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5884,7 +5808,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5900,8 +5824,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -5949,7 +5872,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 5,
         "first_seen": "2026-04-23",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -5960,8 +5883,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6025,7 +5947,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6049,8 +5971,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6088,7 +6009,7 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6112,8 +6033,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6161,7 +6081,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6185,8 +6105,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6225,18 +6144,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -6272,18 +6190,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -6346,18 +6263,17 @@
         "summary": "1 source(s) | paper | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -6404,18 +6320,17 @@
         "summary": "1 source(s) | paper | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -6451,18 +6366,17 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
         "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
-      "lifecycle_state": "rising",
+      "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
@@ -6522,7 +6436,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6538,8 +6452,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6602,7 +6515,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6618,8 +6531,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6687,7 +6599,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 8,
+        "days_seen": 7,
         "first_seen": "2026-04-21",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6700,8 +6612,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6773,7 +6684,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6797,8 +6708,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -6877,7 +6787,7 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 10,
         "first_seen": "2026-04-18",
         "last_seen": "2026-04-27",
         "previous_score": 1.0,
@@ -6893,8 +6803,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -7011,6 +6920,613 @@
           "2026-04-26",
           "2026-04-27",
           "2026-04-28"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "How to build scalable web apps with OpenAI's Privacy Filter",
+      "url": "https://huggingface.co/blog/openai-privacy-filter-web-apps",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce",
+            "url": "https://www.anthropic.com/news/anthropic-nec",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "From hardware to intelligence: The Qualcomm AI camera platform for scalable security solutions",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/qualcomm-insight-platform-edge-ai-security",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "How to Use Transformers.js in a Chrome Extension",
+            "url": "https://huggingface.co/blog/transformersjs-chrome-extension",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-04-27",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "How to Use Transformers.js in a Chrome Extension",
+      "url": "https://huggingface.co/blog/transformersjs-chrome-extension",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm expands compute platform to silicon products in historic company first",
+            "url": "https://newsroom.arm.com/news/arm-agi-cpu-launch",
+            "summary": "<p>News highlights Cambridge, England – Mar. 24, 2026 – Arm Holdings plc (NASDAQ: ARM) today announced the next evolution of the Arm compute platform, extending into production silicon products for the first time in the company’s history. This begins with the launch of the Arm AGI CPU, an Arm-designed CPU for AI data centers, built [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agi-cpu-launch\">Arm expands compute platform to silicon products in historic company first</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "How to build scalable web apps with OpenAI's Privacy Filter",
+            "url": "https://huggingface.co/blog/openai-privacy-filter-web-apps",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "infineon-blog",
+            "source_type": "official",
+            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
+            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Gemma 4 VLA Demo on Jetson Orin Nano Super",
+      "url": "https://huggingface.co/blog/nvidia/gemma4",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
+            "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2025/12/robotics-jetson-agx-thor-family-techblog-image_KB_R3-1-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics\" width=\"768\" />Running advanced AI and computer vision workloads on small, power-efficient devices at the edge is a growing challenge. Robots, smart cameras, and autonomous...",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson",
+            "url": "https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/",
+            "summary": "<img alt=\"Decorative image.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Robotics-Jetson-OSS-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Robotics-Jetson-OSS\" width=\"768\" />The boom in open source generative AI models is pushing beyond data centers into machines operating in the physical world. Developers are eager to deploy these...",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 5,
+        "first_seen": "2026-04-23",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "AI and the Future of Cybersecurity: Why Openness Matters",
+      "url": "https://huggingface.co/blog/cybersecurity-openness",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Intelligence everywhere: What OpenClaw tells us about the future of AI",
+            "url": "https://www.qualcomm.com/news/onq/2026/04/openclaw-ai-agent-orchestration",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
+            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
+            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "An ecosystem approach to the future of automotive",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 6,
+        "first_seen": "2026-04-22",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "The PR you would have opened yourself",
+      "url": "https://huggingface.co/blog/transformers-to-mlx",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 11,
+        "first_seen": "2026-04-17",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "qwen-blog",
+            "source_type": "official",
+            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
+            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 1 related support"
+      },
+      "memory": {
+        "days_seen": 18,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Meet HoloTab by HCompany. Your AI browser companion.",
+      "url": "https://huggingface.co/blog/Hcompany/holotab",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Personal AI, now on your wrist — and beyond",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-wear-elite-platform",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "qualcomm-onq",
+            "source_type": "official",
+            "title": "Why the Snapdragon Digital Chassis is your lifeline in the AI-defined vehicle era",
+            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-digital-chassis-ai-defined-vehicles",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "official-source",
+          "related-support"
+        ],
+        "summary": "1 source(s) | official | 3 related support"
+      },
+      "memory": {
+        "days_seen": 12,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
+      "url": "https://huggingface.co/blog/waypoint-1-5",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "huggingface-blog"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 18,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "GPT-5.5 System Card",
+      "url": "https://openai.com/index/gpt-5-5-system-card",
+      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 0.3,
+      "evidence_count": 1,
+      "source_ids": [
+        "openai-news"
+      ],
+      "tags": [
+        "Safety",
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "openai-news"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "official-source"
+        ],
+        "summary": "1 source(s) | official"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-04-27",
+        "previous_score": 0.3,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -10045,7 +10561,7 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -10069,8 +10585,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -10117,7 +10632,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -10141,8 +10656,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -10189,7 +10703,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -10213,8 +10727,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -10261,7 +10774,7 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 19,
+        "days_seen": 18,
         "first_seen": "2026-04-09",
         "last_seen": "2026-04-27",
         "previous_score": 0.3,
@@ -10285,8 +10798,7 @@
           "2026-04-24",
           "2026-04-25",
           "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
+          "2026-04-27"
         ]
       },
       "lifecycle_state": "rising",
@@ -11518,626 +12030,10 @@
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
-    },
-    {
-      "title": "How to build scalable web apps with OpenAI's Privacy Filter",
-      "url": "https://huggingface.co/blog/openai-privacy-filter-web-apps",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce",
-            "url": "https://www.anthropic.com/news/anthropic-nec",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "From hardware to intelligence: The Qualcomm AI camera platform for scalable security solutions",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/qualcomm-insight-platform-edge-ai-security",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "How to Use Transformers.js in a Chrome Extension",
-            "url": "https://huggingface.co/blog/transformersjs-chrome-extension",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-04-28",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "How to Use Transformers.js in a Chrome Extension",
-      "url": "https://huggingface.co/blog/transformersjs-chrome-extension",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm expands compute platform to silicon products in historic company first",
-            "url": "https://newsroom.arm.com/news/arm-agi-cpu-launch",
-            "summary": "<p>News highlights Cambridge, England – Mar. 24, 2026 – Arm Holdings plc (NASDAQ: ARM) today announced the next evolution of the Arm compute platform, extending into production silicon products for the first time in the company’s history. This begins with the launch of the Arm AGI CPU, an Arm-designed CPU for AI data centers, built [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agi-cpu-launch\">Arm expands compute platform to silicon products in historic company first</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "How to build scalable web apps with OpenAI's Privacy Filter",
-            "url": "https://huggingface.co/blog/openai-privacy-filter-web-apps",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "infineon-blog",
-            "source_type": "official",
-            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
-            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 5,
-        "first_seen": "2026-04-24",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Gemma 4 VLA Demo on Jetson Orin Nano Super",
-      "url": "https://huggingface.co/blog/nvidia/gemma4",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics",
-            "url": "https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2025/12/robotics-jetson-agx-thor-family-techblog-image_KB_R3-1-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics\" width=\"768\" />Running advanced AI and computer vision workloads on small, power-efficient devices at the edge is a growing challenge. Robots, smart cameras, and autonomous...",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Maximizing Memory Efficiency to Run Bigger Models on NVIDIA Jetson",
-            "url": "https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/",
-            "summary": "<img alt=\"Decorative image.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Robotics-Jetson-OSS-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Robotics-Jetson-OSS\" width=\"768\" />The boom in open source generative AI models is pushing beyond data centers into machines operating in the physical world. Developers are eager to deploy these...",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 6,
-        "first_seen": "2026-04-23",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "AI and the Future of Cybersecurity: Why Openness Matters",
-      "url": "https://huggingface.co/blog/cybersecurity-openness",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Intelligence everywhere: What OpenClaw tells us about the future of AI",
-            "url": "https://www.qualcomm.com/news/onq/2026/04/openclaw-ai-agent-orchestration",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "An ecosystem approach to the future of automotive",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 7,
-        "first_seen": "2026-04-22",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "The PR you would have opened yourself",
-      "url": "https://huggingface.co/blog/transformers-to-mlx",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 12,
-        "first_seen": "2026-04-17",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers",
-      "url": "https://huggingface.co/blog/train-multimodal-sentence-transformers",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "qwen-blog",
-            "source_type": "official",
-            "title": "Qwen3-VL-Embedding & Qwen3-VL-Reranker：统一多模态表征与排序",
-            "url": "https://qwen.ai/blog?id=qwen3-vl-embedding",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 1 related support"
-      },
-      "memory": {
-        "days_seen": 19,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Meet HoloTab by HCompany. Your AI browser companion.",
-      "url": "https://huggingface.co/blog/Hcompany/holotab",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
-            "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Personal AI, now on your wrist — and beyond",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-wear-elite-platform",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "Why the Snapdragon Digital Chassis is your lifeline in the AI-defined vehicle era",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/snapdragon-digital-chassis-ai-defined-vehicles",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "official-source",
-          "related-support"
-        ],
-        "summary": "1 source(s) | official | 3 related support"
-      },
-      "memory": {
-        "days_seen": 13,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs",
-      "url": "https://huggingface.co/blog/waypoint-1-5",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "huggingface-blog"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 19,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "GPT-5.5 System Card",
-      "url": "https://openai.com/index/gpt-5-5-system-card",
-      "summary": "来源共 1 条，等待后续 AI 深度摘要。",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 0.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "openai-news"
-      ],
-      "tags": [
-        "Safety",
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "openai-news"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "official-source"
-        ],
-        "summary": "1 source(s) | official"
-      },
-      "memory": {
-        "days_seen": 5,
-        "first_seen": "2026-04-24",
-        "last_seen": "2026-04-27",
-        "previous_score": 0.3,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
     }
   ],
   "predictions": [
-    "代理安全治理将从一个‘可选项’变为生产部署的‘必选项’。2025年下半年将是代理可观测性与自动熔断机制的工程化落地窗口期，未能在此窗口内建立健壮治理方案的代理系统将被企业客户拒绝。但根本性的‘自主工具创建’安全问题在6-12个月内仍难以彻底解决，人类确认仍是主要的兜底手段。"
+    "未来 6-12 个月，AI Agent 发展将从“追求高分与自主性”向“证明可信与可操作性”过渡。具备系统化调试能力、权限控制和边缘可行性验证的 Agent 将获得商业先机，社区高分项目若无独立复现和安全机制支撑将快速退潮；边缘部署在旗舰机型上验证工程可行性后，多用途多语言模型将成高端手机的主打 AI 特性，但向中低端普及仍需 1-2 年。"
   ],
   "sources": {
     "github": {
