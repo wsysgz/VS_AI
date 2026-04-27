@@ -26,8 +26,8 @@
 - Canonical remote：`git@github.com:wsysgz/VS_AI.git`
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
-- 当前本地验证基线：`333 passed`
-- 当前主线优先级：`P3-C 国内外对比分析（A 方案）已完成，公开站 IA V2 计划已输出；下一步按计划实现赛道入口、归档来源筛选降噪、跨页导航`
+- 当前本地验证基线：`337 passed`
+- 当前主线优先级：`公开站 IA V2 第一批已完成：赛道入口、归档来源筛选降噪、跨页导航；下一步按阶段需要做远端发布级确认或评估 IA V2 第二批`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / run 25007010720 / trigger commit 9b3d010 / output commit a329642`
 - 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
@@ -375,7 +375,7 @@ Get-Content out/source-governance/source-governance.json
 - 文档主入口已经统一收口到仓库根目录
 - 当前主线已完成 `P3-B 阶段性收口 + P3-C 国内外对比分析（A 方案）`
 - 交付面已收敛为飞书单通道；不再维护旧非飞书渠道
-- 本地验证基线已随飞书单通道收敛刷新到 `333 passed`
+- 本地验证基线已随公开站 IA V2 第一批刷新到 `337 passed`
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - `renesas-blog` / `youtube-google-developers` / `youtube-nvidia` 已从活跃采集里降噪处理，等待稳定入口恢复后再启用
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
@@ -826,7 +826,7 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 已知固定事实：
 - 工作区是 D:\GitHub\auto
 - 远端是 git@github.com:wsysgz/VS_AI.git
-- 当前优先级已转到：公开站 IA V2 第一批实现；`P3-C-1 / P3-C-2 / P3-C-3` 已完成；repo 内原生 watch runner 只保留例行观察
+- 当前优先级已转到：公开站 IA V2 第一批收口；`P3-C-1 / P3-C-2 / P3-C-3` 已完成；repo 内原生 watch runner 只保留例行观察
 - 运行态真相文件是 data/state/run-status.json
 - 手动触发 workflow 前必须先 push
 - 直接在 main 上工作，不创建功能分支
@@ -843,7 +843,7 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 5. 看 `data/state/run-status.json`
 6. 看 `out/source-governance/source-governance.json`
 7. 看 `out/review-queue/source-lead-review-status.json`
-8. 当前默认进入公开站 IA V2 第一批实现；不要回头重做 `P3-C-1 / P3-C-2 / P3-C-3`
+8. 当前默认进入公开站 IA V2 第一批收口 / 发布确认；不要回头重做 `P3-C-1 / P3-C-2 / P3-C-3`
 - 旧非飞书渠道不再作为当前优化对象
 
 ## 12. AI 接手后的首小时清单
@@ -861,6 +861,6 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 1. P3-A：飞书推送界面优化尾部小修（`Delivery Canary` 已升级为飞书卡片主路径 canary）
 2. P3-C-2：comparison brief 与交付消费（已完成）
 3. P3-C-3：验收、文档、发布收口（已完成）
-4. 按 `docs/superpowers/plans/2026-04-28-public-site-ia-v2.md` 实现公开站 IA V2 第一批
-5. 做公开站方案对应的本地验收
+4. 公开站 IA V2 第一批已完成；优先做提交、推送和必要的远端发布级确认
+5. 后续再评估 IA V2 第二批：来源总览页、赛道/来源交叉视图、移动端筛选体验
 6. 如需发布级确认，`push` + workflow_dispatch

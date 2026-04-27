@@ -253,6 +253,69 @@ def test_build_pages_site_homepage_and_archives_are_data_driven(tmp_path: Path):
     assert "按来源浏览" in archive_index
 
 
+def test_build_pages_site_generates_track_and_source_navigation(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    tracks_index = (tmp_path / "docs" / "tracks" / "index.html").read_text(encoding="utf-8")
+
+    assert "赛道" in index_html
+    assert "来源" in index_html
+    assert "AI/智能体" in tracks_index
+    assert "AI × 电子" in tracks_index
+
+
+def test_build_pages_site_archive_filters_include_source_search(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    archive_index = (tmp_path / "docs" / "archives" / "index.html").read_text(encoding="utf-8")
+
+    assert 'id="source-filter-search"' in archive_index
+    assert "筛选来源" in archive_index
+    assert "sourceFilterSearch" in archive_index
+
+
+def test_build_pages_site_generates_track_detail_pages(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    tracks_root = tmp_path / "docs" / "tracks"
+    detail_pages = list(tracks_root.glob("*/index.html"))
+
+    assert detail_pages
+    detail_html = detail_pages[0].read_text(encoding="utf-8")
+    assert "最近日报" in detail_html
+    assert "重点信号" in detail_html
+
+
+def test_build_pages_site_navigation_links_tracks_everywhere(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    pages = [
+        tmp_path / "docs" / "index.html",
+        tmp_path / "docs" / "archives" / "index.html",
+        tmp_path / "docs" / "weekly" / "index.html",
+        tmp_path / "docs" / "special" / "index.html",
+    ]
+    for page in pages:
+        html = page.read_text(encoding="utf-8")
+        assert "tracks/" in html
+        assert "赛道" in html
+
+
 def test_build_pages_site_pages_define_inline_favicon(tmp_path: Path):
     latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
     _write_report_set(tmp_path, "2026-04-11", latest)
