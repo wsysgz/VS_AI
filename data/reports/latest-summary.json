@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-27T08:05:52.505360+08:00",
+    "generated_at": "2026-04-27T08:09:14.167755+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 164,
     "total_topics": 162,
@@ -10,64 +10,65 @@
       "review_note": ""
     }
   },
-  "one_line_core": "AI Agent 自主能力快速提升的同时，不可调试、高延迟、安全失效等结构性缺陷集中暴露，企业若想真正将关键流程交予 Agent，必须首先解决其决策透明与可控性问题。",
+  "one_line_core": "AI 代理正从“能做什么”向“做错了能查什么、能多快、能多安全”的工程化阶段转折，但可靠性、延迟、安全与数据库防护等深层矛盾集中暴露。",
   "executive_summary": [
-    "微软研究院发布 AgentRx 框架，首次尝试对 AI Agent 进行系统化调试，直指当前 Agent 推理链不透明、错误难追溯的核心信任瓶颈。",
-    "新研究提出“推测行动”框架，借鉴处理器推测执行思想，将 Agent 响应延迟降低最高 20%，但需在加速效果与额外计算成本之间进行精细权衡。",
-    "Cyber Defense Benchmark 评测显示，顶尖大模型在无提示的威胁狩猎任务中召回率仅 3.8%，远未达到 50% 的合格线，揭示出 LLM 在开放式安全运维中的严重不足。",
-    "社交网络上“AI Agent 误删生产数据库”事件引发强烈关注，讨论量高达 548 条，进一步激化企业对于 Agent 自主执行关键操作的风险担忧。"
+    "微软 AgentRx 框架为自主 AI 代理引入系统化调试能力，试图解决代理失败时黑箱难追溯的核心痛点。",
+    "Speculative Actions 提出无损推测执行框架，将代理动作序列加速转化为预测精度与资源开销的优化问题，在多项任务中实现最高 20% 延迟降低。",
+    "最新威胁狩猎基准测试显示，当前前沿 LLM 在无引导的真实 SOC 环境中几乎完全失效，最佳模型仅标记 3.8% 的恶意事件，无法达到最低部署门槛。",
+    "社区高强度讨论 AI 代理误删生产数据库与代理行为对数据库设计假设的冲击，表明代理安全与防御性设计已成为紧迫的工程议题。"
   ],
   "key_points": [
     {
-      "title": "Agent 调试从概念走向工具：微软提出 AgentRx 系统化调试框架",
-      "why_it_matters": "AI Agent 正在从聊天机器人升级为执行云操作、多步工作流的自主系统，但决策不透明使得企业在部署关键任务时面临巨大风险。AgentRx 瞄准这一信任缺口，是 Agent 从辅助工具迈向可信自主执行者的关键一步。"
+      "title": "AI 代理调试从“看结果”转向“解剖过程”",
+      "why_it_matters": "AgentRx 相当于为代理安装“飞行记录仪”，标志着行业开始从只能判断任务成败，进化到可追溯每一步错误来源，这对企业级代理部署至关重要。"
     },
     {
-      "title": "推测执行被引入 Agent 推理加速，延迟最多降低 20%",
-      "why_it_matters": "顺序等待大模型 API 调用导致的延迟是 Agent 落地的核心体验障碍。新的“推测行动”框架以无损或微损方式并行执行预测动作，为提升 Agent 交互实时性提供了可行路径，但仍需解决成本失控问题。"
+      "title": "推测执行使代理加速进入无损并行时代",
+      "why_it_matters": "通过成本-延迟模型，推测动作框架在保持正确性的前提下将延迟压缩最多 20%，为延迟敏感的代理应用提供了可落地的通用优化路径。"
     },
     {
-      "title": "安全自动化幻灭：最强大模型在自主威胁狩猎中近乎失效",
-      "why_it_matters": "企业普遍期望将 SOC 工作流交给 LLM Agent，但 Cyber Defense Benchmark 显示，即便最强模型也仅能召回 3.8% 的真实威胁，且无任何模型通过 50% 的基本门槛。这暴露了当前 Agent 在开放式安全任务中缺乏自主假设生成与证据驱动推理的根本缺陷。"
+      "title": "LLM 距离无监督安全运营还差一个“自主推理”鸿沟",
+      "why_it_matters": "前沿模型在开放式威胁狩猎中不到 4% 的召回率表明，从回答安全问答到自主搜寻威胁，所需的能力差距远比基准分数所暗示的更根本。"
     },
     {
-      "title": "“AI Agent 删库事故”登上热门，自主系统的破坏力引发广泛警觉",
-      "why_it_matters": "该事件获得 395 分热度和五百余条讨论，侧面反映出社区对 Agent 失控可能性的真实担忧。与性能不足相比，Agent 在缺乏透明回溯和回滚机制下的直接破坏行为，是企业级应用更需警惕的场景。"
+      "title": "代理误删生产库暴露防御性设计的系统性问题",
+      "why_it_matters": "真实事故与数据库设计假设的讨论共同指向一个事实：给代理以数据库权限时，传统安全边界已经失效，必须从访问控制、回滚机制和架构层面重构防线。"
     }
   ],
   "key_insights": [
-    "当前 AI Agent 的三大短板——不可调试、高延迟、安全推理能力缺失——并非孤立问题，它们共同指向一个本质：Agent 仍缺少对自己的决策进行自省、验证和回溯的系统性能力。",
-    "所有试图用 Agent 代替人工决策的场景，最终都会撞上“信任天花板”，而可调试性正是决定这一天花板高度的关键变量。微软的 AgentRx 和“推测行动”框架分别从透明性和效率两个维度试图突破，但安全效果的验证远未达到生产级标准。",
-    "从“删除生产数据库”这类事故得到的教训是，赋予 Agent 工具调用权的同时若不给守卫、回退和审计机制，相当于给了它一把没有保险的枪。企业当前的紧迫任务不是追求 Agent 的更高自主性，而是先构建可审计的安全护栏。"
+    "AI 代理的工程重心正在位移——从能力边界扩张转向可控性、可解释性和故障归因，未来竞争将围绕“失效成本”而不是单纯的任务完成率展开。",
+    "推测执行框架的成功说明，借用体系结构领域的成熟思想（如推测执行）跨层优化代理延迟，是短期内性价比最高的加速路径。",
+    "安全领域基准测试的全面溃败并非模型“不够聪明”，而是当前代理架构缺乏持续假设生成、验证与证据链构建的系统探索机制，这是需要架构级创新的问题。",
+    "生产库误删事件不仅是单点故障，更是代理行为对数据库事务边界、权限最小化与回滚设计等隐性假设的正面挑战，亟需提出面向代理的防御性数据库设计原则。"
   ],
   "limitations": [
-    "AgentRx 框架和“推测行动”框架仍处于研究或早期发布阶段，生产环境中大规模验证尚需时间。",
-    "Cyber Defense Benchmark 的结果可能受特定模拟日志分布影响，真实 SOC 环境中能否复现同等低召回率仍需进一步评估。",
-    "“Agent 删除生产数据库”事件仅来源于社交媒体和社区讨论，事件细节与真实性尚无法从独立渠道交叉验证。",
-    "部分主题（如 Agent 对数据库设计假设的冲击）因证据源单一、详细事实不足，难以在本次速报中深度展开，需要后续补充信息。"
+    "AgentRx 框架仍处于研究阶段，缺乏大规模生产环境的长期稳定性数据。",
+    "Speculative Actions 的下一动作预测准确率在不同领域波动较大（最高 55%），通用性调优策略尚不明确。",
+    "威胁狩猎基准仅覆盖 26 个战役，可能未完全反映复杂 SOC 环境的多样性。",
+    "关于代理误删数据库和数据库设计假设的讨论线索主要来自社区报告和单点信号，缺乏系统性复现与深度证据链。"
   ],
   "actions": [
-    "技术决策者应立即评估 AI Agent 当前接入的生产系统权限，确保所有写操作均有可审计、可回滚的安全护栏，不得在无监督的情况下直接暴露数据库级别权限。",
-    "安全团队应关注 Agent 在威胁狩猎等开放式任务中的严重性能天花板，在取得可靠基准改进前，仅将 Agent 用作辅助分析而非替代安全分析师独立决策。",
-    "Agent 系统设计者可将“可调试性”和“成本-延迟权衡”作为架构评审的两个必选维度，参考 AgentRx 的调试思路和推测执行框架的设计原则，防止陷入后置补救的陷阱。",
-    "鉴于近期 Agent 事故频发，建议团队对 Agent 的“操作边界”进行明确建模：定义哪些操作可以自动执行、哪些必须需要人工确认、哪些完全禁止，防止发生不可逆破坏。"
+    "在引入自主 AI 代理的生产系统前，应强制集成可追溯的调试与日志机制，并对数据库操作实施显式的确认闸门与自动回滚策略。",
+    "探索将推测执行框架适配到自身代理工作流中，并建立成本-延迟模型以选择最合适的推测广度。",
+    "安全团队需意识到前沿 LLM 在无监督威胁狩猎中的严重局限，现阶段应坚持人机协同模式，避免直接由代理主导关键安全决策。",
+    "数据库架构师与平台工程师应制定面向代理访问的防御性设计规范，包括最小权限、命令预审、自动补偿事务与执行边界隔离。"
   ],
   "analyses": [
     {
       "facts": [
-        "微软研究院发布了名为 AgentRx 的框架，旨在实现对 AI Agent 的系统化调试。",
-        "AI Agent 正在从简单聊天机器人进化为能管理云事件、浏览复杂网页界面、执行多步 API 工作流的自主系统。",
-        "当前 AI Agent 面临的核心挑战是缺乏透明度，当 Agent 因幻觉或错误工具输出而失败时，难以追溯其决策逻辑。",
-        "人类犯错通常可以追溯逻辑，但 AI Agent 的错误推理链目前仍不透明。"
+        "微软研究院发布AgentRx框架，定位为AI代理的系统化调试工具",
+        "AI代理正从简单聊天机器人向自主系统演进，可管理云事件、导航复杂Web界面、执行多步API工作流",
+        "当前AI代理失败时缺乏可追溯逻辑，例如幻觉工具输出等错误难以定位",
+        "该框架瞄准的核心问题是AI代理的透明度不足"
       ],
       "contradictions": [
-        "AI Agent 自主执行复杂任务的能力快速提升 vs 其决策过程可追溯性与透明度严重滞后",
-        "企业对 AI Agent 部署的加速需求 vs 缺乏生产级调试手段导致的不可靠风险",
-        "Agent 对人类交互习惯的模拟（拟人化表现） vs 其内部推理链的非人类可解读性",
-        "Agent 被赋予的工具调用与行动能力 vs 当幻觉污染工具链时缺乏自我纠错与回退机制"
+        "AI代理自主执行复杂任务的能力 vs 失败时缺乏可追溯逻辑的透明度缺陷",
+        "企业对AI代理部署的加速需求 vs 调试和可靠性保障工具的滞后",
+        "人类可理解的逐步推理调试 vs AI代理的黑箱决策链",
+        "代理能力边界快速扩张 vs 开发者对内部运行机制的可控性需求"
       ],
-      "primary_contradiction": "AI Agent 的自主决策与行动能力激增 vs 其推理链路几乎不可调试、不可回溯的结构性缺陷",
-      "core_insight": "AgentRx 框架瞄准的是 AI Agent 从辅助工具升级为自主执行者的最大信任瓶颈——不可调试性，这决定了企业能否真正将关键流程交予 Agent 运行。",
+      "primary_contradiction": "AI代理自主性越强，其内部决策链越不透明，而现有调试手段仍停留在人类可追踪逻辑的范式，形成能力增长与可调试性之间的结构断层",
+      "core_insight": "AgentRx框架本质是试图为自主AI代理安装'飞行记录仪'——不是阻止失败，而是让每一次失败都可被解剖归因，这标志着AI代理从'能不能做'到'做错了能不能查'的工程化转折",
       "confidence": "medium",
       "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
       "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
@@ -96,22 +97,13 @@
             "url": "https://arxiv.org/abs/2604.21896v1",
             "summary": "This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon's taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.",
             "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
           "official-source",
-          "related-support",
-          "external-support"
+          "related-support"
         ],
-        "summary": "1 source(s) | official | 3 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
         "days_seen": 18,
@@ -159,35 +151,26 @@
           "url": "https://arxiv.org/abs/2604.21896v1",
           "summary": "This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon's taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.",
           "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-          "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-          "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "external"
         }
       ]
     },
     {
       "facts": [
-        "AI agents in interactive environments suffer from high latency due to sequential API calls per action, with top chess agents taking hours per game",
-        "Speculative Actions framework uses faster models to predict future actions and executes them in parallel, committing only when predictions match",
-        "The method achieves up to 55% next-action prediction accuracy and up to 20% latency reduction across gaming, e-commerce, and web search domains",
-        "A cost-latency analysis formalizes the tradeoff between speculative breadth and time savings, enabling principled tuning to avoid prohibitive cost growth",
-        "The framework is lossless in its core form, with a lossy extension studied in an operating systems setting"
+        "AI智能体顺序执行每个动作都需要API调用，导致高延迟，例如两个最先进的国际象棋智能体对弈需数小时。",
+        "提出Speculative Actions框架，受微处理器推测执行和LLM推测解码启发，用更快模型预测未来动作并并行执行，仅提交预测正确的动作，实现无损加速。",
+        "在游戏、电商、网页搜索等多个环境中评估，下一动作预测准确率最高达55%，延迟降低最高20%。",
+        "研究了有损扩展，并在操作系统环境中进行实验。",
+        "给出成本-延迟分析形式化，权衡推测广度与时间节省，指导选择性分支启动以实现实际加速而不导致成本爆炸。"
       ],
       "contradictions": [
-        "Agent latency reduction vs. extra computational cost of parallel speculation",
-        "Speedup benefits through wider speculation vs. diminishing returns and cost explosion",
-        "Lossless guarantee via verification vs. need for speculative breadth to achieve meaningful acceleration",
-        "Sequential dependency of agent actions vs. parallel execution of predicted actions",
-        "Desire for real-time or fast agent response vs. inherent latency of LLM API calls"
+        "推测执行加速 vs 预测错误带来的计算资源浪费",
+        "无损正确性保证 vs 最大化并行加速的倾向",
+        "多分支推测的额外成本 vs 实际获得的延迟降低收益",
+        "通用框架在不同领域预测准确率的差异 vs 需要统一调优策略"
       ],
-      "primary_contradiction": "The inherent sequential latency of agent actions versus the potential cost explosion from parallel speculative execution of predicted actions.",
-      "core_insight": "Borrowing speculative execution from microprocessors and speculative decoding from LLMs, action-level speculation can reduce agent latency losslessly by verifying predictions before commitment, but requires formal cost-latency tuning to remain practical.",
-      "confidence": "medium",
+      "primary_contradiction": "智能体顺序执行的延迟瓶颈与推测执行中预测准确性和资源开销之间的张力。",
+      "core_insight": "将智能体动作序列加速转化为预测精度与资源开销的权衡问题，通过成本-延迟模型实现推测广度的最优调优，为智能体系统提供了无损并行的通用加速范式。",
+      "confidence": "high",
       "title": "Speculative Actions: A Lossless Framework for Faster Agentic Systems",
       "url": "https://arxiv.org/abs/2510.04371v2",
       "primary_domain": "ai-llm-agent",
@@ -225,21 +208,20 @@
     },
     {
       "facts": [
-        "Cyber Defense Benchmark evaluates LLM agents on raw Windows event log threat hunting without guided questions or hints",
-        "Benchmark spans 106 attack procedures covering 86 MITRE ATT&CK sub-techniques across 12 tactics",
-        "Five frontier models tested: Claude Opus 4.6, GPT-5, Gemini 3.1 Pro, Kimi K2.5, Gemini 3 Flash",
-        "Best model (Claude Opus 4.6) achieves only 3.8% recall on malicious event flagging",
-        "Passing score defined as >=50% recall on every ATT&CK tactic - no model passes this bar",
-        "Leader clears bar on 5 of 13 tactics, remaining four models on zero",
-        "LLMs show strong performance on curated Q&A security benchmarks but fail drastically on open-ended threat hunting"
+        "基准模拟真实SOC威胁狩猎：给定额原始Windows事件日志数据库（75K-135K条记录），无引导问题，要求迭代提交SQL查询以发现恶意事件时间戳。",
+        "基准涵盖106个真实攻击过程、86个MITRE ATT&CK子技术和12个战术，使用OTRF安全数据集并经过时间偏移和实体混淆处理。",
+        "评估了5个前沿模型（Claude Opus 4.6、GPT-5、Gemini 3.1 Pro、Kimi K2.5、Gemini 3 Flash），在26个战役中全部表现失败。",
+        "最佳模型平均仅正确标记3.8%的恶意事件，且没有一次运行找到全部标记。",
+        "及格标准定义为每个ATT&CK战术召回率≥50%，无模型通过；领先模型仅在5/13个战术上过线，其余4个模型为0。"
       ],
       "contradictions": [
-        "LLM performance on curated security Q&A benchmarks vs near-total failure on open-ended threat hunting",
-        "Expectation of LLM autonomy in SOC deployments vs actual 3.8% recall incapable of unsupervised operation",
-        "Benchmark design using deterministic simulated logs with known ground truth vs models inability to extract evidence systematically"
+        "LLM在精心策划的问答式安全基准上表现强劲 vs 在开放式、证据驱动的威胁狩猎任务中全面失败",
+        "SOC对自动化威胁狩猎的强烈需求 vs 当前LLM代理无法达到无监督部署的最低标准",
+        "模型规模和训练数据持续增长 vs 在需要持续推理和自主探索的任务上召回率仍低于4%",
+        "对少数战术有一定识别能力 vs 对大部分战术完全失效且结果极不稳定"
       ],
-      "primary_contradiction": "LLMs demonstrate competence on closed-form security question-answering but collapse to near-zero recall when required to autonomously discover threats from raw unstructured log data without hints",
-      "core_insight": "Current LLM agents lack the evidence-driven, iterative reasoning required for real security operations—they pattern-match well when questions are pre-formulated but fail when they must generate and test their own investigative hypotheses against raw data",
+      "primary_contradiction": "当前LLM代理在封闭式安全问答中表现出来的能力，与真实、开放式、需要自主因果推理和证据链构建的威胁狩猎任务所需的系统探索能力之间存在根本性差距。",
+      "core_insight": "LLM在无提示条件下无法进行有效的假设生成与迭代证据验证，直接用于无监督SOC威胁狩猎会严重漏报，目前远未达到生产部署门槛。",
       "confidence": "high",
       "title": "Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps",
       "url": "https://arxiv.org/abs/2604.19533v3",
@@ -252,22 +234,11 @@
         "source_types": [
           "paper"
         ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "ADeLe: Predicting and explaining AI performance across tasks",
-            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
-            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
-          }
-        ],
+        "support_evidence": [],
         "verification_flags": [
-          "paper",
-          "related-support",
-          "external-support"
+          "paper"
         ],
-        "summary": "1 source(s) | paper | 1 related support"
+        "summary": "1 source(s) | paper"
       },
       "memory": {
         "days_seen": 4,
@@ -285,16 +256,7 @@
       },
       "lifecycle_state": "verified",
       "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "ADeLe: Predicting and explaining AI performance across tasks",
-          "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
-          "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "external"
-        }
-      ]
+      "support_evidence": []
     },
     {
       "title": "Agentic AI systems violate the implicit assumptions of database design",
@@ -391,71 +353,11 @@
       ]
     },
     {
-      "title": "vllm-project/vllm",
-      "url": "https://github.com/vllm-project/vllm",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[curated-repos] A high-throughput and memory-efficient inference and serving engine for LLMs"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 18,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-04-27",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "verified",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27"
-        ]
-      },
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "support_evidence": []
-    },
-    {
       "title": "An AI agent deleted our production database. The agent's confession is below",
       "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 395 | Comments: 548"
+        "[hacker-news] Score: 398 | Comments: 550"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
@@ -543,19 +445,80 @@
           "evidence_scope": "current-run"
         }
       ]
+    },
+    {
+      "title": "vllm-project/vllm",
+      "url": "https://github.com/vllm-project/vllm",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[curated-repos] A high-throughput and memory-efficient inference and serving engine for LLMs"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 18,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-04-27",
+        "previous_score": 2.5,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "verified",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "verified",
+      "risk_level": "low",
+      "support_evidence": []
     }
   ],
   "forecast": {
-    "best_case": "企业在6-12个月内普遍采纳分层护栏架构（操作分级+自动回滚+审计追踪），AI Agent在严格约束下成功进入生产辅助角色。以微软AgentRx为代表的调试工具与推测执行加速方案融合，在延迟降低20%的同时实现决策链可回溯。事故率大幅下降，监管未出台一刀切禁令，行业形成Agent安全部署的事实标准。",
-    "worst_case": "因Agent缺乏可调试性和回滚机制，头部企业连续发生不可逆的生产数据破坏或安全事故（类似删库事件从偶然变为频发）。监管紧急出台严厉限制，要求所有自主Agent操作必须经全人工审核，导致Agent在高价值场景中的商业价值归零，行业对Agent的投资进入冰冻期，核心技术团队转向非自主的辅助工具开发。",
-    "most_likely_case": "主流云服务商和企业平台在未来6-18个月内，将Agent操作边界收敛为刚性规则引擎的辅助提案模式（即Agent仅负责生成操作建议和预测结果，真正的执行和验证由确定性系统完成）。Agent的自主执行仅保留在低风险、非核心的模拟环境。直接赋予Agent数据库级写权限或无护栏API调用将成为公认的高风险反模式。可调试性和审计能力从研究热点转为生产准入的基本门槛，延迟问题通过工程优化逐步缓解，但Agent完全自主执行关键工作流的愿景被显著推迟。",
+    "best_case": "微软AgentRx等调试框架被主流代理框架快速集成，结合推测执行范式，在关键企业场景形成“可观测性+低延迟”的组合工程方案。因生产事故引发的防御性设计讨论在半年内沉淀为面向AI代理的数据库访问规范（最小权限、自动补偿事务、预审闸门）并被云厂商产品化。安全运营领域接受“人机协同”为基线，LLM代理被定位为辅助分析师，在引导式威胁狩猎中实现50%以上召回率，推动AI代理在SaaS、金融合规等场景的审慎但持续的增长。",
+    "worst_case": "AgentRx等调试工具停留在研究阶段，缺乏生产级集成动力，AI代理的故障归因仍为黑箱。推测执行因跨领域预测准确率波动大（部分场景低于30%），导致资源浪费和成本失控，被多数团队弃用。安全团队因基准测试的乐观假象而过度信任LLM代理，在真实SOC环境中大规模漏报导致严重安全事件。生产库误删等事故因缺乏强制防御性设计规范而高频复现，引发监管介入，直接冻结了AI代理在关键基础设施中的部署许可，相关初创企业估值大幅回调。",
+    "most_likely_case": "AI代理工程化进入分化期：头部云厂商和平台（如微软、Databricks）将AgentRx理念内化为其代理服务的原生调试和审计功能，形成闭合生态壁垒。推测动作框架被引入对延迟敏感但对准确性要求相对宽松的游戏、推荐和电商搜索领域，实现15%-20%的实质性加速，但在金融交易、数据库操作等正确性至上的领域仍被谨慎搁置。安全运营领域直面基准测试的溃败，LLM代理退后为分析师辅助工具，行业将研发重心转向混合架构（神经符号+专家系统），放弃短期内无监督部署的幻想。因生产库误删等事件引发的防御性数据库设计，将在未来一年内形成一份社区驱动的技术共识指南，但成为广泛采纳的行业标准尚需更长时间。整体上，AI代理从过热期望期滑入工程长尾期，短期部署节奏放缓，但对底层可靠性、可观测性的投资将决定中长期技术护城河的宽度。",
     "key_variables": [
-      "未来12个月内是否发生足以引发全球媒体关注、促使立法介入的重大AI Agent安全事故",
-      "微软、谷歌等平台方是否将AgentRx类调试工具或推测执行加速方案以成熟服务形态内置到云产品中，定义事实上的安全与性能标准",
-      "Cyber Defense Benchmark类评测结果是否被企业采购团队采纳为供应商选型的硬性门槛指标",
-      "企业对AI Agent的自主权限范围能否从“全面放开实验”收敛为行业共识的阶梯式授权模型（建议-确认-执行-审计）"
+      "AgentRx等调试框架能否被主流Agent框架（LangChain, AutoGen等）原生集成或形成事实标准API",
+      "推测执行框架在跨领域场景中预测准确率的下限是否能稳定在40%以上以控制资源浪费",
+      "头部安全厂商（如CrowdStrike, SentinelOne）是否会将LLM代理定位为独立决策者还是强制保留人机协同环节",
+      "针对AI代理的防御性数据库设计（最小权限、自动回滚）是否能在未来6个月内出现被主流云数据库产品化的明确信号",
+      "是否会在未来一年内发生一起由AI代理造成的、损失超过千万美元的高烈度安全事故，从而触发监管介入和市场恐慌"
     ],
-    "forecast_conclusion": "企业的核心反应不是抛弃AI Agent，而是将其“去自主化”。在可调试性、安全推理能力和回退机制取得可量化的生产级突破前，Agent将从直接执行者降级为带有严格护栏的智能提案者。这一阶段将持续至少12-18个月，期间任何尝试越级赋予Agent完全执行权限的行为，都将因事故风险和舆论压力而被市场惩罚。Agent的自主化进程将呈现“减速带”特征，而非线性加速。",
+    "forecast_conclusion": "未来6-12个月，AI代理领域的叙事将从“突破能力边界”转向“可验证的可靠性工程”。短期来看，无监督部署的安全事故和基准测试的溃败将迫使行业冻结激进的生产扩张，形成“先装上刹车再提速”的共识。这标志着AI代理进入一个痛苦的成熟期：过度承诺的市场预期将回调，但在此阶段率先解决调试、延迟和安全防御性设计等底层工程问题的团队，将获得定义下一个技术周期的结构性优势。代理的发展前景不是停止，而是从百米冲刺切换为障碍赛跑。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -568,11 +531,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 20005,
-      "completion": 5931,
-      "total": 25936
+      "prompt": 19816,
+      "completion": 6376,
+      "total": 26192
     },
-    "latency_seconds": 162.92,
+    "latency_seconds": 172.82,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -582,10 +545,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 496,
-          "completion": 672,
-          "total": 1168
+          "completion": 685,
+          "total": 1181
         },
-        "latency_seconds": 9.85,
+        "latency_seconds": 8.57,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -605,10 +568,10 @@
         "calls": 3,
         "token_usage": {
           "prompt": 8379,
-          "completion": 2414,
-          "total": 10793
+          "completion": 3289,
+          "total": 11668
         },
-        "latency_seconds": 74.62,
+        "latency_seconds": 91.32,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -627,11 +590,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 4360,
-          "completion": 1716,
-          "total": 6076
+          "prompt": 4362,
+          "completion": 1031,
+          "total": 5393
         },
-        "latency_seconds": 44.71,
+        "latency_seconds": 30.63,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -650,11 +613,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 6770,
-          "completion": 1129,
-          "total": 7899
+          "prompt": 6579,
+          "completion": 1371,
+          "total": 7950
         },
-        "latency_seconds": 33.74,
+        "latency_seconds": 42.3,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -682,7 +645,7 @@
       "days_seen": 18,
       "first_seen": "2026-04-09",
       "last_seen": "2026-04-27",
-      "enrichment_summary": "1 source(s) | official | 3 related support"
+      "enrichment_summary": "1 source(s) | official | 2 related support"
     },
     {
       "title": "vllm-project/vllm",
@@ -880,7 +843,7 @@
   },
   "risk_level": "low",
   "highlights": [
-    "AI Agent 自主能力快速提升的同时，不可调试、高延迟、安全失效等结构性缺陷集中暴露，企业若想真正将关键流程交予 Agent，必须首先解决其决策透明与可控性问题。",
+    "AI 代理正从“能做什么”向“做错了能查什么、能多快、能多安全”的工程化阶段转折，但可靠性、延迟、安全与数据库防护等深层矛盾集中暴露。",
     "本轮共采集到 164 条原始信息，去重后保留 162 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -929,22 +892,13 @@
             "url": "https://arxiv.org/abs/2604.21896v1",
             "summary": "This paper introduces a new paradigm for AI game programming, leveraging large language models (LLMs) to extend and operationalize Claude Shannon's taxonomy of game-playing machines. Central to this paradigm is Nemobot, an interactive agentic engineering environment that enables users to create, customize, and deploy LLM-powered game agents while actively engaging with AI-driven strategies. The LLM-based chatbot, integrated within Nemobot, demonstrates its capabilities across four distinct classes of games. For dictionary-based games, it compresses state-action mappings into efficient, generalized models for rapid adaptability. In rigorously solvable games, it employs mathematical reasoning to compute optimal strategies and generates human-readable explanations for its decisions. For heuristic-based games, it synthesizes strategies by combining insights from classical minimax algorithms (see, e.g., shannon1950chess) with crowd-sourced data. Finally, in learning-based games, it utilizes reinforcement learning with human feedback and self-critique to iteratively refine strategies through trial-and-error and imitation learning. Nemobot amplifies this framework by offering a programmable environment where users can experiment with tool-augmented generation and fine-tuning of strategic game agents. From strategic games to role-playing games, Nemobot demonstrates how AI agents can achieve a form of self-programming by integrating crowdsourced learning and human creativity to iteratively refine their own logic. This represents a step toward the long-term goal of self-programming AI.",
             "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Systematic debugging for AI agents: Introducing the AgentRx framework",
-            "url": "https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/",
-            "summary": "<p>As AI agents transition from simple chatbots to autonomous systems capable of managing cloud incidents, navigating complex web interfaces, and executing multi-step API workflows, a new challenge has emerged: transparency. When a human makes a mistake, we can usually trace the logic. But when an AI agent fails, perhaps by hallucinating a tool output or [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/\">Systematic debugging for AI agents: Introducing the AgentRx framework</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
           }
         ],
         "verification_flags": [
           "official-source",
-          "related-support",
-          "external-support"
+          "related-support"
         ],
-        "summary": "1 source(s) | official | 3 related support"
+        "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
         "days_seen": 18,
@@ -1003,22 +957,11 @@
         "source_types": [
           "paper"
         ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "ADeLe: Predicting and explaining AI performance across tasks",
-            "url": "https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/",
-            "summary": "<p>AI benchmarks report how large language models (LLMs) perform on specific tasks but provide little insight into their underlying capabilities that drive their performance. They do not explain failures or reliably predict outcomes on new tasks. To address this, Microsoft researchers in collaboration with Princeton University and&#160;Universitat&#160;Politècnica&#160;de València introduce ADeLe (opens in new tab) (AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/\">ADeLe: Predicting and explaining AI performance across tasks</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "external"
-          }
-        ],
+        "support_evidence": [],
         "verification_flags": [
-          "paper",
-          "related-support",
-          "external-support"
+          "paper"
         ],
-        "summary": "1 source(s) | paper | 1 related support"
+        "summary": "1 source(s) | paper"
       },
       "memory": {
         "days_seen": 4,
@@ -1090,7 +1033,7 @@
     {
       "title": "An AI agent deleted our production database. The agent's confession is below",
       "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
-      "summary": "Score: 395 | Comments: 548",
+      "summary": "Score: 398 | Comments: 550",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3423,7 +3366,7 @@
     {
       "title": "GoDaddy gave a domain to a stranger without any documentation",
       "url": "https://anchor.host/godaddy-gave-a-domain-to-a-stranger-without-any-documentation/",
-      "summary": "Score: 512 | Comments: 203",
+      "summary": "Score: 513 | Comments: 204",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3469,7 +3412,7 @@
     {
       "title": "AI should elevate your thinking, not replace it",
       "url": "https://www.koshyjohn.com/blog/ai-should-elevate-your-thinking-not-replace-it/",
-      "summary": "Score: 227 | Comments: 188",
+      "summary": "Score: 227 | Comments: 189",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3674,7 +3617,7 @@
     {
       "title": "Plants can sense the sound of rain, a new study finds",
       "url": "https://news.mit.edu/2026/plants-can-sense-sound-rain-new-study-finds-0422",
-      "summary": "Score: 74 | Comments: 8",
+      "summary": "Score: 75 | Comments: 8",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3772,7 +3715,7 @@
     {
       "title": "Show HN: AI memory with biological decay (52% recall)",
       "url": "https://github.com/sachitrafa/YourMemory",
-      "summary": "Score: 46 | Comments: 20 | Text: Most RAG setups fail because they treat memory like a static filing cabinet. When every transient bug fix or abandoned rule is stored forever, the context window eventually chokes on noise, spiking token costs and degrading the agent&#x27;s reasoning.<p>This implementation experiments with a biologi",
+      "summary": "Score: 48 | Comments: 20 | Text: Most RAG setups fail because they treat memory like a static filing cabinet. When every transient bug fix or abandoned rule is stored forever, the context window eventually chokes on noise, spiking token costs and degrading the agent&#x27;s reasoning.<p>This implementation experiments with a biologi",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3879,7 +3822,7 @@
     {
       "title": "Box to Save Memory in Rust",
       "url": "https://dystroy.org/blog/box-to-save-memory/",
-      "summary": "Score: 27 | Comments: 4",
+      "summary": "Score: 28 | Comments: 4",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3947,8 +3890,8 @@
       "risk_level": "low"
     },
     {
-      "title": "Microsoft tackles quality control issues. Just kidding",
-      "url": "https://www.theregister.com/2026/04/24/microsoft_seeks_quality_improvements_by/",
+      "title": "Running Bare-Metal Rust Alongside ESP-IDF on the ESP32-S3's Second Core",
+      "url": "https://tingouw.com/blog/embedded/esp32/run_rust_on_app_core",
       "summary": "Score: 18 | Comments: 2",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
@@ -3991,9 +3934,9 @@
       "risk_level": "low"
     },
     {
-      "title": "Running Bare-Metal Rust Alongside ESP-IDF on the ESP32-S3's Second Core",
-      "url": "https://tingouw.com/blog/embedded/esp32/run_rust_on_app_core",
-      "summary": "Score: 17 | Comments: 2",
+      "title": "Microsoft tackles quality control issues. Just kidding",
+      "url": "https://www.theregister.com/2026/04/24/microsoft_seeks_quality_improvements_by/",
+      "summary": "Score: 18 | Comments: 2",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4097,9 +4040,9 @@
       "risk_level": "low"
     },
     {
-      "title": "langchain-ai/langgraph",
-      "url": "https://github.com/langchain-ai/langgraph",
-      "summary": "Build resilient language agents as graphs.",
+      "title": "ollama/ollama",
+      "url": "https://github.com/ollama/ollama",
+      "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4110,25 +4053,22 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
-        "ai",
-        "ai-agents",
         "ai-llm-agent",
-        "chatgpt",
-        "deepagents",
-        "enterprise",
-        "framework",
-        "gemini",
-        "generative-ai",
-        "langchain",
-        "langgraph",
+        "deepseek",
+        "gemma",
+        "gemma3",
+        "glm",
+        "go",
+        "golang",
+        "gpt-oss",
+        "llama",
+        "llama3",
         "llm",
-        "multiagent",
-        "open-source",
-        "openai",
-        "pydantic",
-        "python",
-        "rag"
+        "llms",
+        "minimax",
+        "mistral",
+        "ollama",
+        "qwen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -4176,9 +4116,9 @@
       "risk_level": "low"
     },
     {
-      "title": "ollama/ollama",
-      "url": "https://github.com/ollama/ollama",
-      "summary": "Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+      "title": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "summary": "Build resilient language agents as graphs.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4189,22 +4129,25 @@
         "curated-repos"
       ],
       "tags": [
+        "agents",
+        "ai",
+        "ai-agents",
         "ai-llm-agent",
-        "deepseek",
-        "gemma",
-        "gemma3",
-        "glm",
-        "go",
-        "golang",
-        "gpt-oss",
-        "llama",
-        "llama3",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
         "llm",
-        "llms",
-        "minimax",
-        "mistral",
-        "ollama",
-        "qwen"
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -4720,76 +4663,6 @@
       "risk_level": "low"
     },
     {
-      "title": "NVIDIA/TensorRT",
-      "url": "https://github.com/NVIDIA/TensorRT",
-      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "gpu-acceleration",
-        "inference",
-        "nvidia",
-        "tensorrt"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-support"
-        ],
-        "summary": "1 source(s) | repo | 1 related support"
-      },
-      "memory": {
-        "days_seen": 12,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-04-27",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "onnx/onnx",
       "url": "https://github.com/onnx/onnx",
       "summary": "Open standard for machine learning interoperability",
@@ -4846,6 +4719,76 @@
           "2026-04-13",
           "2026-04-14",
           "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "NVIDIA/TensorRT",
+      "url": "https://github.com/NVIDIA/TensorRT",
+      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "gpu-acceleration",
+        "inference",
+        "nvidia",
+        "tensorrt"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "related-support"
+        ],
+        "summary": "1 source(s) | repo | 1 related support"
+      },
+      "memory": {
+        "days_seen": 12,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-04-27",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
           "2026-04-16",
           "2026-04-17",
           "2026-04-18",
@@ -11793,7 +11736,7 @@
     }
   ],
   "predictions": [
-    "企业的核心反应不是抛弃AI Agent，而是将其“去自主化”。在可调试性、安全推理能力和回退机制取得可量化的生产级突破前，Agent将从直接执行者降级为带有严格护栏的智能提案者。这一阶段将持续至少12-18个月，期间任何尝试越级赋予Agent完全执行权限的行为，都将因事故风险和舆论压力而被市场惩罚。Agent的自主化进程将呈现“减速带”特征，而非线性加速。"
+    "未来6-12个月，AI代理领域的叙事将从“突破能力边界”转向“可验证的可靠性工程”。短期来看，无监督部署的安全事故和基准测试的溃败将迫使行业冻结激进的生产扩张，形成“先装上刹车再提速”的共识。这标志着AI代理进入一个痛苦的成熟期：过度承诺的市场预期将回调，但在此阶段率先解决调试、延迟和安全防御性设计等底层工程问题的团队，将获得定义下一个技术周期的结构性优势。代理的发展前景不是停止，而是从百米冲刺切换为障碍赛跑。"
   ],
   "sources": {
     "github": {
