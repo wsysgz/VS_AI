@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报</h1>
+    <div class="meta">生成时间：2026-04-26T08:07:59.271578+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 166 条原始信息</span>
+      <span class="stat-pill">🎯 164 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">AI Agent 正从对话玩具进化为自治系统，但透明性缺失与自主推理能力缺陷已成为其进入高可靠性生产环境的根本性瓶颈。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>本周 AI Agent 领域的研究高度聚焦于安全性、可靠性与执行效率的矛盾：Agent 越自治，其内部决策越难被人类审计；模型在标准评测中表现越强，在真实开放环境中越容易暴露出缺乏主动推理能力的缺陷。</li><li>微软研究院发布的 AgentRx 框架直面 Agent 调试难题，试图构建系统级的透明层以应对多步骤执行中出现的幻觉与异常。</li><li>多篇新研究显示，推测执行（Speculative Actions）可无损降低 Agent 延迟最高达 20%，为此类系统的实用化部署扫清了关键的速度障碍。</li><li>一项针对 AWS 真实攻击场景的威胁狩猎基准测试揭示：当前最强的 LLM 在完全自主无引导的调查中，正确标记恶意行为的比例仅 3.8%，远未达到 SOC 无人化部署的最低要求。</li><li>围绕 Agent 记忆层的工程化建设在社区中升温，出现了开源的 Markdown + Git 维基方案，试图为 Agent 提供与 ChatGPT 和 Claude.ai 同等的跨越会话的持久化记忆能力。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>AI Agent 的能力短板正在从“能不能做”转向“做得对不对”和“错了能不能查”：AgentRx 和威胁狩猎基准分别从系统可观测性和自主推理能力两个方向证明，Agent 在生产化进程中面临的核心障碍已不再是对话质量，而是缺乏内在的自我纠错与人类可审计的透明度。</li><li>安全领域的评测正经历从“开卷考试”到“侦查破案”的范式转换：现有 LLM 在精选问答上表现出色，但在无引导的真实威胁狩猎中完全失效，说明被动模式匹配与主动假设驱动的证据收集之间存在质的鸿沟，评测方法自身也需要重构。</li><li>推测执行揭示了 Agent 基础设施层的核心优化原则——用适度冗余计算换取关键路径的显著缩短。关键在于通过成本-延迟分析找到“过度猜测”与“无加速”之间的最优均衡点，而非盲目增加并行度。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>信任危机：当 Agent 自治性与透明性脱钩</strong> Agent 正在从单轮对话走向多步自主执行（如云事故处理、复杂网页操作），但其出错模式难以追溯——人类错误有逻辑链，而 Agent 的幻觉输出则近乎黑箱。微软研究院提出的 AgentRx 框架首次将 AI Agent 调试提升为系统级问题，直接回应了“越强大越不可信”的矛盾，这决定了企业能否真正将 Agent 部署到支付、运维等高利害场景。</li>
+<li><strong>实验室神话破灭：强模型在真实调查中全面失败</strong> 在包含 106 个真实攻击、超 10 万条日志的威胁狩猎基准中，Claude Opus 4.6 仅正确标出 3.8% 的恶意事件，所有模型均未通过最低及格线（每个战术召回率 ≥ 50%）。这与它们在策划好的安全问答中的强劲表现形成刺眼对比，揭示了现有 LLM 的根本性缺陷：不具备主动生成假设、自主查询证据的推理闭环能力，不适合直接部署为无人监督的 SOC 分析师。</li>
+<li><strong>速度突破：用“推测执行”换取低延迟</strong> 顺序执行每一步都需 API 调用，使复杂 Agent 运行极慢（下一盘棋可能需数小时）。Speculative Actions 框架通过引入更快的模型并行预测未来动作，在保证无损的前提下将延迟最高降低 20%，且给出了平衡计算成本与速度的最优推测宽度。这让 Agent 从“不可用”向“可交互”迈进了关键一步。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>Systematic debugging for AI agents: Introducing the AgentRx framework</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 17 天 · 1 source(s) | official | 2 related support</li><li><strong>vllm-project/vllm</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 17 天 · 1 source(s) | repo</li><li><strong>Bringing AI Closer to the Edge and On-Device with Gemma 4</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li><li><strong>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li><li><strong>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 17 天 · 1 source(s) | official | 3 related support</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>Escalating autonomy and complexity of AI agents vs. the lack of systematic debugging and transparency mechanisms</p>
+                  <p><strong>核心洞察：</strong>AgentRx treats AI agent debugging as a first-class system problem, aiming to close the transparency gap that widens as agents move from single-turn chat to multi-step autonomous execution.</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 2 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.espressif.com/blog/2026/04/doc-mcp-server/" target="_blank" rel="noopener">Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</a></li><li>paper | <a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>推测执行的加速收益与推测分支带来的额外计算开销之间的矛盾。</p>
+                  <p><strong>核心洞察：</strong>无损推测加速的关键不在于无限制增加猜测，而在于通过成本-延迟分析找到推测宽度的最优平衡点，以实现可控成本下的实用化速度提升。</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>暂无</li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>LLM的被动式问答范式 vs 威胁狩猎所需的自主动态假设生成与证据探索范式。</p>
+                  <p><strong>核心洞察：</strong>当前LLM在无引导的、证据驱动的开放域威胁狩猎中完全失败，暴露出其缺乏主动推理和假设测试能力的根本局限，不宜直接部署到无人监督的SOC环境。</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>暂无</li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+  <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>AgentRx 等调试框架被头部 AI 实验室与云厂商迅速采纳并集成到现有 Agent 平台，形成事实上的可观测性标准；同时，推测执行技术工程化成熟，Agent 延迟下降至交互可用阈值。在此条件下，少量高价值场景（如云运维辅助、低风险电商自动化）在 3-6 个月内开始出现半自主部署案例，Agent 从&quot;对话玩具&quot;向&quot;可靠助手&quot;的公众认知初步转变。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>AgentRx 仍停留在研究原型阶段，开源社区复现动力不足；威胁狩猎基准揭示的自主推理能力缺陷被更多安全团队在真实攻防中痛苦地再次验证，并出现因 Agent 自主误操作导致的公开安全事件。事件发酵后，企业级客户对任何形式的自主 Agent 部署下达内部禁令，Agent 发展陷入&quot;能力越宣传、信任越倒退&quot;的负循环，资本热度在 6 个月内显著降温。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>调试能力与自主性之间的鸿沟在未来 6 个月内不会闭合，但会出现明确的分化路线：头部企业（如微软、Anthropic）将 AgentRx 类调试能力作为其企业级 Agent 平台的差异化卖点，进行有条件的内测推广；而社区侧将大量采用记忆层与推测执行等&quot;补课式&quot;工程方案，以牺牲部分可靠性的代价换取可用性。整体上，Agent 的生产化部署仍严格局限于有人工验证环节的辅助角色，无人监督的自主 Agent 在复杂环境中不被信任，该状态将至少持续至下一轮模型基础推理能力出现结构性突破之前。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>AgentRx 框架的开源程度与企业采纳速度</li><li>威胁狩猎基准的复现性及其在安全社区引发的连锁反应</li><li>推测执行框架在复杂真实工作流中的无损表现验证</li><li>下一轮前沿模型（如 GPT-5.1、Claude 5）在自主推理基准上的改进幅度</li><li>是否出现由自治 Agent 引发的可被公开归因的高影响安全或财务事故</li></ul>
+        <p><strong>结论：</strong>短期内 Agent 的生产化将呈现&quot;共识分化，有条件前进&quot;的格局。调试透明性与自主推理能力两大瓶颈无法速胜，但也不会让整个赛道停滞。最可能的演进路径是：学术界与顶级实验室集中攻关调试与推理范式缺陷，企业端以更务实的辅助角色推进，社区以可观测性工具与记忆层补齐工程短板。高自主性 Agent 的无人化部署在 6 个月内不具备条件，但带有可追溯人工审批环节的 Agent 辅助流程将在多个领域由点状试验走向流程化应用。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>部分社区热度高的开源项目（如 Agent 记忆层的 Markdown + Git 方案）尚未经过大规模验证，证据仅来自单一来源和早期社区讨论，稳定性与泛化能力仍需考证。</li><li>威胁狩猎基准仅测试了 5 个前沿闭源模型，且 AgentRx 框架尚处于研究阶段，在真实 SOC 或生产环境中的实际表现及其落地阻力尚未可知。</li><li>推测执行框架的无损加速在游戏、电商等环境中验证，其在更复杂的操作场景（如操作系统级别或长链路 API 工作流）中有损扩展的表现和风险仍需更全面的评估。</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ 部分社区热度高的开源项目（如 Agent 记忆层的 Markdown + Git 方案）尚未经过大规模验证，证据仅来自单一来源和早期社区讨论，稳定性与泛化能力仍需考证。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>对于已部署或计划部署自主 Agent 进行安全审计、云运维等关键任务的团队，应立即重新审视其在无引导开放环境下的失败风险，增设人工验证环节，避免直接无人化运行。</li><li>Agent 开发者应重点探索可观测性工具与调试框架（如 AgentRx 的思路），将执行轨迹与假设生成的完整过程记录纳入系统设计初期，而非事后补丁。</li><li>在 Agent 延迟敏感的应用中，可评估推测执行方案，但需建立成本-延迟模型以确定推测分支数量的最优设定，避免盲目并行导致的资源浪费。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Open source memory layer so any AI agent can do what Claude.ai and ChatGPT do<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://alash3al.github.io/stash?_v01" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Systematic debugging for AI agents: Introducing the AgentRx framework<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Speculative Actions: A Lossless Framework for Faster Agentic Systems<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Show HN: A Karpathy-style LLM wiki your agents maintain (Markdown and Git)<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/nex-crm/wuphf" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>AI agents that argue with each other to improve decisions<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/rockcat/HATS" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Nicholas Carlini – Black-hat LLMs [video]<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://www.youtube.com/watch?v=1sd26pWhfmg" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Meta Partners With AWS on Graviton Chips to Power Agentic AI<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.21910v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>NPU Design for Diffusion Language Model Inference<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2601.20706v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>

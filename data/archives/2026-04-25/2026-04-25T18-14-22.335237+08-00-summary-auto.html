@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报</h1>
+    <div class="meta">生成时间：2026-04-25T18:14:22.335237+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 168 条原始信息</span>
+      <span class="stat-pill">🎯 166 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">AI代理正从“能做什么”的可行性验证阶段，转向“如何可控”与“实际可靠”的深水区，可控性成为新的价值天花板。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>本周期AI代理领域呈现一个核心趋势：焦点从扩展代理的执行能力，转向系统性解决其部署中的可靠性、可调试性和效率瓶颈。</li><li>微软AgentRx框架的发布是标志性事件，它直面代理自主执行后的“调试黑箱”挑战，代表了行业对代理“失控”风险的严肃回应。</li><li>一份针对LLM威胁狩猎能力的基准测试，尖锐揭露了模型在标准化问答上高分，却在真实开放任务中几乎完全无能的评估体系与现实部署间的鸿沟。</li><li>加速代理执行的“推测性动作”框架，展示了在保证输出正确性的前提下，通过并行未来动作预测显著降低延迟的工程创新路径。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>AI代理发展的核心矛盾已发生转移：从如何让模型生成可执行动作，转向如何在代理长时间、多步骤的自主执行中，实现系统级的“可观测、可解释、可调试”。这昭示着一个新的工具链和工程标准时代即将到来。</li><li>现有的大模型能力评估体系正在产生危险的“误导性安全信号”。在安全问答这样的封闭智力竞赛中得高分，无法代表在信息嘈杂、目标开放的狩猎任务中的实战能力，这可能导致对安全自动化的错误投资和防御体系的脆弱性。</li><li>“无损加速”成为代理效率优化的关键原则。Speculative Actions框架的成功表明，通过智能的猜测和严格的回滚验证，可以在不牺牲核心可靠性的前提下换取显著的性能提升，这为构建高速且可信的代理系统指明了方向。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>From Execution to Debugging: AgentRx让我们正视代理“失控”问题</strong> AI代理正获得前所未有的云环境操作和网页浏览权限，其内部决策过程却仍是黑箱。AgentRx的出现，标志着行业对代理可靠性的担忧已从隐忧转化为具体的技术攻关，代理的价值天花板将从“能做什么”变为“出错后能否被系统化理解和修复”。</li>
+<li><strong>基准测试的虚假安全感：LLM在真实威胁狩猎任务中准确率仅3.8%</strong> 前沿模型在策划好的安全问答基准上表现优异，但在模拟真实攻击场景、需从超过10万条日志中自主搜寻证据的开放式任务里几乎完全失败。这暴露了当前大模型评估体系与现实高可靠性需求的致命脱节，可能导致对代理能力的严重误判和过早部署风险。</li>
+<li><strong>加速代理而不失正确：Speculative Actions框架的工程创新</strong> AI代理的顺序执行模式严重限制了其实时响应能力。借鉴CPU推测执行理念，该框架通过并行预测未来动作并仅提交正确结果，实现了无损的高达20%的延迟降低。这为权衡代理加速收益与额外计算成本提供了可调控的工程范式。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>Systematic debugging for AI agents: Introducing the AgentRx framework</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 16 天 · 1 source(s) | official | 3 related support</li><li><strong>vllm-project/vllm</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 16 天 · 1 source(s) | repo</li><li><strong>Bringing AI Closer to the Edge and On-Device with Gemma 4</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 16 天 · 1 source(s) | official | 3 related support</li><li><strong>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 16 天 · 1 source(s) | official | 3 related support</li><li><strong>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</strong> <span class="domain-tag">rising</span> <span class="domain-tag">medium</span> 已持续 16 天 · 1 source(s) | official | 3 related support</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Systematic debugging for AI agents: Introducing the AgentRx framework</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>AI代理自主执行能力的高速扩张与事后可解释性、可调试性基础设施滞后之间的矛盾。</p>
+                  <p><strong>核心洞察：</strong>代理从‘对话’进入‘执行’阶段后，其价值天花板已不再取决于能做什么，而取决于出错后能否被系统化地理解和修复；AgentRx的出现标志着行业正从‘让代理动起来’转向‘让代理可控’这一关键深水区。</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 3 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.espressif.com/blog/2026/04/doc-mcp-server/" target="_blank" rel="noopener">Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</a></li><li>paper | <a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models</a></li><li>official | <a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">Systematic debugging for AI agents: Introducing the AgentRx framework</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</h3>
+                  <span class="badge badge--high">high</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>LLM在标准化安全基准上的高分表现与其在真实开放式威胁狩猎任务中几乎完全无能之间的巨大能力鸿沟</p>
+                  <p><strong>核心洞察：</strong>当前LLM在策划好的问答式安全基准上的高分掩盖了其在开放式证据驱动威胁狩猎中的根本性失败，暴露出评估体系与现实部署之间的致命差距。</p>
+                  <p><strong>生命周期：</strong>verified</p>
+                  <p><strong>风险等级：</strong>low</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper | 2 related support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://www.microsoft.com/en-us/research/blog/adele-predicting-and-explaining-ai-performance-across-tasks/" target="_blank" rel="noopener">ADeLe: Predicting and explaining AI performance across tasks</a></li><li>paper | <a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Speculative Actions: A Lossless Framework for Faster Agentic Systems</h3>
+                  <span class="badge badge--medium">medium</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>推测执行的广度（潜在延迟节省）与计算成本增长（并行调用数量）之间的基本权衡：增加推测分支可以覆盖更多可能动作，提高命中率并降低延迟，但会导致计算成本指数增长。</p>
+                  <p><strong>核心洞察：</strong>Speculative Actions 提出了一种无损加速 agent 系统的通用框架，通过并行化未来动作的预测与执行，在不牺牲正确的前提下显著降低延迟，但须在推测广度上精细调控，以避免成本超出收益。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | paper</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>暂无</li></ul>
+                </div>
+                <a class="signal-link" href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+  <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>在6个月内，头部AI实验室和云平台主动将AgentRx类系统化调试框架整合进代理开发套件，形成“先可观测，再给权限”的新部署标准。同时，Cyber Defense Benchmark的尖锐结论推动安全行业启动“实战基准”替换，促使至少两款前沿模型在开放式威胁狩猎任务中将召回率提升至15%以上。由此，企业在部署自主代理时获得可验证的最低可靠性保证，避免因过早大规模部署而引发的重大安全事故。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>社区仅将AgentRx视为一次学术发布，未能在生产环境中形成气候；安全运营团队继续被LLM在策划类安全问答基准上的高分误导，过早将自主代理部署于IDS/IPS等关键防御链路。同时，对代理延迟的焦虑迫使部分团队无节制地扩大Speculative Actions的推测广度，导致计算成本失控或引入难以复现的回滚错误。结果在3到6个月内，至少发生一起因代理在真实威胁狩猎或云管理中做出不可逆的破坏性决策而公开的商业事故，严重打击市场对AI代理的信任。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>行业在接下来的两个季度进入“可控性分水岭”阶段。头部科技公司开始将AgentRx等框架的思路内化到内部MaaS平台中，但在开源社区和中小企业中，代理部署仍以“能力优先”为主，调试手段滞后。Cyber Defense Benchmark引发的讨论将在安全圈内催生至少两个新生“实战型基准”，并与现有标准基准并行存在，而非完全替代。Speculative Actions则被证明在延迟敏感、动作空间适中的场景（如电商UI自动化）中有效，但不会成为通用默认策略。整体表现为一种清醒但缓慢的修正：行业虽认识到可靠性缺失的隐患，但系统性解决方案尚处在早期工程化和标准竞争阶段。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>AgentRx等调试框架是否被LangChain、AutoGen等主流代理框架集成</li><li>头部安全企业是否基于Cyber Defense Benchmark结论发布内部实战评估标准</li><li>国际标准化组织或行业协会是否提出代理人可观测性规范草案</li><li>是否有因代理自主错误决策导致的公开重大事故及其舆论发酵程度</li><li>Speculative Actions框架是否被证实可无需重大改造地集成到任意推理后端中</li></ul>
+        <p><strong>结论：</strong>AI代理领域短期内的核心叙事将从“能力边界扩展”切换为“可靠性与可控性竞赛”。AgentRx与Cyber Defense Benchmark共同构成了对“代理幻觉式执行”风险的两记重锤，预示着下一阶段价值将流向那些能提供系统级调试、审计和回滚能力的基础设施层。然而，从研究突破到工程会诊再到行业共识的链条仍然漫长，最可能的情景是出现明显的“两级分化”：有风险意识的头部机构严格化代理上线门槛，而长尾市场继续在高风险状态下试探，直到一次代价足够大的事故推动全行业强制收敛。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>Cyber Defense Benchmark虽揭示问题，但其评估仅覆盖五款特定模型和特定威胁场景，结论的外部效度有待更多独立复现。</li><li>本简报中来自Hacker News的社区项目信号（如Browser Harness、endless-toil），因信息深度不足，暂未被纳入深度分析，可能遗漏了关键的实践洞察。</li><li>AgentRx和Speculative Actions框架目前仍处于研究发布阶段，其在大规模、异构真实生产环境下的普适性和稳定性尚待验证。</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ Cyber Defense Benchmark虽揭示问题，但其评估仅覆盖五款特定模型和特定威胁场景，结论的外部效度有待更多独立复现。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>安全与运维决策者应立即审查内部代理能力评估流程，警惕将标准化基准测试成绩等同于实战威胁狩猎能力的风险。</li><li>工程团队可优先调研AgentRx等调试框架的设计思想，并探索将推测执行原理应用到现有代理工作流中，以评估延迟与成本改善的潜力。</li><li>关注AI代理部署的风险管理者应建立“代理可观测性”指标（如动作拒绝率、根因分析覆盖度），将其纳入代理系统上线的核心准入门槛。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Systematic debugging for AI agents: Introducing the AgentRx framework<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/systematic-debugging-for-ai-agents-introducing-the-agentrx-framework/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Cyber Defense Benchmark: Agentic Threat Hunting Evaluation for LLMs in SecOps<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2604.19533v3" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Speculative Actions: A Lossless Framework for Faster Agentic Systems<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://arxiv.org/abs/2510.04371v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Hear your agent suffer through your code<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/AndrewVos/endless-toil" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Show HN: Browser Harness – Gives LLM freedom to complete any browser task<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/browser-use/browser-harness" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Meta Partners With AWS on Graviton Chips to Power Agentic AI<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.21910v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2604.21896v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>NPU Design for Diffusion Language Model Inference<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2601.20706v2" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Bringing AI Closer to the Edge and On-Device with Gemma 4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/build-next-gen-physical-ai-with-edge%e2%80%91first-llms-for-autonomous-vehicles-and-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms-and-foundation-models-for-robotics/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/stm32n6/" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>
