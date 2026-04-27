@@ -4,7 +4,7 @@
 >
 > 目标：让新会话 AI、上下文被清空后的 AI、或第一次接手这个仓库的人，在 10 分钟内恢复到可执行状态
 >
-> 最后更新：2026-04-25
+> 最后更新：2026-04-28
 
 这份手册不是“项目介绍”，而是 VS_AI 的接管入口。它的重点是三件事：
 
@@ -29,7 +29,7 @@
 - 当前本地验证基线：`333 passed`
 - 当前主线优先级：`P3-C 国内外对比分析（A 方案）已完成，下一步先讨论公开站整理 / 优化方案；未确认方案前不改 Pages 结构，P3-B 只保留小修与回归验证`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
-- 当前最新远端 `Collect And Report` 已成功：`2026-04-24 / run 24892691284 / commit a2f1455`
+- 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / run 25007010720 / trigger commit 9b3d010 / output commit a329642`
 - 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
 - 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-24 / run 24864003455 / commit 780dcfd`
 - GitHub Repository Variables 已切换到 DeepSeek V4 默认路由：`analysis/summary/forecast=pro`，`prefilter/discovery/search=flash`
