@@ -27,9 +27,10 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`337 passed`
-- 当前主线优先级：`公开站 IA V2 第一批已完成：赛道入口、归档来源筛选降噪、跨页导航；下一步按阶段需要做远端发布级确认或评估 IA V2 第二批`
+- 当前主线优先级：`公开站 IA V2 第一批已完成并已推送；远端发布级确认 run 25009334909 已触发，等待结果；之后评估 IA V2 第二批`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / run 25007010720 / trigger commit 9b3d010 / output commit a329642`
+- 当前待确认远端 `Collect And Report`：`2026-04-28 / run 25009334909 / workflow_dispatch / commit d743668 / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
 - 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
 - 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-24 / run 24864003455 / commit 780dcfd`
 - GitHub Repository Variables 已切换到 DeepSeek V4 默认路由：`analysis/summary/forecast=pro`，`prefilter/discovery/search=flash`
