@@ -18,6 +18,7 @@ def test_cli_exposes_all_commands():
     assert "build-source-governance" in choices
     assert "build-review-queue" in choices
     assert "build-discovery-search" in choices
+    assert "validate-source-candidates" in choices
     assert "evaluate-prompts" in choices
     assert "sync-feishu-workspace" in choices
     assert "apply-source-updates" in choices
@@ -143,6 +144,24 @@ def test_build_discovery_search_command_accepts_keywords_path():
 
     assert args.command == "build-discovery-search"
     assert args.keywords == "config/source_discovery/keywords.txt"
+
+
+def test_validate_source_candidates_command_accepts_source_id_and_url():
+    parser = build_parser()
+
+    args = parser.parse_args(
+        [
+            "validate-source-candidates",
+            "--source-id",
+            "renesas-blog",
+            "--url",
+            "https://www.renesas.com/en/blogs",
+        ]
+    )
+
+    assert args.command == "validate-source-candidates"
+    assert args.source_id == ["renesas-blog"]
+    assert args.url == ["https://www.renesas.com/en/blogs"]
 
 
 def test_sync_feishu_workspace_command_accepts_publication_mode():

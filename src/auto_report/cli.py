@@ -75,6 +75,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     discovery_parser = subparsers.add_parser("build-discovery-search", help="[CI] Build keyword-driven discovery/search helper artifact")
     discovery_parser.add_argument("--keywords", required=True, help="Path to keyword list file")
+    validate_sources_parser = subparsers.add_parser(
+        "validate-source-candidates",
+        help="[Ops] Probe candidate source URLs and configured source extraction",
+    )
+    validate_sources_parser.add_argument("--url", action="append", default=[], help="Candidate URL to probe")
+    validate_sources_parser.add_argument("--source-id", action="append", default=[], help="Configured source id to validate")
+    validate_sources_parser.add_argument(
+        "--input",
+        default="",
+        help="Optional discovery-search JSON path; used when no --url or --source-id is provided",
+    )
+    validate_sources_parser.add_argument("--timeout-seconds", type=int, default=20, help="Probe timeout per backend")
     eval_parser = subparsers.add_parser("evaluate-prompts", help="[CI] Run offline prompt evaluation against a dataset")
     eval_parser.add_argument("--dataset", required=True, help="Path to offline prompt evaluation dataset JSON")
     apply_updates_parser = subparsers.add_parser(
@@ -212,6 +224,18 @@ def main() -> int:
         from auto_report.app import cmd_build_discovery_search
 
         cmd_build_discovery_search(root_dir, keywords_path=getattr(args, "keywords", ""))
+        return 0
+
+    if args.command == "validate-source-candidates":
+        from auto_report.app import cmd_validate_source_candidates
+
+        cmd_validate_source_candidates(
+            root_dir,
+            urls=getattr(args, "url", []),
+            source_ids=getattr(args, "source_id", []),
+            input_path=getattr(args, "input", ""),
+            timeout_seconds=getattr(args, "timeout_seconds", 20),
+        )
         return 0
 
     if args.command == "evaluate-prompts":

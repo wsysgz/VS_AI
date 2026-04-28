@@ -160,7 +160,7 @@ def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry
     changedetection_ids = [item["source_id"] for item in governance["changedetection_candidates"]]
     priority_ids = [item["source_id"] for item in governance["priority_queue"]]
 
-    for source_id in ["youtube-google-developers", "youtube-nvidia", "renesas-blog"]:
+    for source_id in ["youtube-google-developers", "youtube-nvidia"]:
         assert registry[source_id]["enabled"] is False
         assert registry[source_id]["stability_tier"] == "manual-watch"
         assert registry[source_id]["watch_strategy"] == "disabled"
@@ -170,6 +170,20 @@ def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry
         assert source_id not in replacement_ids
         assert source_id not in changedetection_ids
         assert source_id not in priority_ids
+
+
+def test_build_source_registry_marks_renesas_as_curl_verified_sitemap():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    assert registry["renesas-blog"]["enabled"] is True
+    assert registry["renesas-blog"]["mode"] == "sitemap"
+    assert registry["renesas-blog"]["stability_tier"] == "curl-verified-sitemap"
+    assert registry["renesas-blog"]["watch_strategy"] == "sitemap-poll"
+    assert registry["renesas-blog"]["replacement_target"] == "none"
+    assert registry["renesas-blog"]["candidate_kind"] == "validated_sitemap"
+    assert registry["renesas-blog"]["candidate_value"] == "https://www.renesas.com/sitemap.xml?page=2"
 
 
 def test_build_source_governance_queue_skips_manual_replace_placeholders_when_live_replacement_exists():

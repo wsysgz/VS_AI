@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
+import subprocess
 from typing import Any
 import time
 
@@ -13,9 +15,34 @@ from auto_report.settings import Settings
 from auto_report.sources.github import normalize_github_repository_detail
 from auto_report.sources.hn import fetch_hn_top_stories
 from auto_report.sources.rss import parse_rss_content
-from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_structured_items
+from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_sitemap_items, extract_structured_items
 
 _META_CHARSET_PATTERN = re.compile(br"<meta[^>]+charset=['\"]?([A-Za-z0-9._-]+)", re.IGNORECASE)
+
+
+def _decode_bytes(content: bytes, encoding: str = "") -> str:
+    if not content:
+        return ""
+
+    meta_match = _META_CHARSET_PATTERN.search(content[:4096])
+    if meta_match is not None:
+        meta_encoding = meta_match.group(1).decode("ascii", errors="ignore").strip()
+        if meta_encoding:
+            try:
+                return content.decode(meta_encoding, errors="replace")
+            except LookupError:
+                pass
+
+    if encoding:
+        try:
+            return content.decode(encoding, errors="replace")
+        except LookupError:
+            pass
+
+    try:
+        return content.decode("utf-8", errors="replace")
+    except LookupError:
+        return content.decode(errors="replace")
 
 
 def _decode_response_text(response: requests.Response) -> str:
@@ -29,29 +56,32 @@ def _decode_response_text(response: requests.Response) -> str:
     if not content:
         return str(getattr(response, "text", ""))
 
-    meta_match = _META_CHARSET_PATTERN.search(content[:4096])
-    if meta_match is not None:
-        meta_encoding = meta_match.group(1).decode("ascii", errors="ignore").strip()
-        if meta_encoding:
-            try:
-                return content.decode(meta_encoding, errors="replace")
-            except LookupError:
-                pass
-
     apparent_encoding = str(getattr(response, "apparent_encoding", "") or "").strip()
-    if apparent_encoding:
-        try:
-            return content.decode(apparent_encoding, errors="replace")
-        except LookupError:
-            pass
+    return _decode_bytes(content, apparent_encoding or encoding) or str(getattr(response, "text", ""))
 
-    if encoding:
-        try:
-            return content.decode(encoding, errors="replace")
-        except LookupError:
-            pass
 
-    return str(getattr(response, "text", ""))
+def _fetch_text_with_curl(url: str, timeout: int = 20) -> str:
+    curl_path = shutil.which("curl")
+    if not curl_path:
+        raise RuntimeError("curl executable is required for curl fetch backend")
+
+    completed = subprocess.run(
+        [
+            curl_path,
+            "-L",
+            "-A",
+            "Mozilla/5.0 auto-report/0.1",
+            "--max-time",
+            str(timeout),
+            "--silent",
+            "--show-error",
+            url,
+        ],
+        capture_output=True,
+        check=True,
+        timeout=timeout + 5,
+    )
+    return _decode_bytes(completed.stdout)
 
 
 def _fetch_text(url: str, timeout: int = 20, retries: int = 1) -> str:
@@ -81,10 +111,14 @@ def _fetch_source_body(source: dict[str, Any]) -> str:
     fetch_url = str(source.get("api_url") or source["url"])
     timeout = int(source.get("timeout_seconds", 20) or 20)
     method = str(source.get("api_method", "get")).strip().lower() or "get"
+    fetch_backend = str(source.get("fetch_backend", "requests")).strip().lower() or "requests"
     headers = {"User-Agent": "auto-report/0.1"}
     extra_headers = source.get("request_headers", {})
     if isinstance(extra_headers, dict):
         headers.update({str(key): str(value) for key, value in extra_headers.items()})
+
+    if method == "get" and fetch_backend == "curl":
+        return _fetch_text_with_curl(fetch_url, timeout=timeout)
 
     if method == "post":
         response = requests.post(
@@ -190,7 +224,9 @@ def _collect_websites(settings: Settings) -> tuple[list[CollectedItem], list[str
             extracted = extract_json_items(source, json.loads(body))
             return extracted[: int(source.get("max_items", 12))]
         html = body
-        if mode == "structured_page":
+        if mode == "sitemap":
+            extracted = extract_sitemap_items(source, html)
+        elif mode == "structured_page":
             extracted = extract_structured_items(source, html)
         else:
             extracted = extract_listing_items(source, html)

@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
+import xml.etree.ElementTree as ET
 
 from bs4 import BeautifulSoup
 
@@ -43,6 +44,20 @@ def _normalize_published_at(node: object, *, fallback: str) -> str:
     return " ".join(text.split()) if text else fallback
 
 
+def _title_from_url(url: str) -> str:
+    slug = urlparse(url).path.rstrip("/").split("/")[-1]
+    words = re.sub(r"[-_]+", " ", slug).split()
+    acronyms = {"ai", "api", "gan", "iot", "mcu", "mpu", "noa", "npu", "sdk", "wi", "fi"}
+    return " ".join(word.upper() if word.lower() in acronyms else word.capitalize() for word in words)
+
+
+def _xml_child_text(node: ET.Element, name: str) -> str:
+    for child in list(node):
+        if child.tag.rsplit("}", 1)[-1] == name:
+            return (child.text or "").strip()
+    return ""
+
+
 def extract_listing_items(source: dict[str, object], html: str) -> list[CollectedItem]:
     soup = BeautifulSoup(html, "html.parser")
     collected_at = datetime.now(timezone.utc).isoformat()
@@ -51,6 +66,7 @@ def extract_listing_items(source: dict[str, object], html: str) -> list[Collecte
     category_hint = str(source.get("category_hint", ""))
     selector = str(source.get("link_selector", "a[href]"))
     items: list[CollectedItem] = []
+    seen_urls: set[str] = set()
 
     for index, anchor in enumerate(soup.select(selector)):
         title = _extract_title(anchor)
@@ -62,6 +78,9 @@ def extract_listing_items(source: dict[str, object], html: str) -> list[Collecte
             continue
         if not should_keep_candidate(title, href, source):
             continue
+        if href in seen_urls:
+            continue
+        seen_urls.add(href)
         items.append(
             CollectedItem(
                 source_id=source_id,
@@ -74,6 +93,42 @@ def extract_listing_items(source: dict[str, object], html: str) -> list[Collecte
                 tags=[category_hint] if category_hint else [],
                 language="unknown",
                 metadata={"page_url": page_url},
+            )
+        )
+    return items
+
+
+def extract_sitemap_items(source: dict[str, object], xml: str) -> list[CollectedItem]:
+    root = ET.fromstring(xml)
+    collected_at = datetime.now(timezone.utc).isoformat()
+    source_id = str(source["id"])
+    category_hint = str(source.get("category_hint", ""))
+    url_nodes = [node for node in root.iter() if node.tag.rsplit("}", 1)[-1] == "url"]
+    if bool(source.get("sitemap_reverse_order", False)):
+        url_nodes.reverse()
+
+    items: list[CollectedItem] = []
+    seen_urls: set[str] = set()
+    for index, node in enumerate(url_nodes):
+        href = _xml_child_text(node, "loc")
+        if not href or href in seen_urls:
+            continue
+        title = _title_from_url(href)
+        if not title or not should_keep_candidate(title, href, source):
+            continue
+        seen_urls.add(href)
+        items.append(
+            CollectedItem(
+                source_id=source_id,
+                item_id=f"{source_id}:sitemap:{index}",
+                title=title,
+                url=href,
+                summary="",
+                published_at=_xml_child_text(node, "lastmod") or collected_at,
+                collected_at=collected_at,
+                tags=[category_hint] if category_hint else [],
+                language="unknown",
+                metadata={"page_url": str(source.get("url", ""))},
             )
         )
     return items

@@ -402,21 +402,24 @@ sources:
       - register
       - invitation
   - id: renesas-blog
-    enabled: false
-    mode: article_listing
-    url: https://www.renesas.com/en/blogs
+    enabled: true
+    mode: sitemap
+    url: https://www.renesas.com/sitemap.xml?page=2
+    fetch_backend: curl
     category_hint: ai-x-electronics
     region_scope: intl
     org_origin: renesas
     tech_track: embedded
     comparison_priority: low
     max_items: 6
-    stability_tier: manual-watch
-    replacement_hint: Keep disabled; no requests-compatible official Renesas blog/newsroom/API endpoint is confirmed. Curl/browser can load the site and official sitemap.xml, but the current requests-based collector gets Cloudflare 403.
-    watch_strategy: disabled
+    stability_tier: curl-verified-sitemap
+    replacement_hint: Keep enabled through the official sitemap and explicit curl fetch backend; requests still fails against Renesas Cloudflare, and RSS/API replacement should be preferred if later confirmed.
+    watch_strategy: sitemap-poll
     replacement_target: none
-    candidate_kind: none
-    next_action: Keep disabled for now; if this source is revisited, prefer a curl/browser-backed fetch path via the official sitemap/newsroom surface instead of more requests-only endpoint hunting.
+    candidate_kind: validated_sitemap
+    candidate_value: https://www.renesas.com/sitemap.xml?page=2
+    next_action: Monitor curl-backed sitemap extraction; replace with an official RSS/newsroom API if Renesas exposes one.
+    sitemap_reverse_order: true
     link_selector: "a[href*='/en/blogs/']"
     include_url_patterns:
       - /en/blogs/

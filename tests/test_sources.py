@@ -15,6 +15,7 @@ from auto_report.sources.rss import parse_rss_content
 from auto_report.sources.websites import (
     extract_json_items,
     extract_listing_items,
+    extract_sitemap_items,
     extract_structured_items,
 )
 
@@ -268,6 +269,58 @@ def test_extract_listing_items_prefers_anchor_title_attribute_when_heading_is_mi
     assert [item.title for item in items] == ["中国首款舱驾融合整车智能体芯片发布"]
 
 
+def test_extract_listing_items_deduplicates_links_by_normalized_url():
+    html = """
+    <html><body>
+      <a href="/en/blogs/edge-ai"><span>Edge AI: The Quiet Intelligence Behind Everyday Industry</span></a>
+      <a href="https://www.renesas.com/en/blogs/edge-ai"><h3>Edge AI: The Quiet Intelligence Behind Everyday Industry</h3></a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "renesas-blog",
+            "url": "https://www.renesas.com/en/blogs",
+            "category_hint": "ai-x-electronics",
+            "link_selector": "a[href*='/en/blogs/']",
+            "include_url_patterns": ["/en/blogs/"],
+            "include_title_patterns": ["edge ai"],
+        },
+        html,
+    )
+
+    assert [item.url for item in items] == ["https://www.renesas.com/en/blogs/edge-ai"]
+
+
+def test_extract_sitemap_items_reads_matching_blog_urls_in_reverse_order():
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url><loc>https://www.renesas.com/en/blogs/older-power-design</loc><lastmod>2026-01-01</lastmod></url>
+      <url><loc>https://www.renesas.com/en/blogs/edge-ai-quiet-intelligence-behind-everyday-industry</loc><lastmod>2026-04-01</lastmod></url>
+      <url><loc>https://www.renesas.com/en/products/rz</loc><lastmod>2026-04-02</lastmod></url>
+      <url><loc>https://www.renesas.com/en/blogs/solution-suite-concept-ai-powered-smart-e-bikes</loc><lastmod>2026-04-03</lastmod></url>
+    </urlset>
+    """
+
+    items = extract_sitemap_items(
+        {
+            "id": "renesas-blog",
+            "url": "https://www.renesas.com/sitemap.xml?page=2",
+            "category_hint": "ai-x-electronics",
+            "sitemap_reverse_order": True,
+            "include_url_patterns": ["/en/blogs/"],
+            "include_title_patterns": ["ai", "smart"],
+        },
+        xml,
+    )
+
+    assert [item.title for item in items] == [
+        "Solution Suite Concept AI Powered Smart E Bikes",
+        "Edge AI Quiet Intelligence Behind Everyday Industry",
+    ]
+    assert items[0].published_at == "2026-04-03"
+
+
 def test_should_keep_candidate_drops_webinar_and_event_noise_by_default():
     source = {
         "include_url_patterns": ["/blog/", "/edge/", "/embedded/"],
@@ -347,6 +400,41 @@ def test_fetch_text_uses_meta_charset_when_header_charset_is_missing(monkeypatch
     text = _fetch_text("https://www.rock-chips.com/a/cn/news/rockchip/index.html")
 
     assert "瑞芯微RK182X端侧AI" in text
+
+
+def test_fetch_source_body_uses_curl_backend_for_requests_blocked_sources(monkeypatch):
+    captured = {}
+
+    class FakeCompletedProcess:
+        stdout = (
+            b'<!DOCTYPE html><html><body><a href="/en/blogs/edge-ai">'
+            b"Edge AI: The Quiet Intelligence Behind Everyday Industry</a></body></html>"
+        )
+        stderr = b""
+
+    def fake_run(args, capture_output, check, timeout):
+        captured["args"] = args
+        captured["capture_output"] = capture_output
+        captured["check"] = check
+        captured["timeout"] = timeout
+        return FakeCompletedProcess()
+
+    monkeypatch.setattr("auto_report.sources.collector.shutil.which", lambda name: "curl")
+    monkeypatch.setattr("auto_report.sources.collector.subprocess.run", fake_run)
+
+    body = collector_module._fetch_source_body(
+        {
+            "id": "renesas-blog",
+            "url": "https://www.renesas.com/en/blogs",
+            "fetch_backend": "curl",
+            "timeout_seconds": 20,
+        }
+    )
+
+    assert "Edge AI: The Quiet Intelligence Behind Everyday Industry" in body
+    assert captured["args"][:2] == ["curl", "-L"]
+    assert "--max-time" in captured["args"]
+    assert "https://www.renesas.com/en/blogs" in captured["args"]
 
 
 def test_extract_structured_items_reads_entry_title_link_and_date():

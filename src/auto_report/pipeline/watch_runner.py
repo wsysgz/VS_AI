@@ -8,7 +8,7 @@ from typing import Any
 from auto_report.models.records import CollectedItem
 from auto_report.settings import load_settings
 from auto_report.sources import collector as collector_module
-from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_structured_items
+from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_sitemap_items, extract_structured_items
 
 
 WATCH_REGISTRY_PATH = Path("out") / "source-governance" / "changedetection-watch-registry.json"
@@ -45,6 +45,8 @@ def _collect_watch_items(source: dict[str, Any]) -> list[CollectedItem]:
     body = collector_module._fetch_source_body(source)
     if mode == "json_api":
         extracted = extract_json_items(source, json.loads(body))
+    elif mode == "sitemap":
+        extracted = extract_sitemap_items(source, body)
     elif mode == "structured_page":
         extracted = extract_structured_items(source, body)
     else:

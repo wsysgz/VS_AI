@@ -1270,6 +1270,25 @@ def cmd_build_discovery_search(root_dir: Path, keywords_path: str) -> Path:
     return build_discovery_search_artifact(root_dir, Path(keywords_path))
 
 
+def cmd_validate_source_candidates(
+    root_dir: Path,
+    *,
+    urls: list[str] | None = None,
+    source_ids: list[str] | None = None,
+    input_path: str = "",
+    timeout_seconds: int = 20,
+) -> Path:
+    from auto_report.pipeline.source_candidate_validation import validate_source_candidates
+
+    return validate_source_candidates(
+        root_dir,
+        urls=urls,
+        source_ids=source_ids,
+        input_path=Path(input_path) if input_path else None,
+        timeout_seconds=timeout_seconds,
+    )
+
+
 # ════════════════════════════════════════
 # 内部辅助
 # ════════════════════════════════════════

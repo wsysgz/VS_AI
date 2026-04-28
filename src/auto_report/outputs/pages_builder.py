@@ -44,6 +44,7 @@ SOURCE_LABELS = {
     "horizon-product-news": "地平线产品资讯",
     "nvidia-embedded": "英伟达嵌入式博客",
     "openai-news": "OpenAI 新闻",
+    "renesas-blog": "瑞萨博客",
     "rockchip-news": "瑞芯微新闻",
     "sophgo-news": "算能新闻与活动",
     "zhipu-news": "智谱新闻",
