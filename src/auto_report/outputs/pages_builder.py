@@ -154,6 +154,11 @@ def _tag_label(value: object) -> str:
     return TAG_LABELS.get(text, _domain_label(text))
 
 
+def _searchable_text(*parts: object) -> str:
+    tokens = [_safe_text(part) for part in parts if _safe_text(part)]
+    return " ".join(tokens).strip()
+
+
 def _source_label(url: str) -> str:
     parsed = urlparse(url)
     host = parsed.netloc.lower().replace("www.", "")
@@ -598,6 +603,54 @@ def _build_track_summaries(reports: list[dict[str, object]]) -> list[dict[str, o
     return sorted(summaries.values(), key=lambda item: (-int(item["count"]), str(item["name"])))
 
 
+def _build_source_summaries(reports: list[dict[str, object]]) -> list[dict[str, object]]:
+    summaries: dict[str, dict[str, object]] = {}
+    for report in reports:
+        seen_in_report: set[str] = set()
+        for signal in report["signals"]:
+            source_name = _safe_text(signal.get("source"))
+            if not source_name:
+                continue
+            row = summaries.setdefault(
+                source_name,
+                {
+                    "name": source_name,
+                    "slug": _slugify(source_name),
+                    "count": 0,
+                    "report_count": 0,
+                    "latest_date": str(report["date"]),
+                    "latest_title": str(signal["title"]),
+                    "track_counts": Counter(),
+                    "archive_url": f"sources/{_slugify(source_name)}/",
+                },
+            )
+            row["count"] = int(row["count"]) + 1
+            row["track_counts"][str(signal["domain_label"])] += 1
+            if source_name not in seen_in_report:
+                row["report_count"] = int(row["report_count"]) + 1
+                seen_in_report.add(source_name)
+            if str(report["date"]) >= str(row["latest_date"]):
+                row["latest_date"] = str(report["date"])
+                row["latest_title"] = str(signal["title"])
+
+    result: list[dict[str, object]] = []
+    for item in summaries.values():
+        track_counts = item.pop("track_counts")
+        track_breakdown = [
+            {"name": str(track_name), "count": int(count)}
+            for track_name, count in track_counts.most_common()
+        ]
+        result.append(
+            {
+                **item,
+                "primary_track": track_breakdown[0]["name"] if track_breakdown else "",
+                "top_tracks": [row["name"] for row in track_breakdown[:3]],
+                "track_breakdown": track_breakdown,
+            }
+        )
+    return sorted(result, key=lambda item: (-int(item["count"]), str(item["name"])))
+
+
 def _search_result_tags(signal: dict[str, object]) -> list[str]:
     seen = {_safe_text(signal.get("domain_label")), _safe_text(signal.get("source"))}
     tags: list[str] = []
@@ -995,21 +1048,40 @@ def _base_css() -> str:
   @media (max-width: 880px) {
     .site-shell { padding: 0 14px 36px; }
     .topbar { grid-template-columns: 1fr; gap: 10px; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
     .workbench { grid-template-columns: 1fr; }
     .panel, .section { padding: 18px; }
     .page-title { font-size: 28px; }
     .lead { font-size: 16px; }
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
     .signal-footer,
     .archive-footer {
       align-items: flex-start;
       flex-direction: column;
     }
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
   @media (max-width: 420px) {
     .stats-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 10px; }
+    .nav-links { gap: 8px; }
   }
 """
 
@@ -1125,8 +1197,9 @@ def _archive_cards(reports: list[dict[str, object]], link_prefix: str = "./") ->
 def _track_summary_cards(tracks: list[dict[str, object]], link_prefix: str = "./") -> str:
     cards = []
     for track in tracks:
+        search_text = _searchable_text(track.get("name"), track.get("latest_title"))
         cards.append(
-            f"""<article class="archive-card">
+            f"""<article class="archive-card" data-search="{html.escape(search_text)}">
   <span class="eyebrow">赛道</span>
   <h3>{html.escape(str(track["name"]))}</h3>
   <p>{int(track["count"])} 条信号 · 最近 {_format_date(str(track["latest_date"]))}</p>
@@ -1137,6 +1210,28 @@ def _track_summary_cards(tracks: list[dict[str, object]], link_prefix: str = "./
 </article>"""
         )
     return "".join(cards) or '<article class="archive-card"><h3>暂无赛道</h3><p>等待下一次日报生成。</p></article>'
+
+
+def _source_summary_cards(sources: list[dict[str, object]], link_prefix: str = "./") -> str:
+    cards = []
+    for source in sources:
+        top_tracks = list(source.get("top_tracks", []))[:2]
+        search_text = _searchable_text(source.get("name"), source.get("latest_title"), *top_tracks)
+        track_tags = "".join(
+            f'<span class="tag alt">{html.escape(str(track_name))}</span>'
+            for track_name in top_tracks
+        )
+        cards.append(
+            f"""<article class="archive-card" data-search="{html.escape(search_text)}">
+  <span class="eyebrow">来源</span>
+  <h3>{html.escape(str(source["name"]))}</h3>
+  <p>{int(source["count"])} 条信号 · {int(source["report_count"])} 份日报 · 最近 {_format_date(str(source["latest_date"]))}</p>
+  <div class="archive-meta" style="margin-top:12px;">{track_tags}</div>
+  <p class="subtle" style="margin-top:12px;">{html.escape(_localize_known_text(source["latest_title"]))}</p>
+  <a class="article-action" href="{html.escape(_href(source["archive_url"], link_prefix))}">打开来源</a>
+</article>"""
+        )
+    return "".join(cards) or '<article class="archive-card"><h3>暂无来源</h3><p>等待下一次日报生成。</p></article>'
 
 
 def _weekly_cards(weeks: list[dict[str, object]]) -> str:
@@ -1303,6 +1398,7 @@ def _build_signal_article_page(report: dict[str, object], signal: dict[str, obje
         <a href="../../">返回日报</a>
         <a href="../../../../archives/">归档</a>
         <a href="../../../../tracks/">赛道</a>
+        <a href="../../../../sources/">来源</a>
         <a href="../../../../weekly/">周报</a>
         <a href="../../../../special/">专题</a>
       </nav>
@@ -1343,6 +1439,7 @@ def _build_report_teaser_page(report: dict[str, object]) -> str:
         <a href="../">返回正文</a>
         <a href="../../../archives/">归档</a>
         <a href="../../../tracks/">赛道</a>
+        <a href="../../../sources/">来源</a>
         <a href="../../../weekly/">周报</a>
         <a href="../../../special/">专题</a>
       </nav>
@@ -1365,9 +1462,11 @@ def _build_homepage(
     report: dict[str, object],
     reports: list[dict[str, object]],
     track_summaries: list[dict[str, object]],
+    source_summaries: list[dict[str, object]],
 ) -> str:
-    recent_archives = reports[:6]
+    recent_archives = reports[:8]
     featured_tracks = track_summaries[:4]
+    featured_sources = source_summaries[:4]
     comparison_html = _comparison_section(report.get("comparison_brief", {}), compact=True)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -1389,6 +1488,7 @@ def _build_homepage(
       <nav class="nav-links">
         <a href="./archives/">归档</a>
         <a href="./tracks/">赛道</a>
+        <a href="./sources/">来源</a>
         <a href="./weekly/">周报</a>
         <a href="./special/">专题</a>
         <a href="./feed.json">JSON</a>
@@ -1410,8 +1510,10 @@ def _build_homepage(
           <span class="chip">{html.escape(report["publication_label"])}</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
+          <a class="chip" href="./sources/">来源</a>
           <a class="chip" href="./weekly/">周报</a>
           <a class="chip" href="./special/">专题</a>
+          <a class="chip" href="./daily/">日报</a>
         </div>
       </article>
       <aside class="panel">
@@ -1432,6 +1534,13 @@ def _build_homepage(
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
         {_track_summary_cards(featured_tracks, link_prefix="./")}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">来源</h2>
+      <div class="archive-grid">
+        {_source_summary_cards(featured_sources, link_prefix="./")}
       </div>
     </section>
 
@@ -1555,6 +1664,110 @@ def _build_homepage(
 """
 
 
+def _build_daily_index(reports: list[dict[str, object]]) -> str:
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS_AI 日报</title>
+{FAVICON_LINK}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>{_base_css()}</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">首页</a>
+        <a href="../archives/">归档</a>
+        <a href="../tracks/">赛道</a>
+        <a href="../sources/">来源</a>
+        <a href="../weekly/">周报</a>
+        <a href="../special/">专题</a>
+        <a href="../feed.json">JSON</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h1 class="section-title">日报</h1>
+      <p class="subtle">按日期归档每日情报简报，保留人工复核版优先结果。</p>
+    </section>
+
+    <section class="section">
+      <div class="archive-grid">
+        {_archive_cards(reports, link_prefix="../")}
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+"""
+
+
+def _build_sources_index(source_summaries: list[dict[str, object]]) -> str:
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS_AI 来源</title>
+{FAVICON_LINK}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>{_base_css()}</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">首页</a>
+        <a href="../archives/">归档</a>
+        <a href="../tracks/">赛道</a>
+        <a href="../weekly/">周报</a>
+        <a href="../special/">专题</a>
+        <a href="../feed.json">JSON</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h1 class="section-title">来源</h1>
+      <p class="subtle">按来源查看信号沉淀、覆盖赛道和最近出现的日报，快速判断哪个入口值得长期跟踪。</p>
+    </section>
+
+    <section class="section">
+      <div class="search-shell">
+        <input id="source-filter-search" class="filter-search" type="search" placeholder="筛选来源">
+      </div>
+      <div id="sources-grid" class="archive-grid">
+        {_source_summary_cards(source_summaries, link_prefix="../")}
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const sourceCards = [...document.querySelectorAll("#sources-grid .archive-card")];
+    const sourceFilterSearch = document.getElementById("source-filter-search");
+    if (sourceFilterSearch) {{
+      sourceFilterSearch.addEventListener("input", () => {{
+        const query = sourceFilterSearch.value.trim().toLowerCase();
+        sourceCards.forEach((card) => {{
+          const value = (card.dataset.search || card.textContent || "").toLowerCase();
+          card.style.display = !query || value.includes(query) ? "" : "none";
+        }});
+      }});
+    }}
+  </script>
+</body>
+</html>
+"""
+
+
 def _build_archives_index(reports: list[dict[str, object]]) -> str:
     all_domains = sorted({domain for report in reports for domain in report["domain_counts"].keys()})
     all_sources = sorted({source for report in reports for source in report["source_counts"].keys()})
@@ -1585,6 +1798,7 @@ def _build_archives_index(reports: list[dict[str, object]]) -> str:
       <nav class="nav-links">
         <a href="../">首页</a>
         <a href="../tracks/">赛道</a>
+        <a href="../sources/">来源</a>
         <a href="../weekly/">周报</a>
         <a href="../special/">专题</a>
         <a href="../feed.json">JSON</a>
@@ -1674,6 +1888,7 @@ def _build_tracks_index(track_summaries: list[dict[str, object]]) -> str:
       <nav class="nav-links">
         <a href="../">首页</a>
         <a href="../archives/">归档</a>
+        <a href="../sources/">来源</a>
         <a href="../weekly/">周报</a>
         <a href="../special/">专题</a>
         <a href="../feed.json">JSON</a>
@@ -1686,11 +1901,28 @@ def _build_tracks_index(track_summaries: list[dict[str, object]]) -> str:
     </section>
 
     <section class="section">
-      <div class="archive-grid">
+      <div class="search-shell">
+        <input id="track-filter-search" class="filter-search" type="search" placeholder="筛选赛道">
+      </div>
+      <div id="tracks-grid" class="archive-grid">
         {_track_summary_cards(track_summaries, link_prefix="../")}
       </div>
     </section>
   </div>
+
+  <script>
+    const trackCards = [...document.querySelectorAll("#tracks-grid .archive-card")];
+    const trackFilterSearch = document.getElementById("track-filter-search");
+    if (trackFilterSearch) {{
+      trackFilterSearch.addEventListener("input", () => {{
+        const query = trackFilterSearch.value.trim().toLowerCase();
+        trackCards.forEach((card) => {{
+          const value = (card.dataset.search || card.textContent || "").toLowerCase();
+          card.style.display = !query || value.includes(query) ? "" : "none";
+        }});
+      }});
+    }}
+  </script>
 </body>
 </html>
 """
@@ -1721,9 +1953,46 @@ def _signals_for_track(track: dict[str, object], reports: list[dict[str, object]
     )[:8]
 
 
+def _reports_for_source(source: dict[str, object], reports: list[dict[str, object]]) -> list[dict[str, object]]:
+    source_name = _safe_text(source.get("name"))
+    return [report for report in reports if source_name in report["source_counts"]]
+
+
+def _signals_for_source(source: dict[str, object], reports: list[dict[str, object]]) -> list[dict[str, object]]:
+    source_name = _safe_text(source.get("name"))
+    signal_map: dict[str, dict[str, object]] = {}
+    for report in reports:
+        for signal in report["signals"]:
+            if _safe_text(signal.get("source")) != source_name:
+                continue
+            key = f"{signal['title']}|{signal['url']}"
+            signal_map.setdefault(key, signal)
+    return sorted(
+        signal_map.values(),
+        key=lambda item: (str(item.get("date", "")), float(item.get("score", 0.0))),
+        reverse=True,
+    )[:8]
+
+
+def _sources_for_track(
+    track: dict[str, object],
+    reports: list[dict[str, object]],
+    source_summaries: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    allowed_sources = {
+        _safe_text(signal.get("source"))
+        for report in reports
+        for signal in report["signals"]
+        if _signal_matches_track(signal, track)
+    }
+    return [source for source in source_summaries if _safe_text(source.get("name")) in allowed_sources][:6]
+
+
 def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]) -> str:
+    source_summaries = _build_source_summaries(reports)
     track_reports = _reports_for_track(track, reports)
     track_signals = _signals_for_track(track, reports)
+    track_sources = _sources_for_track(track, reports, source_summaries)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1743,6 +2012,7 @@ def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]
       <nav class="nav-links">
         <a href="../">赛道</a>
         <a href="../../archives/">归档</a>
+        <a href="../../sources/">来源</a>
         <a href="../../weekly/">周报</a>
         <a href="../../special/">专题</a>
         <a href="../../">首页</a>
@@ -1756,6 +2026,13 @@ def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]
     </section>
 
     <section class="section">
+      <h2 class="section-title">活跃来源</h2>
+      <div class="archive-grid">
+        {_source_summary_cards(track_sources, link_prefix="../../")}
+      </div>
+    </section>
+
+    <section class="section">
       <h2 class="section-title">最近日报</h2>
       <div class="archive-grid">
         {_archive_cards(track_reports[:8], link_prefix="../../")}
@@ -1766,6 +2043,66 @@ def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         {_signal_cards(track_signals, link_prefix="../../")}
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+"""
+
+
+def _build_source_page(source: dict[str, object], reports: list[dict[str, object]]) -> str:
+    source_reports = _reports_for_source(source, reports)
+    source_signals = _signals_for_source(source, reports)
+    track_tags = _tag_chips([row["name"] for row in source.get("track_breakdown", [])[:4]], limit=4)
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(str(source["name"]))} | VS_AI 来源</title>
+{FAVICON_LINK}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>{_base_css()}</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">来源</a>
+        <a href="../../archives/">归档</a>
+        <a href="../../tracks/">赛道</a>
+        <a href="../../weekly/">周报</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <div class="eyebrow">来源</div>
+      <h1 class="section-title" style="font-size:34px;">{html.escape(str(source["name"]))}</h1>
+      <p class="subtle">{int(source["count"])} 条信号 · {int(source["report_count"])} 份日报 · 最近 {_format_date(str(source["latest_date"]))}</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">覆盖赛道</h2>
+      <div class="archive-meta">{track_tags}</div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">最近日报</h2>
+      <div class="archive-grid">
+        {_archive_cards(source_reports[:8], link_prefix="../../")}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        {_signal_cards(source_signals, link_prefix="../../")}
       </div>
     </section>
   </div>
@@ -1795,6 +2132,7 @@ def _build_day_page(report: dict[str, object]) -> str:
       <nav class="nav-links">
         <a href="../">归档</a>
         <a href="../../tracks/">赛道</a>
+        <a href="../../sources/">来源</a>
         <a href="../../weekly/">周报</a>
         <a href="../../special/">专题</a>
         <a href="../../">首页</a>
@@ -1862,6 +2200,7 @@ def _build_weekly_index(weeks: list[dict[str, object]]) -> str:
         <a href="../">首页</a>
         <a href="../archives/">归档</a>
         <a href="../tracks/">赛道</a>
+        <a href="../sources/">来源</a>
         <a href="../special/">专题</a>
         <a href="../feed.json">JSON</a>
       </nav>
@@ -1940,6 +2279,7 @@ def _build_week_page(week: dict[str, object]) -> str:
         <a href="../">周报</a>
         <a href="../../archives/">归档</a>
         <a href="../../tracks/">赛道</a>
+        <a href="../../sources/">来源</a>
         <a href="../../special/">专题</a>
         <a href="../../">首页</a>
       </nav>
@@ -1998,6 +2338,7 @@ def _build_special_index(collections: list[dict[str, object]]) -> str:
         <a href="../">首页</a>
         <a href="../archives/">归档</a>
         <a href="../tracks/">赛道</a>
+        <a href="../sources/">来源</a>
         <a href="../weekly/">周报</a>
       </nav>
     </header>
@@ -2040,6 +2381,7 @@ def _build_special_page(collection: dict[str, object]) -> str:
         <a href="../../weekly/">周报</a>
         <a href="../../archives/">归档</a>
         <a href="../../tracks/">赛道</a>
+        <a href="../../sources/">来源</a>
         <a href="../../">首页</a>
       </nav>
     </header>
@@ -2068,7 +2410,9 @@ def build_pages_site(root_dir: Path) -> Path:
     dist_dir = root_dir / "docs"
     assets_dist = dist_dir / "assets"
     archives_dist = dist_dir / "archives"
+    daily_dist = dist_dir / "daily"
     tracks_dist = dist_dir / "tracks"
+    sources_dist = dist_dir / "sources"
     weekly_dist = dist_dir / "weekly"
     special_dist = dist_dir / "special"
 
@@ -2078,13 +2422,18 @@ def build_pages_site(root_dir: Path) -> Path:
     weekly_reports = _build_weekly_reports(reports)
     special_collections = _build_special_collections(reports)
     track_summaries = _build_track_summaries(reports)
+    source_summaries = _build_source_summaries(reports)
 
     dist_dir.mkdir(parents=True, exist_ok=True)
 
     if archives_dist.exists():
         shutil.rmtree(archives_dist)
+    if daily_dist.exists():
+        shutil.rmtree(daily_dist)
     if tracks_dist.exists():
         shutil.rmtree(tracks_dist)
+    if sources_dist.exists():
+        shutil.rmtree(sources_dist)
     if weekly_dist.exists():
         shutil.rmtree(weekly_dist)
     if special_dist.exists():
@@ -2095,7 +2444,9 @@ def build_pages_site(root_dir: Path) -> Path:
             target.unlink()
     assets_dist.mkdir(parents=True, exist_ok=True)
     archives_dist.mkdir(parents=True, exist_ok=True)
+    daily_dist.mkdir(parents=True, exist_ok=True)
     tracks_dist.mkdir(parents=True, exist_ok=True)
+    sources_dist.mkdir(parents=True, exist_ok=True)
     weekly_dist.mkdir(parents=True, exist_ok=True)
     special_dist.mkdir(parents=True, exist_ok=True)
 
@@ -2108,13 +2459,15 @@ def build_pages_site(root_dir: Path) -> Path:
     json_feed = _build_json_feed(reports)
     rss_feed = _build_rss(reports)
 
-    _write_text(dist_dir / "index.html", _build_homepage(latest_report, reports, track_summaries))
+    _write_text(dist_dir / "index.html", _build_homepage(latest_report, reports, track_summaries, source_summaries))
     _write_text(dist_dir / "search-index.json", json.dumps(search_index, ensure_ascii=False, indent=2))
     _write_text(dist_dir / "feed.json", json.dumps(json_feed, ensure_ascii=False, indent=2))
     _write_text(dist_dir / "rss.xml", rss_feed)
     _write_text(assets_dist / "site.css", _base_css())
     _write_text(archives_dist / "index.html", _build_archives_index(reports))
+    _write_text(daily_dist / "index.html", _build_daily_index(reports))
     _write_text(tracks_dist / "index.html", _build_tracks_index(track_summaries))
+    _write_text(sources_dist / "index.html", _build_sources_index(source_summaries))
     _write_text(weekly_dist / "index.html", _build_weekly_index(weekly_reports))
     _write_text(special_dist / "index.html", _build_special_index(special_collections))
 
@@ -2130,6 +2483,8 @@ def build_pages_site(root_dir: Path) -> Path:
         _write_text(weekly_dist / str(week["week_key"]) / "index.html", _build_week_page(week))
     for track in track_summaries:
         _write_text(tracks_dist / _slugify(track["key"]) / "index.html", _build_track_page(track, reports))
+    for source in source_summaries:
+        _write_text(sources_dist / str(source["slug"]) / "index.html", _build_source_page(source, reports))
     for collection in special_collections:
         _write_text(special_dist / str(collection["slug"]) / "index.html", _build_special_page(collection))
 

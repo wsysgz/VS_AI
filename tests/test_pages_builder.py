@@ -316,6 +316,149 @@ def test_build_pages_site_navigation_links_tracks_everywhere(tmp_path: Path):
         assert "赛道" in html
 
 
+def test_build_pages_site_generates_daily_index_and_homepage_chip(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI", publication_mode="reviewed")
+    older = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", older)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    daily_index = (tmp_path / "docs" / "daily" / "index.html").read_text(encoding="utf-8")
+
+    assert '<a class="chip" href="./daily/">日报</a>' in index_html
+    assert "人工复核版" in index_html
+    assert "日报" in daily_index
+    assert "OpenAI 成为本轮最强主线" in daily_index
+    assert "Renesas 成为本轮最强主线" in daily_index
+
+
+def test_build_pages_site_homepage_recent_archives_is_capped_at_eight(tmp_path: Path):
+    for day in range(1, 11):
+        date_text = f"2026-04-{day:02d}"
+        payload = _sample_payload(date_text, "ai-llm-agent", f"Source {day}")
+        _write_report_set(tmp_path, date_text, payload)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    recent_section = index_html.split('<h2 class="section-title">最近归档</h2>', 1)[1].split("<footer", 1)[0]
+
+    assert recent_section.count('<article class="article-card"') == 8
+
+
+def test_build_pages_site_generates_sources_index_and_source_cards(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    sources_index = (tmp_path / "docs" / "sources" / "index.html").read_text(encoding="utf-8")
+
+    assert 'href="./sources/"' in index_html
+    assert "来源" in sources_index
+    assert "news.example.com" in sources_index
+    assert "blog.example.com" in sources_index
+
+
+def test_build_pages_site_generates_source_detail_pages(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    source_root = tmp_path / "docs" / "sources"
+    detail_pages = [path for path in source_root.glob("*/index.html") if path.parent != source_root]
+
+    assert detail_pages
+    detail_html = detail_pages[0].read_text(encoding="utf-8")
+    assert "覆盖赛道" in detail_html
+    assert "最近日报" in detail_html
+    assert "重点信号" in detail_html
+
+
+def test_build_pages_site_track_pages_surface_active_sources(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    track_page = (tmp_path / "docs" / "tracks" / "ai-llm-agent" / "index.html").read_text(encoding="utf-8")
+
+    assert "活跃来源" in track_page
+    assert "news.example.com" in track_page
+    assert "blog.example.com" in track_page
+    assert "打开来源" in track_page
+
+
+def test_build_pages_site_tracks_index_includes_filter_search(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    tracks_index = (tmp_path / "docs" / "tracks" / "index.html").read_text(encoding="utf-8")
+
+    assert 'id="track-filter-search"' in tracks_index
+    assert "筛选赛道" in tracks_index
+    assert "trackFilterSearch" in tracks_index
+
+
+def test_build_pages_site_sources_index_includes_filter_search(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    sources_index = (tmp_path / "docs" / "sources" / "index.html").read_text(encoding="utf-8")
+
+    assert 'id="source-filter-search"' in sources_index
+    assert "筛选来源" in sources_index
+    assert "sourceFilterSearch" in sources_index
+
+
+def test_build_pages_site_track_and_source_cards_expose_searchable_text(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    tracks_index = (tmp_path / "docs" / "tracks" / "index.html").read_text(encoding="utf-8")
+    sources_index = (tmp_path / "docs" / "sources" / "index.html").read_text(encoding="utf-8")
+
+    assert 'data-search="' in tracks_index
+    assert 'data-search="' in sources_index
+
+
+def test_build_pages_site_mobile_css_tightens_nav_chip_and_grid_layout(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+
+    assert "@media (max-width: 880px)" in index_html
+    assert "@media (max-width: 640px)" in index_html
+    assert ".hero-meta { gap: 6px; }" in index_html
+    assert ".archive-grid," in index_html
+    assert ".comparison-grid { grid-template-columns: 1fr; }" in index_html
+
+
 def test_build_pages_site_pages_define_inline_favicon(tmp_path: Path):
     latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
     _write_report_set(tmp_path, "2026-04-11", latest)

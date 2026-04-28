@@ -313,21 +313,40 @@
   @media (max-width: 880px) {
     .site-shell { padding: 0 14px 36px; }
     .topbar { grid-template-columns: 1fr; gap: 10px; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
     .workbench { grid-template-columns: 1fr; }
     .panel, .section { padding: 18px; }
     .page-title { font-size: 28px; }
     .lead { font-size: 16px; }
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
     .signal-footer,
     .archive-footer {
       align-items: flex-start;
       flex-direction: column;
     }
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
   @media (max-width: 420px) {
     .stats-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 10px; }
+    .nav-links { gap: 8px; }
   }
 </style>
 </head>
@@ -338,6 +357,7 @@
       <nav class="nav-links">
         <a href="./archives/">归档</a>
         <a href="./tracks/">赛道</a>
+        <a href="./sources/">来源</a>
         <a href="./weekly/">周报</a>
         <a href="./special/">专题</a>
         <a href="./feed.json">JSON</a>
@@ -359,8 +379,10 @@
           <span class="chip">人工复核版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
+          <a class="chip" href="./sources/">来源</a>
           <a class="chip" href="./weekly/">周报</a>
           <a class="chip" href="./special/">专题</a>
+          <a class="chip" href="./daily/">日报</a>
         </div>
       </article>
       <aside class="panel">
@@ -401,7 +423,7 @@
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card">
+        <article class="archive-card" data-search="AI/智能体 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
   <p>2082 条信号 · 最近 2026.04.28</p>
@@ -409,7 +431,7 @@
     <span>AI 代理正在从实验室走向生产环境，但失控、调试困难和基准可信度危机表明，自主性与可控性的矛盾已取代能力不足，成为当前 AI 工程化的核心瓶颈。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card">
+</article><article class="archive-card" data-search="AI × 电子 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
   <p>272 条信号 · 最近 2026.04.28</p>
@@ -417,6 +439,41 @@
     <span>AI 代理正在从实验室走向生产环境，但失控、调试困难和基准可信度危机表明，自主性与可控性的矛盾已取代能力不足，成为当前 AI 工程化的核心瓶颈。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
+</article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">来源</h2>
+      <div class="archive-grid">
+        <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
+  <span class="eyebrow">来源</span>
+  <h3>GitHub</h3>
+  <p>270 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
+  <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
+  <a class="article-action" href="./sources/github/">打开来源</a>
+</article><article class="archive-card" data-search="huggingface.co Multimodal Embedding &amp; Reranker Models with Sentence Transformers AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>huggingface.co</h3>
+  <p>192 条信号 · 16 份日报 · 最近 2026.04.26</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">Multimodal Embedding &amp; Reranker Models with Sentence Transformers</p>
+  <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
+</article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat â AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>api-docs.deepseek.com</h3>
+  <p>155 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">deepseek-chat â</p>
+  <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
+</article><article class="archive-card" data-search="openai.com GPT-5.5 System Card AI/智能体 AI × 电子">
+  <span class="eyebrow">来源</span>
+  <h3>openai.com</h3>
+  <p>146 条信号 · 17 份日报 · 最近 2026.04.27</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
+  <p class="subtle" style="margin-top:12px;">GPT-5.5 System Card</p>
+  <a class="article-action" href="./sources/openai-com/">打开来源</a>
 </article>
       </div>
     </section>
@@ -521,6 +578,16 @@
   <h3>AI代理领域正经历从能力扩展向可问责性基础设施的关键转型，调试框架、硬件优化和开发者工具同步演进，但真实部署中的风险控制仍存显著缺口</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-04-23/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com api-docs.deepseek.com 微软 developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai qualcomm.com blog.openvino.ai edgeimpulse.com developer.espressif.com about.fb.com anthropic.com qwen.ai groq.com infineon.com mediatek.com blog.st.com newsroom.arm.com ti.com nial.se brex.com frame.work lawsofsoftwareengineering.com docs.openclaw.ai bsky.app reuters.com github.blog techcrunch.com longwoodgardens.org thinkygames.com codemix.com science.org tindie.com jasoneckert.github.io wheresyoured.at">
+  <p class="article-date">2026.04.22</p>
+  <h3>AI 智能体生态正在从能力优先转向安全优先，OpenAI、Brex 和 Microsoft 分别处理智能体自主性与生产安全之间的核心张力。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">人工复核版</span></div>
+  <a class="article-action" href="./archives/2026-04-22/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub api-docs.deepseek.com platform.moonshot.cn zhipuai.cn cerebras.ai qualcomm.com blog.openvino.ai edgeimpulse.com developer.espressif.com anthropic.com qwen.ai groq.com infineon.com mediatek.com ti.com">
+  <p class="article-date">2026.04.21</p>
+  <h3>AI Agent领域呈现密集发布与开源趋势，但多数宣称缺乏可验证证据，而底层推理引擎vLLM的核心矛盾揭示了规模化部署的真实瓶颈。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">人工复核版</span></div>
+  <a class="article-action" href="./archives/2026-04-21/brief/">阅读文章</a>
 </article>
       </div>
     </section>

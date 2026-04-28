@@ -312,21 +312,40 @@
   @media (max-width: 880px) {
     .site-shell { padding: 0 14px 36px; }
     .topbar { grid-template-columns: 1fr; gap: 10px; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
     .workbench { grid-template-columns: 1fr; }
     .panel, .section { padding: 18px; }
     .page-title { font-size: 28px; }
     .lead { font-size: 16px; }
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
     .signal-footer,
     .archive-footer {
       align-items: flex-start;
       flex-direction: column;
     }
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
   @media (max-width: 420px) {
     .stats-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 10px; }
+    .nav-links { gap: 8px; }
   }
 </style>
 </head>
@@ -337,6 +356,7 @@
       <nav class="nav-links">
         <a href="../">赛道</a>
         <a href="../../archives/">归档</a>
+        <a href="../../sources/">来源</a>
         <a href="../../weekly/">周报</a>
         <a href="../../special/">专题</a>
         <a href="../../">首页</a>
@@ -347,6 +367,55 @@
       <div class="eyebrow">赛道</div>
       <h1 class="section-title" style="font-size:34px;">AI/智能体</h1>
       <p class="subtle">2011 条信号 · 最近 2026.04.28</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">活跃来源</h2>
+      <div class="archive-grid">
+        <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
+  <span class="eyebrow">来源</span>
+  <h3>GitHub</h3>
+  <p>270 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
+  <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
+  <a class="article-action" href="../../sources/github/">打开来源</a>
+</article><article class="archive-card" data-search="huggingface.co Multimodal Embedding &amp; Reranker Models with Sentence Transformers AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>huggingface.co</h3>
+  <p>192 条信号 · 16 份日报 · 最近 2026.04.26</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">Multimodal Embedding &amp; Reranker Models with Sentence Transformers</p>
+  <a class="article-action" href="../../sources/huggingface-co/">打开来源</a>
+</article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat â AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>api-docs.deepseek.com</h3>
+  <p>155 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">deepseek-chat â</p>
+  <a class="article-action" href="../../sources/api-docs-deepseek-com/">打开来源</a>
+</article><article class="archive-card" data-search="openai.com GPT-5.5 System Card AI/智能体 AI × 电子">
+  <span class="eyebrow">来源</span>
+  <h3>openai.com</h3>
+  <p>146 条信号 · 17 份日报 · 最近 2026.04.27</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
+  <p class="subtle" style="margin-top:12px;">GPT-5.5 System Card</p>
+  <a class="article-action" href="../../sources/openai-com/">打开来源</a>
+</article><article class="archive-card" data-search="anthropic.com Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>anthropic.com</h3>
+  <p>131 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute</p>
+  <a class="article-action" href="../../sources/anthropic-com/">打开来源</a>
+</article><article class="archive-card" data-search="platform.moonshot.cn Kimi K2 又又又提速了 AI/智能体">
+  <span class="eyebrow">来源</span>
+  <h3>platform.moonshot.cn</h3>
+  <p>114 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
+  <p class="subtle" style="margin-top:12px;">Kimi K2 又又又提速了</p>
+  <a class="article-action" href="../../sources/platform-moonshot-cn/">打开来源</a>
+</article>
+      </div>
     </section>
 
     <section class="section">

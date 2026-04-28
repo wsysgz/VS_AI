@@ -27,10 +27,10 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`337 passed`
-- 当前主线优先级：`公开站 IA V2 第一批已完成、已推送、已远端确认；下次先回看手动补触发 run 25009334909，再评估 IA V2 第二批`
+- 当前主线优先级：`公开站 IA V2 第一批已完成、已推送、已远端确认；第二批已本地完成；当前推进第三批（赛道/来源检索与移动端体验）`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / push run 25009309491 / trigger commit d743668 / output commit ba23ec5 / https://github.com/wsysgz/VS_AI/actions/runs/25009309491`
-- 当前待回看远端 `Collect And Report`：`2026-04-28 / workflow_dispatch run 25009334909 / commit d743668 / 截至 01:46 已通过 analyze，正在 report / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
+- 当前补充确认远端 `Collect And Report`：`2026-04-28 / workflow_dispatch run 25009334909 / commit d743668 / 已于 01:50（北京时间）success / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
 - 当前最新远端 `Delivery Canary` 已成功：`2026-04-24 / run 24864175041 / commit 780dcfd`
 - 当前最新远端 `Source Reachability Canary` 已成功：`2026-04-24 / run 24864003455 / commit 780dcfd`
 - GitHub Repository Variables 已切换到 DeepSeek V4 默认路由：`analysis/summary/forecast=pro`，`prefilter/discovery/search=flash`
@@ -387,7 +387,9 @@ Get-Content out/source-governance/source-governance.json
 - 当前治理尾项已基本收口：repo-local watch runner 已打通，`candidate-updates.json` 接近空队列
 - `renesas-blog` / `youtube-google-developers` / `youtube-nvidia` 已从活跃采集里降噪处理，等待稳定入口恢复后再启用
 - 公开站 IA V2 第一批已完成并通过远端发布级确认：push run `25009309491` 成功，触发 commit `d743668`，远端产物推进到 `ba23ec5`
-- 手动补触发 run `25009334909` 截至 2026-04-28 01:46 已通过 `analyze`，正在 `report`；下次接手先回看；它是重复确认 run，不阻塞 IA V2 第一批收口
+- 手动补触发 run `25009334909` 已于 2026-04-28 01:50（北京时间）成功；它是重复确认 run，不再作为阻塞项
+- 公开站 IA V2 第二批已本地完成：`/daily/`、`/sources/`、来源详情页、赛道页活跃来源、首页最近归档扩到 8 篇均已落地并完成本地验证
+- 当前进入公开站 IA V2 第三批：赛道/来源列表页检索与移动端导航/卡片压缩体验
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
@@ -457,12 +459,11 @@ Get-Content out/source-governance/source-governance.json
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
 - 下一阶段默认优先顺序：
-  1. 先讨论公开站 `https://wsysgz.github.io/VS_AI/` 的整理 / 优化方案
-  2. 方案确认后再实施公开站改造
-  3. 实施前保留当前 Pages 结构，不做顺手优化
-  4. `P3-B` 只保留小修、真实同步回归和交付前验证
-  5. 持续观察 `openvino-blog`、`huggingface-blog`、`st-blog` 的超时/连通性噪音
-  6. `P2.5 OpenCLI pilot` 继续留在 backlog
+  1. 继续公开站 IA V2 第三批：赛道/来源列表页检索与移动端导航/卡片压缩体验
+  2. 第三批本地闭环后再决定是否做远端发布级确认
+  3. `P3-B` 只保留小修、真实同步回归和交付前验证
+  4. 持续观察 `openvino-blog`、`huggingface-blog`、`st-blog` 的超时/连通性噪音
+  5. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
   - `analysis` -> DeepSeek V4 Pro
   - `summary` -> DeepSeek V4 Pro
@@ -872,5 +873,5 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 2. P3-C-2：comparison brief 与交付消费（已完成）
 3. P3-C-3：验收、文档、发布收口（已完成）
 4. 公开站 IA V2 第一批已完成并通过远端 push run `25009309491` 确认
-5. 下次先回看手动补触发 run `25009334909`，只记录结果；若失败先看失败 job，不回滚 IA V2 第一批
-6. 后续再评估 IA V2 第二批：来源总览页、赛道/来源交叉视图、移动端筛选体验
+5. 手动补触发 run `25009334909` 已成功，只保留结果记录，不再作为当前阻塞项
+6. 当前继续 IA V2 第三批：赛道/来源列表页检索与移动端导航/卡片压缩体验

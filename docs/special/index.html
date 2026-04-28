@@ -312,21 +312,40 @@
   @media (max-width: 880px) {
     .site-shell { padding: 0 14px 36px; }
     .topbar { grid-template-columns: 1fr; gap: 10px; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
     .workbench { grid-template-columns: 1fr; }
     .panel, .section { padding: 18px; }
     .page-title { font-size: 28px; }
     .lead { font-size: 16px; }
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
     .signal-footer,
     .archive-footer {
       align-items: flex-start;
       flex-direction: column;
     }
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
   @media (max-width: 420px) {
     .stats-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 10px; }
+    .nav-links { gap: 8px; }
   }
 </style>
 </head>
@@ -338,6 +357,7 @@
         <a href="../">首页</a>
         <a href="../archives/">归档</a>
         <a href="../tracks/">赛道</a>
+        <a href="../sources/">来源</a>
         <a href="../weekly/">周报</a>
       </nav>
     </header>

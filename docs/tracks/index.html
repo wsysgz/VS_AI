@@ -312,21 +312,40 @@
   @media (max-width: 880px) {
     .site-shell { padding: 0 14px 36px; }
     .topbar { grid-template-columns: 1fr; gap: 10px; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
     .workbench { grid-template-columns: 1fr; }
     .panel, .section { padding: 18px; }
     .page-title { font-size: 28px; }
     .lead { font-size: 16px; }
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
     .signal-footer,
     .archive-footer {
       align-items: flex-start;
       flex-direction: column;
     }
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
   @media (max-width: 420px) {
     .stats-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 10px; }
+    .nav-links { gap: 8px; }
   }
 </style>
 </head>
@@ -337,6 +356,7 @@
       <nav class="nav-links">
         <a href="../">首页</a>
         <a href="../archives/">归档</a>
+        <a href="../sources/">来源</a>
         <a href="../weekly/">周报</a>
         <a href="../special/">专题</a>
         <a href="../feed.json">JSON</a>
@@ -349,8 +369,11 @@
     </section>
 
     <section class="section">
-      <div class="archive-grid">
-        <article class="archive-card">
+      <div class="search-shell">
+        <input id="track-filter-search" class="filter-search" type="search" placeholder="筛选赛道">
+      </div>
+      <div id="tracks-grid" class="archive-grid">
+        <article class="archive-card" data-search="AI/智能体 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
   <p>2011 条信号 · 最近 2026.04.28</p>
@@ -358,7 +381,7 @@
     <span>本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。</span>
     <a href="../tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card">
+</article><article class="archive-card" data-search="AI × 电子 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
   <p>263 条信号 · 最近 2026.04.28</p>
@@ -370,5 +393,19 @@
       </div>
     </section>
   </div>
+
+  <script>
+    const trackCards = [...document.querySelectorAll("#tracks-grid .archive-card")];
+    const trackFilterSearch = document.getElementById("track-filter-search");
+    if (trackFilterSearch) {
+      trackFilterSearch.addEventListener("input", () => {
+        const query = trackFilterSearch.value.trim().toLowerCase();
+        trackCards.forEach((card) => {
+          const value = (card.dataset.search || card.textContent || "").toLowerCase();
+          card.style.display = !query || value.includes(query) ? "" : "none";
+        });
+      });
+    }
+  </script>
 </body>
 </html>
