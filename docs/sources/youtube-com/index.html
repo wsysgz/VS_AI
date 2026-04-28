@@ -131,6 +131,39 @@
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -333,6 +366,13 @@
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -369,6 +409,28 @@
       <p class="subtle">4 条信号 · 4 份日报 · 最近 2026.04.26</p>
     </section>
 
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.04.26</p>
+  <h3>Nicholas Carlini – Black-hat LLMs [video]</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-26/signals/8/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.17</p>
+  <h3>4 things devs should know about Gemma 4</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-04-17/signals/66/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.15</p>
+  <h3>Air Powered Segment Display? [video]</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-15/signals/44/">阅读文章</a>
+</article>
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">覆盖赛道</h2>
       <div class="archive-meta"><span class="tag">AI/智能体</span></div>
@@ -397,28 +459,6 @@
   <h3>AI智能体领域正从能力扩张转向可靠性攻坚，核心矛盾在于日益复杂的自主性与滞后的可观测、可调试能力之间的差距，这已成为制约其安全、规模化部署的关键瓶颈。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="../../archives/2026-04-14/brief/">阅读文章</a>
-</article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        <article class="article-card">
-  <p class="article-date">2026.04.26</p>
-  <h3>Nicholas Carlini – Black-hat LLMs [video]</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-26/signals/8/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.17</p>
-  <h3>4 things devs should know about Gemma 4</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">AI × 电子</span></div>
-  <a class="article-action" href="../../archives/2026-04-17/signals/66/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.15</p>
-  <h3>Air Powered Segment Display? [video]</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">youtube.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="../../archives/2026-04-15/signals/44/">阅读文章</a>
 </article>
       </div>
     </section>

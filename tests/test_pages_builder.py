@@ -334,6 +334,42 @@ def test_build_pages_site_generates_daily_index_and_homepage_chip(tmp_path: Path
     assert "Renesas 成为本轮最强主线" in daily_index
 
 
+def test_build_pages_site_homepage_prioritizes_workbench_tracks_and_sources(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI", publication_mode="reviewed")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    workbench_html = index_html.split('<section class="workbench">', 1)[1].split("</section>", 1)[0]
+
+    assert "今日判断" in workbench_html
+    assert 'class="guide-actions"' in workbench_html
+    assert 'href="./tracks/"' in workbench_html
+    assert 'href="./sources/"' in workbench_html
+    assert workbench_html.index('class="guide-actions"') < workbench_html.index('href="./daily/"')
+    assert workbench_html.index('class="guide-actions"') < workbench_html.index('href="./weekly/"')
+    assert workbench_html.index('class="guide-actions"') < workbench_html.index('href="./special/"')
+
+
+def test_build_pages_site_homepage_keeps_daily_weekly_special_secondary(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI", publication_mode="reviewed")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+
+    assert '<a class="chip" href="./daily/">日报</a>' in index_html
+    assert '<a class="chip" href="./weekly/">周报</a>' in index_html
+    assert '<a class="chip" href="./special/">专题</a>' in index_html
+    assert '<h2 class="section-title">日报</h2>' not in index_html
+    assert '<h2 class="section-title">周报</h2>' not in index_html
+    assert '<h2 class="section-title">专题</h2>' not in index_html
+
+
 def test_build_pages_site_homepage_recent_archives_is_capped_at_eight(tmp_path: Path):
     for day in range(1, 11):
         date_text = f"2026-04-{day:02d}"
@@ -381,6 +417,42 @@ def test_build_pages_site_generates_source_detail_pages(tmp_path: Path):
     assert "覆盖赛道" in detail_html
     assert "最近日报" in detail_html
     assert "重点信号" in detail_html
+
+
+def test_build_pages_site_track_detail_prioritizes_signals_before_supporting_sections(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    track_html = (tmp_path / "docs" / "tracks" / "ai-llm-agent" / "index.html").read_text(encoding="utf-8")
+
+    signals = track_html.index('<h2 class="section-title">重点信号</h2>')
+    active_sources = track_html.index('<h2 class="section-title">活跃来源</h2>')
+    recent_daily = track_html.index('<h2 class="section-title">最近日报</h2>')
+
+    assert signals < active_sources
+    assert signals < recent_daily
+
+
+def test_build_pages_site_source_detail_prioritizes_signals_before_supporting_sections(tmp_path: Path):
+    latest = _sample_payload("2026-04-11", "ai-llm-agent", "OpenAI")
+    electronics = _sample_payload("2026-04-10", "ai-x-electronics", "Renesas")
+    _write_report_set(tmp_path, "2026-04-11", latest)
+    _write_report_set(tmp_path, "2026-04-10", electronics)
+
+    build_pages_site(tmp_path)
+
+    source_html = next((tmp_path / "docs" / "sources").glob("*/index.html")).read_text(encoding="utf-8")
+
+    signals = source_html.index('<h2 class="section-title">重点信号</h2>')
+    covered_tracks = source_html.index('<h2 class="section-title">覆盖赛道</h2>')
+    recent_daily = source_html.index('<h2 class="section-title">最近日报</h2>')
+
+    assert signals < covered_tracks
+    assert signals < recent_daily
 
 
 def test_build_pages_site_track_pages_surface_active_sources(tmp_path: Path):

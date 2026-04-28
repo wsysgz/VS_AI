@@ -131,6 +131,39 @@
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -333,6 +366,13 @@
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -366,7 +406,54 @@
     <section class="section">
       <div class="eyebrow">赛道</div>
       <h1 class="section-title" style="font-size:34px;">AI/智能体</h1>
-      <p class="subtle">2011 条信号 · 最近 2026.04.28</p>
+      <p class="subtle">2082 条信号 · 最近 2026.04.28</p>
+    </section>
+
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>AI 智能体系统化调试：AgentRx 框架</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>An AI agent deleted our production database. The agent&#x27;s confession is below</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">twitter.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>Show HN: OSS Agent I built topped the TerminalBench on Gemini-3-flash-preview</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/4/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>Running local LLMs offline on a ten-hour flight</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">deploy.live</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>Tendril – a self-extending agent that builds and registers its own tools</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/6/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>vLLM 项目</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/7/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>Choco automates food distribution with AI agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">B2B Story</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/8/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.04.28</p>
+  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
+  <a class="article-action" href="../../archives/2026-04-28/signals/9/">阅读文章</a>
+</article>
+      </div>
     </section>
 
     <section class="section">
@@ -375,16 +462,16 @@
         <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>270 条信号 · 19 份日报 · 最近 2026.04.28</p>
+  <p>274 条信号 · 19 份日报 · 最近 2026.04.28</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
   <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
   <a class="article-action" href="../../sources/github/">打开来源</a>
-</article><article class="archive-card" data-search="huggingface.co Multimodal Embedding &amp; Reranker Models with Sentence Transformers AI/智能体">
+</article><article class="archive-card" data-search="huggingface.co Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>192 条信号 · 16 份日报 · 最近 2026.04.26</p>
+  <p>204 条信号 · 17 份日报 · 最近 2026.04.28</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
-  <p class="subtle" style="margin-top:12px;">Multimodal Embedding &amp; Reranker Models with Sentence Transformers</p>
+  <p class="subtle" style="margin-top:12px;">Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs</p>
   <a class="article-action" href="../../sources/huggingface-co/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat â AI/智能体">
   <span class="eyebrow">来源</span>
@@ -396,7 +483,7 @@
 </article><article class="archive-card" data-search="openai.com GPT-5.5 System Card AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>openai.com</h3>
-  <p>146 条信号 · 17 份日报 · 最近 2026.04.27</p>
+  <p>154 条信号 · 18 份日报 · 最近 2026.04.28</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
   <p class="subtle" style="margin-top:12px;">GPT-5.5 System Card</p>
   <a class="article-action" href="../../sources/openai-com/">打开来源</a>
@@ -407,13 +494,13 @@
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute</p>
   <a class="article-action" href="../../sources/anthropic-com/">打开来源</a>
-</article><article class="archive-card" data-search="platform.moonshot.cn Kimi K2 又又又提速了 AI/智能体">
+</article><article class="archive-card" data-search="arXiv Consequentialist Objectives and Catastrophe AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
-  <h3>platform.moonshot.cn</h3>
-  <p>114 条信号 · 19 份日报 · 最近 2026.04.28</p>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
-  <p class="subtle" style="margin-top:12px;">Kimi K2 又又又提速了</p>
-  <a class="article-action" href="../../sources/platform-moonshot-cn/">打开来源</a>
+  <h3>arXiv</h3>
+  <p>121 条信号 · 12 份日报 · 最近 2026.04.28</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
+  <p class="subtle" style="margin-top:12px;">Consequentialist Objectives and Catastrophe</p>
+  <a class="article-action" href="../../sources/arxiv/">打开来源</a>
 </article>
       </div>
     </section>
@@ -421,9 +508,9 @@
     <section class="section">
       <h2 class="section-title">最近日报</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub api-docs.deepseek.com platform.moonshot.cn zhipuai.cn cerebras.ai edgeimpulse.com developer.espressif.com anthropic.com qwen.ai groq.com qualcomm.com infineon.com mediatek.com ti.com">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com api-docs.deepseek.com 微软 about.fb.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com anthropic.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com newsroom.arm.com mediatek.com ti.com theverge.com twitter.com deploy.live systalyze.com koshyjohn.com bloomberg.com jordanlord.co.uk app.oravys.com github.blog forbes.com dystroy.org techzine.eu tingouw.com aschmelyun.com deepmind.google">
   <p class="article-date">2026.04.28</p>
-  <h3>本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。</h3>
+  <h3>AI 代理正在从实验室走向生产环境，但失控、调试困难和基准可信度危机表明，自主性与可控性的矛盾已取代能力不足，成为当前 AI 工程化的核心瓶颈。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">人工复核版</span></div>
   <a class="article-action" href="../../archives/2026-04-28/brief/">阅读文章</a>
 </article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub arXiv openai.com api-docs.deepseek.com 微软 about.fb.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai edgeimpulse.com developer.espressif.com anthropic.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com newsroom.arm.com mediatek.com ti.com twitter.com deploy.live koshyjohn.com jordanlord.co.uk app.oravys.com dystroy.org forbes.com bloomberg.com macchaffee.com tingouw.com theregister.com aschmelyun.com techzine.eu phoronix.com">
@@ -461,53 +548,6 @@
   <h3>AI Agent领域呈现密集发布与开源趋势，但多数宣称缺乏可验证证据，而底层推理引擎vLLM的核心矛盾揭示了规模化部署的真实瓶颈。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">人工复核版</span></div>
   <a class="article-action" href="../../archives/2026-04-21/brief/">阅读文章</a>
-</article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        <article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>vLLM 项目</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/1/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">platform.moonshot.cn</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/2/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>GLM-PC 基座模型，CogAgent-9B 开源</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/3/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">zhipuai.cn</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/4/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>Figma - MultiAgents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>Lessons learned from building multi-agent workflows</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cerebras.ai</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/6/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.espressif.com</span><span class="tag">AI × 电子</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/10/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.04.28</p>
-  <h3>ollama/ollama</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
-  <a class="article-action" href="../../archives/2026-04-28/signals/12/">阅读文章</a>
 </article>
       </div>
     </section>

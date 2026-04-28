@@ -131,6 +131,39 @@
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -333,6 +366,13 @@
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -369,6 +409,18 @@
       <p class="subtle">2 条信号 · 2 份日报 · 最近 2026.04.12</p>
     </section>
 
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.04.12</p>
+  <h3>Cirrus Labs to join OpenAI</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cirruslabs.org</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-04-12/signals/27/">阅读文章</a>
+</article>
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">覆盖赛道</h2>
       <div class="archive-meta"><span class="tag">AI/智能体</span></div>
@@ -387,18 +439,6 @@
   <h3>AI智能体领域正面临从能力扩张到质量管控的关键转折点，核心矛盾从“能否执行”转向“能否可靠、高效、透明地执行”，催生了内存结构化、系统化调试、基准可信度等底层基础设施的迫切需求。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">人工复核版</span></div>
   <a class="article-action" href="../../archives/2026-04-11/brief/">阅读文章</a>
-</article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        <article class="article-card">
-  <p class="article-date">2026.04.12</p>
-  <h3>Cirrus Labs to join OpenAI</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">cirruslabs.org</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
-  <a class="article-action" href="../../archives/2026-04-12/signals/27/">阅读文章</a>
 </article>
       </div>
     </section>

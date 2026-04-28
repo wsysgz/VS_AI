@@ -867,6 +867,39 @@ def _base_css() -> str:
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -1069,6 +1102,13 @@ def _base_css() -> str:
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -1505,6 +1545,11 @@ def _build_homepage(
         <ul class="compact-list">
           {"".join(f"<li>{html.escape(item)}</li>" for item in report["executive_summary"][:3])}
         </ul>
+        <div class="guide-actions" aria-label="工作台导读">
+          <a class="guide-action primary" href="./tracks/">赛道</a>
+          <a class="guide-action primary" href="./sources/">来源</a>
+          <a class="guide-action" href="#top-signals">重点信号</a>
+        </div>
         <div class="meta-row">
           <span class="chip">最新更新 {html.escape(report["generated_at"])}</span>
           <span class="chip">{html.escape(report["publication_label"])}</span>
@@ -1551,7 +1596,7 @@ def _build_homepage(
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="top-signals">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         {_signal_cards(report["top_signals"], link_prefix="./")}
@@ -2025,6 +2070,13 @@ def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]
       <p class="subtle">{int(track["count"])} 条信号 · 最近 {_format_date(str(track["latest_date"]))}</p>
     </section>
 
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        {_signal_cards(track_signals, link_prefix="../../")}
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">活跃来源</h2>
       <div class="archive-grid">
@@ -2036,13 +2088,6 @@ def _build_track_page(track: dict[str, object], reports: list[dict[str, object]]
       <h2 class="section-title">最近日报</h2>
       <div class="archive-grid">
         {_archive_cards(track_reports[:8], link_prefix="../../")}
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        {_signal_cards(track_signals, link_prefix="../../")}
       </div>
     </section>
   </div>
@@ -2087,6 +2132,13 @@ def _build_source_page(source: dict[str, object], reports: list[dict[str, object
       <p class="subtle">{int(source["count"])} 条信号 · {int(source["report_count"])} 份日报 · 最近 {_format_date(str(source["latest_date"]))}</p>
     </section>
 
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        {_signal_cards(source_signals, link_prefix="../../")}
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">覆盖赛道</h2>
       <div class="archive-meta">{track_tags}</div>
@@ -2096,13 +2148,6 @@ def _build_source_page(source: dict[str, object], reports: list[dict[str, object
       <h2 class="section-title">最近日报</h2>
       <div class="archive-grid">
         {_archive_cards(source_reports[:8], link_prefix="../../")}
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        {_signal_cards(source_signals, link_prefix="../../")}
       </div>
     </section>
   </div>

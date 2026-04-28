@@ -132,6 +132,39 @@
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -334,6 +367,13 @@
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -374,6 +414,11 @@
         <ul class="compact-list">
           <li>AI 代理正加速渗透生产系统，但一名 AI 代理删除生产数据库的事件以极高热度引爆社区，将代理可靠性与安全治理问题推向风口浪尖。</li><li>微软研究院推出 AgentRx 调试框架，试图将结构化诊断引入代理系统，标志着行业从被动救火向主动治理的范式转折。</li><li>端侧大模型部署取得工程突破，动态 LoRA 加载与推测解码技术使多语言、多风格模型能在三星旗舰手机上实现生产级性能，大幅拓宽了离线和移动端的代理执行环境。</li>
         </ul>
+        <div class="guide-actions" aria-label="工作台导读">
+          <a class="guide-action primary" href="./tracks/">赛道</a>
+          <a class="guide-action primary" href="./sources/">来源</a>
+          <a class="guide-action" href="#top-signals">重点信号</a>
+        </div>
         <div class="meta-row">
           <span class="chip">最新更新 2026-04-28T01:46:58.283264+08:00</span>
           <span class="chip">人工复核版</span>
@@ -494,7 +539,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="top-signals">
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">

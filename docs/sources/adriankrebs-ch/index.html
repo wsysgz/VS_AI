@@ -131,6 +131,39 @@
     flex-wrap: wrap;
   }
   .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .chip,
   .tag {
     display: inline-flex;
@@ -333,6 +366,13 @@
     .nav-links { gap: 8px; font-size: 13px; }
     .chip,
     .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
     .hero-meta,
     .meta-row,
     .archive-meta,
@@ -369,6 +409,18 @@
       <p class="subtle">1 条信号 · 1 份日报 · 最近 2026.04.23</p>
     </section>
 
+    <section class="section" id="top-signals">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.04.23</p>
+  <h3>Scoring Show HN submissions for AI design patterns</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">adriankrebs.ch</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-04-23/signals/46/">阅读文章</a>
+</article>
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">覆盖赛道</h2>
       <div class="archive-meta"><span class="tag">AI/智能体</span></div>
@@ -382,18 +434,6 @@
   <h3>AI代理领域正经历从能力扩展向可问责性基础设施的关键转型，调试框架、硬件优化和开发者工具同步演进，但真实部署中的风险控制仍存显著缺口</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="../../archives/2026-04-23/brief/">阅读文章</a>
-</article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">重点信号</h2>
-      <div class="signal-grid">
-        <article class="article-card">
-  <p class="article-date">2026.04.23</p>
-  <h3>Scoring Show HN submissions for AI design patterns</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">adriankrebs.ch</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
-  <a class="article-action" href="../../archives/2026-04-23/signals/46/">阅读文章</a>
 </article>
       </div>
     </section>
