@@ -154,6 +154,70 @@ def _with_english_comparison_brief(payload: dict[str, object]) -> dict[str, obje
     return payload
 
 
+def _with_clickable_comparison_brief(payload: dict[str, object]) -> dict[str, object]:
+    payload["signals"] = [
+        {
+            "title": "Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
+            "url": "https://www.zhipuai.cn/zh/news/68",
+            "summary": "智谱继续推进跨设备 Agent 交付。",
+            "primary_domain": "ai-llm-agent",
+            "matched_domains": ["ai-llm-agent"],
+            "score": 3.1,
+            "evidence_count": 3,
+            "lifecycle_state": "verified",
+            "risk_level": "low",
+            "enrichment_summary": "2 source(s) | official / community",
+            "tags": ["ai-llm-agent", "agent", "release"],
+        },
+        {
+            "title": "Automations",
+            "url": "https://openai.com/index/automations",
+            "summary": "OpenAI 强化智能体自动化任务执行。",
+            "primary_domain": "ai-llm-agent",
+            "matched_domains": ["ai-llm-agent"],
+            "score": 3.0,
+            "evidence_count": 2,
+            "lifecycle_state": "verified",
+            "risk_level": "low",
+            "enrichment_summary": "1 source(s) | official",
+            "tags": ["ai-llm-agent", "agent", "runtime"],
+        },
+    ]
+    payload["comparison_brief"] = {
+        "cn_highlights": [
+            {
+                "title": "Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
+                "url": "https://www.zhipuai.cn/zh/news/68",
+                "summary": "国内继续推高 Agent 交付密度。",
+                "tech_track": "frontier-ai",
+                "source_ids": ["zhipu-news"],
+            }
+        ],
+        "intl_highlights": [
+            {
+                "title": "Automations",
+                "url": "https://openai.com/index/automations",
+                "summary": "海外继续推进 Agent 自动化运行时。",
+                "tech_track": "frontier-ai",
+                "source_ids": ["openai-news"],
+            }
+        ],
+        "head_to_head": [
+            {
+                "tech_track": "frontier-ai",
+                "cn_title": "Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay",
+                "intl_title": "Automations",
+                "cn_source_ids": ["zhipu-news"],
+                "intl_source_ids": ["openai-news"],
+                "delta": "国内偏应用扩展，海外偏运行时自动化。",
+            }
+        ],
+        "gaps": ["compute-infra：仅看到海外信号，需补齐国内来源。"],
+        "watchpoints": ["继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。"],
+    }
+    return payload
+
+
 def _write_report_set(root: Path, archive_date: str, payload: dict[str, object]) -> None:
     reports_dir = root / "data" / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
@@ -579,6 +643,39 @@ def test_build_pages_site_day_page_renders_comparison_when_available(tmp_path: P
     assert "智能体可靠性" in day_html
 
 
+def test_build_pages_site_comparison_summary_links_to_detail_page(tmp_path: Path):
+    latest = _with_clickable_comparison_brief(_sample_payload("2026-04-11", "ai-llm-agent", "OpenAI"))
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    index_html = (tmp_path / "docs" / "index.html").read_text(encoding="utf-8")
+    day_html = (tmp_path / "docs" / "archives" / "2026-04-11" / "index.html").read_text(encoding="utf-8")
+
+    assert 'href="./archives/2026-04-11/comparison/#comparison-frontier-ai"' in index_html
+    assert 'href="./archives/2026-04-11/comparison/#gap-compute-infra"' in index_html
+    assert 'href="./comparison/#comparison-frontier-ai"' in day_html
+    assert "还需要补齐国内来源" in day_html
+
+
+def test_build_pages_site_generates_comparison_detail_page_with_signal_links(tmp_path: Path):
+    latest = _with_clickable_comparison_brief(_sample_payload("2026-04-11", "ai-llm-agent", "OpenAI"))
+    _write_report_set(tmp_path, "2026-04-11", latest)
+
+    build_pages_site(tmp_path)
+
+    comparison_html = (
+        tmp_path / "docs" / "archives" / "2026-04-11" / "comparison" / "index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "国内外对比明细" in comparison_html
+    assert comparison_html.count('id="comparison-frontier-ai"') == 1
+    assert 'href="../signals/1/"' in comparison_html
+    assert 'href="../signals/2/"' in comparison_html
+    assert 'href="../../../tracks/compute-infra/"' in comparison_html
+    assert "还需要补齐国内来源" in comparison_html
+
+
 def test_build_pages_site_localizes_comparison_track_labels(tmp_path: Path):
     latest = _with_english_comparison_brief(_sample_payload("2026-04-11", "ai-llm-agent", "OpenAI"))
     _write_report_set(tmp_path, "2026-04-11", latest)
@@ -590,8 +687,8 @@ def test_build_pages_site_localizes_comparison_track_labels(tmp_path: Path):
     assert "前沿 AI" in index_html
     assert "算力基础设施：仅看到海外信号" in index_html
     assert "继续跟踪 前沿 AI 的国内外同轨发布" in index_html
-    assert "frontier-ai" not in index_html
-    assert "compute-infra" not in index_html
+    assert ">frontier-ai<" not in index_html
+    assert ">compute-infra<" not in index_html
 
 
 def test_build_pages_site_localizes_known_mainline_titles(tmp_path: Path):

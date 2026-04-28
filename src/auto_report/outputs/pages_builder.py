@@ -199,15 +199,20 @@ def _comparison_item_text(item: object) -> str:
     return _localize_known_text(item)
 
 
-def _normalize_comparison_highlights(value: object) -> list[dict[str, str]]:
+def _comparison_anchor(prefix: str, value: object) -> str:
+    return f"{prefix}-{_slugify(value)}"
+
+
+def _normalize_comparison_highlights(value: object) -> list[dict[str, object]]:
     if not isinstance(value, list):
         return []
-    highlights: list[dict[str, str]] = []
+    highlights: list[dict[str, object]] = []
     for item in value:
         if isinstance(item, dict):
+            track_key = _safe_text(item.get("tech_track") or item.get("track"))
             title = _comparison_signal_label(
                 _safe_text(item.get("title")) or _safe_text(item.get("readout")),
-                item.get("tech_track") or item.get("track"),
+                track_key,
                 item.get("source_ids", []),
             )
             if not title:
@@ -215,32 +220,47 @@ def _normalize_comparison_highlights(value: object) -> list[dict[str, str]]:
             highlights.append(
                 {
                     "title": title,
-                    "meta": _track_label(item.get("tech_track") or item.get("track")),
+                    "raw_title": _safe_text(item.get("title")) or _safe_text(item.get("readout")),
+                    "meta": _track_label(track_key),
                     "summary": _localize_known_text(item.get("summary")),
+                    "track_key": track_key,
+                    "url": _safe_text(item.get("url")),
+                    "article_url": "",
                 }
             )
             continue
         text = _safe_text(item)
         if text:
-            highlights.append({"title": text, "meta": "", "summary": ""})
+            highlights.append(
+                {
+                    "title": text,
+                    "raw_title": text,
+                    "meta": "",
+                    "summary": "",
+                    "track_key": "",
+                    "url": "",
+                    "article_url": "",
+                }
+            )
     return highlights[:4]
 
 
-def _normalize_comparison_rows(value: object) -> list[dict[str, str]]:
+def _normalize_comparison_rows(value: object) -> list[dict[str, object]]:
     if not isinstance(value, list):
         return []
-    rows: list[dict[str, str]] = []
+    rows: list[dict[str, object]] = []
     for item in value:
         if isinstance(item, dict):
-            track = _track_label(item.get("tech_track") or item.get("track"))
+            track_key = _safe_text(item.get("tech_track") or item.get("track"))
+            track = _track_label(track_key)
             cn = _comparison_signal_label(
                 _safe_text(item.get("cn_title")) or _safe_text(item.get("cn")),
-                item.get("tech_track") or item.get("track"),
+                track_key,
                 item.get("cn_source_ids", []),
             )
             intl = _comparison_signal_label(
                 _safe_text(item.get("intl_title")) or _safe_text(item.get("intl")),
-                item.get("tech_track") or item.get("track"),
+                track_key,
                 item.get("intl_source_ids", []),
             )
             delta = _localize_known_text(item.get("delta"))
@@ -251,16 +271,71 @@ def _normalize_comparison_rows(value: object) -> list[dict[str, str]]:
             rows.append(
                 {
                     "track": track or "同轨对比",
+                    "track_key": track_key,
+                    "anchor": _comparison_anchor("comparison", track_key or track or cn or intl),
                     "cn": cn or "暂无国内侧摘要",
                     "intl": intl or "暂无海外侧摘要",
                     "delta": delta or readout,
+                    "cn_raw_title": _safe_text(item.get("cn_title")) or _safe_text(item.get("cn")),
+                    "intl_raw_title": _safe_text(item.get("intl_title")) or _safe_text(item.get("intl")),
+                    "cn_article_url": "",
+                    "intl_article_url": "",
+                    "cn_url": "",
+                    "intl_url": "",
                 }
             )
             continue
         text = _safe_text(item)
         if text:
-            rows.append({"track": "同轨对比", "cn": text, "intl": "", "delta": ""})
+            rows.append(
+                {
+                    "track": "同轨对比",
+                    "track_key": "",
+                    "anchor": _comparison_anchor("comparison", text),
+                    "cn": text,
+                    "intl": "",
+                    "delta": "",
+                    "cn_raw_title": text,
+                    "intl_raw_title": "",
+                    "cn_article_url": "",
+                    "intl_article_url": "",
+                    "cn_url": "",
+                    "intl_url": "",
+                }
+            )
     return rows[:4]
+
+
+def _normalize_comparison_gaps(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        return []
+    gaps: list[dict[str, object]] = []
+    for item in value:
+        raw_text = _safe_text(item.get("text")) if isinstance(item, dict) else _safe_text(item)
+        if not raw_text:
+            continue
+        track_key = ""
+        for separator in ("：", ":"):
+            if separator in raw_text:
+                track_key = raw_text.split(separator, 1)[0].strip()
+                break
+        text = _comparison_item_text(item)
+        needs_domestic_source = "仅看到海外信号" in text or "需补齐国内来源" in text or "还需要补齐国内来源" in text
+        if needs_domestic_source:
+            text = text.replace("需补齐国内来源", "还需要补齐国内来源")
+            if "还需要补齐国内来源" not in text:
+                suffix = "还需要补齐国内来源。"
+                text = f"{text.rstrip('。')}{'。' if text and not text.endswith('。') else ''}{suffix}"
+        gaps.append(
+            {
+                "text": text,
+                "track": _track_label(track_key),
+                "track_key": track_key,
+                "needs_domestic_source": needs_domestic_source,
+                "anchor": _comparison_anchor("gap", track_key or text),
+            }
+        )
+    return gaps[:4]
 
 
 def _normalize_comparison_brief(raw: object) -> dict[str, object]:
@@ -276,13 +351,51 @@ def _normalize_comparison_brief(raw: object) -> dict[str, object]:
         "cn_highlights": _normalize_comparison_highlights(raw.get("cn_highlights", [])),
         "intl_highlights": _normalize_comparison_highlights(raw.get("intl_highlights", [])),
         "head_to_head": _normalize_comparison_rows(raw.get("head_to_head", [])),
-        "gaps": [_comparison_item_text(item) for item in raw.get("gaps", []) if _comparison_item_text(item)],
+        "gaps": _normalize_comparison_gaps(raw.get("gaps", [])),
         "watchpoints": [
             _comparison_item_text(item)
             for item in raw.get("watchpoints", [])
             if _comparison_item_text(item)
         ],
     }
+    return comparison
+
+
+def _enrich_comparison_brief_links(
+    comparison: dict[str, object],
+    *,
+    article_url_by_title: dict[str, str],
+    article_url_by_url: dict[str, str],
+    url_by_title: dict[str, str],
+) -> dict[str, object]:
+    for bucket in ("cn_highlights", "intl_highlights"):
+        items = comparison.get(bucket, [])
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            raw_title = _safe_text(item.get("raw_title"))
+            raw_url = _safe_text(item.get("url"))
+            item["article_url"] = (
+                article_url_by_url.get(raw_url)
+                or article_url_by_title.get(raw_title)
+                or ""
+            )
+            if raw_title and raw_url and raw_title not in url_by_title:
+                url_by_title[raw_title] = raw_url
+
+    rows = comparison.get("head_to_head", [])
+    if isinstance(rows, list):
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            cn_title = _safe_text(row.get("cn_raw_title"))
+            intl_title = _safe_text(row.get("intl_raw_title"))
+            row["cn_article_url"] = article_url_by_title.get(cn_title, "")
+            row["intl_article_url"] = article_url_by_title.get(intl_title, "")
+            row["cn_url"] = url_by_title.get(cn_title, "")
+            row["intl_url"] = url_by_title.get(intl_title, "")
     return comparison
 
 
@@ -376,6 +489,25 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         source_counts[source] += 1
         domain_counts[_domain_label(domain)] += 1
 
+    comparison_brief = _enrich_comparison_brief_links(
+        comparison_brief,
+        article_url_by_title={
+            _safe_text(signal.get("raw_title")): _safe_text(signal.get("article_url"))
+            for signal in normalized_signals
+            if _safe_text(signal.get("raw_title")) and _safe_text(signal.get("article_url"))
+        },
+        article_url_by_url={
+            _safe_text(signal.get("url")): _safe_text(signal.get("article_url"))
+            for signal in normalized_signals
+            if _safe_text(signal.get("url")) and _safe_text(signal.get("article_url"))
+        },
+        url_by_title={
+            _safe_text(signal.get("raw_title")): _safe_text(signal.get("url"))
+            for signal in normalized_signals
+            if _safe_text(signal.get("raw_title")) and _safe_text(signal.get("url"))
+        },
+    )
+
     return {
         "date": date_text,
         "date_label": _format_date(date_text),
@@ -398,6 +530,7 @@ def _normalize_report(payload: dict[str, object], archive_date: str | None = Non
         "total_topics": int(meta.get("total_topics", 0)),
         "archive_url": f"archives/{date_text}/",
         "brief_url": f"archives/{date_text}/brief/",
+        "comparison_url": f"archives/{date_text}/comparison/",
     }
 
 
@@ -980,6 +1113,14 @@ def _base_css() -> str:
   }
   .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
   .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
+  .comparison-card dd a,
+  .comparison-list li a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(67, 209, 191, 0.45);
+  }
+  .comparison-card dd a:hover,
+  .comparison-list li a:hover { color: var(--accent); }
   .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
   .article-card {
     display: flex;
@@ -1340,51 +1481,87 @@ def _special_signal_cards(entries: list[dict[str, object]]) -> str:
     return "".join(cards) or '<article class="archive-card"><h3>暂无专题主题</h3><p>等待后续日报累积更多信号。</p></article>'
 
 
-def _comparison_highlight_list(title: str, items: list[dict[str, str]]) -> str:
+def _comparison_detail_href(detail_href: str, anchor: str = "") -> str:
+    if not detail_href:
+        return "#"
+    return f"{detail_href}#{anchor}" if anchor else detail_href
+
+
+def _comparison_highlight_list(title: str, items: list[dict[str, object]], detail_href: str = "") -> str:
     if not items:
         return ""
-    rows = "".join(
-        f"""<li>
-  <strong>{html.escape(item["title"])}</strong>
-  {f'<span class="tag alt">{html.escape(item["meta"])}</span>' if item["meta"] else ""}
-  {f'<p>{html.escape(item["summary"])}</p>' if item["summary"] else ""}
+    rows = ""
+    for item in items[:3]:
+        track_anchor = _comparison_anchor("comparison", item.get("track_key") or item.get("title") or "comparison")
+        title_html = html.escape(str(item["title"]))
+        if detail_href:
+            title_html = (
+                f'<a href="{html.escape(_comparison_detail_href(detail_href, track_anchor))}">{title_html}</a>'
+            )
+        rows += f"""<li>
+  <strong>{title_html}</strong>
+  {f'<span class="tag alt">{html.escape(str(item["meta"]))}</span>' if item["meta"] else ""}
+  {f'<p>{html.escape(str(item["summary"]))}</p>' if item["summary"] else ""}
 </li>"""
-        for item in items[:3]
-    )
     return f"""<article class="comparison-list">
   <h3>{html.escape(title)}</h3>
   <ul>{rows}</ul>
 </article>"""
 
 
-def _comparison_row_cards(rows: list[dict[str, str]]) -> str:
+def _comparison_row_cards(rows: list[dict[str, object]], detail_href: str = "") -> str:
     cards = []
     for row in rows[:3]:
-        delta = f'<dt>差异</dt><dd>{html.escape(row["delta"])}</dd>' if row["delta"] else ""
+        cn_html = html.escape(str(row["cn"]))
+        intl_html = html.escape(str(row["intl"]))
+        if detail_href:
+            target = _comparison_detail_href(detail_href, str(row.get("anchor") or ""))
+            cn_html = f'<a href="{html.escape(target)}">{cn_html}</a>'
+            intl_html = f'<a href="{html.escape(target)}">{intl_html}</a>'
+        delta = f'<dt>差异</dt><dd>{html.escape(str(row["delta"]))}</dd>' if row["delta"] else ""
         delta_line = f"\n    {delta}" if delta else ""
+        footer = (
+            f'\n  <div class="archive-footer"><span>同轨明细</span><a href="{html.escape(_comparison_detail_href(detail_href, str(row.get("anchor") or "")))}">查看对比明细</a></div>'
+            if detail_href
+            else ""
+        )
         cards.append(
             f"""<article class="comparison-card">
-  <span class="tag">{html.escape(row["track"])}</span>
+  <span class="tag">{html.escape(str(row["track"]))}</span>
   <dl>
-    <dt>国内侧</dt><dd>{html.escape(row["cn"])}</dd>
-    <dt>海外侧</dt><dd>{html.escape(row["intl"])}</dd>{delta_line}
-  </dl>
+    <dt>国内侧</dt><dd>{cn_html}</dd>
+    <dt>海外侧</dt><dd>{intl_html}</dd>{delta_line}
+  </dl>{footer}
 </article>"""
         )
     return "".join(cards)
 
 
-def _comparison_bullet_list(title: str, items: list[str], tag_class: str = "warm") -> str:
+def _comparison_bullet_list(title: str, items: list[object], tag_class: str = "warm", detail_href: str = "") -> str:
     if not items:
         return ""
-    rows = "".join(f"<li>{html.escape(item)}</li>" for item in items[:4])
+    rows = ""
+    for item in items[:4]:
+        if isinstance(item, dict):
+            text = html.escape(str(item.get("text") or ""))
+            if detail_href:
+                target = _comparison_detail_href(detail_href, str(item.get("anchor") or ""))
+                text = f'<a href="{html.escape(target)}">{text}</a>'
+            extra = (
+                ' <span class="tag danger">需补国内来源</span>'
+                if bool(item.get("needs_domestic_source", False))
+                else ""
+            )
+            rows += f"<li>{text}{extra}</li>"
+        else:
+            rows += f"<li>{html.escape(str(item))}</li>"
     return f"""<article class="comparison-list">
   <h3><span class="tag {tag_class}">{html.escape(title)}</span></h3>
   <ul>{rows}</ul>
 </article>"""
 
 
-def _comparison_section(comparison: object, compact: bool = False) -> str:
+def _comparison_section(comparison: object, detail_href: str = "", compact: bool = False) -> str:
     if not _has_comparison_content(comparison):
         return ""
     assert isinstance(comparison, dict)
@@ -1394,26 +1571,230 @@ def _comparison_section(comparison: object, compact: bool = False) -> str:
     gaps = comparison.get("gaps", [])
     watchpoints = comparison.get("watchpoints", [])
     if compact:
-        content = _comparison_row_cards(rows if isinstance(rows, list) else [])
+        content = _comparison_row_cards(rows if isinstance(rows, list) else [], detail_href=detail_href)
         if not content:
-            content = _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [])
-            content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [])
-        content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger")
-        content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm")
+            content = _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [], detail_href=detail_href)
+            content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [], detail_href=detail_href)
+        content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger", detail_href=detail_href)
+        content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm", detail_href=detail_href)
+        section_footer = (
+            f'<div class="feed-links" style="margin-top:16px;"><a class="chip" href="{html.escape(detail_href)}">查看对比明细</a></div>'
+            if detail_href
+            else ""
+        )
         return f"""<section class="section">
       <h2 class="section-title">国内外对比</h2>
       <div class="comparison-grid">{content}</div>
+      {section_footer}
     </section>"""
 
-    content = _comparison_row_cards(rows if isinstance(rows, list) else [])
-    content += _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [])
-    content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [])
-    content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger")
-    content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm")
+    content = _comparison_row_cards(rows if isinstance(rows, list) else [], detail_href=detail_href)
+    content += _comparison_highlight_list("国内信号", cn_highlights if isinstance(cn_highlights, list) else [], detail_href=detail_href)
+    content += _comparison_highlight_list("海外信号", intl_highlights if isinstance(intl_highlights, list) else [], detail_href=detail_href)
+    content += _comparison_bullet_list("覆盖缺口", gaps if isinstance(gaps, list) else [], "danger", detail_href=detail_href)
+    content += _comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm", detail_href=detail_href)
+    section_footer = (
+        f'<div class="feed-links" style="margin-top:16px;"><a class="chip" href="{html.escape(detail_href)}">查看对比明细</a></div>'
+        if detail_href
+        else ""
+    )
     return f"""<section class="section">
       <h2 class="section-title">国内外对比</h2>
       <div class="comparison-grid">{content}</div>
+      {section_footer}
     </section>"""
+
+
+def _comparison_action_link(label: str, href: str, link_prefix: str = "") -> str:
+    if not href:
+        return ""
+    resolved = _safe_text(href)
+    if link_prefix == "../" and resolved.startswith("archives/"):
+        parts = resolved.split("/", 2)
+        resolved = f"../{parts[2]}" if len(parts) == 3 else resolved
+    else:
+        resolved = _href(resolved, link_prefix)
+    external = resolved.startswith(("http://", "https://"))
+    attrs = ' target="_blank" rel="noopener"' if external else ""
+    return f'<a class="chip" href="{html.escape(resolved)}"{attrs}>{html.escape(label)}</a>'
+
+
+def _comparison_detail_cards(rows: list[dict[str, object]], link_prefix: str = "") -> str:
+    if not rows:
+        return ""
+    cards: list[str] = []
+    for row in rows[:4]:
+        delta = (
+            f'<dt>差异</dt><dd>{html.escape(str(row.get("delta") or ""))}</dd>'
+            if row.get("delta")
+            else ""
+        )
+        delta_line = f"\n    {delta}" if delta else ""
+        actions = "".join(
+            (
+                _comparison_action_link("打开国内信号", _safe_text(row.get("cn_article_url")) or _safe_text(row.get("cn_url")), link_prefix),
+                _comparison_action_link("打开海外信号", _safe_text(row.get("intl_article_url")) or _safe_text(row.get("intl_url")), link_prefix),
+            )
+        )
+        footer = f'\n  <div class="feed-links" style="margin-top:16px;">{actions}</div>' if actions else ""
+        cards.append(
+            f"""<article class="comparison-card" id="{html.escape(str(row.get("anchor") or ""))}">
+  <span class="tag">{html.escape(str(row.get("track") or "同轨对比"))}</span>
+  <dl>
+    <dt>国内侧</dt><dd>{html.escape(str(row.get("cn") or "暂无国内侧摘要"))}</dd>
+    <dt>海外侧</dt><dd>{html.escape(str(row.get("intl") or "暂无海外侧摘要"))}</dd>{delta_line}
+  </dl>{footer}
+</article>"""
+        )
+    return "".join(cards)
+
+
+def _comparison_detail_highlights(
+    title: str,
+    items: list[dict[str, object]],
+    link_prefix: str = "",
+    *,
+    use_track_anchor: bool = True,
+    anchor_prefix: str = "comparison",
+) -> str:
+    if not items:
+        return ""
+    rows = ""
+    for item in items[:4]:
+        action = _comparison_action_link(
+            "打开信号",
+            _safe_text(item.get("article_url")) or _safe_text(item.get("url")),
+            link_prefix,
+        )
+        anchor_value = (
+            item.get("track_key") or item.get("title") or "comparison"
+            if use_track_anchor
+            else item.get("raw_title") or item.get("title") or item.get("track_key") or "comparison"
+        )
+        rows += f"""<li id="{html.escape(_comparison_anchor(anchor_prefix, anchor_value))}">
+  <strong>{html.escape(str(item.get("title") or ""))}</strong>
+  {f'<span class="tag alt">{html.escape(str(item.get("meta") or ""))}</span>' if item.get("meta") else ""}
+  {f'<p>{html.escape(str(item.get("summary") or ""))}</p>' if item.get("summary") else ""}
+  {f'<div class="feed-links" style="margin-top:10px;">{action}</div>' if action else ""}
+</li>"""
+    return f"""<article class="comparison-list">
+  <h3>{html.escape(title)}</h3>
+  <ul>{rows}</ul>
+</article>"""
+
+
+def _comparison_gap_cards(items: list[dict[str, object]], link_prefix: str = "") -> str:
+    if not items:
+        return ""
+    cards: list[str] = []
+    for item in items[:4]:
+        track_key = _safe_text(item.get("track_key"))
+        track_href = f"tracks/{_slugify(track_key)}/" if track_key else ""
+        action = _comparison_action_link("打开赛道", track_href, link_prefix) if track_href else ""
+        cards.append(
+            f"""<article class="comparison-list" id="{html.escape(str(item.get("anchor") or ""))}">
+  <h3><span class="tag danger">覆盖缺口</span></h3>
+  <p>{html.escape(str(item.get("text") or ""))}</p>
+  {'<div class="feed-links" style="margin-top:10px;">' + action + '</div>' if action else ''}
+</article>"""
+        )
+    return "".join(cards)
+
+
+def _build_comparison_detail_page(report: dict[str, object]) -> str:
+    comparison = report.get("comparison_brief", {})
+    assert isinstance(comparison, dict)
+    rows = comparison.get("head_to_head", [])
+    has_head_to_head = isinstance(rows, list) and bool(rows)
+    cn_highlights = comparison.get("cn_highlights", [])
+    intl_highlights = comparison.get("intl_highlights", [])
+    gaps = comparison.get("gaps", [])
+    watchpoints = comparison.get("watchpoints", [])
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(report["date_label"])} 国内外对比明细 | VS_AI</title>
+{FAVICON_LINK}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>{_base_css()}</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">返回日报</a>
+        <a href="../../../tracks/">赛道</a>
+        <a href="../../../sources/">来源</a>
+        <a href="../../../weekly/">周报</a>
+        <a href="../../../special/">专题</a>
+        <a href="../../../">首页</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <div class="eyebrow">{html.escape(report["date_label"])}</div>
+      <h1 class="section-title" style="font-size:34px;">国内外对比明细</h1>
+      <p class="subtle">{html.escape(report["judgment"])}</p>
+      <div class="feed-links" style="margin-top:16px;">
+        <a class="chip" href="../">返回日报正文</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">同轨对照</h2>
+      <div class="comparison-grid">
+        {_comparison_detail_cards(rows if isinstance(rows, list) else [], link_prefix="../")}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">国内信号</h2>
+      <div class="comparison-grid">
+        {_comparison_detail_highlights(
+            "国内信号",
+            cn_highlights if isinstance(cn_highlights, list) else [],
+            link_prefix="../",
+            use_track_anchor=not has_head_to_head,
+            anchor_prefix="cn-highlight",
+        )}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">海外信号</h2>
+      <div class="comparison-grid">
+        {_comparison_detail_highlights(
+            "海外信号",
+            intl_highlights if isinstance(intl_highlights, list) else [],
+            link_prefix="../",
+            use_track_anchor=not has_head_to_head,
+            anchor_prefix="intl-highlight",
+        )}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">覆盖缺口</h2>
+      <div class="comparison-grid">
+        {_comparison_gap_cards(gaps if isinstance(gaps, list) else [], link_prefix="../../../")}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">观察点</h2>
+      <div class="comparison-grid">
+        {_comparison_bullet_list("观察点", watchpoints if isinstance(watchpoints, list) else [], "warm")}
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+"""
 
 
 def _build_signal_article_page(report: dict[str, object], signal: dict[str, object]) -> str:
@@ -1507,7 +1888,11 @@ def _build_homepage(
     recent_archives = reports[:8]
     featured_tracks = track_summaries[:4]
     featured_sources = source_summaries[:4]
-    comparison_html = _comparison_section(report.get("comparison_brief", {}), compact=True)
+    comparison_html = _comparison_section(
+        report.get("comparison_brief", {}),
+        detail_href=f"./{report['comparison_url']}",
+        compact=True,
+    )
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2157,7 +2542,7 @@ def _build_source_page(source: dict[str, object], reports: list[dict[str, object
 
 
 def _build_day_page(report: dict[str, object]) -> str:
-    comparison_html = _comparison_section(report.get("comparison_brief", {}))
+    comparison_html = _comparison_section(report.get("comparison_brief", {}), detail_href="./comparison/")
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2519,6 +2904,11 @@ def build_pages_site(root_dir: Path) -> Path:
     for report in reports:
         _write_text(archives_dist / str(report["date"]) / "index.html", _build_day_page(report))
         _write_text(archives_dist / str(report["date"]) / "brief" / "index.html", _build_report_teaser_page(report))
+        if _has_comparison_content(report.get("comparison_brief", {})):
+            _write_text(
+                archives_dist / str(report["date"]) / "comparison" / "index.html",
+                _build_comparison_detail_page(report),
+            )
         for index, signal in enumerate(report["signals"], start=1):
             _write_text(
                 archives_dist / str(report["date"]) / "signals" / str(index) / "index.html",

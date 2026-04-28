@@ -137,6 +137,18 @@ def _priority_reason(row: dict[str, object], score: int) -> str:
     return ", ".join(parts)
 
 
+def _is_live_replacement_covered(row: dict[str, object], source_registry: dict[str, dict[str, object]]) -> bool:
+    if str(row.get("candidate_kind") or "") != "manual_replace":
+        return False
+    replacement_target = str(row.get("replacement_target") or "").strip()
+    if not replacement_target:
+        return False
+    replacement = source_registry.get(replacement_target, {})
+    if not isinstance(replacement, dict):
+        return False
+    return bool(replacement.get("enabled", False))
+
+
 def _source_metadata(source: dict[str, object], *, collector: str, mode: str) -> dict[str, object]:
     enabled = bool(source.get("enabled", False))
     stability_tier = str(source.get("stability_tier", "")).strip()
@@ -275,10 +287,16 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
             }
         )
 
-    manual_review = [row for row in rows if row["watch_strategy"] == "manual-review"]
+    actionable_rows = [
+        row
+        for row in rows
+        if not _is_live_replacement_covered(row, source_registry)
+    ]
+
+    manual_review = [row for row in actionable_rows if row["watch_strategy"] == "manual-review"]
     rsshub_candidates = [row for row in rows if "rsshub" in row["replacement_target"]]
     changedetection_candidates = [row for row in rows if row["candidate_kind"] == "changedetection_watch"]
-    replacement_candidates = [row for row in rows if row["replacement_target"] not in ("", "none")]
+    replacement_candidates = [row for row in actionable_rows if row["replacement_target"] not in ("", "none")]
     changedetection_watch_list = [
         {
             **row,
@@ -299,7 +317,7 @@ def build_source_governance_queue(source_registry: dict[str, dict[str, object]])
             "priority_label": _priority_label(_priority_score(row)),
             "reason": _priority_reason(row, _priority_score(row)),
         }
-        for row in rows
+        for row in actionable_rows
         if row["candidate_kind"] in {"manual_replace", "changedetection_watch", "rsshub_route"}
     ]
     priority_queue.sort(key=lambda row: (-int(row["priority_score"]), str(row["source_id"])))

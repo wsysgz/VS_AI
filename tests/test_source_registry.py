@@ -15,12 +15,12 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     changedetection_ids = [item["source_id"] for item in governance["changedetection_candidates"]]
     replacement_ids = [item["source_id"] for item in governance["replacement_candidates"]]
 
-    assert governance["summary"]["manual_review_count"] >= 1
+    assert governance["summary"]["manual_review_count"] == 0
     assert governance["summary"]["rsshub_candidate_count"] >= 1
     assert governance["summary"]["changedetection_candidate_count"] >= 1
     assert governance["summary"]["replacement_candidate_count"] >= 1
 
-    assert "nxp-edge-ai" in manual_review_ids
+    assert "nxp-edge-ai" not in manual_review_ids
     assert "meta-ai-blog" not in manual_review_ids
     assert "st-blog" not in manual_review_ids
     assert "ti-e2e-blog" not in manual_review_ids
@@ -38,7 +38,7 @@ def test_build_source_governance_queue_groups_manual_review_and_rsshub_candidate
     assert "ti-e2e-blog" not in replacement_ids
     assert "google-ai-edge" not in changedetection_ids
     assert "openvino-blog" not in changedetection_ids
-    assert "nxp-edge-ai" in replacement_ids
+    assert "nxp-edge-ai" not in replacement_ids
 
 
 def test_build_source_governance_queue_adds_operational_priority_views():
@@ -172,6 +172,23 @@ def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry
         assert source_id not in priority_ids
 
 
+def test_build_source_governance_queue_skips_manual_replace_placeholders_when_live_replacement_exists():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+    governance = build_source_governance_queue(registry)
+
+    manual_review_ids = [item["source_id"] for item in governance["manual_review"]]
+    replacement_ids = [item["source_id"] for item in governance["replacement_candidates"]]
+    priority_ids = [item["source_id"] for item in governance["priority_queue"]]
+
+    assert registry["nxp-edge-ai"]["candidate_kind"] == "manual_replace"
+    assert registry["nxp-appcodehub/dm-eiq-genai-flow-demonstrator"]["enabled"] is True
+    assert "nxp-edge-ai" not in manual_review_ids
+    assert "nxp-edge-ai" not in replacement_ids
+    assert "nxp-edge-ai" not in priority_ids
+
+
 def test_build_source_registry_exposes_p3c_comparison_labels():
     settings = load_settings(Path.cwd())
 
@@ -202,7 +219,7 @@ def test_build_source_governance_queue_preserves_p3c_comparison_labels_for_revie
     registry = build_source_registry(settings)
     governance = build_source_governance_queue(registry)
 
-    nxp_row = next(item for item in governance["replacement_candidates"] if item["source_id"] == "nxp-edge-ai")
+    nxp_row = registry["nxp-edge-ai"]
 
     assert nxp_row["region_scope"] == "intl"
     assert nxp_row["org_origin"] == "nxp"

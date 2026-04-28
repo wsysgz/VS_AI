@@ -155,18 +155,16 @@ def _render_source_registry(source_registry: dict[str, object]) -> str:
     return "\n".join(rows)
 
 
-def _render_manual_review_focus(source_registry: dict[str, object]) -> str:
-    if not isinstance(source_registry, dict) or not source_registry:
+def _render_manual_review_focus(items: list[object]) -> str:
+    if not items:
         return '<tr><td colspan="6" class="empty">No manual-review sources</td></tr>'
 
     rows: list[str] = []
-    for source_id, raw_item in sorted(source_registry.items()):
+    for raw_item in items:
         item = raw_item if isinstance(raw_item, dict) else {}
-        if str(item.get("watch_strategy") or "") != "manual-review":
-            continue
         rows.append(
             "<tr>"
-            f"<td>{escape(str(source_id))}</td>"
+            f"<td>{escape(str(item.get('source_id') or '-'))}</td>"
             f"<td>{escape(_format_value(item.get('enabled')))}</td>"
             f"<td>{escape(str(item.get('stability_tier') or '-'))}</td>"
             f"<td>{escape(str(item.get('replacement_target') or '-'))}</td>"
@@ -974,7 +972,11 @@ def _build_dashboard_html(
           </tr>
         </thead>
         <tbody>
-          {_render_manual_review_focus(source_registry)}
+          {_render_manual_review_focus(
+              source_governance_dict.get("manual_review", [])
+              if isinstance(source_governance_dict, dict)
+              else []
+          )}
         </tbody>
       </table>
     </div>

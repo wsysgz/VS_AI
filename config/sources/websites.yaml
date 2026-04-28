@@ -337,11 +337,11 @@ sources:
     comparison_priority: low
     max_items: 6
     stability_tier: manual-watch
-    replacement_hint: Keep disabled until a stable Renesas blog/newsroom endpoint is confirmed or the collector can use a Cloudflare-compatible fetch path; the public page loads in curl/browser but returns 403 to the current requests-based collector.
+    replacement_hint: Keep disabled; no requests-compatible official Renesas blog/newsroom/API endpoint is confirmed. Curl/browser can load the site and official sitemap.xml, but the current requests-based collector gets Cloudflare 403.
     watch_strategy: disabled
     replacement_target: none
     candidate_kind: none
-    next_action: Keep disabled for now; re-check periodically for an RSS/newsroom endpoint or a fetch path that can survive Renesas Cloudflare blocking.
+    next_action: Keep disabled for now; if this source is revisited, prefer a curl/browser-backed fetch path via the official sitemap/newsroom surface instead of more requests-only endpoint hunting.
     link_selector: "a[href*='/en/blogs/']"
     include_url_patterns:
       - /en/blogs/

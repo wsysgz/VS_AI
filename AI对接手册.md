@@ -27,7 +27,7 @@
 - 默认工作分支：`main`
 - 公开站入口：`https://wsysgz.github.io/VS_AI/`
 - 当前本地验证基线：`350 passed`
-- 当前主线优先级：`公开站 IA V2 第一批、第二批、第三批已完成；第三批远端发布级确认 run 25035969439 成功；当前执行第四批最终收口`
+- 当前主线优先级：`公开站 IA V2 第一批、第二批、第三批、第四批已完成；第四批远端发布级确认 run 25037697234 成功；当前切回前面没完成的尾项`
 - 上一轮远端 `Collect And Report` 已全链路通过：`2026-04-22 / run 24762469538 / commit 46c47ef`
 - 当前最新远端 `Collect And Report` 已成功：`2026-04-28 / push run 25009309491 / trigger commit d743668 / output commit ba23ec5 / https://github.com/wsysgz/VS_AI/actions/runs/25009309491`
 - 当前补充确认远端 `Collect And Report`：`2026-04-28 / workflow_dispatch run 25009334909 / commit d743668 / 已于 01:50（北京时间）success / https://github.com/wsysgz/VS_AI/actions/runs/25009334909`
@@ -390,7 +390,7 @@ Get-Content out/source-governance/source-governance.json
 - 手动补触发 run `25009334909` 已于 2026-04-28 01:50（北京时间）成功；它是重复确认 run，不再作为阻塞项
 - 公开站 IA V2 第二批已本地完成：`/daily/`、`/sources/`、来源详情页、赛道页活跃来源、首页最近归档扩到 8 篇均已落地并完成本地验证
 - 公开站 IA V2 第三批已完成并通过远端发布级确认：push run `25035969439` 成功，赛道/来源列表页检索与移动端导航/卡片压缩体验已落地
-- 第四批范围：`首页工作台导读链路：今日判断 -> 赛道 / 来源；赛道/来源详情页：重点信号优先；日报 / 周报 / 专题：只保留次级入口`
+- 公开站 IA V2 第四批已完成并通过远端发布级确认：push run `25037697234` 成功，首页工作台导读链路与赛道/来源详情页优先级收口已落地
 - `2026-04-22` 上一轮远端 `Collect And Report` 已全链路通过（run `24762469538` / commit `46c47ef`）
 - `2026-04-22` 已完成本地真实 Feishu 卡片主路径验证：`diagnose-delivery --mode full-report --send --channels feishu` 返回 `delivery_kind=card_success`
 - `2026-04-22` 已把 `run-status` / delivery diagnose 的飞书交付信号补齐为 `card_success / text_fallback`
@@ -460,11 +460,10 @@ Get-Content out/source-governance/source-governance.json
   2. LiteLLM Gateway 已验证
   3. Langfuse tracing / prompt eval tracing / fallback / budget guardrail 已落地
 - 下一阶段默认优先顺序：
-  1. 先完成公开站 IA V2 第四批最终收口：首页工作台导读链路、赛道/来源详情页优先级
-  2. 第四批完成后切回前面没完成的尾项，优先检查 `renesas-blog` blocked（403）和持续治理记录
-  3. `P3-B` 只保留小修、真实同步回归和交付前验证
-  4. 持续观察 `openvino-blog`、`huggingface-blog`、`st-blog` 的超时/连通性噪音
-  5. `P2.5 OpenCLI pilot` 继续留在 backlog
+  1. 持续维护来源治理记录；`renesas-blog` 已核对为 `disabled/manual-watch`，如重开只考虑 curl/browser-backed 路径
+  2. `P3-B` 只保留小修、真实同步回归和交付前验证
+  3. 持续观察 `openvino-blog`、`huggingface-blog`、`st-blog` 的超时/连通性噪音
+  4. `P2.5 OpenCLI pilot` 继续留在 backlog
 - 当前已确认的默认 AI 分工：
   - `analysis` -> DeepSeek V4 Pro
   - `summary` -> DeepSeek V4 Pro
@@ -875,4 +874,4 @@ python -m auto_report.cli diagnose-delivery --mode full-report --send --channels
 3. P3-C-3：验收、文档、发布收口（已完成）
 4. 公开站 IA V2 第一批已完成并通过远端 push run `25009309491` 确认
 5. 手动补触发 run `25009334909` 已成功，只保留结果记录，不再作为当前阻塞项
-6. 当前优先完成 IA V2 第四批最终收口，随后切回 `renesas-blog` blocked（403）等前序尾项
+6. 当前优先维持来源治理收口状态；`renesas-blog` 保持 `disabled/manual-watch`，不继续做 requests-only 扩源

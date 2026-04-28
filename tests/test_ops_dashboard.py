@@ -285,7 +285,8 @@ def test_build_ops_dashboard_renders_source_registry_from_config(tmp_path: Path)
     assert "rsshub-or-feed" in html
     assert "nxp-appcodehub/dm-eiq-genai-flow-demonstrator" in html
     assert "Manual Review Focus" in html
-    assert "nxp-edge-ai" in html
+    assert "No manual-review sources" in html
+    assert "nxp-edge-ai" not in html.split("Manual Review Focus", 1)[1]
     assert "meta-ai-blog" not in html.split("Manual Review Focus", 1)[1]
     assert "st-blog" not in html.split("Manual Review Focus", 1)[1]
     assert "ti-e2e-blog" not in html.split("Manual Review Focus", 1)[1]
