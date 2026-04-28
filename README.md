@@ -1,65 +1,39 @@
 # VS_AI
 
-VS_AI is an engineering-focused daily AI intelligence pipeline that collects signals, builds structured analysis, publishes multi-channel reports, and maintains a public reading site.
+VS_AI 是一个工程化的 AI 情报生产系统，负责采集多源信号、聚类与分析主题、生成日报、通过飞书交付，并维护公开阅读站。
 
-VS_AI 是一个工程化的每日 AI 情报生产系统，负责采集多源信号、生成结构化分析、通过飞书交付报告，并持续维护公开阅读站。
+公开站入口：`https://wsysgz.github.io/VS_AI/`
 
-Public site / 公开站入口:
-`https://wsysgz.github.io/VS_AI/`
+## 当前状态
 
-## Snapshot / 项目快照
+- 工作区：`D:\GitHub\auto`
+- 远端：`git@github.com:wsysgz/VS_AI.git`
+- 默认分支：`main`
+- 当前测试基线：`364 passed`
+- V1 收口状态：公开站 IA V2、来源治理尾项、飞书单通道交付、发布链验证均已完成
+- 最新完整远端发布确认：`Collect And Report` run `25049217360` success
+- 最新自动产物提交：`3d87ff65 chore: update auto reports [skip ci]`
 
-- Workspace / 本地工作区:
-  - `D:\GitHub\auto`
-- Canonical remote / 目标远端:
-  - `git@github.com:wsysgz/VS_AI.git`
-- Focus / 关注领域:
-  - AI / LLM / Agent
-  - AI x Electronics
-- Publication modes / 发布轨:
-  - `auto`
-  - `reviewed`
-- Notification rule / 推送规则:
-  - Feishu is the only active notification channel
-  - every Feishu notification includes the public site entry
-  - every Feishu notification includes the matching GitHub raw report link
-- Verification baseline / 当前验证基线:
-  - `333 passed`
-- Current project phase / 当前阶段:
-  - `P2 核心能力（routing / gateway / tracing / fallback / budget）已验证`
-  - `来源治理尾项已基本收口：repo-local watch runner / watch registry / candidate-updates / apply-source-updates 已打通`
-  - `P3-A 已完成首轮发布级验收：飞书静态卡片 + 文本 fallback 已真实验证`
-  - `P3-B 第一版已落地：飞书多维表格运营台已建成 4 张表 + 中文 dashboard，并支持审批/交付状态回写到仓库 JSON`
-  - `P3-C 国内外对比分析（A 方案）已完成：source 标签层、comparison brief、交付消费与本地发布级验收已闭环`
-  - `公开站首轮优化已完成：搜索安全、favicon、搜索标签去重已验证`
-  - `交付面已收敛为飞书单通道；后续不再维护旧非飞书端`
-  - `当前尾项仅剩：renesas-blog 仍为 blocked（403）`
+## 系统能力
 
-## What It Does / 系统能力
+- 采集来源：RSS、GitHub、Hacker News、官方网站 listing / API / sitemap
+- 主链路：`collect -> dedup -> topic build -> AI analysis -> render -> publish`
+- 输出面：Markdown / HTML / JSON 报告、GitHub Pages、飞书消息、review queue
+- 运行态真相：`data/state/run-status.json`
+- 公开交付入口：`docs/`
 
-- Collects from RSS, GitHub, Hacker News, and curated websites.
-- Deduplicates, scores, clusters, and builds topic packages for report generation.
-- Runs AI analysis, summary, and forecast stages with unified `ai_metrics`.
-- Publishes Markdown, HTML, JSON, and Feishu outputs.
-- Builds a public Pages site with archives, weekly pages, special topics, feed, and RSS.
-- Exposes delivery, review, risk, and source health signals through `run-status.json`.
+## 文档入口
 
-## Manual Map / 手册分工
-
-- [AI对接手册.md](AI对接手册.md)
-  - 面向开发、运维、交接，也是新会话 AI / 新维护者恢复上下文的第一入口。
-- [用户操作手册.md](用户操作手册.md)
-  - 面向使用者和值班同学，讲清楚怎么启动、怎么跑日报、怎么查看结果、怎么做常见操作。
-- [V1升级方案.md](V1升级方案.md)
-  - 面向后续优化升级，汇总可直接复用的外部项目、推荐技术路线和分阶段改造计划。
+- [工程手册.md](工程手册.md)
+  - 唯一操作总手册，承接历史接手/操作文档
 - [交接备忘录.md](交接备忘录.md)
-  - 面向下一次接手或新会话恢复，快速说明当前状态、关键决策、遗留问题和下一步执行顺序。
+  - 只保留当前状态、关键决策、最短恢复流程
+- [V2升级方案.md](V2升级方案.md)
+  - V2 路线图，承接 V1 的长期项与第二阶段升级
 - [AGENTS.md](AGENTS.md)
-  - 面向代理和自动化协作，记录本仓库的工程约束与验证基线。
+  - 代理协作约束、验证流程、仓库事实
 
-## Quick Start / 快速开始
-
-### 1. Prepare the environment / 准备环境
+## 快速开始
 
 ```powershell
 cd D:\GitHub\auto
@@ -68,260 +42,72 @@ python -m venv .venv
 pip install -r requirements.txt
 pip install -e .
 Copy-Item .env.example .env
+$env:PYTHONPATH = "src"
 ```
 
-Fill `.env` with the keys you need / 在 `.env` 中补齐需要的配置:
+最常用环境变量：
 
-- AI:
-  - `DEEPSEEK_API_KEY`
-  - or `OPENAI_API_KEY` / `AI_API_KEY`
-  - `LITELLM_MASTER_KEY`
-  - `LANGFUSE_ENABLED`
-  - `LANGFUSE_PUBLIC_KEY`
-  - `LANGFUSE_SECRET_KEY`
-  - `LANGFUSE_BASE_URL`
-  - `AI_PROVIDER`
-  - `AI_BASE_URL`
-  - `AI_MODEL`
-  - `AI_DISABLE_LLM`
-- Delivery:
-  - `FEISHU_APP_ID`
-  - `FEISHU_APP_SECRET`
-  - `FEISHU_CHAT_ID`
-  - `FEISHU_SIDECAR_ENABLED`
-  - `FEISHU_DOC_WIKI_SPACE`
-  - `FEISHU_GOVERNANCE_TASK_LIMIT`
-  - `LARK_CLI_PATH`
-  - `LARK_CLI_PROFILE`
+- AI：`AI_PROVIDER`、`AI_BASE_URL`、`AI_MODEL`、`DEEPSEEK_API_KEY`、`AI_API_KEY`
+- Tracing：`LANGFUSE_ENABLED`、`LANGFUSE_PUBLIC_KEY`、`LANGFUSE_SECRET_KEY`
+- Delivery：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_CHAT_ID`
+- Runtime：`AUTO_PUSH_ENABLED`、`AI_DISABLE_LLM`
 
-Recommended provider examples / 推荐可直接复用的模型配置示例:
-
-```env
-# Option A: DeepSeek official (default / 当前主力推荐)
-AI_PROVIDER=deepseek
-AI_BASE_URL=https://api.deepseek.com
-AI_MODEL=deepseek-v4-flash
-DEEPSEEK_API_KEY=<your-deepseek-key>
-
-# Option B: MiniMax-M2.7 via OpenAI-compatible third-party endpoint
-# Note: current repo supports one active provider per run. Switch the env
-# values before execution; do not enable both providers in the same run yet.
-AI_PROVIDER=minimax_svips
-AI_BASE_URL=https://api.svips.org/v1
-AI_MODEL=MiniMax-M2.7
-AI_API_KEY=<your-minimax-key>
-
-# Option C: LiteLLM Gateway (optional first-rollout path)
-# Keep direct-provider mode as the default fallback; do not force every
-# environment onto LiteLLM until the gateway path is locally verified.
-AI_PROVIDER=litellm_proxy
-AI_BASE_URL=http://127.0.0.1:4000
-AI_MODEL=vs-ai-default
-LITELLM_MASTER_KEY=sk-change-me
-```
-
-Current capability note / 当前能力说明:
-
-- The current `llm_client.py` already supports OpenAI-compatible providers.
-- The repo now has a first-class LiteLLM gateway provider contract via
-  `AI_PROVIDER=litellm_proxy`.
-- DeepSeek and MiniMax can coexist in configuration, but only one provider is
-  active globally by default.
-- Stage-level routing is now supported via environment overrides. Example:
-- Recommended P2 stage ownership:
-  - `analysis` -> DeepSeek V4 Pro
-  - `summary` -> DeepSeek V4 Pro
-  - `forecast` -> DeepSeek V4 Pro
-  - `pre_filter` -> DeepSeek V4 Flash
-  - future helper stages `discovery` / `search` -> DeepSeek V4 Flash
-- Recommended LiteLLM alias ownership for the first rollout:
-  - `vs-ai-default` -> DeepSeek V4 Flash
-  - `vs-ai-analysis` -> DeepSeek V4 Pro
-  - `vs-ai-summary` -> DeepSeek V4 Pro
-  - `vs-ai-forecast` -> DeepSeek V4 Pro
-  - `vs-ai-prefilter` -> DeepSeek V4 Flash
-  - `vs-ai-discovery` -> DeepSeek V4 Flash
-  - `vs-ai-search` -> DeepSeek V4 Flash
-- Use `D:\GitHub\auto\config\litellm\litellm-config.example.yaml` as the
-  starting point for the local gateway config.
-
-```env
-ANALYSIS_AI_PROVIDER=deepseek
-ANALYSIS_AI_BASE_URL=https://api.deepseek.com
-ANALYSIS_AI_MODEL=deepseek-v4-pro
-
-SUMMARY_AI_PROVIDER=deepseek
-SUMMARY_AI_BASE_URL=https://api.deepseek.com
-SUMMARY_AI_MODEL=deepseek-v4-pro
-
-FORECAST_AI_PROVIDER=deepseek
-FORECAST_AI_BASE_URL=https://api.deepseek.com
-FORECAST_AI_MODEL=deepseek-v4-pro
-
-PREFILTER_AI_PROVIDER=deepseek
-PREFILTER_AI_BASE_URL=https://api.deepseek.com
-PREFILTER_AI_MODEL=deepseek-v4-flash
-
-DISCOVERY_AI_PROVIDER=deepseek
-DISCOVERY_AI_BASE_URL=https://api.deepseek.com
-DISCOVERY_AI_MODEL=deepseek-v4-flash
-
-SEARCH_AI_PROVIDER=deepseek
-SEARCH_AI_BASE_URL=https://api.deepseek.com
-SEARCH_AI_MODEL=deepseek-v4-flash
-```
-
-LiteLLM alias example / LiteLLM 首轮 alias 示例:
-
-```env
-AI_PROVIDER=litellm_proxy
-AI_BASE_URL=http://127.0.0.1:4000
-AI_MODEL=vs-ai-default
-LITELLM_MASTER_KEY=sk-change-me
-
-ANALYSIS_AI_PROVIDER=litellm_proxy
-ANALYSIS_AI_MODEL=vs-ai-analysis
-
-SUMMARY_AI_PROVIDER=litellm_proxy
-SUMMARY_AI_MODEL=vs-ai-summary
-
-FORECAST_AI_PROVIDER=litellm_proxy
-FORECAST_AI_MODEL=vs-ai-forecast
-
-PREFILTER_AI_PROVIDER=litellm_proxy
-PREFILTER_AI_MODEL=vs-ai-prefilter
-```
-
-GitHub / Actions note:
-
-- Local runs can switch providers directly with `.env` or temporary env vars.
-- Current GitHub workflows now support the same unified provider contract.
-- Remote runs still default to DeepSeek when no repository variables are set.
-- To switch the remote default provider, configure Repository Variables:
-  - `AI_PROVIDER`
-  - `AI_BASE_URL`
-  - `AI_MODEL`
-- Configure Repository Secrets:
-  - `DEEPSEEK_API_KEY` for the DeepSeek-default path
-  - `AI_API_KEY` for OpenAI-compatible non-DeepSeek providers
-- Optional remote stage routing is also supported through Repository Variables
-  and Secrets:
-  - Variables: `ANALYSIS_AI_PROVIDER`, `ANALYSIS_AI_BASE_URL`,
-    `ANALYSIS_AI_MODEL`, `SUMMARY_AI_PROVIDER`, `SUMMARY_AI_BASE_URL`,
-    `SUMMARY_AI_MODEL`, `FORECAST_AI_PROVIDER`, `FORECAST_AI_BASE_URL`,
-    `FORECAST_AI_MODEL`
-  - Secrets: `ANALYSIS_AI_API_KEY`, `SUMMARY_AI_API_KEY`,
-    `FORECAST_AI_API_KEY`
-- Recommended first remote validation:
-  - use `workflow_dispatch`
-  - set `push_enabled=false`
-  - record the run link / run id, then continue local work
-  - only return to inspect final remote results when the user explicitly asks or a later task depends on them
-- For the first LiteLLM rollout, prefer local verification first and treat the
-  gateway as an optional path. Keep direct DeepSeek / MiniMax config ready as
-  the rollback path.
-
-Langfuse tracing / Langfuse tracing 首轮接入:
-
-```env
-LANGFUSE_ENABLED=true
-LANGFUSE_PUBLIC_KEY=pk-lf-...
-LANGFUSE_SECRET_KEY=sk-lf-...
-LANGFUSE_BASE_URL=https://cloud.langfuse.com
-LANGFUSE_ENV=local
-LANGFUSE_CAPTURE_CONTENT=false
-```
-
-- Verified rollout status / 已验证状态（2026-04-20）:
-  - local metadata-first tracing works with Langfuse Cloud
-  - GitHub Actions reusable workflows now pass through the required `LANGFUSE_*`
-    environment variables
-  - both `push` and manual `workflow_dispatch` runs have been verified with
-    `tracing.enabled=true`
-  - successful Langfuse runs now write `trace_id` and `trace_url` into
-    `data/state/run-status.json`
-- Remote GitHub Actions config / 远端配置:
-  - Repository Variables:
-    `LANGFUSE_ENABLED`, `LANGFUSE_BASE_URL`, `LANGFUSE_ENV`,
-    `LANGFUSE_CAPTURE_CONTENT`
-  - Repository Secrets:
-    `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`
-- First batch uses metadata-first tracing: trace metadata, stage names, provider,
-  model, timing, token usage, and status are uploaded by default.
-- Prompt and response bodies are not uploaded unless
-  `LANGFUSE_CAPTURE_CONTENT=true`.
-
-### 2. Run once / 本地生成一次日报
+推荐 provider 模板：
 
 ```powershell
-$env:PYTHONPATH='src'
+# DeepSeek 官方
+$env:AI_PROVIDER = "deepseek"
+$env:AI_BASE_URL = "https://api.deepseek.com"
+$env:AI_MODEL = "deepseek-v4-flash"
+
+# MiniMax-M2.7（OpenAI-compatible）
+$env:AI_PROVIDER = "minimax_svips"
+$env:AI_BASE_URL = "https://api.svips.org/v1"
+$env:AI_MODEL = "MiniMax-M2.7"
+
+# LiteLLM Gateway（本地可选）
+$env:AI_PROVIDER = "litellm_proxy"
+$env:AI_BASE_URL = "http://127.0.0.1:4000"
+$env:AI_MODEL = "vs-ai-default"
+```
+
+## 最常用命令
+
+```powershell
+# 本地日报
 python -m auto_report.cli run-once
-```
 
-### 3. Run reviewed mode / 生成人工复核轨
-
-```powershell
-$env:PYTHONPATH='src'
-python -m auto_report.cli run-once --publication-mode reviewed --reviewer <name> --review-note <text>
-```
-
-If reviewer metadata is not ready yet, reviewed mode still works / 如果暂时没有复核人和备注，也可以先跑:
-
-```powershell
-$env:PYTHONPATH='src'
+# reviewed 轨
 python -m auto_report.cli run-once --publication-mode reviewed
-```
 
-### 4. Sync Feishu workspace / 同步飞书协作面
+# 重建交付面
+python -m auto_report.cli build-pages
+python -m auto_report.cli build-ops-dashboard
+python -m auto_report.cli build-source-governance
+python -m auto_report.cli build-review-queue
 
-```powershell
-$env:PYTHONPATH='src'
-python -m auto_report.cli sync-feishu-workspace --publication-mode reviewed
-python -m auto_report.cli diagnose-delivery --mode full-report --send --channels feishu
-python -m auto_report.cli sync-feishu-ops-desk
-python -m auto_report.cli pull-feishu-ops-status
-```
-
-This sidecar is local-only. It is for local verification, prettier Feishu output,
-and local collaboration sync; GitHub Actions should continue to use the built-in
-official Feishu API push path only.
-
-When `FEISHU_SIDECAR_ENABLED=true`, `run-once` also updates the Feishu Doc,
-governance sheet, and governance task list after report generation. When
-`GITHUB_ACTIONS=true`, the sidecar is skipped automatically even if enabled.
-
-`P3-B` first batch adds a Feishu ops desk base:
-
-- dashboard: `VS_AI 今日运营台`
-- tables:
-  - `治理总表`
-  - `审批协作`
-  - `交付验收`
-  - `待应用变更`
-
-Recommended local loop:
-
-1. `python -m auto_report.cli sync-feishu-ops-desk`
-2. review / edit approval and delivery verification status in Feishu
-3. `python -m auto_report.cli pull-feishu-ops-status`
-
-Current button-first fields in the first batch:
-
-- `审批协作.状态` -> select
-- `交付验收.卡片已确认` -> checkbox
-- `交付验收.发现回退` -> checkbox
-
-## Verification / 发布前验证
-
-Run from `D:\GitHub\auto`:
-
-```powershell
-$env:PYTHONPATH='src'
+# 本地发布前验证
 pwsh ./scripts/check-workflows.ps1 -Profile full
 python -m pytest tests -q
 python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
-$env:AI_DISABLE_LLM='true'
-$env:AUTO_PUSH_ENABLED='false'
+```
+
+## 发布规则
+
+- 本地优先，GitHub Actions 只做阶段完成或发布级确认
+- `workflow_dispatch` 只运行远端已 push 代码
+- 飞书是唯一继续维护的交付通道
+- 推送前至少确认本次改动对应的本地验证已通过
+
+标准发布前链路：
+
+```powershell
+$env:PYTHONPATH = "src"
+pwsh ./scripts/check-workflows.ps1 -Profile full
+python -m pytest tests -q
+python -m auto_report.cli evaluate-prompts --dataset config/prompt_eval/baseline-v1.json
+$env:AI_DISABLE_LLM = "true"
+$env:AUTO_PUSH_ENABLED = "false"
 python -m auto_report.cli run-once --publication-mode reviewed
 python -m auto_report.cli build-pages
 python -m auto_report.cli build-ops-dashboard
@@ -329,102 +115,19 @@ python -m auto_report.cli build-source-governance
 python -m auto_report.cli build-review-queue
 ```
 
-`build-review-queue` now writes two local review artifacts:
+## 仓库结构
 
-- `out/review-queue/review-issues.json` for report-topic review candidates
-- `out/review-queue/source-lead-issues.json` for governance/discovery lead review candidates
-- `out/review-queue/source-lead-review-status.json` for lightweight human decisions
-- `out/review-queue/candidate-updates.json` for actionable source/watch updates
-- `out/source-governance/changedetection-watch-registry.json` for repo-local watch progression
-- `out/source-governance/watch-run-results.json` for the latest local watch run summary
-- `out/source-governance/watch-run-state.json` for local watch baselines / seen entries
+- `src/auto_report/`：主代码
+- `tests/`：测试
+- `config/`：来源、provider、prompt eval 配置
+- `data/`：已提交的报告、归档、运行态
+- `docs/`：公开站 Pages 输出
+- `scripts/`：本地辅助脚本
+- `docs/superpowers/`：仅保留最近一次历史 plan/spec
 
-Recommended local lead-review loop:
+## 关键事实
 
-1. inspect `source-lead-issues.json`
-2. update matching entries in `source-lead-review-status.json` to `approved`, `rejected`, or `deferred`
-3. rerun `python -m auto_report.cli build-review-queue`
-4. inspect `candidate-updates.json` and use it as the next source/watch update input set
-5. run `python -m auto_report.cli apply-source-updates`
-6. run `python -m auto_report.cli run-watch-checks`
-
-Recommended current finish-up order / 当前推荐收尾顺序:
-
-1. check `out/source-governance/watch-run-results.json`
-2. clear any `blocked` watch items that are still worth keeping
-3. run the full local verification chain
-4. for Feishu card validation, prefer `diagnose-delivery --mode full-report --send --channels feishu`
-5. only then `push` and optionally trigger remote workflow
-
-Workflow validation profiles / workflow 校验档位:
-
-- `daily`
-  - `collect-report.yml`
-  - `delivery-canary.yml`
-- `recovery`
-  - `backfill-report.yml`
-  - `compensate-report.yml`
-- `full`
-  - 全量校验以上四个入口 workflow
-
-## Publishing Surface / 发布面
-
-Latest report outputs / 最新报告产物:
-
-- `data/reports/latest-summary.*`
-- `data/reports/latest-summary-auto.*`
-- `data/reports/latest-summary-reviewed.*`
-
-Runtime state / 运行状态:
-
-- `data/state/run-status.json`
-
-Public site / 公开站产物:
-
-- `docs/index.html`
-- `docs/archives/`
-- `docs/weekly/`
-- `docs/special/`
-- `docs/feed.json`
-- `docs/rss.xml`
-
-Internal ops outputs / 内部治理产物:
-
-- `out/ops-dashboard/index.html`
-- `out/source-governance/source-governance.json`
-
-Push channel behavior / 推送渠道策略:
-
-- Feishu is the only active delivery channel.
-- Retired channels are rejected by `diagnose-delivery --channels` and ignored by `run-once`.
-- The Feishu card path remains the release-grade path; text fallback is preserved only inside the Feishu sender.
-
-Every Feishu notification includes / 每条飞书推送始终带:
-
-- `公开阅读： https://wsysgz.github.io/VS_AI/`
-- `GitHub 原文： <当前 latest-summary 对应链接>`
-
-## Repository Layout / 仓库结构
-
-```text
-.
-├─ .github/workflows/    workflow entrypoints and reusable workflows
-├─ config/               providers, sources, domains, prompts, eval dataset
-├─ data/                 reports, archives, runtime state
-├─ docs/                 manuals and published Pages outputs
-├─ scripts/              local validation helpers
-├─ src/auto_report/      application source code
-└─ tests/                regression and behavior tests
-```
-
-## Key Notes / 关键说明
-
-- Local verification comes before push.
-- `workflow_dispatch` always runs the pushed remote ref, not local unpushed edits.
-- After a remote run is triggered, record the run id and continue local work; do
-  not front-watch the run, and do not require a dedicated final-result check
-  unless the next task depends on it.
-- The public reading link always stays at `https://wsysgz.github.io/VS_AI/`; it does not switch to archive URLs.
-- `run-status.json` is the operational source of truth for delivery, review, AI metrics, and source health.
-- Report timestamps and archive dates follow the configured timezone so compensation logic can judge same-day status correctly.
-
+- `data/state/run-status.json` 是唯一运行态真相源
+- `out/`、`output/`、`.pytest_*`、`.codex_*` 等目录都视为可重建运行副产物
+- `renesas-blog` 当前决策是保留官方 sitemap + `curl` 证据链，不再回到 requests-only 修复路线
+- V1 已退休；后续升级统一写入 `V2升级方案.md`
