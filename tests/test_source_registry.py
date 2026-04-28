@@ -195,8 +195,12 @@ def test_build_source_registry_exposes_p3c_comparison_labels():
     registry = build_source_registry(settings)
 
     expected = {
+        "cambricon-dev-news": ("cn", "cambricon", "compute-infra", "high"),
+        "horizon-product-news": ("cn", "horizon", "embedded", "high"),
         "openai-news": ("intl", "openai", "frontier-ai", "high"),
         "qwen-blog": ("cn", "alibaba-qwen", "frontier-ai", "high"),
+        "rockchip-news": ("cn", "rockchip", "embedded", "high"),
+        "sophgo-news": ("cn", "sophgo", "compute-infra", "high"),
         "Xilinx/Vitis-AI": ("intl", "amd-xilinx", "fpga", "high"),
         "st-blog": ("intl", "stmicroelectronics", "embedded", "high"),
         "tenstorrent/tt-metal": ("intl", "tenstorrent", "personal-hpc", "high"),
@@ -211,6 +215,20 @@ def test_build_source_registry_exposes_p3c_comparison_labels():
 
     tracks = {str(item.get("tech_track", "")) for item in registry.values()}
     assert {"frontier-ai", "fpga", "embedded", "personal-hpc", "compute-infra"} <= tracks
+
+
+def test_build_source_registry_marks_new_domestic_listing_sources_as_validated():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    for source_id in ("cambricon-dev-news", "sophgo-news", "horizon-product-news", "rockchip-news"):
+        assert registry[source_id]["enabled"] is True
+        assert registry[source_id]["mode"] == "article_listing"
+        assert registry[source_id]["stability_tier"] == "verified-listing"
+        assert registry[source_id]["watch_strategy"] == "listing-poll"
+        assert registry[source_id]["replacement_target"] == "none"
+        assert registry[source_id]["candidate_kind"] == "validated_listing"
 
 
 def test_build_source_governance_queue_preserves_p3c_comparison_labels_for_review_rows():

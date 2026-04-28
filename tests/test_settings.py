@@ -276,6 +276,15 @@ def test_load_settings_includes_recent_domestic_and_international_governance_sou
     assert website_sources["groq-blog"]["mode"] == "structured_page"
     assert "espressif-blog" in website_sources
     assert website_sources["espressif-blog"]["url"] == "https://developer.espressif.com/blog/"
+    assert "cambricon-dev-news" in website_sources
+    assert website_sources["cambricon-dev-news"]["url"] == "https://developer.cambricon.com/index/article/index/classid/3.html"
+    assert website_sources["cambricon-dev-news"]["stability_tier"] == "verified-listing"
+    assert "sophgo-news" in website_sources
+    assert website_sources["sophgo-news"]["url"] == "https://www.sophgo.com/post/index.html"
+    assert "horizon-product-news" in website_sources
+    assert website_sources["horizon-product-news"]["url"] == "https://www.horizon.auto/news/product?tp=1"
+    assert "rockchip-news" in website_sources
+    assert website_sources["rockchip-news"]["url"] == "https://www.rock-chips.com/a/cn/news/rockchip/index.html"
     assert "mediatek-blog" in website_sources
     assert website_sources["mediatek-blog"]["url"] == "https://www.mediatek.com/blog"
     assert website_sources["infineon-blog"]["mode"] == "json_api"

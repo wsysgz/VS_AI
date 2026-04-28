@@ -22,6 +22,10 @@ def _extract_title(anchor: object) -> str:
     if heading is not None:
         return heading.get_text(" ", strip=True)
 
+    title_attr = getattr(anchor, "get", lambda *_args, **_kwargs: None)("title")
+    if isinstance(title_attr, str) and title_attr.strip():
+        return " ".join(title_attr.split())
+
     title = anchor.get_text(" ", strip=True)
     title = CARD_PREFIX_PATTERN.sub("", title).strip()
     return " ".join(title.split())

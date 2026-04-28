@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 import time
 
@@ -14,6 +15,44 @@ from auto_report.sources.hn import fetch_hn_top_stories
 from auto_report.sources.rss import parse_rss_content
 from auto_report.sources.websites import extract_json_items, extract_listing_items, extract_structured_items
 
+_META_CHARSET_PATTERN = re.compile(br"<meta[^>]+charset=['\"]?([A-Za-z0-9._-]+)", re.IGNORECASE)
+
+
+def _decode_response_text(response: requests.Response) -> str:
+    encoding = str(getattr(response, "encoding", "") or "").strip()
+    if encoding and encoding.lower() not in {"iso-8859-1", "latin-1"}:
+        return str(getattr(response, "text", ""))
+
+    content = getattr(response, "content", b"")
+    if not isinstance(content, bytes):
+        content = bytes(content or b"")
+    if not content:
+        return str(getattr(response, "text", ""))
+
+    meta_match = _META_CHARSET_PATTERN.search(content[:4096])
+    if meta_match is not None:
+        meta_encoding = meta_match.group(1).decode("ascii", errors="ignore").strip()
+        if meta_encoding:
+            try:
+                return content.decode(meta_encoding, errors="replace")
+            except LookupError:
+                pass
+
+    apparent_encoding = str(getattr(response, "apparent_encoding", "") or "").strip()
+    if apparent_encoding:
+        try:
+            return content.decode(apparent_encoding, errors="replace")
+        except LookupError:
+            pass
+
+    if encoding:
+        try:
+            return content.decode(encoding, errors="replace")
+        except LookupError:
+            pass
+
+    return str(getattr(response, "text", ""))
+
 
 def _fetch_text(url: str, timeout: int = 20, retries: int = 1) -> str:
     last_error: Exception | None = None
@@ -26,7 +65,7 @@ def _fetch_text(url: str, timeout: int = 20, retries: int = 1) -> str:
                 headers={"User-Agent": "auto-report/0.1"},
             )
             response.raise_for_status()
-            return response.text
+            return _decode_response_text(response)
         except (requests.Timeout, requests.ConnectionError) as exc:
             last_error = exc
             if attempt >= retries:
@@ -55,7 +94,7 @@ def _fetch_source_body(source: dict[str, Any]) -> str:
             headers=headers,
         )
         response.raise_for_status()
-        return response.text
+        return _decode_response_text(response)
 
     return _fetch_text(fetch_url, timeout=timeout)
 

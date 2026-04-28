@@ -244,6 +244,30 @@ def test_extract_listing_items_prefers_heading_text_and_strips_card_noise():
     ]
 
 
+def test_extract_listing_items_prefers_anchor_title_attribute_when_heading_is_missing():
+    html = """
+    <html><body>
+      <a href="/news/product/446" title="中国首款舱驾融合整车智能体芯片发布">
+        <div class="std-title3">被摘要噪音包住的标题</div>
+        <p>2026年4月22日，地平线正式发布中国首款舱驾融合整车智能体芯片。</p>
+      </a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "horizon-product-news",
+            "url": "https://www.horizon.auto/news/product?tp=1",
+            "category_hint": "ai-x-electronics",
+            "link_selector": "a[href^='/news/product/']",
+            "include_url_patterns": ["/news/product/"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == ["中国首款舱驾融合整车智能体芯片发布"]
+
+
 def test_should_keep_candidate_drops_webinar_and_event_noise_by_default():
     source = {
         "include_url_patterns": ["/blog/", "/edge/", "/embedded/"],
@@ -294,6 +318,35 @@ def test_extract_listing_items_drops_white_paper_and_webinar_cards():
     )
 
     assert [item.title for item in items] == ["Jetson edge AI pipeline update"]
+
+
+def test_fetch_text_uses_meta_charset_when_header_charset_is_missing(monkeypatch):
+    class FakeResponse:
+        def __init__(self) -> None:
+            self.content = (
+                b'<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
+                b"<body>\xe7\x91\x9e\xe8\x8a\xaf\xe5\xbe\xaeRK182X\xe7\xab\xaf\xe4\xbe\xa7AI</body></html>"
+            )
+            self.encoding = "ISO-8859-1"
+            self.apparent_encoding = "utf-8"
+            self.headers = {"content-type": "text/html"}
+
+        @property
+        def text(self) -> str:
+            return self.content.decode(self.encoding, errors="replace")
+
+        def raise_for_status(self) -> None:
+            return None
+
+    def fake_get(url: str, timeout: int = 20, headers: dict[str, str] | None = None) -> FakeResponse:
+        assert url == "https://www.rock-chips.com/a/cn/news/rockchip/index.html"
+        return FakeResponse()
+
+    monkeypatch.setattr("auto_report.sources.collector.requests.get", fake_get)
+
+    text = _fetch_text("https://www.rock-chips.com/a/cn/news/rockchip/index.html")
+
+    assert "瑞芯微RK182X端侧AI" in text
 
 
 def test_extract_structured_items_reads_entry_title_link_and_date():

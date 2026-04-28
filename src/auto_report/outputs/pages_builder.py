@@ -39,9 +39,13 @@ TRACK_LABELS = {
     "ai-infra": "AI 基础设施",
 }
 SOURCE_LABELS = {
+    "cambricon-dev-news": "寒武纪开发者社区",
     "espressif-blog": "乐鑫开发者博客",
+    "horizon-product-news": "地平线产品资讯",
     "nvidia-embedded": "英伟达嵌入式博客",
     "openai-news": "OpenAI 新闻",
+    "rockchip-news": "瑞芯微新闻",
+    "sophgo-news": "算能新闻与活动",
     "zhipu-news": "智谱新闻",
 }
 TAG_LABELS = {

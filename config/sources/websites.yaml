@@ -259,6 +259,81 @@ sources:
       - event
       - register
       - white paper
+  - id: cambricon-dev-news
+    enabled: true
+    mode: article_listing
+    url: https://developer.cambricon.com/index/article/index/classid/3.html
+    category_hint: ai-x-electronics
+    region_scope: cn
+    org_origin: cambricon
+    tech_track: compute-infra
+    comparison_priority: high
+    max_items: 4
+    stability_tier: verified-listing
+    replacement_hint: Keep the validated Cambricon developer news listing unless an official RSS/JSON feed is confirmed.
+    watch_strategy: listing-poll
+    replacement_target: none
+    candidate_kind: validated_listing
+    candidate_value: https://developer.cambricon.com/index/article/index/classid/3.html
+    link_selector: "div.item > a[href*='/index/article/details.html']"
+    include_url_patterns:
+      - /index/article/details.html
+    include_title_patterns:
+      - deepseek
+      - 大模型
+      - 推理
+      - 算力
+      - ai芯片
+      - 软件生态
+      - vllm
+      - 训练
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - 活动
+      - 报名
+      - 招聘
+      - 公示
+      - 荣获
+  - id: sophgo-news
+    enabled: true
+    mode: article_listing
+    url: https://www.sophgo.com/post/index.html
+    category_hint: ai-x-electronics
+    region_scope: cn
+    org_origin: sophgo
+    tech_track: compute-infra
+    comparison_priority: high
+    max_items: 5
+    stability_tier: verified-listing
+    replacement_hint: Keep the validated SOPHGO news listing unless an official RSS/JSON feed is confirmed.
+    watch_strategy: listing-poll
+    replacement_target: none
+    candidate_kind: validated_listing
+    candidate_value: https://www.sophgo.com/post/index.html
+    link_selector: "li.post-list-item a[href^='/post/']"
+    include_url_patterns:
+      - /post/
+    include_title_patterns:
+      - 大模型
+      - 推理
+      - 智算
+      - 边缘
+      - 服务器
+      - risc-v
+      - 算能
+      - 芯片
+      - 智能体
+    exclude_url_patterns:
+      - /post/index.html
+      - /post/news.html
+      - /post/upcoming-events.html
+      - /post/previous-events.html
+      - "#"
+    exclude_title_patterns:
+      - 元宵
+      - 开年
+      - 节日
   # Keep the approved NXP slot visible, but do not enable it until
   # the public listing page exposes a stable, non-404 entry point for
   # the simple requests-based collector used in this pipeline.
@@ -452,6 +527,75 @@ sources:
       - workshop
       - event
       - webinar
+  - id: horizon-product-news
+    enabled: true
+    mode: article_listing
+    url: https://www.horizon.auto/news/product?tp=1
+    category_hint: ai-x-electronics
+    region_scope: cn
+    org_origin: horizon
+    tech_track: embedded
+    comparison_priority: high
+    max_items: 3
+    stability_tier: verified-listing
+    replacement_hint: Keep the validated Horizon product news listing unless an official RSS/JSON feed is confirmed.
+    watch_strategy: listing-poll
+    replacement_target: none
+    candidate_kind: validated_listing
+    candidate_value: https://www.horizon.auto/news/product?tp=1
+    link_selector: "ul.nwtc-text a[href^='/news/product/']"
+    include_url_patterns:
+      - /news/product/
+    include_title_patterns:
+      - 芯片
+      - 智能体
+      - 征程
+      - bpu
+      - 计算
+      - hsd
+      - 端到端
+      - noa
+      - 辅助驾驶
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - 视频
+      - 播客
+  - id: rockchip-news
+    enabled: true
+    mode: article_listing
+    url: https://www.rock-chips.com/a/cn/news/rockchip/index.html
+    category_hint: ai-x-electronics
+    region_scope: cn
+    org_origin: rockchip
+    tech_track: embedded
+    comparison_priority: high
+    max_items: 6
+    stability_tier: verified-listing
+    replacement_hint: Keep the validated Rockchip news listing unless an official RSS/JSON feed is confirmed.
+    watch_strategy: listing-poll
+    replacement_target: none
+    candidate_kind: validated_listing
+    candidate_value: https://www.rock-chips.com/a/cn/news/rockchip/index.html
+    link_selector: "a[href*='/a/cn/news/rockchip/']"
+    include_url_patterns:
+      - /a/cn/news/rockchip/
+    include_title_patterns:
+      - ai
+      - 端侧
+      - 嵌入式
+      - 机器人
+      - rknn
+      - rk182x
+      - 算力
+      - aiot
+      - 多模态
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - 招聘
+      - 校园
+      - 股东
   - id: mediatek-blog
     enabled: true
     mode: structured_page

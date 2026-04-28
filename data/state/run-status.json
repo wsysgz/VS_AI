@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T16:23:54.696616+08:00",
+  "generated_at": "2026-04-28T17:01:24.136448+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
@@ -7,12 +7,12 @@
     "data/reports/latest-summary-reviewed.md",
     "data/reports/latest-summary-reviewed.json",
     "data/reports/latest-summary-reviewed.html",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary.md",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary.json",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary.html",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary-reviewed.md",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary-reviewed.json",
-    "data/archives/2026-04-28/2026-04-28T16-23-54.696616+08-00-summary-reviewed.html",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary.md",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary.json",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary.html",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary-reviewed.md",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary-reviewed.json",
+    "data/archives/2026-04-28/2026-04-28T17-01-24.136448+08-00-summary-reviewed.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
@@ -47,8 +47,8 @@
     "forecast": "fallback"
   },
   "source_stats": {
-    "collected_items": 106,
-    "report_topics": 106
+    "collected_items": 92,
+    "report_topics": 91
   },
   "risk_level": "high",
   "external_enrichment": {
@@ -106,49 +106,49 @@
     "request_error": 7,
     "other": 0,
     "samples": [
-      "GitHub repo failed: langchain-ai/langgraph -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "GitHub repo failed: pytorch/executorch -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "GitHub repo failed: google/jax -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "GitHub repo failed: onnx/onnx -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "Website source failed: anthropic-news -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "Website source failed: groq-blog -> HTTPSConnectionPool(host='groq.com', port=443): Read timed out. (read timeout=20)"
+      "Website source failed: qualcomm-onq -> HTTPSConnectionPool(host='prdgraphql.www.qualcomm.com', port=443): Read timed out.",
+      "Website source failed: qwen-blog -> HTTPSConnectionPool(host='qwen.ai', port=443): Max retries exceeded with url: /api/v2/article/retrieval?type=qwen_ai&language=zh-CN (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))",
+      "Website source failed: mediatek-blog -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
+      "Website source failed: edge-impulse-blog -> HTTPSConnectionPool(host='www.edgeimpulse.com', port=443): Read timed out. (read timeout=20)",
+      "GitHub repo failed: vllm-project/vllm -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
+      "GitHub repo failed: langchain-ai/langgraph -> HTTPSConnectionPool(host='api.github.com', port=443): Read timed out. (read timeout=20)"
     ],
     "sources": {
-      "anthropic-news": {
-        "collector": "websites",
+      "NVIDIA/TensorRT": {
+        "collector": "github",
         "enabled": true,
-        "mode": "article_listing",
-        "category_hint": "ai-llm-agent",
-        "source_group": "anthropic-news",
-        "url": "https://www.anthropic.com/news",
-        "stability_tier": "verified-listing",
-        "replacement_hint": "Keep the validated Anthropic news listing unless a real official RSS/Atom feed is confirmed",
-        "watch_strategy": "listing-poll",
+        "mode": "curated_repositories",
+        "category_hint": "ai-x-electronics",
+        "source_group": "curated-chip-ai-repos",
+        "url": "https://github.com/NVIDIA/TensorRT",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "repo-poll",
         "replacement_target": "none",
-        "candidate_kind": "validated_listing",
-        "candidate_value": "https://www.anthropic.com/news",
+        "candidate_kind": "none",
+        "candidate_value": "",
         "automation_ready": false,
         "next_action": "Keep the current source under routine observation.",
         "region_scope": "intl",
-        "org_origin": "anthropic",
-        "tech_track": "frontier-ai",
+        "org_origin": "nvidia",
+        "tech_track": "compute-infra",
         "comparison_priority": "high",
         "failure_count": 1,
         "error_categories": [
           "request_error"
         ],
-        "last_error": "Website source failed: anthropic-news -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+        "last_error": "GitHub repo failed: NVIDIA/TensorRT -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
       },
-      "arm-news": {
-        "collector": "rss",
+      "alibaba/MNN": {
+        "collector": "github",
         "enabled": true,
-        "mode": "rss_feed",
+        "mode": "curated_repositories",
         "category_hint": "ai-x-electronics",
-        "source_group": "arm-news",
-        "url": "https://newsroom.arm.com/news/feed/",
+        "source_group": "curated-edge-repos",
+        "url": "https://github.com/alibaba/MNN",
         "stability_tier": "stable-feed",
         "replacement_hint": "",
-        "watch_strategy": "feed-poll",
+        "watch_strategy": "repo-poll",
         "replacement_target": "none",
         "candidate_kind": "none",
         "candidate_value": "",
@@ -162,32 +162,32 @@
         "error_categories": [
           "request_error"
         ],
-        "last_error": "RSS source failed: arm-news -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+        "last_error": "GitHub repo failed: alibaba/MNN -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
       },
-      "espressif-blog": {
+      "edge-impulse-blog": {
         "collector": "websites",
         "enabled": true,
         "mode": "article_listing",
         "category_hint": "ai-x-electronics",
-        "source_group": "espressif-blog",
-        "url": "https://developer.espressif.com/blog/",
+        "source_group": "edge-impulse-blog",
+        "url": "https://www.edgeimpulse.com/blog",
         "stability_tier": "fragile-listing",
         "replacement_hint": "Prefer a stable RSS/RSSHub feed or monitored fallback if this listing becomes noisy",
         "watch_strategy": "listing-poll",
         "replacement_target": "rsshub-or-feed",
         "candidate_kind": "changedetection_watch",
-        "candidate_value": "https://developer.espressif.com/blog/",
+        "candidate_value": "https://www.edgeimpulse.com/blog",
         "automation_ready": true,
         "next_action": "Activate the repo-local watch runner for this URL and keep its baseline/results up to date.",
-        "region_scope": "cn",
-        "org_origin": "espressif",
+        "region_scope": "intl",
+        "org_origin": "edge-impulse",
         "tech_track": "embedded",
-        "comparison_priority": "high",
+        "comparison_priority": "medium",
         "failure_count": 1,
         "error_categories": [
           "timeout"
         ],
-        "last_error": "Website source failed: espressif-blog -> HTTPSConnectionPool(host='developer.espressif.com', port=443): Read timed out. (read timeout=20)"
+        "last_error": "Website source failed: edge-impulse-blog -> HTTPSConnectionPool(host='www.edgeimpulse.com', port=443): Read timed out. (read timeout=20)"
       },
       "google/jax": {
         "collector": "github",
@@ -214,56 +214,6 @@
         ],
         "last_error": "GitHub repo failed: google/jax -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
       },
-      "groq-blog": {
-        "collector": "websites",
-        "enabled": true,
-        "mode": "structured_page",
-        "category_hint": "ai-llm-agent",
-        "source_group": "groq-blog",
-        "url": "https://groq.com/blog",
-        "stability_tier": "stable-page",
-        "replacement_hint": "Poll the official update page directly and keep selectors aligned with its entry structure",
-        "watch_strategy": "page-poll",
-        "replacement_target": "none",
-        "candidate_kind": "none",
-        "candidate_value": "",
-        "automation_ready": false,
-        "next_action": "Keep the current source under routine observation.",
-        "region_scope": "",
-        "org_origin": "",
-        "tech_track": "",
-        "comparison_priority": "",
-        "failure_count": 1,
-        "error_categories": [
-          "timeout"
-        ],
-        "last_error": "Website source failed: groq-blog -> HTTPSConnectionPool(host='groq.com', port=443): Read timed out. (read timeout=20)"
-      },
-      "infineon-blog": {
-        "collector": "websites",
-        "enabled": true,
-        "mode": "json_api",
-        "category_hint": "ai-x-electronics",
-        "source_group": "infineon-blog",
-        "url": "https://www.infineon.com/cms/en/about-infineon/press/press-releases/",
-        "stability_tier": "stable-api",
-        "replacement_hint": "Poll the official JSON endpoint directly and keep field mappings aligned with the API payload",
-        "watch_strategy": "api-poll",
-        "replacement_target": "none",
-        "candidate_kind": "none",
-        "candidate_value": "",
-        "automation_ready": false,
-        "next_action": "Keep the current source under routine observation.",
-        "region_scope": "intl",
-        "org_origin": "infineon",
-        "tech_track": "embedded",
-        "comparison_priority": "medium",
-        "failure_count": 1,
-        "error_categories": [
-          "timeout"
-        ],
-        "last_error": "Website source failed: infineon-blog -> HTTPSConnectionPool(host='www.infineon.com', port=443): Read timed out. (read timeout=20)"
-      },
       "langchain-ai/langgraph": {
         "collector": "github",
         "enabled": true,
@@ -285,9 +235,9 @@
         "comparison_priority": "",
         "failure_count": 1,
         "error_categories": [
-          "request_error"
+          "timeout"
         ],
-        "last_error": "GitHub repo failed: langchain-ai/langgraph -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+        "last_error": "GitHub repo failed: langchain-ai/langgraph -> HTTPSConnectionPool(host='api.github.com', port=443): Read timed out. (read timeout=20)"
       },
       "mediatek-blog": {
         "collector": "websites",
@@ -310,42 +260,17 @@
         "comparison_priority": "medium",
         "failure_count": 1,
         "error_categories": [
-          "timeout"
-        ],
-        "last_error": "Website source failed: mediatek-blog -> HTTPSConnectionPool(host='www.mediatek.com', port=443): Read timed out. (read timeout=20)"
-      },
-      "meta-ai-blog": {
-        "collector": "rss",
-        "enabled": true,
-        "mode": "rss_feed",
-        "category_hint": "ai-llm-agent",
-        "source_group": "meta-ai-blog",
-        "url": "https://about.fb.com/news/category/technology-and-innovation/feed/",
-        "stability_tier": "stable-feed",
-        "replacement_hint": "",
-        "watch_strategy": "feed-poll",
-        "replacement_target": "none",
-        "candidate_kind": "none",
-        "candidate_value": "",
-        "automation_ready": false,
-        "next_action": "Keep the current source under routine observation.",
-        "region_scope": "",
-        "org_origin": "",
-        "tech_track": "",
-        "comparison_priority": "",
-        "failure_count": 1,
-        "error_categories": [
           "request_error"
         ],
-        "last_error": "RSS source failed: meta-ai-blog -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+        "last_error": "Website source failed: mediatek-blog -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
       },
-      "onnx/onnx": {
+      "nxp-appcodehub/dm-eiq-genai-flow-demonstrator": {
         "collector": "github",
         "enabled": true,
         "mode": "curated_repositories",
         "category_hint": "ai-x-electronics",
-        "source_group": "curated-chip-ai-repos",
-        "url": "https://github.com/onnx/onnx",
+        "source_group": "curated-edge-repos",
+        "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
         "stability_tier": "stable-feed",
         "replacement_hint": "",
         "watch_strategy": "repo-poll",
@@ -355,14 +280,14 @@
         "automation_ready": false,
         "next_action": "Keep the current source under routine observation.",
         "region_scope": "intl",
-        "org_origin": "onnx",
-        "tech_track": "compute-infra",
+        "org_origin": "nxp",
+        "tech_track": "embedded",
         "comparison_priority": "medium",
         "failure_count": 1,
         "error_categories": [
-          "request_error"
+          "timeout"
         ],
-        "last_error": "GitHub repo failed: onnx/onnx -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+        "last_error": "GitHub repo failed: nxp-appcodehub/dm-eiq-genai-flow-demonstrator -> HTTPSConnectionPool(host='api.github.com', port=443): Read timed out. (read timeout=20)"
       },
       "pytorch/executorch": {
         "collector": "github",
@@ -388,6 +313,81 @@
           "request_error"
         ],
         "last_error": "GitHub repo failed: pytorch/executorch -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
+      },
+      "qualcomm-onq": {
+        "collector": "websites",
+        "enabled": true,
+        "mode": "json_api",
+        "category_hint": "ai-x-electronics",
+        "source_group": "qualcomm-onq",
+        "url": "https://www.qualcomm.com/news/onq",
+        "stability_tier": "stable-api",
+        "replacement_hint": "Poll the official JSON endpoint directly and keep field mappings aligned with the API payload",
+        "watch_strategy": "api-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "region_scope": "intl",
+        "org_origin": "qualcomm",
+        "tech_track": "embedded",
+        "comparison_priority": "high",
+        "failure_count": 1,
+        "error_categories": [
+          "timeout"
+        ],
+        "last_error": "Website source failed: qualcomm-onq -> HTTPSConnectionPool(host='prdgraphql.www.qualcomm.com', port=443): Read timed out."
+      },
+      "qwen-blog": {
+        "collector": "websites",
+        "enabled": true,
+        "mode": "json_api",
+        "category_hint": "ai-llm-agent",
+        "source_group": "qwen-blog",
+        "url": "https://qwen.ai/research#research_latest_advancements",
+        "stability_tier": "stable-api",
+        "replacement_hint": "Poll the official JSON endpoint directly and keep field mappings aligned with the API payload",
+        "watch_strategy": "api-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "region_scope": "cn",
+        "org_origin": "alibaba-qwen",
+        "tech_track": "frontier-ai",
+        "comparison_priority": "high",
+        "failure_count": 1,
+        "error_categories": [
+          "request_error"
+        ],
+        "last_error": "Website source failed: qwen-blog -> HTTPSConnectionPool(host='qwen.ai', port=443): Max retries exceeded with url: /api/v2/article/retrieval?type=qwen_ai&language=zh-CN (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))"
+      },
+      "vllm-project/vllm": {
+        "collector": "github",
+        "enabled": true,
+        "mode": "curated_repositories",
+        "category_hint": "ai-llm-agent",
+        "source_group": "curated-agent-repos",
+        "url": "https://github.com/vllm-project/vllm",
+        "stability_tier": "stable-feed",
+        "replacement_hint": "",
+        "watch_strategy": "repo-poll",
+        "replacement_target": "none",
+        "candidate_kind": "none",
+        "candidate_value": "",
+        "automation_ready": false,
+        "next_action": "Keep the current source under routine observation.",
+        "region_scope": "",
+        "org_origin": "",
+        "tech_track": "",
+        "comparison_priority": "",
+        "failure_count": 1,
+        "error_categories": [
+          "request_error"
+        ],
+        "last_error": "GitHub repo failed: vllm-project/vllm -> ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))"
       }
     }
   },
@@ -812,6 +812,46 @@
       "tech_track": "compute-infra",
       "comparison_priority": "high"
     },
+    "cambricon-dev-news": {
+      "collector": "websites",
+      "enabled": true,
+      "mode": "article_listing",
+      "category_hint": "ai-x-electronics",
+      "source_group": "cambricon-dev-news",
+      "url": "https://developer.cambricon.com/index/article/index/classid/3.html",
+      "stability_tier": "verified-listing",
+      "replacement_hint": "Keep the validated Cambricon developer news listing unless an official RSS/JSON feed is confirmed.",
+      "watch_strategy": "listing-poll",
+      "replacement_target": "none",
+      "candidate_kind": "validated_listing",
+      "candidate_value": "https://developer.cambricon.com/index/article/index/classid/3.html",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation.",
+      "region_scope": "cn",
+      "org_origin": "cambricon",
+      "tech_track": "compute-infra",
+      "comparison_priority": "high"
+    },
+    "sophgo-news": {
+      "collector": "websites",
+      "enabled": true,
+      "mode": "article_listing",
+      "category_hint": "ai-x-electronics",
+      "source_group": "sophgo-news",
+      "url": "https://www.sophgo.com/post/index.html",
+      "stability_tier": "verified-listing",
+      "replacement_hint": "Keep the validated SOPHGO news listing unless an official RSS/JSON feed is confirmed.",
+      "watch_strategy": "listing-poll",
+      "replacement_target": "none",
+      "candidate_kind": "validated_listing",
+      "candidate_value": "https://www.sophgo.com/post/index.html",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation.",
+      "region_scope": "cn",
+      "org_origin": "sophgo",
+      "tech_track": "compute-infra",
+      "comparison_priority": "high"
+    },
     "nxp-edge-ai": {
       "collector": "websites",
       "enabled": false,
@@ -929,6 +969,46 @@
       "next_action": "Activate the repo-local watch runner for this URL and keep its baseline/results up to date.",
       "region_scope": "cn",
       "org_origin": "espressif",
+      "tech_track": "embedded",
+      "comparison_priority": "high"
+    },
+    "horizon-product-news": {
+      "collector": "websites",
+      "enabled": true,
+      "mode": "article_listing",
+      "category_hint": "ai-x-electronics",
+      "source_group": "horizon-product-news",
+      "url": "https://www.horizon.auto/news/product?tp=1",
+      "stability_tier": "verified-listing",
+      "replacement_hint": "Keep the validated Horizon product news listing unless an official RSS/JSON feed is confirmed.",
+      "watch_strategy": "listing-poll",
+      "replacement_target": "none",
+      "candidate_kind": "validated_listing",
+      "candidate_value": "https://www.horizon.auto/news/product?tp=1",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation.",
+      "region_scope": "cn",
+      "org_origin": "horizon",
+      "tech_track": "embedded",
+      "comparison_priority": "high"
+    },
+    "rockchip-news": {
+      "collector": "websites",
+      "enabled": true,
+      "mode": "article_listing",
+      "category_hint": "ai-x-electronics",
+      "source_group": "rockchip-news",
+      "url": "https://www.rock-chips.com/a/cn/news/rockchip/index.html",
+      "stability_tier": "verified-listing",
+      "replacement_hint": "Keep the validated Rockchip news listing unless an official RSS/JSON feed is confirmed.",
+      "watch_strategy": "listing-poll",
+      "replacement_target": "none",
+      "candidate_kind": "validated_listing",
+      "candidate_value": "https://www.rock-chips.com/a/cn/news/rockchip/index.html",
+      "automation_ready": false,
+      "next_action": "Keep the current source under routine observation.",
+      "region_scope": "cn",
+      "org_origin": "rockchip",
       "tech_track": "embedded",
       "comparison_priority": "high"
     },
@@ -1887,14 +1967,14 @@
       "title": "VS_AI 飞书日报 | 人工复核版 | 2026-04-28",
       "publication_mode": "reviewed",
       "report_path": "data\\reports\\latest-summary-reviewed.md",
-      "updated_at": "2026-04-28T16:24:59+08:00"
+      "updated_at": "2026-04-28T17:03:27+08:00"
     },
     "governance_sheet": {
       "spreadsheet_token": "Mp8ZsQ6nfhUKHCtV9rfcKFlKnKd",
       "sheet_id": "167859",
       "url": "https://dcnoh738ncuc.feishu.cn/sheets/Mp8ZsQ6nfhUKHCtV9rfcKFlKnKd",
       "row_count": 5,
-      "updated_at": "2026-04-28T16:24:59+08:00"
+      "updated_at": "2026-04-28T17:03:27+08:00"
     },
     "governance_tasks": {
       "tasklist_id": "05198ca1-8422-4727-ae51-f4063e3c4fcc",
@@ -1921,9 +2001,9 @@
           "summary": "[high] zhipu-news"
         }
       },
-      "updated_at": "2026-04-28T16:25:01+08:00"
+      "updated_at": "2026-04-28T17:03:29+08:00"
     },
-    "updated_at": "2026-04-28T16:25:01+08:00",
+    "updated_at": "2026-04-28T17:03:29+08:00",
     "enabled": true,
     "ok": true
   },
@@ -1939,12 +2019,12 @@
     "compensation_run": false
   },
   "timings": {
-    "collection": 60.17,
-    "dedup_score": 2.11,
+    "collection": 120.0,
+    "dedup_score": 0.99,
     "ai_total": 0.0,
     "rendering": 0.01,
     "push_total": 0.0,
-    "feishu_sidecar": 4.62
+    "feishu_sidecar": 4.16
   },
-  "total_elapsed": 66.91
+  "total_elapsed": 125.16
 }

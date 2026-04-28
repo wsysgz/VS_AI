@@ -25,10 +25,15 @@ _SOURCE_TYPE_MAP: dict[str, str] = {
     # Website sources -> "web"
     "anthropic-news": "web", "deepseek-updates": "web",
     "qwen-blog": "web", "moonshot-blog": "web",
-    "arm-news": "web", "qualcomm-onq": "web",
-    "nvidia-embedded": "web", "google-ai-edge": "web",
-    "openvino-blog": "web", "st-blog": "web",
+    "zhipu-news": "web", "cerebras-blog": "web",
+    "groq-blog": "web", "arm-news": "web",
+    "qualcomm-onq": "web", "nvidia-embedded": "web",
+    "google-ai-edge": "web", "openvino-blog": "web",
     "infineon-blog": "web", "ti-e2e-blog": "web",
+    "edge-impulse-blog": "web", "espressif-blog": "web",
+    "mediatek-blog": "web", "cambricon-dev-news": "web",
+    "sophgo-news": "web", "horizon-product-news": "web",
+    "rockchip-news": "web", "st-blog": "web",
 }
 
 
