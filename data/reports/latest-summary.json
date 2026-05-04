@@ -1,249 +1,76 @@
 {
   "meta": {
-    "generated_at": "2026-05-03T08:13:03.428565+08:00",
+    "generated_at": "2026-05-04T08:16:20.686561+08:00",
     "timezone": "Asia/Shanghai",
-    "total_items": 191,
-    "total_topics": 191,
+    "total_items": 190,
+    "total_topics": 190,
     "publication_mode": "auto",
     "review": {
       "reviewer": "",
       "review_note": ""
     }
   },
-  "one_line_core": "AI Agent 基础设施正从 Python 单极生态向多语言、多工具、多云的方向裂变，在生产力与碎片化之间催生新的机会与选择难题。",
+  "one_line_core": "AI 代理生态正从“狂热实验”进入“务实交锋”：OpenAI 登陆 AWS 打破微软单一绑定，而成本、安全边界、代理抽象性等根本质疑同步爆发，暗示行业将从无限扩展转向可控制、可负担的理性阶段。",
   "executive_summary": [
-    "Flue 用 TypeScript 的工程化优势挑战 Python 在 LLM Agent 领域的既成事实标准，但尚缺可复现的增量价值证明。",
-    "vLLM 作为高吞吐推理引擎，正在与碎片化的模型和硬件生态赛跑，其长期竞争力在于能否持续平衡通用适配与极致性能。",
-    "OpenAI 的模型、Codex 和托管 Agent 服务正式登陆 AWS，标志着 Agent 能力深度嵌入企业云基础设施，也加剧了厂商锁定与生态选择的讨论。",
-    "DAC、Open Design 等开源工具重新定义 Agent 与人协作的界面，将“代码即配置/设计”的理念推向 Agent 工作流的前台。",
-    "关于 Agent 控制层（harness）应独立于沙箱的探讨，反映出 Agent 安全与架构设计正在成为严肃工程议题。"
+    "OpenAI 将 GPT 模型与 Codex、Managed Agents 正式引入 AWS，标志其走出微软 Azure 的排他绑定，转向多云渗透战略，直接让企业在自有云环境中构建 AI 代理。",
+    "社区层面出现对代理技术的基础性质疑：有观点认为 AI 代理的控制框架应当脱离沙箱以获得更强能力，同时有人警告“代理式编码是陷阱”，并指出 LLM 并非更高的抽象层级。",
+    "成本端，DeepClaude 通过混合 Claude Code 代理循环与 DeepSeek V4 Pro，宣称可将成本降低至原来的 1/17，但这种“强规划+弱执行”模式的可用性仍待验证。",
+    "底层推理引擎 vllm 持续受到关注，为代理运行提供高吞吐、低成本的推理支撑。",
+    "整体来看，代理技术正在同时经历生态扩张、成本撕扯与安全边界重塑的三重压力测试。"
   ],
   "key_points": [
     {
-      "title": "TypeScript 生态试探 Agent 开发主阵地",
-      "why_it_matters": "Flue 的背后是前端与全栈开发者向 AI Agent 领域的集体进入尝试，若 TypeScript 生态形成可复制的工程范式，将动摇 Python 的垄断，重塑 Agent 开发人才与工具分布。"
+      "title": "OpenAI 进军 AWS：打破 Azure 唯一锁定，开启多云代理时代",
+      "why_it_matters": "OpenAI 主动将模型与代理管理服务部署到 AWS，意味着其不愿将企业渠道完全让渡给微软，这将重塑云厂商间的 AI 代理竞争格局，也为企业提供了在自有云中构建代理的合规与主权选项。"
     },
     {
-      "title": "推理引擎成为模型与硬件之间的“翻译层”瓶颈",
-      "why_it_matters": "vLLM 代表的通用推理引擎必须同时追赶模型架构创新和多样化硬件适配，其吞吐与兼容性平衡能力，直接影响上层 Agent 应用的落地成本和响应速度。"
+      "title": "社区激辩：代理控制究竟该在沙箱内还是沙箱外？",
+      "why_it_matters": "这场争论触及 AI 代理安全范式的核心矛盾——能力越大，所需权限越多，传统沙箱边界已难以平衡可用性与风险。它将直接影响企业级代理部署的安全策略与监管预期。"
     },
     {
-      "title": "Agent 能力从 API 走向云托管，企业落地门槛降低",
-      "why_it_matters": "OpenAI 与 AWS 合作意味着 Agent 不再是自行搭建的积木，而是云平台的一等公民，安全、合规、运维复杂度被封装，但也可能加深厂商依赖。"
+      "title": "DeepClaude 激进降本：代理成本真的能砍掉 94% 吗？",
+      "why_it_matters": "若“强规划+弱执行”混合模式被验证可用，将极大降低 AI 代理的准入门槛，但隐性成本（调试、失败重试）和可靠性不足可能使其短期内仅适用于低风险场景，形成“便宜但不可靠”的市场断层。"
     },
     {
-      "title": "Agent 的人机界面正被重新定义",
-      "why_it_matters": "DAC 的“Dashboard as Code”和 Open Design 用 Agent 驱动设计的实践表明，人与 Agent 的协作不止于对话，可视化、可配置的工作界面将成为新的控制平面。"
-    },
-    {
-      "title": "Agent 安全架构从“事后补救”转为“前置设计”",
-      "why_it_matters": "关于将 Agent 控制层置于沙箱之外的讨论，本质是在将控制权与执行环境分离，这将直接影响 Agent 的可审计性、权限模型和企业采纳的信心。"
+      "title": "反思声浪：Agentic Coding 是陷阱，LLMs 不是更高抽象",
+      "why_it_matters": "这些观点为当前的代理狂热泼下冷水，提醒行业避免将 LLMs 过度抽象化或盲目追求自动编码代理，有助于重新聚焦于代理的适用边界与工程现实，防止泡沫扩散。"
     }
   ],
   "key_insights": [
-    "Agent 基础设施的竞争焦点已从“能不能做”转向“如何安全、高效、可治理地做”，工程化能力成为新的护城河。",
-    "Python 在 Agent 领域的统治并非不可动摇，TypeScript 等语言的涌入可能首先在工具链、前端交互和全栈场景中找到突破口。",
-    "开源推理引擎与云托管 Agent 服务并不互斥，而是共同构成 Agent 供应链，开发者需要在“控制力”与“便利性”之间做出语境化权衡。",
-    "Agent 不再只是后台 Worker，其设计、监控和协同界面正在成为新的产品品类，意味着工程团队需要同时具备后端、前端与 UX 的交叉思维。"
+    "代理能力扩张与安全约束之间的冲突已从技术边缘走向中心，成为下一代 AI 系统设计的核心权衡点。",
+    "成本降低本身并非万能钥匙，代理的可靠性才是企业买单的真正门槛，极度压缩成本可能反而放大风险。",
+    "OpenAI 的多云布局揭示了大模型厂商对云底座的战略脱钩意识，未来的 AI 代理生态将是模型、云平台、工具链三者博弈的结果，而非单方主导。"
   ],
   "limitations": [
-    "Flue、DAC、Open Design 等新工具的成熟度和生产可用性尚未得到长期验证，多数信息仅来源于社区热度和初步讨论。",
-    "OpenAI 与 AWS 合作细节及定价模型尚未完全公开，对企业成本的实质影响仍需观察。",
-    "多数信号来源于单一社群（Hacker News），可能放大早期采用者的偏好，而遗漏更广泛开发者群体的真实需求与障碍。",
-    "部分主题证据有限，无法开展深度矛盾分析，结论依赖合理推断，可能被后续事实修正。"
+    "部分话题（如“Agentic Coding Is a Trap”、“LLMs Are Not a Higher Level of Abstraction”）仅有 HN 标题与分数，缺乏内容细节，洞察依赖标题推断，结论置信度较低。",
+    "DeepClaude 的 17 倍降本宣称尚未经过第三方规模化验证，实际增益可能受具体任务影响，结论需要保留余地。",
+    "OpenAI 与 AWS 合作的具体商业条款、数据驻留细节及对中国企业客户的可用性未披露，影响对国内市场的判断。",
+    "信息来源主要为科技社区和公司公告，缺少最终用户与企业的落地反馈，可能存在“实验室热而生产冷”的偏差。"
   ],
   "actions": [
-    "对 Flue 等新框架保持关注，但建议等待足够多的生产案例和社区贡献后再评估引入。",
-    "梳理团队当前 Agent 工作流对推理引擎、控制界面和云平台的依赖度，识别被单一供应商锁定的风险点。",
-    "在 Agent 项目中将安全边界设计作为早期架构决策，借鉴“控制层外置”的思路提前规划权限与审计路径。",
-    "持续监测 Agent 界面工具的演变，评估是否可以减少内部自研仪表板投入，转向可配置的 Dashboard as Code 方案。"
+    "战略决策者应评估多云 AI 代理方案对云锁定的冲击，重新审视与微软或 AWS 的合作策略。",
+    "技术负责人可小范围试点 DeepClaude 类混合架构，重点关注其在不同任务类型下的失败率与调试成本，避免被单纯的单价降低误导。",
+    "安全团队需参与代理控制边界的讨论，提前制定沙箱外运行时的最小权限与监控策略。",
+    "产品与研发主管应关注“代理编码陷阱”与“LLMs 抽象层级”争论，审慎定义本组织的代理应用范围，优先在高确定性、低容错领域推进落地。"
   ],
   "analyses": [
     {
       "facts": [
-        "Flue 是一个用于构建下一代智能体的 TypeScript 框架",
-        "Flue 的官方网站为 flueframework.com",
-        "该话题在 Hacker News 上获得 80 分和 44 条评论，表明社区有一定关注度"
+        "OpenAI GPT models are now accessible on AWS.",
+        "Codex (coding model) is available on AWS.",
+        "Managed Agents are now offered on AWS, enabling enterprise AI development within their AWS environment."
       ],
       "contradictions": [
-        "TypeScript 的工程化优势 vs Python 在 AI/LLM Agent 领域的生态垄断",
-        "新框架追求快速迭代和推广 vs 成熟竞品（如 LangChain、AutoGPT）已建立的用户心智和资源壁垒",
-        "宣传“下一代”技术愿景 vs 实际缺乏足够的案例、文档和社区积累",
-        "开发者对新鲜事物的好奇心 vs 对框架稳定性和长期维护的担忧"
+        "OpenAI's need for broad distribution vs. the perceived exclusivity with Microsoft Azure",
+        "AWS customers' preference for native AI services (e.g., Bedrock) vs. the pull of OpenAI's leading models",
+        "Enterprise demand for data sovereignty in their own cloud vs. reliance on an external model provider's ecosystem"
       ],
-      "primary_contradiction": "TypeScript/NPM 生态切入 AI Agent 开发的差异化需求 vs Python 已在 LLM Agent 领域形成的既成事实标准",
-      "core_insight": "Flue 试图用 TypeScript 的工程化和类型安全撬动 AI Agent 开发市场，但其成功的关键不在于技术特性本身，而在于能否在 Python 生态的惯性中证明不可替代的增量价值。",
+      "primary_contradiction": "OpenAI's ambition for multi-cloud ubiquity vs. the strategic lock-in effect of Microsoft's exclusive partnership",
+      "core_insight": "By landing on AWS, OpenAI signals a deliberate move to reduce dependence on Azure and prevent Microsoft from absorbing its enterprise channel, turning the exclusive partnership into a multi-cloud reality.",
       "confidence": "medium",
-      "title": "Flue is a TypeScript framework for building the next generation of agents",
-      "url": "https://flueframework.com/",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "How MediaTek is Leading the Next Generation of AI Chromebooks",
-            "url": "https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "groq-blog",
-            "source_type": "official",
-            "title": "Introducing the Next Generation of Compound on GroqCloud",
-            "url": "https://groq.com/blog/introducing-the-next-generation-of-compound-on-groqcloud",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents",
-            "url": "https://newsroom.arm.com/news/announcing-arm-performix",
-            "summary": "<p>Arm Performix enables developers to scale performant, efficient AI agent experiences by unifying performance insights and optimization across the Arm compute platform.</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/announcing-arm-performix\">Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "mediatek-blog",
-          "source_type": "official",
-          "title": "How MediaTek is Leading the Next Generation of AI Chromebooks",
-          "url": "https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "groq-blog",
-          "source_type": "official",
-          "title": "Introducing the Next Generation of Compound on GroqCloud",
-          "url": "https://groq.com/blog/introducing-the-next-generation-of-compound-on-groqcloud",
-          "summary": "",
-          "evidence_scope": "current-run"
-        },
-        {
-          "source_id": "arm-news",
-          "source_type": "official",
-          "title": "Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents",
-          "url": "https://newsroom.arm.com/news/announcing-arm-performix",
-          "summary": "<p>Arm Performix enables developers to scale performant, efficient AI agent experiences by unifying performance insights and optimization across the Arm compute platform.</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/announcing-arm-performix\">Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-          "evidence_scope": "current-run"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "vLLM是一个面向大语言模型的高吞吐量、内存高效的推理和服务引擎",
-        "项目托管在GitHub上，采用开源模式",
-        "支持多种模型架构，包括GPT、Llama、Qwen、DeepSeek等",
-        "支持多种硬件后端，包括NVIDIA CUDA、AMD GPU、Google TPU以及Blackwell架构"
-      ],
-      "contradictions": [
-        "高吞吐量与低延迟需求之间的张力",
-        "开源社区的灵活性与工业级稳定性、企业支持之间的平衡",
-        "模型与硬件的广泛适配性与针对性深度优化之间的矛盾",
-        "快速迭代的模型创新与引擎的通用抽象层之间的冲突",
-        "学术研究导向的特性探索与生产环境所需的保守可靠性之间的取舍",
-        "内存效率提升的技术复杂度与用户易用性之间的对立"
-      ],
-      "primary_contradiction": "开源引擎的通用适配与不断分化的模型/硬件生态之间的结构性矛盾",
-      "core_insight": "vLLM的核心挑战不在于单个技术点，而在于如何在不牺牲吞吐和内存效率的前提下，维持对碎片化模型与硬件生态的快速兼容能力",
-      "confidence": "medium",
-      "title": "vllm-project/vllm",
-      "url": "https://github.com/vllm-project/vllm",
-      "primary_domain": "ai-llm-agent",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "repo"
-        ],
-        "summary": "1 source(s) | repo"
-      },
-      "memory": {
-        "days_seen": 24,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "verified",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "support_evidence": []
-    },
-    {
       "title": "OpenAI models, Codex, and Managed Agents come to AWS",
       "url": "https://openai.com/index/openai-on-aws",
       "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[openai-news] OpenAI GPT models, Codex, and Managed Agents are now available on AWS, enabling enterprises to build secur"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "OpenAI models, Codex, and Managed Agents come to AWS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
@@ -285,9 +112,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -296,7 +123,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -329,19 +157,123 @@
       ]
     },
     {
-      "title": "Show HN: DAC – open-source dashboard as code tool for agents and humans",
-      "url": "https://github.com/bruin-data/dac",
-      "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 93 | Comments: 31 | Text: Hi all, this is Burak.<p>When agents became a reality one of the first th"
+        "DeepClaude 项目将 Claude Code 的 agent loop 与 DeepSeek V4 Pro 结合。",
+        "宣称成本降至原来的 1/17（17x cheaper）。",
+        "在 Hacker News 上获得 110 分和 46 条评论，引发一定范围讨论。"
       ],
       "contradictions": [
-        "insufficient evidence depth for contradiction detection"
+        "低成本模型（DeepSeek V4） vs 保留了 Claude 计划能力的代理循环，可能造成执行层能力不足",
+        "追求极致便宜 vs 代理任务对可靠性与稳定性的刚性需求",
+        "社区对低价 Agent 方案的热情 vs 生产环境对错误率的低容忍度",
+        "17x 成本降低的宣称 vs 隐性成本（如调试时间、失败重试）未被计量"
       ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Show HN: DAC – open-source dashboard as code tool for agents and humans appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "primary_contradiction": "代理任务的可靠执行需求与激进降低成本之间的本质矛盾",
+      "core_insight": "DeepClaude 试图以‘强规划+弱执行’的混合架构打破 Agent 成本壁垒，但成败取决于执行层的实际可靠性能否达到可用阈值。",
+      "confidence": "medium",
+      "title": "DeepClaude – Claude Code agent loop with DeepSeek V4 Pro, 17x cheaper",
+      "url": "https://github.com/aattaran/deepclaude",
+      "primary_domain": "ai-llm-agent",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "deepseek-updates",
+            "source_type": "official",
+            "title": "DeepSeek-V4 ​",
+            "url": "https://api-docs.deepseek.com/updates/#deepseek-v4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "DeepSeek-V4: a million-token context that agents can actually use",
+            "url": "https://huggingface.co/blog/deepseekv4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "cambricon-dev-news",
+            "source_type": "official",
+            "title": "寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑",
+            "url": "https://developer.cambricon.com/index/article/details.html?id=12",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-05-04",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "deepseek-updates",
+          "source_type": "official",
+          "title": "DeepSeek-V4 ​",
+          "url": "https://api-docs.deepseek.com/updates/#deepseek-v4",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "DeepSeek-V4: a million-token context that agents can actually use",
+          "url": "https://huggingface.co/blog/deepseekv4",
+          "summary": "",
+          "evidence_scope": "current-run"
+        },
+        {
+          "source_id": "cambricon-dev-news",
+          "source_type": "official",
+          "title": "寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑",
+          "url": "https://developer.cambricon.com/index/article/details.html?id=12",
+          "summary": "",
+          "evidence_scope": "current-run"
+        }
+      ]
+    },
+    {
+      "facts": [
+        "A blog post titled 'The agent harness belongs outside the sandbox' surfaced on Hacker News with 164 points and 111 comments, indicating significant community engagement.",
+        "The title suggests the author argues that the AI agent harness (the framework controlling an agent's runtime) should operate outside a sandbox environment.",
+        "No details about the post's content are available beyond the headline and HN metrics."
+      ],
+      "contradictions": [
+        "Running the agent harness inside a sandbox for safety vs. running it outside for greater capability and flexibility",
+        "The need to tightly control AI agent actions vs. the need to grant agents broader system access to complete complex, real-world tasks",
+        "Conventional security best practices that isolate potentially dangerous processes vs. the practical demands of agentic AI that may require bypassing those restrictions"
+      ],
+      "primary_contradiction": "The expanding scope of AI agent capabilities versus the constraints imposed by safety sandboxes — a fundamental tension between making agents more powerful and keeping them controllable.",
+      "core_insight": "The debate over where the agent harness belongs is really about where trust ends and control begins: as AI agents move closer to autonomous action in real environments, the old safe boundaries no longer hold, forcing a renegotiation of the trade-off between utility and risk.",
       "confidence": "low",
-      "source_count": 1,
+      "title": "The agent harness belongs outside the sandbox",
+      "url": "https://www.mendral.com/blog/agent-harness-belongs-outside-sandbox",
+      "primary_domain": "ai-llm-agent",
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
@@ -358,14 +290,14 @@
       },
       "memory": {
         "days_seen": 2,
-        "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "new",
         "seen_dates": [
-          "2026-04-24",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -373,17 +305,84 @@
       "support_evidence": []
     },
     {
-      "title": "Open Design: Use Your Coding Agent as a Design Engine",
-      "url": "https://github.com/nexu-io/open-design",
+      "title": "vllm-project/vllm",
+      "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 166 | Comments: 83"
+        "[curated-repos] A high-throughput and memory-efficient inference and serving engine for LLMs"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
       ],
       "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Open Design: Use Your Coding Agent as a Design Engine appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "core_insight": "vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "repo"
+        ],
+        "summary": "1 source(s) | repo"
+      },
+      "memory": {
+        "days_seen": 25,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-05-04",
+        "previous_score": 2.5,
+        "previous_confidence": "medium",
+        "previous_lifecycle_state": "verified",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "verified",
+      "risk_level": "low",
+      "support_evidence": []
+    },
+    {
+      "title": "LLMs Are Not a Higher Level of Abstraction",
+      "url": "https://www.lelanthran.com/chap15/content.html",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 25 | Comments: 24"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "LLMs Are Not a Higher Level of Abstraction appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
       "confidence": "low",
       "source_count": 1,
       "enrichment": {
@@ -402,13 +401,13 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
@@ -416,17 +415,17 @@
       "support_evidence": []
     },
     {
-      "title": "The agent harness belongs outside the sandbox",
-      "url": "https://www.mendral.com/blog/agent-harness-belongs-outside-sandbox",
+      "title": "Agentic Coding Is a Trap",
+      "url": "https://larsfaye.com/articles/agentic-coding-is-a-trap",
       "primary_domain": "ai-llm-agent",
       "facts": [
-        "[hacker-news] Score: 52 | Comments: 35"
+        "[hacker-news] Score: 19 | Comments: 6"
       ],
       "contradictions": [
         "insufficient evidence depth for contradiction detection"
       ],
       "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "The agent harness belongs outside the sandbox appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "core_insight": "Agentic Coding Is a Trap appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
       "confidence": "low",
       "source_count": 1,
       "enrichment": {
@@ -445,13 +444,13 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
@@ -460,16 +459,16 @@
     }
   ],
   "forecast": {
-    "best_case": "OpenAI 与 AWS 的深度合作在 3 个月内产生至少 10 个可复制的企业级 Agent 落地案例，带动 AWS 生态内 Agent 中间件和合规工具的需求激增；同时 vLLM 完成对 2 种以上新模型架构（如 DeepSeek-V3 或 Llama-4）的支持更新，从而在硬件适配碎片化中守住性能与通用性的平衡，继续巩固其作为开源推理首选引擎的地位。如果这些条件同时成立，Agent 基础设施将形成“云托管+开源引擎”双轨供应链的清晰图景，企业采用信心明显提升。",
-    "worst_case": "Flue 等 TypeScript 系新框架因缺乏足够的实际案例和社区贡献，在未来 3 个月内开发者兴趣快速消退，GitHub Star 增长停滞；同时 vLLM 在某个关键模型或硬件更新上兼容滞后，导致部分开发者流失至其他通用引擎，且 OpenAI 在 AWS 上的服务细节和定价迟迟不透明，企业因担忧厂商锁定而维持观望。最坏情况下，Agent 供应链的碎片化加剧，开发者陷入‘选择困境’，实际落地速度延迟 2-3 个月。止损方案：团队可暂时锁定当前已验证的 Python 技术栈和推理方案，暂不向任何新框架或云托管服务进行资源迁移，同时仅保留少数成员的跟踪调研任务。",
-    "most_likely_case": "Agent 基础设施在未来 3-6 个月内呈现‘双轨并行’格局：OpenAI 的托管 Agent 服务借助 AWS 渠道快速渗透到已有云预算的企业客户，但定价和可观测性不足使大部分初创团队仍偏好自建方案；vLLM 继续在开源推理领域占据主导，但维护者被迫持续追赶新模型和硬件，社区对更快发布周期的压力日渐显现；Flue、DAC、Open Design 等新工具在 Hacker News 等早期采用者社群保持一定热度，但至少 60% 的新工具在 3 个月内未能跨越‘活跃项目’到‘生产可用’的鸿沟，实际转产率很低。",
+    "best_case": "混合架构（如DeepClaude '强规划+弱执行'模式）在轻量级、可容错场景中通过规模化验证，可靠性达到可用阈值，企业级客户开始批量采用混合方案，倒逼高端模型降价。OpenAI与AWS的合作推动多云代理成为主流架构，行业形成统一的安全沙箱外代理控制标准，Agent部署成本与风险同时下降。",
+    "worst_case": "DeepClaude等低成本方案因执行层可靠性不足，在生产环境中频繁发生连锁故障，引发严重安全事故，导致监管机构紧急介入并出台严格代理限制政策。同时，沙箱外代理控制争论激化，主流云厂商因担忧合规风险而暂停外部模型代理服务，行业进入信任寒冬。",
+    "most_likely_case": "短期（6个月内），行业将出现明显的'双层结构'：OpenAI等高端模型在AWS上支撑核心业务代理，而DeepClaude等低成本方案仅在非关键、高容错任务中低调渗透。安全沙箱争论难以达成共识，企业被迫采用'双层沙箱'策略（关键任务在内，探索任务在外）。整体代理应用增速受限于可靠性与成本的双重制约，从'狂热实验'转向'谨慎筛选'。",
     "key_variables": [
-      "Flue 能否在 3 个月内发布至少 2 个经社区验证的生产级案例或与主流 Agent 平台的集成示范",
-      "vLLM 是否能在 3 个月内完成对下一个头部新模型架构的支持且性能不显著退化",
-      "OpenAI 在 AWS 上的定价与安全细节是否会明确公开",
-      "是否有至少一个 TypeScript Agent 框架进入 LangChain 或 AutoGPT 级别的开发者习惯路径"
+      "DeepClaude混合架构在社区持续测试后的真实失败率与调试成本数据",
+      "OpenAI与AWS合作后，是否有大型企业正式宣布将其核心代理负载从Azure迁移至AWS",
+      "主流云厂商（AWS/Azure/GCP）是否会推出针对沙箱外代理控制的官方安全框架或白皮书",
+      "是否有因低成本代理方案引发的公开安全事故或数据泄露事件"
     ],
-    "forecast_conclusion": "AI Agent 基础设施正处于从‘Python 单极生态’向‘多语言、多云、多工具’裂变的关键阶段，但碎片化正在成为短期内的主要瓶颈。未来 3-6 个月内，真正能跑出来的不是技术特性最突出的工具，而是能在性能和通用性之间维持平衡、且最先打通企业‘安全-合规-集成’最后一公里的方案。OpenAI 与 AWS 的合作将加快 Agent 进入企业主流的进程，但可能以加深生态锁定为代价；开源引擎和界面工具的生存，依赖于能否在易用性与信任之间找到可行的切入点，而非仅靠工程师的热情推动。",
+    "forecast_conclusion": "AI代理生态正在经历三重压力测试：OpenAI的多云战略打破了微软的单一绑定，推动了基础设施层的竞争；成本端的激进降本尝试（如17倍削减）将代理推向了'便宜但可能不可靠'的断层；安全边界的争论尚未有共识。短期内，行业将从'技术能力扩展'的单线程叙事，进入'成本-可靠性-安全'的三角权衡期，形成分层的代理应用市场，而非单一标准的统一江湖。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -482,11 +481,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 18469,
-      "completion": 5119,
-      "total": 23588
+      "prompt": 18518,
+      "completion": 5767,
+      "total": 24285
     },
-    "latency_seconds": 140.67,
+    "latency_seconds": 164.4,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -495,11 +494,11 @@
         "model": "deepseek-v4-flash",
         "calls": 1,
         "token_usage": {
-          "prompt": 490,
-          "completion": 728,
-          "total": 1218
+          "prompt": 486,
+          "completion": 806,
+          "total": 1292
         },
-        "latency_seconds": 8.97,
+        "latency_seconds": 11.79,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -518,11 +517,11 @@
         "model": "deepseek-v4-pro",
         "calls": 3,
         "token_usage": {
-          "prompt": 7701,
-          "completion": 2090,
-          "total": 9791
+          "prompt": 7623,
+          "completion": 2728,
+          "total": 10351
         },
-        "latency_seconds": 59.85,
+        "latency_seconds": 79.47,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -541,11 +540,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 3992,
-          "completion": 1219,
-          "total": 5211
+          "prompt": 4053,
+          "completion": 1451,
+          "total": 5504
         },
-        "latency_seconds": 35.24,
+        "latency_seconds": 46.8,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -564,11 +563,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 6286,
-          "completion": 1082,
-          "total": 7368
+          "prompt": 6356,
+          "completion": 782,
+          "total": 7138
         },
-        "latency_seconds": 36.61,
+        "latency_seconds": 26.34,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -593,9 +592,9 @@
       "lifecycle_state": "verified",
       "risk_level": "low",
       "score": 2.5,
-      "days_seen": 24,
+      "days_seen": 25,
       "first_seen": "2026-04-09",
-      "last_seen": "2026-05-03",
+      "last_seen": "2026-05-04",
       "enrichment_summary": "1 source(s) | repo"
     },
     {
@@ -605,9 +604,9 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "score": 2.5,
-      "days_seen": 24,
+      "days_seen": 25,
       "first_seen": "2026-04-09",
-      "last_seen": "2026-05-03",
+      "last_seen": "2026-05-04",
       "enrichment_summary": "1 source(s) | official | 3 related support"
     },
     {
@@ -617,9 +616,9 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "score": 2.5,
-      "days_seen": 24,
+      "days_seen": 25,
       "first_seen": "2026-04-09",
-      "last_seen": "2026-05-03",
+      "last_seen": "2026-05-04",
       "enrichment_summary": "1 source(s) | official | 3 related support"
     },
     {
@@ -629,9 +628,9 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "score": 2.5,
-      "days_seen": 24,
+      "days_seen": 25,
       "first_seen": "2026-04-09",
-      "last_seen": "2026-05-03",
+      "last_seen": "2026-05-04",
       "enrichment_summary": "1 source(s) | official | 3 related support"
     },
     {
@@ -641,15 +640,15 @@
       "lifecycle_state": "rising",
       "risk_level": "medium",
       "score": 2.5,
-      "days_seen": 24,
+      "days_seen": 25,
       "first_seen": "2026-04-09",
-      "last_seen": "2026-05-03",
+      "last_seen": "2026-05-04",
       "enrichment_summary": "1 source(s) | official | 3 related support"
     }
   ],
   "lifecycle_summary": {
-    "new": 18,
-    "rising": 171,
+    "new": 14,
+    "rising": 174,
     "verified": 2,
     "fading": 0
   },
@@ -805,88 +804,18 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "AI Agent 基础设施正从 Python 单极生态向多语言、多工具、多云的方向裂变，在生产力与碎片化之间催生新的机会与选择难题。",
-    "本轮共采集到 191 条原始信息，去重后保留 191 个主题。",
+    "AI 代理生态正从“狂热实验”进入“务实交锋”：OpenAI 登陆 AWS 打破微软单一绑定，而成本、安全边界、代理抽象性等根本质疑同步爆发，暗示行业将从无限扩展转向可控制、可负担的理性阶段。",
+    "本轮共采集到 190 条原始信息，去重后保留 190 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
   "risks": [
-    "HN: fetched 59 raw, filtered to 20 relevant (min_score=10)"
+    "HN: fetched 60 raw, filtered to 19 relevant (min_score=10)"
   ],
   "signals": [
     {
-      "title": "Flue is a TypeScript framework for building the next generation of agents",
-      "url": "https://flueframework.com/",
-      "summary": "Score: 80 | Comments: 44",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 3.3,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "How MediaTek is Leading the Next Generation of AI Chromebooks",
-            "url": "https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "groq-blog",
-            "source_type": "official",
-            "title": "Introducing the Next Generation of Compound on GroqCloud",
-            "url": "https://groq.com/blog/introducing-the-next-generation-of-compound-on-groqcloud",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents",
-            "url": "https://newsroom.arm.com/news/announcing-arm-performix",
-            "summary": "<p>Arm Performix enables developers to scale performant, efficient AI agent experiences by unifying performance insights and optimization across the Arm compute platform.</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/announcing-arm-performix\">Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium"
-    },
-    {
-      "title": "Open Design: Use Your Coding Agent as a Design Engine",
-      "url": "https://github.com/nexu-io/open-design",
-      "summary": "Score: 166 | Comments: 83",
+      "title": "The agent harness belongs outside the sandbox",
+      "url": "https://www.mendral.com/blog/agent-harness-belongs-outside-sandbox",
+      "summary": "Score: 164 | Comments: 111",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -898,51 +827,6 @@
       ],
       "tags": [
         "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium"
-    },
-    {
-      "title": "Show HN: DAC – open-source dashboard as code tool for agents and humans",
-      "url": "https://github.com/bruin-data/dac",
-      "summary": "Score: 93 | Comments: 31 | Text: Hi all, this is Burak.<p>When agents became a reality one of the first things I wanted to do was to automate building dashboards. The first, and the most obvious, wall that I ran into was that a lot of the tools were just driven by UI. This meant that without the agents handling browser UIs and what",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 2.5,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "show-hn"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -960,23 +844,96 @@
       },
       "memory": {
         "days_seen": 2,
-        "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "new",
         "seen_dates": [
-          "2026-04-24",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "medium"
     },
     {
-      "title": "The agent harness belongs outside the sandbox",
-      "url": "https://www.mendral.com/blog/agent-harness-belongs-outside-sandbox",
-      "summary": "Score: 52 | Comments: 35",
+      "title": "DeepClaude – Claude Code agent loop with DeepSeek V4 Pro, 17x cheaper",
+      "url": "https://github.com/aattaran/deepclaude",
+      "summary": "Score: 110 | Comments: 46",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 2.5,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "deepseek-updates",
+            "source_type": "official",
+            "title": "DeepSeek-V4 ​",
+            "url": "https://api-docs.deepseek.com/updates/#deepseek-v4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "DeepSeek-V4: a million-token context that agents can actually use",
+            "url": "https://huggingface.co/blog/deepseekv4",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "cambricon-dev-news",
+            "source_type": "official",
+            "title": "寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑",
+            "url": "https://developer.cambricon.com/index/article/details.html?id=12",
+            "summary": "",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 3 related support"
+      },
+      "memory": {
+        "days_seen": 4,
+        "first_seen": "2026-04-24",
+        "last_seen": "2026-05-04",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium"
+    },
+    {
+      "title": "LLMs Are Not a Higher Level of Abstraction",
+      "url": "https://www.lelanthran.com/chap15/content.html",
+      "summary": "Score: 25 | Comments: 24",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -1005,13 +962,57 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium"
+    },
+    {
+      "title": "Agentic Coding Is a Trap",
+      "url": "https://larsfaye.com/articles/agentic-coding-is-a-trap",
+      "summary": "Score: 19 | Comments: 6",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 2.5,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
@@ -1068,11 +1069,11 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
-        "previous_confidence": "low",
+        "previous_confidence": "medium",
         "previous_lifecycle_state": "verified",
         "seen_dates": [
           "2026-04-09",
@@ -1098,7 +1099,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "verified",
@@ -1162,9 +1164,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1173,7 +1175,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1243,9 +1246,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 10,
+        "days_seen": 11,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "verified",
@@ -1259,7 +1262,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "verified",
@@ -1323,17 +1327,18 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 1,
+        "days_seen": 2,
         "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
+        "last_seen": "2026-05-04",
+        "previous_score": 2.5,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
-      "lifecycle_state": "new",
+      "lifecycle_state": "rising",
       "risk_level": "medium"
     },
     {
@@ -1386,15 +1391,16 @@
         "summary": "1 source(s) | paper | 2 related support"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1434,15 +1440,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1482,15 +1489,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1553,9 +1561,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1564,7 +1572,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1632,9 +1641,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1662,7 +1671,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1739,9 +1749,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1769,7 +1779,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1845,9 +1856,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1875,7 +1886,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -1946,9 +1958,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -1976,7 +1988,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2047,9 +2060,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2069,7 +2082,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2142,9 +2156,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 2.5,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2164,88 +2178,20 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "medium"
     },
     {
-      "title": "A report on burnout in open source software communities (2025) [pdf]",
-      "url": "https://mirandaheath.website/static/oss_burnout_report_mh_25.pdf",
-      "summary": "Score: 130 | Comments: 60",
-      "primary_domain": "ai-llm-agent",
+      "title": "Embedded Rust or C firmware? Lessons from an industrial microcontroller use case",
+      "url": "https://arxiv.org/abs/2604.25679",
+      "summary": "Score: 144 | Comments: 142",
+      "primary_domain": "ai-x-electronics",
       "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.8,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
-            "url": "https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Tulsa-Oklahoma-_Thumbnail.gif?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We're breaking ground on a new AI-optimized data center in Tulsa, Oklahoma.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/\">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "groq-blog",
-            "source_type": "official",
-            "title": "Introducing MCP Connectors in Beta on GroqCloud",
-            "url": "https://groq.com/blog/introducing-mcp-connectors-in-beta-on-groqcloud",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "groq-blog",
-            "source_type": "official",
-            "title": "Introducing Remote MCP Support in Beta on GroqCloud",
-            "url": "https://groq.com/blog/introducing-remote-mcp-support-in-beta-on-groqcloud",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Clojurists Together – Q2 2026 Open Source Funding Announcement",
-      "url": "https://www.clojuriststogether.org/news/q2-2026-funding-announcement/",
-      "summary": "Score: 24 | Comments: 5",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
+        "ai-x-electronics",
         "ai-llm-agent"
       ],
       "score": 1.8,
@@ -2272,13 +2218,13 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
@@ -2341,9 +2287,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2371,7 +2317,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2408,9 +2355,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2427,7 +2374,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2464,9 +2412,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2483,7 +2431,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2520,9 +2469,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 10,
+        "days_seen": 11,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2536,7 +2485,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2573,9 +2523,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2592,7 +2542,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2647,9 +2598,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2676,7 +2627,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2731,9 +2683,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2760,7 +2712,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2824,9 +2777,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2836,7 +2789,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2900,9 +2854,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -2922,7 +2876,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -2986,9 +2941,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3005,7 +2960,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3069,9 +3025,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3088,7 +3044,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3151,9 +3108,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3170,7 +3127,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3234,16 +3192,17 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 3,
+        "days_seen": 4,
         "first_seen": "2026-05-01",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3280,9 +3239,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3290,7 +3249,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3337,9 +3297,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3348,7 +3308,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3411,9 +3372,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 9,
+        "days_seen": 10,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3426,7 +3387,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3463,9 +3425,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 12,
+        "days_seen": 13,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3481,7 +3443,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3518,9 +3481,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3540,7 +3503,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3588,9 +3552,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 21,
+        "days_seen": 22,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3615,7 +3579,8 @@
           "2026-04-27",
           "2026-04-28",
           "2026-04-29",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3662,9 +3627,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.8,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3684,7 +3649,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3731,9 +3697,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.1,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3743,7 +3709,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -3781,9 +3748,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.1,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3793,16 +3760,17 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
-      "title": "DeepSeek V4—almost on the frontier",
+      "title": "DeepSeek V4 – almost on the frontier",
       "url": "https://simonwillison.net/2026/Apr/24/deepseek-v4/",
-      "summary": "Score: 486 | Comments: 308",
+      "summary": "Score: 614 | Comments: 365",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3814,6 +3782,7 @@
       ],
       "tags": [
         "hacker-news",
+        "hot",
         "trending"
       ],
       "enrichment": {
@@ -3857,9 +3826,9 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -3868,16 +3837,17 @@
           "2026-04-25",
           "2026-04-26",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
-      "title": "AI Self-preferencing in Algorithmic Hiring: Empirical Evidence and Insights",
-      "url": "https://arxiv.org/abs/2509.00462",
-      "summary": "Score: 315 | Comments: 170",
+      "title": "OpenAI's o1 correctly diagnosed 67% of ER patients vs. 50-55% by triage doctors",
+      "url": "https://www.theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses",
+      "summary": "Score: 252 | Comments: 210",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -3901,11 +3871,303 @@
         ],
         "support_evidence": [
           {
-            "source_id": "meta-ai-blog",
+            "source_id": "cerebras-blog",
             "source_type": "official",
-            "title": "Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
-            "url": "https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Tulsa-Oklahoma-_Thumbnail.gif?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We're breaking ground on a new AI-optimized data center in Tulsa, Oklahoma.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/\">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
+            "title": "The Debate of MCP vs. CLI Centers on Speed",
+            "url": "https://www.cerebras.ai/blog/MCPvsCLI",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "openai-news",
+            "source_type": "official",
+            "title": "The next phase of the Microsoft OpenAI partnership",
+            "url": "https://openai.com/index/next-phase-of-microsoft-partnership",
+            "summary": "OpenAI and Microsoft announce an amended agreement that simplifies the partnership, adds long-term clarity, and supports continued AI innovation at scale.",
+            "evidence_scope": "current-run"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-support"
+        ],
+        "summary": "1 source(s) | community | 2 related support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Metal Gear Solid 2's source code has been leaked on 4chan",
+      "url": "https://www.thegamer.com/mgs2-hd-edition-source-code-massive-leak/",
+      "summary": "Score: 216 | Comments: 86",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "trending"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "I built my own hair electrolysis machine",
+      "url": "https://www.scd31.com/posts/diy-hair-electrolysis-machine",
+      "summary": "Score: 165 | Comments: 45",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Show HN: Apple's SHARP running in the browser via ONNX runtime web",
+      "url": "https://github.com/bring-shrubbery/ml-sharp-web",
+      "summary": "Score: 153 | Comments: 38 | Text: Hi HN, author here. SHARP is Apple&#x27;s recent single-image 3D Gaussian splatting model (<a href=\"https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2512.10685\" rel=\"nofollow\">https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2512.10685</a>). Their reference code is PyTorch + a pretty heavy pipeline; I wanted to s",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news",
+        "show-hn"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Security through obscurity is not bad",
+      "url": "https://mobeigi.com/blog/security/security-through-obscurity-is-not-bad/",
+      "summary": "Score: 111 | Comments: 118",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Group averages obscure how an individual's brain controls behavior: study",
+      "url": "https://med.stanford.edu/news/all-news/2026/04/brain-scans-individual-versus-group.html",
+      "summary": "Score: 109 | Comments: 34",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "Porsche will contest Laguna Seca in historic colors of the Apple Computer livery",
+      "url": "https://newsroom.porsche.com/en_US/2026/motorsport/porsche-will-contest-laguna-seca-in-historic-colors-of-the-apple-computer-livery.html",
+      "summary": "Score: 103 | Comments: 45",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm expands compute platform to silicon products in historic company first",
+            "url": "https://newsroom.arm.com/news/arm-agi-cpu-launch",
+            "summary": "<p>News highlights Cambridge, England – Mar. 24, 2026 – Arm Holdings plc (NASDAQ: ARM) today announced the next evolution of the Arm compute platform, extending into production silicon products for the first time in the company’s history. This begins with the launch of the Arm AGI CPU, an Arm-designed CPU for AI data centers, built [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agi-cpu-launch\">Arm expands compute platform to silicon products in historic company first</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "infineon-blog",
+            "source_type": "official",
+            "title": "Infineon completes the sale of its manufacturing site in Bangkok/Nonthaburi, Thailand",
+            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-044.html",
+            "summary": "",
             "evidence_scope": "current-run"
           },
           {
@@ -3913,14 +4175,6 @@
             "source_type": "official",
             "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
             "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "Podcast: The Next Wave of AI in Robotics, Industrial IoT & Beyond",
-            "url": "https://www.mediatek.com/tek-talk-blogs/the-next-wave-of-ai-in-robotics-industrial-iot-beyond",
             "summary": "",
             "evidence_scope": "current-run"
           }
@@ -3933,112 +4187,22 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
-      "title": "California to begin ticketing driverless cars that violate traffic laws",
-      "url": "https://www.bbc.com/news/articles/clypjx3rg2go",
-      "summary": "Score: 222 | Comments: 239",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "trending"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "I'm Peter Roberts, immigration attorney who does work for YC and startups. AMA",
-      "url": "https://news.ycombinator.com/item?id=47975676",
-      "summary": "Score: 190 | Comments: 236 | Text: I&#x27;ll be here for the next 6 hours. As usual, there are lots of possible topics and I&#x27;ll be guided by whatever you&#x27;re interested in. Please remember that I can&#x27;t provide legal advice on specific cases because I won&#x27;t have access to all the facts. Please try to stick to a fact",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-05-02",
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "Barman – Backup and Recovery Manager for PostgreSQL",
-      "url": "https://github.com/EnterpriseDB/barman",
-      "summary": "Score: 133 | Comments: 23",
+      "title": "Brain scans reveal 3 ADHD subtypes",
+      "url": "https://www.washingtonpost.com/health/2026/04/30/adhd-subtype-extreme-brain-scans/",
+      "summary": "Score: 89 | Comments: 84 | Text: <a href=\"https:&#x2F;&#x2F;archive.is&#x2F;3a4VZ\" rel=\"nofollow\">https:&#x2F;&#x2F;archive.is&#x2F;3a4VZ</a>",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4067,66 +4231,22 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
-      "title": "K3k: Kubernetes in Kubernetes",
-      "url": "https://github.com/rancher/k3k",
-      "summary": "Score: 97 | Comments: 47",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Refusal in Language Models Is Mediated by a Single Direction",
-      "url": "https://arxiv.org/abs/2406.11717",
-      "summary": "Score: 87 | Comments: 33",
+      "title": "What is Z-Angle Memory and why is Intel developing it?",
+      "url": "https://www.hpcwire.com/2026/02/05/what-is-z-angle-memory-and-why-is-intel-developing-it/",
+      "summary": "Score: 80 | Comments: 35",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4149,18 +4269,10 @@
         ],
         "support_evidence": [
           {
-            "source_id": "microsoft-research",
+            "source_id": "cerebras-blog",
             "source_type": "official",
-            "title": "AutoAdapt: Automated domain adaptation for large language models",
-            "url": "https://www.microsoft.com/en-us/research/blog/autoadapt-automated-domain-adaptation-for-large-language-models/",
-            "summary": "<p>Deploying large language models (LLMs) in real-world, high-stakes settings is harder than it should be. In high-stakes settings like law, medicine, and cloud incident response, performance and reliability can quickly break down because adapting models to domain-specific requirements is a slow and manual process that is difficult to reproduce. The core challenge is domain adaptation, [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/autoadapt-automated-domain-adaptation-for-large-language-models/\">AutoAdapt: Automated domain adaptation for large language models</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "openvino-blog",
-            "source_type": "official",
-            "title": "Dynamic shapes support in OpenVINO JIT compiler boosts inference performance by 40%",
-            "url": "https://blog.openvino.ai/blog-posts/dynamic-shapes-support-in-openvino-jit-compiler-boosts-inference-performance-by-40",
+            "title": "Why speed wins: faster inference is about more than just quicker answers–it’s the new path to accuracy",
+            "url": "https://www.cerebras.ai/blog/speedandaccuracyblog",
             "summary": "",
             "evidence_scope": "current-run"
           },
@@ -4177,26 +4289,27 @@
           "community",
           "related-support"
         ],
-        "summary": "1 source(s) | community | 3 related support"
+        "summary": "1 source(s) | community | 2 related support"
       },
       "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
+        "days_seen": 2,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-05-04",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
         "seen_dates": [
-          "2026-05-03"
+          "2026-04-09",
+          "2026-05-04"
         ]
       },
-      "lifecycle_state": "new",
+      "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
-      "title": "Show HN: Mljar Studio – local AI data analyst that saves analysis as notebooks",
-      "url": "https://mljar.com/",
-      "summary": "Score: 61 | Comments: 10 | Text: Hi HN,<p>I’ve been working on mljar-supervised (open-source AutoML for tabular data) for a few years. Recently I built a desktop app around it called MLJAR Studio.<p>The idea is simple: you talk to your data in natural language, the AI generates Python code, executes it locally, and the whole conver",
+      "title": "I recreated the Apple Lisa computer inside an FPGA [video]",
+      "url": "https://www.youtube.com/watch?v=8jNQDcpHc68",
+      "summary": "Score: 66 | Comments: 10",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4207,8 +4320,51 @@
         "hacker-news"
       ],
       "tags": [
-        "hacker-news",
-        "show-hn"
+        "hacker-news"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "verification_flags": [
+          "community"
+        ],
+        "summary": "1 source(s) | community"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-05-04"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low"
+    },
+    {
+      "title": "How Kepler built verifiable AI for financial services with Claude",
+      "url": "https://claude.com/blog/how-kepler-built-verifiable-ai-for-financial-services-with-claude",
+      "summary": "Score: 32 | Comments: 21",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "hacker-news"
+      ],
+      "tags": [
+        "hacker-news"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -4219,22 +4375,6 @@
           "community"
         ],
         "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
-            "url": "https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Tulsa-Oklahoma-_Thumbnail.gif?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We're breaking ground on a new AI-optimized data center in Tulsa, Oklahoma.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/\">Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
-            "url": "https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
           {
             "source_id": "renesas-blog",
             "source_type": "official",
@@ -4242,6 +4382,22 @@
             "url": "https://www.renesas.com/en/blogs/emergency-screaming-detection-how-ai-recognizes-human-screams-and-saves-lives",
             "summary": "",
             "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Granite 4.1 LLMs: How They’re Built",
+            "url": "https://huggingface.co/blog/ibm-granite/granite-4-1",
+            "summary": "",
+            "evidence_scope": "current-run"
+          },
+          {
+            "source_id": "edge-impulse-blog",
+            "source_type": "official",
+            "title": "How LoRa and AI Are Protecting Our Forests",
+            "url": "https://www.edgeimpulse.com/blog/how-lora-and-ai-are-protecting-our-forests/",
+            "summary": "",
+            "evidence_scope": "current-run"
           }
         ],
         "verification_flags": [
@@ -4251,23 +4407,24 @@
         "summary": "1 source(s) | community | 3 related support"
       },
       "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
+        "days_seen": 2,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-05-04",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
         "seen_dates": [
-          "2026-05-03"
+          "2026-04-09",
+          "2026-05-04"
         ]
       },
-      "lifecycle_state": "new",
+      "lifecycle_state": "rising",
       "risk_level": "low"
     },
     {
-      "title": "Show HN: Filling PDF forms with AI using client-side tool calling",
-      "url": "https://copilot.simplepdf.com/?share=a7d00ad073c75a75d493228e6ff7b11eb3f2d945b6175913e87898ec96ca8076&form=w9&lang=en",
-      "summary": "Score: 49 | Comments: 23 | Text: Hey HN!<p>I built SimplePDF Copilot: an AI assistant that can interact with the PDF editor. It fills fields, answers questions, focuses on a specific field, adds fields, deletes pages, and so on.<p>It&#x27;s built on top of SimplePDF that I started 7 years ago, pioneering privacy-respecting client-s",
+      "title": "Show HN: I built a RISC-V emulator that runs DOOM",
+      "url": "https://github.com/lalitshankarch/rvcore",
+      "summary": "Score: 32 | Comments: 1 | Text: Demo: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=f5uygzEmdLw\" rel=\"nofollow\">https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=f5uygzEmdLw</a><p>Hi HN,<p>I built a RISC-V emulator that implements the RV32IM instruction set and a minimal syscall interface to run DOOM. A few weeks ago, I got",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4297,137 +4454,22 @@
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
       "risk_level": "low"
     },
     {
-      "title": "Meta's Pyrefly sabotages competing Python extensions without telling you",
-      "url": "https://github.com/facebook/pyrefly/issues/3292",
-      "summary": "Score: 47 | Comments: 23",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Show HN: State of the Art of Coding Models, According to Hacker News Commenters",
-      "url": "https://hnup.date/hn-sota",
-      "summary": "Score: 29 | Comments: 15 | Text: Hello HN,<p>I was away from my computer for two weeks, and after coming back and reading the latest discussions on HN about coding assistants (models, harnesses), I felt very out of the loop. My normal process would have been to keep reading and figure out the latest and greatest from people&#x27;s",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "show-hn"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "qualcomm-onq",
-            "source_type": "official",
-            "title": "An ecosystem approach to the future of automotive",
-            "url": "https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute",
-            "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "infineon-blog",
-            "source_type": "official",
-            "title": "Infineon makes a successful start to fiscal year 2026 and accelerates AI Investments in view of further increasing market dynamics",
-            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202602-042.html",
-            "summary": "",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 3 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "The Claude Delusion: Richard Dawkins believes his AI chatbot is conscious",
-      "url": "https://www.dailygrail.com/2026/05/the-claude-delusion-richard-dawkins-believes-his-female-ai-chatbot-is-conscious/",
-      "summary": "Score: 15 | Comments: 1",
+      "title": "Talking to Transformers",
+      "url": "https://miraos.org/blog/2026/05/02/talking-to-transformers",
+      "summary": "Score: 25 | Comments: 2",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4450,27 +4492,11 @@
         ],
         "support_evidence": [
           {
-            "source_id": "anthropic-news",
+            "source_id": "huggingface-blog",
             "source_type": "official",
-            "title": "Claude is a space to think",
-            "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+            "title": "How to Use Transformers.js in a Chrome Extension",
+            "url": "https://huggingface.co/blog/transformersjs-chrome-extension",
             "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "How MediaTek is Leading the Next Generation of AI Chromebooks",
-            "url": "https://www.mediatek.com/tek-talk-blogs/how-mediatek-is-leading-the-next-generation-of-ai-chromebooks",
-            "summary": "",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "New Future of Work: AI is driving rapid change, uneven benefits",
-            "url": "https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/",
-            "summary": "<p>For the past five years, the New Future of Work report has captured how work is changing. This year, the shift feels especially sharp. Previous editions have focused on technology’s role in increasing productivity by automating tasks, accelerating communication, and expanding access to information, as well as the rise of remote work. Today, generative AI [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/new-future-of-work-ai-is-driving-rapid-change-uneven-benefits/\">New Future of Work: AI is driving rapid change, uneven benefits</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
             "evidence_scope": "current-run"
           }
         ],
@@ -4478,124 +4504,17 @@
           "community",
           "related-support"
         ],
-        "summary": "1 source(s) | community | 3 related support"
+        "summary": "1 source(s) | community | 1 related support"
       },
       "memory": {
         "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
+        "first_seen": "2026-05-04",
+        "last_seen": "2026-05-04",
         "previous_score": 0.0,
         "previous_confidence": "",
         "previous_lifecycle_state": "",
         "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Meta faces New Mexico trial that could force change to Facebook, other platforms",
-      "url": "https://www.reuters.com/legal/government/meta-faces-new-mexico-trial-that-could-force-changes-facebook-other-platforms-2026-05-02/",
-      "summary": "Score: 12 | Comments: 0",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Meta Partners With AWS on Graviton Chips to Power Agentic AI",
-            "url": "https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Partnership-Announcement_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re announcing an agreement with AWS to bring tens of millions of AWS Graviton cores into Meta's compute portfolio to support agentic AI workloads. </p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/\">Meta Partners With AWS on Graviton Chips to Power Agentic AI</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          },
-          {
-            "source_id": "meta-ai-blog",
-            "source_type": "official",
-            "title": "Meta Partners With Broadcom to Co-Develop Custom AI Silicon",
-            "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
-            "summary": "<div><img alt=\"\" class=\"attachment-large size-large wp-post-image\" height=\"501\" src=\"https://about.fb.com/wp-content/uploads/2026/04/Meta_Broadcom_Thumbnail.jpg?fit=890%2C501\" style=\"margin-bottom: 15px;\" width=\"890\" /></div>\n<p>We’re partnering with Broadcom to co-develop multiple generations of custom silicon, ensuring we have the compute foundation to deliver on our long-term AI ambitions.</p>\n<p>The post <a href=\"https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/\">Meta Partners With Broadcom to Co-Develop Custom AI Silicon</a> appeared first on <a href=\"https://about.fb.com\">Meta Newsroom</a>.</p>",
-            "evidence_scope": "current-run"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-support"
-        ],
-        "summary": "1 source(s) | community | 2 related support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low"
-    },
-    {
-      "title": "Show HN: Rust library for Undo/Redo using deltas, snapshots or commands",
-      "url": "https://github.com/mikwielgus/undoredo",
-      "summary": "Score: 11 | Comments: 1",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "hacker-news"
-      ],
-      "tags": [
-        "hacker-news",
-        "show-hn"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "verification_flags": [
-          "community"
-        ],
-        "summary": "1 source(s) | community"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-05-03",
-        "last_seen": "2026-05-03",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-05-03"
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "new",
@@ -4604,7 +4523,7 @@
     {
       "title": "langchain-ai/langgraph",
       "url": "https://github.com/langchain-ai/langgraph",
-      "summary": "Build resilient language agents as graphs.",
+      "summary": "Build resilient language agents as graphs. Available in TypeScript!",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -4650,9 +4569,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -4680,7 +4599,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -4732,9 +4652,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -4762,7 +4682,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -4811,9 +4732,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -4841,7 +4762,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -4886,9 +4808,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -4916,7 +4838,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -4968,9 +4891,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -4998,7 +4921,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5035,9 +4959,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5057,7 +4981,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5094,9 +5019,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5124,7 +5049,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5175,9 +5101,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5205,7 +5131,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5242,9 +5169,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5272,7 +5199,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5324,9 +5252,9 @@
         "summary": "1 source(s) | repo | 1 related support"
       },
       "memory": {
-        "days_seen": 18,
+        "days_seen": 19,
         "first_seen": "2026-04-16",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5348,7 +5276,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5398,9 +5327,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5428,7 +5357,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5466,9 +5396,9 @@
         "summary": "1 source(s) | repo"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5496,7 +5426,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5534,16 +5465,17 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 3,
+        "days_seen": 4,
         "first_seen": "2026-05-01",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5581,16 +5513,17 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 3,
+        "days_seen": 4,
         "first_seen": "2026-05-01",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5638,9 +5571,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5648,7 +5581,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5696,9 +5630,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5706,7 +5640,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5754,9 +5689,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5764,7 +5699,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5802,9 +5738,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5814,7 +5750,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5878,9 +5815,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 7,
+        "days_seen": 8,
         "first_seen": "2026-04-27",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5891,7 +5828,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -5953,9 +5891,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -5964,7 +5902,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6034,9 +5973,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 7,
+        "days_seen": 8,
         "first_seen": "2026-04-27",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6047,7 +5986,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6116,9 +6056,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 10,
+        "days_seen": 11,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6132,7 +6072,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6202,9 +6143,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 12,
+        "days_seen": 13,
         "first_seen": "2026-04-22",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6220,7 +6161,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6288,9 +6230,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6310,7 +6252,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6348,9 +6291,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 8,
+        "days_seen": 9,
         "first_seen": "2026-04-23",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6362,7 +6305,8 @@
           "2026-04-27",
           "2026-04-28",
           "2026-04-29",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6426,9 +6370,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 21,
+        "days_seen": 22,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6453,7 +6397,8 @@
           "2026-04-27",
           "2026-04-28",
           "2026-04-29",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6501,9 +6446,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 21,
+        "days_seen": 22,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6528,7 +6473,8 @@
           "2026-04-27",
           "2026-04-28",
           "2026-04-29",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6584,9 +6530,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 21,
+        "days_seen": 22,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -6611,7 +6557,8 @@
           "2026-04-27",
           "2026-04-28",
           "2026-04-29",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6650,15 +6597,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6700,15 +6648,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6766,15 +6715,16 @@
         "summary": "1 source(s) | paper | 2 related support"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6840,16 +6790,17 @@
         "summary": "1 source(s) | paper | 3 related support"
       },
       "memory": {
-        "days_seen": 3,
+        "days_seen": 4,
         "first_seen": "2026-04-11",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-04-11",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6889,15 +6840,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -6938,15 +6890,16 @@
         "summary": "1 source(s) | paper"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7010,15 +6963,16 @@
         "summary": "1 source(s) | paper | 3 related support"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7081,9 +7035,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7103,7 +7057,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7166,9 +7121,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7188,7 +7143,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7256,9 +7212,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7275,7 +7231,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7347,9 +7304,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7377,7 +7334,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7456,9 +7414,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 1.0,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7478,7 +7436,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7515,9 +7474,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7545,7 +7504,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7582,9 +7542,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7604,7 +7564,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7651,9 +7612,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7681,7 +7642,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7718,9 +7680,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 5,
+        "days_seen": 6,
         "first_seen": "2026-04-29",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7729,7 +7691,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7776,9 +7739,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7788,7 +7751,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7835,9 +7799,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 10,
+        "days_seen": 11,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7851,7 +7815,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7914,9 +7879,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 10,
+        "days_seen": 11,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -7930,7 +7895,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -7993,9 +7959,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 9,
+        "days_seen": 10,
         "first_seen": "2026-04-25",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8008,7 +7974,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8063,9 +8030,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8075,7 +8042,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8138,9 +8106,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8150,7 +8118,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8213,9 +8182,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8236,7 +8205,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8299,9 +8269,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8322,7 +8292,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8385,9 +8356,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8408,7 +8379,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8471,9 +8443,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8483,7 +8455,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8520,9 +8493,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8532,7 +8505,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8569,9 +8543,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8581,7 +8555,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8618,9 +8593,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8641,7 +8616,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8678,9 +8654,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8701,7 +8677,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8748,9 +8725,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8771,7 +8748,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8818,9 +8796,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8841,7 +8819,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8878,9 +8857,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8901,7 +8880,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -8948,9 +8928,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 17,
+        "days_seen": 18,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -8971,7 +8951,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9008,9 +8989,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9038,7 +9019,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9101,9 +9083,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9131,7 +9113,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9194,9 +9177,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9224,7 +9207,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9287,9 +9271,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9317,7 +9301,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9380,9 +9365,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 24,
+        "days_seen": 25,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9410,7 +9395,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9447,9 +9433,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9466,7 +9452,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9503,9 +9490,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9522,7 +9509,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9559,9 +9547,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9578,7 +9566,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9615,9 +9604,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9634,7 +9623,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9697,9 +9687,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9716,7 +9706,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9763,15 +9754,16 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 2,
+        "days_seen": 3,
         "first_seen": "2026-05-02",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
+        "previous_lifecycle_state": "rising",
         "seen_dates": [
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9834,9 +9826,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9853,7 +9845,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9916,9 +9909,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -9935,7 +9928,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -9998,9 +9992,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10017,7 +10011,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10054,9 +10049,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10073,7 +10068,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10136,9 +10132,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10155,7 +10151,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10192,9 +10189,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10211,7 +10208,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10274,9 +10272,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10293,7 +10291,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10356,9 +10355,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10375,7 +10374,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10438,9 +10438,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 12,
         "first_seen": "2026-04-23",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10455,7 +10455,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10518,9 +10519,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10537,7 +10538,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10600,9 +10602,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10619,7 +10621,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10682,9 +10685,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10701,7 +10704,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10764,9 +10768,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10783,7 +10787,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10846,9 +10851,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10865,7 +10870,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10920,9 +10926,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -10949,7 +10955,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -10996,9 +11003,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11025,7 +11032,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11072,9 +11080,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11101,7 +11109,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11148,9 +11157,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11177,7 +11186,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11232,9 +11242,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11244,7 +11254,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11281,9 +11292,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11293,7 +11304,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11330,9 +11342,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11342,7 +11354,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11379,9 +11392,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11391,7 +11404,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11428,9 +11442,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11440,7 +11454,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11503,9 +11518,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11522,7 +11537,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11585,9 +11601,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11604,7 +11620,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11667,9 +11684,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11686,7 +11703,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11749,9 +11767,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11768,7 +11786,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11831,9 +11850,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11850,7 +11869,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11914,9 +11934,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11933,7 +11953,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -11980,9 +12001,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -11992,7 +12013,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12047,9 +12069,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12059,7 +12081,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12096,9 +12119,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12108,7 +12131,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12171,9 +12195,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12183,7 +12207,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12238,9 +12263,9 @@
         "summary": "1 source(s) | official | 2 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12250,7 +12275,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12287,9 +12313,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-18",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12309,7 +12335,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12372,9 +12399,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12391,7 +12418,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12438,9 +12466,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12457,7 +12485,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12504,9 +12533,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12523,7 +12552,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12586,9 +12616,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12598,7 +12628,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12661,9 +12692,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12680,7 +12711,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12727,9 +12759,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12746,7 +12778,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12783,9 +12816,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12802,7 +12835,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12839,9 +12873,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12858,7 +12892,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12895,9 +12930,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12907,7 +12942,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12944,9 +12980,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -12956,7 +12992,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -12993,9 +13030,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13005,7 +13042,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13042,9 +13080,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13054,7 +13092,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13091,9 +13130,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13103,7 +13142,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13140,9 +13180,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13152,7 +13192,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13189,9 +13230,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13201,7 +13242,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13238,9 +13280,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13250,7 +13292,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13313,9 +13356,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 12,
         "first_seen": "2026-04-23",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13330,7 +13373,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13393,9 +13437,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13412,7 +13456,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13475,9 +13520,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 12,
         "first_seen": "2026-04-23",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13492,7 +13537,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13556,9 +13602,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 13,
+        "days_seen": 14,
         "first_seen": "2026-04-21",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13575,7 +13621,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13638,9 +13685,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13648,7 +13695,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13685,9 +13733,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 4,
+        "days_seen": 5,
         "first_seen": "2026-04-30",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13695,7 +13743,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13758,9 +13807,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 6,
+        "days_seen": 7,
         "first_seen": "2026-04-28",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13770,7 +13819,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13833,9 +13883,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 9,
+        "days_seen": 10,
         "first_seen": "2026-04-24",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13848,7 +13898,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13911,9 +13962,9 @@
         "summary": "1 source(s) | official | 3 related support"
       },
       "memory": {
-        "days_seen": 11,
+        "days_seen": 12,
         "first_seen": "2026-04-22",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13928,7 +13979,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -13965,9 +14017,9 @@
         "summary": "1 source(s) | official"
       },
       "memory": {
-        "days_seen": 16,
+        "days_seen": 17,
         "first_seen": "2026-04-17",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -13987,7 +14039,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -14034,9 +14087,9 @@
         "summary": "1 source(s) | official | 1 related support"
       },
       "memory": {
-        "days_seen": 23,
+        "days_seen": 24,
         "first_seen": "2026-04-09",
-        "last_seen": "2026-05-03",
+        "last_seen": "2026-05-04",
         "previous_score": 0.3,
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
@@ -14063,7 +14116,8 @@
           "2026-04-30",
           "2026-05-01",
           "2026-05-02",
-          "2026-05-03"
+          "2026-05-03",
+          "2026-05-04"
         ]
       },
       "lifecycle_state": "rising",
@@ -14071,7 +14125,7 @@
     }
   ],
   "predictions": [
-    "AI Agent 基础设施正处于从‘Python 单极生态’向‘多语言、多云、多工具’裂变的关键阶段，但碎片化正在成为短期内的主要瓶颈。未来 3-6 个月内，真正能跑出来的不是技术特性最突出的工具，而是能在性能和通用性之间维持平衡、且最先打通企业‘安全-合规-集成’最后一公里的方案。OpenAI 与 AWS 的合作将加快 Agent 进入企业主流的进程，但可能以加深生态锁定为代价；开源引擎和界面工具的生存，依赖于能否在易用性与信任之间找到可行的切入点，而非仅靠工程师的热情推动。"
+    "AI代理生态正在经历三重压力测试：OpenAI的多云战略打破了微软的单一绑定，推动了基础设施层的竞争；成本端的激进降本尝试（如17倍削减）将代理推向了'便宜但可能不可靠'的断层；安全边界的争论尚未有共识。短期内，行业将从'技术能力扩展'的单线程叙事，进入'成本-可靠性-安全'的三角权衡期，形成分层的代理应用市场，而非单一标准的统一江湖。"
   ],
   "sources": {
     "github": {
