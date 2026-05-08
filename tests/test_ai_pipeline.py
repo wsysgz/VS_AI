@@ -199,6 +199,65 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_and_forecast_are_english
     assert outputs["forecast"]["forecast_conclusion"].startswith("本轮预测阶段已回退")
 
 
+def test_run_staged_ai_pipeline_uses_ai_analyses_before_fallback_supplement(monkeypatch):
+    candidates = [
+        TopicCandidate(
+            topic_id=f"topic-{index}",
+            title=f"Topic {index}",
+            url=f"https://example.com/{index}",
+            primary_domain="ai-llm-agent",
+            matched_domains=["ai-llm-agent"],
+            evidence_count=1,
+            source_ids=["openai-news"],
+            tags=["agent"],
+            evidence_snippets=[f"Snippet {index}"],
+        )
+        for index in range(1, 5)
+    ]
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.scoring_llm.apply_pre_filter",
+        lambda candidates, ai_readings, threshold=5.0, min_candidates_for_filter=3: (
+            candidates[:2],
+            candidates[2:],
+        ),
+    )
+
+    seen_summary_prompts: list[str] = []
+    seen_forecast_prompts: list[str] = []
+    analysis_calls = {"count": 0}
+
+    def fake_call(prompt: str, stage: str | None = None) -> str:
+        if stage == "analysis":
+            analysis_calls["count"] += 1
+            idx = analysis_calls["count"]
+            return '{{"facts":["Fact"],"contradictions":["A vs B"],"primary_contradiction":"A vs B","core_insight":"Insight {}","confidence":"medium"}}'.format(idx)
+        if stage == "summary":
+            seen_summary_prompts.append(prompt)
+            return '{"one_line_core":"核心判断","executive_summary":["A"],"key_points":[{"title":"信号","why_it_matters":"重要"}],"key_insights":["Insight"],"limitations":[],"actions":["跟踪"]}'
+        if stage == "forecast":
+            seen_forecast_prompts.append(prompt)
+            return '{"most_likely_case":"大概率继续","best_case":"最佳","worst_case":"最差","key_variables":["变量"],"forecast_conclusion":"结论","confidence":"medium"}'
+        raise AssertionError(stage)
+
+    monkeypatch.setattr("auto_report.pipeline.ai_pipeline.call_llm", fake_call)
+
+    outputs = run_staged_ai_pipeline(
+        candidates=candidates,
+        ai_readings={"analysis": "analysis-rules", "summary": "summary-rules", "forecast": "forecast-rules"},
+        ai_enabled=True,
+        enable_pre_filter=True,
+    )
+
+    assert len(outputs["analyses"]) == 4
+    assert "Topic 1" in seen_summary_prompts[0]
+    assert "Topic 2" in seen_summary_prompts[0]
+    assert "Topic 3" in seen_summary_prompts[0]
+    assert "Topic 4" not in seen_summary_prompts[0]
+    assert "Topic 3" in seen_forecast_prompts[0]
+    assert any("低证据 fallback 分析" in item for item in outputs["summary"]["limitations"])
+
+
 def test_run_staged_ai_pipeline_routes_each_stage_to_named_provider(monkeypatch):
     candidate = TopicCandidate(
         topic_id="topic-1",

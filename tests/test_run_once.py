@@ -149,7 +149,9 @@ def test_build_run_status_includes_external_enrichment_metrics():
         external_enrichment={
             "enabled": True,
             "max_signals": 2,
+            "eligible_count": 2,
             "attempted": 2,
+            "attempted_titles": ["Topic A", "Topic B"],
             "succeeded": 1,
             "failed": 1,
             "skipped": 0,
@@ -162,6 +164,8 @@ def test_build_run_status_includes_external_enrichment_metrics():
 
     assert status["external_enrichment"]["attempted"] == 2
     assert status["external_enrichment"]["success_rate"] == 0.5
+    assert status["external_enrichment"]["eligible_count"] == 2
+    assert status["external_enrichment"]["attempted_titles"] == ["Topic A", "Topic B"]
 
 
 def test_build_run_status_includes_ai_metrics():

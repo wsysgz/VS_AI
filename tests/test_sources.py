@@ -125,6 +125,33 @@ def test_parse_rss_content_respects_included_title_patterns():
     ]
 
 
+def test_parse_rss_content_resolves_relative_links_using_feed_url():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>ERNIE Blog</title>
+        <link>/blog/</link>
+        <item>
+          <title>ERNIE-5.1-Preview Tops LMArena Text Leaderboard as No.1 Chinese Model!</title>
+          <link>/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/</link>
+          <description>ERNIE 5.1 preview release</description>
+        </item>
+      </channel>
+    </rss>
+    """
+
+    items = parse_rss_content(
+        source_id="ernie-blog",
+        content=content,
+        category_hint="ai-llm-agent",
+        source_rules={"url": "https://ernie.baidu.com/blog/index.xml"},
+    )
+
+    assert [item.url for item in items] == [
+        "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/"
+    ]
+
+
 def test_normalize_github_repositories_maps_repo_payload():
     payload = {
         "items": [
@@ -371,6 +398,34 @@ def test_extract_listing_items_drops_white_paper_and_webinar_cards():
     )
 
     assert [item.title for item in items] == ["Jetson edge AI pipeline update"]
+
+
+def test_extract_listing_items_reads_amd_newsroom_press_release_cards():
+    html = """
+    <html><body>
+      <a href="/en/newsroom/press-releases/2026-4-28-amd-announces-advancing-ai-2026-.html">
+        <h3>AMD Announces “Advancing AI 2026”</h3>
+      </a>
+      <a href="/en/newsroom/press-releases/2026-5-5-amd-reports-first-quarter-2026-financial-results.html">
+        <h3>AMD Reports First Quarter 2026 Financial Results</h3>
+      </a>
+    </body></html>
+    """
+
+    items = extract_listing_items(
+        {
+            "id": "amd-newsroom",
+            "url": "https://www.amd.com/en/newsroom.html",
+            "category_hint": "ai-x-electronics",
+            "link_selector": "a[href^='/en/newsroom/press-releases/']",
+            "include_url_patterns": ["/en/newsroom/press-releases/"],
+            "include_title_patterns": ["advancing ai", "ryzen", "instinct", "rocm", "vitis", "epyc", "ai"],
+        },
+        html,
+    )
+
+    assert [item.title for item in items] == ["AMD Announces “Advancing AI 2026”"]
+    assert items[0].url.endswith("2026-4-28-amd-announces-advancing-ai-2026-.html")
 
 
 def test_fetch_text_uses_meta_charset_when_header_charset_is_missing(monkeypatch):

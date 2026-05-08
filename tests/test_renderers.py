@@ -287,3 +287,27 @@ def test_render_html_report_includes_stage_badges_and_stats():
     assert "12 条原始信息" in html
     assert "5 个主题" in html
     assert "analysis: ok" in html
+
+
+def test_render_notifications_prefer_track_snapshots_when_head_to_head_is_empty():
+    payload = _sample_payload()
+    payload["comparison_brief"]["head_to_head"] = []
+    payload["comparison_brief"]["track_snapshots"] = [
+        {
+            "tech_track": "embedded",
+            "cn_title": "Espressif MCP Server",
+            "intl_title": "NVIDIA TensorRT Edge-LLM",
+            "readout": "embedded：国内 Espressif MCP Server；海外 NVIDIA TensorRT Edge-LLM。",
+        }
+    ]
+
+    text = render_text_notification(
+        title="AI情报早报 | 2026-04-10 | 北京时间 07:00",
+        generated_at="2026-04-10T07:00:00+08:00",
+        payload=payload,
+        public_site_url="https://wsysgz.github.io/VS_AI/",
+        raw_report_url="https://github.com/wsysgz/VS_AI/blob/main/data/reports/latest-summary.md",
+    )
+
+    assert "国内外对比：" in text
+    assert "embedded：国内 Espressif MCP Server；海外 NVIDIA TensorRT Edge-LLM。" in text

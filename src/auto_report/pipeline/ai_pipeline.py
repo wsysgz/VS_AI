@@ -167,6 +167,7 @@ def _fallback_analysis(candidate: TopicCandidate) -> dict[str, object]:
         ),
         "confidence": "low" if evidence_count <= 1 else "medium",
         "source_count": len(source_ids),
+        "analysis_origin": "fallback",
     }
 
 
@@ -236,7 +237,21 @@ def _analyze_single_candidate(
     parsed.setdefault("title", candidate.title)
     parsed.setdefault("url", candidate.url)
     parsed.setdefault("primary_domain", candidate.primary_domain)
+    parsed["analysis_origin"] = "ai"
     return parsed
+
+
+def _analysis_prompt_inputs(
+    analyses: list[dict[str, object]],
+    low_score_analyses: list[dict[str, object]],
+    minimum_count: int = 3,
+) -> tuple[list[dict[str, object]], bool]:
+    primary = [item for item in analyses if str(item.get("analysis_origin", "ai")).strip() == "ai"]
+    supplemental: list[dict[str, object]] = []
+    if len(primary) < minimum_count:
+        needed = minimum_count - len(primary)
+        supplemental = low_score_analyses[:needed]
+    return primary + supplemental, bool(supplemental)
 
 
 def run_staged_ai_pipeline(
@@ -353,31 +368,38 @@ def run_staged_ai_pipeline(
 
     # 合并高分分析结果和低分 fallback 结果（低分的排在后面）
     all_analyses = analyses + low_score_analyses
+    prompt_analyses, used_fallback_supplement = _analysis_prompt_inputs(analyses, low_score_analyses)
 
     start_stage_span(
         "summary",
         parent_name="dedup_score",
-        metadata={"analysis_count": len(all_analyses)},
+        metadata={"analysis_count": len(prompt_analyses)},
     )
     if ai_enabled and stage_status["analysis"] == "ok":
         try:
-            prompt = _build_summary_prompt(ai_readings["summary"], all_analyses)
+            prompt = _build_summary_prompt(ai_readings["summary"], prompt_analyses)
             summary = _parse_json_block(call_llm(prompt, stage="summary"))
             summary = _unwrap_named_payload(summary, "summary")
             summary = _validate_required_keys(summary, SUMMARY_REQUIRED_KEYS)
             if not _summary_payload_has_cjk(summary):
                 raise ValueError("summary output must contain Chinese text")
+            if used_fallback_supplement:
+                limitations = summary.setdefault("limitations", [])
+                if isinstance(limitations, list):
+                    fallback_note = "本轮部分结论来自低证据 fallback 分析。"
+                    if fallback_note not in limitations:
+                        limitations.append(fallback_note)
             stage_status["summary"] = "ok"
             finish_stage_span(
                 "summary",
-                metadata={"status": "ok", "analysis_count": len(all_analyses)},
+                metadata={"status": "ok", "analysis_count": len(prompt_analyses)},
             )
         except Exception:
             summary = _fallback_summary(all_analyses)
             stage_status["summary"] = "fallback"
             finish_stage_span(
                 "summary",
-                metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+                metadata={"status": "fallback", "analysis_count": len(prompt_analyses)},
                 error="summary fallback",
             )
     else:
@@ -385,17 +407,17 @@ def run_staged_ai_pipeline(
         stage_status["summary"] = "fallback"
         finish_stage_span(
             "summary",
-            metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+            metadata={"status": "fallback", "analysis_count": len(prompt_analyses)},
         )
 
     start_stage_span(
         "forecast",
         parent_name="dedup_score",
-        metadata={"analysis_count": len(all_analyses)},
+        metadata={"analysis_count": len(prompt_analyses)},
     )
     if ai_enabled and stage_status["summary"] == "ok":
         try:
-            prompt = _build_forecast_prompt(ai_readings["forecast"], all_analyses, summary)
+            prompt = _build_forecast_prompt(ai_readings["forecast"], prompt_analyses, summary)
             forecast = _parse_json_block(call_llm(prompt, stage="forecast"))
             forecast = _unwrap_named_payload(forecast, "forecast")
             forecast = _validate_required_keys(forecast, FORECAST_REQUIRED_KEYS)
@@ -404,14 +426,14 @@ def run_staged_ai_pipeline(
             stage_status["forecast"] = "ok"
             finish_stage_span(
                 "forecast",
-                metadata={"status": "ok", "analysis_count": len(all_analyses)},
+                metadata={"status": "ok", "analysis_count": len(prompt_analyses)},
             )
         except Exception:
             forecast = _fallback_forecast(summary)
             stage_status["forecast"] = "fallback"
             finish_stage_span(
                 "forecast",
-                metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+                metadata={"status": "fallback", "analysis_count": len(prompt_analyses)},
                 error="forecast fallback",
             )
     else:
@@ -419,7 +441,7 @@ def run_staged_ai_pipeline(
         stage_status["forecast"] = "fallback"
         finish_stage_span(
             "forecast",
-            metadata={"status": "fallback", "analysis_count": len(all_analyses)},
+            metadata={"status": "fallback", "analysis_count": len(prompt_analyses)},
         )
 
     ai_metrics = get_llm_metrics()

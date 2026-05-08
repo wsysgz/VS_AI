@@ -3,6 +3,10 @@ sources:
     enabled: true
     url: https://huggingface.co/blog/feed.xml
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: huggingface
+    tech_track: frontier-ai
+    comparison_priority: medium
     max_items: 12
   - id: openai-news
     enabled: true
@@ -20,11 +24,19 @@ sources:
     enabled: true
     url: https://deepmind.google/blog/?feed=atom
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: google-deepmind
+    tech_track: frontier-ai
+    comparison_priority: high
     max_items: 8
   - id: meta-ai-blog
     enabled: true
     url: https://about.fb.com/news/category/technology-and-innovation/feed/
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: meta
+    tech_track: frontier-ai
+    comparison_priority: high
     max_items: 6
     stability_tier: stable-feed
     replacement_hint: ""
@@ -42,16 +54,39 @@ sources:
     enabled: true
     url: https://www.microsoft.com/en-us/research/blog/feed/
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: microsoft-research
+    tech_track: frontier-ai
+    comparison_priority: medium
     max_items: 6
     exclude_title_patterns:
       - job
       - hiring
       - career
+  - id: ernie-blog
+    enabled: true
+    url: https://ernie.baidu.com/blog/index.xml
+    category_hint: ai-llm-agent
+    region_scope: cn
+    org_origin: baidu-ernie
+    tech_track: frontier-ai
+    comparison_priority: high
+    max_items: 6
+    include_title_patterns:
+      - ernie
+      - multimodal
+      - image
+      - paddleocr
+      - model
   # --- Phase 3 新增 RSS ---
   - id: arxiv-cs-ai
     enabled: true
     url: https://export.arxiv.org/api/query?search_query=cat:cs.AI&start=0&max_results=10&sortBy=lastUpdatedDate&sortOrder=descending
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: arxiv
+    tech_track: frontier-ai
+    comparison_priority: low
     max_items: 10
     stability_tier: stable-feed
     replacement_hint: ""
@@ -128,6 +163,10 @@ sources:
     enabled: true
     url: https://newsroom.arm.com/news/feed/
     category_hint: ai-x-electronics
+    region_scope: intl
+    org_origin: arm
+    tech_track: compute-infra
+    comparison_priority: high
     max_items: 6
     stability_tier: stable-feed
     replacement_hint: ""

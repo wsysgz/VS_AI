@@ -110,6 +110,10 @@ sources:
     mode: article_listing
     url: https://www.cerebras.ai/blog
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: cerebras
+    tech_track: compute-infra
+    comparison_priority: high
     max_items: 6
     link_selector: "a[href^='/blog/']"
     include_url_patterns:
@@ -133,6 +137,10 @@ sources:
     mode: structured_page
     url: https://groq.com/blog
     category_hint: ai-llm-agent
+    region_scope: intl
+    org_origin: groq
+    tech_track: compute-infra
+    comparison_priority: high
     max_items: 6
     entry_selector: "article"
     title_selector: "h2"
@@ -154,6 +162,45 @@ sources:
     exclude_title_patterns:
       - newsletter
       - event
+  - id: amd-newsroom
+    enabled: true
+    mode: article_listing
+    url: https://www.amd.com/en/newsroom.html
+    category_hint: ai-x-electronics
+    region_scope: intl
+    org_origin: amd
+    tech_track: compute-infra
+    comparison_priority: high
+    max_items: 6
+    stability_tier: verified-listing
+    replacement_hint: Keep the validated AMD newsroom listing unless AMD exposes a stable official feed or JSON endpoint for AI-related press releases.
+    watch_strategy: listing-poll
+    replacement_target: none
+    candidate_kind: validated_listing
+    candidate_value: https://www.amd.com/en/newsroom.html
+    link_selector: "a[href^='/en/newsroom/press-releases/']"
+    include_url_patterns:
+      - /en/newsroom/press-releases/
+    include_title_patterns:
+      - advancing ai
+      - ai
+      - instinct
+      - ryzen
+      - epyc
+      - rocm
+      - vitis
+      - xilinx
+      - adaptive soc
+      - data center
+      - edge
+      - embedded
+    exclude_url_patterns:
+      - "#"
+    exclude_title_patterns:
+      - financial results
+      - annual meeting
+      - stockholders
+      - dividend
   - id: qualcomm-onq
     enabled: true
     mode: json_api

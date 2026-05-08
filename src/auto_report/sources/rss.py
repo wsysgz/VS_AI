@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from urllib.parse import urljoin
 
 import feedparser
 
@@ -19,12 +20,16 @@ def parse_rss_content(
     items: list[CollectedItem] = []
     collected_at = datetime.now(timezone.utc).isoformat()
     rules = source_rules or {}
+    feed_url = str(rules.get("url", "")).strip()
+    feed_home = str(parsed.feed.get("link", "")).strip() if getattr(parsed, "feed", None) else ""
+    base_url = urljoin(feed_url, feed_home) if feed_home else feed_url
 
     selected_entries = parsed.entries[:max_items] if max_items else parsed.entries
 
     for index, entry in enumerate(selected_entries):
         title = entry.get("title", "").strip()
-        url = entry.get("link", "").strip()
+        raw_url = entry.get("link", "").strip()
+        url = urljoin(base_url, raw_url) if base_url else raw_url
         if not title or not url:
             continue
         if not should_keep_candidate(title, url, rules):

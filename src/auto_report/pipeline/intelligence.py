@@ -6,15 +6,21 @@ from collections.abc import Callable
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse
 
 import feedparser
 import requests
 
 from auto_report.models.records import CollectedItem
 from auto_report.settings import load_settings
+from auto_report.sources import collector as collector_module
 from auto_report.sources.rss import parse_rss_content
-from auto_report.sources.websites import extract_listing_items
+from auto_report.sources.websites import (
+    extract_json_items,
+    extract_listing_items,
+    extract_sitemap_items,
+    extract_structured_items,
+)
 
 
 RISK_ORDER = {"low": 0, "medium": 1, "high": 2}
@@ -22,6 +28,7 @@ SOURCE_TYPE_ORDER = {"official": 0, "repo": 1, "paper": 2, "community": 3}
 SUPPORT_SOURCE_TYPES = {"official", "repo", "paper"}
 HIGH_VALUE_ENRICHMENT_MIN_SCORE = 3.0
 EXTERNAL_ENRICHMENT_CIRCUIT_FAILURE_LIMIT = 2
+EXTERNAL_ENRICHMENT_MIN_SCORE = 2.2
 SUPPORT_STOPWORDS = {
     "launch",
     "launches",
@@ -39,6 +46,83 @@ SUPPORT_STOPWORDS = {
     "into",
     "and",
 }
+SUPPORT_GENERIC_TOKENS = {
+    "ai",
+    "agent",
+    "agents",
+    "assistant",
+    "assistants",
+    "application",
+    "applications",
+    "build",
+    "building",
+    "capability",
+    "capabilities",
+    "cloud",
+    "code",
+    "coding",
+    "compute",
+    "delivery",
+    "deployment",
+    "device",
+    "devices",
+    "edge",
+    "feature",
+    "features",
+    "flash",
+    "framework",
+    "frameworks",
+    "inference",
+    "insight",
+    "insights",
+    "launch",
+    "launches",
+    "launched",
+    "local",
+    "model",
+    "models",
+    "module",
+    "modules",
+    "platform",
+    "platforms",
+    "product",
+    "products",
+    "release",
+    "releases",
+    "runtime",
+    "server",
+    "servers",
+    "system",
+    "systems",
+    "tool",
+    "tools",
+    "tooling",
+    "update",
+    "updates",
+    "workflow",
+    "workflows",
+}
+URL_NOISE_TOKENS = {
+    "blog",
+    "blogs",
+    "com",
+    "cn",
+    "docs",
+    "html",
+    "https",
+    "http",
+    "index",
+    "item",
+    "news",
+    "old",
+    "page",
+    "posts",
+    "r",
+    "rss",
+    "www",
+}
+TITLE_PREFIX_PATTERN = re.compile(r"^(?:(?:show|launch)\s+hn|hn)\s*:\s*", re.IGNORECASE)
+SUPPORT_KIND_ORDER = {"direct": 0, "related": 1}
 
 
 def _default_external_enrichment_metrics(enabled: bool, max_signals: int) -> dict[str, object]:
@@ -130,8 +214,8 @@ def _tokenize(text: object) -> set[str]:
 
 
 def _titles_related(left: str, right: str) -> bool:
-    left_clean = str(left or "").strip().lower()
-    right_clean = str(right or "").strip().lower()
+    left_clean = _canonicalize_title(left)
+    right_clean = _canonicalize_title(right)
     if not left_clean or not right_clean:
         return False
     if left_clean == right_clean:
@@ -146,7 +230,14 @@ def _titles_related(left: str, right: str) -> bool:
 
     overlap = len(left_tokens & right_tokens)
     similarity = overlap / max(len(left_tokens), len(right_tokens))
-    return overlap >= 3 and similarity >= 0.5
+    return overlap >= 2 and similarity >= 0.5
+
+
+def _canonicalize_title(text: object) -> str:
+    normalized = str(text or "").strip().lower()
+    normalized = TITLE_PREFIX_PATTERN.sub("", normalized)
+    normalized = re.sub(r"[^\w\u4e00-\u9fff]+", " ", normalized)
+    return " ".join(normalized.split())
 
 
 def _source_type(source_id: str) -> str:
@@ -165,9 +256,53 @@ def _source_type(source_id: str) -> str:
 def _support_tokens(text: object) -> set[str]:
     return {
         token
-        for token in _tokenize(text)
+        for token in _tokenize(_canonicalize_title(text))
         if token not in SUPPORT_STOPWORDS
     }
+
+
+def _distinctive_support_tokens(text: object) -> set[str]:
+    return {
+        token
+        for token in _support_tokens(text)
+        if len(token) >= 3 and token not in SUPPORT_GENERIC_TOKENS
+    }
+
+
+def _url_object_tokens(url: str) -> set[str]:
+    parsed = urlparse(str(url or "").strip())
+    raw = " ".join([parsed.netloc, parsed.path])
+    return {
+        token
+        for token in _tokenize(raw)
+        if token not in URL_NOISE_TOKENS and token not in SUPPORT_STOPWORDS and token not in SUPPORT_GENERIC_TOKENS
+    }
+
+
+def _classify_support_match(
+    signal: dict[str, object],
+    *,
+    title: str,
+    url: str = "",
+    summary: str = "",
+) -> tuple[str, int]:
+    signal_title = str(signal.get("title", "")).strip()
+    if not signal_title or not title:
+        return "", 0
+
+    signal_terms = _distinctive_support_tokens(signal_title) | _url_object_tokens(str(signal.get("url", "")))
+    candidate_title_terms = _distinctive_support_tokens(title)
+    candidate_object_terms = candidate_title_terms | _distinctive_support_tokens(summary) | _url_object_tokens(url)
+    overlap = signal_terms & candidate_object_terms
+    title_related = _titles_related(signal_title, title)
+
+    if title_related:
+        return "direct", max(1, len(overlap))
+    if len(overlap) >= 2:
+        return "direct", len(overlap)
+    if len(overlap) == 1:
+        return "related", 1
+    return "", 0
 
 
 def _collect_support_evidence(signal: dict[str, object], items: list[CollectedItem]) -> list[dict[str, object]]:
@@ -184,9 +319,13 @@ def _collect_support_evidence(signal: dict[str, object], items: list[CollectedIt
         if item.url == signal_url or item.url in seen_urls:
             continue
 
-        item_tokens = _support_tokens(item.title)
-        overlap = len(signal_tokens & item_tokens)
-        if overlap < 2 and not _titles_related(signal_title, item.title):
+        support_kind, overlap = _classify_support_match(
+            signal,
+            title=item.title,
+            url=item.url,
+            summary=item.summary,
+        )
+        if not support_kind:
             continue
 
         evidence = {
@@ -196,9 +335,11 @@ def _collect_support_evidence(signal: dict[str, object], items: list[CollectedIt
             "url": item.url,
             "summary": item.summary.strip(),
             "evidence_scope": "current-run",
+            "support_kind": support_kind,
         }
         candidates.append(
             (
+                SUPPORT_KIND_ORDER.get(support_kind, 99),
                 SOURCE_TYPE_ORDER.get(source_type, 99),
                 -overlap,
                 evidence,
@@ -206,25 +347,34 @@ def _collect_support_evidence(signal: dict[str, object], items: list[CollectedIt
         )
         seen_urls.add(item.url)
 
-    candidates.sort(key=lambda item: (item[0], item[1], item[2]["title"]))
-    return [candidate[2] for candidate in candidates[:3]]
+    candidates.sort(key=lambda item: (item[0], item[1], item[2], item[3]["title"]))
+    return [candidate[3] for candidate in candidates[:5]]
 
 
 def _merge_support_evidence(*buckets: list[dict[str, object]]) -> list[dict[str, object]]:
-    merged: list[dict[str, object]] = []
-    seen_urls: set[str] = set()
+    merged: dict[str, dict[str, object]] = {}
+    order: list[str] = []
     for bucket in buckets:
         for raw_item in bucket:
             if not isinstance(raw_item, dict):
                 continue
             url = str(raw_item.get("url", "")).strip()
-            if not url or url in seen_urls:
+            if not url:
                 continue
             item = dict(raw_item)
             item["evidence_scope"] = str(item.get("evidence_scope", "external")).strip() or "external"
-            merged.append(item)
-            seen_urls.add(url)
-    return merged[:5]
+            item["support_kind"] = str(item.get("support_kind", "related")).strip() or "related"
+            existing = merged.get(url)
+            if existing is None:
+                merged[url] = item
+                order.append(url)
+                continue
+            if (
+                SUPPORT_KIND_ORDER.get(str(item.get("support_kind", "related")), 99)
+                < SUPPORT_KIND_ORDER.get(str(existing.get("support_kind", "related")), 99)
+            ):
+                merged[url] = item
+    return [merged[url] for url in order][:5]
 
 
 def _build_enrichment(source_ids: list[str], support_evidence: list[dict[str, object]] | None = None) -> dict[str, object]:
@@ -234,6 +384,12 @@ def _build_enrichment(source_ids: list[str], support_evidence: list[dict[str, ob
         key=lambda item: SOURCE_TYPE_ORDER.get(item, 99),
     )
     support_evidence = support_evidence or []
+    direct_support = [
+        item for item in support_evidence if str(item.get("support_kind", "related")).strip() == "direct"
+    ]
+    related_context = [
+        item for item in support_evidence if str(item.get("support_kind", "related")).strip() != "direct"
+    ]
     verification_flags: list[str] = []
     if len(normalized_source_ids) >= 2:
         verification_flags.append("cross-source")
@@ -245,9 +401,11 @@ def _build_enrichment(source_ids: list[str], support_evidence: list[dict[str, ob
         verification_flags.append("paper")
     if "community" in source_types:
         verification_flags.append("community")
-    if support_evidence:
-        verification_flags.append("related-support")
-    if any(str(item.get("evidence_scope", "")) == "external" for item in support_evidence):
+    if direct_support:
+        verification_flags.append("direct-support")
+    if related_context:
+        verification_flags.append("related-context")
+    if any(str(item.get("evidence_scope", "")) == "external" for item in direct_support + related_context):
         verification_flags.append("external-support")
 
     labels = {
@@ -259,14 +417,18 @@ def _build_enrichment(source_ids: list[str], support_evidence: list[dict[str, ob
     summary_bits = [f"{len(normalized_source_ids)} source(s)"]
     if source_types:
         summary_bits.append(" / ".join(labels[item] for item in source_types))
-    if support_evidence:
-        summary_bits.append(f"{len(support_evidence)} related support")
+    if direct_support:
+        summary_bits.append(f"{len(direct_support)} direct support")
+    if related_context:
+        summary_bits.append(f"{len(related_context)} related context")
 
     return {
         "cross_source_count": len(normalized_source_ids),
         "source_ids": normalized_source_ids,
         "source_types": source_types,
-        "support_evidence": support_evidence,
+        "support_evidence": direct_support,
+        "direct_support": direct_support,
+        "related_context": related_context,
         "verification_flags": verification_flags,
         "summary": " | ".join(summary_bits),
     }
@@ -296,12 +458,12 @@ def _best_external_evidence(
         summary = str(raw_item.get("summary", "")).strip()
         if not title or not url:
             continue
-        related, overlap = _matching_score(signal, title, summary)
-        if related == 0 and overlap < 2:
+        support_kind, overlap = _classify_support_match(signal, title=title, url=url, summary=summary)
+        if not support_kind:
             continue
         ranked.append(
             (
-                -related,
+                SUPPORT_KIND_ORDER.get(support_kind, 99),
                 -overlap,
                 {
                     "source_id": str(raw_item.get("source_id", source_type)).strip() or source_type,
@@ -310,6 +472,7 @@ def _best_external_evidence(
                     "url": url,
                     "summary": summary,
                     "evidence_scope": "external",
+                    "support_kind": support_kind,
                 },
             )
         )
@@ -362,8 +525,17 @@ def _fetch_external_official_evidence(root_dir: Path, signal: dict[str, object])
         if _source_type(source_id) != "official":
             continue
         try:
-            html = _fetch_text(str(source["url"]))
-            items = extract_listing_items(source, html)[: min(int(source.get("max_items", 6)), 6)]
+            body = collector_module._fetch_source_body(source)
+            mode = str(source.get("mode", "article_listing")).strip() or "article_listing"
+            if mode == "json_api":
+                items = extract_json_items(source, json.loads(body))
+            elif mode == "sitemap":
+                items = extract_sitemap_items(source, body)
+            elif mode == "structured_page":
+                items = extract_structured_items(source, body)
+            else:
+                items = extract_listing_items(source, body)
+            items = items[: min(int(source.get("max_items", 6)), 6)]
         except Exception:
             continue
         candidates.extend(
@@ -544,7 +716,7 @@ def _pick_lifecycle_state(
     previous_lifecycle_state = str(memory.get("previous_lifecycle_state", "")).strip()
     cross_source_count = int(enrichment.get("cross_source_count", 0))
     source_types = set(enrichment.get("source_types", []))
-    support_evidence = enrichment.get("support_evidence", [])
+    direct_support = enrichment.get("direct_support", [])
 
     if days_seen <= 1:
         return "new"
@@ -560,7 +732,7 @@ def _pick_lifecycle_state(
             "official" in source_types
             or "repo" in source_types
             or "paper" in source_types
-            or bool(support_evidence)
+            or bool(direct_support)
             or confidence in {"medium", "high"}
         )
     ):
@@ -578,11 +750,11 @@ def _pick_signal_risk(
 ) -> str:
     score = float(signal.get("score", 0.0))
     cross_source_count = int(enrichment.get("cross_source_count", 0))
-    support_evidence = enrichment.get("support_evidence", [])
+    direct_support = enrichment.get("direct_support", [])
 
     if lifecycle_state == "verified":
         return "low"
-    if support_evidence and confidence == "low" and score >= 3.0:
+    if direct_support and confidence == "low" and score >= 2.2:
         return "medium"
     if confidence == "low" and score >= 3.0 and cross_source_count <= 1:
         return "high"
@@ -605,7 +777,24 @@ def _merge_signal_intelligence(
 ) -> dict[str, object]:
     matches = _match_history(signal, history, current_date=current_date)
     support_evidence = _collect_support_evidence(signal, items)
-    merged_support = _merge_support_evidence(support_evidence, external_support_evidence or [])
+    normalized_external_support: list[dict[str, object]] = []
+    for raw_item in external_support_evidence or []:
+        if not isinstance(raw_item, dict):
+            continue
+        item = dict(raw_item)
+        support_kind = str(item.get("support_kind", "")).strip()
+        if not support_kind:
+            support_kind, _ = _classify_support_match(
+                signal,
+                title=str(item.get("title", "")).strip(),
+                url=str(item.get("url", "")).strip(),
+                summary=str(item.get("summary", "")).strip(),
+            )
+            if not support_kind:
+                continue
+            item["support_kind"] = support_kind
+        normalized_external_support.append(item)
+    merged_support = _merge_support_evidence(support_evidence, normalized_external_support)
     enrichment = _build_enrichment(
         [str(item) for item in signal.get("source_ids", [])],
         support_evidence=merged_support,
@@ -667,24 +856,30 @@ def apply_intelligence_layer(
         max_signals=external_enrichment_max_signals,
     )
     consecutive_external_failures = 0
-    for signal in signals:
+    attempted_titles: list[str] = []
+    eligible_count = 0
+    for index, signal in enumerate(signals):
         title = str(signal.get("title", "")).strip()
         confidence = str(analyses_by_title.get(title, {}).get("confidence", "low")).strip() or "low"
         external_support_evidence: list[dict[str, object]] = []
         score = float(signal.get("score", 0.0))
         if external_enrichment_fetcher:
-            if score < HIGH_VALUE_ENRICHMENT_MIN_SCORE:
+            is_eligible = index < int(external_metrics.get("max_signals", 0)) and score >= EXTERNAL_ENRICHMENT_MIN_SCORE
+            if is_eligible:
+                eligible_count += 1
+            if score < EXTERNAL_ENRICHMENT_MIN_SCORE:
                 external_metrics["skipped"] = int(external_metrics.get("skipped", 0)) + 1
                 _append_external_reason(external_metrics, "below-threshold", title)
+            elif index >= int(external_metrics.get("max_signals", 0)):
+                external_metrics["skipped"] = int(external_metrics.get("skipped", 0)) + 1
+                _append_external_reason(external_metrics, "budget-exhausted", title)
             elif bool(external_metrics.get("circuit_open", False)):
                 external_metrics["skipped"] = int(external_metrics.get("skipped", 0)) + 1
                 _append_external_reason(external_metrics, "circuit-open", title)
-            elif int(external_metrics.get("attempted", 0)) >= int(external_metrics.get("max_signals", 0)):
-                external_metrics["skipped"] = int(external_metrics.get("skipped", 0)) + 1
-                _append_external_reason(external_metrics, "budget-exhausted", title)
             else:
                 external_metrics["attempted"] = int(external_metrics.get("attempted", 0)) + 1
                 external_metrics["budget_used"] = int(external_metrics.get("budget_used", 0)) + 1
+                attempted_titles.append(title)
                 _record_external_source_type_budget(external_metrics)
                 try:
                     external_support_evidence = external_enrichment_fetcher(root_dir, signal)
@@ -726,6 +921,8 @@ def apply_intelligence_layer(
     attempted = int(external_metrics.get("attempted", 0))
     succeeded = int(external_metrics.get("succeeded", 0))
     external_metrics["success_rate"] = round((succeeded / attempted), 2) if attempted else 0.0
+    external_metrics["eligible_count"] = eligible_count
+    external_metrics["attempted_titles"] = attempted_titles
 
     enriched_analyses: list[dict[str, object]] = []
     for analysis in analyses:
@@ -738,6 +935,7 @@ def apply_intelligence_layer(
             enriched_analysis["lifecycle_state"] = signal["lifecycle_state"]
             enriched_analysis["risk_level"] = signal["risk_level"]
             enriched_analysis["support_evidence"] = signal["enrichment"].get("support_evidence", [])
+            enriched_analysis["related_context"] = signal["enrichment"].get("related_context", [])
         else:
             enrichment = _build_enrichment([])
             memory = _build_memory({}, [], current_date=current_date)
@@ -746,6 +944,7 @@ def apply_intelligence_layer(
             enriched_analysis["lifecycle_state"] = "new"
             enriched_analysis["risk_level"] = "low"
             enriched_analysis["support_evidence"] = []
+            enriched_analysis["related_context"] = []
         enriched_analyses.append(enriched_analysis)
 
     lifecycle_counter = Counter(str(item.get("lifecycle_state", "new")) for item in enriched_signals)

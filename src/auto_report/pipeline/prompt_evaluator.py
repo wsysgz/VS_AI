@@ -20,6 +20,12 @@ from auto_report.pipeline.prompt_loader import load_prompt_registry
 
 
 REQUIRED_KEYS = {
+    "analysis": {
+        "facts",
+        "primary_contradiction",
+        "core_insight",
+        "confidence",
+    },
     "summary": {
         "one_line_core",
         "executive_summary",

@@ -192,9 +192,122 @@ def test_apply_intelligence_layer_attaches_related_support_evidence_and_reduces_
     assert support[0]["source_type"] == "official"
     assert support[0]["title"] == "OpenAI launches agent debugger"
     assert support[1]["source_type"] == "repo"
-    assert "related-support" in signal["enrichment"]["verification_flags"]
+    assert "direct-support" in signal["enrichment"]["verification_flags"]
     assert signal["risk_level"] == "medium"
     assert analysis["support_evidence"][0]["url"] == "https://openai.com/news/agent-debugger"
+
+
+def test_apply_intelligence_layer_does_not_promote_loose_related_articles_to_direct_support(tmp_path: Path):
+    result = apply_intelligence_layer(
+        root_dir=tmp_path,
+        signals=[
+            {
+                "title": "Chrome removes claim of On-device AI not sending data to Google Servers",
+                "url": "https://old.reddit.com/r/chrome/comments/example",
+                "summary": "Community discussion about Chrome privacy language changes.",
+                "primary_domain": "ai-llm-agent",
+                "score": 2.5,
+                "evidence_count": 1,
+                "source_ids": ["hacker-news"],
+                "tags": ["privacy", "chrome"],
+            }
+        ],
+        analyses=[
+            {
+                "title": "Chrome removes claim of On-device AI not sending data to Google Servers",
+                "url": "https://old.reddit.com/r/chrome/comments/example",
+                "primary_domain": "ai-llm-agent",
+                "primary_contradiction": "privacy vs product velocity",
+                "core_insight": "Chrome privacy guarantees are becoming less explicit.",
+                "confidence": "low",
+            }
+        ],
+        items=[
+            CollectedItem(
+                source_id="nvidia-embedded",
+                item_id="official-1",
+                title="Bringing AI Closer to the Edge and On-Device with Gemma 4",
+                url="https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+                summary="NVIDIA writes about on-device AI deployment.",
+                published_at="2026-05-08T00:00:00+08:00",
+                collected_at="2026-05-08T00:10:00+08:00",
+                tags=["ai"],
+                language="en",
+                metadata={},
+            ),
+            CollectedItem(
+                source_id="qualcomm-onq",
+                item_id="official-2",
+                title="An ecosystem approach to the future of automotive",
+                url="https://www.qualcomm.com/news/onq/2026/03/ecosystem-approach-to-future-of-automotive",
+                summary="Qualcomm writes about the software-defined vehicle ecosystem.",
+                published_at="2026-05-08T00:00:00+08:00",
+                collected_at="2026-05-08T00:10:00+08:00",
+                tags=["ai"],
+                language="en",
+                metadata={},
+            ),
+        ],
+        diagnostics=[],
+        generated_at="2026-05-08T07:00:00+08:00",
+    )
+
+    signal = result["signals"][0]
+    analysis = result["analyses"][0]
+
+    assert signal["enrichment"]["direct_support"] == []
+    assert analysis["support_evidence"] == []
+    assert signal["risk_level"] == "medium"
+
+
+def test_apply_intelligence_layer_keeps_unrelated_single_overlap_articles_out_of_direct_support(tmp_path: Path):
+    result = apply_intelligence_layer(
+        root_dir=tmp_path,
+        signals=[
+            {
+                "title": "DeepSeek 4 Flash local inference engine for Metal",
+                "url": "https://github.com/antirez/ds4",
+                "summary": "Local inference engine optimized for DeepSeek 4 Flash.",
+                "primary_domain": "ai-llm-agent",
+                "score": 2.5,
+                "evidence_count": 1,
+                "source_ids": ["hacker-news"],
+                "tags": ["deepseek", "inference"],
+            }
+        ],
+        analyses=[
+            {
+                "title": "DeepSeek 4 Flash local inference engine for Metal",
+                "url": "https://github.com/antirez/ds4",
+                "primary_domain": "ai-llm-agent",
+                "primary_contradiction": "specialized runtime vs general framework",
+                "core_insight": "Purpose-built inference runtimes are resurfacing.",
+                "confidence": "low",
+            }
+        ],
+        items=[
+            CollectedItem(
+                source_id="espressif-blog",
+                item_id="official-1",
+                title="ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
+                url="https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
+                summary="Espressif ships a local MCP server for ESP-IDF tooling.",
+                published_at="2026-05-08T00:00:00+08:00",
+                collected_at="2026-05-08T00:10:00+08:00",
+                tags=["ai"],
+                language="en",
+                metadata={},
+            )
+        ],
+        diagnostics=[],
+        generated_at="2026-05-08T07:00:00+08:00",
+    )
+
+    signal = result["signals"][0]
+
+    assert signal["enrichment"]["direct_support"] == []
+    assert signal["enrichment"]["support_evidence"] == []
+    assert signal["risk_level"] == "medium"
 
 
 def test_apply_intelligence_layer_adds_external_support_evidence_only_for_high_value_topics(tmp_path: Path):
@@ -263,6 +376,67 @@ def test_apply_intelligence_layer_adds_external_support_evidence_only_for_high_v
     assert "external-support" in result["signals"][0]["enrichment"]["verification_flags"]
     assert result["analyses"][0]["support_evidence"][0]["url"] == "https://arxiv.org/abs/2604.12345"
     assert result["signals"][1]["enrichment"]["support_evidence"] == []
+
+
+def test_apply_intelligence_layer_attempts_external_enrichment_for_top_mid_score_topics(tmp_path: Path):
+    fetched_titles: list[str] = []
+
+    def fake_external_fetcher(root_dir: Path, signal: dict[str, object]) -> list[dict[str, object]]:
+        fetched_titles.append(str(signal.get("title", "")))
+        return []
+
+    result = apply_intelligence_layer(
+        root_dir=tmp_path,
+        signals=[
+            {
+                "title": "Topic A",
+                "url": "https://example.com/a",
+                "summary": "High-interest topic A",
+                "primary_domain": "ai-llm-agent",
+                "score": 2.5,
+                "evidence_count": 1,
+                "source_ids": ["hacker-news"],
+                "tags": ["agent"],
+            },
+            {
+                "title": "Topic B",
+                "url": "https://example.com/b",
+                "summary": "High-interest topic B",
+                "primary_domain": "ai-llm-agent",
+                "score": 2.5,
+                "evidence_count": 1,
+                "source_ids": ["hacker-news"],
+                "tags": ["agent"],
+            },
+            {
+                "title": "Topic C",
+                "url": "https://example.com/c",
+                "summary": "Low-interest topic C",
+                "primary_domain": "ai-llm-agent",
+                "score": 2.1,
+                "evidence_count": 1,
+                "source_ids": ["hacker-news"],
+                "tags": ["agent"],
+            },
+        ],
+        analyses=[
+            {"title": "Topic A", "url": "https://example.com/a", "primary_domain": "ai-llm-agent", "confidence": "low"},
+            {"title": "Topic B", "url": "https://example.com/b", "primary_domain": "ai-llm-agent", "confidence": "low"},
+            {"title": "Topic C", "url": "https://example.com/c", "primary_domain": "ai-llm-agent", "confidence": "low"},
+        ],
+        diagnostics=[],
+        generated_at="2026-04-12T07:00:00+08:00",
+        external_enrichment_fetcher=fake_external_fetcher,
+        external_enrichment_max_signals=2,
+    )
+
+    metrics = result["external_enrichment"]
+
+    assert fetched_titles == ["Topic A", "Topic B"]
+    assert metrics["eligible_count"] == 2
+    assert metrics["attempted"] == 2
+    assert metrics["attempted_titles"] == ["Topic A", "Topic B"]
+    assert "below-threshold: Topic C" in metrics["reasons"]
 
 
 def test_apply_intelligence_layer_limits_external_enrichment_attempts_to_top_n_high_value_topics(tmp_path: Path):

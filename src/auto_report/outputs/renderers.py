@@ -65,6 +65,11 @@ def _comparison_markdown_lines(brief: dict[str, object]) -> list[str]:
     comparison = brief.get("comparison_brief", {})
     if not isinstance(comparison, dict):
         comparison = {}
+    track_snapshots = "\n".join(
+        f"- {item.get('readout')}"
+        for item in comparison.get("track_snapshots", [])
+        if isinstance(item, dict) and str(item.get("readout", "")).strip()
+    ) or "- 暂无"
     head_to_head = "\n".join(
         f"- {item.get('readout')}"
         for item in comparison.get("head_to_head", [])
@@ -80,6 +85,9 @@ def _comparison_markdown_lines(brief: dict[str, object]) -> list[str]:
         "### 海外高亮信号",
         "\n".join(_comparison_highlight_lines(comparison.get("intl_highlights", []))) or "- 暂无",
         "",
+        "### 赛道快照",
+        track_snapshots,
+        "",
         "### 同轨对照",
         head_to_head,
         "",
@@ -92,7 +100,7 @@ def _comparison_markdown_lines(brief: dict[str, object]) -> list[str]:
 
 
 def _comparison_delivery_lines(brief: dict[str, object]) -> list[str]:
-    items = brief.get("comparison_head_to_head", [])
+    items = brief.get("comparison_head_to_head", []) or brief.get("comparison_track_snapshots", [])
     if not isinstance(items, list):
         return []
     lines = [str(item).strip() for item in items if str(item).strip()]

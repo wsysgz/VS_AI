@@ -77,6 +77,7 @@ def _comparison_empty() -> dict[str, list[object]]:
     return {
         "cn_highlights": [],
         "intl_highlights": [],
+        "track_snapshots": [],
         "head_to_head": [],
         "gaps": [],
         "watchpoints": [],
@@ -140,6 +141,32 @@ def _comparison_head_to_head(value: object) -> list[dict[str, object]]:
     return rows
 
 
+def _comparison_track_snapshots(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        return []
+    rows: list[dict[str, object]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        tech_track = str(item.get("tech_track", "")).strip()
+        cn_title = str(item.get("cn_title", "")).strip()
+        intl_title = str(item.get("intl_title", "")).strip()
+        readout = str(item.get("readout", "")).strip()
+        if not readout and tech_track and (cn_title or intl_title):
+            readout = f"{tech_track}：国内 {cn_title or '暂无'}；海外 {intl_title or '暂无'}。"
+        if not readout:
+            continue
+        rows.append(
+            {
+                "tech_track": tech_track,
+                "cn_title": cn_title,
+                "intl_title": intl_title,
+                "readout": readout,
+            }
+        )
+    return rows
+
+
 def _build_comparison_brief(payload: dict[str, object]) -> dict[str, object]:
     raw = payload.get("comparison_brief", {})
     if not isinstance(raw, dict):
@@ -147,6 +174,7 @@ def _build_comparison_brief(payload: dict[str, object]) -> dict[str, object]:
     return {
         "cn_highlights": _comparison_highlights(raw.get("cn_highlights", [])),
         "intl_highlights": _comparison_highlights(raw.get("intl_highlights", [])),
+        "track_snapshots": _comparison_track_snapshots(raw.get("track_snapshots", [])),
         "head_to_head": _comparison_head_to_head(raw.get("head_to_head", [])),
         "gaps": _string_list(raw.get("gaps", [])),
         "watchpoints": _string_list(raw.get("watchpoints", [])),
@@ -186,6 +214,11 @@ def compose_executive_brief(
         "action_note": actions[0] if actions else "",
         "risk_level": str(payload.get("risk_level", "low")).strip() or "low",
         "comparison_brief": comparison_brief,
+        "comparison_track_snapshots": [
+            str(item.get("readout", "")).strip()
+            for item in comparison_brief["track_snapshots"][:2]
+            if str(item.get("readout", "")).strip()
+        ],
         "comparison_head_to_head": [
             str(item.get("readout", "")).strip()
             for item in comparison_brief["head_to_head"][:2]

@@ -75,7 +75,9 @@ def _default_external_enrichment_status() -> dict[str, object]:
     return {
         "enabled": False,
         "max_signals": 0,
+        "eligible_count": 0,
         "attempted": 0,
+        "attempted_titles": [],
         "succeeded": 0,
         "failed": 0,
         "skipped": 0,

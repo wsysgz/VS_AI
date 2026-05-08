@@ -6,6 +6,33 @@
   },
   "cases": [
     {
+      "id": "analysis-baseline-case",
+      "stage": "analysis",
+      "reference": {
+        "facts": [
+          "Chrome previously claimed on-device AI features would not send data to Google servers."
+        ],
+        "primary_contradiction": "用户对本地隐私的预期与平台对数据驱动 AI 能力迭代的商业需求之间的矛盾。",
+        "core_insight": "隐私承诺被移除本身就是高价值信号，说明“端侧”表述正在从明确承诺退回到模糊空间。",
+        "confidence": "medium"
+      },
+      "outputs": [
+        {
+          "prompt_id": "analysis-v8-baseline",
+          "version": "2026-05-08",
+          "model": "offline-dataset",
+          "content": {
+            "facts": [
+              "Chrome previously claimed on-device AI features would not send data to Google servers."
+            ],
+            "primary_contradiction": "用户对本地隐私的预期与平台对数据驱动 AI 能力迭代的商业需求之间的矛盾。",
+            "core_insight": "隐私承诺被移除本身就是高价值信号，说明“端侧”表述正在从明确承诺退回到模糊空间。",
+            "confidence": "medium"
+          }
+        }
+      ]
+    },
+    {
       "id": "summary-baseline-case",
       "stage": "summary",
       "reference": {
@@ -63,6 +90,61 @@
             ],
             "actions": [
               "继续跟踪 workflow 与通知模板的稳定性。"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "summary-fallback-contamination-case",
+      "stage": "summary",
+      "reference": {
+        "one_line_core": "摘要应优先围绕高证据主题收敛，而不是被低证据 fallback 主题带偏。",
+        "executive_summary": [
+          "综合摘要只引用深度分析主题；低证据 fallback 主题仅在必要时补位。",
+          "如果发生补位，limitations 必须显式说明。"
+        ],
+        "key_points": [
+          {
+            "title": "摘要主输入收窄",
+            "why_it_matters": "降低低证据 fallback 主题污染主判断的风险"
+          }
+        ],
+        "key_insights": [
+          "summary prompt 的输入边界本身就是分析质量控制的一部分。"
+        ],
+        "limitations": [
+          "本轮部分结论来自低证据 fallback 分析。"
+        ],
+        "actions": [
+          "继续优先提升深度分析覆盖率，而不是扩大 fallback 主题曝光。"
+        ]
+      },
+      "outputs": [
+        {
+          "prompt_id": "summary-v8-baseline",
+          "version": "2026-05-08",
+          "model": "offline-dataset",
+          "content": {
+            "one_line_core": "摘要应优先围绕高证据主题收敛，而不是被低证据 fallback 主题带偏。",
+            "executive_summary": [
+              "综合摘要只引用深度分析主题；低证据 fallback 主题仅在必要时补位。",
+              "如果发生补位，limitations 必须显式说明。"
+            ],
+            "key_points": [
+              {
+                "title": "摘要主输入收窄",
+                "why_it_matters": "降低低证据 fallback 主题污染主判断的风险"
+              }
+            ],
+            "key_insights": [
+              "summary prompt 的输入边界本身就是分析质量控制的一部分。"
+            ],
+            "limitations": [
+              "本轮部分结论来自低证据 fallback 分析。"
+            ],
+            "actions": [
+              "继续优先提升深度分析覆盖率，而不是扩大 fallback 主题曝光。"
             ]
           }
         }

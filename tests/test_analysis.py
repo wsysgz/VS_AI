@@ -137,6 +137,92 @@ def test_build_report_package_adds_p3c_comparison_brief(monkeypatch):
     assert "frontier-ai" in comparison["watchpoints"][0]
 
 
+def test_build_report_package_keeps_same_track_but_unrelated_signals_out_of_head_to_head(monkeypatch):
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
+
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.load_ai_readings",
+        lambda root_dir: {"analysis": "a", "summary": "s", "forecast": "f"},
+    )
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.run_staged_ai_pipeline",
+        lambda **kwargs: {
+            "analyses": [
+                {
+                    "title": "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+                    "url": "https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+                    "primary_domain": "ai-x-electronics",
+                    "confidence": "medium",
+                    "core_insight": "Embedded vendor ships MCP tooling.",
+                },
+                {
+                    "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+                    "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+                    "primary_domain": "ai-x-electronics",
+                    "confidence": "medium",
+                    "core_insight": "NVIDIA expands robotics inference tooling.",
+                },
+            ],
+            "summary": {
+                "one_line_core": "中外 embedded 赛道都在推进边缘 AI 基础设施，但事件并不相同。",
+                "executive_summary": [],
+                "key_points": [],
+                "key_insights": [],
+                "limitations": [],
+                "actions": [],
+            },
+            "forecast": {"forecast_conclusion": "watch"},
+            "stage_status": {"analysis": "ok", "summary": "ok", "forecast": "ok"},
+        },
+    )
+    monkeypatch.setattr(
+        "auto_report.pipeline.analysis.apply_intelligence_layer",
+        lambda **kwargs: {
+            "signals": kwargs["signals"],
+            "analyses": kwargs["analyses"],
+            "mainline_memory": [],
+            "lifecycle_summary": {"new": 2, "rising": 0, "verified": 0, "fading": 0},
+            "risk_level": "medium",
+        },
+    )
+
+    settings = load_settings(Path.cwd())
+    items = [
+        CollectedItem(
+            source_id="espressif-blog",
+            item_id="esp-1",
+            title="Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs",
+            url="https://developer.espressif.com/blog/2026/04/doc-mcp-server/",
+            summary="Espressif publishes MCP documentation tooling.",
+            published_at="2026-04-09T00:00:00+00:00",
+            collected_at="2026-04-09T01:00:00+00:00",
+            tags=["esp32", "mcp"],
+            language="en",
+            metadata={},
+        ),
+        CollectedItem(
+            source_id="nvidia-embedded",
+            item_id="nv-1",
+            title="Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            url="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            summary="NVIDIA pushes robotics inference optimization.",
+            published_at="2026-04-09T00:10:00+00:00",
+            collected_at="2026-04-09T01:10:00+00:00",
+            tags=["robotics", "inference"],
+            language="en",
+            metadata={},
+        ),
+    ]
+
+    package = build_report_package(settings, items, diagnostics=[])
+
+    comparison = package.summary_payload["comparison_brief"]
+    assert comparison["head_to_head"] == []
+    assert comparison["track_snapshots"][0]["tech_track"] == "embedded"
+    assert comparison["track_snapshots"][0]["cn_title"] == "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs"
+    assert comparison["track_snapshots"][0]["intl_title"] == "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM"
+
+
 def test_build_report_package_enables_ai_for_openai_provider(monkeypatch):
     monkeypatch.setenv("AI_PROVIDER", "openai")
     monkeypatch.setenv("OPENAI_API_KEY", "openai-test-key")

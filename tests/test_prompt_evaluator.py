@@ -19,6 +19,29 @@ def test_evaluate_prompt_dataset_outputs_stage_prompt_model_metrics(tmp_path: Pa
             {
                 "cases": [
                     {
+                        "id": "analysis-case",
+                        "stage": "analysis",
+                        "reference": {
+                            "facts": ["A"],
+                            "primary_contradiction": "A vs B",
+                            "core_insight": "Insight",
+                            "confidence": "medium",
+                        },
+                        "outputs": [
+                            {
+                                "prompt_id": "analysis-v1",
+                                "version": "v1",
+                                "model": "offline-dataset",
+                                "content": {
+                                    "facts": ["A"],
+                                    "primary_contradiction": "A vs B",
+                                    "core_insight": "Insight",
+                                    "confidence": "medium",
+                                },
+                            }
+                        ],
+                    },
+                    {
                         "id": "summary-case",
                         "stage": "summary",
                         "reference": {
@@ -104,6 +127,33 @@ def test_evaluate_prompt_dataset_outputs_stage_prompt_model_metrics(tmp_path: Pa
                             }
                         ],
                     },
+                    {
+                        "id": "summary-fallback-contamination-case",
+                        "stage": "summary",
+                        "reference": {
+                            "one_line_core": "核心判断聚焦高证据主题。",
+                            "executive_summary": ["高证据主题进入摘要。"],
+                            "key_points": [{"title": "高证据主题", "why_it_matters": "结论不被低证据 fallback 污染"}],
+                            "key_insights": ["摘要优先使用深度分析主题。"],
+                            "limitations": ["本轮部分结论来自低证据 fallback 分析。"],
+                            "actions": ["继续跟踪高证据主题。"],
+                        },
+                        "outputs": [
+                            {
+                                "prompt_id": "summary-v8",
+                                "version": "v8",
+                                "model": "offline-dataset",
+                                "content": {
+                                    "one_line_core": "核心判断聚焦高证据主题。",
+                                    "executive_summary": ["高证据主题进入摘要。"],
+                                    "key_points": [{"title": "高证据主题", "why_it_matters": "结论不被低证据 fallback 污染"}],
+                                    "key_insights": ["摘要优先使用深度分析主题。"],
+                                    "limitations": ["本轮部分结论来自低证据 fallback 分析。"],
+                                    "actions": ["继续跟踪高证据主题。"],
+                                },
+                            }
+                        ],
+                    },
                 ]
             },
             ensure_ascii=False,
@@ -118,8 +168,8 @@ def test_evaluate_prompt_dataset_outputs_stage_prompt_model_metrics(tmp_path: Pa
     assert output_path.parent.name == "evals"
     assert payload["dataset_path"].endswith("dataset.json")
     assert payload["dataset_meta"] == {}
-    assert payload["summary"]["case_count"] == 3
-    assert payload["leaderboard"][0]["stage"] in {"summary", "forecast", "domain_briefs"}
+    assert payload["summary"]["case_count"] == 5
+    assert payload["leaderboard"][0]["stage"] in {"analysis", "summary", "forecast", "domain_briefs"}
     assert payload["leaderboard"][0]["model"] == "offline-dataset"
     assert "overall_score_avg" in payload["leaderboard"][0]["metrics"]
     assert payload["leaderboard"][0]["prompt_id"]

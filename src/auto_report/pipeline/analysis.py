@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import re
 
 from auto_report.domains.classifier import classify_topic
 from auto_report.integrations.llm_client import is_llm_enabled
@@ -16,6 +17,34 @@ from auto_report.source_registry import build_source_registry
 
 
 RISK_ORDER = {"low": 0, "medium": 1, "high": 2}
+COMPARISON_STOPWORDS = {
+    "a",
+    "ai",
+    "and",
+    "announces",
+    "announcing",
+    "build",
+    "building",
+    "capabilities",
+    "delivery",
+    "for",
+    "from",
+    "in",
+    "launch",
+    "launches",
+    "launched",
+    "llm",
+    "new",
+    "of",
+    "on",
+    "release",
+    "runtime",
+    "the",
+    "to",
+    "update",
+    "vlm",
+    "with",
+}
 
 
 @dataclass(slots=True)
@@ -76,6 +105,28 @@ def _comparison_source_ids(signal: dict[str, object]) -> list[str]:
     if not isinstance(source_ids, list):
         return []
     return [str(source_id).strip() for source_id in source_ids if str(source_id).strip()]
+
+
+def _comparison_terms(*parts: object) -> set[str]:
+    text = " ".join(str(part or "") for part in parts).lower()
+    return {
+        token
+        for token in re.findall(r"[\w\u4e00-\u9fff]+", text)
+        if len(token) >= 2 and token not in COMPARISON_STOPWORDS
+    }
+
+
+def _comparison_items_match(left: dict[str, object], right: dict[str, object]) -> bool:
+    left_title = str(left.get("title", "")).strip().lower()
+    right_title = str(right.get("title", "")).strip().lower()
+    if not left_title or not right_title:
+        return False
+    if left_title == right_title or left_title in right_title or right_title in left_title:
+        return True
+
+    left_terms = _comparison_terms(left.get("title", ""), left.get("summary", ""))
+    right_terms = _comparison_terms(right.get("title", ""), right.get("summary", ""))
+    return len(left_terms & right_terms) >= 2
 
 
 def _comparison_signal_rows(
@@ -150,13 +201,16 @@ def _build_comparison_brief(
     cn_tracks = set(rows["cn"])
     intl_tracks = set(rows["intl"])
     head_to_head: list[dict[str, object]] = []
+    track_snapshots: list[dict[str, object]] = []
 
     for track in sorted(cn_tracks & intl_tracks):
-        cn_item = _sorted_comparison_items(rows["cn"][track])[0]
-        intl_item = _sorted_comparison_items(rows["intl"][track])[0]
+        cn_items = _sorted_comparison_items(rows["cn"][track])
+        intl_items = _sorted_comparison_items(rows["intl"][track])
+        cn_item = cn_items[0]
+        intl_item = intl_items[0]
         cn_title = str(cn_item.get("title", ""))
         intl_title = str(intl_item.get("title", ""))
-        head_to_head.append(
+        track_snapshots.append(
             {
                 "tech_track": track,
                 "cn_title": cn_title,
@@ -166,6 +220,27 @@ def _build_comparison_brief(
                 "readout": f"{track}：国内 {cn_title}；海外 {intl_title}。",
             }
         )
+        for candidate_cn in cn_items[:3]:
+            matched = next(
+                (candidate_intl for candidate_intl in intl_items[:3] if _comparison_items_match(candidate_cn, candidate_intl)),
+                None,
+            )
+            if matched is None:
+                continue
+            head_to_head.append(
+                {
+                    "tech_track": track,
+                    "cn_title": str(candidate_cn.get("title", "")),
+                    "intl_title": str(matched.get("title", "")),
+                    "cn_source_ids": candidate_cn.get("source_ids", []),
+                    "intl_source_ids": matched.get("source_ids", []),
+                    "readout": (
+                        f"{track}：国内 {str(candidate_cn.get('title', ''))}；"
+                        f"海外 {str(matched.get('title', ''))}。"
+                    ),
+                }
+            )
+            break
 
     gaps = [
         f"{track}：仅看到国内信号，需补齐海外来源。"
@@ -179,12 +254,18 @@ def _build_comparison_brief(
         f"继续跟踪 {item['tech_track']} 的国内外同轨发布、生态采用与真实交付反馈。"
         for item in head_to_head[:3]
     ]
+    if not watchpoints and track_snapshots:
+        watchpoints = [
+            f"继续跟踪 {item['tech_track']} 赛道的国内外代表信号，但不要把它们直接解读成同一事件。"
+            for item in track_snapshots[:3]
+        ]
     if not watchpoints and gaps:
         watchpoints = ["优先补齐单侧覆盖赛道的对侧来源，再做趋势判断。"]
 
     return {
         "cn_highlights": _flatten_comparison_region(rows["cn"]),
         "intl_highlights": _flatten_comparison_region(rows["intl"]),
+        "track_snapshots": track_snapshots,
         "head_to_head": head_to_head,
         "gaps": gaps,
         "watchpoints": watchpoints,

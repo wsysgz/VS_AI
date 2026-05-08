@@ -149,6 +149,34 @@ def test_build_source_registry_marks_anthropic_news_as_validated_listing():
     assert registry["anthropic-news"]["candidate_value"] == "https://www.anthropic.com/news"
 
 
+def test_build_source_registry_includes_new_official_amd_and_ernie_sources():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    assert registry["amd-newsroom"]["collector"] == "websites"
+    assert registry["amd-newsroom"]["enabled"] is True
+    assert registry["amd-newsroom"]["mode"] == "article_listing"
+    assert registry["amd-newsroom"]["stability_tier"] == "verified-listing"
+    assert registry["amd-newsroom"]["watch_strategy"] == "listing-poll"
+    assert registry["amd-newsroom"]["candidate_kind"] == "validated_listing"
+    assert registry["amd-newsroom"]["region_scope"] == "intl"
+    assert registry["amd-newsroom"]["org_origin"] == "amd"
+    assert registry["amd-newsroom"]["tech_track"] == "compute-infra"
+    assert registry["amd-newsroom"]["comparison_priority"] == "high"
+
+    assert registry["ernie-blog"]["collector"] == "rss"
+    assert registry["ernie-blog"]["enabled"] is True
+    assert registry["ernie-blog"]["mode"] == "rss_feed"
+    assert registry["ernie-blog"]["stability_tier"] == "stable-feed"
+    assert registry["ernie-blog"]["watch_strategy"] == "feed-poll"
+    assert registry["ernie-blog"]["candidate_kind"] == "none"
+    assert registry["ernie-blog"]["region_scope"] == "cn"
+    assert registry["ernie-blog"]["org_origin"] == "baidu-ernie"
+    assert registry["ernie-blog"]["tech_track"] == "frontier-ai"
+    assert registry["ernie-blog"]["comparison_priority"] == "high"
+
+
 def test_build_source_registry_suppresses_known_noisy_sources_until_stable_entry_points_return():
     settings = load_settings(Path.cwd())
 
@@ -210,7 +238,10 @@ def test_build_source_registry_exposes_p3c_comparison_labels():
 
     expected = {
         "cambricon-dev-news": ("cn", "cambricon", "compute-infra", "high"),
+        "google-deepmind-blog": ("intl", "google-deepmind", "frontier-ai", "high"),
         "horizon-product-news": ("cn", "horizon", "embedded", "high"),
+        "ernie-blog": ("cn", "baidu-ernie", "frontier-ai", "high"),
+        "amd-newsroom": ("intl", "amd", "compute-infra", "high"),
         "openai-news": ("intl", "openai", "frontier-ai", "high"),
         "qwen-blog": ("cn", "alibaba-qwen", "frontier-ai", "high"),
         "rockchip-news": ("cn", "rockchip", "embedded", "high"),
@@ -229,6 +260,20 @@ def test_build_source_registry_exposes_p3c_comparison_labels():
 
     tracks = {str(item.get("tech_track", "")) for item in registry.values()}
     assert {"frontier-ai", "fpga", "embedded", "personal-hpc", "compute-infra"} <= tracks
+
+
+def test_build_source_registry_assigns_comparison_metadata_to_enabled_sources():
+    settings = load_settings(Path.cwd())
+
+    registry = build_source_registry(settings)
+
+    for source_id, item in registry.items():
+        if source_id == "hacker_news" or not item["enabled"]:
+            continue
+        assert item["region_scope"], source_id
+        assert item["org_origin"], source_id
+        assert item["tech_track"], source_id
+        assert item["comparison_priority"], source_id
 
 
 def test_build_source_registry_marks_new_domestic_listing_sources_as_validated():

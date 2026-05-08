@@ -138,8 +138,10 @@ def test_compose_executive_brief_degrades_gracefully_with_sparse_payload():
     assert brief["comparison_brief"] == {
         "cn_highlights": [],
         "intl_highlights": [],
+        "track_snapshots": [],
         "head_to_head": [],
         "gaps": [],
         "watchpoints": [],
     }
+    assert brief["comparison_track_snapshots"] == []
     assert brief["comparison_head_to_head"] == []
