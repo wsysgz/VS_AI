@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T20:28:08.062393+08:00",
+  "generated_at": "2026-05-09T08:23:44.398351+08:00",
   "generated_files": [
     "data/reports/latest-summary.md",
     "data/reports/latest-summary.json",
@@ -7,39 +7,74 @@
     "data/reports/latest-summary-auto.md",
     "data/reports/latest-summary-auto.json",
     "data/reports/latest-summary-auto.html",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary.md",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary.json",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary.html",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary-auto.md",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary-auto.json",
-    "data/archives/2026-05-08/2026-05-08T20-28-08.062393+08-00-summary-auto.html",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary.md",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary.json",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary.html",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary-auto.md",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary-auto.json",
+    "data/archives/2026-05-09/2026-05-09T08-23-44.398351+08-00-summary-auto.html",
     "data/state/dedup-index.json",
     "data/reports/latest-ai-llm-agent.md",
     "data/reports/latest-ai-x-electronics.md"
   ],
-  "pushed": false,
-  "push_channel": "",
+  "pushed": true,
+  "push_channel": "feishu",
   "publication_mode": "auto",
-  "push_response": {},
+  "push_response": {
+    "feishu": {
+      "ok": true,
+      "messages_sent": 1,
+      "message_ids": [
+        "om_x100b50d3b66bf0acc2ae5e739909d0b"
+      ],
+      "description": "success",
+      "delivery_kind": "card_success"
+    }
+  },
   "delivery_results": {
     "channels": {
       "feishu": {
         "name": "feishu",
         "configured": true,
-        "attempted": false,
-        "ok": false,
-        "status": "skipped",
-        "detail": "configured",
-        "response": null,
+        "attempted": true,
+        "ok": true,
+        "status": "ok",
+        "detail": "success",
+        "response": [
+          {
+            "code": 0,
+            "data": {
+              "body": {
+                "content": "{\"title\":\"AI情报飞书简报 | 2026-05-09 | 北京时间 07:00\",\"elements\":[[{\"tag\":\"text\",\"text\":\"生成时间\"},{\"tag\":\"text\",\"text\":\"\\n2026-05-09T08:23:44.398351+08:00\\n\\n\"},{\"tag\":\"text\",\"text\":\"今日判断\"},{\"tag\":\"text\",\"text\":\"\\n智能体规模化部署正在暴露“单点安全”与“网络涌现风险”之间的断层，从芯片供应链到评估方法论都需要全新的系统级应对。\"}],[{\"tag\":\"text\",\"text\":\"执行摘要\"},{\"tag\":\"text\",\"text\":\"\\n- Meta 引入 AWS Graviton 大规模 CPU 算力，试图在自研芯片成熟前构建成本可控、供应多元的 agentic AI 推理基座，降低对 NVIDIA 的依赖。\\n- 微软研究院通过红队测试发现，单个 AI 智能体的安全无法保证多智能体网络的安全，交互会涌现出无法从个体层面预测的系统性风险。\"},{\"tag\":\"text\",\"text\":\"关键主线\"},{\"tag\":\"text\",\"text\":\"\\n- 芯片供应链多元化成为 agentic AI 推理的必选项：爆发式增长的低延迟推理需求与高价 GPU 的供给瓶颈正促使头部玩家引入非 GPU 路径，影响算力格局和供应链安全。\\n- 多智能体组网产生了“个体安全，网络脆弱”的新风险层：实际部署中 AI 智能体的交互会涌现出不可预测的故障模式，传统的单点测试无法覆盖这些网络级风险，需要引入网络层级的红队。\\n- LLM 安全评分无法做到“一份排名走天下”：安全的结论依赖于语言、行业、法规和风险度量方法，脱离评估背景的排行榜可能产生误导，强调情境化报告比简单排名更重要。\"}],[{\"tag\":\"text\",\"text\":\"国内外对比\"},{\"tag\":\"text\",\"text\":\"\\n- compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Figma - MultiAgents。\\n- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 When No Benchmark Exists: Validating Comparative LLM Safety Scoring Without Ground-Truth Labels。\"}],[{\"tag\":\"text\",\"text\":\"局限与提醒\"},{\"tag\":\"text\",\"text\":\"\\n- Meta 与 AWS 的合作细节（如具体代理工作负载、性能对比数据）尚未充分披露，实际效果待观察。\"}],[{\"tag\":\"text\",\"text\":\"行动建议\"},{\"tag\":\"text\",\"text\":\"\\n- 决策者应立即评估内部智能体平台的芯片供应风险，并将非 GPU 推理方案纳入 6-12 个月的路线图备选。\\n- 安全团队需补充多智能体网络层的红队测试能力，并在每次系统扩展或新增智能体时执行网络级压力测试。\"}],[{\"tag\":\"button\",\"text\":\"公开阅读\",\"type\":\"primary\"},{\"tag\":\"button\",\"text\":\"GitHub 原文\",\"type\":\"default\"}]]}"
+              },
+              "chat_id": "oc_1e327a2c66bc7eca3fe914414117c13c",
+              "create_time": "1778286474773",
+              "deleted": false,
+              "message_id": "om_x100b50d3b66bf0acc2ae5e739909d0b",
+              "msg_type": "interactive",
+              "sender": {
+                "id": "cli_a953a33ee3b99cce",
+                "id_type": "app_id",
+                "sender_type": "app",
+                "tenant_key": "1a4d8a64161ddb94"
+              },
+              "update_time": "1778286474773",
+              "updated": false
+            },
+            "msg": "success",
+            "delivery_kind": "card_success"
+          }
+        ],
         "error_type": null,
-        "attempted_at": null
+        "attempted_at": "2026-05-09T00:27:52+00:00",
+        "delivery_kind": "card_success"
       }
     },
-    "successful_channels": [],
-    "failed_channels": [],
-    "skipped_channels": [
+    "successful_channels": [
       "feishu"
-    ]
+    ],
+    "failed_channels": [],
+    "skipped_channels": []
   },
   "stage_status": {
     "analysis": "ok",
@@ -47,8 +82,8 @@
     "forecast": "ok"
   },
   "source_stats": {
-    "collected_items": 202,
-    "report_topics": 202
+    "collected_items": 200,
+    "report_topics": 200
   },
   "risk_level": "medium",
   "external_enrichment": {
@@ -57,17 +92,12 @@
     "attempted": 2,
     "succeeded": 2,
     "failed": 0,
-    "skipped": 200,
+    "skipped": 198,
     "budget_used": 2,
     "success_rate": 1.0,
     "circuit_open": false,
     "reasons": [
-      "budget-exhausted: Chrome removes claim of On-device Al not sending data to Google Servers",
-      "budget-exhausted: Agents need control flow, not more prompts",
-      "budget-exhausted: DeepSeek 4 Flash local inference engine for Metal",
-      "budget-exhausted: AlphaEvolve: Gemini-powered coding agent scaling impact across fields",
-      "budget-exhausted: Making LLM Training Faster with Unsloth and NVIDIA",
-      "budget-exhausted: Principles for agent-native CLIs",
+      "budget-exhausted: vllm-project/vllm",
       "budget-exhausted: Parloa builds service agents customers want to talk to",
       "budget-exhausted: Meta Partners With AWS on Graviton Chips to Power Agentic AI",
       "budget-exhausted: Red-teaming a network of agents: Understanding what breaks when AI agents interact at scale",
@@ -101,50 +131,53 @@
       "below-threshold: Introducing NVIDIA Nemotron 3 Nano Omni: Long-Context Multimodal Intelligence for Documents, Audio and Video Agents",
       "below-threshold: DeepSeek-V4: a million-token context that agents can actually use",
       "below-threshold: QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
-      "below-threshold: Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents",
-      "below-threshold: AsgardBench: A benchmark for visually grounded interactive planning",
+      "below-threshold: ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
       "below-threshold: Are We Making Progress in Multimodal Domain Generalization? A Comprehensive Benchmark Study",
       "below-threshold: Arm announces earnings release date for fourth quarter fiscal year ended 2026",
       "below-threshold: YOLO-Pro Now Generally Available: Confidence Through Benchmarking",
       "below-threshold: 德国嵌入式展 | 瑞芯微亮相embedded world 2026，端侧AI引领工业智能化",
+      "below-threshold: Canvas online again as ShinyHunters threatens to leak schools’ data",
+      "below-threshold: Google broke reCAPTCHA for de-googled Android users",
+      "below-threshold: Hardening Firefox with Claude Mythos Preview",
+      "below-threshold: ClojureScript Gets Async/Await",
+      "below-threshold: AI is breaking two vulnerability cultures",
+      "below-threshold: GPT-5.5 Price Increase: What It Costs",
+      "below-threshold: Apple, Intel have reached preliminary chip-making deal",
+      "below-threshold: Podman rootless containers and the Copy Fail exploit",
+      "below-threshold: AWS North Virginia data center outage – recovery to take hours",
+      "below-threshold: Meta Shuts Down End-to-End Encryption for Instagram Messaging",
+      "below-threshold: QBE – Compiler Back End",
+      "below-threshold: Teaching Claude Why",
+      "below-threshold: All means are fair except solving the problem",
+      "below-threshold: Tesla Model Y Passes NHTSA's New 'Advanced Driver Assistance System' Tests",
+      "below-threshold: OpenAI's WebRTC problem",
+      "below-threshold: The Tax of Living in a Low-Trust Society: How Collapsed Trust Costs You",
+      "below-threshold: Apple Is Holding My Pictures Hostage Until I Accept Their New Terms of Service",
       "below-threshold: langchain-ai/langgraph",
       "below-threshold: ollama/ollama",
-      "below-threshold: pytorch/executorch",
       "below-threshold: alibaba/MNN",
+      "below-threshold: pytorch/executorch",
       "below-threshold: tenstorrent/tt-metal",
       "below-threshold: nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "below-threshold: mem0ai/mem0",
       "below-threshold: openai/swarm",
+      "below-threshold: mem0ai/mem0",
       "below-threshold: anthropics/claude-cookbooks",
       "below-threshold: NVIDIA/TensorRT",
       "below-threshold: onnx/onnx",
       "below-threshold: jax-ml/jax",
-      "below-threshold: AI slop is killing online communities",
-      "below-threshold: Dirtyfrag: Universal Linux LPE",
-      "below-threshold: SQLite Is a Library of Congress Recommended Storage Format",
-      "below-threshold: Natural Language Autoencoders: Turning Claude's Thoughts into Text",
-      "below-threshold: RSS feeds send me more traffic than Google",
-      "below-threshold: Hardening Firefox with Claude Mythos Preview",
-      "below-threshold: RaTeX: KaTeX-compatible LaTeX rendering engine in pure Rust",
-      "below-threshold: Show HN: TRUST – Coding Rust like it's 1989",
-      "below-threshold: Two Home Affairs officials suspended after AI 'hallucinations' found",
-      "below-threshold: ClojureScript Gets Async/Await",
-      "below-threshold: ZAYA1-8B matches DeepSeek-R1 on math with less than 1B active parameters",
-      "below-threshold: GPT-5.5 Price Increase: What It Costs",
-      "below-threshold: Blaise – A modern self-hosting zero-legacy Object Pascal compiler targeting QBE",
-      "below-threshold: A polynomial autoencoder beats PCA on transformer embeddings",
+      "below-threshold: Running Codex safely at OpenAI",
       "below-threshold: Scaling Trusted Access for Cyber with GPT-5.5 and GPT-5.5-Cyber",
       "below-threshold: Advancing voice intelligence with new models in the API",
-      "below-threshold: Introducing Trusted Contact in ChatGPT",
       "below-threshold: Testing ads in ChatGPT",
+      "below-threshold: Introducing Trusted Contact in ChatGPT",
       "below-threshold: Simplex rethinks software development with Codex",
-      "below-threshold: Uber uses OpenAI to help people earn smarter and book faster",
-      "below-threshold: How frontier firms are pulling ahead",
+      "below-threshold: How ChatGPT learns about the world while protecting privacy",
+      "below-threshold: Which AI Glasses Are Right For You?",
       "below-threshold: Infrastructure Explained: Data Centers",
       "below-threshold: Powering AI, Strengthening the Grid: Innovation in Space Solar Energy and Long-Duration Storage",
       "below-threshold: Helping Parents Understand the Conversations Their Teens Are Having With AI",
       "below-threshold: Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma",
-      "below-threshold: Meta Partners With Broadcom to Co-Develop Custom AI Silicon",
+      "below-threshold: Building realistic electric transmission grid dataset at scale: a pipeline from open dataset",
       "below-threshold: Microsoft at NSDI 2026: Advances in large-scale networked systems",
       "below-threshold: AutoAdapt: Automated domain adaptation for large language models",
       "below-threshold: New Future of Work: AI is driving rapid change, uneven benefits",
@@ -154,7 +187,6 @@
       "below-threshold: ERNIE 5.0: A 2.4 Trillion-Parameter Unified Multimodal Foundation Model",
       "below-threshold: PaddleOCR-VL-1.5: Towards a Multi-Task 0.9B VLM for Robust In-the-Wild Document Parsing",
       "below-threshold: ERNIE-5.0 Tops LMArena Text Leaderboard as No.1 Chinese Model!",
-      "below-threshold: ERNIE-5.0-Preview-1220 Becomes the Sole Chinese Model in LMArena Vision Top 10!",
       "below-threshold: ActCam: Zero-Shot Joint Camera and 3D Motion Control for Video Generation",
       "below-threshold: UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",
       "below-threshold: BAMI: Training-Free Bias Mitigation in GUI Grounding",
@@ -256,7 +288,8 @@
       "below-threshold: Genio Pro 5100: Extreme Compute & Multimedia Platform Unleashes the Full Potential of IoT AI",
       "below-threshold: The MediaTek Technologies Powering Next Generation AI-Defined Vehicles",
       "below-threshold: Podcast: The Next Wave of AI in Robotics, Industrial IoT & Beyond",
-      "below-threshold: MedQA: Fine-Tuning a Clinical AI on AMD ROCm — No CUDA Required",
+      "below-threshold: CyberSecQwen-4B: Why Defensive Cyber Needs Small, Specialized, Locally-Runnable Models",
+      "below-threshold: EMO: Pretraining mixture of experts for emergent modularity",
       "below-threshold: Adding Benchmaxxer Repellant to the Open ASR Leaderboard",
       "below-threshold: DeepInfra on Hugging Face Inference Providers 🔥",
       "below-threshold: How to build scalable web apps with OpenAI's Privacy Filter",
@@ -283,19 +316,19 @@
     "eligible_count": 2,
     "attempted_titles": [
       "When No Benchmark Exists: Validating Comparative LLM Safety Scoring Without Ground-Truth Labels",
-      "vllm-project/vllm"
+      "Show HN: Git for AI Agents"
     ]
   },
   "ai_metrics": {
     "provider": "deepseek",
     "model": "mixed",
-    "calls": 7,
+    "calls": 6,
     "token_usage": {
-      "prompt": 21394,
-      "completion": 6551,
-      "total": 27945
+      "prompt": 18576,
+      "completion": 4961,
+      "total": 23537
     },
-    "latency_seconds": 202.58,
+    "latency_seconds": 142.89,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -304,11 +337,11 @@
         "model": "deepseek-v4-flash",
         "calls": 1,
         "token_usage": {
-          "prompt": 497,
-          "completion": 1113,
-          "total": 1610
+          "prompt": 500,
+          "completion": 1040,
+          "total": 1540
         },
-        "latency_seconds": 22.9,
+        "latency_seconds": 13.28,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -325,14 +358,14 @@
       "analysis": {
         "provider": "deepseek",
         "model": "deepseek-v4-pro",
-        "calls": 4,
+        "calls": 3,
         "token_usage": {
-          "prompt": 10450,
-          "completion": 3119,
-          "total": 13569
+          "prompt": 8349,
+          "completion": 1832,
+          "total": 10181
         },
-        "latency_seconds": 103.28,
-        "attempts": 4,
+        "latency_seconds": 59.97,
+        "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
         "guardrail_reason": "",
@@ -350,11 +383,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 4071,
-          "completion": 1430,
-          "total": 5501
+          "prompt": 3816,
+          "completion": 1000,
+          "total": 4816
         },
-        "latency_seconds": 46.15,
+        "latency_seconds": 32.96,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -373,11 +406,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 6376,
-          "completion": 889,
-          "total": 7265
+          "prompt": 5911,
+          "completion": 1089,
+          "total": 7000
         },
-        "latency_seconds": 30.25,
+        "latency_seconds": 36.68,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -2023,19 +2056,19 @@
   },
   "tracing": {
     "enabled": true,
-    "trace_id": "4c0576c4e2ffd7f86df99122390ba657",
-    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/4c0576c4e2ffd7f86df99122390ba657"
+    "trace_id": "a40a0bdc3f3bee5c369ebb51438281e6",
+    "trace_url": "https://cloud.langfuse.com/project/cmo6u0f1d005mad07rdbyw2ra/traces/a40a0bdc3f3bee5c369ebb51438281e6"
   },
   "scheduler": {
-    "trigger_kind": "manual",
+    "trigger_kind": "schedule",
     "compensation_run": false
   },
   "timings": {
-    "collection": 7.4,
-    "dedup_score": 305.78,
+    "collection": 6.86,
+    "dedup_score": 241.63,
     "ai_total": 0.0,
     "rendering": 0.04,
-    "push_total": 0.0
+    "push_total": 1.97
   },
-  "total_elapsed": 313.22
+  "total_elapsed": 250.5
 }
