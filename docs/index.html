@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。">
+<meta name="description" content="当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。</p>
+        <p class="lead">当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</p>
         <ul class="compact-list">
-          <li>今日AI领域浮现三条互补信号：Statewright尝试用可视化状态机驯服代理的脆弱性，Hypercubic试图闯入大型机/COBOL的高确定性世界，FairyFuse则通过免乘法运算将LLM推理推向消费级CPU。</li><li>三者的共同主线是让AI从“令人着迷但不靠谱”转向“可预期且随处可用的基础设施”，但社区反馈冷热不均，且均缺乏生产环境验证。</li><li>如果这波探索能够跨越“安全恐惧”和硬件惯性，企业AI落地的最后一公里可能被重新定义。</li>
+          <li>本日覆盖四项前沿研究，共同指向一个核心命题：AI 模型和智能体在追求更高性能时，必须解决由硬件多样性、任务组合与持续演化带来的系统复杂性。</li><li>vLLM 项目表明，大模型推理引擎已从效率优化工具升级为关键的 AI 基础设施层，但其最大难点在于平衡高速推理与日益膨胀的硬件/模型生态。</li><li>微软的 SocialReasoning 基准测试揭示 AI 代理能执行指令，却无法真正理解并提升用户长期利益，任务成功与价值对齐之间存在显著鸿沟。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-05-13T08:23:54.935367+08:00</span>
+          <span class="chip">最新更新 2026-05-14T08:21:59.071128+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -441,12 +441,12 @@
       <aside class="panel">
         <h2 class="section-title">覆盖状态</h2>
         <div class="stats-grid">
-          <article class="stat"><span>原始条目</span><strong>194</strong></article>
-          <article class="stat"><span>主题数量</span><strong>194</strong></article>
+          <article class="stat"><span>原始条目</span><strong>202</strong></article>
+          <article class="stat"><span>主题数量</span><strong>202</strong></article>
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
-          <article class="stat"><span>来源数量</span><strong>43</strong></article>
+          <article class="stat"><span>来源数量</span><strong>48</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">在接下来2-3个季度内，三个项目都将持续处于‘缓慢迭代与社区验证’的间隙期。Statewright 和 FairyFuse 会因其解决真实痛点的潜力，持续吸引一批早期采用者在非核心场景中实验，并在开源社区中积累案例，但均无法在短期内形成具有付费意愿的企业市场。Hypercubic 将继续被金融决策者的‘安全恐惧’所屏蔽，市场反应冷淡。整体上，从原型走向信任闭环的过程将比创始人预期的漫长和艰难，跨过鸿沟的证据链仍有明显缺失。</p>
+        <p class="subtle" style="margin-top:14px;">此四项研究将在未来 3-6 个月形成渐进式改良路径：开发者在现有代理框架中先引入 ToolCUA 轻量级的 GUI-tool 切换启发式，但暂不大规模采用强化学习训练；Fast-Slow Training 将在研究社区被充分验证，少数模型微调平台提供实验性支持；vLLM 暂时保持其核心地位，但围绕它涌现出专注于特定硬件生态的优化分支；SocialReasoning 成为安全团队的内测指标，暂未转化为消费者可感知的功能。</p>
       </aside>
     </section>
 
@@ -455,41 +455,41 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">算力基础设施</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-13/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-13/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-14/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-14/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-13/comparison/#comparison-compute-infra">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-14/comparison/#comparison-compute-infra">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-13/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-13/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-14/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-14/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-13/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-14/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
   <ul><li>继续跟踪 算力基础设施 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-13/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-14/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。">
+        <article class="archive-card" data-search="AI/智能体 当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>4640 条信号 · 最近 2026.05.13</p>
+  <p>4823 条信号 · 最近 2026.05.14</p>
   <div class="archive-footer">
-    <span>从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。</span>
+    <span>当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。">
+</article><article class="archive-card" data-search="AI × 电子 当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>579 条信号 · 最近 2026.05.13</p>
+  <p>598 条信号 · 最近 2026.05.14</p>
   <div class="archive-footer">
-    <span>从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。</span>
+    <span>当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -499,31 +499,31 @@
     <section class="section">
       <h2 class="section-title">来源</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="GitHub Show HN: Needle: We Distilled Gemini Tool Calling into a 26M Model AI/智能体 AI × 电子">
+        <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>492 条信号 · 34 份日报 · 最近 2026.05.13</p>
+  <p>507 条信号 · 35 份日报 · 最近 2026.05.14</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">Show HN: Needle: We Distilled Gemini Tool Calling into a 26M Model</p>
+  <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
 </article><article class="archive-card" data-search="huggingface.co AI and the Future of Cybersecurity: Why Openness Matters AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>372 条信号 · 31 份日报 · 最近 2026.05.13</p>
+  <p>384 条信号 · 32 份日报 · 最近 2026.05.14</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">AI and the Future of Cybersecurity: Why Openness Matters</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv LoKA: Low-precision Kernel Applications for Recommendation Models At Scale AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv Solve the Loop: Attractor Models for Language and Reasoning AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>278 条信号 · 27 份日报 · 最近 2026.05.13</p>
+  <p>288 条信号 · 28 份日报 · 最近 2026.05.14</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">LoKA: Low-precision Kernel Applications for Recommendation Models At Scale</p>
+  <p class="subtle" style="margin-top:12px;">Solve the Loop: Attractor Models for Language and Reasoning</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>276 条信号 · 34 份日报 · 最近 2026.05.13</p>
+  <p>284 条信号 · 35 份日报 · 最近 2026.05.14</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -535,11 +535,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>代理可靠性：用确定性约束对抗概率性混乱</h3>
-  <p>Statewright引入显式状态机，Hypercubic直面大型机对绝对确定性的要求，两者都指向同一瓶颈——AI代理若不能在行为上可预测、可审计，就无法从原型走进核心业务。形式化约束正成为打破代理脆弱性的关键范式。</p>
+  <h3>vLLM：推理引擎面临硬件与模型生态的“组合爆炸”</h3>
+  <p>作为高吞吐、低内存的大模型推理引擎，vLLM 正在支撑越来越复杂的模型架构（MoE、多模态）和硬件平台（CUDA、TPU、AMD 等），其核心挑战是如何在不牺牲性能承诺的前提下管理这种生态多样性，直接影响 LLM 服务的稳定性和可扩展性。</p>
 </article><article class="summary-card">
-  <h3>去GPU化推理：将LLM从稀缺加速卡搬回普通CPU</h3>
-  <p>FairyFuse的融合三元内核尝试在无GPU环境下完成LLM推理，若精度损失可控，将直接冲击现有部署惯性，为存量CPU服务器和离线终端打开廉价、高吞吐的推理通路。</p>
+  <h3>SocialReasoning-Bench：AI 代理能干活，却不为你着想</h3>
+  <p>基准测试显示，即使明确要求代理优化用户利益，模型也未能改善用户处境。这暴露了当前 AI 代理从“任务执行”到“价值对齐”之间的关键能力缺口，是安全可信 AI 代理部署前必须跨越的门槛。</p>
+</article><article class="summary-card">
+  <h3>ToolCUA：把 GUI 与工具路径变成可学习的编排问题</h3>
+  <p>通过轨迹规模化流水线和多阶段强化学习，ToolCUA 在 OSWorld-MCP 上实现约 66% 的相对提升。它证明了让模型自行学习何时用 GUI、何时调工具是可行的，为下一代计算机使用代理提供了有效的训练范式。</p>
 </article>
       </div>
     </section>
@@ -548,35 +551,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.05.13</p>
+  <p class="article-date">2026.05.14</p>
+  <h3>Rars: a Rust RAR implementation, mostly written by LLMs</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">bitplane.net</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-05-14/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.14</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/1/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-14/signals/2/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.13</p>
-  <h3>Show HN: Statewright – Visual state machines that make AI agents reliable</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/2/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.13</p>
-  <h3>Show HN: Agentic interface for mainframes and COBOL</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">hypercubic.ai</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/3/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.13</p>
-  <h3>Launch HN: Voker (YC S24) – Analytics for AI Agents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">voker.ai</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/4/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.13</p>
-  <h3>FairyFuse: Multiplication-Free LLM Inference on CPUs via Fused Ternary Kernels</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.13</p>
+  <p class="article-date">2026.05.14</p>
   <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
-  <a class="article-action" href="./archives/2026-05-13/signals/6/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-14/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.14</p>
+  <h3>SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="./archives/2026-05-14/signals/4/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.14</p>
+  <h3>Learning, Fast and Slow: Towards LLMs That Adapt Continually</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">机器学习论文</span></div>
+  <a class="article-action" href="./archives/2026-05-14/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.14</p>
+  <h3>ToolCUA: Towards Optimal GUI-Tool Path Orchestration for Computer Use Agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span></div>
+  <a class="article-action" href="./archives/2026-05-14/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -598,7 +601,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com ti.com sophgo.com horizon.auto amd.com developer.cambricon.com hypercubic.ai voker.ai jeffgeerling.com news.ycombinator.com tanstack.com medium.com googlebook.google nair.sh thinkingmachines.ai lists.thekelleys.org.uk deepmind.google latimes.com bogomolov.work arstechnica.com">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com bitplane.net ossresistance.com googlebook.google nair.sh jorijn.com fredchan.org sciencedaily.com arstechnica.com laurent.le-brun.eu ericswpark.com discuss.python.org propublica.org haiku-os.org avkcode.github.io news.ycombinator.com sltrib.com theverge.com greem.co.uk">
+  <p class="article-date">2026.05.14</p>
+  <h3>当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-05-14/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com ti.com sophgo.com horizon.auto amd.com developer.cambricon.com hypercubic.ai voker.ai jeffgeerling.com news.ycombinator.com tanstack.com medium.com googlebook.google nair.sh thinkingmachines.ai lists.thekelleys.org.uk deepmind.google latimes.com bogomolov.work arstechnica.com">
   <p class="article-date">2026.05.13</p>
   <h3>从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -633,11 +641,6 @@
   <h3>AI 代理正集体跨越“只读对话”边界，开始自主操作账户、域名、数据管道和文件系统，同时推理成本、安全沙盒和上下文连接正在成为规模化落地的核心瓶颈。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-05-07/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com mediatek.com newsroom.arm.com blog.st.com ti.com sophgo.com horizon.auto developer.cambricon.com dbreunig.com news.ycombinator.com thatprivacyguy.com idiallo.com tweedegolf.nl blog.google walletwallet.alen.ro distr.sh susam.net robert-glaser.de devblogs.microsoft.com tooldirectory.ai sfgate.com variety.com dragonsreach.it docs.docker.com paletteinspiration.com">
-  <p class="article-date">2026.05.06</p>
-  <h3>今天的 AI Agent 领域呈现鲜明的两极共振：Anthropic 和智谱将 AI Agent 推向金融等高风险行业，直面信任与合规的终极考验；而 vLLM 等推理基础设施和“代码变廉价”后的开发范式反思，揭示了 agent 落地的深层工程与认知挑战。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-05-06/brief/">阅读文章</a>
 </article>
       </div>
     </section>
