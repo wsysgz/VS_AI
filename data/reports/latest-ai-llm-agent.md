@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-05-14T08:21:59.071128+08:00
+生成时间：2026-05-15T08:14:24.848988+08:00
 
 ## 一句话判断
-当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。
+当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。
 
 ## 执行摘要
-- 本领域当前命中 183 个主题。
+- 本领域当前命中 179 个主题。
 
 ## 关键洞察
-- vLLM has evolved from an inference optimization technique into a critical piece of the AI infrastructure layer, and its central challenge is managing the combinatorial complexity of hardware and software ecosystems without compromising its core performance promise.
-- 当前AI代理能完成指令却难以真正理解并维护用户的最佳利益，揭示了从任务执行到价值对齐之间的关键能力鸿沟。
-- Treating GUI-tool path selection as a learnable orchestration problem—solved via synthetic trajectory scaling and staged RL—unlocks substantial gains over treating GUI and tool actions separately.
+- Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
+- 对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
+- Current voice agents exhibit a structural reliability gap: peak performance substantially overestimates real-world dependable capability, and robustness to accent and noise remains a critical unsolved risk.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,32 +33,20 @@
 - 暂无
 
 ## 重点主线
-- vllm-project/vllm：vLLM has evolved from an inference optimization technique into a critical piece of the AI infrastructure layer, and its central challenge is managing the combinatorial complexity of hardware and software ecosystems without compromising its core performance promise.
-- SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests：当前AI代理能完成指令却难以真正理解并维护用户的最佳利益，揭示了从任务执行到价值对齐之间的关键能力鸿沟。
+- SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests：Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
+- Claude for Small Business：对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### vllm-project/vllm
-- 主领域：ai-llm-agent
-- 主要矛盾：High-throughput, memory-efficient performance requirements vs the complexity of supporting a rapidly expanding and diversifying landscape of LLM architectures and hardware accelerators
-- 核心洞察：vLLM has evolved from an inference optimization technique into a critical piece of the AI infrastructure layer, and its central challenge is managing the combinatorial complexity of hardware and software ecosystems without compromising its core performance promise.
-- 置信度：medium
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 1 direct support | 4 related context
-- 链接：https://github.com/vllm-project/vllm
-
-- 佐证：paper | AlphaGRPO: Unlocking Self-Reflective Multimodal Generation in UMMs via Decompositional Verifiable Reward | https://arxiv.org/abs/2605.12495v1
-
 ### SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests
 - 主领域：ai-llm-agent
-- 主要矛盾：AI代理的任务执行效率 vs 社交推理与用户利益对齐能力
-- 核心洞察：当前AI代理能完成指令却难以真正理解并维护用户的最佳利益，揭示了从任务执行到价值对齐之间的关键能力鸿沟。
-- 置信度：medium
-- 生命周期：rising
-- 风险等级：medium
+- 主要矛盾：Task execution competence vs genuine user advocacy alignment
+- 核心洞察：Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
+- 置信度：high
+- 生命周期：verified
+- 风险等级：low
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://www.microsoft.com/en-us/research/blog/socialreasoning-bench-measuring-whether-ai-agents-act-in-users-best-interests/
 
@@ -66,32 +54,44 @@
 - 佐证：official | Advancing AI for materials with MatterSim: experimental synthesis, faster simulation, and multi-task models | https://www.microsoft.com/en-us/research/blog/advancing-ai-for-materials-with-mattersim-experimental-synthesis-faster-simulation-and-multi-task-models/
 - 佐证：official | Building realistic electric transmission grid dataset at scale: a pipeline from open dataset | https://www.microsoft.com/en-us/research/blog/building-realistic-electric-transmission-grid-dataset-at-scale-a-pipeline-from-open-dataset/
 
-### ToolCUA: Towards Optimal GUI-Tool Path Orchestration for Computer Use Agents
+### Claude for Small Business
 - 主领域：ai-llm-agent
-- 主要矛盾：CUAs must decide when to use GUI actions versus tool calls for optimal execution, but the scarcity of interleaved GUI-tool training data and trajectory-level supervision makes learning this orchestration extremely difficult.
-- 核心洞察：Treating GUI-tool path selection as a learnable orchestration problem—solved via synthetic trajectory scaling and staged RL—unlocks substantial gains over treating GUI and tool actions separately.
+- 主要矛盾：小型企业对AI价值的具体化、信任化需求 vs 通用工具提供商对规模化的追求
+- 核心洞察：对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
+- 置信度：medium
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：2 source(s) | official / community | 4 direct support | 1 related context
+- 链接：https://www.anthropic.com/news/claude-for-small-business
+
+- 佐证：official | Claude is a space to think | https://www.anthropic.com/news/claude-is-a-space-to-think
+- 佐证：official | Higher usage limits for Claude and a compute deal with SpaceX | https://www.anthropic.com/news/higher-limits-spacex
+- 佐证：official | Introducing Claude Design by Anthropic Labs | https://www.anthropic.com/news/claude-design-anthropic-labs
+
+### EVA-Bench: A New End-to-end Framework for Evaluating Voice Agents
+- 主领域：ai-llm-agent
+- 主要矛盾：The fast-growing enterprise adoption of voice agents versus the lack of an evaluation standard that jointly captures realistic conversational simulation and comprehensive voice-specific failure modes.
+- 核心洞察：Current voice agents exhibit a structural reliability gap: peak performance substantially overestimates real-world dependable capability, and robustness to accent and noise remains a critical unsolved risk.
 - 置信度：high
 - 生命周期：new
 - 风险等级：low
 - 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2605.12481v1
+- 链接：https://arxiv.org/abs/2605.13841v1
 
-- 佐证：paper | Beyond GRPO and On-Policy Distillation: An Empirical Sparse-to-Dense Reward Principle for Language-Model Post-Training | https://arxiv.org/abs/2605.12483v1
-- 佐证：paper | Learning, Fast and Slow: Towards LLMs That Adapt Continually | https://arxiv.org/abs/2605.12484v1
-- 佐证：paper | AlphaGRPO: Unlocking Self-Reflective Multimodal Generation in UMMs via Decompositional Verifiable Reward | https://arxiv.org/abs/2605.12495v1
+- 佐证：paper | Harnessing Agentic Evolution | https://arxiv.org/abs/2605.13821v1
+- 佐证：paper | History Anchors: How Prior Behavior Steers LLM Decisions Toward Unsafe Actions | https://arxiv.org/abs/2605.13825v1
+- 佐证：paper | Negation Neglect: When models fail to learn negations in training | https://arxiv.org/abs/2605.13829v1
 
 ## 短期推演
-- 观察：此四项研究将在未来 3-6 个月形成渐进式改良路径：开发者在现有代理框架中先引入 ToolCUA 轻量级的 GUI-tool 切换启发式，但暂不大规模采用强化学习训练；Fast-Slow Training 将在研究社区被充分验证，少数模型微调平台提供实验性支持；vLLM 暂时保持其核心地位，但围绕它涌现出专注于特定硬件生态的优化分支；SocialReasoning 成为安全团队的内测指标，暂未转化为消费者可感知的功能。
-- 结论：短期内（3-6月），此四项成果将分别向工具链集成、持续学习框架、推理引擎精简化与安全基准内化四个方向深化，但不会直接合并为一个统一的解决方案。最可能的发展是“两纵两横”：ToolCUA 与 Fast-Slow Training 纵深进入研究验证与框架集成，vLLM 与 SocialReasoning 横向扩大其工程与合规影响面。行业的根本矛盾——即“组合复杂性”与“执行能力”的冲突——将因此出现可辨识的缓冲方案，但仍未到达根本解决拐点。
+- 观察：在短期（3-6个月）内，业界将出现预测性的缓和——一方面，主要AI供应商在关键任务中继续默认保留‘人机协同’兜底；另一方面，模型在EVA-Bench式标准和情境化推理上的针对性优化成为公开竞争焦点，但整体可靠性的根本性改进将慢于市场预期，代理在关键任务中的渗透率将低于年初计划。
+- 结论：预计未来半年内，AI代理的商业叙事将从‘替代人类执行任务’转向‘需在人类监督下完成有限场景的可靠任务’，对齐与鲁棒性的差距将迫使供应商主动降低产品定位。市场的短期胜负取决于谁能首先以可量化方式证明可靠性，而非谁先推出更多代理功能。
 
 ## 局限性
-- vLLM 分析基于公开技术标签和项目定位，尚未量化实际延迟/吞吐量与可靠性的折中数据。
-- SocialReasoning-Bench 的评估场景仍有限，其结论是否泛化到真实世界代理交互尚待验证。
-- ToolCUA 的实验主要基于 OSWorld-MCP 环境，迁移到完全开放的真实操作系统仍需工程化检验。
-- Fast-Slow Training 在更多样化的任务和模型规模上的长期稳定性尚未充分评估，快慢权重的边界可能与任务粒度高度相关。
+- 市场反应分析基于Hacker News社区评论，可能不代表所有小型企业客户的真实购买决策行为。
+- EVA-Bench的数据来自12个系统的横截面评测，不能反映个别系统在未来迭代中的改进潜力。
+- 所有分析基于公开资料与基准评测结果，缺乏对具体商业产品路线图或未发布技术的了解。
 
 ## 行动建议
-- 跟踪 vLLM 社区的最新架构决策（如多模态、MoE 支持方案），评估其对下游部署的影响。
-- 将 SocialReasoning 类基准引入内部代理评测体系，作为安全合规的早期预警指标。
-- 尝试在 ToolCUA 的 GUI-tool 编排思路上，对内部 RPA 或数字助理进行原型验证。
-- 评估 Fast-Slow Training 是否可融入现有模型微调流水线，以降低持续多任务学习时的遗忘风险。
+- 企业AI架构师与产品团队应立即将“用户利益对齐”和“真实世界鲁棒性”纳入内部代理评估清单，而不仅仅是任务完成率。
+- 决策者在选择AI供应商时应主动索要其在social reasoning或EVA-Bench等方面的第三方评测数据，并亲自测试其在噪声、口音等实际使用条件中的表现。
+- 定期跟踪行业关于代理评估基准的演进，以便及早发现自身部署的语音或文本代理可能存在的可靠性退化风险。
