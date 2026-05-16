@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-05-15T08:14:24.848988+08:00
+生成时间：2026-05-16T08:24:09.089497+08:00
 
 ## 一句话判断
-当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。
+AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。
 
 ## 执行摘要
-- 本领域当前命中 179 个主题。
+- 本领域当前命中 177 个主题。
 
 ## 关键洞察
-- Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
-- 对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
-- Current voice agents exhibit a structural reliability gap: peak performance substantially overestimates real-world dependable capability, and robustness to accent and noise remains a critical unsolved risk.
+- Meta's deal with AWS for tens of millions of Graviton cores reveals a strategic bet that not all agentic AI workloads require top-tier GPUs—ARM-based CPUs can handle a significant slice of inference and orchestration at lower cost, breaking NVIDIA's grip through architectural diversification rather than direct competition.
+- Current frontier AI agents fundamentally lack the long-horizon adaptive reasoning required for real-world temporal prediction, performing no better than or worse than random chance, exposing a critical gap between claimed capabilities and actual performance in dynamic environments.
+- 当前 AI 代理能熟练执行任务，但缺少理解用户深层利益的社会推理能力，导致无法可靠地服务于用户最佳利益。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,65 +33,66 @@
 - 暂无
 
 ## 重点主线
-- SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests：Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
-- Claude for Small Business：对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
+- Meta Partners With AWS on Graviton Chips to Power Agentic AI：Meta's deal with AWS for tens of millions of Graviton cores reveals a strategic bet that not all agentic AI workloads require top-tier GPUs—ARM-based CPUs can handle a significant slice of inference and orchestration at lower cost, breaking NVIDIA's grip through architectural diversification rather than direct competition.
+- FutureSim: Replaying World Events to Evaluate Adaptive Agents：Current frontier AI agents fundamentally lack the long-horizon adaptive reasoning required for real-world temporal prediction, performing no better than or worse than random chance, exposing a critical gap between claimed capabilities and actual performance in dynamic environments.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
+### Meta Partners With AWS on Graviton Chips to Power Agentic AI
+- 主领域：ai-llm-agent
+- 主要矛盾：Meta's accelerating agentic AI compute demand vs the concentrated and bottlenecked AI chip supply chain
+- 核心洞察：Meta's deal with AWS for tens of millions of Graviton cores reveals a strategic bet that not all agentic AI workloads require top-tier GPUs—ARM-based CPUs can handle a significant slice of inference and orchestration at lower cost, breaking NVIDIA's grip through architectural diversification rather than direct competition.
+- 置信度：medium
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/
+
+- 佐证：official | Powering AI, Strengthening the Grid: Innovation in Space Solar Energy and Long-Duration Storage | https://about.fb.com/news/2026/04/powering-ai-strengthening-the-grid-space-solar-energy-and-long-duration-storage/
+- 佐证：official | Breaking Ground on a New AI-Optimized Data Center in Tulsa, Oklahoma | https://about.fb.com/news/2026/04/breaking-ground-new-ai-optimized-data-center-tulsa-oklahoma/
+- 佐证：official | Helping Parents Understand the Conversations Their Teens Are Having With AI | https://about.fb.com/news/2026/04/helping-parents-understand-conversations-their-teens-are-having-with-ai/
+
+### FutureSim: Replaying World Events to Evaluate Adaptive Agents
+- 主领域：ai-llm-agent
+- 主要矛盾：The demand for AI agents that can adapt to dynamic real-world information over long time horizons vs current frontier agents' profound inability to do so, as revealed by grounded chronological benchmarks like FutureSim.
+- 核心洞察：Current frontier AI agents fundamentally lack the long-horizon adaptive reasoning required for real-world temporal prediction, performing no better than or worse than random chance, exposing a critical gap between claimed capabilities and actual performance in dynamic environments.
+- 置信度：high
+- 生命周期：new
+- 风险等级：low
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2605.15188v1
+
+- 佐证：paper | Evidential Reasoning Advances Interpretable Real-World Disease Screening | https://arxiv.org/abs/2605.15171v1
+- 佐证：paper | Quantitative Video World Model Evaluation for Geometric-Consistency | https://arxiv.org/abs/2605.15185v1
+- 佐证：paper | Text Knows What, Tables Know When: Clinical Timeline Reconstruction via Retrieval-Augmented Multimodal Alignment | https://arxiv.org/abs/2605.15168v1
+
 ### SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests
 - 主领域：ai-llm-agent
-- 主要矛盾：Task execution competence vs genuine user advocacy alignment
-- 核心洞察：Current AI agents can follow instructions but lack the situated reasoning to truly serve users' interests, revealing a fundamental gap between functional ability and value-aligned action.
+- 主要矛盾：AI 代理的高任务执行能力与其缺乏用户利益对齐能力之间的矛盾
+- 核心洞察：当前 AI 代理能熟练执行任务，但缺少理解用户深层利益的社会推理能力，导致无法可靠地服务于用户最佳利益。
 - 置信度：high
 - 生命周期：verified
 - 风险等级：low
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://www.microsoft.com/en-us/research/blog/socialreasoning-bench-measuring-whether-ai-agents-act-in-users-best-interests/
 
-- 佐证：official | Microsoft at NSDI 2026: Advances in large-scale networked systems | https://www.microsoft.com/en-us/research/blog/microsoft-at-nsdi-2026-advances-in-large-scale-networked-systems/
 - 佐证：official | Advancing AI for materials with MatterSim: experimental synthesis, faster simulation, and multi-task models | https://www.microsoft.com/en-us/research/blog/advancing-ai-for-materials-with-mattersim-experimental-synthesis-faster-simulation-and-multi-task-models/
 - 佐证：official | Building realistic electric transmission grid dataset at scale: a pipeline from open dataset | https://www.microsoft.com/en-us/research/blog/building-realistic-electric-transmission-grid-dataset-at-scale-a-pipeline-from-open-dataset/
-
-### Claude for Small Business
-- 主领域：ai-llm-agent
-- 主要矛盾：小型企业对AI价值的具体化、信任化需求 vs 通用工具提供商对规模化的追求
-- 核心洞察：对小型企业而言，AI采纳的瓶颈不是资源获取，而是价值的具体化与信任构建——谁能将通用能力转化为“开箱即用的确定性成果”，谁就能赢得这个巨大的长尾市场。
-- 置信度：medium
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：2 source(s) | official / community | 4 direct support | 1 related context
-- 链接：https://www.anthropic.com/news/claude-for-small-business
-
-- 佐证：official | Claude is a space to think | https://www.anthropic.com/news/claude-is-a-space-to-think
-- 佐证：official | Higher usage limits for Claude and a compute deal with SpaceX | https://www.anthropic.com/news/higher-limits-spacex
-- 佐证：official | Introducing Claude Design by Anthropic Labs | https://www.anthropic.com/news/claude-design-anthropic-labs
-
-### EVA-Bench: A New End-to-end Framework for Evaluating Voice Agents
-- 主领域：ai-llm-agent
-- 主要矛盾：The fast-growing enterprise adoption of voice agents versus the lack of an evaluation standard that jointly captures realistic conversational simulation and comprehensive voice-specific failure modes.
-- 核心洞察：Current voice agents exhibit a structural reliability gap: peak performance substantially overestimates real-world dependable capability, and robustness to accent and noise remains a critical unsolved risk.
-- 置信度：high
-- 生命周期：new
-- 风险等级：low
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2605.13841v1
-
-- 佐证：paper | Harnessing Agentic Evolution | https://arxiv.org/abs/2605.13821v1
-- 佐证：paper | History Anchors: How Prior Behavior Steers LLM Decisions Toward Unsafe Actions | https://arxiv.org/abs/2605.13825v1
-- 佐证：paper | Negation Neglect: When models fail to learn negations in training | https://arxiv.org/abs/2605.13829v1
+- 佐证：official | Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability | https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/
 
 ## 短期推演
-- 观察：在短期（3-6个月）内，业界将出现预测性的缓和——一方面，主要AI供应商在关键任务中继续默认保留‘人机协同’兜底；另一方面，模型在EVA-Bench式标准和情境化推理上的针对性优化成为公开竞争焦点，但整体可靠性的根本性改进将慢于市场预期，代理在关键任务中的渗透率将低于年初计划。
-- 结论：预计未来半年内，AI代理的商业叙事将从‘替代人类执行任务’转向‘需在人类监督下完成有限场景的可靠任务’，对齐与鲁棒性的差距将迫使供应商主动降低产品定位。市场的短期胜负取决于谁能首先以可量化方式证明可靠性，而非谁先推出更多代理功能。
+- 观察：评测界的风向将在半年内从静态基准彻底转向动态时序评测，'收益对齐'成为新的合规性检查项。但工程实现仍严重滞后，产品端不得不通过规则围栏和人工审核来兜底，而非依赖模型自身能力，形成'手脚加速发达，头脑缓慢进化'的短期僵局。
+- 结论：未来半年内，AI代理将进入'能力审计期'——行业从狂热部署转向冷静评估。评测体系将率先升级以暴露深层短板，但解决长程推理和利益对齐的工程方案仍将缺席。算力供应链的多元化将持续推进，但这一阶段降本增效的主要受益者是推理环节的成本而非模型本身智慧的提升。代理的短期落地将更多呈现为'强大但受限'的形态，即任务执行能力继续增强，但在涉及长期规划与模糊利益判断的场景中被迫依赖人类兜底。
 
 ## 局限性
-- 市场反应分析基于Hacker News社区评论，可能不代表所有小型企业客户的真实购买决策行为。
-- EVA-Bench的数据来自12个系统的横截面评测，不能反映个别系统在未来迭代中的改进潜力。
-- 所有分析基于公开资料与基准评测结果，缺乏对具体商业产品路线图或未发布技术的了解。
+- 所有信息均来自公开报道或论文，缺乏内部测试数据，无法验证 Meta 与 AWS 合作的实际规模或性能收益。
+- 基准测试结果可能因提示工程和评估协议的不同而产生显著差异，且 FutureSim 的三个月窗口是否足以代表长期任务仍存疑。
+- SocialReasoning Bench 的用户利益定义可能带有设计者的主观偏见，代理在真实个性化场景中的表现尚不可知。
+- 各研究之间缺乏横向对比数据，例如无法知晓 vLLM 在通用推理时是否能维持 ATLAS 的性能特性。
 
 ## 行动建议
-- 企业AI架构师与产品团队应立即将“用户利益对齐”和“真实世界鲁棒性”纳入内部代理评估清单，而不仅仅是任务完成率。
-- 决策者在选择AI供应商时应主动索要其在social reasoning或EVA-Bench等方面的第三方评测数据，并亲自测试其在噪声、口音等实际使用条件中的表现。
-- 定期跟踪行业关于代理评估基准的演进，以便及早发现自身部署的语音或文本代理可能存在的可靠性退化风险。
+- 技术决策者应关注代理基础设施的异构化趋势，评估 ARM 架构在推理流水线中的成本效益，为脱离单一 GPU 依赖做好准备。
+- 产品团队需为代理引入“收益对齐”模块，不仅关注任务完成率，还要监控其对用户长期路径的实际改善程度，并建立相应评估闭环。
+- 风险管理者应建立针对长时间尺度上的代理行为模拟测试，特别是融合新信息后的决策反转率，以提前发现不可控的长期漂移。
