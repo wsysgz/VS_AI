@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。">
+<meta name="description" content="AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。</p>
+        <p class="lead">AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。</p>
         <ul class="compact-list">
-          <li>Microsoft Research推出的SocialReasoning-Bench显示，现有AI代理虽能胜任具体任务，但无法真正改善用户处境，揭示了任务执行能力与用户代言对齐之间的根本鸿沟。</li><li>Anthropic针对小型企业推出的Claude计划引发社区高度关注，争议焦点在于通用AI工具能否真正将能力转化为小型企业所需的“开箱即用的确定性成果”并构建信任。</li><li>EVA-Bench对语音代理的全面评估证实，当前系统存在严重的结构性可靠性差距：峰值性能远高估了实际可依赖能力，且口音和噪声等现实扰动会造成显著的性能退化。</li>
+          <li>Meta 通过与 AWS 合作引入数千万 Graviton ARM 芯片，试图以架构多样化打破 NVIDIA 在 AI 算力上的垄断，支撑其代理型 AI 工作负载的快速扩展。</li><li>FutureSim 通过真实世界时序预测基准揭示，当前最前沿的 AI 代理在长程适应性推理上表现极差，准确率仅 25%，甚至低于随机猜想。</li><li>微软的 SocialReasoning Bench 发现，AI 代理虽能完美执行任务，却普遍无法理解并持续服务用户的深层次最佳利益。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-05-15T08:14:24.848988+08:00</span>
+          <span class="chip">最新更新 2026-05-16T08:24:09.089497+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -441,12 +441,12 @@
       <aside class="panel">
         <h2 class="section-title">覆盖状态</h2>
         <div class="stats-grid">
-          <article class="stat"><span>原始条目</span><strong>201</strong></article>
-          <article class="stat"><span>主题数量</span><strong>200</strong></article>
+          <article class="stat"><span>原始条目</span><strong>197</strong></article>
+          <article class="stat"><span>主题数量</span><strong>197</strong></article>
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
-          <article class="stat"><span>来源数量</span><strong>42</strong></article>
+          <article class="stat"><span>来源数量</span><strong>41</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">在短期（3-6个月）内，业界将出现预测性的缓和——一方面，主要AI供应商在关键任务中继续默认保留‘人机协同’兜底；另一方面，模型在EVA-Bench式标准和情境化推理上的针对性优化成为公开竞争焦点，但整体可靠性的根本性改进将慢于市场预期，代理在关键任务中的渗透率将低于年初计划。</p>
+        <p class="subtle" style="margin-top:14px;">评测界的风向将在半年内从静态基准彻底转向动态时序评测，&#x27;收益对齐&#x27;成为新的合规性检查项。但工程实现仍严重滞后，产品端不得不通过规则围栏和人工审核来兜底，而非依赖模型自身能力，形成&#x27;手脚加速发达，头脑缓慢进化&#x27;的短期僵局。</p>
       </aside>
     </section>
 
@@ -455,41 +455,48 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">算力基础设施</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-15/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-15/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-15/comparison/#comparison-compute-infra">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-16/comparison/#comparison-compute-infra">查看对比明细</a></div>
+</article><article class="comparison-card">
+  <span class="tag">嵌入式</span>
+  <dl>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
+  </dl>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-16/comparison/#comparison-embedded">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-15/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-15/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-16/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-15/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-16/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
-  <ul><li>继续跟踪 算力基础设施 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
+  <ul><li>继续跟踪 算力基础设施 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-15/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-16/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。">
+        <article class="archive-card" data-search="AI/智能体 AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>5002 条信号 · 最近 2026.05.15</p>
+  <p>5179 条信号 · 最近 2026.05.16</p>
   <div class="archive-footer">
-    <span>当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。</span>
+    <span>AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。">
+</article><article class="archive-card" data-search="AI × 电子 AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>619 条信号 · 最近 2026.05.15</p>
+  <p>639 条信号 · 最近 2026.05.16</p>
   <div class="archive-footer">
-    <span>当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。</span>
+    <span>AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -499,31 +506,31 @@
     <section class="section">
       <h2 class="section-title">来源</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="GitHub Wrap Go binaries in Python wheels AI/智能体 AI × 电子">
+        <article class="archive-card" data-search="GitHub Show HN: Sx – an open-source package manager for AI skills, MCPs, and commands AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>524 条信号 · 36 份日报 · 最近 2026.05.15</p>
+  <p>541 条信号 · 37 份日报 · 最近 2026.05.16</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">Wrap Go binaries in Python wheels</p>
+  <p class="subtle" style="margin-top:12px;">Show HN: Sx – an open-source package manager for AI skills, MCPs, and commands</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
 </article><article class="archive-card" data-search="huggingface.co How to Use Transformers.js in a Chrome Extension AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>396 条信号 · 33 份日报 · 最近 2026.05.15</p>
+  <p>408 条信号 · 34 份日报 · 最近 2026.05.16</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">How to Use Transformers.js in a Chrome Extension</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv Exact Verification of Graph Neural Networks with Incremental Constraint Solving AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv Position: Behavioural Assurance Cannot Verify the Safety Claims Governance Now Demands AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>299 条信号 · 29 份日报 · 最近 2026.05.15</p>
+  <p>309 条信号 · 30 份日报 · 最近 2026.05.16</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">Exact Verification of Graph Neural Networks with Incremental Constraint Solving</p>
+  <p class="subtle" style="margin-top:12px;">Position: Behavioural Assurance Cannot Verify the Safety Claims Governance Now Demands</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>292 条信号 · 36 份日报 · 最近 2026.05.15</p>
+  <p>300 条信号 · 37 份日报 · 最近 2026.05.16</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -535,14 +542,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>AI代理缺乏真正的用户代言能力</h3>
-  <p>SocialReasoning-Bench的评估暴露了一个核心问题：代理能执行指令，但缺乏情境化的社会推理，无法在复杂场景中主动优化用户利益，这对AI在企业中的深度部署构成直接风险。</p>
+  <h3>算力供应多元化：AI 代理正试图摆脱对 NVIDIA GPU 的单一依赖</h3>
+  <p>Agentic AI 的规模化部署迫使基础设施从追求峰值性能转向兼顾成本与效率的差异化架构，ARM CPU 正在成为推理与编排层的重要选项。</p>
 </article><article class="summary-card">
-  <h3>小型企业AI市场：价值具体化与信任是关键瓶颈</h3>
-  <p>虽然小型企业渴望AI提效，但Anthropic的Claude计划引发的讨论表明，市场胜负手不在于技术能力本身，而在于谁能将通用能力转化为贴合行业痛点的确定性解决方案，并解决安全合规与数据隐私的信任问题。</p>
+  <h3>当前 AI 代理的长期自适应推理能力严重不足</h3>
+  <p>FutureSim 的评测结果表明，代理在动态开放环境中无法有效融合新信息并调整判断，这直接限制了其在金融、政策分析等真实决策场景中的可用性。</p>
 </article><article class="summary-card">
-  <h3>语音代理存在严重的结构与鲁棒性鸿沟</h3>
-  <p>工业级语音代理评测框架EVA-Bench的数据表明，即使考虑了多次尝试后的最优表现，代理在真实世界的口音、噪声等条件下，其可依赖性能仍会大幅下降，暗示当前语音代理还不适合关键任务场景。</p>
+  <h3>任务执行能力与用户利益对齐之间存在系统性脱节</h3>
+  <p>SocialReasoning Bench 暴露了代理“正确执行错误事情”的风险，即使给出明确指令，代理也缺乏符合用户深层意图的社会推理，这是实现可靠自主代理前必须解决的安全与伦理瓶颈。</p>
 </article>
       </div>
     </section>
@@ -551,35 +558,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.05.15</p>
-  <h3>EVA-Bench: A New End-to-end Framework for Evaluating Voice Agents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/1/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.15</p>
+  <p class="article-date">2026.05.16</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/2/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-16/signals/1/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.15</p>
-  <h3>Claude for Small Business</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/3/">阅读文章</a>
+  <p class="article-date">2026.05.16</p>
+  <h3>Sea&#x27;s View on the Future of Agentic Software Development with Codex</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span></div>
+  <a class="article-action" href="./archives/2026-05-16/signals/2/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.15</p>
-  <h3>Best &quot;Brain&quot; for Agents Is Just Versioned Folders of Markdown Files</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">extency.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/4/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.15</p>
+  <p class="article-date">2026.05.16</p>
   <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/5/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-16/signals/3/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.15</p>
+  <p class="article-date">2026.05.16</p>
   <h3>SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
-  <a class="article-action" href="./archives/2026-05-15/signals/6/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-16/signals/4/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.16</p>
+  <h3>ATLAS: Agentic or Latent Visual Reasoning? One Word is Enough for Both</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="./archives/2026-05-16/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.16</p>
+  <h3>FutureSim: Replaying World Events to Evaluate Adaptive Agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CL</span></div>
+  <a class="article-action" href="./archives/2026-05-16/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -601,7 +608,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com anthropic.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com extency.com openvehicles.com president.mit.edu scottjg.com jpain.io blog.calif.io xeiaso.net router.start9.com theregister.com twitter.com opendata.dev wired.com">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com anthropic.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com hghalebi.github.io twitter.com macdailynews.com projectzero.google fastcompany.com tristandc.com fortune.com ppo.gradexp.xyz metabase.com lanl.gov medium.com">
+  <p class="article-date">2026.05.16</p>
+  <h3>AI 代理正从底层算力到上层推理全面演进，但能力与期望的对齐仍存在巨大鸿沟。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-05-16/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com anthropic.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com extency.com openvehicles.com president.mit.edu scottjg.com jpain.io blog.calif.io xeiaso.net router.start9.com theregister.com twitter.com opendata.dev wired.com">
   <p class="article-date">2026.05.15</p>
   <h3>当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -636,11 +648,6 @@
   <h3>智能体规模化部署正在暴露“单点安全”与“网络涌现风险”之间的断层，从芯片供应链到评估方法论都需要全新的系统级应对。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-05-09/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com rock-chips.com ernie.baidu.com qwen.ai groq.com qualcomm.com infineon.com mediatek.com blog.st.com ti.com sophgo.com horizon.auto amd.com developer.cambricon.com old.reddit.com bsuh.bearblog.dev deepmind.google unsloth.ai twitter.com rmoff.net openwall.com sqlite.org shkspr.mobi hacks.mozilla.org ratex.lites.dev citizen.co.za clojurescript.org firethering.com openrouter.ai ivanpleshkov.dev">
-  <p class="article-date">2026.05.08</p>
-  <h3>AI 工程化正从“让模型更聪明”转向“为不可靠输出构建确定性骨架”，边缘专项优化、控制流、安全审计与独立验证成为信任落地的四大支柱。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-05-08/brief/">阅读文章</a>
 </article>
       </div>
     </section>
