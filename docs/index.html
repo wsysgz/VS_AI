@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。">
+<meta name="description" content="代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。</p>
+        <p class="lead">代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</p>
         <ul class="compact-list">
-          <li>社区尝试将形式化方法 TLA+ 与大模型提示工程结合，意在降低 TLA+ 的入门门槛和初始建模成本，但形式化验证的严格性与 LLM 的非确定性存在根本矛盾。</li><li>Forge 项目通过引入领域无关的护栏层（重试提示、步骤强制、错误恢复等），将 8B 小模型在代理任务上的完成率从 53% 提升至 99%，展示出可靠性中间件对小模型工程化落地的巨大潜力。</li><li>OSWorld-Human 基准首次聚焦计算机使用代理的时间效率，发现代理存在 2.7–4.3 倍冗余步骤，且大模型的规划与反思调用是延迟的根本来源，宣告效率将成为下一代代理的核心竞争力。</li>
+          <li>行业正集体正视从演示级智能到生产级可信代理之间的鸿沟：模型能执行任务，却在保护用户利益等社会推理层面系统性失效；Meta 大规模引入 AWS Graviton 芯片，为代理型 AI 构建不依赖 GPU 的异构算力底座，以分散供应链风险；学界则提出随机-确定性边界（SDB）结构，将 LLM 的随机输出约束为确定性系统行为，旨在解决代理运行时的长期可靠性。</li><li>三个趋势共同揭示：代理型 AI 的竞争力不再仅由模型能力决定，而更多取决于确定性基础设施、社会意图对齐与健壮架构设计。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-05-20T08:32:20.001250+08:00</span>
+          <span class="chip">最新更新 2026-05-21T08:27:27.778799+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -444,9 +444,9 @@
           <article class="stat"><span>原始条目</span><strong>200</strong></article>
           <article class="stat"><span>主题数量</span><strong>200</strong></article>
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
-          <article class="stat"><span>来源数量</span><strong>45</strong></article>
+          <article class="stat"><span>来源数量</span><strong>46</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">未来半年内，AI代理的工程化转型将出现明显分化：一方面，将涌现更多针对特定领域（如桌面自动化、API编排）的轻量级护栏框架，但它们会像TLA+入门实验一样，主要作为原型辅助和教学工具存在，而非核心生产保障。另一方面，行业评测标准将快速跟进，延迟和步骤效率开始成为论文和选型的硬指标，但解决效率问题的底层模型推理优化仍滞后，导致多数产品和项目仅能在“准确但不实时”的妥协下试点运行。</p>
+        <p class="subtle" style="margin-top:14px;">领先云计算与代理框架团队在 2026 年下半年开始将随机-确定性边界等模式内化为可选组件或参考架构，但多数生产部署仍以功能可达性为首要目标；社会推理评测则被少数先行企业纳入内部红队审查，行业内尚未形成统一可靠性标准；Graviton 在低复杂度代理任务中较快验证成本优势，但中高复杂度决策仍依赖 GPU，异构推理组合初步形成，代理可靠性进展呈现&#x27;架构优化慢于模型进步&#x27;的局面。</p>
       </aside>
     </section>
 
@@ -455,48 +455,48 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">算力基础设施</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-20/comparison/#comparison-compute-infra">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">嵌入式</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-20/comparison/#comparison-embedded">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-embedded">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-20/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-20/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
   <ul><li>继续跟踪 算力基础设施 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-20/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-21/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。">
+        <article class="archive-card" data-search="AI/智能体 代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>5888 条信号 · 最近 2026.05.20</p>
+  <p>6070 条信号 · 最近 2026.05.21</p>
   <div class="archive-footer">
-    <span>AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。</span>
+    <span>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。">
+</article><article class="archive-card" data-search="AI × 电子 代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>728 条信号 · 最近 2026.05.20</p>
+  <p>746 条信号 · 最近 2026.05.21</p>
   <div class="archive-footer">
-    <span>AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。</span>
+    <span>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -506,31 +506,31 @@
     <section class="section">
       <h2 class="section-title">来源</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="GitHub Remove AI Watermarks AI/智能体 AI × 电子">
+        <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>603 条信号 · 41 份日报 · 最近 2026.05.20</p>
+  <p>618 条信号 · 42 份日报 · 最近 2026.05.21</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">Remove AI Watermarks</p>
+  <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
 </article><article class="archive-card" data-search="huggingface.co DeepInfra on Hugging Face Inference Providers 🔥 AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>456 条信号 · 38 份日报 · 最近 2026.05.20</p>
+  <p>468 条信号 · 39 份日报 · 最近 2026.05.21</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">DeepInfra on Hugging Face Inference Providers 🔥</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv What Does the AI Doctor Value? Auditing Pluralism in the Clinical Ethics of Language Models AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv DeltaPrompts: Escaping the Zero-Delta Trap in Multimodal Distillation AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>351 条信号 · 34 份日报 · 最近 2026.05.20</p>
+  <p>361 条信号 · 35 份日报 · 最近 2026.05.21</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">What Does the AI Doctor Value? Auditing Pluralism in the Clinical Ethics of Language Models</p>
+  <p class="subtle" style="margin-top:12px;">DeltaPrompts: Escaping the Zero-Delta Trap in Multimodal Distillation</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>332 条信号 · 41 份日报 · 最近 2026.05.20</p>
+  <p>340 条信号 · 42 份日报 · 最近 2026.05.21</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -542,14 +542,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>形式化方法拥抱 LLM：降低 TLA+ 使用门槛的实验性尝试</h3>
-  <p>TLA+ 等高门槛形式化验证工具若能被 LLM 有效驱动，有望让更多非专家开发者受益，但其底层矛盾也警示：现阶段的 LLM 尚难替代形式化专家，更适合作为原型辅助和教学工具。</p>
+  <h3>代理的社会盲区：AI 能干活却未必替你着想</h3>
+  <p>Microsoft Research 的 SocialReasoning-Bench 显示，代理在执行任务上表现合格，但在系统性地改善用户处境方面却一致性地失败，即使被明确要求优先考虑用户利益，行为依然如此，这直接动摇了代理经济的信任根基。</p>
 </article><article class="summary-card">
-  <h3>Forge 可靠性层：让小模型代理性能接近生产级</h3>
-  <p>通过工程化护栏将小模型智能化能力压榨至极限，打破了“只有超大模型才能做可靠代理”的认知，为低成本、高可靠性的企业级 AI 代理提供了可复现的中间件范式。</p>
+  <h3>算力底座转向：Meta 大规模引入 AWS Graviton</h3>
+  <p>此举并非简单的采购，而是为代理型 AI 构建起一条不依赖 GPU 的规模算力通道，背后逻辑是降低单位计算成本并分散集中供应链的交付风险，意味着代理场景的算力方案正在走向多样化与自研 / 合约整合。</p>
 </article><article class="summary-card">
-  <h3>OSWorld-Human 效率基准：代理延迟是下一场硬仗</h3>
-  <p>研究系统性地揭露了代理在真实桌面任务中的效率陷阱：准确率已不再是唯一瓶颈，数十倍于人类的延迟和随步骤恶化的响应速度，迫使社区将延迟、步骤效率纳入模型与系统设计的核心指标。</p>
+  <h3>架构契约化：随机-确定性边界被提出为第一类架构对象</h3>
+  <p>论文将 LLM 的随机输出与确定性系统行动之间的边界固化为架构原语，并提供了六种可复用的运行时模式与诊断方法论，为工程团队从‘搭 demo’转向‘保障稳定运行’给出了可操作路径。</p>
 </article>
       </div>
     </section>
@@ -558,35 +558,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.05.20</p>
-  <h3>OSWorld-Human: Benchmarking the Efficiency of Computer-Use Agents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">机器学习论文</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/1/">阅读文章</a>
+  <p class="article-date">2026.05.21</p>
+  <h3>Qwen3.7-Max: The Agent Frontier</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
+  <a class="article-action" href="./archives/2026-05-21/signals/1/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.20</p>
+  <p class="article-date">2026.05.21</p>
+  <h3>Testing distributed systems with AI agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-05-21/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.21</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/2/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-21/signals/3/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.20</p>
-  <h3>The last six months in LLMs in five minutes</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">simonwillison.net</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/3/">阅读文章</a>
+  <p class="article-date">2026.05.21</p>
+  <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
+  <a class="article-action" href="./archives/2026-05-21/signals/4/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.20</p>
-  <h3>Show HN: Forge – Guardrails take an 8B model from 53% to 99% on agentic tasks</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/4/">阅读文章</a>
+  <p class="article-date">2026.05.21</p>
+  <h3>SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="./archives/2026-05-21/signals/5/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.20</p>
-  <h3>Intro to TLA+ for the LLM Era: Prompt Your Way to Victory</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">emptysqua.re</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.20</p>
-  <h3>Databricks brings GPT-5.5 to enterprise agent workflows</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span></div>
-  <a class="article-action" href="./archives/2026-05-20/signals/6/">阅读文章</a>
+  <p class="article-date">2026.05.21</p>
+  <h3>A Methodology for Selecting and Composing Runtime Architecture Patterns for Production LLM Agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.SE</span></div>
+  <a class="article-action" href="./archives/2026-05-21/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -608,7 +608,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto ti.com blog.google amd.com developer.cambricon.com simonwillison.net emptysqua.re nesbitt.io twitter.com apple.com krebsonsecurity.com safedep.io deepmind.google emmi.ai gentoo.org nsarchive.gwu.edu distill.pub technicshistory.com superlog.sh">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com qwen.ai openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com legiscan.com blog.google alqst.org fire.org bleepingcomputer.com twitter.com mapofmetal.com mikeveerman.github.io tante.cc bbc.com torrentfreak.com news.infomaniak.com science.org reubenbrooks.dev usni.org medium.com">
+  <p class="article-date">2026.05.21</p>
+  <h3>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-05-21/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto ti.com blog.google amd.com developer.cambricon.com simonwillison.net emptysqua.re nesbitt.io twitter.com apple.com krebsonsecurity.com safedep.io deepmind.google emmi.ai gentoo.org nsarchive.gwu.edu distill.pub technicshistory.com superlog.sh">
   <p class="article-date">2026.05.20</p>
   <h3>AI 代理正从追求准确率转向兼顾效率与可靠性，工程化护栏、形式化方法与效率基准共同推动 LLM 代理走向生产可用。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -643,11 +648,6 @@
   <h3>当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-05-14/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com ti.com sophgo.com horizon.auto amd.com developer.cambricon.com hypercubic.ai voker.ai jeffgeerling.com news.ycombinator.com tanstack.com medium.com googlebook.google nair.sh thinkingmachines.ai lists.thekelleys.org.uk deepmind.google latimes.com bogomolov.work arstechnica.com">
-  <p class="article-date">2026.05.13</p>
-  <h3>从可靠性架构到去GPU推理，AI正在攻克企业级落地的最后壁垒，但生产验证仍是最大短板。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-05-13/brief/">阅读文章</a>
 </article>
       </div>
     </section>
