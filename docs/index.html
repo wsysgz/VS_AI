@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
+<meta name="description" content="为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</p>
+        <p class="lead">为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。</p>
         <ul class="compact-list">
-          <li>行业正集体正视从演示级智能到生产级可信代理之间的鸿沟：模型能执行任务，却在保护用户利益等社会推理层面系统性失效；Meta 大规模引入 AWS Graviton 芯片，为代理型 AI 构建不依赖 GPU 的异构算力底座，以分散供应链风险；学界则提出随机-确定性边界（SDB）结构，将 LLM 的随机输出约束为确定性系统行为，旨在解决代理运行时的长期可靠性。</li><li>三个趋势共同揭示：代理型 AI 的竞争力不再仅由模型能力决定，而更多取决于确定性基础设施、社会意图对齐与健壮架构设计。</li>
+          <li>Meta 与 AWS 达成合作，将数千万颗 Graviton 芯片纳入自身计算体系，专门支撑 agentic AI 工作负载，显示出在速度与自控力之间的艰难权衡。</li><li>一项新研究提出 Multi-Stream LLMs，试图把提示、思考与输入输出分离并行，以突破传统顺序推理的效率瓶颈，但仍面临推理质量与体系复杂度的双重考验。</li><li>微软推出的 MagenticLite 等系统，通过任务特化模型与编排技术，让小型模型也能在浏览器和本地文件系统中完成日常多步代理任务，推动代理能力从云端向终端不断下探。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-05-21T08:27:27.778799+08:00</span>
+          <span class="chip">最新更新 2026-05-22T08:27:00.357656+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -446,7 +446,7 @@
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
           <article class="stat"><span>来源数量</span><strong>46</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">领先云计算与代理框架团队在 2026 年下半年开始将随机-确定性边界等模式内化为可选组件或参考架构，但多数生产部署仍以功能可达性为首要目标；社会推理评测则被少数先行企业纳入内部红队审查，行业内尚未形成统一可靠性标准；Graviton 在低复杂度代理任务中较快验证成本优势，但中高复杂度决策仍依赖 GPU，异构推理组合初步形成，代理可靠性进展呈现&#x27;架构优化慢于模型进步&#x27;的局面。</p>
+        <p class="subtle" style="margin-top:14px;">Meta的Graviton部署按计划推进但处于谨慎阶段，主要承载部分内部批式推理和低优先级agentic任务，未对NVIDIA/MTIA构成明显替代，成本收益尚待量化；Multi-Stream LLMs理念获得学术界关注，但因其对训练范式和推理管线的改动较大，少数团队进行概念验证，6个月内无法进入产品级部署；微软MagenticLite在Windows Insider等渠道小范围测试，完成简单网页表单填写、本地文件整理等任务，用户体验正面，但在复杂和异常场景下仍需要云端大模型兜底，推动行业形成“端侧轻量代理+云端复杂推理”的分层共识。</p>
       </aside>
     </section>
 
@@ -455,48 +455,48 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">算力基础设施</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-compute-infra">寒武纪开发者社区：算力基础设施 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-compute-infra">cerebras-blog：算力基础设施 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-compute-infra">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-22/comparison/#comparison-compute-infra">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">嵌入式</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-embedded">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-22/comparison/#comparison-embedded">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-05-22/comparison/#comparison-frontier-ai">arxiv-cs-ai：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-21/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-05-22/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
   <ul><li>继续跟踪 算力基础设施 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-21/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-05-22/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
+        <article class="archive-card" data-search="AI/智能体 为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>6070 条信号 · 最近 2026.05.21</p>
+  <p>6252 条信号 · 最近 2026.05.22</p>
   <div class="archive-footer">
-    <span>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</span>
+    <span>为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。">
+</article><article class="archive-card" data-search="AI × 电子 为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>746 条信号 · 最近 2026.05.21</p>
+  <p>764 条信号 · 最近 2026.05.22</p>
   <div class="archive-footer">
-    <span>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</span>
+    <span>为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -509,28 +509,28 @@
         <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>618 条信号 · 42 份日报 · 最近 2026.05.21</p>
+  <p>632 条信号 · 43 份日报 · 最近 2026.05.22</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
   <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
 </article><article class="archive-card" data-search="huggingface.co DeepInfra on Hugging Face Inference Providers 🔥 AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>468 条信号 · 39 份日报 · 最近 2026.05.21</p>
+  <p>480 条信号 · 40 份日报 · 最近 2026.05.22</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">DeepInfra on Hugging Face Inference Providers 🔥</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv DeltaPrompts: Escaping the Zero-Delta Trap in Multimodal Distillation AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv HITL-D: Human In The Loop Diffusion Assisted Shared Control AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>361 条信号 · 35 份日报 · 最近 2026.05.21</p>
+  <p>372 条信号 · 36 份日报 · 最近 2026.05.22</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">DeltaPrompts: Escaping the Zero-Delta Trap in Multimodal Distillation</p>
+  <p class="subtle" style="margin-top:12px;">HITL-D: Human In The Loop Diffusion Assisted Shared Control</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>340 条信号 · 42 份日报 · 最近 2026.05.21</p>
+  <p>348 条信号 · 43 份日报 · 最近 2026.05.22</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -542,14 +542,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>代理的社会盲区：AI 能干活却未必替你着想</h3>
-  <p>Microsoft Research 的 SocialReasoning-Bench 显示，代理在执行任务上表现合格，但在系统性地改善用户处境方面却一致性地失败，即使被明确要求优先考虑用户利益，行为依然如此，这直接动摇了代理经济的信任根基。</p>
+  <h3>Meta 大举引入 AWS Graviton 芯片，押注 agentic AI 规模优先</h3>
+  <p>这标志着 Meta 在自研芯片与外部代工之间做出了明确的短期选择，将直接影响其 AI 基础设施成本与供应链独立性，也给其他大型 AI 玩家提供了‘速度换主权’的参考范本。</p>
 </article><article class="summary-card">
-  <h3>算力底座转向：Meta 大规模引入 AWS Graviton</h3>
-  <p>此举并非简单的采购，而是为代理型 AI 构建起一条不依赖 GPU 的规模算力通道，背后逻辑是降低单位计算成本并分散集中供应链的交付风险，意味着代理场景的算力方案正在走向多样化与自研 / 合约整合。</p>
+  <h3>Multi-Stream LLMs 探索推理并行化，意图打破顺序依赖</h3>
+  <p>如果该架构能在保证推理质量的前提下显著提升吞吐，将改变 LLM 推理部署的经济模型，尤其对实时 agentic 场景意义重大，但目前仍处于早期的学术验证阶段。</p>
 </article><article class="summary-card">
-  <h3>架构契约化：随机-确定性边界被提出为第一类架构对象</h3>
-  <p>论文将 LLM 的随机输出与确定性系统行动之间的边界固化为架构原语，并提供了六种可复用的运行时模式与诊断方法论，为工程团队从‘搭 demo’转向‘保障稳定运行’给出了可操作路径。</p>
+  <h3>微软发布 MagenticLite：让轻量模型也能独立完成多步代理任务</h3>
+  <p>这意味着‘可靠代理’不再只是超大模型的专属，有望大幅降低 agentic AI 的部署门槛与延迟，使端侧智能助手、本地自动化等应用走得更快。</p>
 </article>
       </div>
     </section>
@@ -558,35 +558,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.05.21</p>
-  <h3>Qwen3.7-Max: The Agent Frontier</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">qwen.ai</span><span class="tag">Hacker News</span><span class="tag">hot</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/1/">阅读文章</a>
+  <p class="article-date">2026.05.22</p>
+  <h3>Launch HN: Runtime (YC P26) – Sandboxed coding agents for everyone on a team</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">runtm.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-05-22/signals/1/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.21</p>
-  <h3>Testing distributed systems with AI agents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/2/">阅读文章</a>
+  <p class="article-date">2026.05.22</p>
+  <h3>Show HN: Agent.email – sign up via curl, claim with a human OTP</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">news.ycombinator.com</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="./archives/2026-05-22/signals/2/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.21</p>
+  <p class="article-date">2026.05.22</p>
+  <h3>Multi-Stream LLMs: new paper on parallelizing/separating prompts, thinking, I/O</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-05-22/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.05.22</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/3/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-22/signals/4/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.21</p>
+  <p class="article-date">2026.05.22</p>
   <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/4/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-22/signals/5/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.05.21</p>
-  <h3>SocialReasoning-Bench: Measuring whether AI agents act in users’ best interests</h3>
+  <p class="article-date">2026.05.22</p>
+  <h3>MagenticLite, MagenticBrain, Fara1.5: An agentic experience optimized for small models</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.05.21</p>
-  <h3>A Methodology for Selecting and Composing Runtime Architecture Patterns for Production LLM Agents</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.SE</span></div>
-  <a class="article-action" href="./archives/2026-05-21/signals/6/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-05-22/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -608,7 +608,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com qwen.ai openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com legiscan.com blog.google alqst.org fire.org bleepingcomputer.com twitter.com mapofmetal.com mikeveerman.github.io tante.cc bbc.com torrentfreak.com news.infomaniak.com science.org reubenbrooks.dev usni.org medium.com">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto news.ycombinator.com ti.com amd.com developer.cambricon.com runtm.com bleepingcomputer.com 0xsid.com valhovey.github.io noslopgrenade.com prismreports.org blog.changs.co.uk twitter.com rosmine.ai wsj.com developers.redhat.com guitarworld.com rivet.dev spectrum.ieee.org davidoks.blog">
+  <p class="article-date">2026.05.22</p>
+  <h3>为了加速 Agentic AI 的规模化落地，Meta 不惜以牺牲基础设施独立性为代价引入 AWS Graviton，学术界尝试通过并行流式架构突破 LLM 推理瓶颈，而微软则致力于让小模型也能完成可靠的多步代理任务。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-05-22/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com qwen.ai openai.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com legiscan.com blog.google alqst.org fire.org bleepingcomputer.com twitter.com mapofmetal.com mikeveerman.github.io tante.cc bbc.com torrentfreak.com news.infomaniak.com science.org reubenbrooks.dev usni.org medium.com">
   <p class="article-date">2026.05.21</p>
   <h3>代理型 AI 正从“能不能跑通”进入“靠不靠谱”阶段：基础设施、社会推理能力与运行时架构成为三重工程化瓶颈。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -643,11 +648,6 @@
   <h3>当前AI代理在任务执行能力上快速进步，但在真实世界场景中真正服务于用户利益时仍存在根本性的可靠性、价值对齐和鲁棒性差距。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-05-15/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai renesas.com edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com blog.st.com sophgo.com horizon.auto ti.com amd.com developer.cambricon.com bitplane.net ossresistance.com googlebook.google nair.sh jorijn.com fredchan.org sciencedaily.com arstechnica.com laurent.le-brun.eu ericswpark.com discuss.python.org propublica.org haiku-os.org avkcode.github.io news.ycombinator.com sltrib.com theverge.com greem.co.uk">
-  <p class="article-date">2026.05.14</p>
-  <h3>当前 AI 智能体生态正从推理效率、用户对齐到持续学习全面面临“组合复杂性”的挑战，而分离快慢学习、编排异构操作路径则是突围的关键方向。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-05-14/brief/">阅读文章</a>
 </article>
       </div>
     </section>
