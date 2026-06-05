@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。">
+<meta name="description" content="AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。</p>
+        <p class="lead">AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。</p>
         <ul class="compact-list">
-          <li>vLLM在快速兼容新模型与硬件时，面临“极致深度优化”与“广泛适配”的根本性矛盾，其核心竞争力在于能否持续平衡二者。</li><li>微软MagenticLite系统通过让多个专用小模型协同工作，试图解决小模型规模有限却需完成复杂桌面代理任务的挑战，本质上是一种“大模型能力下沉”策略。</li><li>Meta与AWS就Graviton芯片达成大规模合作，标志着为解决推理规模战中的算力瓶颈，超大型AI公司开始务实引入外部成熟方案，即使这意味着平衡自研路线与供应链依赖风险。</li>
+          <li>vLLM 作为主流开源推理引擎，正面临模型架构和硬件平台双双碎片化的挤压，其核心挑战是在保持高吞吐、低显存的同时，持续快速适配 MoE、超长上下文等最新模型与异构硬件。</li><li>华为开源的 KVarN 项目瞄准 vLLM 原生 KV-cache 量化后端，试图在推理精度可控的前提下大幅降低显存占用和部署成本，但其能否获得社区信任并证明相对于现有方案的显著优势仍是关键。</li><li>微软研究院推出的 MagenticLite 等系统尝试将多步规划、跨应用协作的智能体能力压缩进端侧可运行的小模型，以低成本、高隐私的方式推动 AI 大规模落地，但其轻量化与复杂推理能力之间的结构性矛盾尚未根本解决。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-06-04T09:56:00.243383+08:00</span>
+          <span class="chip">最新更新 2026-06-05T09:37:21.136668+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -441,12 +441,12 @@
       <aside class="panel">
         <h2 class="section-title">覆盖状态</h2>
         <div class="stats-grid">
-          <article class="stat"><span>原始条目</span><strong>191</strong></article>
-          <article class="stat"><span>主题数量</span><strong>191</strong></article>
+          <article class="stat"><span>原始条目</span><strong>173</strong></article>
+          <article class="stat"><span>主题数量</span><strong>173</strong></article>
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
-          <article class="stat"><span>来源数量</span><strong>46</strong></article>
+          <article class="stat"><span>来源数量</span><strong>42</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">vLLM采取渐进式优化，对部分重点新模型和硬件提供高效支持但保留部分实验性兼容通道，性能保持在可接受范围但非极致；微软MagenticLite在特定受控场景（如浏览器自动化）中展示出可用性，但通用桌面代理能力仍有限，成为小模型编排方法的早期参考但未形成行业标准；Meta初步完成Graviton与MTIA芯片的协同调度，推理成本小幅下降，但暴露出异构管理的运维负担，异构算力作为务实选项得到验证，但不会有戏剧性的成本革命。整体上，AI基础设施在工程务实方向上迈出谨慎一步，但速度和确定性低于乐观预期。</p>
+        <p class="subtle" style="margin-top:14px;">KVarN 在实验室基准中表现良好但生产数据不足，仅被少数风险承受度高的团队试用，未能动摇现有量化方案地位；vLLM 继续快速迭代但偶尔晚于硬件更新，整体生态保持稳定；小模型智能体在特定垂直任务（如文件管理）中见到成果，通用场景仍依赖大模型，形成互补格局。</p>
       </aside>
     </section>
 
@@ -455,41 +455,41 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">嵌入式</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-06-04/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-06-04/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-06-05/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-06-05/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-04/comparison/#comparison-embedded">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-05/comparison/#comparison-embedded">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-06-04/comparison/#comparison-frontier-ai">智谱新闻：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-06-04/comparison/#comparison-frontier-ai">huggingface-blog：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-06-05/comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-06-05/comparison/#comparison-frontier-ai">OpenAI 新闻：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-04/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-05/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
   <ul><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-06-04/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-06-05/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。">
+        <article class="archive-card" data-search="AI/智能体 AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>8556 条信号 · 最近 2026.06.04</p>
+  <p>8709 条信号 · 最近 2026.06.05</p>
   <div class="archive-footer">
-    <span>本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。</span>
+    <span>AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。">
+</article><article class="archive-card" data-search="AI × 电子 AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>1012 条信号 · 最近 2026.06.04</p>
+  <p>1032 条信号 · 最近 2026.06.05</p>
   <div class="archive-footer">
-    <span>本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。</span>
+    <span>AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -499,12 +499,12 @@
     <section class="section">
       <h2 class="section-title">来源</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
+        <article class="archive-card" data-search="GitHub Show HN: Formally verified polygon intersection – Opus 4.8 oneshots, prev failed AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>822 条信号 · 56 份日报 · 最近 2026.06.04</p>
+  <p>839 条信号 · 57 份日报 · 最近 2026.06.05</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
+  <p class="subtle" style="margin-top:12px;">Show HN: Formally verified polygon intersection – Opus 4.8 oneshots, prev failed</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
 </article><article class="archive-card" data-search="huggingface.co Introducing the Ettin Reranker Family AI/智能体">
   <span class="eyebrow">来源</span>
@@ -513,17 +513,17 @@
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">Introducing the Ettin Reranker Family</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv SpeedAug: Policy Acceleration via Tempo-Enriched Policy and RL Fine-Tuning AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv Do transformers need three projections? Systematic study of QKV variants AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>479 条信号 · 47 份日报 · 最近 2026.06.02</p>
+  <p>480 条信号 · 48 份日报 · 最近 2026.06.05</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">SpeedAug: Policy Acceleration via Tempo-Enriched Policy and RL Fine-Tuning</p>
+  <p class="subtle" style="margin-top:12px;">Do transformers need three projections? Systematic study of QKV variants</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>454 条信号 · 56 份日报 · 最近 2026.06.04</p>
+  <p>462 条信号 · 57 份日报 · 最近 2026.06.05</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -535,14 +535,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>vLLM：在“万物兼容”与“极致优化”间的平衡术</h3>
-  <p>vLLM的挑战反映了整个AI基础设施层的核心矛盾：生态发展速度远超单点优化速度。它能否在广泛支持新模型（如DeepSeek、Qwen3）和新硬件的同时，保持其引以为傲的高吞吐与内存效率，将决定其是否会从“推理引擎”沦为“兼容层”，直接影响大量AI应用的推理成本和性能上限。</p>
+  <h3>推理引擎之争：vLLM 的“全覆盖”压力</h3>
+  <p>vLLM 作为社区事实标准，其健康度直接影响大量 LLM 应用的上限；若无法跟上模型与硬件双线创新的速度，可能出现性能瓶颈或生态分裂，波及下游部署。</p>
 </article><article class="summary-card">
-  <h3>微软MagenticLite：大模型能力下沉至小模型的桌面代理实验</h3>
-  <p>此举探索了AI代理落地的另一条路径：不依赖单个万亿参数巨无霸，转而使用能力拆解后协同作战的专用小模型。如果成功，它将证明在桌面操作等特定场景中，通过精巧的编排，低成本小模型也能实现流畅可靠的代理体验，从而极大地降低Agent的部署门槛和推理成本。</p>
+  <h3>华为 KVarN：用原生量化后端卡位推理成本关口</h3>
+  <p>KV-cache 是显存占用的主要来源，华为以 vLLM 原生方式切入，既展示技术能力，也试图在越来越昂贵的大模型推理市场建立影响力。市场接受度与精度-成本的平衡将决定其实际价值。</p>
 </article><article class="summary-card">
-  <h3>Meta×AWS：用最务实的引擎，打赢AI推理规模战</h3>
-  <p>Meta在自研MTIA芯片之外，大规模引入AWS Graviton，是为了抢占Agentic AI工作负载的时间窗口而采取的务实之举。这不仅暴露了其面临的海量推理缺口与紧迫性，也向行业传递了一个信号：在这场算力竞赛中，短期内的速度和规模重于理想化的全栈自研，异构算力协同将成为常态。</p>
+  <h3>微软的小模型智能体：把智能压缩到终端</h3>
+  <p>若成功，将极大降低 AI 智能体的算力门槛和延迟，支撑本地化、隐私友好的大规模部署，这会是企业级 AI 应用的关键转折点，但其能力边界尚需大量实践检验。</p>
 </article>
       </div>
     </section>
@@ -551,35 +551,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.06.04</p>
-  <h3>Launch HN: Hyper (YC P26) – Company brain to power agentic development</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">news.ycombinator.com</span><span class="tag">Hacker News</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/1/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.06.04</p>
+  <p class="article-date">2026.06.05</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/2/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-05/signals/1/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.04</p>
+  <p class="article-date">2026.06.05</p>
+  <h3>KVarN: Native vLLM backend for KV-cache quantization by Huawei</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-06-05/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.06.05</p>
+  <h3>How Endava is redesigning software delivery around AI agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span></div>
+  <a class="article-action" href="./archives/2026-06-05/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.06.05</p>
   <h3>Meta Partners With AWS on Graviton Chips to Power Agentic AI</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Data Centers</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/3/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-05/signals/4/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.04</p>
+  <p class="article-date">2026.06.05</p>
   <h3>MagenticLite, MagenticBrain, Fara1.5: An agentic experience optimized for small models</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/4/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-05/signals/5/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.04</p>
+  <p class="article-date">2026.06.05</p>
   <h3>Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.06.04</p>
-  <h3>Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
-  <a class="article-action" href="./archives/2026-06-04/signals/6/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-05/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -601,7 +601,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com mediatek.com blog.st.com amd.com sophgo.com horizon.auto developer.cambricon.com news.ycombinator.com ti.com bbc.com blog.google blog.ammaraskar.com law.stanford.edu tomshardware.com simonwillison.net macrumors.com theatlantic.com letsencrypt.org science.org utoronto.ca leidendeclaration.ai wired.com groupdiy.com rootshell.is 404media.co">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com renesas.com mediatek.com blog.st.com amd.com sophgo.com horizon.auto developer.cambricon.com ti.com blog.google theatlantic.com dailycal.org aoav.org.uk buchodi.com en.wikipedia.org worksinprogress.co arXiv ft.com designboom.com ashbyhq.com bloomberg.com louwrentius.com castor.web.cern.ch 404media.co">
+  <p class="article-date">2026.06.05</p>
+  <h3>AI 推理基础设施正在从“能力至上”转向“可部署性、效率与成本的平衡”，vLLM 的架构竞争、华为的量化卡位和微软的小模型智能体实验共同勾勒出这一转向。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-06-05/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co anthropic.com openai.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com mediatek.com blog.st.com amd.com sophgo.com horizon.auto developer.cambricon.com news.ycombinator.com ti.com bbc.com blog.google blog.ammaraskar.com law.stanford.edu tomshardware.com simonwillison.net macrumors.com theatlantic.com letsencrypt.org science.org utoronto.ca leidendeclaration.ai wired.com groupdiy.com rootshell.is 404media.co">
   <p class="article-date">2026.06.04</p>
   <h3>本周AI基础设施动态揭示了一个共同主题：行业正从追求“模型全能性”转向“工程务实性”——通过小模型专业化、推理引擎极致优化与异构算力引入，在成本、效率与规模之间寻找可落地的平衡点。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -636,11 +641,6 @@
   <h3>前沿AI公司一边以天价估值疯狂吸金，一边在可靠性和事实一致性上暴露出致命短板，资本叙事与工程现实之间的裂痕正快速扩大。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-05-29/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com anthropic.com api-docs.deepseek.com about.fb.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com blog.st.com sophgo.com horizon.auto amd.com developer.cambricon.com arps18.github.io ti.com orchidfiles.com pcgamer.com simonwillison.net techcrunch.com blog.youtube posthog.com jacquescorbytuech.com thonking.ai sverre.me brennan.day tinycld.org science.org ochagavia.nl z3ugma.github.io bloomberg.com elodin.systems">
-  <p class="article-date">2026.05.28</p>
-  <h3>前沿 AI 智能体正试图接管企业 IT 与安全核心业务，但基准测试暴露其可靠性仍不足 50%，攻防效率与合规容错之间的鸿沟正急剧扩大。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-05-28/brief/">阅读文章</a>
 </article>
       </div>
     </section>
