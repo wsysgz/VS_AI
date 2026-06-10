@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-10T09:38:44.892449+08:00",
+    "generated_at": "2026-06-10T09:38:50.330407+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 201,
     "total_topics": 200,
@@ -10,55 +10,221 @@
       "review_note": ""
     }
   },
-  "one_line_core": "今日 AI 领域三大动态共同指向一个核心矛盾：前沿模型的能力在标准测试上高歌猛进，但在真实世界的混杂、信任与成本边界上正遭遇系统性摩擦。",
+  "one_line_core": "前沿AI正从“能力炫耀”转向“可靠性交付”：模型再强，若不能解决安全信任、语言鲁棒性和推理成本边界等工程落地难题，就无法转化为真正的生产力。",
   "executive_summary": [
-    "ServiceNow 的基准评测揭示，当前顶尖 ASR 模型在处理真实场景中常见的多语混杂语音时表现脆弱，这对全球化语音代理部署构成直接风险。",
-    "Anthropic 通过一种寓言式的叙事（Claude Fable 5）配合透明的模型系统卡来发布新进展，这反映了 AI 厂商在渴望展示能力飞跃的同时，也在小心翼翼地管理公众对安全的信任。",
-    "一篇探讨 LLM 能否击败传统超参数优化算法的论文在 HN 上激起热议，其本质并非技术对决的胜负，而是对‘通用智能范式能否及何时吞噬专用工具’这一元问题的量化拷问。"
+    "Anthropic发布Claude Fable 5模型及系统卡，在HN社区引发争议：社区对强大模型能力表示兴奋，但围绕安全透明度、黑箱决策与系统卡潜在缺失展开激烈辩论，模型能力释放与公众信任之间的裂痕进一步扩大。",
+    "ServiceNow AI的语码转换ASR基准测试揭示，当前主流语音代理在单语场景之外仍存在严重瓶颈，用户自然的双语切换习惯与以单语假设为核心的模型训练范式构成根本矛盾，这成为语音AI进入多语种市场的关键阻隔。",
+    "vLLM项目面临在推理性能最大化与快速兼容异构模型/硬件生态之间持续权衡的张力，其长期护城河取决于能否在“极致优化”与“广泛覆盖”之间找到平衡，这反映了整个AI基础设施层在应对创新加速时的共性挣扎。",
+    "一项关于LLM与经典超参数优化算法的对比研究引发讨论：LLM凭借通用知识实现“便捷推断”，但与之相对的是概率不确定性带来的可靠性问题和隐蔽的高昂成本，这迫使社区冷静审视通用大模型在精细化工程任务中的真实适用边界。"
   ],
   "key_points": [
     {
-      "title": "语音代理的‘瑞士军刀’在真实多语场景中卷刃",
-      "why_it_matters": "语音正成为人机交互的主入口，但 ASR 模型对单语数据的过度优化导致其在 handle 自然的中英语码切换时错误率飙升。这意味着若不加处理，全球化部署的语音代理将在最重要的客户服务场景中沦为昂贵的单点故障。"
+      "title": "信任赤字：Claude Fable 5 发布放大能力与安全的根本矛盾",
+      "why_it_matters": "Anthropic作为以安全为核心定位的AI公司，其最新模型发布不仅是一次技术迭代，更是一张公关与产品定位的答卷。社区对系统卡的高度争议表明，单纯公布部分安全数据已不足以弥合公众在高风险AI面前的信任赤字，该事件预示着“自述安全”的模式正面临越来越尖锐的质疑。"
     },
     {
-      "title": "Anthropic 用‘寓言’包裹‘系统卡’，塑造 AI 发布的双重叙事",
-      "why_it_matters": "此举不仅是技术发布，更是一次精心的信任构建工程：用一个富有感染力的故事（Fable）来激动人心，同时用一份冷静详细的系统卡（System card）来安抚理性。这将成为 AI 前沿实验室平衡技术创新与社会责任的叙事范本。"
+      "title": "多语种语音AI的最大短板：无法适应真实的语码转换",
+      "why_it_matters": "全球化企业部署语音客服的刚需，戳破了当前ASR系统“高指标”的泡沫。用户句内或句间自然夹杂多种语言的说话方式，正在成为语音代理无法逾越的壁垒。这一瓶颈意味着语音AI在多语种市场的落地速度和天花板，将完全取决于模型对高变异性自然语言现象的鲁棒性突破，而非标准场景下的准确率提升。"
     },
     {
-      "title": "LLM 挑战传统超参数优化：一场关于‘通用智能边界’的擂台赛",
-      "why_it_matters": "其高热度的背后，是行业对高昂的 LLM 推理成本能否在更专业的工具领域（如 AutoML）产生足够 ROI 的根本性质疑。若 LLM 无法在此类可量化任务上显著胜出，将动摇业界将其视为万能替代者的信心。"
+      "title": "AI基础设施的创新瓶颈：vLLM在性能与生态覆盖之间走钢丝",
+      "why_it_matters": "vLLM作为核心推理引擎，其困境是整个AI基础设施层的缩影。大模型迭代速度远超基础设施的适配能力，导致项目必须在追求极致推理性能和快速支持层出不穷的新模型/新硬件之间持续做出牺牲。该项目的护城河将由其能否化解这一结构性张力所决定，而非单纯的吞吐量数据。"
+    },
+    {
+      "title": "大模型的边界反思：通用智能的“捷径”何时失效",
+      "why_it_matters": "让LLM做超参数优化，本质上是试图用高昂计算成本和概率性推理去替代成本可控、逻辑严谨的专用搜索算法。这项研究的讨论热度，标志着一个重要的行业心态转变：从对大模型无所不能的狂热，转向务实地探求其在精细化、确定性要求高的工程任务中，真实的成本收益边界和适用性峰值。"
     }
   ],
   "key_insights": [
-    "从单语到多语、从算法擂台上到叙事发布厅，今日 AI 的进步不再被单一的性能指标所定义，而是陷入了由‘高性能-高脆弱性’、‘强能力-信任赤字’、‘通用性-效率边界’组成的三元悖论中。",
-    "Anthropic 创造性的‘寓言+系统卡’组合拳，标志着 AI 竞争正从参数量的军备竞赛，转向对公众想象力和安全信任的双重争夺，谁能讲好这个双重叙事，谁就掌握了定义未来 AI 权力的主动权。",
-    "‘通用智能吞噬专用工具’的理想正面临来自真实成本与效率的第一次重大阻击，超参数优化论文的争论是一个缩影：人们开始要求通用智能在每一个具体擂台上用可控的成本证明自己，而不是仅靠宏大叙事。"
+    "前沿AI模型普遍跨过了“可行演示”的门槛，但集体撞上了“可靠交付”的墙：无论是语音ASR在语码转换处的高错误率，还是LLM在超参数优化中的不确定性，均表明从实验室高指标到真实世界中高可靠性产品之间存在巨大鸿沟。",
+    "在AI叙事中，单纯公布“系统卡”或安全文档已无法构建信任，反而可能成为新的攻击面。Claude的争议表明，有关AI安全与透明度的讨论，正从“有没有提供信息”演变为对“信息完整性、选择性披露和框架”的深度博弈。",
+    "自然场景中的“高变异性”（语码转换、情感表达、奇特数据分布）正在成为精准模型的极限边界。AI企业如果仍沉迷于标准基准的刷分竞赛，而忽视这些边缘但高价值的场景，将在商业化的过程中遭遇“纸面强大，落地失灵”的陷阱。"
   ],
   "limitations": [
-    "超参数优化论文的分析仅基于标题和社区热度，实验方法和具体结论处于未知状态，判断置信度较低。",
-    "ServiceNow 的 ASR 基准测试细节和数据量未在本次分析中详尽提供，无法对其评测的全面性做出判断。",
-    "三条情报的逻辑关联是基于主题事件的归纳提炼，而非对特定单一事件的深度解剖。"
+    "各项分析依赖于社区反馈和官方披露，对于Claude Fable 5系统卡争议中提及的“潜在缺陷或遗漏”尚缺乏独立第三方的深度技术验证，存在信息源于辩论而非审计的不确定性。",
+    "vLLM的张力分析基于项目定位和技术趋势判断，对其内部工程决策的具体权重和商业考量的掌握程度有限，判断置信度较低。",
+    "语音ASR和超参数LLM的研究均基于特定测试集和场景，其结论的普适性以及在未来模型版本中是否会得到突变式解决，目前无法给出确切预估。"
   ],
   "actions": [
-    "若贵司正部署多语种语音服务，应将 code-switching 鲁棒性测试纳入 ASR 选型的核心 P0 指标，而非仅看通用准确率。",
-    "技术传讯团队可借鉴 Anthropic 的双层发布策略，为重大技术里程碑配备一套兼顾情感共鸣与透明事实的外部叙事。",
-    "在考虑用 LLM 替代专用工具链前，必须在一个可量化、小切口的场景（如超参数优化）进行严格的成本/收益对标实验，避免被通用智能的叙事引导进入 ROI 陷阱。"
+    "对于AI安全与部署决策者：在评估前沿模型时，强化“信任但必须验证”的流程，不仅依赖模型厂商的系统卡，更需要在自身特定、高变异性的业务场景中建立独立的鲁棒性和安全性压力测试。",
+    "对于企业AI应用架构师：在多语种语音或精细化预测等场景中，优先审视通用大模型的边界，对语码转换鲁棒性和任务确定性进行试点测试，避免在边缘场景被商业宣传的高指标所误导。",
+    "对于基础设施团队：关注vLLM等项目中“广泛兼容”与“极致性能”的取舍对自身技术栈的影响，在对新模型、新硬件抱有激进跟进预期的同时，制定保守的稳定性兜底策略。"
   ],
   "analyses": [
     {
       "facts": [
-        "ServiceNow AI 发布了 ASR 系统在 code-switching 语音上的基准评测",
-        "语音代理越来越多地被用于客户服务等真实场景，其中多语混杂是常见现象",
-        "当前前沿的 ASR 模型在处理纯单语语音上表现优异，但在 code-switching 语音上的表现尚未被充分评价"
+        "Anthropic发布其最新模型或系统Claude Fable 5，并附带一份详细的系统卡（System Card）PDF",
+        "该消息在Hacker News上引发强烈关注，得分1776，评论数1396，呈现高度争议或广泛讨论",
+        "信息来源包括Anthropic官方新闻和Hacker News社区讨论，具备官方声明与社区反馈的双重证据"
       ],
       "contradictions": [
-        "单语优化的 ASR 模型 vs 用户说话时自然混用多语的需求",
-        "语音代理大规模部署的趋势 vs 对非标准语音输入脆弱的识别能力",
-        "企业全球化与多语种服务的承诺 vs 实际技术栈对混合语音支持不足的现实"
+        "前沿AI能力持续快速迭代 vs 社会各界对AI安全与失控风险的担忧",
+        "Anthropic作为安全导向公司的公开透明尝试 vs 其仍然存在的黑箱决策与商业保密需求",
+        "社区对模型性能的兴奋 vs 对系统卡中潜在缺陷或遗漏的激烈争论"
       ],
-      "primary_contradiction": "前沿 ASR 模型对单语语音的高准确率与其对 code-switching 语音的高错误率之间的矛盾",
-      "core_insight": "语音代理能否应对真实世界的多语混杂场景，取决于 ASR 系统是否在 code-switching 语料上做过系统性评测和鲁棒性优化，否则语音代理在多语市场中会变成一个昂贵的失效点。",
+      "primary_contradiction": "强大AI模型的能力释放与公众对安全性、透明性的不信任之间的根本冲突",
+      "core_insight": "Claude Fable 5的发布不仅是一次模型迭代，更是Anthropic在安全叙事与能力竞赛之间的一次关键公关与产品定位行动。",
+      "confidence": "medium",
+      "title": "Claude Fable 5",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "primary_domain": "ai-llm-agent",
+      "analysis_origin": "ai",
+      "enrichment": {
+        "cross_source_count": 2,
+        "source_ids": [
+          "anthropic-news",
+          "hacker-news"
+        ],
+        "source_types": [
+          "official",
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Introducing Claude Opus 4.8",
+            "url": "https://www.anthropic.com/news/claude-opus-4-8",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Introducing Claude Opus 4.8",
+            "url": "https://www.anthropic.com/news/claude-opus-4-8",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical \"Magnifica humanitas\"",
+            "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic confidentially submits draft S-1 to the SEC",
+            "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
+            "url": "https://www.anthropic.com/news/series-h",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "anthropic-news",
+            "source_type": "official",
+            "title": "Expanding Project Glasswing",
+            "url": "https://www.anthropic.com/news/expanding-project-glasswing",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "cross-source",
+          "official-source",
+          "community",
+          "direct-support",
+          "related-context"
+        ],
+        "summary": "2 source(s) | official / community | 1 direct support | 4 related context"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-06-10",
+        "last_seen": "2026-06-10",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-06-10"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low",
+      "support_evidence": [
+        {
+          "source_id": "anthropic-news",
+          "source_type": "official",
+          "title": "Introducing Claude Opus 4.8",
+          "url": "https://www.anthropic.com/news/claude-opus-4-8",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": [
+        {
+          "source_id": "anthropic-news",
+          "source_type": "official",
+          "title": "Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical \"Magnifica humanitas\"",
+          "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "anthropic-news",
+          "source_type": "official",
+          "title": "Anthropic confidentially submits draft S-1 to the SEC",
+          "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "anthropic-news",
+          "source_type": "official",
+          "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
+          "url": "https://www.anthropic.com/news/series-h",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "anthropic-news",
+          "source_type": "official",
+          "title": "Expanding Project Glasswing",
+          "url": "https://www.anthropic.com/news/expanding-project-glasswing",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        }
+      ]
+    },
+    {
+      "facts": [
+        "ServiceNow AI 在 Hugging Face 博客发布了对前沿 ASR 模型在语码转换（code-switching）语音场景下的基准测试结果。",
+        "测试聚焦于双语客户服务场景，评估语音代理是否能够有效处理在句内或句间切换语言的用户语音。",
+        "该研究涉及当前主流或前沿 ASR 系统，并以量化指标（如词错误率 WER）进行对比。"
+      ],
+      "contradictions": [
+        "全球化企业部署语音代理的真实需求 vs. 大多数 ASR 仍以单语为核心训练范式",
+        "用户在多语环境下自然、高频的语码转换习惯 vs. 模型训练数据集中语码转换样本的严重不足",
+        "口语理解的完整性要求整个语句被正确转录 vs. ASR 在语言切换点出现高错误率崩坏",
+        "低成本快速部署语音代理的商业驱动 vs. 为覆盖边缘场景进行深度定制和微调的额外成本"
+      ],
+      "primary_contradiction": "用户自然的语码转换语音模式 vs. 以单语假设构建的主流 ASR 系统的能力边界",
+      "core_insight": "语音代理能否真正进入多语种市场，不取决于标准单一语言场景下的准确率高低，而取决于模型在语码转换这种高变异性自然语言现象上的鲁棒性突破。",
       "confidence": "medium",
       "title": "Can Voice Agents Handle Bilingual Customers? Benchmarking Frontier ASR on Code-Switched Speech",
       "url": "https://huggingface.co/blog/ServiceNow-AI/code-switching",
@@ -237,82 +403,33 @@
     },
     {
       "facts": [
-        "Anthropic published a post titled 'Claude Fable 5' on its official news page, likely detailing a new model or safety milestone.",
-        "The linked Hacker News discussion of the system card PDF has 1776 points and 1396 comments, indicating very high community engagement.",
-        "The announcement includes a link to a system card PDF, suggesting transparent documentation of model capabilities and risks."
+        "vllm-project/vllm is a high-throughput and memory-efficient inference and serving engine for LLMs"
       ],
       "contradictions": [
-        "Public enthusiasm for Claude's advancements vs concerns about AI safety and risks",
-        "Anthropic's narrative with mythic framing vs the technical, regulatory reality of system cards",
-        "Desire for cutting-edge performance vs the need for rigorous safety constraints"
+        "maximizing throughput and memory efficiency vs supporting diverse model architectures (Llama, GPT, Mixture of Experts, etc.)",
+        "optimizing for specific hardware (NVIDIA CUDA, AMD, TPU) vs maintaining broad hardware compatibility",
+        "pursuing cutting‑edge features (e.g., Qwen3, DeepSeek-V3, Blackwell) vs ensuring stability for production deployments",
+        "open‑source community driven development vs the need for enterprise‑grade reliability and support",
+        "rapid iteration to keep pace with new LLM releases vs the complexity of maintaining a unified, performant codebase"
       ],
-      "primary_contradiction": "The push for more capable AI models vs the imperative to maintain trust through transparent safety reporting.",
-      "core_insight": "Anthropic’s use of a fable format alongside a detailed system card is a deliberate attempt to shape the narrative around AI progress, balancing wonder with accountability.",
-      "confidence": "high",
-      "title": "Claude Fable 5",
-      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "primary_contradiction": "The tension between delivering maximal inference performance (throughput and memory efficiency) and the need to rapidly support an ever‑expanding, heterogeneous landscape of models, hardware backends, and serving requirements.",
+      "core_insight": "vLLM sits at the critical infrastructure bottleneck where the accelerating pace of LLM innovation forces a continuous trade-off between raw engine performance and the breadth of supported ecosystems; the project’s long‑term moat depends on how well it resolves this tension without sacrificing either.",
+      "confidence": "low",
+      "title": "vllm-project/vllm",
+      "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
       "analysis_origin": "ai",
       "enrichment": {
-        "cross_source_count": 2,
+        "cross_source_count": 1,
         "source_ids": [
-          "anthropic-news",
-          "hacker-news"
+          "curated-repos"
         ],
         "source_types": [
-          "official",
-          "community"
+          "repo"
         ],
-        "support_evidence": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Introducing Claude Opus 4.8",
-            "url": "https://www.anthropic.com/news/claude-opus-4-8",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Introducing Claude Opus 4.8",
-            "url": "https://www.anthropic.com/news/claude-opus-4-8",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
+        "support_evidence": [],
+        "direct_support": [],
         "related_context": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical \"Magnifica humanitas\"",
-            "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic confidentially submits draft S-1 to the SEC",
-            "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
-            "url": "https://www.anthropic.com/news/series-h",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
           {
             "source_id": "anthropic-news",
             "source_type": "official",
@@ -321,69 +438,126 @@
             "summary": "",
             "evidence_scope": "current-run",
             "support_kind": "related"
+          },
+          {
+            "source_id": "infineon-blog",
+            "source_type": "official",
+            "title": "Infineon launches EU flagship project Moore4Power to drive the next generation of sustainable power electronics",
+            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202605-089.html",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "NVIDIA/TensorRT",
+            "url": "https://github.com/NVIDIA/TensorRT",
+            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "alibaba/MNN",
+            "url": "https://github.com/alibaba/MNN",
+            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
           }
         ],
         "verification_flags": [
-          "cross-source",
-          "official-source",
-          "community",
-          "direct-support",
+          "repo",
           "related-context"
         ],
-        "summary": "2 source(s) | official / community | 1 direct support | 4 related context"
+        "summary": "1 source(s) | repo | 5 related context"
       },
       "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-06-10",
+        "days_seen": 62,
+        "first_seen": "2026-04-09",
         "last_seen": "2026-06-10",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
+        "previous_score": 2.5,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "verified",
         "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
           "2026-06-10"
         ]
       },
-      "lifecycle_state": "new",
+      "lifecycle_state": "verified",
       "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "anthropic-news",
-          "source_type": "official",
-          "title": "Introducing Claude Opus 4.8",
-          "url": "https://www.anthropic.com/news/claude-opus-4-8",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
+      "support_evidence": [],
       "related_context": [
-        {
-          "source_id": "anthropic-news",
-          "source_type": "official",
-          "title": "Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical \"Magnifica humanitas\"",
-          "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "anthropic-news",
-          "source_type": "official",
-          "title": "Anthropic confidentially submits draft S-1 to the SEC",
-          "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "anthropic-news",
-          "source_type": "official",
-          "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
-          "url": "https://www.anthropic.com/news/series-h",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
         {
           "source_id": "anthropic-news",
           "source_type": "official",
@@ -392,23 +566,59 @@
           "summary": "",
           "evidence_scope": "current-run",
           "support_kind": "related"
+        },
+        {
+          "source_id": "infineon-blog",
+          "source_type": "official",
+          "title": "Infineon launches EU flagship project Moore4Power to drive the next generation of sustainable power electronics",
+          "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202605-089.html",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+          "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "curated-repos",
+          "source_type": "repo",
+          "title": "NVIDIA/TensorRT",
+          "url": "https://github.com/NVIDIA/TensorRT",
+          "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "curated-repos",
+          "source_type": "repo",
+          "title": "alibaba/MNN",
+          "url": "https://github.com/alibaba/MNN",
+          "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
         }
       ]
     },
     {
       "facts": [
-        "一篇题为《Can LLMs Beat Classical Hyperparameter Optimization Algorithms?》的论文出现在 arXiv 上，引发技术社区关注",
-        "该论文在 Hacker News 上获得 103 分，产生 15 条讨论，表明产学研界对 LLM 替代传统算法的可能性存在较强兴趣",
-        "当前证据仅包含标题和社区热度，未提供论文的实验方法、数据或结论细节"
+        "一篇题为《Can LLMs Beat Classical Hyperparameter Optimization Algorithms?》的论文已发布在arXiv上(2603.24647)。",
+        "该论文在Hacker News上引发了103个认可和15条评论，表明其受到技术社区的初步关注。",
+        "论文的核心议题是评估大语言模型(LLM)作为超参数优化工具，与梯度提升树(GBDT)、贝叶斯优化等经典算法进行性能对比。"
       ],
       "contradictions": [
-        "LLM 的灵活通用推理能力 vs 传统贝叶斯优化、进化算法等专用方法的领域适配效率和可复现性",
-        "探索用大模型做超参数的潜在高成本 vs 企业希望降低调参门槛的实用需求",
-        "学术研究追求算法上限 vs 工业落地关注稳定性与成本的可控性"
+        "探索的易用性与结果的可靠性：LLM进行超参优化只需自然语言描述任务，极其便捷(A)，但其输出是概率性的、不稳定的，可能与需要严格可复现和最优结果的工程标准相冲突(B)。",
+        "LLM的通用泛化能力与特定任务的深度优化：LLM依赖其预训练的海量知识来“猜测”最佳参数，可能快速覆盖常见模式(A)，但在特定、非典型的数据集或新任务上，其知识空缺会导致性能崩溃，而经典算法通过迭代搜索从零开始探索，更具适应性(B)。",
+        "高计算成本与优化收益：LLM进行一次推理推断超参数可能只需数秒，但背后API调用成本和巨大算力消耗是隐藏成本(A)，而经典算法通常在本地运行，成本可控，对于需要大量试验的超参搜索任务，LLM方案的总拥有成本(TCO)可能极高(B)。"
       ],
-      "primary_contradiction": "LLM 的通用智能范式与传统专用优化算法的效率、成本边界之争",
-      "core_insight": "该话题之所以在 HN 高热，本质上不是因为 LLM 赢了，而是因为「通用智能能否吞噬专用工具」这个元问题又一次找到了一个可量化的擂台。",
-      "confidence": "low",
+      "primary_contradiction": "通用人工智能的便捷“推断”与专家系统的严谨“搜索”在超参数优化领域的范式路径之争。",
+      "core_insight": "LLMs在超参数优化领域的挑战，本质上不是算法精度的较量，而是以高昂计算成本和概率不确定性为代价的“通用智能捷径”是否能击败成本可控、逻辑严谨的“专用搜索苦力”，其标志着对LLM适用边界的务实反思。",
+      "confidence": "medium",
       "title": "Can LLMs Beat Classical Hyperparameter Optimization Algorithms?",
       "url": "https://arxiv.org/abs/2603.24647",
       "primary_domain": "ai-llm-agent",
@@ -956,220 +1166,19 @@
         }
       ],
       "related_context": []
-    },
-    {
-      "title": "vllm-project/vllm",
-      "url": "https://github.com/vllm-project/vllm",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[curated-repos] A high-throughput and memory-efficient inference and serving engine for LLMs"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "analysis_origin": "fallback",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "direct_support": [],
-        "related_context": [
-          {
-            "source_id": "anthropic-news",
-            "source_type": "official",
-            "title": "Expanding Project Glasswing",
-            "url": "https://www.anthropic.com/news/expanding-project-glasswing",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "infineon-blog",
-            "source_type": "official",
-            "title": "Infineon launches EU flagship project Moore4Power to drive the next generation of sustainable power electronics",
-            "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202605-089.html",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "NVIDIA/TensorRT",
-            "url": "https://github.com/NVIDIA/TensorRT",
-            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "alibaba/MNN",
-            "url": "https://github.com/alibaba/MNN",
-            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 5 related context"
-      },
-      "memory": {
-        "days_seen": 62,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-06-10",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "verified",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10"
-        ]
-      },
-      "lifecycle_state": "verified",
-      "risk_level": "low",
-      "support_evidence": [],
-      "related_context": [
-        {
-          "source_id": "anthropic-news",
-          "source_type": "official",
-          "title": "Expanding Project Glasswing",
-          "url": "https://www.anthropic.com/news/expanding-project-glasswing",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "infineon-blog",
-          "source_type": "official",
-          "title": "Infineon launches EU flagship project Moore4Power to drive the next generation of sustainable power electronics",
-          "url": "https://www.infineon.com/content/ifx/en/press-release/2026/infxx202605-089.html",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-          "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "curated-repos",
-          "source_type": "repo",
-          "title": "NVIDIA/TensorRT",
-          "url": "https://github.com/NVIDIA/TensorRT",
-          "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "curated-repos",
-          "source_type": "repo",
-          "title": "alibaba/MNN",
-          "url": "https://github.com/alibaba/MNN",
-          "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        }
-      ]
     }
   ],
   "forecast": {
-    "best_case": "行业迅速形成共识，将 code-switching 鲁棒性纳入 ASR 选型的核心基准，同时 Anthropic 的‘寓言+系统卡’模式被广泛模仿，推动 AI 发布走向透明与信任的正向循环。业界对 LLM 替代专用工具的探索回归理性，仅在成本可控的特定小切口取得务实突破，整体上 AI 在高性能与高可用之间找到了切实的平衡点，加速了语音代理在全球市场的健康落地。",
-    "worst_case": "语音代理厂商为抢占市场忽视 code-switching 评测，导致多语种场景下大规模服务故障与用户体验崩溃，引发多起品牌声誉危机。Anthropic 的叙事策略被其他厂商简单照搬为‘营销包装’，系统卡流于形式，进一步加剧公众对 AI 安全的信任赤字。同时，LLM 在超参数优化等专用领域的高成本低效引发一连串落地失败，导致企业用户对通用大模型的热情急剧降温，投资泡沫局部破裂。",
-    "most_likely_case": "未来 3-6 个月内，领先的语音代理厂商会将 code-switching 鲁棒性作为差异化的竞争点进行补救式优化，但不会成为行业统一标准。Anthropic 的双层叙事将作为行业最佳实践被讨论，但仅有少数头部实验室有能力效仿其透明度投入。关于 LLM 替代专用算法的争论将从 HN 热度转向更严谨的学术 benchmark 对比，结论初步倾向于‘特定场景可行，但无法全面替代’，市场的预期将从此被拉回务实状态。",
+    "best_case": "前沿AI行业在短期内（1-3个月）出现明显的路线分化与聚焦：头部实验室开始将披露重点从‘能力指标’转向‘真实场景的可靠性数据和失败案例’，同时开发者社区自发形成针对ASR语码转换、LLM超参数优化确定性等特定短板的专项评测基准。这种转变促使模型厂商在商业竞争中开始比拼‘可信任度’而非单纯的基准分数，推动了少数关键可靠性问题的快速工程突破。",
+    "worst_case": "用户对AI安全与可靠性的负面情绪因Claude Fable 5系统卡争议进一步发酵，形成一种固化的公众叙事：‘系统卡和公开声明只是精心设计的公关‘挡箭牌’而非真正的安全承诺’。这导致所有后续前沿模型发布都会在透明度问题上遭遇更强烈的预设立场质疑。同时，对LLM在精细任务中的成本边界反思，叠加全球经济压力，使得企业对在边缘场景部署大模型的业务缩减步伐加快，出现多语种语音产品和智能优化工具的商业试用放缓现象。",
+    "most_likely_case": "近期趋势将呈现‘宏观降温，微观求索’的格局。模型发布的热度会暂时被可靠性争议所抑制，业界将开启一轮更务实的评估——不再轻易被高基准分数打动，而是追求在语码转换、推理一致性等特定高变异性场景上的证据。这将导致头部公司在其下一代模型发布中（无论是ASR还是LLM），更主动地强调‘我们在这些难啃的骨头上具体提升了多少’，而不仅仅是给出综合性指标，以求弥合‘能力释放’与‘信任赤字’之间的裂缝。",
     "key_variables": [
-      "主要云厂商（如 Google Cloud、Azure）是否将 code-switching 指标加入其语音 API 的公开基准",
-      "Anthropic 的‘Claude Fable 5’模型在实际安全测试中的表现是否与系统卡描述吻合，有无重大负面事件",
-      "LLM 超参数优化论文中的具体成本/收益数据，以及后续是否有可复现的工业界验证",
-      "未来业界会议上（如 NeurIPS、ICML）关于通用模型边界与专用工具价值的议题走向"
+      "Claude Fable 5系统卡争议是否转化为具体的第三方独立审计行动或开源社区的‘压力测试’结果",
+      "主流云服务商和语音API平台（如ServiceNow合作方）是否在短期内推出针对语码转换的专项增强或白皮书回应",
+      "LLM在超参数优化等工程任务上的成本与不确定性缺陷，是否会在下月被另一项高影响力研究再次验证或放大",
+      "开源社区（如vLLM）是否通过明确的路线图选择，在‘极限优化’与‘广泛兼容’的取舍中主动站队，从而锚定技术生态的期待"
     ],
-    "forecast_conclusion": "AI 行业正从‘通用能力崇拜’走向‘特定场景拷问’。短期内，语音代理将率先暴露出单语优化模型的脆弱性，倒逼修补；叙事层面，Anthropic 的做法抬高了发布门槛，但信任鸿沟不会因此消失；而关于通用模型边界的争论将持续，并在可量化的专用任务上遭遇更多实证检验。整体趋势是，高歌猛进后的‘真问题’正在浮现，修补与务实将成为未来 1-2 个季度的主旋律。",
+    "forecast_conclusion": "前沿AI领域正经历从‘炫技期’向‘取信期’过渡的初期阵痛。最可能的短期走向是：模型发布的轰动效应边际递减，而关于可靠性与真实落地的工程辩论将成为舆论场和产品定位的主战场。这将迫使AI厂商在未来的宣传和迭代中，从展示‘我们有多强’转向证明‘我们在哪里摔跤了，以及如何爬起来’。这对行业的健康度是积极的，但短期内会压制市场对‘革命性突破’的兴奋情绪。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -1180,13 +1189,13 @@
   "ai_metrics": {
     "provider": "deepseek",
     "model": "mixed",
-    "calls": 6,
+    "calls": 7,
     "token_usage": {
-      "prompt": 17539,
-      "completion": 4971,
-      "total": 22510
+      "prompt": 21662,
+      "completion": 6213,
+      "total": 27875
     },
-    "latency_seconds": 129.52,
+    "latency_seconds": 172.99,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -1196,10 +1205,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 504,
-          "completion": 1077,
-          "total": 1581
+          "completion": 888,
+          "total": 1392
         },
-        "latency_seconds": 10.81,
+        "latency_seconds": 9.03,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1216,14 +1225,14 @@
       "analysis": {
         "provider": "deepseek",
         "model": "deepseek-v4-pro",
-        "calls": 3,
+        "calls": 4,
         "token_usage": {
-          "prompt": 7735,
-          "completion": 1608,
-          "total": 9343
+          "prompt": 10367,
+          "completion": 2538,
+          "total": 12905
         },
-        "latency_seconds": 47.07,
-        "attempts": 3,
+        "latency_seconds": 74.31,
+        "attempts": 4,
         "backup_used": false,
         "guardrail_triggered": false,
         "guardrail_reason": "",
@@ -1241,11 +1250,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 3564,
-          "completion": 1303,
-          "total": 4867
+          "prompt": 4133,
+          "completion": 1584,
+          "total": 5717
         },
-        "latency_seconds": 40.7,
+        "latency_seconds": 47.17,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1264,11 +1273,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 5736,
-          "completion": 983,
-          "total": 6719
+          "prompt": 6658,
+          "completion": 1203,
+          "total": 7861
         },
-        "latency_seconds": 30.94,
+        "latency_seconds": 42.48,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1530,7 +1539,7 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "今日 AI 领域三大动态共同指向一个核心矛盾：前沿模型的能力在标准测试上高歌猛进，但在真实世界的混杂、信任与成本边界上正遭遇系统性摩擦。",
+    "前沿AI正从“能力炫耀”转向“可靠性交付”：模型再强，若不能解决安全信任、语言鲁棒性和推理成本边界等工程落地难题，就无法转化为真正的生产力。",
     "本轮共采集到 201 条原始信息，去重后保留 200 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -2385,7 +2394,7 @@
     {
       "title": "Grit: Rewriting Git in Rust with agents",
       "url": "https://blog.gitbutler.com/true-grit",
-      "summary": "Score: 66 | Comments: 78",
+      "summary": "Score: 67 | Comments: 79",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8368,6 +8377,178 @@
       "risk_level": "low"
     },
     {
+      "title": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "summary": "Build resilient agents.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "ai-llm-agent",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
+        "llm",
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "direct_support": [],
+        "related_context": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "NVIDIA/TensorRT",
+            "url": "https://github.com/NVIDIA/TensorRT",
+            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "alibaba/MNN",
+            "url": "https://github.com/alibaba/MNN",
+            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "anthropics/claude-cookbooks",
+            "url": "https://github.com/anthropics/claude-cookbooks",
+            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "jax-ml/jax",
+            "url": "https://github.com/jax-ml/jax",
+            "summary": "Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "related-context"
+        ],
+        "summary": "1 source(s) | repo | 5 related context"
+      },
+      "memory": {
+        "days_seen": 62,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-06-10",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "ollama/ollama",
       "url": "https://github.com/ollama/ollama",
       "summary": "Get up and running with Kimi-K2.6, GLM-5.1, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
@@ -8537,11 +8718,12 @@
       "risk_level": "low"
     },
     {
-      "title": "langchain-ai/langgraph",
-      "url": "https://github.com/langchain-ai/langgraph",
-      "summary": "Build resilient agents.",
-      "primary_domain": "ai-llm-agent",
+      "title": "pytorch/executorch",
+      "url": "https://github.com/pytorch/executorch",
+      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
+      "primary_domain": "ai-x-electronics",
       "matched_domains": [
+        "ai-x-electronics",
         "ai-llm-agent"
       ],
       "score": 1.0,
@@ -8550,25 +8732,14 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
-        "ai",
-        "ai-agents",
         "ai-llm-agent",
-        "chatgpt",
-        "deepagents",
-        "enterprise",
-        "framework",
-        "gemini",
-        "generative-ai",
-        "langchain",
-        "langgraph",
-        "llm",
-        "multiagent",
-        "open-source",
-        "openai",
-        "pydantic",
-        "python",
-        "rag"
+        "deep-learning",
+        "embedded",
+        "gpu",
+        "machine-learning",
+        "mobile",
+        "neural-network",
+        "tensor"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -8958,168 +9129,6 @@
             "title": "langchain-ai/langgraph",
             "url": "https://github.com/langchain-ai/langgraph",
             "summary": "Build resilient agents.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 5 related context"
-      },
-      "memory": {
-        "days_seen": 62,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-06-10",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "pytorch/executorch",
-      "url": "https://github.com/pytorch/executorch",
-      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
-      "primary_domain": "ai-x-electronics",
-      "matched_domains": [
-        "ai-x-electronics",
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "embedded",
-        "gpu",
-        "machine-learning",
-        "mobile",
-        "neural-network",
-        "tensor"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "direct_support": [],
-        "related_context": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "NVIDIA/TensorRT",
-            "url": "https://github.com/NVIDIA/TensorRT",
-            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "alibaba/MNN",
-            "url": "https://github.com/alibaba/MNN",
-            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "anthropics/claude-cookbooks",
-            "url": "https://github.com/anthropics/claude-cookbooks",
-            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "jax-ml/jax",
-            "url": "https://github.com/jax-ml/jax",
-            "summary": "Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more",
             "evidence_scope": "current-run",
             "support_kind": "related"
           }
@@ -10443,7 +10452,7 @@
     {
       "title": "If Claude Fable stops helping you, you'll never know",
       "url": "https://jonready.com/blog/posts/claude-fable5-is-allowed-to-sabotage-your-app-if-youre-a-competitor.html",
-      "summary": "Score: 470 | Comments: 215",
+      "summary": "Score: 470 | Comments: 216",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -11525,7 +11534,7 @@
     {
       "title": "macOS Container Machines",
       "url": "https://github.com/apple/container/blob/main/docs/container-machine.md",
-      "summary": "Score: 93 | Comments: 28",
+      "summary": "Score: 94 | Comments: 29",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -11630,7 +11639,7 @@
     {
       "title": "Flat Datacenter Networks at Scale at Amazon",
       "url": "https://perspectives.mvdirona.com/2026/06/flat-datacenter-networks-at-scale/",
-      "summary": "Score: 88 | Comments: 21",
+      "summary": "Score: 89 | Comments: 21",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -33113,7 +33122,7 @@
     }
   ],
   "predictions": [
-    "AI 行业正从‘通用能力崇拜’走向‘特定场景拷问’。短期内，语音代理将率先暴露出单语优化模型的脆弱性，倒逼修补；叙事层面，Anthropic 的做法抬高了发布门槛，但信任鸿沟不会因此消失；而关于通用模型边界的争论将持续，并在可量化的专用任务上遭遇更多实证检验。整体趋势是，高歌猛进后的‘真问题’正在浮现，修补与务实将成为未来 1-2 个季度的主旋律。"
+    "前沿AI领域正经历从‘炫技期’向‘取信期’过渡的初期阵痛。最可能的短期走向是：模型发布的轰动效应边际递减，而关于可靠性与真实落地的工程辩论将成为舆论场和产品定位的主战场。这将迫使AI厂商在未来的宣传和迭代中，从展示‘我们有多强’转向证明‘我们在哪里摔跤了，以及如何爬起来’。这对行业的健康度是积极的，但短期内会压制市场对‘革命性突破’的兴奋情绪。"
   ],
   "sources": {
     "github": {
