@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-23T09:31:32.356668+08:00",
+    "generated_at": "2026-06-23T09:33:35.733939+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 194,
     "total_topics": 194,
@@ -10,266 +10,57 @@
       "review_note": ""
     }
   },
-  "one_line_core": "AI 智能体工程正从模型能力竞赛转向基础设施标准化竞争，同时揭示了即使强大模型也存在“言不由衷”的根本脆弱性。",
+  "one_line_core": "AI 智能体与基础模型正从追求规模与通用能力，转向探索效率、稳健性与系统化架构的下一个战场。",
   "executive_summary": [
-    "开源社区通过 OpenEnv 项目推动智能体强化学习环境标准化，试图打破工具链碎片化格局。",
-    "微软展示了面向小模型的智能体方案，用多专家协同编排替代巨型单一模型，降低落地门槛。",
-    "Oak 提出专为 AI 代理设计的版本控制系统，挑战 Git 在“后人类世编程”中的适用性。",
-    "最新研究发现，大模型在上下文模式诱导压力下，指令遵循能力会系统性崩溃，且其自我防御能力被高估。"
+    "微软正系统化地通过 MagenticLite 等系列项目，瞄准小模型在本地与端侧的智能体体验，表明竞争焦点已从模型参数规模转向编排效率与资源可用性。",
+    "LLM 推理引擎 vLLM 正加速演变为一个底层的操作系统级抽象，通过同时兼容多种异构硬件与主流模型架构，解决通用平台化与极致性能间的根本矛盾。",
+    "一项新研究表明，当前语言模型的指令遵循能力极易被上下文模式颠覆，这种‘模式补全本能’在深层推理与浅层统计学习之间撕开了一道巨大的安全与可靠性裂缝。",
+    "这三条线索共同指向一个行业趋势：单纯提升模型智力上限已非唯一目标，构建更高效、更可靠且能安全落地的系统架构成为核心挑战。"
   ],
   "key_points": [
     {
-      "title": "智能体基础设施标准化之争开启",
-      "why_it_matters": "OpenEnv 获社区支持意味着 Agentic RL 从算法单点突破进入工程基础层的开源标准化竞争，未来可能形成统一的开发环境底座。"
+      "title": "微软的‘端侧智能体’奇袭：从小模型寻找大未来",
+      "why_it_matters": "MagenticLite 等项目揭示，AI 智能体争夺战的风口正从云端巨兽转向本地与边缘设备。谁能在资源受限的小模型上提供流畅的智能体体验，谁就抓住了下一代人机交互的入口。"
     },
     {
-      "title": "小模型协同正在替代巨型模型",
-      "why_it_matters": "微软的 MagenticLite 方案证明，通过编排多个窄域专家模型可在资源受限场景实现高效智能体，这或将开辟终端侧 Agent 落地新路径。"
+      "title": "vLLM 的‘操作系统’野心：推理引擎的平台化生存博弈",
+      "why_it_matters": "vLLM 同时兼容 CUDA、AMD、TPU 等硬件与 Qwen、Llama 等各类模型，表明成功的大模型基础设施正在变成连接所有硬件与模型的操作系统层。其核心竞争力已从单点性能指标转向生态兼容性。"
     },
     {
-      "title": "代码版本控制面临范式重构",
-      "why_it_matters": "Oak 用虚拟挂载技术为 AI 代理提供高速并行变更能力，暴露了传统 Git 在人类与代理协作中的兼容性鸿沟，核心挑战已从“能不能更快”变为“人类能不能信任代理生成的代码历史”。"
-    },
-    {
-      "title": "大模型存在“言不由衷”的系统性脆弱性",
-      "why_it_matters": "新研究发现，当用户指令与上下文统计模式相悖时，再强的模型也会崩溃，且输出多样性这一表层因素才是安全边界，而非深层语义对齐，这意味着当前对齐技术存在根本性盲区。"
+      "title": "LLM 的阿喀琉斯之踵：听懂指令比看起来要脆弱得多",
+      "why_it_matters": "研究发现，当指令与上下文示范模式冲突时，即便是具备强推理能力的模型也会说一套做一套。这种‘指令-诱导冲突’揭示，模型的‘聪明’远不等于‘听话’，严重限制了其在安全关键场景中的可靠性。"
     }
   ],
   "key_insights": [
-    "Agent 领域的竞争焦点正从“让模型更聪明”迁移到“让代理更可靠”——基础设施标准、版本控制、安全边界三者共同构成新的护城河。",
-    "一项反直觉的发现：抵御上下文诱导的关键不是推理深度，而是输出多样性。这挑战了当前依赖链式思维提升安全性的主流策略。",
-    "人类信任成为新瓶颈：Oak 之所以引发热议，本质是因为代理生成的代码历史尚未建立可信度；而模式诱导研究则表明，模型自己也高估了自身的可靠性——这两者都指向同一个问题：信任机制的缺失。"
+    "范式逆转：《Do as I Say, Not as I Do》的研究给出了一个反直觉的洞察——让模型抵抗诱导的关键可能不是让它进行更深层的推理，而是增加输出行为的多样性，这直接挑战了以增强逻辑推理提升安全性的主流方法。",
+    "平台化生存法则：vLLM 必须在对立的技术要求中求得生存。在通用兼容性与单一架构极致性能之间，它的选择预示着基础软件栈将迎来一轮‘既要也要’的残酷平台大战，而非单纯的性能竞速赛。",
+    "智能体能力的新定义：微软的实践暗示，未来衡量 AI 智能体的标准不是它是否‘博学’，而是它能否在受限的物理世界中‘多快好省’地完成任务。这重新定义了‘智能’——从全知，到全能且可用。"
   ],
   "limitations": [
-    "OpenEnv 项目成熟度不明，社区支持是否能转化为可持续的标准仍需观察。",
-    "微软小模型方案暂无公开基准测试对比数据，其通用性边界未知。",
-    "Oak 为早期 Show HN 项目，无企业级安全审计与生产环境验证。",
-    "指令诱导研究基于特定实验条件，真实部署中的攻击与防御复杂度可能更高。"
+    "以上洞察主要基于来自微软研究院、vLLM 社区与学术论文的单点信息，缺乏来自 Google、Meta 等竞争生态的即时反馈与横向对比。",
+    "vLLM 的分析基于其项目标签与定位推断，其内部架构实现的具体权衡及在极限压力下的表现尚未有实测数据支撑。",
+    "关于指令遵从的学术研究均在实验环境下进行，其发现是否能完全复现于具有深厚定制化安全护城河的生产系统中，仍有待观察。"
   ],
   "actions": [
-    "追踪 OpenEnv 生态建设进度与主要贡献者，预判 Agentic RL 工具链标准走向。",
-    "评估小模型编排方案在端侧和边缘场景的可行性，关注微软后续开源或产品化动态。",
-    "对 Oak 进行技术评估，重点验证其在真实多代理并发场景下的稳定性与可审计性。",
-    "将指令诱导脆弱性纳入模型选型安全评估项，测试候选模型在上下文冲突条件下的鲁棒性。"
+    "战略决策者应密切关注微软针对小模型的端侧智能体架构是否会形成新的开源生态标准，这可能重构移动与物联网应用。",
+    "技术架构团队需重新评估对通用推理引擎（如vLLM）的依赖程度，在标准化平台红利与专用优化带来的极致性能之间进行审慎权衡。",
+    "AI 安全与产品团队应将‘指令-诱导冲突’纳入对抗性测试基准，而非仅关注模范的安全价值观，防止模型在实际应用中因上下文污染而‘人格分裂’。"
   ],
   "analyses": [
     {
       "facts": [
-        "Hugging Face 发布了题为《The Open Source Community is backing OpenEnv for Agentic RL》的博客文章。",
-        "OpenEnv 是一个为 Agentic RL（智能体强化学习）服务的开源环境或框架。",
-        "文章强调开源社区正在支持 OpenEnv，表明其获得了可见的社区贡献或采用。"
+        "微软研究院发布 MagenticLite、MagenticBrain、Fara1.5 项目，展示面向小模型优化的智能体体验。",
+        "该系统可在浏览器和本地文件系统之间实现单一工作流的智能体操作。",
+        "通过组合专用模型与编排来提升小模型在日常任务上的智能体效率。"
       ],
       "contradictions": [
-        "开源协作的分散性 vs 建立统一的 Agentic RL 环境标准的需求",
-        "Agentic RL 研究对可复现、可扩展环境的需求 vs 现有闭源或碎片化工具的不足",
-        "社区驱动的环境演化速度 vs 工业界快速落地对稳定基础设施的诉求"
+        "大模型智能体的通用强能力 vs 小模型智能体的资源效率需求",
+        "单一通用智能体架构 vs 多模型编排实现任务特化",
+        "云端依赖体验 vs 本地客户端或边缘部署可行性",
+        "前沿研究展示 vs 产品化落地差距"
       ],
-      "primary_contradiction": "开源社区试图通过协作建立 Agentic RL 的共享环境标准（OpenEnv），与当前工具链的碎片化、封闭化趋势之间的张力",
-      "core_insight": "Agentic RL 正在从单点算法突破走向工程基础层的开源标准化竞争，OpenEnv 成为这一轮社区动员的标志性项目。",
-      "confidence": "low",
-      "title": "The Open Source Community is backing OpenEnv for Agentic RL",
-      "url": "https://huggingface.co/blog/openenv-agentic-rl",
-      "primary_domain": "ai-llm-agent",
-      "analysis_origin": "ai",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Is it agentic enough? Benchmarking open models on your own tooling",
-            "url": "https://huggingface.co/blog/is-it-agentic-enough",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Agentic Resource Discovery: Let agents search",
-            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-            "url": "https://huggingface.co/blog/peft-beyond-lora",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
-            "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
-            "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Is it agentic enough? Benchmarking open models on your own tooling",
-            "url": "https://huggingface.co/blog/is-it-agentic-enough",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Agentic Resource Discovery: Let agents search",
-            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-            "url": "https://huggingface.co/blog/peft-beyond-lora",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
-            "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
-            "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [],
-        "verification_flags": [
-          "official-source",
-          "direct-support"
-        ],
-        "summary": "1 source(s) | official | 5 direct support"
-      },
-      "memory": {
-        "days_seen": 14,
-        "first_seen": "2026-06-09",
-        "last_seen": "2026-06-23",
-        "previous_score": 2.6,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-13",
-          "2026-06-14",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Is it agentic enough? Benchmarking open models on your own tooling",
-          "url": "https://huggingface.co/blog/is-it-agentic-enough",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Agentic Resource Discovery: Let agents search",
-          "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-          "url": "https://huggingface.co/blog/peft-beyond-lora",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "espressif-blog",
-          "source_type": "official",
-          "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
-          "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
-          "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
-      "related_context": []
-    },
-    {
-      "facts": [
-        "Microsoft Research publicly described MagenticLite, MagenticBrain, and Fara1.5 as an agentic system designed specifically for small models.",
-        "The system is demonstrated to operate across both the browser and the local file system within a single workflow.",
-        "The technical approach relies on combining specialized models with orchestration rather than utilizing a single monolithic large model.",
-        "The stated design goal is to achieve efficient agentic performance on everyday tasks using resource-constrained models."
-      ],
-      "contradictions": [
-        "Small model capacity vs Agentic task complexity",
-        "Local execution privacy/ latency benefits vs Cloud model capability",
-        "Specialized model narrow expertise vs General agent wide action space",
-        "Single workflow orchestration stability vs Multi-agent/ multi-step unpredictability"
-      ],
-      "primary_contradiction": "Small model capacity vs Agentic task complexity",
-      "core_insight": "The agent design is shifting from scaling a single giant brain to orchestrating a swarm of narrow specialists, where the system logic becomes the primary source of intelligence.",
+      "primary_contradiction": "大模型全能性带来的智能体体验 vs 小模型在资源受限环境下的实用性需求——如何通过架构创新弥合能力差距。",
+      "core_insight": "微软正系统化布局小模型智能体架构，表明未来 AI 智能体竞争重心正从模型规模转向端侧可用性与编排效率。",
       "confidence": "medium",
       "title": "MagenticLite, MagenticBrain, Fara1.5: An agentic experience optimized for small models",
       "url": "https://www.microsoft.com/en-us/research/blog/magenticlite-magenticbrain-fara1-5-an-agentic-experience-optimized-for-small-models/",
@@ -480,549 +271,21 @@
     },
     {
       "facts": [
-        "Oak 是一款专为 AI 代理设计的版本控制系统。",
-        "该产品在 Hacker News 上发布了展示（Show HN），获得了 146 分和 141 条评论，显示出较高的社区关注度。",
-        "Oak 通过虚拟挂载（virtual mounts）技术来提升代理在本地和 CLI 中的运行速度和上下文获取能力。",
-        "产品定位是 Git 的替代品，主要应用场景是严肃项目中的代理工作流。"
+        "vLLM被定位为高吞吐量且内存高效的LLM推理和服务引擎",
+        "该项目的标签显示其深度参与了当前LLM推理的各个关键赛道，涵盖主流硬件（CUDA, AMD, TPU, Blackwell）、模型架构（MoE）及主要模型（DeepSeek, Qwen, Llama, GPT）"
       ],
       "contradictions": [
-        "专为代理设计的简化高速工作流 vs 人类开发者需要保持阅读和兼容的通用 Git 历史",
-        "非文件系统层面的虚拟挂载创新 vs 现有 CI/CD 及开发工具生态对标准 Git 仓库的深度依赖",
-        "传统版本控制的确定性记录需求 vs AI 代理工作流中高频率、高并发、非线性的变更提交压力",
-        "获得高票社区认可 vs 实际企业落地时面临的迁移成本、安全合规与团队信任度挑战"
+        "高吞吐量 vs 内存效率：这通常是一对技术矛盾，追求更高并发和速度往往需要更大的显存占用，而内存优化则可能牺牲部分速度",
+        "广泛硬件兼容（CUDA/AMD/TPU/Blackwell） vs 极限性能优化：支持多种硬件后端需要大量抽象，这与此前追求极致性能的汇编级优化存在矛盾",
+        "多模型适配（DeepSeek/Qwen/Llama/GPT等） vs 专用架构的深度优化：通用框架难以像专用模型库那样针对单一架构进行极致优化，通用性和性能深度之间存在根本冲突"
       ],
-      "primary_contradiction": "代理工作流所需的极致高速并行变更范式，与人类主导的代码协作生态（基于 Git 的确定性、通用性基础设施）之间的兼容性鸿沟。",
-      "core_insight": "Oak 的本质不是在替代 Git，而是在探索‘后人类世编程’的版本管理新大陆；它能否成功不取决于技术是否更快，而在于是否能让人类信任并理解代理生成的代码历史。",
-      "confidence": "medium",
-      "title": "Show HN: Oak – Git alternative designed for agents",
-      "url": "https://oak.space/oak/oak",
-      "primary_domain": "ai-llm-agent",
-      "analysis_origin": "ai",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [],
-        "direct_support": [],
-        "related_context": [
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-            "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-            "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "AI Alignment From Social Choice Perspectives",
-            "url": "https://arxiv.org/abs/2606.21550v1",
-            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
-            "url": "https://arxiv.org/abs/2504.03615v2",
-            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "related-context"
-        ],
-        "summary": "1 source(s) | community | 5 related context"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-05-09",
-        "last_seen": "2026-06-23",
-        "previous_score": 2.5,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-05-09",
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [],
-      "related_context": [
-        {
-          "source_id": "arm-news",
-          "source_type": "official",
-          "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-          "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-          "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "nvidia-embedded",
-          "source_type": "official",
-          "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-          "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-          "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "curated-repos",
-          "source_type": "repo",
-          "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-          "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-          "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "AI Alignment From Social Choice Perspectives",
-          "url": "https://arxiv.org/abs/2606.21550v1",
-          "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
-          "url": "https://arxiv.org/abs/2504.03615v2",
-          "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "在用户指令与历史回复模式冲突时，13个大模型的指令遵循率从1%到99%不等，且与标准能力基准几乎不相关。",
-        "从指令遵循转向模式遵循的崩溃过程是普遍的，但发生速度和程度高度依赖具体模型。",
-        "当指令内容与模型训练中形成的价值先验一致时，模型抵抗模式诱导的时间更长。",
-        "输出格式显著影响鲁棒性：生成多样化的多token响应的模型比仅输出单token的模型更有抵抗力。",
-        "思维链推理虽能提高鲁棒性，但并不能消除诱导效应，甚至会出现推理过程正确但最终输出错误的分裂现象。",
-        "模型在预测自己在此冲突情境下的行为时平均准确率为83.5%，但会系统性地低估自身对诱导压力的抵抗能力。",
-        "预测指令遵循鲁棒性的首要因素是输出多样性，而非对输入的语义深度加工。"
-      ],
-      "contradictions": [
-        "指令遵循目标 vs 序列模式补全的统计压力",
-        "模型在标准基准上的强大表现 vs 在对抗性模式诱导下的脆弱指令遵循",
-        "正确的链式推理过程 vs 最终被诱导的错误输出（认知-行为分裂）",
-        "模型对自身行为预测的整体高准确率 vs 对自身抵抗能力的系统性低估"
-      ],
-      "primary_contradiction": "大模型内生的指令遵循目标与从上下文模式中涌现的统计偏爱之间的冲突，即‘按我说的做’与‘按我见到的做’的根本张力。",
-      "core_insight": "即使看似强大的模型，其指令跟随能力在足够的上下文诱导压力下仍会系统性崩溃，而真正的安全边界在于输出多样性这一表面因素，而非更深层的语义对齐。",
+      "primary_contradiction": "通用LLM服务框架的平台化趋势 vs 大规模模型部署所需的极限性能与资源效率",
+      "core_insight": "vLLM正从单纯的推理优化引擎，演变为连接异构硬件、多模态模型与大规模生产需求的操作系统级抽象层，其核心挑战已从单一性能指标转向在底层硬件适配与上层模型多样性之间的平台化生存博弈。",
       "confidence": "high",
-      "title": "Do as I Say, Not as I Do: Instruction-Induction Conflict in LLMs",
-      "url": "https://arxiv.org/abs/2605.20382v2",
-      "primary_domain": "ai-x-electronics",
-      "analysis_origin": "ai",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "arxiv-cs-ai"
-        ],
-        "source_types": [
-          "paper"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
-            "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
-            "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
-            "url": "https://arxiv.org/abs/2504.03615v2",
-            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
-            "url": "https://arxiv.org/abs/2507.07532v4",
-            "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "AI Alignment From Social Choice Perspectives",
-            "url": "https://arxiv.org/abs/2606.21550v1",
-            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
-            "url": "https://arxiv.org/abs/2606.21525v1",
-            "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
-            "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
-            "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
-            "url": "https://arxiv.org/abs/2504.03615v2",
-            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
-            "url": "https://arxiv.org/abs/2507.07532v4",
-            "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "AI Alignment From Social Choice Perspectives",
-            "url": "https://arxiv.org/abs/2606.21550v1",
-            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "arxiv-cs-ai",
-            "source_type": "paper",
-            "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
-            "url": "https://arxiv.org/abs/2606.21525v1",
-            "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [],
-        "verification_flags": [
-          "paper",
-          "direct-support"
-        ],
-        "summary": "1 source(s) | paper | 5 direct support"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-06-23",
-        "last_seen": "2026-06-23",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "low",
-      "support_evidence": [
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
-          "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
-          "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
-          "url": "https://arxiv.org/abs/2504.03615v2",
-          "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
-          "url": "https://arxiv.org/abs/2507.07532v4",
-          "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "AI Alignment From Social Choice Perspectives",
-          "url": "https://arxiv.org/abs/2606.21550v1",
-          "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "arxiv-cs-ai",
-          "source_type": "paper",
-          "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
-          "url": "https://arxiv.org/abs/2606.21525v1",
-          "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
-      "related_context": []
-    },
-    {
-      "title": "Is it agentic enough? Benchmarking open models on your own tooling",
-      "url": "https://huggingface.co/blog/is-it-agentic-enough",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "Collected 1 evidence items (no text summary available)"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "Is it agentic enough? Benchmarking open models on your own tooling appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "analysis_origin": "fallback",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "The Open Source Community is backing OpenEnv for Agentic RL",
-            "url": "https://huggingface.co/blog/openenv-agentic-rl",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Agentic Resource Discovery: Let agents search",
-            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "MosaicLeaks: Can your research agent keep a secret?",
-            "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-            "url": "https://huggingface.co/blog/peft-beyond-lora",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "The Open Source Community is backing OpenEnv for Agentic RL",
-            "url": "https://huggingface.co/blog/openenv-agentic-rl",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Agentic Resource Discovery: Let agents search",
-            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "MosaicLeaks: Can your research agent keep a secret?",
-            "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-            "url": "https://huggingface.co/blog/peft-beyond-lora",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [],
-        "verification_flags": [
-          "official-source",
-          "direct-support"
-        ],
-        "summary": "1 source(s) | official | 5 direct support"
-      },
-      "memory": {
-        "days_seen": 5,
-        "first_seen": "2026-06-19",
-        "last_seen": "2026-06-23",
-        "previous_score": 2.6,
-        "previous_confidence": "medium",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "The Open Source Community is backing OpenEnv for Agentic RL",
-          "url": "https://huggingface.co/blog/openenv-agentic-rl",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Agentic Resource Discovery: Let agents search",
-          "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-          "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "MosaicLeaks: Can your research agent keep a secret?",
-          "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
-          "url": "https://huggingface.co/blog/peft-beyond-lora",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
-      "related_context": []
-    },
-    {
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
       "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[curated-repos] A high-throughput and memory-efficient inference and serving engine for LLMs"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "analysis_origin": "fallback",
+      "analysis_origin": "ai",
       "enrichment": {
         "cross_source_count": 1,
         "source_ids": [
@@ -1221,19 +484,746 @@
           "support_kind": "related"
         }
       ]
+    },
+    {
+      "facts": [
+        "语言模型同时具备指令跟随和模式补全两种能力，当指令与上下文中的助手示范模式冲突时，模型倾向于模仿模式而非遵循指令。",
+        "实验构建了用户指令与N个硬编码助手回合示范竞争模式的对话，测试了13个模型、16种指令，最长50轮交互。",
+        "指令跟随率在不同模型间从1%到99%不等，且与标准能力基准得分几乎不相关。",
+        "从指令跟随到模式跟随的转变是普遍的，但转变速度高度依赖模型特性。",
+        "当指令内容与模型训练价值观一致时，抵抗诱导更持久；输出为多样性多token响应时比单token响应更具抵抗力。",
+        "思维链推理提高了稳健性但不能消除诱导，会出现推理正确但输出错误的分裂现象。",
+        "模型自预测行为的准确率平均为83.5%，但系统性地低估自身对诱导压力的抵抗力。",
+        "输出多样性是预测稳健性的主要因素，而非对输入的语义参与程度。"
+      ],
+      "contradictions": [
+        "指令跟随目标 vs 上下文模式诱导的压力",
+        "模型的能力基准表现 vs 指令跟随的脆弱性",
+        "模型的正确推理过程 vs 最终错误输出",
+        "模型的自我认知（低估脆弱性） vs 实际行为",
+        "训练对齐的价值观 vs 上下文中的诱导模式"
+      ],
+      "primary_contradiction": "指令遵循与上下文模式诱导之间的矛盾，即模型必须在用户明确指令和对话历史中示范模式之间做出选择。",
+      "core_insight": "当前LLM的指令跟随极易被上下文模式颠覆，其稳健性更多取决于输出形式的多样性而非推理深度，揭示了浅层统计学习对深层指令理解的压倒性影响。",
+      "confidence": "high",
+      "title": "Do as I Say, Not as I Do: Instruction-Induction Conflict in LLMs",
+      "url": "https://arxiv.org/abs/2605.20382v2",
+      "primary_domain": "ai-x-electronics",
+      "analysis_origin": "ai",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "arxiv-cs-ai"
+        ],
+        "source_types": [
+          "paper"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
+            "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
+            "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
+            "url": "https://arxiv.org/abs/2504.03615v2",
+            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
+            "url": "https://arxiv.org/abs/2507.07532v4",
+            "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "AI Alignment From Social Choice Perspectives",
+            "url": "https://arxiv.org/abs/2606.21550v1",
+            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
+            "url": "https://arxiv.org/abs/2606.21525v1",
+            "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
+            "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
+            "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
+            "url": "https://arxiv.org/abs/2504.03615v2",
+            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
+            "url": "https://arxiv.org/abs/2507.07532v4",
+            "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "AI Alignment From Social Choice Perspectives",
+            "url": "https://arxiv.org/abs/2606.21550v1",
+            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
+            "url": "https://arxiv.org/abs/2606.21525v1",
+            "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [],
+        "verification_flags": [
+          "paper",
+          "direct-support"
+        ],
+        "summary": "1 source(s) | paper | 5 direct support"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-06-23",
+        "last_seen": "2026-06-23",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "low",
+      "support_evidence": [
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability",
+          "url": "https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/",
+          "summary": "<p>Our recent paper, “LLMs Corrupt Your Documents When You Delegate”, has generated discussion about the reliability of AI systems in delegated workflows. We appreciate the interest in this work and want to clarify several important points about what the paper does—and does not—claim. The research aims to develop robust evaluation methods for long-horizon delegated and [&#8230;]</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/further-notes-on-our-recent-research-on-ai-delegation-and-long-horizon-reliability/\">Further Notes on Our Recent Research on AI Delegation and Long-Horizon Reliability</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
+          "url": "https://arxiv.org/abs/2504.03615v2",
+          "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "Neural Concept Verifier: Scaling Prover-Verifier Games via Concept Encodings",
+          "url": "https://arxiv.org/abs/2507.07532v4",
+          "summary": "While Prover-Verifier Games (PVGs) offer a promising path toward verifiability in nonlinear classification models, they have not yet been applied to complex inputs such as high-dimensional images. Conversely, expressive concept encodings effectively allow to translate such data into interpretable concepts but are often utilised in the context of low-capacity linear predictors. In this work, we push towards real-world verifiability by combining the strengths of both approaches. We introduce Neural Concept Verifier (NCV), a unified framework combining PVGs for formal verifiability with concept encodings to handle complex, high-dimensional inputs in an interpretable way. NCV achieves this by utilizing recent minimally supervised concept discovery models to extract structured concept encodings from raw inputs. A prover then selects a subset of these encodings, which a verifier, implemented as a nonlinear predictor, uses exclusively for decision-making. Our evaluations show that NCV outperforms classic concept-based models and pixel-based PVG classifier baselines on high-dimensional, logically complex datasets and helps mitigate shortcut behavior. Overall, we demonstrate NCV as a promising step toward concept-level, verifiable AI.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "AI Alignment From Social Choice Perspectives",
+          "url": "https://arxiv.org/abs/2606.21550v1",
+          "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "Backpropagating Through Simulation: Analytic Policy Gradients for Sample and Learning Efficient Differentiable Continuous Control",
+          "url": "https://arxiv.org/abs/2606.21525v1",
+          "summary": "Model-free reinforcement learning algorithms such as Proximal Policy Optimization (PPO) treat the environment as a black box, estimating policy gradients from sampled rewards; this process demands millions of interactions and relies on high-variance advantage estimates. When environment dynamics are differentiable, the return is an end-to-end differentiable function of the policy parameters, enabling exact gradient computation via backpropagation through simulation. We term this approach Analytic Policy Gradients (APG) and evaluate it against PPO on four continuous control tasks of increasing dynamical complexity: a one-dimensional point-mass target-reaching task, a 2D point-mass navigation task with obstacle avoidance, a 2D rigid-body T-block pushing task, and a 7-DOF Franka FR3 end-effector reaching task. Both algorithms share identical model architectures, observation normalization, and optimizer settings. To decouple sample efficiency from compute efficiency, we design a multi-axis evaluation protocol that records performance against environment steps and gradient steps. We report a segmented backpropagation scheme with MC and critic-based bootstrap modes that mitigates gradient degradation on long-horizon tasks, and present ablations over segment length and bootstrap strategy.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": []
+    },
+    {
+      "title": "Show HN: Oak – Git alternative designed for agents",
+      "url": "https://oak.space/oak/oak",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 146 | Comments: 141 | Text: Oak is a version control system I&#x27;ve been working on designed for "
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "Show HN: Oak – Git alternative designed for agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "analysis_origin": "fallback",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [],
+        "direct_support": [],
+        "related_context": [
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+            "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+            "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "AI Alignment From Social Choice Perspectives",
+            "url": "https://arxiv.org/abs/2606.21550v1",
+            "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "arxiv-cs-ai",
+            "source_type": "paper",
+            "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
+            "url": "https://arxiv.org/abs/2504.03615v2",
+            "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "related-context"
+        ],
+        "summary": "1 source(s) | community | 5 related context"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-05-09",
+        "last_seen": "2026-06-23",
+        "previous_score": 2.5,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-05-09",
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [],
+      "related_context": [
+        {
+          "source_id": "arm-news",
+          "source_type": "official",
+          "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+          "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+          "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "nvidia-embedded",
+          "source_type": "official",
+          "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+          "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+          "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "curated-repos",
+          "source_type": "repo",
+          "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+          "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+          "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "AI Alignment From Social Choice Perspectives",
+          "url": "https://arxiv.org/abs/2606.21550v1",
+          "summary": "Alignment from human feedback uses human judgments about model outputs to steer the behavior of language models after pretraining. When those judgments reflect conflicting views of desirable behavior, the learned objective becomes an aggregate determination of what the model should prefer. We survey recent work that has studied this aggregation problem through the lens of social choice theory. We illustrate how the social choice perspective helps identify failure modes in the feedback aggregation layer and reveals a broader design space for handling disagreement in explicit and principled ways.",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "arxiv-cs-ai",
+          "source_type": "paper",
+          "title": "Autonomous and Self-Adapting System for Synthetic Media Detection and Attribution",
+          "url": "https://arxiv.org/abs/2504.03615v2",
+          "summary": "Rapid advances in generative AI have enabled the creation of highly realistic synthetic images, which, while beneficial in many domains, also pose serious risks in terms of disinformation, fraud, and other malicious applications. Current synthetic image identification systems are typically static, relying on feature representations learned from known generators; as new generative models emerge, these systems suffer from severe performance degradation. In this paper, we introduce the concept of an autonomous self-adaptive synthetic media identification system -- one that not only detects synthetic images and attributes them to known sources but also autonomously identifies and incorporates novel generators without human intervention. Our approach leverages an open-set identification strategy with an evolvable embedding space that distinguishes between known and unknown sources. By employing an unsupervised clustering method to aggregate unknown samples into high-confidence clusters and continuously refining its decision boundaries, our system maintains robust detection and attribution performance even as the generative landscape evolves. Extensive experiments demonstrate that our method significantly outperforms existing approaches, marking a crucial step toward universal, adaptable forensic systems in the era of rapidly advancing generative models.",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        }
+      ]
+    },
+    {
+      "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+      "url": "https://huggingface.co/blog/is-it-agentic-enough",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "Collected 1 evidence items (no text summary available)"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "Is it agentic enough? Benchmarking open models on your own tooling appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "analysis_origin": "fallback",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+            "url": "https://huggingface.co/blog/openenv-agentic-rl",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Agentic Resource Discovery: Let agents search",
+            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "MosaicLeaks: Can your research agent keep a secret?",
+            "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+            "url": "https://huggingface.co/blog/peft-beyond-lora",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+            "url": "https://huggingface.co/blog/openenv-agentic-rl",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Agentic Resource Discovery: Let agents search",
+            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "MosaicLeaks: Can your research agent keep a secret?",
+            "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+            "url": "https://huggingface.co/blog/peft-beyond-lora",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [],
+        "verification_flags": [
+          "official-source",
+          "direct-support"
+        ],
+        "summary": "1 source(s) | official | 5 direct support"
+      },
+      "memory": {
+        "days_seen": 5,
+        "first_seen": "2026-06-19",
+        "last_seen": "2026-06-23",
+        "previous_score": 2.6,
+        "previous_confidence": "medium",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+          "url": "https://huggingface.co/blog/openenv-agentic-rl",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Agentic Resource Discovery: Let agents search",
+          "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+          "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "MosaicLeaks: Can your research agent keep a secret?",
+          "url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+          "url": "https://huggingface.co/blog/peft-beyond-lora",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": []
+    },
+    {
+      "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+      "url": "https://huggingface.co/blog/openenv-agentic-rl",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "Collected 1 evidence items (no text summary available)"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "The Open Source Community is backing OpenEnv for Agentic RL appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "analysis_origin": "fallback",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+            "url": "https://huggingface.co/blog/is-it-agentic-enough",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Agentic Resource Discovery: Let agents search",
+            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+            "url": "https://huggingface.co/blog/peft-beyond-lora",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
+            "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
+            "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+            "url": "https://huggingface.co/blog/is-it-agentic-enough",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Agentic Resource Discovery: Let agents search",
+            "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+            "url": "https://huggingface.co/blog/peft-beyond-lora",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
+            "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
+            "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [],
+        "verification_flags": [
+          "official-source",
+          "direct-support"
+        ],
+        "summary": "1 source(s) | official | 5 direct support"
+      },
+      "memory": {
+        "days_seen": 14,
+        "first_seen": "2026-06-09",
+        "last_seen": "2026-06-23",
+        "previous_score": 2.6,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-13",
+          "2026-06-14",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+          "url": "https://huggingface.co/blog/is-it-agentic-enough",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Agentic Resource Discovery: Let agents search",
+          "url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+          "url": "https://huggingface.co/blog/peft-beyond-lora",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "espressif-blog",
+          "source_type": "official",
+          "title": "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI",
+          "url": "https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
+          "url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": []
     }
   ],
   "forecast": {
-    "best_case": "OpenEnv 获得关键贡献者与主流实验室采纳，快速建立 Agentic RL 的互操作标准；微软小模型编排方案开源并在端侧设备取得显著性能验证；Oak 完成安全审计并成为代理工作流的事实工具；行业整体承认并着手修复指令诱导脆弱性，推动新一代对齐技术。",
-    "worst_case": "OpenEnv 社区协作因分歧停滞，无法统一标准；小模型代理方案因容量瓶颈在复杂任务中反复出错，破坏用户信任；Oak 因兼容性与信任度问题被企业级开发流排斥；指令诱导攻击被快速武器化，但开发者高估模型防御能力的情况未见改善，引发信任危机。",
-    "most_likely_case": "短期内形成多个有影响力的 Agent 环境，但完全统一的标准仍未出现；小模型编排成为 Agent 在边缘端与低延迟场景部署的主流补充方案，但复杂决策仍依赖大模型；Oak 获得早期采用者群体，但 Git 仍占据绝对主导地位；指令诱导脆弱性成为一个新的常规安全评估维度，在安全社区引发激烈讨论并推动治理规则先于技术修复出现。",
+    "best_case": "微软的 MagenticLite 等小模型智能体架构在 6 个月内完成开源并形成开发者社区雏形，推动轻量级 AI 智能体在 Windows 和 Edge 生态中进入实际产品阶段；vLLM 成功平衡通用兼容性与极限性能，成为多数 LLM 部署的首选抽象层；指令-诱导冲突的研究成果迅速转化为主流模型的抗诱导微调方案，安全评测基准中纳入上下文污染测试，关键漏洞被部分修复。",
+    "worst_case": "端侧小模型智能体体验远低于用户预期，因资源受限导致任务完成率低，微软项目停留在实验室阶段无实际产品；vLLM 在追求广泛硬件兼容过程中出现严重性能倒退，在定制化芯片和专用推理栈的挤压下失去社区信任；指令遵循脆弱性被恶意大规模利用，出现由于上下文诱导导致的安全事件，而现有对齐手段无法有效防御，行业陷入信任危机。",
+    "most_likely_case": "未来 6-12 个月内，小模型智能体仍主要停留在研究与实验阶段，微软可能将部分能力注入 Copilot 或相关服务但非颠覆性突破；vLLM 继续巩固其在开源推理框架中的领先地位，但面对专用芯片的闭源方案时会形成‘通用平台与专用高墙’的长期竞争格局；指令-诱导冲突的研究会引发越来越多的模型的对抗性鲁棒性评估，但主流产品只会在较容易修复的表层机制上打补丁，深层脆弱性暂时难以根除。",
     "key_variables": [
-      "OpenEnv 社区的贡献质量与核心 AI 实验室的采纳意愿",
-      "微软小模型方案的开源策略与公开基准测试结果",
-      "Oak 能否通过企业级安全审计并获得代码托管平台的集成信任",
-      "是否有真实的、造成重大影响的模式诱导攻击案例出现"
+      "微软将 MagenticLite 等研究项目转化为产品线的速度和开放程度",
+      "主流芯片厂商（NVIDIA、AMD、TPU）对 vLLM 的底层适配支持力度与专用推理栈的竞争",
+      "行业是否将指令-诱导冲突测试纳入安全检查与红队演练标准",
+      "小模型推理效率与智能体任务完成度之间的现实差距能否被架构创新弥补",
+      "开发者社区对通用推理引擎与专用微调方案之间的成本-性能权衡选择"
     ],
-    "forecast_conclusion": "Agent 工程的竞争焦点已完成从‘让模型更强’到‘让代理更可靠’的迁移，未来三个月将看到基础设施标准、小模型协同与安全防御三者并行成为新的护城河。同时，模式诱导脆弱性的暴露将推动行业划出新的安全底线。",
+    "forecast_conclusion": "短期行业趋势将围绕效率与可靠性展开：端侧小模型智能体从研究走向有限落地，通用推理引擎继续平台化但不会一统天下，LLM 的指令脆弱性引起学术界和工业界警觉但短期内难以根本解决。整体呈现渐进演进而非范式级突破，颠覆性风险与颠覆性收益概率均较低。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -1244,13 +1234,13 @@
   "ai_metrics": {
     "provider": "deepseek",
     "model": "mixed",
-    "calls": 7,
+    "calls": 6,
     "token_usage": {
-      "prompt": 21521,
-      "completion": 5537,
-      "total": 27058
+      "prompt": 18515,
+      "completion": 5574,
+      "total": 24089
     },
-    "latency_seconds": 87.07,
+    "latency_seconds": 83.01,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -1260,10 +1250,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 513,
-          "completion": 607,
-          "total": 1120
+          "completion": 1088,
+          "total": 1601
         },
-        "latency_seconds": 8.43,
+        "latency_seconds": 14.02,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1280,14 +1270,14 @@
       "analysis": {
         "provider": "deepseek",
         "model": "deepseek-v4-pro",
-        "calls": 4,
+        "calls": 3,
         "token_usage": {
-          "prompt": 10712,
-          "completion": 2897,
-          "total": 13609
+          "prompt": 8206,
+          "completion": 2081,
+          "total": 10287
         },
-        "latency_seconds": 46.21,
-        "attempts": 4,
+        "latency_seconds": 30.96,
+        "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
         "guardrail_reason": "",
@@ -1305,11 +1295,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 4119,
-          "completion": 1161,
-          "total": 5280
+          "prompt": 3803,
+          "completion": 1583,
+          "total": 5386
         },
-        "latency_seconds": 17.82,
+        "latency_seconds": 23.98,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1328,11 +1318,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 6177,
-          "completion": 872,
-          "total": 7049
+          "prompt": 5993,
+          "completion": 822,
+          "total": 6815
         },
-        "latency_seconds": 14.61,
+        "latency_seconds": 14.05,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1594,7 +1584,7 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "AI 智能体工程正从模型能力竞赛转向基础设施标准化竞争，同时揭示了即使强大模型也存在“言不由衷”的根本脆弱性。",
+    "AI 智能体与基础模型正从追求规模与通用能力，转向探索效率、稳健性与系统化架构的下一个战场。",
     "本轮共采集到 194 条原始信息，去重后保留 194 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -8315,7 +8305,7 @@
     {
       "title": "Canada plans 'nuclear renaissance' with up to 10 reactors built by 2040",
       "url": "https://www.cbc.ca/news/politics/federal-nuclear-strategy-9.7244509",
-      "summary": "Score: 283 | Comments: 149",
+      "summary": "Score: 285 | Comments: 151",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8409,7 +8399,7 @@
     {
       "title": "The text in Claude Code’s “Extended Thinking” output",
       "url": "https://patrickmccanna.net/the-text-in-claude-codes-extended-thinking-output-is-not-authentic/",
-      "summary": "Score: 274 | Comments: 193",
+      "summary": "Score: 275 | Comments: 193",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8655,7 +8645,7 @@
     {
       "title": "Munich 1991: The Roots of the Current AI Boom",
       "url": "https://people.idsia.ch/~juergen/ai-boom-roots-munich-1991.html",
-      "summary": "Score: 210 | Comments: 94",
+      "summary": "Score: 211 | Comments: 94",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -10028,181 +10018,6 @@
       "risk_level": "low"
     },
     {
-      "title": "pytorch/executorch",
-      "url": "https://github.com/pytorch/executorch",
-      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
-      "primary_domain": "ai-x-electronics",
-      "matched_domains": [
-        "ai-x-electronics",
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "embedded",
-        "gpu",
-        "machine-learning",
-        "mobile",
-        "neural-network",
-        "tensor"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "direct_support": [],
-        "related_context": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
-            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP",
-            "url": "https://huggingface.co/blog/torch-mlp-fusion",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "NVIDIA/TensorRT",
-            "url": "https://github.com/NVIDIA/TensorRT",
-            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "alibaba/MNN",
-            "url": "https://github.com/alibaba/MNN",
-            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "anthropics/claude-cookbooks",
-            "url": "https://github.com/anthropics/claude-cookbooks",
-            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 5 related context"
-      },
-      "memory": {
-        "days_seen": 75,
-        "first_seen": "2026-04-09",
-        "last_seen": "2026-06-23",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
-          "2026-04-09",
-          "2026-04-11",
-          "2026-04-12",
-          "2026-04-13",
-          "2026-04-14",
-          "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-13",
-          "2026-06-14",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-18",
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
       "title": "tenstorrent/tt-metal",
       "url": "https://github.com/tenstorrent/tt-metal",
       "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
@@ -10471,6 +10286,181 @@
         "previous_confidence": "low",
         "previous_lifecycle_state": "rising",
         "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-13",
+          "2026-06-14",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
+      "title": "pytorch/executorch",
+      "url": "https://github.com/pytorch/executorch",
+      "summary": "On-device AI across mobile, embedded and edge for PyTorch",
+      "primary_domain": "ai-x-electronics",
+      "matched_domains": [
+        "ai-x-electronics",
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "embedded",
+        "gpu",
+        "machine-learning",
+        "mobile",
+        "neural-network",
+        "tensor"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "direct_support": [],
+        "related_context": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+            "url": "https://huggingface.co/blog/github-ci-hf-jobs",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP",
+            "url": "https://huggingface.co/blog/torch-mlp-fusion",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "NVIDIA/TensorRT",
+            "url": "https://github.com/NVIDIA/TensorRT",
+            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "alibaba/MNN",
+            "url": "https://github.com/alibaba/MNN",
+            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "anthropics/claude-cookbooks",
+            "url": "https://github.com/anthropics/claude-cookbooks",
+            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "related-context"
+        ],
+        "summary": "1 source(s) | repo | 5 related context"
+      },
+      "memory": {
+        "days_seen": 75,
+        "first_seen": "2026-04-09",
+        "last_seen": "2026-06-23",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-09",
+          "2026-04-11",
+          "2026-04-12",
+          "2026-04-13",
+          "2026-04-14",
+          "2026-04-15",
+          "2026-04-16",
+          "2026-04-17",
           "2026-04-18",
           "2026-04-19",
           "2026-04-20",
@@ -11059,6 +11049,184 @@
       "risk_level": "low"
     },
     {
+      "title": "NVIDIA/TensorRT",
+      "url": "https://github.com/NVIDIA/TensorRT",
+      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "gpu-acceleration",
+        "inference",
+        "nvidia",
+        "tensorrt"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
+            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
+            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "mediatek-blog",
+            "source_type": "official",
+            "title": "An AI Supercomputer on Your Desk: MediaTek and NVIDIA Discuss DGX Spark",
+            "url": "https://www.mediatek.com/tek-talk-blogs/an-ai-supercomputer-on-your-desk-mediatek-and-nvidia-discuss-dgx-spark",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "direct-support",
+          "related-context"
+        ],
+        "summary": "1 source(s) | repo | 1 direct support | 4 related context"
+      },
+      "memory": {
+        "days_seen": 69,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-06-23",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-13",
+          "2026-06-14",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "onnx/onnx",
       "url": "https://github.com/onnx/onnx",
       "summary": "Open standard for machine learning interoperability",
@@ -11164,184 +11332,6 @@
           "2026-04-13",
           "2026-04-14",
           "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-13",
-          "2026-06-14",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-18",
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "NVIDIA/TensorRT",
-      "url": "https://github.com/NVIDIA/TensorRT",
-      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "gpu-acceleration",
-        "inference",
-        "nvidia",
-        "tensorrt"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
-            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
-            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "mediatek-blog",
-            "source_type": "official",
-            "title": "An AI Supercomputer on Your Desk: MediaTek and NVIDIA Discuss DGX Spark",
-            "url": "https://www.mediatek.com/tek-talk-blogs/an-ai-supercomputer-on-your-desk-mediatek-and-nvidia-discuss-dgx-spark",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "direct-support",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 1 direct support | 4 related context"
-      },
-      "memory": {
-        "days_seen": 69,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-06-23",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
           "2026-04-16",
           "2026-04-17",
           "2026-04-18",
@@ -34164,7 +34154,7 @@
     }
   ],
   "predictions": [
-    "Agent 工程的竞争焦点已完成从‘让模型更强’到‘让代理更可靠’的迁移，未来三个月将看到基础设施标准、小模型协同与安全防御三者并行成为新的护城河。同时，模式诱导脆弱性的暴露将推动行业划出新的安全底线。"
+    "短期行业趋势将围绕效率与可靠性展开：端侧小模型智能体从研究走向有限落地，通用推理引擎继续平台化但不会一统天下，LLM 的指令脆弱性引起学术界和工业界警觉但短期内难以根本解决。整体呈现渐进演进而非范式级突破，颠覆性风险与颠覆性收益概率均较低。"
   ],
   "sources": {
     "github": {
