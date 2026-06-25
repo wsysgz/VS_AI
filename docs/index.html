@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VS_AI 情报阅读站</title>
-<meta name="description" content="四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。">
+<meta name="description" content="开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,9 +418,9 @@
       <article class="panel">
         <div class="eyebrow">情报工作台</div>
         <h1 class="page-title">今日判断</h1>
-        <p class="lead">四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。</p>
+        <p class="lead">开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。</p>
         <ul class="compact-list">
-          <li>微软 MagenticLite 探索用多个小模型协作替代单一大模型完成日常任务编排，挑战“大模型才有 Agent 能力”的主流假设。</li><li>vLLM 定位为异构算力与多样化模型架构上的推理操作系统，其核心矛盾是在通用性与极致优化之间找到平衡。</li><li>一项针对 NVIDIA Nemotron 挑战赛的研究表明，放弃 LLM 不擅长的算术逻辑而改用字符串相似性引导的回溯搜索，可在组合爆炸的位操作谜题中达到 96% 以上的准确率。</li>
+          <li>vLLM已成为大模型高性能推理的事实标准，通过抽象硬件和模型多样性的统一服务层支撑大量生产级应用，但其快速迭代与社区扩张给企业级稳定性带来持续压力。</li><li>GLM-5.2被视作开源智能体能力的一次跃迁，在工具使用和自主性上向闭源系统靠拢，但社区讨论对其实际部署可靠性和评估标准仍存高度怀疑。</li><li>Qwen-AgentWorld试图用语言构建通用智能体的世界模型，试图打通跨领域自主行动的认知基础，但语言在物理、多模态交互中的局限性使该路径的泛化能力尚待验证。</li>
         </ul>
         <div class="guide-actions" aria-label="工作台导读">
           <a class="guide-action primary" href="./tracks/">赛道</a>
@@ -428,7 +428,7 @@
           <a class="guide-action" href="#top-signals">重点信号</a>
         </div>
         <div class="meta-row">
-          <span class="chip">最新更新 2026-06-24T08:16:08.159323+08:00</span>
+          <span class="chip">最新更新 2026-06-25T09:32:49.720458+08:00</span>
           <span class="chip">自动版</span>
           <a class="chip" href="./archives/">归档检索</a>
           <a class="chip" href="./tracks/">赛道</a>
@@ -441,12 +441,12 @@
       <aside class="panel">
         <h2 class="section-title">覆盖状态</h2>
         <div class="stats-grid">
-          <article class="stat"><span>原始条目</span><strong>194</strong></article>
-          <article class="stat"><span>主题数量</span><strong>193</strong></article>
+          <article class="stat"><span>原始条目</span><strong>202</strong></article>
+          <article class="stat"><span>主题数量</span><strong>202</strong></article>
           <article class="stat"><span>领域覆盖</span><strong>2</strong></article>
-          <article class="stat"><span>来源数量</span><strong>43</strong></article>
+          <article class="stat"><span>来源数量</span><strong>48</strong></article>
         </div>
-        <p class="subtle" style="margin-top:14px;">小模型协作与强化学习驱动的工具调用将成为Agent领域的热门研究方向，但其在边缘设备上的产品落地速度慢于预期，更多地以开源框架形式在开发者社区中扩散，而非形成可兑现的商业模式。</p>
+        <p class="subtle" style="margin-top:14px;">短期内，GLM-5.2等模型在标准化基准上的独立复现结果陆续出现，但结果喜忧参半，无法彻底打消社区对可靠性的怀疑；Qwen-AgentWorld的泛化实验初现成果，但被证实仅适用于紧贴语言的领域，多模态局限明显；vLLM继续作为默认推理引擎，但社区分裂出更注重稳定性的分叉或替代方案；整体上，开源智能体生态加速整合，但生产采纳仍限于低风险、辅助性任务，真正的自主代理部署陷入‘下一个里程碑’的反复期待中。</p>
       </aside>
     </section>
 
@@ -455,41 +455,41 @@
       <div class="comparison-grid"><article class="comparison-card">
   <span class="tag">嵌入式</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-06-24/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-06-24/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-06-25/comparison/#comparison-embedded">乐鑫开发者博客：嵌入式 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-06-25/comparison/#comparison-embedded">英伟达嵌入式博客：嵌入式 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-24/comparison/#comparison-embedded">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-25/comparison/#comparison-embedded">查看对比明细</a></div>
 </article><article class="comparison-card">
   <span class="tag">前沿 AI</span>
   <dl>
-    <dt>国内侧</dt><dd><a href="./archives/2026-06-24/comparison/#comparison-frontier-ai">智谱新闻：前沿 AI 方向信号</a></dd>
-    <dt>海外侧</dt><dd><a href="./archives/2026-06-24/comparison/#comparison-frontier-ai">huggingface-blog：前沿 AI 方向信号</a></dd>
+    <dt>国内侧</dt><dd><a href="./archives/2026-06-25/comparison/#comparison-frontier-ai">智谱新闻：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./archives/2026-06-25/comparison/#comparison-frontier-ai">huggingface-blog：前沿 AI 方向信号</a></dd>
   </dl>
-  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-24/comparison/#comparison-frontier-ai">查看对比明细</a></div>
+  <div class="archive-footer"><span>同轨明细</span><a href="./archives/2026-06-25/comparison/#comparison-frontier-ai">查看对比明细</a></div>
 </article><article class="comparison-list">
   <h3><span class="tag warm">观察点</span></h3>
   <ul><li>继续跟踪 嵌入式 的国内外同轨发布、生态采用与真实交付反馈。</li><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
 </article></div>
-      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-06-24/comparison/">查看对比明细</a></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./archives/2026-06-25/comparison/">查看对比明细</a></div>
     </section>
 
     <section class="section">
       <h2 class="section-title">赛道</h2>
       <div class="archive-grid">
-        <article class="archive-card" data-search="AI/智能体 四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。">
+        <article class="archive-card" data-search="AI/智能体 开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。">
   <span class="eyebrow">赛道</span>
   <h3>AI/智能体</h3>
-  <p>12082 条信号 · 最近 2026.06.24</p>
+  <p>12264 条信号 · 最近 2026.06.25</p>
   <div class="archive-footer">
-    <span>四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。</span>
+    <span>开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。</span>
     <a href="./tracks/ai-llm-agent/">打开赛道</a>
   </div>
-</article><article class="archive-card" data-search="AI × 电子 四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。">
+</article><article class="archive-card" data-search="AI × 电子 开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。">
   <span class="eyebrow">赛道</span>
   <h3>AI × 电子</h3>
-  <p>1418 条信号 · 最近 2026.06.24</p>
+  <p>1438 条信号 · 最近 2026.06.25</p>
   <div class="archive-footer">
-    <span>四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。</span>
+    <span>开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。</span>
     <a href="./tracks/ai-x-electronics/">打开赛道</a>
   </div>
 </article>
@@ -502,28 +502,28 @@
         <article class="archive-card" data-search="GitHub jax-ml/jax AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>GitHub</h3>
-  <p>1118 条信号 · 76 份日报 · 最近 2026.06.24</p>
+  <p>1132 条信号 · 77 份日报 · 最近 2026.06.25</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
   <p class="subtle" style="margin-top:12px;">jax-ml/jax</p>
   <a class="article-action" href="./sources/github/">打开来源</a>
-</article><article class="archive-card" data-search="huggingface.co GLM-5.2: Built for Long-Horizon Tasks AI/智能体">
+</article><article class="archive-card" data-search="huggingface.co MolmoMotion: Language-guided 3D motion forecasting AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>huggingface.co</h3>
-  <p>853 条信号 · 71 份日报 · 最近 2026.06.24</p>
+  <p>865 条信号 · 72 份日报 · 最近 2026.06.25</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
-  <p class="subtle" style="margin-top:12px;">GLM-5.2: Built for Long-Horizon Tasks</p>
+  <p class="subtle" style="margin-top:12px;">MolmoMotion: Language-guided 3D motion forecasting</p>
   <a class="article-action" href="./sources/huggingface-co/">打开来源</a>
-</article><article class="archive-card" data-search="arXiv Learning Process Rewards via Success Visitation Matching for Efficient RL AI/智能体 AI × 电子">
+</article><article class="archive-card" data-search="arXiv BioVid: Autoregressive Video Generation with Biological Behavior Semantic Comprehension AI/智能体 AI × 电子">
   <span class="eyebrow">来源</span>
   <h3>arXiv</h3>
-  <p>676 条信号 · 67 份日报 · 最近 2026.06.24</p>
+  <p>686 条信号 · 68 份日报 · 最近 2026.06.25</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span><span class="tag alt">AI × 电子</span></div>
-  <p class="subtle" style="margin-top:12px;">Learning Process Rewards via Success Visitation Matching for Efficient RL</p>
+  <p class="subtle" style="margin-top:12px;">BioVid: Autoregressive Video Generation with Biological Behavior Semantic Comprehension</p>
   <a class="article-action" href="./sources/arxiv/">打开来源</a>
 </article><article class="archive-card" data-search="api-docs.deepseek.com deepseek-chat ​ AI/智能体">
   <span class="eyebrow">来源</span>
   <h3>api-docs.deepseek.com</h3>
-  <p>614 条信号 · 76 份日报 · 最近 2026.06.24</p>
+  <p>622 条信号 · 77 份日报 · 最近 2026.06.25</p>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag alt">AI/智能体</span></div>
   <p class="subtle" style="margin-top:12px;">deepseek-chat ​</p>
   <a class="article-action" href="./sources/api-docs-deepseek-com/">打开来源</a>
@@ -535,14 +535,14 @@
       <h2 class="section-title">关键主线</h2>
       <div class="summary-grid">
         <article class="summary-card">
-  <h3>Agent 架构：从“一个大模型”到“一群小模型”</h3>
-  <p>MageticLite 的探索表明，在设备端运行的低成本、隐私友好的小模型 Agent 可能成为云端大模型的可行替代方案，这将改变 Agent 应用的部署边界和成本结构。</p>
+  <h3>vLLM：推理基础设施的底座趋于成熟，但稳定性的代价正在显现</h3>
+  <p>作为支撑LLaMA、Qwen、DeepSeek等大量模型的生产级推理引擎，vLLM在硬件兼容性和架构支持上的广度使其成为开源生态的关键依赖，其快速演化与生产环境对长期稳定性的需求之间的矛盾，直接影响整个上层应用的可用性。</p>
 </article><article class="summary-card">
-  <h3>推理基础设施：vLLM 正在成为异构算力的“安卓系统”</h3>
-  <p>vLLM 全面覆盖 CUDA、TPU、AMD 及 MoE、Dense 等架构的优化，反映出在模型爆发式增长的时代，统一的推理操作系统正在成为关键基础设施。</p>
+  <h3>GLM-5.2：开源智能体能力向闭源靠拢，可靠性与评估仍是未解之题</h3>
+  <p>该模型展现的工具使用和自主执行能力的提升可能缩小开源与闭源智能体系统之间的差距，但社区对‘模型能力强不等于可部署智能体’的质疑，意味着产业界需在不稳定的评估地基上做技术选型，风险显著。</p>
 </article><article class="summary-card">
-  <h3>逻辑推理：不要逼 LLM 做它不擅长的事</h3>
-  <p>抛弃算术逻辑而转向字符串匹配与冲突驱动的回溯搜索，这一方法在组合爆炸难题中的成功，揭示了一条让 LLM 参与精密逻辑任务的新路径——不改变模型本身，而改变问题的表征方式。</p>
+  <h3>Qwen-AgentWorld：语言世界模型试图统一通用智能体的认知框架，但模态鸿沟是第一道关卡</h3>
+  <p>若语言世界模型被证明有效，将为跨域的通用智能体提供标准化的环境理解与规划方式；但物理因果、视觉和力反馈等非语言信息的缺失，可能使其在真实世界任务中力不从心，进而影响整个语言中心路线的可信度。</p>
 </article>
       </div>
     </section>
@@ -551,35 +551,35 @@
       <h2 class="section-title">重点信号</h2>
       <div class="signal-grid">
         <article class="article-card">
-  <p class="article-date">2026.06.24</p>
+  <p class="article-date">2026.06.25</p>
+  <h3>RubyLLM: A Ruby framework for all major AI providers</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">rubyllm.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="./archives/2026-06-25/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.06.25</p>
+  <h3>Haystack: Open-Source AI Framework for Production Ready Agents, RAG</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">haystack.deepset.ai</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-06-25/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.06.25</p>
   <h3>Is it agentic enough? Benchmarking open models on your own tooling</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/1/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-25/signals/3/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.24</p>
-  <h3>Claude Tag</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">anthropic.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/2/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.06.24</p>
+  <p class="article-date">2026.06.25</p>
   <h3>vLLM 项目</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/3/">阅读文章</a>
+  <a class="article-action" href="./archives/2026-06-25/signals/4/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.24</p>
-  <h3>MagenticLite, MagenticBrain, Fara1.5: An agentic experience optimized for small models</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/4/">阅读文章</a>
+  <p class="article-date">2026.06.25</p>
+  <h3>Qwen-AgentWorld: Language World Models for General Agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-06-25/signals/5/">阅读文章</a>
 </article><article class="article-card">
-  <p class="article-date">2026.06.24</p>
-  <h3>AIR: Adaptive Interleaved Reasoning with Code in MLLMs</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arXiv</span><span class="tag">AI 论文</span><span class="tag">cs.CV</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/5/">阅读文章</a>
-</article><article class="article-card">
-  <p class="article-date">2026.06.24</p>
-  <h3>Teaching LLMs String Matching, Backtracking, and Error Recovery to Deduce Bases and Truth Tables for the Combinatorially Exploding Bit Manipulation Puzzles</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">arXiv</span><span class="tag">AI/智能体</span><span class="tag">AI 论文</span></div>
-  <a class="article-action" href="./archives/2026-06-24/signals/6/">阅读文章</a>
+  <p class="article-date">2026.06.25</p>
+  <h3>GLM-5.2 is a step change for open agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">interconnects.ai</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="./archives/2026-06-25/signals/6/">阅读文章</a>
 </article>
       </div>
     </section>
@@ -601,7 +601,12 @@
     <section class="section">
       <h2 class="section-title">最近归档</h2>
       <div class="archive-grid">
-        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com about.fb.com amd.com mediatek.com blog.st.com sophgo.com horizon.auto developer.cambricon.com ti.com 404media.co blog.dshr.org twitter.com swipe.futo.tech status.claude.com swiftpackageindex.com apnews.com milek7.pl lift4d.github.io nega.tv daringfireball.net truths-and-loves.ghost.io atomprophet.io">
+        <article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv openai.com anthropic.com api-docs.deepseek.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com mediatek.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com about.fb.com amd.com blog.st.com sophgo.com horizon.auto ti.com developer.cambricon.com rubyllm.com haystack.deepset.ai interconnects.ai statusdude.com techcrunch.com krea.ai nytimes.com techstrong.ai thomann.de greptile.com blog.google theregister.com infosec.exchange reuters.com economist.com thomasliao.com werd.io gizmodo.com">
+  <p class="article-date">2026.06.25</p>
+  <h3>开源AI生态正从推理引擎到智能体框架快速形成完整技术栈，但可靠性、评估与生产稳定性仍是走向实际落地的核心瓶颈。</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
+  <a class="article-action" href="./archives/2026-06-25/brief/">阅读文章</a>
+</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com openai.com api-docs.deepseek.com 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com qwen.ai groq.com qualcomm.com infineon.com renesas.com about.fb.com amd.com mediatek.com blog.st.com sophgo.com horizon.auto developer.cambricon.com ti.com 404media.co blog.dshr.org twitter.com swipe.futo.tech status.claude.com swiftpackageindex.com apnews.com milek7.pl lift4d.github.io nega.tv daringfireball.net truths-and-loves.ghost.io atomprophet.io">
   <p class="article-date">2026.06.24</p>
   <h3>四组研究共同指向一个趋势：AI Agent 正从“通用大模型包打天下”转向“小而专的智能体网络”，通过结构化搜索、自适应工具调用与系统级优化，在有限资源下实现更可靠、更高效的复杂推理。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
@@ -636,11 +641,6 @@
   <h3>本周AI代理研究从物理自校正、小模型边缘化、认知问责到通信协议标准化的系统化突破，标志着代理技术正从“能完成任务”加速迈向“可靠、可解释、可互操作”的新阶段。</h3>
   <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
   <a class="article-action" href="./archives/2026-06-18/brief/">阅读文章</a>
-</article><article class="article-card" data-domain="AI/智能体 AI × 电子" data-source="GitHub huggingface.co arXiv anthropic.com api-docs.deepseek.com openai.com qwen.ai 微软 newsroom.arm.com developer.nvidia.com platform.moonshot.cn zhipuai.cn cerebras.ai blog.openvino.ai edgeimpulse.com developer.espressif.com ernie.baidu.com rock-chips.com about.fb.com groq.com qualcomm.com infineon.com renesas.com mediatek.com amd.com blog.st.com sophgo.com horizon.auto developer.cambricon.com ti.com vickiboykis.com twitter.com theverge.com theregister.com newsletter.pragmaticengineer.com arseniyshestakov.com tim.blog tno.nl shadycharacters.co.uk mll.sh writings.stephenwolfram.com nlnet.nl arstechnica.com theguardian.com">
-  <p class="article-date">2026.06.17</p>
-  <h3>AI Agent 领域正经历从追求单体大模型参数规模向系统化工程优化的集体转向，标准化环境、小模型编排与领域专用工具成为提升能效与可靠性的核心战场。</h3>
-  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">AI × 电子</span><span class="tag">自动版</span></div>
-  <a class="article-action" href="./archives/2026-06-17/brief/">阅读文章</a>
 </article>
       </div>
     </section>
