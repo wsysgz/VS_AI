@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-02T09:33:38.921762+08:00",
+    "generated_at": "2026-07-02T09:35:11.841851+08:00",
     "timezone": "Asia/Shanghai",
     "total_items": 188,
     "total_topics": 188,
@@ -10,60 +10,245 @@
       "review_note": ""
     }
   },
-  "one_line_core": "AI代理从研发走向生产的关键瓶颈——行为可靠性、推理泛化性与迁移可评估性——正通过技能可训练化、高性能推理引擎和企业迁移基准三条路径协同破解。",
+  "one_line_core": "AI Agent 在企业级场景的应用正从‘能力展示’进入‘可靠性验证’阶段，核心瓶颈已从生成能力转向确定性、可优化性和规模化适配能力。",
   "executive_summary": [
-    "微软SkillOpt将代理技能编辑从手动试错转变为可训练过程，不改变模型权重而提升行为可靠性。",
-    "vLLM作为高性能LLM推理引擎，在追求极致硬件优化的同时，维护了跨模型、跨加速器的广泛生态兼容性。",
-    "IBM ScarfBench为企业级Java框架迁移建立标准化基准，推动AI代理在代码转换与配置管理上的可衡量进步。",
-    "三项工作共同勾勒出现代AI代理从技能训练、推理部署到生产评估的基础设施拼图，揭示出代理工程的核心挑战：在灵活性与确定性之间找到可量化的平衡点。"
+    "本周 AI Agent 与企业工程领域的关键信号表明：行业焦点已从‘能不能做’转向‘能不能放心用’。",
+    "IBM 的 ScarfBench 基准测试揭示了 AI Agent 在 Java 框架迁移中的核心矛盾：企业环境对代码语义的零容忍，使得‘基本正确但偶有错误’的 Agent 无法投产。",
+    "微软的 SkillOpt 解决了 Agent 指令的脆弱性问题，首次将技能优化变为可控的训练过程，在不改变模型权重的前提下提升了行为可靠性。",
+    "开源推理框架 vLLM 凭借 PagedAttention 和广谱支持成为基础设施级入口，但在碎片化硬件生态中，其通用性正面临专用引擎在极致性能上的挑战。"
   ],
   "key_points": [
     {
-      "title": "SkillOpt：把代理技能变成可训练参数，从根本上解决手动调整不可靠的痛点",
-      "why_it_matters": "代理在生产中频繁失败，根源在于技能指令的手工修改缺乏验证；SkillOpt将技能编辑转化为训练流程，使行为优化可度量、可复现，显著提升代理稳定性。"
+      "title": "ScarfBench：Agent 做企业级迁移，准确率才是生命线",
+      "why_it_matters": "传统企业 Java 系统迁移对错误零容忍。ScarfBench 的推出标志着评估标准已从‘代码能否运行’升级为‘语义是否完全等价’，这是 AI Agent 进军核心业务系统的准入门槛。"
     },
     {
-      "title": "vLLM：在吞吐量、内存效率和硬件多样性之间构建高性能推理底座",
-      "why_it_matters": "代理落地离不开高吞吐、低延迟的模型服务；vLLM通过支持CUDA、AMD、TPU等多后端与众多新架构，成为连接模型能力与生产环境的通用引擎，其泛化能力直接影响代理规模化部署的成本与可行性。"
+      "title": "SkillOpt：不再手动调提示，Agent 的行为也可以‘训练’了",
+      "why_it_matters": "通过将 Agent 的技能视为可训练参数并进行独立优化循环，SkillOpt 解决了手工修改指令无保障的顽疾。这让 Agent 在保持基座模型不变的同时，行为变得可预测、可优化。"
     },
     {
-      "title": "ScarfBench：为企业级Java框架迁移提供首个标准化代理评测基准",
-      "why_it_matters": "自动化迁移是代理的高价值应用场景，但过往缺乏统一尺度衡量可靠性；ScarfBench为代码转换、依赖管理等任务提供可量化指标，是建立企业信任、推动代理从实验进入关键业务的前提。"
+      "title": "vLLM：开源推理的王座，正被碎片化的生态围攻",
+      "why_it_matters": "作为开源 LLM 推理的事实标准，vLLM 面临硬件与模型碎片化的巨大适配压力。其未来的护城河不在于单一性能指标，而在于能否通过插件化架构和社区治理维持通用性优势。"
     }
   ],
   "key_insights": [
-    "代理生产化不再是单一模型能力问题，而是技能训练（SkillOpt）、服务部署（vLLM）与任务评测（ScarfBench）组成的三位一体的系统工程；三者相互依赖：无高效推理则无法承载可训练技能，无标准化评测则无法验证改进。",
-    "企业级场景对代理输出的绝对可靠性与可解释性需求，与当前模型概率性生成之间存在根本矛盾；近期进展正在从不同层面消解这一矛盾——SkillOpt在技能控制层面提供确定性框架，ScarfBench在评估层面提供可复制信任标尺，vLLM在基础设施层面保障一致性服务。",
-    "代理行为优化的范式正在从‘修修补补’的手动操作转向系统化的工程实践，这意味着AI代理的运维将从依赖个体经验，转向可审计、可迭代的数据驱动模式，这将从根本上改变代理技术的采用曲线。"
+    "企业级 AI Agent 的决胜点已从模型层下移至工程层：模型的生成能力是入场券，而确定性行为优化（如 SkillOpt）和严格语义验证（如 ScarfBench）才是真正产生价值的环节。",
+    "Agent 的可靠性缺陷往往存在于‘最后一公里’的高精度要求中。‘90% 正确’的自动化工具对于零容忍的生产环境而言，运维和修复成本可能远超其节省的成本。",
+    "开源基础设施（如 vLLM）的通用性与专用场景的极致优化之间存在不可调和的张力，最终胜出的平台将是那些把‘通用’作为生态连接点，而非性能捆绑点的框架。"
   ],
   "limitations": [
-    "三项研究分别独立，缺乏跨项目的协同验证与综合实验数据。",
-    "SkillOpt与ScarfBench目前限定于特定场景（特定代理框架、Java迁移），其结论能否推广至通用代理任务仍需验证。",
-    "vLLM的性能比较受限于特定硬件配置和模型版本，不同生产环境中可能呈现不同表现。",
-    "企业迁移基准虽标准化，但仍无法完全模拟真实遗留系统的复杂性与非功能性要求。",
-    "所有分析基于已发布材料，可能存在未披露的限制与未来迭代中已修正的问题。"
+    "ScarfBench 和 SkillOpt 在真实、复杂且高度定制化的企业遗留系统中的实战表现尚未经过大规模验证。",
+    "当前分析未涉及 SkillOpt 对算力的额外消耗与训练成本评估。",
+    "vLLM 在不同硬件生态中的表现差异缺乏量化比较数据。"
   ],
   "actions": [
-    "技术决策者应评估SkillOpt式的可训练技能管理是否适用于自身代理管线的可靠性提升，并关注其对模型无关的行为优化思路。",
-    "AI基础设施团队可将vLLM作为基准推理引擎纳入评估，结合自身模型与硬件拓扑进行吞吐与延迟对比，观察其在多架构扩展中的实际成本效益。",
-    "负责企业现代化迁移的工程团队可试用ScarfBench作为内部迁移质量的门禁指标，并参与社区反馈以推动基准覆盖更多框架与场景。",
-    "战略层面，关注代理基建领域从技能、推理到评测的全栈整合趋势，优先投资那些能够打通这些环节的平台与工具，以降低代理生产化的整体摩擦。"
+    "对于考虑 AI 迁移工具的技术团队：在评估 Agent 时，应将‘语义等价性测试’（如 ScarfBench 范式）纳入选型标准，而非仅关注生成速度和代码编译通过率。",
+    "对于 Agent 开发者：可将 SkillOpt 的思路引入生产流程，尝试将关键指令（Skills）从手工调试转为基于反馈环路的优化训练。",
+    "对于 AI 基础设施决策者：关注 vLLM 等通用框架的社区分裂风险，评估专用推理引擎在特定硬件上的性能优势是否足以抵消迁移和锁定成本。"
   ],
   "analyses": [
     {
       "facts": [
-        "AI agents often fail because their instructions (skills) are manually modified with no guarantee of improvement.",
-        "SkillOpt turns skill editing into a training process, making agent behavior more reliable.",
-        "The process does not change model weights."
+        "IBM Research has released ScarfBench, a benchmark designed to evaluate AI agents on enterprise Java framework migration tasks."
       ],
       "contradictions": [
-        "Manual skill modification with no guarantee of improvement vs Need for reliable agent behavior",
-        "Improving agent behavior without changing model weights vs Traditional fine-tuning that alters weights",
-        "Skill editing as a training process vs Skill editing as a discrete manual adjustment",
-        "Training skills without touching model weights vs Expectation that better behavior requires weight-level change"
+        "AI agent flexibility vs. strict correctness requirements of legacy enterprise Java systems",
+        "Desire for automated migration vs. risk of introducing subtle runtime errors in production",
+        "Speed and cost reduction promised by AI vs. the deep domain expertise needed for framework migration",
+        "Old framework technical debt vs. new framework learning curve and compatibility",
+        "General-purpose LLM capability vs. specialized, version-specific Java framework knowledge"
       ],
-      "primary_contradiction": "Manual, unverifiable skill modification vs Automated, trainable skill optimization for reliable agent behavior",
-      "core_insight": "SkillOpt reframes agent skill maintenance from trial-and-error manual editing into a systematic training process that improves reliability without altering the underlying model weights, addressing the root cause of inconsistent agent performance.",
+      "primary_contradiction": "The ability of AI agents to perform accurate, production-ready enterprise Java framework migrations vs. the zero-tolerance nature of mission-critical enterprise environments for errors.",
+      "core_insight": "ScarfBench reveals that the bottleneck for AI-driven enterprise migration has shifted from code generation fluency to deterministic semantic fidelity—agents that are 'mostly correct' are still unacceptable.",
+      "confidence": "medium",
+      "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration",
+      "url": "https://huggingface.co/blog/ibm-research/scarfbench",
+      "primary_domain": "ai-llm-agent",
+      "analysis_origin": "ai",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "huggingface-blog"
+        ],
+        "source_types": [
+          "official"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+            "url": "https://huggingface.co/blog/ffasr-leaderboard",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
+            "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
+            "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "DiScoFormer: One transformer for density and score, across distributions",
+            "url": "https://huggingface.co/blog/allenai/discoformer",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
+            "url": "https://huggingface.co/blog/cross-origin-storage",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+            "url": "https://huggingface.co/blog/ffasr-leaderboard",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "microsoft-research",
+            "source_type": "official",
+            "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
+            "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
+            "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "DiScoFormer: One transformer for density and score, across distributions",
+            "url": "https://huggingface.co/blog/allenai/discoformer",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
+            "url": "https://huggingface.co/blog/cross-origin-storage",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [],
+        "verification_flags": [
+          "official-source",
+          "direct-support"
+        ],
+        "summary": "1 source(s) | official | 5 direct support"
+      },
+      "memory": {
+        "days_seen": 2,
+        "first_seen": "2026-07-01",
+        "last_seen": "2026-07-02",
+        "previous_score": 2.6,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "new",
+        "seen_dates": [
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+          "url": "https://huggingface.co/blog/ffasr-leaderboard",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+          "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "microsoft-research",
+          "source_type": "official",
+          "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
+          "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
+          "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "DiScoFormer: One transformer for density and score, across distributions",
+          "url": "https://huggingface.co/blog/allenai/discoformer",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "huggingface-blog",
+          "source_type": "official",
+          "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
+          "url": "https://huggingface.co/blog/cross-origin-storage",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": []
+    },
+    {
+      "facts": [
+        "AI agents often fail because their instructions (skills) are manually modified with no guarantee of improvement.",
+        "SkillOpt turns skill editing into a training process, making agent behavior more reliable without changing model weights."
+      ],
+      "contradictions": [
+        "manually modified skills with no guarantee of improvement vs demand for reliable agent behavior",
+        "fixed model weights vs need for adaptable task-specific skills",
+        "hand-crafted skill instructions vs automated optimization of skill combinations"
+      ],
+      "primary_contradiction": "Agent reliability depends on skill quality, yet skills are manually tuned with no verification or optimization guarantee.",
+      "core_insight": "By treating agent skills as trainable parameters and optimizing them through a separate training loop, SkillOpt decouples skill improvement from model fine-tuning, enabling more reliable agents without altering base model weights.",
       "confidence": "medium",
       "title": "SkillOpt: Agent skills as trainable parameters",
       "url": "https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/",
@@ -244,21 +429,21 @@
     },
     {
       "facts": [
-        "vLLM is an open-source inference and serving engine for LLMs",
-        "It emphasizes high-throughput and memory-efficient design",
-        "It supports multiple hardware backends including CUDA, AMD, TPU, and Blackwell",
-        "It integrates with a wide range of model architectures such as LLaMA, GPT, DeepSeek-V3, Qwen3, MoE, and others",
-        "It is built on PyTorch and widely adopted in the LLM serving ecosystem"
+        "vLLM 是一个开源大语言模型推理和服务引擎，专注于高吞吐量和内存效率。",
+        "项目由加州大学伯克利分校发起，拥有活跃的社区，并已被 OpenAI 等组织用于内部推理。",
+        "支持多种硬件后端，包括 NVIDIA CUDA、AMD ROCm、Google TPU、Intel Gaudi 等。",
+        "模型兼容性广泛，涵盖 GPT、LLaMA、Qwen、DeepSeek-V3、Mistral、Mixtral、ChatGLM 等主流架构及 MoE 模型。",
+        "在开源 LLM 推理框架中，主要竞品包括 SGLang、TensorRT-LLM、LMDeploy、Hugging Face TGI 等。"
       ],
       "contradictions": [
-        "High throughput vs memory constraints",
-        "Broad model/hardware support vs optimization complexity",
-        "Open-source community scaling vs commercial LLM API competition",
-        "Rapid model evolution (new architectures) vs stable engine maintenance",
-        "Performance specialization (e.g., NVidia-optimized kernels) vs hardware portability (AMD, TPU)"
+        "通用框架追求广泛的模型和硬件支持 vs 特定生产环境对极致吞吐/延迟的专项优化需求。",
+        "开源社区的多样化贡献与高频迭代 vs 企业用户对稳定长周期支持的要求。",
+        "PagedAttention 带来的内存高效率 vs 不同硬件架构上内存管理策略的碎片化适配成本。",
+        "面向研究的快速实验特性 vs 大规模商业部署的可观测性、安全性和 SLA 保障需求。",
+        "作为社区中立框架的定位 vs 云计算厂商和芯片厂商将其作为绑定生态的筹码从而产生分叉风险。"
       ],
-      "primary_contradiction": "The tension between delivering cutting-edge, hardware-optimized inference performance and maintaining the engineering versatility required to support an ever-expanding matrix of models and accelerators.",
-      "core_insight": "vLLM's strategic position hinges on its ability to resolve the performance-versatility paradox: if it overfits to specific hardware-model pairs, it risks losing its universal appeal; if it remains too generic, competitors with specialized optimizations will outperform it in key benchmarks.",
+      "primary_contradiction": "开源通用推理框架的广度兼容使命与碎片化硬件/模型生态对深度专项优化的要求之间的矛盾。",
+      "core_insight": "vLLM 以 PagedAttention 内存优化和广谱模型支持成为开源 LLM 推理的事实入口，但其主导地位正受到专用引擎在各自优势场景中极致性能的挑战，未来取决于能否在保持通用性的同时，通过插件化后端和社区治理，化解生态分裂的压力。",
       "confidence": "medium",
       "title": "vllm-project/vllm",
       "url": "https://github.com/vllm-project/vllm",
@@ -467,358 +652,6 @@
           "title": "alibaba/MNN",
           "url": "https://github.com/alibaba/MNN",
           "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        }
-      ]
-    },
-    {
-      "facts": [
-        "IBM Research 发布 ScarfBench 基准，专门评估 AI 代理在企业级 Java 框架迁移任务中的表现。",
-        "该基准面向 AI-LLM-Agent 领域，涵盖 Spring Boot 到 Quarkus 等实际企业框架迁移场景。",
-        "ScarfBench 旨在标准化衡量 AI 代理在代码转换、配置修改和依赖管理等多维度任务上的准确率与鲁棒性。"
-      ],
-      "contradictions": [
-        "AI 代理的自动化迁移效率 vs 遗留代码业务逻辑的复杂性与稳定性要求",
-        "基准设定的标准化测试环境 vs 真实企业迁移中高度定制化、非确定性的工程挑战",
-        "快速迭代的 AI 模型能力 vs 企业对长期可维护性、安全合规与责任归属的刚性需求"
-      ],
-      "primary_contradiction": "企业级框架迁移对绝对可靠性的要求与 AI 代理输出不确定性和不可解释性之间的矛盾",
-      "core_insight": "ScarfBench 为企业 Java 自动化迁移提供了可量化的能力标尺，但能否将实验室的迁移成功率转化为生产环境的信任度，仍是未解的核心考验。",
-      "confidence": "medium",
-      "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration",
-      "url": "https://huggingface.co/blog/ibm-research/scarfbench",
-      "primary_domain": "ai-llm-agent",
-      "analysis_origin": "ai",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "huggingface-blog"
-        ],
-        "source_types": [
-          "official"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
-            "url": "https://huggingface.co/blog/ffasr-leaderboard",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
-            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
-            "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
-            "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "DiScoFormer: One transformer for density and score, across distributions",
-            "url": "https://huggingface.co/blog/allenai/discoformer",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
-            "url": "https://huggingface.co/blog/cross-origin-storage",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
-            "url": "https://huggingface.co/blog/ffasr-leaderboard",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
-            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "microsoft-research",
-            "source_type": "official",
-            "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
-            "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
-            "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "DiScoFormer: One transformer for density and score, across distributions",
-            "url": "https://huggingface.co/blog/allenai/discoformer",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
-            "url": "https://huggingface.co/blog/cross-origin-storage",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [],
-        "verification_flags": [
-          "official-source",
-          "direct-support"
-        ],
-        "summary": "1 source(s) | official | 5 direct support"
-      },
-      "memory": {
-        "days_seen": 2,
-        "first_seen": "2026-07-01",
-        "last_seen": "2026-07-02",
-        "previous_score": 2.6,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "new",
-        "seen_dates": [
-          "2026-07-01",
-          "2026-07-02"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
-          "url": "https://huggingface.co/blog/ffasr-leaderboard",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
-          "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "microsoft-research",
-          "source_type": "official",
-          "title": "Data Formulator 0.7: AI-powered data analytics for enterprise data",
-          "url": "https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/",
-          "summary": "<p>Data Formulator introduces AI-powered analytics for enterprise data workflows. Data teams can easily bring enterprise data into an AI-ready workspace where users can explore, analyze, and visualize data with AI agents to turn raw data into actionable insights.</p>\n<p>The post <a href=\"https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/\">Data Formulator 0.7: AI-powered data analytics for enterprise data</a> appeared first on <a href=\"https://www.microsoft.com/en-us/research\">Microsoft Research</a>.</p>",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "DiScoFormer: One transformer for density and score, across distributions",
-          "url": "https://huggingface.co/blog/allenai/discoformer",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "huggingface-blog",
-          "source_type": "official",
-          "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
-          "url": "https://huggingface.co/blog/cross-origin-storage",
-          "summary": "",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
-      "related_context": []
-    },
-    {
-      "title": "OpenWiki: CLI that writes and maintains agent documentation for your codebase",
-      "url": "https://github.com/langchain-ai/openwiki",
-      "primary_domain": "ai-llm-agent",
-      "facts": [
-        "[hacker-news] Score: 24 | Comments: 3"
-      ],
-      "contradictions": [
-        "insufficient evidence depth for contradiction detection"
-      ],
-      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
-      "core_insight": "OpenWiki: CLI that writes and maintains agent documentation for your codebase appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
-      "confidence": "low",
-      "source_count": 1,
-      "analysis_origin": "fallback",
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "hacker-news"
-        ],
-        "source_types": [
-          "community"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "ernie-blog",
-            "source_type": "official",
-            "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
-            "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
-            "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "langchain-ai/langgraph",
-            "url": "https://github.com/langchain-ai/langgraph",
-            "summary": "Build resilient agents.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "ernie-blog",
-            "source_type": "official",
-            "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
-            "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
-            "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "langchain-ai/langgraph",
-            "url": "https://github.com/langchain-ai/langgraph",
-            "summary": "Build resilient agents.",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026",
-            "url": "https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026",
-            "summary": "<p>Cambridge, England, May 6, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, has today published a letter to its shareholders containing the company’s results for its fourth quarter and fiscal year ended March 31, 2026. The letter is available on its investor relations website (https://investors.arm.com/financials/quarterly-annual-results). The shareholder letter [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026\">Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "espressif-blog",
-            "source_type": "official",
-            "title": "ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
-            "url": "https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "community",
-          "direct-support",
-          "related-context"
-        ],
-        "summary": "1 source(s) | community | 2 direct support | 3 related context"
-      },
-      "memory": {
-        "days_seen": 1,
-        "first_seen": "2026-07-02",
-        "last_seen": "2026-07-02",
-        "previous_score": 0.0,
-        "previous_confidence": "",
-        "previous_lifecycle_state": "",
-        "seen_dates": [
-          "2026-07-02"
-        ]
-      },
-      "lifecycle_state": "new",
-      "risk_level": "medium",
-      "support_evidence": [
-        {
-          "source_id": "ernie-blog",
-          "source_type": "official",
-          "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
-          "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
-          "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        },
-        {
-          "source_id": "curated-repos",
-          "source_type": "repo",
-          "title": "langchain-ai/langgraph",
-          "url": "https://github.com/langchain-ai/langgraph",
-          "summary": "Build resilient agents.",
-          "evidence_scope": "current-run",
-          "support_kind": "direct"
-        }
-      ],
-      "related_context": [
-        {
-          "source_id": "arm-news",
-          "source_type": "official",
-          "title": "Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026",
-          "url": "https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026",
-          "summary": "<p>Cambridge, England, May 6, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, has today published a letter to its shareholders containing the company’s results for its fourth quarter and fiscal year ended March 31, 2026. The letter is available on its investor relations website (https://investors.arm.com/financials/quarterly-annual-results). The shareholder letter [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026\">Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "arm-news",
-          "source_type": "official",
-          "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-          "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-          "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-          "evidence_scope": "current-run",
-          "support_kind": "related"
-        },
-        {
-          "source_id": "espressif-blog",
-          "source_type": "official",
-          "title": "ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
-          "url": "https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
-          "summary": "",
           "evidence_scope": "current-run",
           "support_kind": "related"
         }
@@ -1041,6 +874,168 @@
       "related_context": []
     },
     {
+      "title": "OpenWiki: CLI that writes and maintains agent documentation for your codebase",
+      "url": "https://github.com/langchain-ai/openwiki",
+      "primary_domain": "ai-llm-agent",
+      "facts": [
+        "[hacker-news] Score: 24 | Comments: 3"
+      ],
+      "contradictions": [
+        "insufficient evidence depth for contradiction detection"
+      ],
+      "primary_contradiction": "signal visibility vs evidence depth (evidence=1, sources=1)",
+      "core_insight": "OpenWiki: CLI that writes and maintains agent documentation for your codebase appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.",
+      "confidence": "low",
+      "source_count": 1,
+      "analysis_origin": "fallback",
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "hacker-news"
+        ],
+        "source_types": [
+          "community"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "ernie-blog",
+            "source_type": "official",
+            "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
+            "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
+            "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "langchain-ai/langgraph",
+            "url": "https://github.com/langchain-ai/langgraph",
+            "summary": "Build resilient agents.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "ernie-blog",
+            "source_type": "official",
+            "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
+            "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
+            "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "langchain-ai/langgraph",
+            "url": "https://github.com/langchain-ai/langgraph",
+            "summary": "Build resilient agents.",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026",
+            "url": "https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026",
+            "summary": "<p>Cambridge, England, May 6, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, has today published a letter to its shareholders containing the company’s results for its fourth quarter and fiscal year ended March 31, 2026. The letter is available on its investor relations website (https://investors.arm.com/financials/quarterly-annual-results). The shareholder letter [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026\">Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "espressif-blog",
+            "source_type": "official",
+            "title": "ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
+            "url": "https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "community",
+          "direct-support",
+          "related-context"
+        ],
+        "summary": "1 source(s) | community | 2 direct support | 3 related context"
+      },
+      "memory": {
+        "days_seen": 1,
+        "first_seen": "2026-07-02",
+        "last_seen": "2026-07-02",
+        "previous_score": 0.0,
+        "previous_confidence": "",
+        "previous_lifecycle_state": "",
+        "seen_dates": [
+          "2026-07-02"
+        ]
+      },
+      "lifecycle_state": "new",
+      "risk_level": "medium",
+      "support_evidence": [
+        {
+          "source_id": "ernie-blog",
+          "source_type": "official",
+          "title": "ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More",
+          "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/",
+          "summary": "ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        },
+        {
+          "source_id": "curated-repos",
+          "source_type": "repo",
+          "title": "langchain-ai/langgraph",
+          "url": "https://github.com/langchain-ai/langgraph",
+          "summary": "Build resilient agents.",
+          "evidence_scope": "current-run",
+          "support_kind": "direct"
+        }
+      ],
+      "related_context": [
+        {
+          "source_id": "arm-news",
+          "source_type": "official",
+          "title": "Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026",
+          "url": "https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026",
+          "summary": "<p>Cambridge, England, May 6, 2026: Arm Holdings plc (NASDAQ: ARM), the company that is building the future of computing, has today published a letter to its shareholders containing the company’s results for its fourth quarter and fiscal year ended March 31, 2026. The letter is available on its investor relations website (https://investors.arm.com/financials/quarterly-annual-results). The shareholder letter [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026\">Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "arm-news",
+          "source_type": "official",
+          "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+          "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+          "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        },
+        {
+          "source_id": "espressif-blog",
+          "source_type": "official",
+          "title": "ESP-IDF Tools Local MCP Server: Build, Flash, and Manage Projects from Your AI Assistant",
+          "url": "https://developer.espressif.com/blog/2026/04/esp-idf-tools-mcp-server/",
+          "summary": "",
+          "evidence_scope": "current-run",
+          "support_kind": "related"
+        }
+      ]
+    },
+    {
       "title": "How agents are transforming work",
       "url": "https://openai.com/index/how-agents-are-transforming-work",
       "primary_domain": "ai-llm-agent",
@@ -1219,16 +1214,17 @@
     }
   ],
   "forecast": {
-    "best_case": "SkillOpt 的方法论在 6 个月内被 LangChain 或 LlamaIndex 等主流代理框架集成，vLLM 完成对 Blackwell 等新硬件的极致优化并巩固其作为通用推理引擎的地位，ScarfBench 成为至少 3 家跨国银行内部 Java 迁移的可信评估标准，三者初步形成“可训练技能-高性能推理-标准化评测”的松耦合生态。",
-    "worst_case": "SkillOpt 的复现性受到社区质疑，因其仅限于微软内部特定代理系统而难以推广；vLLM 因过度追求多硬件兼容而导致在核心英伟达基准上被 TensorRT-LLM 大幅反超，丧失标杆地位；ScarfBench 因无法覆盖真实遗留系统的非标准化依赖与安全红线，被企业工程师视为脱离实际的学术玩具。",
-    "most_likely_case": "SkillOpt 的论文思路会引发学术界对“可训练技能层”的一轮小型复现热潮，但在半年内不会进入主流开源框架的默认流水线；vLLM 保持稳定迭代，在对 Blackwell 的支持上追赶闭源方案，继续巩固其在开源社区的默认选择地位；ScarfBench 被部分 Java 社区采纳，但其评测指标在企业采购决策中仅作为辅助参考，尚无法取代人工审查。",
+    "best_case": "未来 3-6 个月内，SkillOpt 等技能优化方法在真实企业场景的小范围试点中显著降低 Agent 行为漂移，促使主流 AI 平台将其集成；ScarfBench 被多家大型企业采纳为迁移工具的准入门槛，推动 Agent 从“代码生成”向“语义保真”转型；vLLM 通过插件化后端初步实现多硬件统一接口，社区治理机制缓解分裂风险，AI Agent 在企业非核心但仍严格的运维任务中开始形成可复制的落地模式。",
+    "worst_case": "Agent 可靠性改进止步于实验室，生产环境中因语义错误导致严重事故，企业因缺乏成熟验证基准而将 AI 迁移工具整体打入冷宫；开源推理框架为争夺硬件绑定加速分化，形成多个互不兼容的生态孤岛，企业 AI 基础设施选型成本陡增，AI Agent 在企业场景的信任赤字进一步加深，短期内部署退回到纯人工辅助阶段。",
+    "most_likely_case": "SkillOpt 思路被有限验证，但受制于训练成本，仅头部科技公司能在特定场景中深度应用；ScarfBench 成为评估讨论的热点，但多数企业仍将其作为参考而非硬性准入标准；vLLM 维持通用市场最大份额，但在高吞吐场景被专用引擎持续蚕食；整体上，企业会选择在低风险、高容错的辅助性任务中试点 Agent，核心关键系统的端到端自动化迁移仍缺位，市场进入“理性验证”而非“爆发落地”的阶段。",
     "key_variables": [
-      "vLLM 对 Blackwell 等新硬件架构的适配速度与性能损耗比",
-      "SkillOpt 的复现难度以及微软是否开源其训练管线",
-      "ScarfBench 是否推出反映真实生产约束的增强测试集",
-      "主流云厂商是否会基于这三项能力推出全托管的代理托管服务"
+      "SkillOpt 等技能优化方法在实际企业任务中的可靠性提升幅度与成本",
+      "ScarfBench 被企业采购或内部评估流程采纳的速度与深度",
+      "vLLM 社区治理能否成功整合多硬件后端而不导致核心理念稀释",
+      "头部云厂商对 AI Agent 容错机制与责任边界的产品化定义",
+      "企业对“AI 迁移事故”的容忍阈值及由此产生的负面舆论事件"
     ],
-    "forecast_conclusion": "这三项工作分别补上了代理技能控制、推理基座与迁移评测的短板，各自都具备在短期内成为所在细分领域“默认方案”的潜力，但三者之间尚未形成协同验证。短期内，它们将各自独立演进，而率先打通“技能训练-基准评测”闭环的项目将获得更大的整合叙事优势。",
+    "forecast_conclusion": "AI Agent 企业级应用在未来半年进入“可靠性验证深水区”，从能做什么转向能不出错什么，SkillOpt 和 ScarfBench 分别从优化和评测两端推动这一转变，但大规模信任建立仍需跨越从“大多正确”到“绝对正确”的工程鸿沟。",
     "confidence": "medium"
   },
   "stage_status": {
@@ -1241,11 +1237,11 @@
     "model": "mixed",
     "calls": 6,
     "token_usage": {
-      "prompt": 17785,
-      "completion": 5848,
-      "total": 23633
+      "prompt": 17685,
+      "completion": 5421,
+      "total": 23106
     },
-    "latency_seconds": 143.7,
+    "latency_seconds": 138.31,
     "backup_stages": [],
     "guardrail_stages": [],
     "stage_breakdown": {
@@ -1255,10 +1251,10 @@
         "calls": 1,
         "token_usage": {
           "prompt": 486,
-          "completion": 656,
-          "total": 1142
+          "completion": 731,
+          "total": 1217
         },
-        "latency_seconds": 9.37,
+        "latency_seconds": 10.89,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1278,10 +1274,10 @@
         "calls": 3,
         "token_usage": {
           "prompt": 7814,
-          "completion": 2679,
-          "total": 10493
+          "completion": 2498,
+          "total": 10312
         },
-        "latency_seconds": 64.64,
+        "latency_seconds": 65.81,
         "attempts": 3,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1300,11 +1296,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 3607,
-          "completion": 1463,
-          "total": 5070
+          "prompt": 3643,
+          "completion": 1134,
+          "total": 4777
         },
-        "latency_seconds": 40.07,
+        "latency_seconds": 30.12,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1323,11 +1319,11 @@
         "model": "deepseek-v4-pro",
         "calls": 1,
         "token_usage": {
-          "prompt": 5878,
-          "completion": 1050,
-          "total": 6928
+          "prompt": 5742,
+          "completion": 1058,
+          "total": 6800
         },
-        "latency_seconds": 29.62,
+        "latency_seconds": 31.49,
         "attempts": 1,
         "backup_used": false,
         "guardrail_triggered": false,
@@ -1589,7 +1585,7 @@
   },
   "risk_level": "medium",
   "highlights": [
-    "AI代理从研发走向生产的关键瓶颈——行为可靠性、推理泛化性与迁移可评估性——正通过技能可训练化、高性能推理引擎和企业迁移基准三条路径协同破解。",
+    "AI Agent 在企业级场景的应用正从‘能力展示’进入‘可靠性验证’阶段，核心瓶颈已从生成能力转向确定性、可优化性和规模化适配能力。",
     "本轮共采集到 188 条原始信息，去重后保留 188 个主题。",
     "当前覆盖 2 个领域，启用了 4 组来源配置。"
   ],
@@ -7626,7 +7622,7 @@
     {
       "title": "Claude Code is steganographically marking requests",
       "url": "https://thereallo.dev/blog/claude-code-prompt-steganography",
-      "summary": "Score: 2366 | Comments: 716",
+      "summary": "Score: 2367 | Comments: 716",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8207,7 +8203,7 @@
     {
       "title": "Meta Caps Internal AI Token Spending After Costs Approach Billions in 2026",
       "url": "https://mlq.ai/news/meta-caps-internal-ai-token-spending-after-costs-approach-billions-in-2026/",
-      "summary": "Score: 55 | Comments: 40",
+      "summary": "Score: 58 | Comments: 42",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8346,7 +8342,7 @@
     {
       "title": "Opening up 'Zero-Knowledge Proof' technology to promote privacy in age assurance",
       "url": "https://blog.google/innovation-and-ai/technology/safety-security/opening-up-zero-knowledge-proof-technology-to-promote-privacy-in-age-assurance/",
-      "summary": "Score: 47 | Comments: 27",
+      "summary": "Score: 48 | Comments: 28",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8460,7 +8456,7 @@
     {
       "title": "Qualcomm Linux 2.0",
       "url": "https://www.qualcomm.com/developer/blog/2026/06/qualcomm-linux-2-now-available",
-      "summary": "Score: 47 | Comments: 12",
+      "summary": "Score: 48 | Comments: 12",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8844,7 +8840,7 @@
     {
       "title": "'It's like having a dumb friend': Young San Franciscans hate AI",
       "url": "https://www.sfgate.com/tech/article/san-francisco-ai-backlash-22325141.php",
-      "summary": "Score: 32 | Comments: 10",
+      "summary": "Score: 33 | Comments: 9",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -8993,9 +8989,9 @@
       "risk_level": "low"
     },
     {
-      "title": "langchain-ai/langgraph",
-      "url": "https://github.com/langchain-ai/langgraph",
-      "summary": "Build resilient agents.",
+      "title": "ollama/ollama",
+      "url": "https://github.com/ollama/ollama",
+      "summary": "Get up and running with Kimi-K2.6, GLM-5.1, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -9006,25 +9002,22 @@
         "curated-repos"
       ],
       "tags": [
-        "agents",
-        "ai",
-        "ai-agents",
         "ai-llm-agent",
-        "chatgpt",
-        "deepagents",
-        "enterprise",
-        "framework",
-        "gemini",
-        "generative-ai",
-        "langchain",
-        "langgraph",
+        "deepseek",
+        "gemma",
+        "gemma3",
+        "glm",
+        "go",
+        "golang",
+        "gpt-oss",
+        "llama",
+        "llama3",
         "llm",
-        "multiagent",
-        "open-source",
-        "openai",
-        "pydantic",
-        "python",
-        "rag"
+        "llms",
+        "minimax",
+        "mistral",
+        "ollama",
+        "qwen"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -9076,9 +9069,9 @@
           {
             "source_id": "curated-repos",
             "source_type": "repo",
-            "title": "mem0ai/mem0",
-            "url": "https://github.com/mem0ai/mem0",
-            "summary": "Universal memory layer for AI Agents",
+            "title": "langchain-ai/langgraph",
+            "url": "https://github.com/langchain-ai/langgraph",
+            "summary": "Build resilient agents.",
             "evidence_scope": "current-run",
             "support_kind": "related"
           }
@@ -9187,9 +9180,9 @@
       "risk_level": "low"
     },
     {
-      "title": "ollama/ollama",
-      "url": "https://github.com/ollama/ollama",
-      "summary": "Get up and running with Kimi-K2.6, GLM-5.1, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+      "title": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "summary": "Build resilient agents.",
       "primary_domain": "ai-llm-agent",
       "matched_domains": [
         "ai-llm-agent"
@@ -9200,22 +9193,25 @@
         "curated-repos"
       ],
       "tags": [
+        "agents",
+        "ai",
+        "ai-agents",
         "ai-llm-agent",
-        "deepseek",
-        "gemma",
-        "gemma3",
-        "glm",
-        "go",
-        "golang",
-        "gpt-oss",
-        "llama",
-        "llama3",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
         "llm",
-        "llms",
-        "minimax",
-        "mistral",
-        "ollama",
-        "qwen"
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag"
       ],
       "enrichment": {
         "cross_source_count": 1,
@@ -9267,9 +9263,9 @@
           {
             "source_id": "curated-repos",
             "source_type": "repo",
-            "title": "langchain-ai/langgraph",
-            "url": "https://github.com/langchain-ai/langgraph",
-            "summary": "Build resilient agents.",
+            "title": "mem0ai/mem0",
+            "url": "https://github.com/mem0ai/mem0",
+            "summary": "Universal memory layer for AI Agents",
             "evidence_scope": "current-run",
             "support_kind": "related"
           }
@@ -9750,6 +9746,174 @@
       "risk_level": "low"
     },
     {
+      "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+      "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
+      "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [],
+        "direct_support": [],
+        "related_context": [
+          {
+            "source_id": "openvino-blog",
+            "source_type": "official",
+            "title": "OpenVINO GenAI GGUF Feature Update",
+            "url": "https://blog.openvino.ai/blog-posts/openvino-genai-gguf-feature-update",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "openvino-blog",
+            "source_type": "official",
+            "title": "OpenVINO GenAI Supports GGUF Models",
+            "url": "https://blog.openvino.ai/blog-posts/openvino-genai-supports-gguf-models",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "NVIDIA/TensorRT",
+            "url": "https://github.com/NVIDIA/TensorRT",
+            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "alibaba/MNN",
+            "url": "https://github.com/alibaba/MNN",
+            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "curated-repos",
+            "source_type": "repo",
+            "title": "anthropics/claude-cookbooks",
+            "url": "https://github.com/anthropics/claude-cookbooks",
+            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "related-context"
+        ],
+        "summary": "1 source(s) | repo | 5 related context"
+      },
+      "memory": {
+        "days_seen": 76,
+        "first_seen": "2026-04-18",
+        "last_seen": "2026-07-02",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-13",
+          "2026-06-14",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-27",
+          "2026-06-28",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "tenstorrent/tt-metal",
       "url": "https://github.com/tenstorrent/tt-metal",
       "summary": ":metal: TT-NN operator library, and TT-Metalium low level kernel programming model.",
@@ -9859,174 +10023,6 @@
           "2026-04-15",
           "2026-04-16",
           "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-13",
-          "2026-06-14",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-18",
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23",
-          "2026-06-24",
-          "2026-06-25",
-          "2026-06-26",
-          "2026-06-27",
-          "2026-06-28",
-          "2026-06-29",
-          "2026-06-30",
-          "2026-07-01",
-          "2026-07-02"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "url": "https://github.com/nxp-appcodehub/dm-eiq-genai-flow-demonstrator",
-      "summary": "The eIQ GenAI Flow Demonstrator is a Conversational AI Pipeline application designed for NXP i.MX95 devices.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [],
-        "direct_support": [],
-        "related_context": [
-          {
-            "source_id": "openvino-blog",
-            "source_type": "official",
-            "title": "OpenVINO GenAI GGUF Feature Update",
-            "url": "https://blog.openvino.ai/blog-posts/openvino-genai-gguf-feature-update",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "openvino-blog",
-            "source_type": "official",
-            "title": "OpenVINO GenAI Supports GGUF Models",
-            "url": "https://blog.openvino.ai/blog-posts/openvino-genai-supports-gguf-models",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "NVIDIA/TensorRT",
-            "url": "https://github.com/NVIDIA/TensorRT",
-            "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "alibaba/MNN",
-            "url": "https://github.com/alibaba/MNN",
-            "summary": "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "curated-repos",
-            "source_type": "repo",
-            "title": "anthropics/claude-cookbooks",
-            "url": "https://github.com/anthropics/claude-cookbooks",
-            "summary": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 5 related context"
-      },
-      "memory": {
-        "days_seen": 76,
-        "first_seen": "2026-04-18",
-        "last_seen": "2026-07-02",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
           "2026-04-18",
           "2026-04-19",
           "2026-04-20",
@@ -10651,6 +10647,193 @@
       "risk_level": "low"
     },
     {
+      "title": "NVIDIA/TensorRT",
+      "url": "https://github.com/NVIDIA/TensorRT",
+      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
+      "primary_domain": "ai-llm-agent",
+      "matched_domains": [
+        "ai-llm-agent"
+      ],
+      "score": 1.0,
+      "evidence_count": 1,
+      "source_ids": [
+        "curated-repos"
+      ],
+      "tags": [
+        "ai-llm-agent",
+        "deep-learning",
+        "gpu-acceleration",
+        "inference",
+        "nvidia",
+        "tensorrt"
+      ],
+      "enrichment": {
+        "cross_source_count": 1,
+        "source_ids": [
+          "curated-repos"
+        ],
+        "source_types": [
+          "repo"
+        ],
+        "support_evidence": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "direct_support": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
+            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
+            "evidence_scope": "current-run",
+            "support_kind": "direct"
+          }
+        ],
+        "related_context": [
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
+            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
+            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "huggingface-blog",
+            "source_type": "official",
+            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+            "summary": "",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "arm-news",
+            "source_type": "official",
+            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
+            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
+            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          },
+          {
+            "source_id": "nvidia-embedded",
+            "source_type": "official",
+            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
+            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
+            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
+            "evidence_scope": "current-run",
+            "support_kind": "related"
+          }
+        ],
+        "verification_flags": [
+          "repo",
+          "direct-support",
+          "related-context"
+        ],
+        "summary": "1 source(s) | repo | 1 direct support | 4 related context"
+      },
+      "memory": {
+        "days_seen": 78,
+        "first_seen": "2026-04-16",
+        "last_seen": "2026-07-02",
+        "previous_score": 1.0,
+        "previous_confidence": "low",
+        "previous_lifecycle_state": "rising",
+        "seen_dates": [
+          "2026-04-16",
+          "2026-04-17",
+          "2026-04-18",
+          "2026-04-19",
+          "2026-04-20",
+          "2026-04-21",
+          "2026-04-22",
+          "2026-04-23",
+          "2026-04-24",
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27",
+          "2026-04-28",
+          "2026-04-29",
+          "2026-04-30",
+          "2026-05-01",
+          "2026-05-02",
+          "2026-05-03",
+          "2026-05-04",
+          "2026-05-05",
+          "2026-05-06",
+          "2026-05-07",
+          "2026-05-08",
+          "2026-05-09",
+          "2026-05-10",
+          "2026-05-11",
+          "2026-05-12",
+          "2026-05-13",
+          "2026-05-14",
+          "2026-05-15",
+          "2026-05-16",
+          "2026-05-17",
+          "2026-05-18",
+          "2026-05-19",
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-23",
+          "2026-05-24",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-05-30",
+          "2026-05-31",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-06",
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-13",
+          "2026-06-14",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-27",
+          "2026-06-28",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "lifecycle_state": "rising",
+      "risk_level": "low"
+    },
+    {
       "title": "onnx/onnx",
       "url": "https://github.com/onnx/onnx",
       "summary": "Open standard for machine learning interoperability",
@@ -10756,193 +10939,6 @@
           "2026-04-13",
           "2026-04-14",
           "2026-04-15",
-          "2026-04-16",
-          "2026-04-17",
-          "2026-04-18",
-          "2026-04-19",
-          "2026-04-20",
-          "2026-04-21",
-          "2026-04-22",
-          "2026-04-23",
-          "2026-04-24",
-          "2026-04-25",
-          "2026-04-26",
-          "2026-04-27",
-          "2026-04-28",
-          "2026-04-29",
-          "2026-04-30",
-          "2026-05-01",
-          "2026-05-02",
-          "2026-05-03",
-          "2026-05-04",
-          "2026-05-05",
-          "2026-05-06",
-          "2026-05-07",
-          "2026-05-08",
-          "2026-05-09",
-          "2026-05-10",
-          "2026-05-11",
-          "2026-05-12",
-          "2026-05-13",
-          "2026-05-14",
-          "2026-05-15",
-          "2026-05-16",
-          "2026-05-17",
-          "2026-05-18",
-          "2026-05-19",
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-23",
-          "2026-05-24",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-05-30",
-          "2026-05-31",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-06",
-          "2026-06-07",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-13",
-          "2026-06-14",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-18",
-          "2026-06-19",
-          "2026-06-20",
-          "2026-06-21",
-          "2026-06-22",
-          "2026-06-23",
-          "2026-06-24",
-          "2026-06-25",
-          "2026-06-26",
-          "2026-06-27",
-          "2026-06-28",
-          "2026-06-29",
-          "2026-06-30",
-          "2026-07-01",
-          "2026-07-02"
-        ]
-      },
-      "lifecycle_state": "rising",
-      "risk_level": "low"
-    },
-    {
-      "title": "NVIDIA/TensorRT",
-      "url": "https://github.com/NVIDIA/TensorRT",
-      "summary": "NVIDIA® TensorRT™ is an SDK for high-performance deep learning inference on NVIDIA GPUs. This repository contains the open source components of TensorRT.",
-      "primary_domain": "ai-llm-agent",
-      "matched_domains": [
-        "ai-llm-agent"
-      ],
-      "score": 1.0,
-      "evidence_count": 1,
-      "source_ids": [
-        "curated-repos"
-      ],
-      "tags": [
-        "ai-llm-agent",
-        "deep-learning",
-        "gpu-acceleration",
-        "inference",
-        "nvidia",
-        "tensorrt"
-      ],
-      "enrichment": {
-        "cross_source_count": 1,
-        "source_ids": [
-          "curated-repos"
-        ],
-        "source_types": [
-          "repo"
-        ],
-        "support_evidence": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "direct_support": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM",
-            "url": "https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/car-robot-graphic-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"car-robot-graphic\" width=\"768\" />Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...",
-            "evidence_scope": "current-run",
-            "support_kind": "direct"
-          }
-        ],
-        "related_context": [
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1",
-            "url": "https://developer.nvidia.com/blog/accelerate-ai-inference-for-edge-and-robotics-with-nvidia-jetson-t4000-and-nvidia-jetpack-7-1/",
-            "summary": "<img alt=\"NVIDIA Jetson T4000.\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/01/Jetson-T4000-768x432-png.webp\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Jetson-T4000\" width=\"768\" />NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications....",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "huggingface-blog",
-            "source_type": "official",
-            "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
-            "url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
-            "summary": "",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "arm-news",
-            "source_type": "official",
-            "title": "Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era",
-            "url": "https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark",
-            "summary": "<p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&#8230;]</p>\n<p>The post <a href=\"https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark\">Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</a> appeared first on <a href=\"https://newsroom.arm.com\">Arm Newsroom</a>.</p>",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          },
-          {
-            "source_id": "nvidia-embedded",
-            "source_type": "official",
-            "title": "Bringing AI Closer to the Edge and On-Device with Gemma 4",
-            "url": "https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/",
-            "summary": "<img alt=\"\" class=\"webfeedsFeaturedVisual wp-post-image\" height=\"432\" src=\"https://developer-blogs.nvidia.com/wp-content/uploads/2026/04/Gemma-4-TechBlog-featured-768x432.png\" style=\"display: block; margin-bottom: 5px; clear: both;\" title=\"Gemma 4 TechBlog featured\" width=\"768\" />The Gemmaverse expands with the launch of the latest Gemma 4 multimodal and multilingual models, designed to scale across the full spectrum of deployments, from...",
-            "evidence_scope": "current-run",
-            "support_kind": "related"
-          }
-        ],
-        "verification_flags": [
-          "repo",
-          "direct-support",
-          "related-context"
-        ],
-        "summary": "1 source(s) | repo | 1 direct support | 4 related context"
-      },
-      "memory": {
-        "days_seen": 78,
-        "first_seen": "2026-04-16",
-        "last_seen": "2026-07-02",
-        "previous_score": 1.0,
-        "previous_confidence": "low",
-        "previous_lifecycle_state": "rising",
-        "seen_dates": [
           "2026-04-16",
           "2026-04-17",
           "2026-04-18",
@@ -33471,7 +33467,7 @@
     }
   ],
   "predictions": [
-    "这三项工作分别补上了代理技能控制、推理基座与迁移评测的短板，各自都具备在短期内成为所在细分领域“默认方案”的潜力，但三者之间尚未形成协同验证。短期内，它们将各自独立演进，而率先打通“技能训练-基准评测”闭环的项目将获得更大的整合叙事优势。"
+    "AI Agent 企业级应用在未来半年进入“可靠性验证深水区”，从能做什么转向能不出错什么，SkillOpt 和 ScarfBench 分别从优化和评测两端推动这一转变，但大规模信任建立仍需跨越从“大多正确”到“绝对正确”的工程鸿沟。"
   ],
   "sources": {
     "github": {
