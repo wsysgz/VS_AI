@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-W28 | VS_AI 周报</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #081018;
+    --panel: #101a24;
+    --panel-strong: #142231;
+    --panel-soft: #0c1620;
+    --ink: #edf4f7;
+    --muted: #9fb0bd;
+    --line: rgba(181, 200, 211, 0.18);
+    --accent: #43d1bf;
+    --accent-soft: rgba(67, 209, 191, 0.12);
+    --blue: #8fb8ff;
+    --amber: #e9b56f;
+    --danger: #f08d8d;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: linear-gradient(180deg, #071019 0%, #0a121b 58%, #071019 100%);
+  }
+  a { color: inherit; }
+  .site-shell { max-width: 1240px; margin: 0 auto; padding: 0 20px 48px; }
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .brand-mark {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 18px rgba(67, 209, 191, 0.5);
+  }
+  .nav-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .workbench {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .panel,
+  .section,
+  .stat,
+  .signal,
+  .article-card,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(16, 26, 36, 0.88);
+    box-shadow: var(--shadow);
+  }
+  .panel { padding: 22px; }
+  .section { margin-top: 16px; padding: 22px; }
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+  .page-title {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
+  }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .subtle { color: var(--muted); }
+  .lead {
+    margin: 14px 0 0;
+    max-width: 820px;
+    font-size: 18px;
+    line-height: 1.78;
+  }
+  .compact-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .meta-row,
+  .hero-meta,
+  .signal-tags,
+  .filter-group,
+  .archive-meta,
+  .feed-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .chip,
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(181, 200, 211, 0.16);
+    background: rgba(12, 22, 32, 0.88);
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(67, 209, 191, 0.36); }
+  .tag { color: var(--accent); background: var(--accent-soft); }
+  .tag.alt { color: var(--blue); background: rgba(143, 184, 255, 0.12); }
+  .tag.warm { color: var(--amber); background: rgba(233, 181, 111, 0.12); }
+  .tag.danger { color: var(--danger); background: rgba(240, 141, 141, 0.12); }
+  .stats-grid,
+  .signal-grid,
+  .archive-grid,
+  .summary-grid,
+  .comparison-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .summary-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .signal-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .archive-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .stat,
+  .signal,
+  .article-card,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    padding: 16px;
+    box-shadow: none;
+  }
+  .stat strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .signal h3,
+  .article-card h3,
+  .archive-card h3,
+  .summary-card h3,
+  .topic-card h3,
+  .comparison-card h3,
+  .comparison-list h3 {
+    margin: 8px 0 8px;
+    font-size: 17px;
+    line-height: 1.42;
+  }
+  .signal p,
+  .article-card p,
+  .archive-card p,
+  .summary-card p,
+  .topic-card p,
+  .comparison-card p,
+  .comparison-list p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .comparison-card dl {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+  }
+  .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
+  .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
+  .comparison-card dd a,
+  .comparison-list li a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(67, 209, 191, 0.45);
+  }
+  .comparison-card dd a:hover,
+  .comparison-list li a:hover { color: var(--accent); }
+  .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
+  .signal-footer,
+  .archive-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .signal a,
+  .article-card a,
+  .archive-card a,
+  .feed-links a {
+    text-decoration: none;
+  }
+  .signal a:hover,
+  .article-card a:hover,
+  .archive-card a:hover,
+  .feed-links a:hover {
+    color: var(--accent);
+  }
+  .search-shell { display: grid; gap: 14px; }
+  .search-shell input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    color: var(--ink);
+    font: inherit;
+  }
+  .filter-search {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    color: var(--ink);
+    font: inherit;
+  }
+  .search-results { display: grid; gap: 10px; }
+  .feed-links { margin-top: 14px; }
+  .archive-filters { display: grid; gap: 14px; margin-bottom: 16px; }
+  .filter-group button {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+  }
+  .filter-group button.is-active,
+  .filter-group button:hover {
+    color: var(--ink);
+    border-color: rgba(67, 209, 191, 0.4);
+    background: var(--accent-soft);
+  }
+  .footer {
+    margin-top: 18px;
+    padding: 18px 0 6px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+  }
+  @media (max-width: 880px) {
+    .site-shell { padding: 0 14px 36px; }
+    .topbar { grid-template-columns: 1fr; gap: 10px; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
+    .workbench { grid-template-columns: 1fr; }
+    .panel, .section { padding: 18px; }
+    .page-title { font-size: 28px; }
+    .lead { font-size: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
+    .signal-footer,
+    .archive-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">周报</a>
+        <a href="../../archives/">归档</a>
+        <a href="../../tracks/">赛道</a>
+        <a href="../../sources/">来源</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <div class="eyebrow">2026-W28</div>
+      <h1 class="section-title" style="font-size:34px;">2026.07.06 - 2026.07.06</h1>
+      <p class="subtle">1 份日报 · 196 个主题 · 196 条原始信息</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">持续主线</h2>
+      <div class="archive-grid">
+        <article class="archive-card">
+  <span class="eyebrow">出现 1 次</span>
+  <h3>ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration</h3>
+  <p>来源共 1 条，等待后续 AI 深度摘要。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">自动版</span>
+  </div>
+  <div class="archive-footer">
+    <span>评分 2.6</span>
+    <a href="https://huggingface.co/blog/ibm-research/scarfbench" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">出现 1 次</span>
+  <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
+  <p>Large language models (LLMs) and multimodal reasoning systems are rapidly expanding beyond the data center. Automotive and robotics developers increasingly want...</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI × 电子</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">自动版</span>
+  </div>
+  <div class="archive-footer">
+    <span>评分 2.5</span>
+    <a href="https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">出现 1 次</span>
+  <h3>Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents</h3>
+  <p>Arm Performix enables developers to scale performant, efficient AI agent experiences by unifying performance insights and optimization across the Arm compute platform. The post Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents appeared first on Arm Newsroom .</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">自动版</span>
+  </div>
+  <div class="archive-footer">
+    <span>评分 2.5</span>
+    <a href="https://newsroom.arm.com/news/announcing-arm-performix" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">出现 1 次</span>
+  <h3>Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</h3>
+  <p>For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA […] The post Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared first on Arm Newsroom .</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">rising</span>
+    <span class="tag">自动版</span>
+  </div>
+  <div class="archive-footer">
+    <span>评分 2.5</span>
+    <a href="https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark" target="_blank" rel="noopener">查看原文</a>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">日报流</h2>
+      <div class="archive-grid">
+        <article class="archive-card">
+  <span class="eyebrow">2026.07.06</span>
+  <h3>AI 代理正从实验性工具转型为企业级可靠资产，但可靠性、基准评测与发展速度的瓶颈同步暴露，表明仅靠扩大模型规模已不够，需要新的优化范式和评估标准。</h3>
+  <p>微软提出 SkillOpt，将代理技能转化为可训练参数，把代理行为的可靠性从手工提示工程问题转变为系统优化问题。 IBM 发布 ScarfBench，瞄准企业 Java 框架迁移场景，在真实生产级要求下评估 AI 代理的自动化能力与安全性。 Meta CEO 扎克伯格公开承认 AI 代理发展慢于预期，折射出市场需求与底层技术成熟度之间的根本矛盾。</p>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">自动版</span></div>
+  <div class="archive-footer">
+    <span>196 个主题 · 196 条原始信息</span>
+    <a href="../../archives/2026-07-06/">打开日报</a>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">重点信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">AI Inference</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/18/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/14/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/12/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.nvidia.com</span><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/16/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/17/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">Agent Skill</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/15/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.07.06</p>
+  <h3>How agents are transforming work</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Company</span></div>
+  <a class="article-action" href="../../archives/2026-07-06/signals/5/">阅读文章</a>
+</article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
