@@ -1,12 +1,12 @@
 # AI × 电子信息
 
-生成时间：2026-07-07T08:27:40.280016+08:00
+生成时间：2026-07-08T08:14:15.245462+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 24 个主题。
+- 本领域当前命中 20 个主题。
 
 ## 关键洞察
 - 暂无
@@ -38,7 +38,7 @@
 
 ## 重点主题分析
 ## 短期推演
-- 观察：Does code cleanliness affect coding agents? A controlled minimal-pair study 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
