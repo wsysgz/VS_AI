@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-07-08T08:14:15.245462+08:00
+生成时间：2026-07-09T08:22:15.376314+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
-- Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens
-- SkillOpt: Agent skills as trainable parameters
+- 重点关注：Show HN: Microsoft releases Flint, a visualization language for AI agents
+- ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
+- GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos
 
 ## 关键洞察
+- Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -25,13 +25,13 @@
 
 ### 海外高亮信号
 - frontier-ai：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration（来源：huggingface-blog）
-- compute-infra：Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents（来源：arm-news）
 - compute-infra：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era（来源：arm-news）
 - compute-infra：Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates（来源：arm-news）
 - embedded：Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM（来源：nvidia-embedded）
+- embedded：Bringing AI Closer to the Edge and On-Device with Gemma 4（来源：nvidia-embedded）
 
 ### 赛道快照
-- compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Announcing Arm Performix: Empowering developers with scalable performance for the age of AI agents。
+- compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era。
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration。
 
@@ -47,18 +47,31 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
+- Show HN: Microsoft releases Flint, a visualization language for AI agents：Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens：Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- SkillOpt: Agent skills as trainable parameters：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos：GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 90 天 / 1 source(s) | repo | 5 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 90 天 / 1 source(s) | official | 5 direct support
-- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 90 天 / 1 source(s) | official | 5 direct support
-- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 90 天 / 1 source(s) | official | 5 direct support
-- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 90 天 / 1 source(s) | official | 5 direct support
+- vllm-project/vllm：verified / low / 已持续 91 天 / 1 source(s) | repo | 5 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 91 天 / 1 source(s) | official | 5 direct support
+- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 91 天 / 1 source(s) | official | 5 direct support
+- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 91 天 / 1 source(s) | official | 5 direct support
+- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 91 天 / 1 source(s) | official | 5 direct support
 
 ## 重点主题分析
+### Show HN: Microsoft releases Flint, a visualization language for AI agents
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
+- 链接：https://microsoft.github.io/flint-chart/#/
+
+- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
+- 佐证：official | Understanding the brain with AI-driven explanations and experiments | https://www.microsoft.com/en-us/research/blog/understanding-the-brain-with-ai-driven-explanations-and-experiments/
+
 ### ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
@@ -69,38 +82,24 @@
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://huggingface.co/blog/ibm-research/scarfbench
 
-- 佐证：official | Data Formulator 0.7: AI-powered data analytics for enterprise data | https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/
-- 佐证：official | DiScoFormer: One transformer for density and score, across distributions | https://huggingface.co/blog/allenai/discoformer
+- 佐证：official | Data for Agents | https://huggingface.co/blog/nvidia/open-data-for-agents
 - 佐证：official | Featuring Every Eval Ever Results on Hugging Face Model Pages | https://huggingface.co/blog/eee-community-evals
+- 佐证：official | From Hugging Face to Amazon SageMaker Studio in one click | https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio
 
-### Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens
+### GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: Docx-CLI: agents read/edit Word docs using 1/2 the time and tokens appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://github.com/kklimuk/docx-cli
+- 链接：https://noma.security/blog/gitlost-how-we-tricked-githubs-ai-agent-into-leaking-private-repos/
 
-- 佐证：repo | anthropics/claude-cookbooks | https://github.com/anthropics/claude-cookbooks
-
-### SkillOpt: Agent skills as trainable parameters
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/
-
-- 佐证：official | Data Formulator 0.7: AI-powered data analytics for enterprise data | https://www.microsoft.com/en-us/research/blog/data-formulator-0-7-ai-powered-data-analytics-for-enterprise-data/
-- 佐证：official | Ire identifies another LOTUSLITE specimen | https://www.microsoft.com/en-us/research/blog/ire-identifies-another-lotuslite-specimen/
-- 佐证：official | Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity | https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/
+- 佐证：official | Our approach to government and national security partnerships | https://openai.com/index/government-national-security-partnerships
 
 ## 短期推演
-- 观察：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Show HN: Microsoft releases Flint, a visualization language for AI agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
