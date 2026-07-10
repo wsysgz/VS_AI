@@ -1,6 +1,6 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-07-09T08:22:15.376314+08:00
+生成时间：2026-07-10T08:21:36.257667+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -9,9 +9,9 @@
 - 本领域当前命中 179 个主题。
 
 ## 关键洞察
-- Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Reverse-engineering web apps into agent tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,25 +33,36 @@
 - 暂无
 
 ## 重点主线
-- Show HN: Microsoft releases Flint, a visualization language for AI agents：Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety：Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Reverse-engineering web apps into agent tools：Show HN: Reverse-engineering web apps into agent tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Show HN: Microsoft releases Flint, a visualization language for AI agents
+### Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: Microsoft releases Flint, a visualization language for AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
-- 链接：https://microsoft.github.io/flint-chart/#/
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2607.07695v1
 
-- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
-- 佐证：official | Understanding the brain with AI-driven explanations and experiments | https://www.microsoft.com/en-us/research/blog/understanding-the-brain-with-ai-driven-explanations-and-experiments/
+- 佐证：paper | Weak-to-Strong Generalization via Direct On-Policy Distillation | https://arxiv.org/abs/2607.05394v2
+- 佐证：paper | Breaking Database Lock-in: Agentic Regeneration of High Performance Storage Readers for Database Bypass | https://arxiv.org/abs/2607.07696v1
+- 佐证：paper | Selective Timestep Weighting and Advantage-Based Replay for Sample-Efficient Diffusion RLHF | https://arxiv.org/abs/2607.07693v1
+
+### Show HN: Reverse-engineering web apps into agent tools
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Show HN: Reverse-engineering web apps into agent tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 1 related context
+- 链接：https://news.ycombinator.com/item?id=48847834
 
 ### ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
 - 主领域：ai-llm-agent
@@ -67,20 +78,8 @@
 - 佐证：official | Featuring Every Eval Ever Results on Hugging Face Model Pages | https://huggingface.co/blog/eee-community-evals
 - 佐证：official | From Hugging Face to Amazon SageMaker Studio in one click | https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio
 
-### GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：GitLost: We Tricked GitHub's AI Agent into Leaking Private Repos appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://noma.security/blog/gitlost-how-we-tricked-githubs-ai-agent-into-leaking-private-repos/
-
-- 佐证：official | Our approach to government and national security partnerships | https://openai.com/index/government-national-security-partnerships
-
 ## 短期推演
-- 观察：Show HN: Microsoft releases Flint, a visualization language for AI agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Institutional Red-Teaming: Deployment Rules, Not Just Models, Causally Shape Multi-Agent AI Safety 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
