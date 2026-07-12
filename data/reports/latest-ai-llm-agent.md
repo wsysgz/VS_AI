@@ -1,6 +1,6 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-07-11T08:12:00.968717+08:00
+生成时间：2026-07-12T08:13:19.885468+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -10,8 +10,8 @@
 
 ## 关键洞察
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Apple Silicon Exec Explains Mac Mini AI Demand and On-Device Future appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: Reverse-engineering web apps into agent tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Apple Silicon Exec Explains Mac Mini AI Demand and On-Device Future：Apple Silicon Exec Explains Mac Mini AI Demand and On-Device Future appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
@@ -54,29 +54,29 @@
 - 佐证：official | From Hugging Face to Amazon SageMaker Studio in one click | https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio
 - 佐证：official | Hugging Face Models on Foundry Managed Compute | https://huggingface.co/blog/microsoft/foundry-managed-compute
 
-### Apple Silicon Exec Explains Mac Mini AI Demand and On-Device Future
+### vllm-project/vllm
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Apple Silicon Exec Explains Mac Mini AI Demand and On-Device Future appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://www.macrumors.com/2026/07/06/apple-silicon-exec-explains-mac-mini-ai-demand/
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
 
-- 佐证：official | Infrastructure Explained: Compute Power | https://about.fb.com/news/2026/06/what-is-compute-power-meta-ai-infrastructure/
-- 佐证：official | The Future Is for Everyone: Free AI Glasses for Every Blind Veteran in America | https://about.fb.com/news/2026/06/free-ai-glasses-for-every-blind-veteran/
-- 佐证：official | AES67 audio-over-IP on the ESP32-P4 | https://developer.espressif.com/blog/2026/06/aes67-audio-over-ip-on-the-esp32-p4/
-
-### Show HN: Reverse-engineering web apps into agent tools
+### SkillOpt: Agent skills as trainable parameters
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: Reverse-engineering web apps into agent tools appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 related context
-- 链接：https://news.ycombinator.com/item?id=48847834
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/
+
+- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
+- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
+- 佐证：official | Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity | https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/
 
 ## 短期推演
 - 观察：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
