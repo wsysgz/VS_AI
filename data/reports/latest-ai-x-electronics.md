@@ -1,15 +1,15 @@
 # AI × 电子信息
 
-生成时间：2026-07-14T08:09:28.840517+08:00
+生成时间：2026-07-15T08:07:12.579199+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 22 个主题。
+- 本领域当前命中 26 个主题。
 
 ## 关键洞察
-- 暂无
+- MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -31,14 +31,28 @@
 - 暂无
 
 ## 重点主线
-- 暂无
+- MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
+### MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents
+- 主领域：ai-x-electronics
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2607.11818v1
+
+- 佐证：paper | Evidence-Backed Video Question Answering | https://arxiv.org/abs/2607.11862v1
+- 佐证：paper | A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation | https://arxiv.org/abs/2607.11874v1
+- 佐证：paper | Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias | https://arxiv.org/abs/2607.11871v1
+
 ## 短期推演
-- 观察：Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性

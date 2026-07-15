@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-07-14T08:09:28.840517+08:00
+生成时间：2026-07-15T08:07:12.579199+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 173 个主题。
+- 本领域当前命中 172 个主题。
 
 ## 关键洞察
-- Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: BillAI Bass, an AI-Powered Big Mouth Billy Bass Using Strands Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- The zero-cost fallacy: open-source software in the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,22 +33,26 @@
 - 暂无
 
 ## 重点主线
-- Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop：Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)：Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop
+### Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://github.com/clawkwork/clawk
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://github.com/Danau5tin/ai-trains-ai
+
+- 佐证：paper | A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation | https://arxiv.org/abs/2607.11874v1
+- 佐证：paper | Evidence-Backed Video Question Answering | https://arxiv.org/abs/2607.11862v1
+- 佐证：paper | Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias | https://arxiv.org/abs/2607.11871v1
 
 ### ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
 - 主领域：ai-llm-agent
@@ -64,20 +68,22 @@
 - 佐证：official | From Hugging Face to Amazon SageMaker Studio in one click | https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio
 - 佐证：official | Hugging Face Models on Foundry Managed Compute | https://huggingface.co/blog/microsoft/foundry-managed-compute
 
-### Show HN: BillAI Bass, an AI-Powered Big Mouth Billy Bass Using Strands Agents
+### The zero-cost fallacy: open-source software in the agentic era
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: BillAI Bass, an AI-Powered Big Mouth Billy Bass Using Strands Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：The zero-cost fallacy: open-source software in the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://github.com/morganwilliscloud/billai-bass
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://www.thoughtworks.com/insights/blog/open-source/zero-cost-fallacy-open-source-agentic-era
 
-- 佐证：repo | anthropics/claude-cookbooks | https://github.com/anthropics/claude-cookbooks
+- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
+- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
+- 佐证：official | Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI | https://developer.espressif.com/blog/2026/05/fofoca-esp32-ai-robot/
 
 ## 短期推演
-- 观察：Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
