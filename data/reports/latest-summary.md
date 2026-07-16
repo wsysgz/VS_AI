@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-07-15T08:07:12.579199+08:00
+生成时间：2026-07-16T08:12:36.440990+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents
-- Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)
-- ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
+- 重点关注：PalmClaw: A Native On-Device Agent Framework for Mobile Phones
+- Designing APIs for Agents
+- Launch HN: Coasty (YC S26) – An API for computer-use agents
 
 ## 关键洞察
-- MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- PalmClaw: A Native On-Device Agent Framework for Mobile Phones appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Designing APIs for Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Launch HN: Coasty (YC S26) – An API for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -24,20 +24,20 @@
 - frontier-ai：Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力（来源：moonshot-blog）
 
 ### 海外高亮信号
-- frontier-ai：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents（来源：arxiv-cs-ai）
-- frontier-ai：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration（来源：huggingface-blog）
+- frontier-ai：PalmClaw: A Native On-Device Agent Framework for Mobile Phones（来源：arxiv-cs-ai）
 - compute-infra：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era（来源：arm-news）
 - compute-infra：Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates（来源：arm-news）
 - embedded：Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM（来源：nvidia-embedded）
+- embedded：Bringing AI Closer to the Edge and On-Device with Gemma 4（来源：nvidia-embedded）
 
 ### 赛道快照
 - compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era。
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 PalmClaw: A Native On-Device Agent Framework for Mobile Phones。
 
 ### 同轨对照
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration。
+- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 PalmClaw: A Native On-Device Agent Framework for Mobile Phones。
 
 ### 覆盖缺口
 - 暂无
@@ -47,62 +47,56 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)：Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- PalmClaw: A Native On-Device Agent Framework for Mobile Phones：PalmClaw: A Native On-Device Agent Framework for Mobile Phones appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Designing APIs for Agents：Designing APIs for Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Launch HN: Coasty (YC S26) – An API for computer-use agents：Launch HN: Coasty (YC S26) – An API for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 97 天 / 1 source(s) | repo | 1 direct support | 4 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 97 天 / 1 source(s) | official | 5 direct support
-- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 97 天 / 1 source(s) | official | 5 direct support
-- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 97 天 / 1 source(s) | official | 5 direct support
-- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 97 天 / 1 source(s) | official | 5 direct support
+- vllm-project/vllm：verified / low / 已持续 98 天 / 1 source(s) | repo | 5 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 98 天 / 1 source(s) | official | 5 direct support
+- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 98 天 / 1 source(s) | official | 5 direct support
+- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 98 天 / 1 source(s) | official | 5 direct support
+- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 98 天 / 1 source(s) | official | 5 direct support
 
 ## 重点主题分析
-### MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents
+### PalmClaw: A Native On-Device Agent Framework for Mobile Phones
 - 主领域：ai-x-electronics
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：PalmClaw: A Native On-Device Agent Framework for Mobile Phones appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2607.11818v1
+- 链接：https://arxiv.org/abs/2607.13027v1
 
-- 佐证：paper | Evidence-Backed Video Question Answering | https://arxiv.org/abs/2607.11862v1
-- 佐证：paper | A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation | https://arxiv.org/abs/2607.11874v1
-- 佐证：paper | Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias | https://arxiv.org/abs/2607.11871v1
+- 佐证：official | 6G Foundry: Rewriting the mobile playbook for the AI era | https://www.qualcomm.com/news/onq/2026/05/6g-foundry-ai-native-platform
+- 佐证：paper | Audio-Native Speech Recognition with a Frozen Discrete-Diffusion Language Model | https://arxiv.org/abs/2607.13013v1
+- 佐证：paper | Bringing Back Rule Induction to Fluid Intelligence Research? An Initial Validation of the ARC-AGI Benchmark in Humans | https://arxiv.org/abs/2607.11263v2
 
-### Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)
+### Designing APIs for Agents
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://github.com/Danau5tin/ai-trains-ai
-
-- 佐证：paper | A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation | https://arxiv.org/abs/2607.11874v1
-- 佐证：paper | Evidence-Backed Video Question Answering | https://arxiv.org/abs/2607.11862v1
-- 佐证：paper | Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias | https://arxiv.org/abs/2607.11871v1
-
-### ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Designing APIs for Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/ibm-research/scarfbench
+- 交叉印证：1 source(s) | community | 1 direct support
+- 链接：https://www.freestyle.sh/blog/opinion/designing-apis-for-agents
 
 - 佐证：official | Data for Agents | https://huggingface.co/blog/nvidia/open-data-for-agents
-- 佐证：official | From Hugging Face to Amazon SageMaker Studio in one click | https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio
-- 佐证：official | Hugging Face Models on Foundry Managed Compute | https://huggingface.co/blog/microsoft/foundry-managed-compute
+
+### Launch HN: Coasty (YC S26) – An API for computer-use agents
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Launch HN: Coasty (YC S26) – An API for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://coasty.ai/docs
 
 ## 短期推演
-- 观察：MM-ToolSandBox: A Unified Framework for Evaluating Visual Tool-Calling Agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：PalmClaw: A Native On-Device Agent Framework for Mobile Phones 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
