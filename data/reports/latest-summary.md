@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-07-20T10:56:59.995628+08:00
+生成时间：2026-07-20T10:59:33.845252+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：vllm-project/vllm
+- 重点关注：How to manage AI investments in the agentic era
 - SkillOpt: Agent skills as trainable parameters
-- Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era
+- Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents
 
 ## 关键洞察
-- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- How to manage AI investments in the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,11 +33,11 @@
 ### 赛道快照
 - compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era。
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 How to manage AI investments in the agentic era。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 ABot-AgentOS: A General Robotic Agent OS with Lifelong Multi-modal Memory。
 
 ### 同轨对照
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Native-speed vLLM transformers modeling backend。
+- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 ABot-AgentOS: A General Robotic Agent OS with Lifelong Multi-modal Memory。
 
 ### 覆盖缺口
 - 暂无
@@ -47,9 +47,9 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- How to manage AI investments in the agentic era：How to manage AI investments in the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - SkillOpt: Agent skills as trainable parameters：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents：Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - vllm-project/vllm：verified / low / 已持续 102 天 / 1 source(s) | repo | 5 related context
@@ -59,15 +59,19 @@
 - Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 102 天 / 1 source(s) | official | 5 direct support
 
 ## 重点主题分析
-### vllm-project/vllm
+### How to manage AI investments in the agentic era
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：How to manage AI investments in the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://openai.com/index/managing-ai-investments-in-agentic-era
+
+- 佐证：official | How Cars24 scales conversations and builds faster with OpenAI | https://openai.com/index/cars24
+- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
+- 佐证：official | Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2 | https://developer.nvidia.com/blog/deploy-agentic-ready-ai-at-the-edge-with-memory-efficiency-in-nvidia-jetpack-7-2/
 
 ### SkillOpt: Agent skills as trainable parameters
 - 主领域：ai-llm-agent
@@ -83,22 +87,22 @@
 - 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
 - 佐证：official | Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity | https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/
 
-### Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era
+### Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2607.15263v2
 
-- 佐证：official | Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates | https://newsroom.arm.com/news/arm-agi-cpu-oracle-cloud-infrastructure-agentic-ai
-- 佐证：official | Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026
-- 佐证：official | Arm announces earnings release date for first quarter fiscal year ended 2027 | https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-first-quarter-fiscal-year-ended-2027
+- 佐证：paper | ABot-AgentOS: A General Robotic Agent OS with Lifelong Multi-modal Memory | https://arxiv.org/abs/2607.10350v3
+- 佐证：paper | When Does Muon Help Agentic Reinforcement Learning? | https://arxiv.org/abs/2607.16169v1
+- 佐证：paper | Agent Step Value: Auditing Evaluator-Channel Reversals in Black-Box Agent Traces | https://arxiv.org/abs/2607.04419v4
 
 ## 短期推演
-- 观察：vllm-project/vllm 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：How to manage AI investments in the agentic era 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
