@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-07-23T08:15:55.040029+08:00
+生成时间：2026-07-24T08:15:11.992332+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 166 个主题。
+- 本领域当前命中 172 个主题。
 
 ## 关键洞察
-- Can a MUD evaluate LLMs? A $99 proof of concept appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Agents in the Wild: Where Research Meets Deployment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: DeepSQL – A self-hostable DBA agent for Postgres and MySQL appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Fara-1.5: Scalable Learning Environments for Computer Use Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: OneCLI – OSS credential gateway that keeps secrets out of AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,51 +33,52 @@
 - 暂无
 
 ## 重点主线
-- Can a MUD evaluate LLMs? A $99 proof of concept：Can a MUD evaluate LLMs? A $99 proof of concept appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Agents in the Wild: Where Research Meets Deployment：Agents in the Wild: Where Research Meets Deployment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Fara-1.5: Scalable Learning Environments for Computer Use Agents：Fara-1.5: Scalable Learning Environments for Computer Use Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Can a MUD evaluate LLMs? A $99 proof of concept
+### vllm-project/vllm
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Can a MUD evaluate LLMs? A $99 proof of concept appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://cruciblebench.ai/
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
 
-- 佐证：paper | Hyperdimensional Probe: Decoding LLM Representations via Vector Symbolic Architectures | https://arxiv.org/abs/2509.25045v3
-
-### Agents in the Wild: Where Research Meets Deployment
+### Fara-1.5: Scalable Learning Environments for Computer Use Agents
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Agents in the Wild: Where Research Meets Deployment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Fara-1.5: Scalable Learning Environments for Computer Use Agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2607.19336v1
+- 链接：https://arxiv.org/abs/2606.20785v2
 
-- 佐证：paper | Appearance Pointers -- Multimodal Region Control of Diffusion Transformers | https://arxiv.org/abs/2607.19344v1
-- 佐证：paper | CodeRescue: Budget-Calibrated Recovery Routing for Coding Agents | https://arxiv.org/abs/2607.19338v1
-- 佐证：paper | Copy Less, Ground More: Overcoming Repetitive Copying in Long-Context Reasoning via Evidence-Aware Reinforcement Learning | https://arxiv.org/abs/2607.19345v1
+- 佐证：official | NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds | https://blog.st.com/nanoedge-ai-machine-learning/
+- 佐证：paper | An LLM-powered Agentic Recommendation System for Connected TV Content Discovery | https://arxiv.org/abs/2607.09988v3
+- 佐证：paper | Closing the Lab-to-Store Gap: A Data-Efficient Post-Training and Experience-Driven Learning VLA Framework for Retail Humanoids | https://arxiv.org/abs/2607.20345v1
 
-### Show HN: DeepSQL – A self-hostable DBA agent for Postgres and MySQL
+### Show HN: OneCLI – OSS credential gateway that keeps secrets out of AI agents
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: DeepSQL – A self-hostable DBA agent for Postgres and MySQL appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: OneCLI – OSS credential gateway that keeps secrets out of AI agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community
-- 链接：https://deepsql.ai/
+- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
+- 链接：https://github.com/onecli/onecli
+
+- 佐证：repo | ollama/ollama | https://github.com/ollama/ollama
+- 佐证：paper | Closing the Lab-to-Store Gap: A Data-Efficient Post-Training and Experience-Driven Learning VLA Framework for Retail Humanoids | https://arxiv.org/abs/2607.20345v1
 
 ## 短期推演
-- 观察：Can a MUD evaluate LLMs? A $99 proof of concept 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：vllm-project/vllm 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
