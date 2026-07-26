@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-07-25T08:19:26.351760+08:00
+生成时间：2026-07-26T08:15:21.718102+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：Be skeptical of OpenAI's rogue hacker agent story
-- Claude Opus 5
-- Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning
+- 重点关注：Running a 28.9M parameter LLM on an $8 microcontroller
+- SkillOpt: Agent skills as trainable parameters
+- Show HN: Yorishiro – a macOS terminal where AI agents live
 
 ## 关键洞察
-- Be skeptical of OpenAI's rogue hacker agent story appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Claude Opus 5 appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
-- Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Running a 28.9M parameter LLM on an $8 microcontroller appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Yorishiro – a macOS terminal where AI agents live appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -37,7 +37,7 @@
 
 ### 同轨对照
 - embedded：国内 Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
-- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Native-speed vLLM transformers modeling backend。
 
 ### 覆盖缺口
 - 暂无
@@ -47,59 +47,57 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- Be skeptical of OpenAI's rogue hacker agent story：Be skeptical of OpenAI's rogue hacker agent story appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Claude Opus 5：Claude Opus 5 appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
-- Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning：Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Running a 28.9M parameter LLM on an $8 microcontroller：Running a 28.9M parameter LLM on an $8 microcontroller appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- SkillOpt: Agent skills as trainable parameters：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Yorishiro – a macOS terminal where AI agents live：Show HN: Yorishiro – a macOS terminal where AI agents live appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 107 天 / 1 source(s) | repo | 5 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 107 天 / 1 source(s) | official | 5 direct support
-- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 107 天 / 1 source(s) | official | 5 direct support
-- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 107 天 / 1 source(s) | official | 5 direct support
-- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 107 天 / 1 source(s) | official | 5 direct support
+- vllm-project/vllm：verified / low / 已持续 108 天 / 1 source(s) | repo | 5 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 108 天 / 1 source(s) | official | 5 direct support
+- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 108 天 / 1 source(s) | official | 5 direct support
+- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 108 天 / 1 source(s) | official | 5 direct support
+- Kimi K2 Thinking 模型发布并开源，全面提升 Agent 和推理能力：rising / low / 已持续 108 天 / 1 source(s) | official | 5 direct support
 
 ## 重点主题分析
-### Be skeptical of OpenAI's rogue hacker agent story
+### Running a 28.9M parameter LLM on an $8 microcontroller
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Be skeptical of OpenAI's rogue hacker agent story appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Running a 28.9M parameter LLM on an $8 microcontroller appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://www.theguardian.com/technology/2026/jul/24/openai-rogue-hacker
+- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
+- 链接：https://github.com/slvDev/esp32-ai
 
-- 佐证：official | The Future Is for Everyone: Free AI Glasses for Every Blind Veteran in America | https://about.fb.com/news/2026/06/free-ai-glasses-for-every-blind-veteran/
+- 佐证：repo | ollama/ollama | https://github.com/ollama/ollama
+- 佐证：paper | PRO-LONG: Programmatic Memory Enables Long-Horizon Reasoning | https://arxiv.org/abs/2607.20064v2
 
-### Claude Opus 5
+### SkillOpt: Agent skills as trainable parameters
 - 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=2, sources=2)
-- 核心洞察：Claude Opus 5 appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：medium
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
 - 生命周期：verified
 - 风险等级：low
-- 交叉印证：2 source(s) | official / community | 2 direct support | 3 related context
-- 链接：https://www.anthropic.com/news/claude-opus-5
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/
 
-- 佐证：official | Ask Claude about the Anthropic Economic Index | https://www.anthropic.com/news/anthropic-economic-index-connector
-- 佐证：official | Introducing Claude Sonnet 5 | https://www.anthropic.com/news/claude-sonnet-5
+- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
+- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
+- 佐证：official | Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity | https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/
 
-### Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning
+### Show HN: Yorishiro – a macOS terminal where AI agents live
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Beyond Sycophancy: Structured Resistance and Compliance in LLM Moral Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: Yorishiro – a macOS terminal where AI agents live appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2607.21558v1
-
-- 佐证：official | Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM | https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/
-- 佐证：paper | PRO-LONG: Programmatic Memory Enables Long-Horizon Reasoning | https://arxiv.org/abs/2607.20064v2
-- 佐证：paper | WildTrace: Benchmarking Natural Evidence Trails in Long-Context Reasoning | https://arxiv.org/abs/2607.09328v2
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://github.com/sktkkoo/Yorishiro
 
 ## 短期推演
-- 观察：Be skeptical of OpenAI's rogue hacker agent story 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Running a 28.9M parameter LLM on an $8 microcontroller 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
