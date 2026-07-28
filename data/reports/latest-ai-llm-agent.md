@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-07-27T08:14:44.713269+08:00
+生成时间：2026-07-28T08:13:10.406645+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
 
 ## 执行摘要
-- 本领域当前命中 170 个主题。
+- 本领域当前命中 165 个主题。
 
 ## 关键洞察
-- SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Our position on open-weights models appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,57 +33,51 @@
 - 暂无
 
 ## 重点主线
-- SkillOpt: Agent skills as trainable parameters：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science：Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Our position on open-weights models：Our position on open-weights models appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### SkillOpt: Agent skills as trainable parameters
+### Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：SkillOpt: Agent skills as trainable parameters appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2607.22513v1
+
+- 佐证：official | How Board Charger Obc And Dcdc Converter Topologies Shape Next Gen Ev Power Electronics | https://www.renesas.com/en/blogs/how-board-charger-obc-and-dcdc-converter-topologies-shape-next-gen-ev-power-electronics
+- 佐证：paper | The Regression Tax: Decomposing Why Skills Help and Hurt LLM Agents | https://arxiv.org/abs/2607.22520v1
+- 佐证：paper | A Statistical Multi-Objective Framework for Assessing Sensitivity of Radiomic AI Models to Acquisition Parameters | https://arxiv.org/abs/2605.14667v2
+
+### Our position on open-weights models
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=2, sources=2)
+- 核心洞察：Our position on open-weights models appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：medium
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：2 source(s) | official / community | 1 direct support | 4 related context
+- 链接：https://www.anthropic.com/news/position-open-weights-models
+
+- 佐证：official | Introducing ERNIE-Image | https://ernie.baidu.com/blog/posts/ernie-image/
+
+### vllm-project/vllm
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：verified
 - 风险等级：low
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/
-
-- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
-- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
-- 佐证：official | Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity | https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/
-
-### Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
-
-- 佐证：official | Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates | https://newsroom.arm.com/news/arm-agi-cpu-oracle-cloud-infrastructure-agentic-ai
-- 佐证：official | Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026
-- 佐证：official | Arm announces earnings release date for first quarter fiscal year ended 2027 | https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-first-quarter-fiscal-year-ended-2027
-
-### Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://newsroom.arm.com/news/arm-agi-cpu-oracle-cloud-infrastructure-agentic-ai
-
-- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
-- 佐证：official | Arm Holdings plc reports results for the fourth quarter and fiscal year ended 2026 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-fourth-quarter-and-fiscal-year-ended-2026
-- 佐证：official | Arm announces earnings release date for first quarter fiscal year ended 2027 | https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-first-quarter-fiscal-year-ended-2027
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
 
 ## 短期推演
-- 观察：SkillOpt: Agent skills as trainable parameters 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Opaque Epistemic Mediation: How LLM Deployment Configurations Shape the Validation of Pseudo-Science 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
