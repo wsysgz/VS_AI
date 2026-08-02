@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-08-01T08:13:40.119283+08:00
+生成时间：2026-08-02T08:14:26.009418+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
 
 ## 执行摘要
-- 本领域当前命中 78 个主题。
+- 本领域当前命中 173 个主题。
 
 ## 关键洞察
-- 13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Everyone is building LLM routers, we deprecated ours appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Predictive Speculative KV Replication for Bursty LLM Inference appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- qm – Multiplayer agent harness for work appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Investigating three real-world incidents in our cybersecurity evaluations appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,47 +33,51 @@
 - 暂无
 
 ## 重点主线
-- 13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS：13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Everyone is building LLM routers, we deprecated ours：Everyone is building LLM routers, we deprecated ours appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- qm – Multiplayer agent harness for work：qm – Multiplayer agent harness for work appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### 13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS
+### qm – Multiplayer agent harness for work
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://swe-rebench.com
-
-### Everyone is building LLM routers, we deprecated ours
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Everyone is building LLM routers, we deprecated ours appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://manifest.build/blog/why-we-deprecated-our-llm-router/
-
-### Predictive Speculative KV Replication for Bursty LLM Inference
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Predictive Speculative KV Replication for Bursty LLM Inference appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：qm – Multiplayer agent harness for work appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://jwlabs.vercel.app/post/biting-the-bullet
+- 链接：https://github.com/yc-software/qm
 
-- 佐证：official | Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM | https://developer.nvidia.com/blog/accelerating-llm-and-vlm-inference-for-automotive-and-robotics-with-nvidia-tensorrt-edge-llm/
+- 佐证：paper | APEX-Accounting | https://arxiv.org/abs/2607.27189v2
+
+### vllm-project/vllm
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
+
+### Investigating three real-world incidents in our cybersecurity evaluations
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=2, sources=2)
+- 核心洞察：Investigating three real-world incidents in our cybersecurity evaluations appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：medium
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：2 source(s) | official / community | 5 direct support
+- 链接：https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals
+
+- 佐证：official | What will it take to bring humanoid robots into the real world? Read our experts’ insights | https://www.ti.com/about-ti/behind-chip/articles/what-will-it-take-to-bring-humanoid-robots-into-the-real-world-read-our-experts-insights.html
+- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
+- 佐证：official | Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2 | https://developer.nvidia.com/blog/deploy-agentic-ready-ai-at-the-edge-with-memory-efficiency-in-nvidia-jetpack-7-2/
 
 ## 短期推演
-- 观察：13 Models and 4 Agents on SWE Tasks: Go, Java, Python, Rust, TS 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：qm – Multiplayer agent harness for work 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
