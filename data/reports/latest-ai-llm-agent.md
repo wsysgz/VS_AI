@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-08-07T09:46:15.827984+08:00
+生成时间：2026-08-08T07:51:08.558079+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 168 个主题。
+- 本领域当前命中 165 个主题。
 
 ## 关键洞察
-- Qwen3.8 Max now ranked as the best overall model by agentic index appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Humans missed 1 in 3 threats approving AI agent commands across 40k game runs appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Kitesurf: Agent-first browser that runs in V8 isolates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,23 +33,13 @@
 - 暂无
 
 ## 重点主线
-- Qwen3.8 Max now ranked as the best overall model by agentic index：Qwen3.8 Max now ranked as the best overall model by agentic index appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams)：Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Qwen3.8 Max now ranked as the best overall model by agentic index
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Qwen3.8 Max now ranked as the best overall model by agentic index appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://artificialanalysis.ai/?intelligence=agentic-index
-
 ### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
@@ -64,20 +54,34 @@
 - 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 
-### Humans missed 1 in 3 threats approving AI agent commands across 40k game runs
+### Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams)
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Humans missed 1 in 3 threats approving AI agent commands across 40k game runs appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams) appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://scalex.dev/blog/ai-agent-permissions-stats/
+- 链接：https://github.com/CopilotKit/channels-sdk
 
-- 佐证：paper | Toward Deployable Bangla Sign Language Recognition with Expert-Validated Data and a Lightweight Attention-Based Model | https://arxiv.org/abs/2608.06252v1
+- 佐证：repo | NVIDIA/TensorRT | https://github.com/NVIDIA/TensorRT
+
+### Kitesurf: Agent-first browser that runs in V8 isolates
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Kitesurf: Agent-first browser that runs in V8 isolates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://blog.cloudflare.com/kitesurf/
+
+- 佐证：official | Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents | https://developer.espressif.com/blog/2026/07/velxio-browser-based-esp32-simulation/
+- 佐证：official | Arm Holdings plc reports results for the first quarter of the fiscal year ending 2027 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-first-quarter-of-the-fiscal-year-ending-2027
+- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
 
 ## 短期推演
-- 观察：Qwen3.8 Max now ranked as the best overall model by agentic index 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
