@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026.08.10 | VS_AI</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23081018%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%2343d1bf%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #081018;
+    --panel: #101a24;
+    --panel-strong: #142231;
+    --panel-soft: #0c1620;
+    --ink: #edf4f7;
+    --muted: #9fb0bd;
+    --line: rgba(181, 200, 211, 0.18);
+    --accent: #43d1bf;
+    --accent-soft: rgba(67, 209, 191, 0.12);
+    --blue: #8fb8ff;
+    --amber: #e9b56f;
+    --danger: #f08d8d;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: linear-gradient(180deg, #071019 0%, #0a121b 58%, #071019 100%);
+  }
+  a { color: inherit; }
+  .site-shell { max-width: 1240px; margin: 0 auto; padding: 0 20px 48px; }
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .brand-mark {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 18px rgba(67, 209, 191, 0.5);
+  }
+  .nav-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .workbench {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .panel,
+  .section,
+  .stat,
+  .signal,
+  .article-card,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(16, 26, 36, 0.88);
+    box-shadow: var(--shadow);
+  }
+  .panel { padding: 22px; }
+  .section { margin-top: 16px; padding: 22px; }
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+  .page-title {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
+  }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .subtle { color: var(--muted); }
+  .lead {
+    margin: 14px 0 0;
+    max-width: 820px;
+    font-size: 18px;
+    line-height: 1.78;
+  }
+  .compact-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .meta-row,
+  .hero-meta,
+  .signal-tags,
+  .filter-group,
+  .archive-meta,
+  .feed-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .meta-row { margin-top: 16px; }
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 6px;
+  }
+  .guide-action {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    display: inline-flex;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .guide-action.primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+  .guide-action:focus,
+  .guide-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .guide-action.primary:focus,
+  .guide-action.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .chip,
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(181, 200, 211, 0.16);
+    background: rgba(12, 22, 32, 0.88);
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(67, 209, 191, 0.36); }
+  .tag { color: var(--accent); background: var(--accent-soft); }
+  .tag.alt { color: var(--blue); background: rgba(143, 184, 255, 0.12); }
+  .tag.warm { color: var(--amber); background: rgba(233, 181, 111, 0.12); }
+  .tag.danger { color: var(--danger); background: rgba(240, 141, 141, 0.12); }
+  .stats-grid,
+  .signal-grid,
+  .archive-grid,
+  .summary-grid,
+  .comparison-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .summary-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .signal-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .archive-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .comparison-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .stat,
+  .signal,
+  .article-card,
+  .archive-card,
+  .summary-card,
+  .topic-card,
+  .comparison-card,
+  .comparison-list,
+  .search-hit {
+    padding: 16px;
+    box-shadow: none;
+  }
+  .stat strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .signal h3,
+  .article-card h3,
+  .archive-card h3,
+  .summary-card h3,
+  .topic-card h3,
+  .comparison-card h3,
+  .comparison-list h3 {
+    margin: 8px 0 8px;
+    font-size: 17px;
+    line-height: 1.42;
+  }
+  .signal p,
+  .article-card p,
+  .archive-card p,
+  .summary-card p,
+  .topic-card p,
+  .comparison-card p,
+  .comparison-list p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .comparison-card dl {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+  }
+  .comparison-card dt { color: var(--accent); font-size: 13px; font-weight: 700; }
+  .comparison-card dd { margin: 0; color: var(--muted); line-height: 1.68; }
+  .comparison-card dd a,
+  .comparison-list li a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(67, 209, 191, 0.45);
+  }
+  .comparison-card dd a:hover,
+  .comparison-list li a:hover { color: var(--accent); }
+  .comparison-list ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.72; }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 188px;
+  }
+  .article-date {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .article-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 34px;
+    margin-top: 14px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(67, 209, 191, 0.34);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .article-action:hover {
+    border-color: rgba(67, 209, 191, 0.64);
+    color: var(--accent);
+  }
+  .signal-footer,
+  .archive-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .signal a,
+  .article-card a,
+  .archive-card a,
+  .feed-links a {
+    text-decoration: none;
+  }
+  .signal a:hover,
+  .article-card a:hover,
+  .archive-card a:hover,
+  .feed-links a:hover {
+    color: var(--accent);
+  }
+  .search-shell { display: grid; gap: 14px; }
+  .search-shell input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    color: var(--ink);
+    font: inherit;
+  }
+  .filter-search {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    color: var(--ink);
+    font: inherit;
+  }
+  .search-results { display: grid; gap: 10px; }
+  .feed-links { margin-top: 14px; }
+  .archive-filters { display: grid; gap: 14px; margin-bottom: 16px; }
+  .filter-group button {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+  }
+  .filter-group button.is-active,
+  .filter-group button:hover {
+    color: var(--ink);
+    border-color: rgba(67, 209, 191, 0.4);
+    background: var(--accent-soft);
+  }
+  .footer {
+    margin-top: 18px;
+    padding: 18px 0 6px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+  }
+  @media (max-width: 880px) {
+    .site-shell { padding: 0 14px 36px; }
+    .topbar { grid-template-columns: 1fr; gap: 10px; }
+    .nav-links { justify-content: flex-start; gap: 10px; }
+    .hero-meta { gap: 6px; }
+    .workbench { grid-template-columns: 1fr; }
+    .panel, .section { padding: 18px; }
+    .page-title { font-size: 28px; }
+    .lead { font-size: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .signal-grid,
+    .archive-grid,
+    .summary-grid,
+    .comparison-grid { grid-template-columns: 1fr; }
+    .signal-footer,
+    .archive-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 640px) {
+    .nav-links { gap: 8px; font-size: 13px; }
+    .chip,
+    .tag { min-height: 28px; padding: 4px 9px; }
+    .guide-actions { gap: 8px; }
+    .guide-action {
+      flex: 1 1 120px;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 12px;
+    }
+    .hero-meta,
+    .meta-row,
+    .archive-meta,
+    .feed-links { gap: 6px; }
+    .archive-card,
+    .article-card,
+    .signal,
+    .summary-card,
+    .topic-card { padding: 14px; }
+  }
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../../"><span class="brand-mark"></span><span>VS_AI</span></a>
+      <nav class="nav-links">
+        <a href="../">归档</a>
+        <a href="../../tracks/">赛道</a>
+        <a href="../../sources/">来源</a>
+        <a href="../../weekly/">周报</a>
+        <a href="../../special/">专题</a>
+        <a href="../../">首页</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <div class="eyebrow">2026.08.10</div>
+      <h1 class="section-title" style="font-size:34px;">本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。</h1>
+      <p class="subtle">重点关注：OpenChamber: An Agentic Development Environment How I use LLMs to learn complex topics Human vs. AI – Diff-based line-level provenance for text under agentic editing</p>
+      <div class="archive-meta" style="margin-top:14px;">
+        <span class="tag alt">81 个主题</span>
+        <span class="tag warm">81 条原始信息</span>
+        <span class="tag">自动版</span>
+        <span class="tag">2026-08-10T07:51:33.678677+08:00</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">关键主线</h2>
+      <div class="summary-grid">
+        <article class="summary-card">
+  <h3>OpenChamber: An Agentic Development Environment</h3>
+  <p>OpenChamber: An Agentic Development Environment 已进入信号池，仍需继续复核。</p>
+</article><article class="summary-card">
+  <h3>How I use LLMs to learn complex topics</h3>
+  <p>How I use LLMs to learn complex topics 已进入信号池，仍需继续复核。</p>
+</article><article class="summary-card">
+  <h3>Human vs. AI – Diff-based line-level provenance for text under agentic editing</h3>
+  <p>Human vs. AI – Diff-based line-level provenance for text under agentic editing 已进入信号池，仍需继续复核。</p>
+</article>
+      </div>
+    </section>
+
+<section class="section">
+      <h2 class="section-title">国内外对比</h2>
+      <div class="comparison-grid"><article class="comparison-card">
+  <span class="tag">前沿 AI</span>
+  <dl>
+    <dt>国内侧</dt><dd><a href="./comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></dd>
+    <dt>海外侧</dt><dd><a href="./comparison/#comparison-frontier-ai">microsoft-research：前沿 AI 方向信号</a></dd>
+  </dl>
+  <div class="archive-footer"><span>同轨明细</span><a href="./comparison/#comparison-frontier-ai">查看对比明细</a></div>
+</article><article class="comparison-list">
+  <h3>国内信号</h3>
+  <ul><li>
+  <strong><a href="./comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></strong>
+  <span class="tag alt">前沿 AI</span>
+  <p>ERNIE 5.1 is officially released, achieving leading performance at only 6% of the pre-training cost of comparable models. Powered by disaggregated fully-asynchronous reinforcement learning and scaled agentic post-training, ERNIE 5.1 delivers comprehensive upgrades across Agent, reasoning, and creative capabilities, ranking 1st in China on the Arena Search Arena.</p>
+</li><li>
+  <strong><a href="./comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></strong>
+  <span class="tag alt">前沿 AI</span>
+  <p>We introduce ERNIE 5.0: a 2.4 trillion-parameter Unified Multimodal Model trained from scratch. Integrating text, image, video, and audio into a single autoregressive framework, it overcomes the limitations of late-fusion architectures to achieve seamless cross-modal understanding and generation.</p>
+</li><li>
+  <strong><a href="./comparison/#comparison-frontier-ai">ernie-blog：前沿 AI 方向信号</a></strong>
+  <span class="tag alt">前沿 AI</span>
+  <p>On January 15, LMArena released its latest rankings. ERNIE-5.0-0110 achieved a score of 1,460, ranking No. 1 among Chinese models and No. 8 globally on the LMArena Text Arena.</p>
+</li></ul>
+</article><article class="comparison-list">
+  <h3>海外信号</h3>
+  <ul><li>
+  <strong><a href="./comparison/#comparison-frontier-ai">microsoft-research：前沿 AI 方向信号</a></strong>
+  <span class="tag alt">前沿 AI</span>
+  <p>&lt;p&gt;Orchard is an open-source framework for the research community to train and evaluate AI agents across task types. It reduces complexity while supporting strong performance from smaller models by enabling researchers to reuse the same infrastructure.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/&quot;&gt;Orchard: An open framework for scalable agentic AI&lt;/a&gt; appeared first on &lt;a href=&quot;https://www.microsoft.com/en-us/research&quot;&gt;Microsoft Research&lt;/a&gt;.&lt;/p&gt;</p>
+</li><li>
+  <strong><a href="./comparison/#comparison-compute-infra">arm-news：算力基础设施 方向信号</a></strong>
+  <span class="tag alt">算力基础设施</span>
+  <p>&lt;p&gt;For decades, PCs were designed around people using applications. Agentic AI changes that model as apps become more autonomous, with users prompting their agents to observe, reason, plan, and act across workflows. This evolution is creating demand for two broad classes of AI-enabled computing: Nothing demonstrates this transformation more powerfully than the new Arm-based NVIDIA [&amp;#8230;]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark&quot;&gt;Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era&lt;/a&gt; appeared first on &lt;a href=&quot;https://newsroom.arm.com&quot;&gt;Arm Newsroom&lt;/a&gt;.&lt;/p&gt;</p>
+</li><li>
+  <strong><a href="./comparison/#comparison-compute-infra">arm-news：算力基础设施 方向信号</a></strong>
+  <span class="tag alt">算力基础设施</span>
+  <p>&lt;p&gt;The move reinforces the role of the Arm compute platform as agentic AI drives new demand for efficient, rack-scale cloud infrastructure.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://newsroom.arm.com/news/arm-agi-cpu-oracle-cloud-infrastructure-agentic-ai&quot;&gt;Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates&lt;/a&gt; appeared first on &lt;a href=&quot;https://newsroom.arm.com&quot;&gt;Arm Newsroom&lt;/a&gt;.&lt;/p&gt;</p>
+</li></ul>
+</article><article class="comparison-list">
+  <h3><span class="tag danger">覆盖缺口</span></h3>
+  <ul><li><a href="./comparison/#gap-compute-infra">算力基础设施：仅看到海外信号，还需要补齐国内来源。</a> <span class="tag danger">需补国内来源</span></li><li><a href="./comparison/#gap-embedded">嵌入式：仅看到海外信号，还需要补齐国内来源。</a> <span class="tag danger">需补国内来源</span></li></ul>
+</article><article class="comparison-list">
+  <h3><span class="tag warm">观察点</span></h3>
+  <ul><li>继续跟踪 前沿 AI 的国内外同轨发布、生态采用与真实交付反馈。</li></ul>
+</article></div>
+      <div class="feed-links" style="margin-top:16px;"><a class="chip" href="./comparison/">查看对比明细</a></div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">深度解读</h2>
+      <div class="summary-grid">
+        <article class="topic-card">
+  <h3>OpenChamber: An Agentic Development Environment</h3>
+  <p>OpenChamber: An Agentic Development Environment 已进入信号池，仍需继续复核。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">low</span>
+  </div>
+</article><article class="topic-card">
+  <h3>How I use LLMs to learn complex topics</h3>
+  <p>How I use LLMs to learn complex topics 已进入信号池，仍需继续复核。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">low</span>
+  </div>
+</article><article class="topic-card">
+  <h3>Human vs. AI – Diff-based line-level provenance for text under agentic editing</h3>
+  <p>Human vs. AI – Diff-based line-level provenance for text under agentic editing 已进入信号池，仍需继续复核。</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">low</span>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">全部信号</h2>
+      <div class="signal-grid">
+        <article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Orchard: An open framework for scalable agentic AI</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/1/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>How I use LLMs to learn complex topics</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">laurentiugabriel.github.io</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/2/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>OpenChamber: An Agentic Development Environment</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openchamber.dev</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/3/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Human vs. AI – Diff-based line-level provenance for text under agentic editing</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/4/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>UnYOLO: Agent credential broker and policy engine for your GitHub account</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">unyolo.io</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/5/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Show HN: A replayable A2A jury for tracing how agents influence decisions</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/6/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>vLLM 项目</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">amd</span><span class="tag">blackwell</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/7/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Echoverse: Deep, evolving environments for computer-use agents</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/8/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/9/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/10/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">Agent Skill</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/11/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Maximizing Memory Efficiency with Agent Skills to Run Bigger Models on NVIDIA Jetson</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">Developer Tools &amp; Techniques</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/12/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Bringing AI Closer to the Edge and On-Device with Gemma 4</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">developer.nvidia.com</span><span class="tag">Agentic AI / Generative AI</span><span class="tag">Edge Computing</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/13/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Inference</span><span class="tag">Developer Tools &amp; Techniques</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/14/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">AI Agent</span><span class="tag">AI Inference</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/15/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">Internet of Things</span><span class="tag">Our products</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/16/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">AI</span><span class="tag">Application Examples</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/17/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Deploy local agents everywhere with LFM2.5-2.6B</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/18/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/19/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/20/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Arm announces earnings release date for first quarter fiscal year ended 2027</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/21/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Silicon Valley misreads science fiction and undermines democracy</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">techcrunch.com</span><span class="tag">Hacker News</span><span class="tag">trending</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/22/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Analyzing data from Silicon Valley ventures and founders prosecuted for fraud</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">pubsonline.informs.org</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/23/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>John C. Lilly on solid state intelligence and the elimination of man (1978)</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">kibotronics.net</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/24/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Show HN: A Project Oberon System version running on RISC-V instead of RISC-5</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span><span class="tag">展示项目</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/25/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>The main way I&#x27;ve seen people turn ideologically crazy (2025)</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">blog.andymasley.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/26/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>The Hacker&#x27;s Renaissance</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">phrack.org</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/27/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ChatGPT starts blocking direct requests to copy an author&#x27;s style</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">arstechnica.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/28/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>The tragedy of the commons, AI edition</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">economist.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/29/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Deletes all instances of Microsoft&#x27;s GDID and prevents minting of new ones</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/30/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>When Compilers Disagree About UTF‑8</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">nemanjatrifunovic.substack.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/31/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Tuxedo No. 2 – Cocktail recipes</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">tuxedono2.com</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/32/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>A zero-dependency, ultra-lightweight database time machine for SQLite</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/33/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>AI assistant hacks gym website in first known Australian autonomous cyber attack</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">abc.net.au</span><span class="tag">Hacker News</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/34/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>langchain-ai/langgraph</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/35/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ollama/ollama</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deepseek</span><span class="tag">gemma</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/36/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>alibaba/MNN</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">arm</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/37/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>pytorch/executorch</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">AI/智能体</span><span class="tag">deep-learning</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/38/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>tenstorrent/tt-metal</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">GitHub</span><span class="tag">accelerator</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/39/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>nxp-appcodehub/dm-eiq-genai-flow-demonstrator</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/40/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>mem0ai/mem0</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">agents</span><span class="tag">ai</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/41/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>openai/swarm</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/42/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>anthropics/claude-cookbooks</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/43/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>NVIDIA/TensorRT</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">deep-learning</span><span class="tag">gpu-acceleration</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/44/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>onnx/onnx</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">ai</span><span class="tag">artificial-intelligence</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/45/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>jax-ml/jax</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">GitHub</span><span class="tag">jax</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/46/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Responding to the next frontier of critical cyber capabilities</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Security</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/47/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>How HSP GRUPPE builds AI capabilities for tax advisory</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/48/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Product</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/49/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Working with the American Psychological Association on youth mental health and AI</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Company</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/50/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>From asking to doing: How the world is putting ChatGPT to work</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Company</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/51/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Third-party cyber evaluations involving OpenAI models</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Security</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/52/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>New ways to learn and teach with ChatGPT Work and Codex</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Product</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/53/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Apple is getting this wrong</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">openai.com</span><span class="tag">Company</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/54/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Why Meta Builds Its Own AI Data Centers</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">Data Centers</span><span class="tag">Infrastructure</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/55/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Announcing the AI Glasses Impact Grant Recipients: Helping People Work, Learn, and Live More Independently</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">AI Glasses</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/56/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Meta AI Doesn’t Just Think, It Acts</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">about.fb.com</span><span class="tag">AI</span><span class="tag">Meta</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/57/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>EvoLib: Turning experience into evolving knowledge</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/58/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Verifying Rust cryptography in SymCrypt, from standards to code</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/59/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Aurora 1.5: Extending open foundation models for weather and Earth-system applications</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/60/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Flint: A visualization language for the AI era</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">微软</span><span class="tag">研究博客</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/61/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ERNIE-5.1-Preview Tops LMArena Text Leaderboard as No.1 Chinese Model!</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/62/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Introducing ERNIE-Image</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/63/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ERNIE 5.0: A 2.4 Trillion-Parameter Unified Multimodal Foundation Model</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/64/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>PaddleOCR-VL-1.5: Towards a Multi-Task 0.9B VLM for Robust In-the-Wild Document Parsing</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/65/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>ERNIE-5.0 Tops LMArena Text Leaderboard as No.1 Chinese Model!</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">ernie.baidu.com</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/66/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Arm delivers record first-quarter for total revenue</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/67/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Arm Holdings plc reports results for the first quarter of the fiscal year ending 2027</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/68/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Arm delivers a step-change in mobile gaming with Neural Dawn, showcasing the first use of Arm Neural Technology and Unreal Engine MegaLights on mobile</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">newsroom.arm.com</span><span class="tag">AI × 电子</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/69/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Accelerate AI Inference for Edge and Robotics with NVIDIA Jetson T4000 and NVIDIA JetPack 7.1</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">developer.nvidia.com</span><span class="tag">Agentic AI / Generative AI</span><span class="tag">CES26</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/70/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>electronica 2022 teaser: Industrial AI, What will emerging innovations reveal about us?</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">blog.st.com</span><span class="tag">AI</span><span class="tag">Application Examples</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/71/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>TutorMoments: Do AI tutors know when to help and when to hold back?</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/72/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Baseten on Hugging Face Inference Providers 🔥</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/73/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>GPU Management: Why Idle GPUs Are the New Grounded Aircraft</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/74/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI × 电子</span><span class="tag">huggingface.co</span><span class="tag">AI/智能体</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/75/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Bringing Nunchaku 4-bit Diffusion Inference to Diffusers</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/76/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Grabette: an open system to record robot-manipulation data</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/77/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Newer Models, Same Advantage</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/78/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Security incident disclosure — July 2026</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/79/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Model Routing Is Simple. Until It Isn’t.</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/80/">阅读文章</a>
+</article><article class="article-card">
+  <p class="article-date">2026.08.10</p>
+  <h3>Welcome Inkling by Thinking Machines</h3>
+  <div class="archive-meta" style="margin-top:12px;"><span class="tag">AI/智能体</span><span class="tag">huggingface.co</span></div>
+  <a class="article-action" href="../../archives/2026-08-10/signals/81/">阅读文章</a>
+</article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
