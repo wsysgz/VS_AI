@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-08-09T07:47:05.837417+08:00
+生成时间：2026-08-10T07:51:33.678677+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 80 个主题。
+- 本领域当前命中 69 个主题。
 
 ## 关键洞察
-- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Kitesurf: Agent-first browser that runs in V8 isolates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- AV-AIVAT: 74x Cheaper Agent Evaluation with Certified Anytime-Valid Stopping in Imperfect-Information Games appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- OpenChamber: An Agentic Development Environment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- How I use LLMs to learn complex topics appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Human vs. AI – Diff-based line-level provenance for text under agentic editing appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,57 +33,55 @@
 - 暂无
 
 ## 重点主线
-- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Kitesurf: Agent-first browser that runs in V8 isolates：Kitesurf: Agent-first browser that runs in V8 isolates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- OpenChamber: An Agentic Development Environment：OpenChamber: An Agentic Development Environment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- How I use LLMs to learn complex topics：How I use LLMs to learn complex topics appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Orchard: An open framework for scalable agentic AI
+### OpenChamber: An Agentic Development Environment
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
-
-- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
-- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
-- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
-
-### Kitesurf: Agent-first browser that runs in V8 isolates
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Kitesurf: Agent-first browser that runs in V8 isolates appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://blog.cloudflare.com/kitesurf/
-
-- 佐证：official | Arm Holdings plc reports results for the first quarter of the fiscal year ending 2027 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-first-quarter-of-the-fiscal-year-ending-2027
-- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
-- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
-
-### AV-AIVAT: 74x Cheaper Agent Evaluation with Certified Anytime-Valid Stopping in Imperfect-Information Games
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：AV-AIVAT: 74x Cheaper Agent Evaluation with Certified Anytime-Valid Stopping in Imperfect-Information Games appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：OpenChamber: An Agentic Development Environment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2608.06362v1
+- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
+- 链接：https://openchamber.dev/
 
-- 佐证：paper | Challenges in Evaluating Explanation Methods for Static and Evolving Data | https://arxiv.org/abs/2608.06351v1
-- 佐证：paper | Resourced Authority A Mechanism-Design Model for Participatory Governance of Deployed AI Agents | https://arxiv.org/abs/2608.06353v1
-- 佐证：paper | Tracing the Heart: An Evidence-Linked Pipeline for Heart-Failure Feature Engineering | https://arxiv.org/abs/2608.06366v1
+- 佐证：official | Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2 | https://developer.nvidia.com/blog/deploy-agentic-ready-ai-at-the-edge-with-memory-efficiency-in-nvidia-jetpack-7-2/
+
+### How I use LLMs to learn complex topics
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：How I use LLMs to learn complex topics appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://laurentiugabriel.github.io/blog/articles/how-i-use-llms-to-learn/
+
+- 佐证：official | From asking to doing: How the world is putting ChatGPT to work | https://openai.com/index/how-the-world-is-putting-chatgpt-to-work
+- 佐证：official | Verifying Rust cryptography in SymCrypt, from standards to code | https://www.microsoft.com/en-us/research/blog/verifying-rust-cryptography-in-symcrypt-from-standards-to-code/
+- 佐证：official | Announcing the AI Glasses Impact Grant Recipients: Helping People Work, Learn, and Live More Independently | https://about.fb.com/news/2026/07/ai-glasses-helping-people-work-learn-live-independently/
+
+### Human vs. AI – Diff-based line-level provenance for text under agentic editing
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Human vs. AI – Diff-based line-level provenance for text under agentic editing appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://github.com/eighttrigrams/us-vs-them
+
+- 佐证：official | Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era | https://newsroom.arm.com/news/arm-agentic-pc-era-with-nvidia-rtx-spark
+- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
+- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
 
 ## 短期推演
-- 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：OpenChamber: An Agentic Development Environment 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
