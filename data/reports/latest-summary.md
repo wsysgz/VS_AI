@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-08-11T07:53:36.954694+08:00
+生成时间：2026-08-12T08:02:26.367837+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS
+- 重点关注：Orchard: An open framework for scalable agentic AI
+- Stealing Reasoning Traces from Proprietary LLM APIs
 - Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows
-- Orchard: An open framework for scalable agentic AI
 
 ## 关键洞察
-- Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Stealing Reasoning Traces from Proprietary LLM APIs appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -32,59 +32,33 @@
 
 ### 赛道快照
 - compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era。
-- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM。
+- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Bringing AI Closer to the Edge and On-Device with Gemma 4。
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Orchard: An open framework for scalable agentic AI。
 
 ### 同轨对照
+- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2。
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS。
 
 ### 覆盖缺口
 - 暂无
 
 ### 观察点
+- 继续跟踪 embedded 的国内外同轨发布、生态采用与真实交付反馈。
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows：Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Stealing Reasoning Traces from Proprietary LLM APIs：Stealing Reasoning Traces from Proprietary LLM APIs appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows：Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 123 天 / 1 source(s) | repo | 5 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 123 天 / 1 source(s) | official | 5 direct support
-- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 123 天 / 1 source(s) | official | 5 direct support
-- Accelerating LLM and VLM Inference for Automotive and Robotics with NVIDIA TensorRT Edge-LLM：rising / medium / 已持续 123 天 / 1 source(s) | official | 5 direct support
-- langchain-ai/langgraph：rising / low / 已持续 123 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 125 天 / 1 source(s) | repo | 5 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 125 天 / 1 source(s) | official | 5 direct support
+- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 125 天 / 1 source(s) | official | 5 direct support
+- ollama/ollama：rising / low / 已持续 125 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 125 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents
-
-- 佐证：official | Bringing AI Closer to the Edge and On-Device with Gemma 4 | https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/
-- 佐证：official | Grabette: an open system to record robot-manipulation data | https://huggingface.co/blog/grabette
-- 佐证：official | Meta is back with Muse Glimmer: local, agentic, multimodal, and open source | https://huggingface.co/blog/muse-glimmer
-
-### Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model
-
-- 佐证：official | Meta is back with Muse Glimmer: local, agentic, multimodal, and open source | https://huggingface.co/blog/muse-glimmer
-- 佐证：official | Orchard: An open framework for scalable agentic AI | https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
-- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
-
 ### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
@@ -96,11 +70,35 @@
 - 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
 
 - 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
-- 佐证：official | Flint: A visualization language for the AI era | https://www.microsoft.com/en-us/research/blog/flint-a-visualization-language-for-the-ai-era/
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
+- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
+
+### Stealing Reasoning Traces from Proprietary LLM APIs
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Stealing Reasoning Traces from Proprietary LLM APIs appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://stolen-thoughts.com/
+
+### Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model
+
+- 佐证：official | Meta is back with Muse Glimmer: local, agentic, multimodal, and open source | https://huggingface.co/blog/muse-glimmer
+- 佐证：official | Orchard: An open framework for scalable agentic AI | https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
+- 佐证：official | Aurora 1.5: Extending open foundation models for weather and Earth-system applications | https://www.microsoft.com/en-us/research/blog/aurora-1-5-extending-open-foundation-models-for-weather-and-earth-system-applications/
 
 ## 短期推演
-- 观察：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
