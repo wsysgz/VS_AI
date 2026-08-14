@@ -1,59 +1,62 @@
 # 自动情报快报
 
-生成时间：2026-08-13T08:00:21.913570+08:00
+生成时间：2026-08-14T08:00:49.291840+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
 
 ## 执行摘要
 - 重点关注：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS
-- Meta is back with Muse Glimmer: local, agentic, multimodal, and open source
-- vllm-project/vllm
+- Orchard: An open framework for scalable agentic AI
+- Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials
 
 ## 关键洞察
 - Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
+- embedded：Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents（来源：espressif-blog）
+- embedded：esparagus: ESP32 flashing with structured output for CI and coding agents（来源：espressif-blog）
+- frontier-ai：Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay（来源：zhipu-news）
 - frontier-ai：ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More（来源：ernie-blog）
-- frontier-ai：ERNIE 5.0: A 2.4 Trillion-Parameter Unified Multimodal Foundation Model（来源：ernie-blog）
-- frontier-ai：ERNIE-5.0 Tops LMArena Text Leaderboard as No.1 Chinese Model!（来源：ernie-blog）
-- frontier-ai：ERNIE-5.1-Preview Tops LMArena Text Leaderboard as No.1 Chinese Model!（来源：ernie-blog）
-- frontier-ai：Introducing ERNIE-Image（来源：ernie-blog）
+- frontier-ai：GLM-PC 基座模型，CogAgent-9B 开源（来源：zhipu-news）
 
 ### 海外高亮信号
 - frontier-ai：Orchard: An open framework for scalable agentic AI（来源：microsoft-research）
 - frontier-ai：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS（来源：huggingface-blog）
 - frontier-ai：Meta is back with Muse Glimmer: local, agentic, multimodal, and open source（来源：huggingface-blog）
+- compute-infra：Accelerating GPT-5.6 Sol Ultrafast（来源：cerebras-blog, hacker-news）
 - compute-infra：Arm-based NVIDIA RTX Spark is redefining PCs for the agentic era（来源：arm-news）
-- compute-infra：Oracle Cloud Infrastructure joins the Arm AGI CPU ecosystem as agentic AI accelerates（来源：arm-news）
 
 ### 赛道快照
-- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 Orchard: An open framework for scalable agentic AI。
+- compute-infra：国内 寒武纪 Day 0 适配 DeepSeek-V4，共赴国产模芯协作新里程碑；海外 Accelerating GPT-5.6 Sol Ultrafast。
+- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Bringing AI Closer to the Edge and On-Device with Gemma 4。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Orchard: An open framework for scalable agentic AI。
 
 ### 同轨对照
-- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 Orchard: An open framework for scalable agentic AI。
+- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS。
 
 ### 覆盖缺口
-- compute-infra：仅看到海外信号，需补齐国内来源。
-- embedded：仅看到海外信号，需补齐国内来源。
+- 暂无
 
 ### 观察点
+- 继续跟踪 embedded 的国内外同轨发布、生态采用与真实交付反馈。
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
 - Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Meta is back with Muse Glimmer: local, agentic, multimodal, and open source：Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials：Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 126 天 / 1 source(s) | repo | 5 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 126 天 / 1 source(s) | official | 5 direct support
-- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 126 天 / 1 source(s) | official | 5 direct support
-- ollama/ollama：rising / low / 已持续 126 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 126 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 127 天 / 1 source(s) | repo | 1 direct support | 4 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 127 天 / 1 source(s) | official | 5 direct support
+- Build Next-Gen Physical AI with Edge‑First LLMs for Autonomous Vehicles and Robotics：rising / medium / 已持续 127 天 / 1 source(s) | official | 5 direct support
+- ollama/ollama：rising / low / 已持续 127 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 127 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS
@@ -67,32 +70,32 @@
 - 链接：https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents
 
 - 佐证：official | Bringing AI Closer to the Edge and On-Device with Gemma 4 | https://developer.nvidia.com/blog/bringing-ai-closer-to-the-edge-and-on-device-with-gemma-4/
-- 佐证：official | Grabette: an open system to record robot-manipulation data | https://huggingface.co/blog/grabette
 - 佐证：official | Meta is back with Muse Glimmer: local, agentic, multimodal, and open source | https://huggingface.co/blog/muse-glimmer
+- 佐证：official | NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics | https://huggingface.co/blog/nvidia/cosmos-h-dreams
 
-### Meta is back with Muse Glimmer: local, agentic, multimodal, and open source
+### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：rising
 - 风险等级：medium
 - 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/muse-glimmer
+- 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
 
-- 佐证：official | Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS | https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents
-- 佐证：official | Grabette: an open system to record robot-manipulation data | https://huggingface.co/blog/grabette
-- 佐证：official | Orchard: An open framework for scalable agentic AI | https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
+- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
+- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
+- 佐证：official | Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement | https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/
 
-### vllm-project/vllm
+### Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Launch HN: Discovered Materials (YC P26) – AI agents to discover new materials appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://discoveredmaterials.com/research/
 
 ## 短期推演
 - 观察：Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
