@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-08-21T07:43:16.940080+08:00
+生成时间：2026-08-22T07:41:01.494427+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 165 个主题。
+- 本领域当前命中 167 个主题。
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Show HN: I trained a 125M model to autocomplete piano on-device appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Proliferate- open-source, self-hostable Codex for any coding agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Building an (almost) fully self-hosted, sandboxed, agentic software factory appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Meta is back with Muse Glimmer: local, agentic, multimodal, and open source：Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Proliferate- open-source, self-hostable Codex for any coding agent：Show HN: Proliferate- open-source, self-hostable Codex for any coding agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
@@ -54,33 +54,33 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
 
-### Meta is back with Muse Glimmer: local, agentic, multimodal, and open source
+### Show HN: Proliferate- open-source, self-hostable Codex for any coding agent
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Meta is back with Muse Glimmer: local, agentic, multimodal, and open source appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: Proliferate- open-source, self-hostable Codex for any coding agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/muse-glimmer
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://github.com/proliferate-ai/proliferate
 
-- 佐证：official | Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS | https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents
+- 佐证：official | Maximizing Memory Efficiency with Agent Skills to Run Bigger Models on NVIDIA Jetson | https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/
 - 佐证：official | Orchard: An open framework for scalable agentic AI | https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
-- 佐证：official | State of Open Models: Summer 2026 Observations | https://huggingface.co/blog/state-of-open-models-summer-2026
+- 佐证：repo | NVIDIA/TensorRT | https://github.com/NVIDIA/TensorRT
 
-### Show HN: I trained a 125M model to autocomplete piano on-device
+### Building an (almost) fully self-hosted, sandboxed, agentic software factory
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Show HN: I trained a 125M model to autocomplete piano on-device appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Building an (almost) fully self-hosted, sandboxed, agentic software factory appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://simedw.com/2026/08/20/midi-autocomplete/
+- 交叉印证：1 source(s) | community | 3 direct support | 2 related context
+- 链接：https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/
 
-- 佐证：official | ESP32 Bit Pirate: a multi-protocol workbench built on the ESP32-S3 | https://developer.espressif.com/blog/2026/08/esp32-bit-pirate/
-- 佐证：official | Edge AI ignites the next industrial revolution | https://www.qualcomm.com/news/onq/2026/08/edge-ai-next-industrial-revolution
-- 佐证：official | Open Sourcing ESP RainMaker Neo | https://developer.espressif.com/blog/2026/08/open-sourcing-esp-rainmaker-neo/
+- 佐证：official | ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More | https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+- 佐证：official | Orchard: An open framework for scalable agentic AI | https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
+- 佐证：paper | MidTool: Mid-training Data Synthesis for Agentic Tool Use | https://arxiv.org/abs/2608.20314v1
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
