@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-08-27T12:36:27.472321+08:00
+生成时间：2026-08-28T14:58:45.067907+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：VMs won't contain cyber-capable agents
+- 重点关注：Orchard: An open framework for scalable agentic AI
 - vllm-project/vllm
-- Echoverse: Deep, evolving environments for computer-use agents
+- Terminal-Bench-Science: Evaluating AI agents on scientific research workflows
 
 ## 关键洞察
-- VMs won't contain cyber-capable agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Terminal-Bench-Science: Evaluating AI agents on scientific research workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -44,29 +44,31 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- VMs won't contain cyber-capable agents：VMs won't contain cyber-capable agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Echoverse: Deep, evolving environments for computer-use agents：Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Terminal-Bench-Science: Evaluating AI agents on scientific research workflows：Terminal-Bench-Science: Evaluating AI agents on scientific research workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 140 天 / 1 source(s) | repo | 1 direct support | 4 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 140 天 / 1 source(s) | official | 5 direct support
-- ollama/ollama：rising / low / 已持续 140 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 140 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 140 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 141 天 / 1 source(s) | repo | 1 direct support | 4 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 141 天 / 1 source(s) | official | 5 direct support
+- ollama/ollama：rising / low / 已持续 141 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 141 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 141 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### VMs won't contain cyber-capable agents
+### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：VMs won't contain cyber-capable agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
 
-- 佐证：official | Why Meta Builds Its Own AI Data Centers | https://about.fb.com/news/2026/08/why-meta-builds-its-own-data-centers/
+- 佐证：official | Broadening access to Skala creates a faster path to predictive DFT | https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/
+- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
+- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
 
 ### vllm-project/vllm
 - 主领域：ai-llm-agent
@@ -78,24 +80,20 @@
 - 交叉印证：1 source(s) | repo | 1 direct support | 4 related context
 - 链接：https://github.com/vllm-project/vllm
 
-- 佐证：paper | MyoMechanix: Biomechanically-Grounded Compositional Skilled Activity Understanding and Coaching | https://arxiv.org/abs/2608.26094v1
+- 佐证：paper | CLAP: Cross-Embodiment Video World Models are Zero-Shot Physical Simulators | https://arxiv.org/abs/2608.27406v1
 
-### Echoverse: Deep, evolving environments for computer-use agents
+### Terminal-Bench-Science: Evaluating AI agents on scientific research workflows
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Terminal-Bench-Science: Evaluating AI agents on scientific research workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：rising
+- 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
-
-- 佐证：official | Broadening access to Skala creates a faster path to predictive DFT | https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/
-- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
-- 佐证：official | Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement | https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://www.terminal-bench-science.ai/announcement
 
 ## 短期推演
-- 观察：VMs won't contain cyber-capable agents 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
