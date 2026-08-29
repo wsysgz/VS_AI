@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-08-28T14:58:45.067907+08:00
+生成时间：2026-08-29T12:14:58.560243+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 83 个主题。
+- 本领域当前命中 159 个主题。
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Terminal-Bench-Science: Evaluating AI agents on scientific research workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Autonomous Mathematical Discovery in an Open-World Multi-Agent Environment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Echoverse: Deep, evolving environments for computer-use agents：Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
@@ -54,27 +54,33 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
 
-### vllm-project/vllm
+### Echoverse: Deep, evolving environments for computer-use agents
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Echoverse: Deep, evolving environments for computer-use agents appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 1 direct support | 4 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 
-- 佐证：paper | CLAP: Cross-Embodiment Video World Models are Zero-Shot Physical Simulators | https://arxiv.org/abs/2608.27406v1
+- 佐证：official | Broadening access to Skala creates a faster path to predictive DFT | https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/
+- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
+- 佐证：official | Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement | https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/
 
-### Terminal-Bench-Science: Evaluating AI agents on scientific research workflows
+### Autonomous Mathematical Discovery in an Open-World Multi-Agent Environment
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Terminal-Bench-Science: Evaluating AI agents on scientific research workflows appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Autonomous Mathematical Discovery in an Open-World Multi-Agent Environment appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://www.terminal-bench-science.ai/announcement
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://arxiv.org/abs/2608.23691
+
+- 佐证：official | Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2 | https://developer.nvidia.com/blog/deploy-agentic-ready-ai-at-the-edge-with-memory-efficiency-in-nvidia-jetpack-7-2/
+- 佐证：official | Maximizing Memory Efficiency with Agent Skills to Run Bigger Models on NVIDIA Jetson | https://developer.nvidia.com/blog/maximizing-memory-efficiency-to-run-bigger-models-on-nvidia-jetson/
+- 佐证：paper | CLAP: Cross-Embodiment Video World Models are Zero-Shot Physical Simulators | https://arxiv.org/abs/2608.27406v1
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
