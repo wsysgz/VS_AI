@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-08-31T09:26:17.142624+08:00
+生成时间：2026-09-01T09:52:42.919258+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：The Rise and Fall of Agent Civilizations
-- Orchard: An open framework for scalable agentic AI
-- vllm-project/vllm
+- 重点关注：vllm-project/vllm
+- Agent memory as a file format
+- Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning
 
 ## 关键洞察
-- The Rise and Fall of Agent Civilizations appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Agent memory as a file format appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -47,42 +47,18 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- The Rise and Fall of Agent Civilizations：The Rise and Fall of Agent Civilizations appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - vllm-project/vllm：vllm-project/vllm appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Agent memory as a file format：Agent memory as a file format appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning：Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 144 天 / 1 source(s) | repo | 5 related context
-- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 144 天 / 1 source(s) | official | 5 direct support
-- ollama/ollama：rising / low / 已持续 144 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 144 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 144 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 145 天 / 1 source(s) | repo | 5 related context
+- Bringing AI Closer to the Edge and On-Device with Gemma 4：rising / medium / 已持续 145 天 / 1 source(s) | official | 5 direct support
+- langchain-ai/langgraph：rising / low / 已持续 145 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 145 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 145 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### The Rise and Fall of Agent Civilizations
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：The Rise and Fall of Agent Civilizations appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://www.dwarkesh.com/p/openai-huggingface
-
-### Orchard: An open framework for scalable agentic AI
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
-
-- 佐证：official | Broadening access to Skala creates a faster path to predictive DFT | https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/
-- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
-- 佐证：official | EvoLib: Turning experience into evolving knowledge | https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/
-
 ### vllm-project/vllm
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
@@ -93,8 +69,32 @@
 - 交叉印证：1 source(s) | repo | 5 related context
 - 链接：https://github.com/vllm-project/vllm
 
+### Agent memory as a file format
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Agent memory as a file format appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://calpaterson.com/memoryfields.html
+
+### Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Beyond Dense States: Sparse Transcoders as Causally Testable Operators for LLM Latent Reasoning appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2602.01695v2
+
+- 佐证：official | Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement | https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/
+- 佐证：paper | Conducting Stylistic Analysis of Paintings through an Art-History Agent | https://arxiv.org/abs/2608.29644v1
+- 佐证：paper | LLMODE: Aligning ODEs with LLMs via Gated Token Injection for Irregular Spatio-Temporal Forecasting | https://arxiv.org/abs/2608.29640v1
+
 ## 短期推演
-- 观察：The Rise and Fall of Agent Civilizations 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：vllm-project/vllm 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
