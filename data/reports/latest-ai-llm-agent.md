@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-09-07T09:06:45.329617+08:00
+生成时间：2026-09-08T09:15:48.680609+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
 
 ## 执行摘要
-- 本领域当前命中 155 个主题。
+- 本领域当前命中 63 个主题。
 
 ## 关键洞察
-- BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - Research acceleration: The view inside OpenAI appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,26 +33,22 @@
 - 暂无
 
 ## 重点主线
-- BenchMIRT: What are LLM benchmarks actually measuring?：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Research acceleration: The view inside OpenAI：Research acceleration: The view inside OpenAI appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### BenchMIRT: What are LLM benchmarks actually measuring?
+### Research acceleration: The view inside OpenAI
 - 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/allenai/benchmirt
-
-- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
-- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
-- 佐证：official | Granite 4.2 LLMs: How They're Built | https://huggingface.co/blog/ibm-granite/granite-4-2
+- 主要矛盾：signal visibility vs evidence depth (evidence=2, sources=2)
+- 核心洞察：Research acceleration: The view inside OpenAI appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：medium
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：2 source(s) | official / community | 5 related context
+- 链接：https://openai.com/index/research-acceleration-view-inside-openai
 
 ### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
@@ -68,18 +64,22 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 
-### Research acceleration: The view inside OpenAI
+### BenchMIRT: What are LLM benchmarks actually measuring?
 - 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=2, sources=2)
-- 核心洞察：Research acceleration: The view inside OpenAI appeared across 2 source(s) with 2 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：medium
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：2 source(s) | official / community | 5 related context
-- 链接：https://openai.com/index/research-acceleration-view-inside-openai
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://huggingface.co/blog/allenai/benchmirt
+
+- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
+- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
+- 佐证：official | Granite 4.2 LLMs: How They're Built | https://huggingface.co/blog/ibm-granite/granite-4-2
 
 ## 短期推演
-- 观察：BenchMIRT: What are LLM benchmarks actually measuring? 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Research acceleration: The view inside OpenAI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
