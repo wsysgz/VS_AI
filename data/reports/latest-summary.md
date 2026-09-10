@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-09-09T09:17:55.955415+08:00
+生成时间：2026-09-10T09:07:13.231313+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
 - 重点关注：Orchard: An open framework for scalable agentic AI
-- BenchMIRT: What are LLM benchmarks actually measuring?
-- I-have-ADHD: A skill to stop coding agents from burying the answer
+- Show HN: Geiger – See every AI agent on your machine and what it can touch
+- Muse, the band, lost its social media handles to Muse, Meta's new AI agent
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- I-have-ADHD: A skill to stop coding agents from burying the answer appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Geiger – See every AI agent on your machine and what it can touch appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Muse, the band, lost its social media handles to Muse, Meta's new AI agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -25,10 +25,10 @@
 
 ### 海外高亮信号
 - frontier-ai：Orchard: An open framework for scalable agentic AI（来源：microsoft-research）
-- frontier-ai：ProcArena: A Multi-Scenario Benchmark for LLMs on Direct and Interactive PL/SQL Development from Natural Language（来源：arxiv-cs-ai）
 - frontier-ai：BenchMIRT: What are LLM benchmarks actually measuring?（来源：huggingface-blog）
 - compute-infra：Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4（来源：arm-news）
 - compute-infra：Arm introduces new AI-native compute platform built for agentic AI and mobile graphics（来源：arm-news）
+- compute-infra：The agentic era needs a computing platform everywhere – Arm is building it（来源：arm-news）
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4。
@@ -48,15 +48,15 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- BenchMIRT: What are LLM benchmarks actually measuring?：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- I-have-ADHD: A skill to stop coding agents from burying the answer：I-have-ADHD: A skill to stop coding agents from burying the answer appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Show HN: Geiger – See every AI agent on your machine and what it can touch：Show HN: Geiger – See every AI agent on your machine and what it can touch appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Muse, the band, lost its social media handles to Muse, Meta's new AI agent：Muse, the band, lost its social media handles to Muse, Meta's new AI agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 153 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 153 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 153 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 153 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 153 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 154 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 154 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 154 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 154 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 154 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Orchard: An open framework for scalable agentic AI
@@ -73,29 +73,32 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 
-### BenchMIRT: What are LLM benchmarks actually measuring?
+### Show HN: Geiger – See every AI agent on your machine and what it can touch
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/allenai/benchmirt
-
-- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
-- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
-- 佐证：official | Granite 4.2 LLMs: How They're Built | https://huggingface.co/blog/ibm-granite/granite-4-2
-
-### I-have-ADHD: A skill to stop coding agents from burying the answer
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：I-have-ADHD: A skill to stop coding agents from burying the answer appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Show HN: Geiger – See every AI agent on your machine and what it can touch appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://github.com/ayghri/i-have-adhd
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://github.com/Atomburstofficial/geiger
+
+- 佐证：official | Arm brings the ecosystem together to build and define the next phase of physical AI | https://newsroom.arm.com/news/arm-total-design-and-robotics-capability-framework-for-physical-ai
+- 佐证：official | NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds | https://blog.st.com/nanoedge-ai-machine-learning/
+- 佐证：repo | onnx/onnx | https://github.com/onnx/onnx
+
+### Muse, the band, lost its social media handles to Muse, Meta's new AI agent
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：Muse, the band, lost its social media handles to Muse, Meta's new AI agent appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
+- 链接：https://www.engadget.com/2254419/muse-the-band-lost-its-social-media-handles-to-muse-meta-s-new-ai-agent/
+
+- 佐证：official | Introducing Muse: The World’s First Personal AI Agent Built for Everyone | https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/
+- 佐证：official | Why Meta Builds Its Own AI Data Centers | https://about.fb.com/news/2026/08/why-meta-builds-its-own-data-centers/
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
