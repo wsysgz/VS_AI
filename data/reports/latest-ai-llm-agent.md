@@ -1,6 +1,6 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-09-13T09:03:55.127577+08:00
+生成时间：2026-09-14T09:17:31.059381+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -10,8 +10,8 @@
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Litelm: LiteLLM Without the Bloat appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- The worst spam emails: iLands AI agent hustle appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Litelm: LiteLLM Without the Bloat：Litelm: LiteLLM Without the Bloat appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Docket – Per-commit evidence records for agent-written code：Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
@@ -54,29 +54,29 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 
-### Litelm: LiteLLM Without the Bloat
+### Docket – Per-commit evidence records for agent-written code
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Litelm: LiteLLM Without the Bloat appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://github.com/kennethwolters/litelm
-
-### The worst spam emails: iLands AI agent hustle
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：The worst spam emails: iLands AI agent hustle appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 3 direct support | 2 related context
-- 链接：https://tedium.co/2026/09/11/ilands-agents-email-spam-kaixin-tang/
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://github.com/Dillonsmart/docket
 
-- 佐证：official | Introducing Muse: The World’s First Personal AI Agent Built for Everyone | https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/
-- 佐证：official | Qualcomm Adreno Neural Fusion breaks the AI-graphics tradeoff with new hardware accelerator | https://www.qualcomm.com/news/onq/2026/09/adreno-neural-fusion-ai-rendering
-- 佐证：official | Why agentic AI needs a completely different mobile architecture: the Qualcomm Hexagon NPU | https://www.qualcomm.com/news/onq/2026/09/hexagon-npu-agentic-ai-architecture
+### BenchMIRT: What are LLM benchmarks actually measuring?
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://huggingface.co/blog/allenai/benchmirt
+
+- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
+- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
+- 佐证：official | Granite 4.2 LLMs: How They're Built | https://huggingface.co/blog/ibm-granite/granite-4-2
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
