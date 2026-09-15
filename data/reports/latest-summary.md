@@ -1,27 +1,27 @@
 # 自动情报快报
 
-生成时间：2026-09-14T09:17:31.059381+08:00
+生成时间：2026-09-15T09:32:19.880292+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：Orchard: An open framework for scalable agentic AI
-- Docket – Per-commit evidence records for agent-written code
-- BenchMIRT: What are LLM benchmarks actually measuring?
+- 重点关注：BenchMIRT: What are LLM benchmarks actually measuring?
+- Orchard: An open framework for scalable agentic AI
+- OpenArch – PyTorch implementations of modern LLM architectures
 
 ## 关键洞察
-- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- OpenArch – PyTorch implementations of modern LLM architectures appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
-- embedded：Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents（来源：espressif-blog）
 - embedded：esparagus: ESP32 flashing with structured output for CI and coding agents（来源：espressif-blog）
 - embedded：瑞芯微 × 面壁智能：完成 MiniCPM5 2B Day 0 原生适配，加速端侧 Agent 产业落地！（来源：rockchip-news）
 - embedded：瑞芯微机器人智能巡检方案｜端侧Agent与自主导航，构建巡检新范式！（来源：rockchip-news）
 - frontier-ai：Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay（来源：zhipu-news）
+- frontier-ai：ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More（来源：ernie-blog）
 
 ### 海外高亮信号
 - frontier-ai：Orchard: An open framework for scalable agentic AI（来源：microsoft-research）
@@ -32,33 +32,45 @@
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4。
-- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2。
+- embedded：国内 esparagus: ESP32 flashing with structured output for CI and coding agents；海外 Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2。
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Orchard: An open framework for scalable agentic AI。
 
 ### 同轨对照
-- embedded：国内 Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents；海外 Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2。
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 BenchMIRT: What are LLM benchmarks actually measuring?。
 
 ### 覆盖缺口
 - 暂无
 
 ### 观察点
-- 继续跟踪 embedded 的国内外同轨发布、生态采用与真实交付反馈。
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- Docket – Per-commit evidence records for agent-written code：Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - BenchMIRT: What are LLM benchmarks actually measuring?：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- OpenArch – PyTorch implementations of modern LLM architectures：OpenArch – PyTorch implementations of modern LLM architectures appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 158 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 158 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 158 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 158 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 158 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 159 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 159 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 159 天 / 1 source(s) | repo | 5 related context
+- tenstorrent/tt-metal：rising / low / 已持续 159 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 159 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
+### BenchMIRT: What are LLM benchmarks actually measuring?
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://huggingface.co/blog/allenai/benchmirt
+
+- 佐证：official | Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL | https://huggingface.co/blog/asyncgrpo-lora-hfjobs
+- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
+- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
+
 ### Orchard: An open framework for scalable agentic AI
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
@@ -73,32 +85,20 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 
-### Docket – Per-commit evidence records for agent-written code
+### OpenArch – PyTorch implementations of modern LLM architectures
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：Docket – Per-commit evidence records for agent-written code appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 核心洞察：OpenArch – PyTorch implementations of modern LLM architectures appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 related context
-- 链接：https://github.com/Dillonsmart/docket
+- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
+- 链接：https://github.com/anuj0456/OpenArch
 
-### BenchMIRT: What are LLM benchmarks actually measuring?
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/allenai/benchmirt
-
-- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
-- 佐证：official | Give Your Coding Agents a Memory You Own | https://huggingface.co/blog/funes
-- 佐证：official | Granite 4.2 LLMs: How They're Built | https://huggingface.co/blog/ibm-granite/granite-4-2
+- 佐证：repo | pytorch/executorch | https://github.com/pytorch/executorch
 
 ## 短期推演
-- 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：BenchMIRT: What are LLM benchmarks actually measuring? 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
