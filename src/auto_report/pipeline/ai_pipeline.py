@@ -165,18 +165,18 @@ def _fallback_analysis(candidate: TopicCandidate) -> dict[str, object]:
     sources_joined = ", ".join(source_ids[:4]) if source_ids else "unknown"
     snippets_preview = (
         candidate.evidence_snippets[0][:120] if candidate.evidence_snippets
-        else f"Collected {evidence_count} evidence items (no text summary available)"
+        else f"已采集到 {evidence_count} 条证据，但暂无可直接摘要的文本。"
     )
     return {
         "title": candidate.title,
         "url": candidate.url,
         "primary_domain": candidate.primary_domain,
-        "facts": [snippets_preview] if snippets_preview else [f"Collected {evidence_count} raw items from {sources_joined}"],
-        "contradictions": ["insufficient evidence depth for contradiction detection"],
-        "primary_contradiction": f"signal visibility vs evidence depth (evidence={evidence_count}, sources={len(source_ids)})",
+        "facts": [snippets_preview] if snippets_preview else [f"已从 {sources_joined} 采集到 {evidence_count} 条原始信息。"],
+        "contradictions": ["信号可见度与证据深度不足之间存在矛盾"],
+        "primary_contradiction": f"信号可见度 vs 证据深度（证据={evidence_count}，来源={len(source_ids)}）",
         "core_insight": (
-            f"{candidate.title} appeared across {len(source_ids)} source(s) with {evidence_count} item(s). "
-            "Requires deeper verification and AI-assisted analysis."
+            f"{candidate.title} 已在 {len(source_ids)} 个来源中出现，共 {evidence_count} 条相关信息。"
+            "当前仍需更深入的证据核验与 AI 辅助分析。"
         ),
         "confidence": "low" if evidence_count <= 1 else "medium",
         "source_count": len(source_ids),
