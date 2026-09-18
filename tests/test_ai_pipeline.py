@@ -3,7 +3,7 @@ from auto_report.pipeline.ai_pipeline import run_staged_ai_pipeline
 
 
 def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
-    monkeypatch.setenv("AI_MODEL", "deepseek-v4-flash")
+    monkeypatch.setenv("AI_MODEL", "deepseek-flash")
 
     candidate = TopicCandidate(
         topic_id="topic-1",
@@ -40,7 +40,7 @@ def test_run_staged_ai_pipeline_returns_structured_outputs(monkeypatch):
     assert outputs["summary"]["one_line_core"].startswith("Agent 评测")
     assert outputs["forecast"]["most_likely_case"] == "基准竞争继续升温"
     assert outputs["ai_metrics"]["provider"] == "deepseek"
-    assert outputs["ai_metrics"]["model"] == "deepseek-v4-flash"
+    assert outputs["ai_metrics"]["model"] == "deepseek-flash"
     assert outputs["ai_metrics"]["token_usage"]["total"] == 0
     assert outputs["ai_metrics"]["fallback_stages"] == []
 
@@ -139,7 +139,7 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_shape_is_invalid(monkeyp
 
     responses = iter(
         [
-            '{"analysis":{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}}',
+            '{"analysis":{"facts":["评测基准发布"],"contradictions":["速度 vs 可靠性"],"primary_contradiction":"速度与可靠性的取舍","core_insight":"评测正在成为 Agent 竞争的核心变量","confidence":"medium"}}',
             '{"analysis":{"situation_overview":"This is not a summary payload"}}',
         ]
     )
@@ -156,7 +156,7 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_shape_is_invalid(monkeyp
     )
 
     assert outputs["stage_status"]["analysis"] == "ok"
-    assert outputs["analyses"][0]["core_insight"] == "evaluation is becoming central"
+    assert outputs["analyses"][0]["core_insight"] == "评测正在成为 Agent 竞争的核心变量"
     assert outputs["stage_status"]["summary"] == "fallback"
     assert outputs["stage_status"]["forecast"] == "fallback"
 
@@ -176,7 +176,7 @@ def test_run_staged_ai_pipeline_falls_back_when_summary_and_forecast_are_english
 
     responses = iter(
         [
-            '{"facts":["Release published"],"contradictions":["speed vs reliability"],"primary_contradiction":"speed vs reliability","core_insight":"evaluation is becoming central","confidence":"medium"}',
+            '{"facts":["评测基准发布"],"contradictions":["速度 vs 可靠性"],"primary_contradiction":"速度与可靠性的取舍","core_insight":"评测正在成为 Agent 竞争的核心变量","confidence":"medium"}',
             '{"one_line_core":"The latest AI agent evaluation wave is intensifying rapidly","executive_summary":["A","B"],"key_points":[{"title":"Signal","why_it_matters":"Matters"}],"key_insights":["Insight"],"limitations":["Need verification"],"actions":["Track benchmarks"]}',
             '{"best_case":"Improves","worst_case":"Lags","most_likely_case":"Continues","key_variables":["deployment"],"forecast_conclusion":"Watch evaluation quality","confidence":"medium"}',
         ]
@@ -231,7 +231,7 @@ def test_run_staged_ai_pipeline_uses_ai_analyses_before_fallback_supplement(monk
         if stage == "analysis":
             analysis_calls["count"] += 1
             idx = analysis_calls["count"]
-            return '{{"facts":["Fact"],"contradictions":["A vs B"],"primary_contradiction":"A vs B","core_insight":"Insight {}","confidence":"medium"}}'.format(idx)
+            return '{{"facts":["事实"],"contradictions":["A vs B"],"primary_contradiction":"A 与 B 的取舍","core_insight":"洞察 {}","confidence":"medium"}}'.format(idx)
         if stage == "summary":
             seen_summary_prompts.append(prompt)
             return '{"one_line_core":"核心判断","executive_summary":["A"],"key_points":[{"title":"信号","why_it_matters":"重要"}],"key_insights":["Insight"],"limitations":[],"actions":["跟踪"]}'

@@ -29,7 +29,7 @@ from auto_report.integrations.langfuse_tracing import (
 _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
     "deepseek": {
         "base_url": "https://api.deepseek.com",
-        "model": "deepseek-v4-flash",
+        "model": "deepseek-flash",
         "key_env": "DEEPSEEK_API_KEY",
     },
     "openai": {
@@ -45,12 +45,12 @@ _PROVIDER_DEFAULTS: dict[str, dict[str, str]] = {
 }
 
 _DEEPSEEK_STAGE_MODEL_DEFAULTS: dict[str, str] = {
-    "analysis": "deepseek-v4-pro",
-    "summary": "deepseek-v4-pro",
-    "forecast": "deepseek-v4-pro",
-    "prefilter": "deepseek-v4-flash",
-    "discovery": "deepseek-v4-flash",
-    "search": "deepseek-v4-flash",
+    "analysis": "deepseek-flash",
+    "summary": "deepseek-flash",
+    "forecast": "deepseek-flash",
+    "prefilter": "deepseek-flash",
+    "discovery": "deepseek-flash",
+    "search": "deepseek-flash",
 }
 
 

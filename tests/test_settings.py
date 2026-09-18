@@ -61,13 +61,13 @@ def test_load_settings_defaults_to_deepseek_v4_stage_routing(tmp_path, monkeypat
 
     settings = load_settings(tmp_path)
 
-    assert settings.env["AI_MODEL"] == "deepseek-v4-flash"
-    assert settings.env["ANALYSIS_AI_MODEL"] == "deepseek-v4-pro"
-    assert settings.env["SUMMARY_AI_MODEL"] == "deepseek-v4-pro"
-    assert settings.env["FORECAST_AI_MODEL"] == "deepseek-v4-pro"
-    assert settings.env["PREFILTER_AI_MODEL"] == "deepseek-v4-flash"
-    assert settings.env["DISCOVERY_AI_MODEL"] == "deepseek-v4-flash"
-    assert settings.env["SEARCH_AI_MODEL"] == "deepseek-v4-flash"
+    assert settings.env["AI_MODEL"] == "deepseek-flash"
+    assert settings.env["ANALYSIS_AI_MODEL"] == "deepseek-flash"
+    assert settings.env["SUMMARY_AI_MODEL"] == "deepseek-flash"
+    assert settings.env["FORECAST_AI_MODEL"] == "deepseek-flash"
+    assert settings.env["PREFILTER_AI_MODEL"] == "deepseek-flash"
+    assert settings.env["DISCOVERY_AI_MODEL"] == "deepseek-flash"
+    assert settings.env["SEARCH_AI_MODEL"] == "deepseek-flash"
 
 
 def test_load_settings_includes_stage_level_ai_env(monkeypatch):

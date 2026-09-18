@@ -88,6 +88,19 @@ def _summary_payload_has_cjk(payload: dict[str, object]) -> bool:
     return False
 
 
+
+def _analysis_payload_has_cjk(payload: dict[str, object]) -> bool:
+    scalar_fields = ("primary_contradiction", "core_insight")
+    for field in scalar_fields:
+        if _contains_cjk(str(payload.get(field, ""))):
+            return True
+
+    for item in payload.get("facts", []):
+        if _contains_cjk(str(item)):
+            return True
+    return False
+
+
 def _forecast_payload_has_cjk(payload: dict[str, object]) -> bool:
     scalar_fields = ("best_case", "worst_case", "most_likely_case", "forecast_conclusion")
     for field in scalar_fields:
@@ -106,7 +119,7 @@ def _build_analysis_prompt(reading: str, candidate: TopicCandidate) -> str:
             reading,
             "你正在自动情报快报流水线中工作。输入不是用户提问，而是系统已经筛选好的主题候选。",
             "任务：基于给定主题候选和证据片段，输出面向晨报编排的结构化分析。",
-            "要求：不要索要补充信息；不要解释流程；不要输出 Markdown；只输出一个 JSON 对象。",
+            "要求：不要索要补充信息；不要解释流程；不要输出 Markdown；只输出一个 JSON 对象；所有面向报告与推送的文本必须使用简体中文。",
             '输出 JSON 字段必须包含：{"facts":["..."],"contradictions":["..."],"primary_contradiction":"...","core_insight":"...","confidence":"low|medium|high"}',
             "主题候选：",
             json.dumps(asdict(candidate), ensure_ascii=False, indent=2),
@@ -234,6 +247,8 @@ def _analyze_single_candidate(
     parsed = _parse_json_block(raw)
     parsed = _unwrap_named_payload(parsed, "analysis")
     parsed = _validate_required_keys(parsed, ANALYSIS_REQUIRED_KEYS)
+    if not _analysis_payload_has_cjk(parsed):
+        raise ValueError("analysis output must contain Chinese text")
     parsed.setdefault("title", candidate.title)
     parsed.setdefault("url", candidate.url)
     parsed.setdefault("primary_domain", candidate.primary_domain)

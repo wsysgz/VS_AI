@@ -59,7 +59,7 @@ $env:PYTHONPATH = "src"
 # DeepSeek 官方
 $env:AI_PROVIDER = "deepseek"
 $env:AI_BASE_URL = "https://api.deepseek.com"
-$env:AI_MODEL = "deepseek-v4-flash"
+$env:AI_MODEL = "deepseek-flash"
 
 # MiniMax-M2.7（OpenAI-compatible）
 $env:AI_PROVIDER = "minimax_svips"
