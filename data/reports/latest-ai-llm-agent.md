@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-09-17T09:34:19.639206+08:00
+生成时间：2026-09-18T09:20:29.030549+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 165 个主题。
+- 本领域当前命中 166 个主题。
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- LLM Classification Is Feature Engineering appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- LLM Classification Is Feature Engineering：LLM Classification Is Feature Engineering appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 
 ## 跨日主线记忆
 - 暂无
@@ -54,12 +54,22 @@
 - 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 
+### LLM Classification Is Feature Engineering
+- 主领域：ai-llm-agent
+- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
+- 核心洞察：LLM Classification Is Feature Engineering appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://minimallysufficient.com/posts/llm-classification-is-feature-extraction/
+
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
 - 核心洞察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
@@ -67,20 +77,6 @@
 - 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
 - 佐证：official | Deploy Agentic-Ready AI at the Edge with Memory Efficiency in NVIDIA JetPack 7.2 | https://developer.nvidia.com/blog/deploy-agentic-ready-ai-at-the-edge-with-memory-efficiency-in-nvidia-jetpack-7-2/
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
-
-### BenchMIRT: What are LLM benchmarks actually measuring?
-- 主领域：ai-llm-agent
-- 主要矛盾：signal visibility vs evidence depth (evidence=1, sources=1)
-- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? appeared across 1 source(s) with 1 item(s). Requires deeper verification and AI-assisted analysis.
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/allenai/benchmirt
-
-- 佐证：official | Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL | https://huggingface.co/blog/asyncgrpo-lora-hfjobs
-- 佐证：official | Canadian Start-up smartARM Uses AI to Create Intuitive Bionic Prosthetics | https://about.fb.com/news/2026/09/canadian-start-up-smartarm-uses-ai-to-create-intuitive-bionic-prosthetics/
-- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
