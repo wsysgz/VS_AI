@@ -13742,7 +13742,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Show HN: An e-ink frame that hears birds and draws them as 1800s illustrations</h3>
-  <p>Score: 2274 | Comments: 255 | Text: See also: Avian Visitors - https://news.ycombinator.com/item?id=48343424 - May 2026 (20 comments)</p>
+  <p>Score: 2281 | Comments: 256 | Text: See also: Avian Visitors - https://news.ycombinator.com/item?id=48343424 - May 2026 (20 comments)</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
@@ -17792,7 +17792,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Nvidia announces native GPU programming in Rust</h3>
-  <p>Score: 926 | Comments: 381</p>
+  <p>Score: 938 | Comments: 391</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
@@ -20865,6 +20865,21 @@
     <a href="archives/2026-05-07/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>An Empirical Study of Harness Design for Coding Agents</h3>
+  <p>Coding harnesses shape how autonomous coding agents translate model capabilities into long-horizon software-engineering performance, yet existing work typically evaluates harnesses as monolithic systems, leaving the effectiveness of individual components unclear. To enable component-level comparisons, we study this question with a lightweight coding harness whose execution loop is fixed while three components are varied: planning, action space, and context management. Across four models evaluated on SWE-Bench Verified and Terminal-Bench 2.1, we evaluate 176 matched settings spanning five context-management strategies, four context-window budgets, and targeted ablations of planning and action space. We find that: (1) Context management becomes increasingly valuable as the context-window budget tightens, with most of its benefit coming from preventing context-overflow failures. (2) Staging rule-based elision before LLM-based summarization provides the strongest overall efficiency among the context-management strategies, whereas making elided content recoverable adds machinery that models rarely use and yields no accuracy gain. (3) Planning shifts from an accuracy scaffold for weaker models to a cost saver for stronger models, with little change in accuracy. (4) Predefined tools improve performance for models with weaker bash proficiency, whereas bash-capable models can operate effectively with a bash-only interface and achieve substantially lower cost, especially on command-line-centric tasks. Trajectory-level analysis explains these effects: context management extends execution trajectories without substantially altering agent behavior, planning changes where trajectories stop, and the action space changes the granularity at which code is written. These findings inform model- and budget-aware harness design and provide a modular framework for evaluating future harness components.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.06.30</span>
   <h3>An Interpretable, Controllable Time-Varying IIR Denoiser for On-Device Assistive Hearing</h3>
   <p>We present TVF (Time-Varying Filtering), an interpretable, low-latency speech enhancement model for real-time, on-device assistive hearing. A lightweight neural controller predicts, in real time, the coefficients of a differentiable cascade of 35 second-order IIR filters (biquads), so the model tracks non-stationary noise while keeping a fully interpretable processing chain: every spectral modification is an explicit, adjustable equalizer curve rather than an opaque `black-box&#x27; transform. Because the biquad cascade carries the signal processing, the controller can be made very small, driving the cascade with only 24k parameters at a 10.7ms algorithmic latency, within hearing-aid budgets, and running entirely on-device so that audio never leaves the device. We also expose the suppression-versus-preservation trade-off as an explicit control: it can be set during training through the loss weighting, and adjusted at inference, with no retraining, by mixing the noisy input with the denoised output. On hearing-aid metrics (HASPI/HASQI) the 24k model stays within about 0.02 of DFNet3 (2.3M parameters, almost two orders of magnitude larger) while using about 29X fewer multiply-accumulates, although larger black-box models still lead on reference metrics such as PESQ. We present TVF as a proof of concept for a compact, interpretable, and controllable denoiser for on-device assistive hearing.</p>
@@ -21780,6 +21795,21 @@
     <a href="archives/2026-07-23/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Coding Agents with an Obstacle-Aware Harness for Safe Robot Manipulation</h3>
+  <p>Coding agents have emerged as a promising paradigm for robot manipulation: a language model writes the robot controller as a program, and agents built in this way now operate robots without robot-specific training.Whether this paradigm is also safe, however, has not been asked. We evaluate coding agent under a safety constraint, where each task pairs a manipulation goal with an obstacle the robot must not touch. The agent pursues the goal but collides with the obstacle in most cases, treating task completion as its sole objective while neglecting safety. The agent reasons about the obstacle in its traces, and the prompt already forbids touching it, so neither perception nor instruction is at fault; the fault lies in the planning, where the stated constraint never becomes a priority. By decomposing manipulation into a route phase and a contact-rich moment, we locate the source of the failure. Along the route, the model cannot prioritize the safety constraint, having no notion of a clearing route and none of replanning once a chosen route becomes infeasible. At the contact, it is unaware that contact execution is bounded by the same constraint. To close this gap, we present SafeHarness, which equips the model with two obstacle-aware harnesses that enable it to prioritize the safety constraint. Obstacle-aware route planning grounds the objects as bounding boxes and draws candidate routes over them as sequences of waypoints. The agent then plans a route in advance, verifies it, replans when necessary, and only then executes it. Obstacle-aware contact execution instead selects the contact position so that the contact itself avoids the obstacle. SafeHarness attains 71.9% task success and 87.5% collision avoidance, surpassing the previous SOTA by 6.5% and 27.0%, respectively. These results are $2.3\times$ and $1.5\times$ those of the same agent without harnesses.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.07.15</span>
   <h3>Coding agents think ahead of time</h3>
   <p>Score: 88 | Comments: 73</p>
@@ -22515,21 +22545,6 @@
     <a href="archives/2026-05-13/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Faithful, Not Corrective: Model Capability Governs Message-Format Effects in Multi-Hop Agent Relays</h3>
-  <p>When LLM agents hand information to one another, does the message format matter? Two literatures disagree: format-optimization work reports that structured messages cut cost without hurting accuracy, while format-restriction studies find that imposing structure degrades generation. Neither line has measured what happens when messages traverse multiple hops, where copy fidelity, rather than one-shot generation quality, dominates. We introduce a controlled relay testbed in which briefs of twelve programmatic atomic facts are re-encoded hop by hop in five formats (free natural language, precision-instructed NL, JSON, triples, key-value) over six hops, scored against programmatic ground truth by a fixed strong grader, across two relay-capability tiers, a cognitive-load condition, and a paired-fork error injection. We find that (i) a strong relay is nearly lossless for every format (hop-6 QA recall $\geq 0.973$), with residual loss concentrated at the first encoding step; (ii) per-hop cognitive load raises generation cost by 24-53% while fidelity changes stay within $\pm 1.8$ points; (iii) under a weak 1.5B relay, the across-format dispersion of hop-6 recall grows by a factor of $8.7$ (CI 5.3-15.5), driven by an encode-drift trade-off that flips the format ranking in transit; and (iv) once an injected error is present, every format propagates it faithfully (surface persistence 83-100%) and no format cascades collateral damage onto neighboring facts. Structure buys a faithful, error-localizing channel, not an error-correcting code.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.07.24</span>
   <h3>Fara-1.5: Scalable Learning Environments for Computer Use Agents</h3>
   <p>Collecting computer use data from human demonstrations is expensive and slow, motivating the need for scalable generation strategies. This requires two key ingredients: environments in which agents can act and verifiers that can judge whether their demonstrations succeeded. We introduce FaraGen1.5, a scalable data pipeline for computer use agents composed of three modular components: environments, solvers, and verifiers. FaraGen1.5 uses both live websites and synthetic environments that faithfully simulate domains gated by authentication or that require irreversible actions. It employs a solver harness that can be powered by multiple models, including strong frontier models such as GPT-5.4, and also incorporates a user simulator to enable multi-turn rollouts. Finally, FaraGen1.5 scores the resulting trajectories with three complementary verifiers covering task correctness, efficiency, and critical-point adherence. Using data produced by this pipeline, we train Fara1.5, a family of native computer use agents (CUAs) at three scales built on Qwen3.5 (4B, 9B, and 27B). To train these models, we employ a supervised finetuning (SFT) recipe that carefully balances data from FaraGen1.5 for broad coverage, specific high-value tasks, and target model deficiencies in an iterative approach. Each model sets a new state of the art (SoTA) for its size class on browser-use benchmarks: Fara1.5-9B reaches 63.4% on Online-Mind2Web and 86.6% on WebVoyager, while Fara1.5-27B achieves 72.3% on Online-Mind2Web, which is competitive with much larger proprietary systems. We also release weights for the Fara1.5 models under MIT license, making SoTA computer use accessible for all beyond closed API-only systems.</p>
@@ -23222,7 +23237,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>How to Write with an LLM</h3>
-  <p>Score: 57 | Comments: 52</p>
+  <p>Score: 106 | Comments: 72</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -23447,7 +23462,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Infinite-Parameter LLMs: Generating and Adapting Weights from Live Data</h3>
-  <p>Score: 107 | Comments: 30</p>
+  <p>Score: 134 | Comments: 38</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -23687,7 +23702,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>LLM Classification Is Feature Engineering</h3>
-  <p>Score: 88 | Comments: 18</p>
+  <p>Score: 98 | Comments: 19</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -24122,7 +24137,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Launch HN: Skillsync (YC W26) – AI chat sessions made portable across agents</h3>
-  <p>Score: 47 | Comments: 46 | Text: Hey HN, we&#x27;re Nars &amp; Nishant, founders of Skillsync ( https://skillsync.com ) Skillsync lets you move your AI chats across every coding agent. Most of our work exists as conversations, which are currently scattered across our agents. T</p>
+  <p>Score: 55 | Comments: 53 | Text: Hey HN, we&#x27;re Nars &amp; Nishant, founders of Skillsync ( https://skillsync.com ) Skillsync lets you move your AI chats across every coding agent. Most of our work exists as conversations, which are currently scattered across our agents. T</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -25305,6 +25320,21 @@
     <a href="archives/2026-08-11/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Quantifying Overclaiming Propensity in Frontier LLM Agents</h3>
+  <p>Frontier coding agents are increasingly trusted to work autonomously for long periods, yet an agent&#x27;s final response is often the only account of that work a user sees. We quantify the propensity of frontier agents to \emph{overclaim} task completion, a misrepresentation that can mislead the user. An agent overclaims when its final response contradicts information in its context. This definition requires no inference about intent and is independent of task success. We introduce \emph{OverclaimBench}, an evaluation suite composed of five file-review scenarios, transcript-based coverage measurements, and registered planted defects. We evaluate eight proprietary frontier models in their own production command-line interfaces, and four open-weight models under a single fixed harness on OverclaimBench and find that 1) agents do not read all the files they were asked to review in 67.9\% of runs; 2) among runs where not all files are read, agents are \emph{misleading} 80.4\% of the time (59--96\% per model), either falsely claiming to have read all files or omitting that coverage is incomplete; 3) requiring delegation to subagents increased reading coverage, but among reviews that remained incomplete, a large majority were still misleading; and 4) agents that falsely claimed a complete review missed planted defects at about 1.8 times the rate of agents that read every file, showing that claims of completion can conceal substantive failures. Together, these results show that agents&#x27; final responses are not reliable accounts of their actions.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.07.28</span>
   <h3>Quantum Spectral Model: Data Reuploading with Input-Conditioned Frequency Support</h3>
   <p>A central design principle in modern machine learning and artificial intelligence is to align a model&#x27;s inductive bias with the structure of its input data. For matrix-valued inputs, relevant matrix-level relationships can be characterised through spectral values and spectral subspaces; however, common coordinate-wise rotation-gate data-encoding unitaries used in most quantum machine learning models do not explicitly construct such a matrix-level representation. We introduce Quantum Spectral Models (QSMs), in which we construct the generator of the data-encoding unitary directly from each input matrix. We study three QSM variants based on symmetric, global block, and non-overlapping patch-local block Hamiltonians. Their outputs admit truncated Fourier representations in which input-dependent spectral gaps supply candidate phase carriers, while spectral subspaces help determine their coefficients. We evaluate the QSMs and comparison quantum models on two matrix representations of Pendigits and two controlled synthetic tasks defined by spectral statistics. At the largest evaluated circuit depth, QSM variants lead the tested quantum models in mean test accuracy across all four benchmarks. The patch-local QSM leads on Pendigits, whereas the global block-Hamiltonian QSM leads on the controlled spectral tasks. Ablations show a task-dependent reversal: subspace-preserving controls perform better on Pendigits, whereas spectral-value-only controls lead among the tested ablations on the synthetic tasks. Together, these results shed new light on quantum machine-learning model design by showing how input-conditioned spectral representations can provide an analysable inductive bias, while offering a broader perspective on structure-aware model design in machine learning and artificial intelligence.</p>
@@ -25590,6 +25620,21 @@
     <a href="archives/2026-09-11/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>RetireOPD: Self-Retiring On-Policy Distillation for Agentic Reinforcement Learning</h3>
+  <p>Multi-turn agents trained with reinforcement learning (RL) receive a single scalar reward per trajectory, which motivates self on-policy distillation (OPD) to supply dense token-level supervision from a self-teacher with privileged task skills, letting a skill-free student internalize them. This recipe, however, is undermined by two findings in agentic tasks: privileged information alone does not always make a teacher reliable, and the benefit of teacher supervision is stage-dependent. We therefore propose RetireOPD (Self-Retiring On-Policy Distillation), which first optimizes a decoupled, skill-conditioned teacher with environment rewards and then trains a skill-free student jointly with RL and OPD. Rather than following a predefined distillation schedule, RetireOPD adopts Adaptive Retirement: the student drops the teacher on its own once their discrepancy stops shrinking and it reaches a target fraction of the teacher&#x27;s success rate, after which training proceeds with RL alone. Across Qwen2.5 models from 1.5B to 7B, RetireOPD improves ALFWorld success rate over RL baseline by 14.1% to 18.8% and WebShop accuracy by 11.8% to 19.0%, and surpasses its own skill-conditioned teacher in every setting.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">medium</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.04.16</span>
   <h3>Rhetorical Questions in LLM Representations: A Linear Probing Study</h3>
   <p>Rhetorical questions are asked not to seek information but to persuade or signal stance. How large language models internally represent them remains unclear. We analyze rhetorical questions in LLM representations using linear probes on two social-media datasets with different discourse contexts, and find that rhetorical signals emerge early and are most stably captured by last-token representations. Rhetorical questions are linearly separable from information-seeking questions within datasets, and remain detectable under cross-dataset transfer, reaching AUROC around 0.7-0.8. However, we demonstrate that transferability does not simply imply a shared representation. Probes trained on different datasets produce different rankings when applied to the same target corpus, with overlap among the top-ranked instances often below 0.2. Qualitative analysis shows that these divergences correspond to distinct rhetorical phenomena: some probes capture discourse-level rhetorical stance embedded in extended argumentation, while others emphasize localized, syntax-driven interrogative acts. Together, these findings suggest that rhetorical questions in LLM representations are encoded by multiple linear directions emphasizing different cues, rather than a single shared direction.</p>
@@ -25693,21 +25738,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.04 → 2026.08.04</span>
     <a href="archives/2026-08-04/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>STR-Agent: An LLM-Driven Agent for QoS-Aware Routing in LEO Satellite Networks</h3>
-  <p>LEO satellite networks feature dynamic topologies, time-varying links, and diverse service requirements, which make conventional routing schemes difficult to support fine-grained quality-of-service (QoS) provisioning. Existing studies mainly optimize routing over network states with predefined objectives, but rarely address the practical challenge of translating unstructured natural-language service requests into adaptive routing decisions. To bridge this gap, we propose STR-Agent, an LLM-driven framework for QoS-aware routing in LEO satellite networks. The key innovation of STR-Agent lies in unifying intent perception, tool-based execution, experience accumulation, and reflection-based policy adaptation within a single agent architecture. Specifically, the Perception Module converts natural-language requests into structured routing semantics, while the Reflection Module dynamically adjusts the service-to-routing-policy mapping according to real-time congestion conditions and historical routing outcomes, rather than relying on a fixed routing objective. In addition, we develop a specialized perception model, and construct a domain-specific supervised fine-tuning dataset for LEO service understanding. Simulation results in a Walker-Delta constellation show that STR-Agent significantly outperforms conventional baselines: it reduces end-to-end delay by up to 60% compared with DQ-Dijkstra, improves average intent-understanding accuracy from 45.4% to 92.45% after supervised fine-tuning, and the Reflection Module further reduces the delay by 120 ms at 600 Mbps. These results demonstrate the potential of LLM-driven agent architectures to enable service-aware and adaptive QoS routing in future LEO satellite networks.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">medium</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.08.26</span>
@@ -29520,21 +29550,6 @@
     <a href="archives/2026-04-20/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>NeuSOGA3D: A Neuro-Symbolic Framework for Explainable 3D Geometric Reconstruction</h3>
-  <p>Three-dimensional reconstruction from unorganized point clouds remains a challenging problem in computer vision, geometric modeling, and computer-aided design. While neural implicit methods achieve impressive reconstruction accuracy, geometry is typically encoded in latent representations that limit interpretability and reuse within engineering workflows. We present NeuSOGA3D (Neuro-Symbolic Geometric Abstraction in 3D), a hybrid framework that combines learned perceptual priors inherited from NeuSOGA with explicit symbolic geometric reasoning. The method projects point clouds onto principal orthographic planes, constructs symbolic implicit spline representations from the resulting observations, and fuses them through shape-preserving constructive solid geometry operations to generate a coarse visual hull. Additional geometric detail is recovered through cross-sectional decomposition and volumetric reconstruction using Partial Shape-Preserving Splines. Unlike conventional neural implicit approaches, NeuSOGA3D progressively transforms observations into explicit symbolic entities, including control polygons, implicit spline fields, cross-sections, and volumetric lofts. Experiments on all forty categories of the ModelNet40 benchmark demonstrate the ability of the framework to recover structurally meaningful and CAD-compatible geometric representations from diverse point-cloud observations. The results highlight the potential of combining learned perception with symbolic geometric reasoning for explainable geometric intelligence.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.07.04</span>
   <h3>New serious vulnerabilities spiked around release of Claude Mythos Preview</h3>
   <p>Score: 26 | Comments: 7</p>
@@ -31258,21 +31273,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.06.04 → 2026.06.04</span>
     <a href="archives/2026-06-04/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>A Qualitative Model for Reasoning about Path and Support</h3>
-  <p>Spatial reasoning abilities correlate strongly with performance in STEM fields. Games offer a compelling medium for training these critical skills in developing children who have a natural proclivity for play. However, to facilitate human-like tutoring and player guidance, these games require an AI agent capable of making commonsense inferences from spatial events. Qualitative reasoning (QR) models appear to be a suitable framework for these application domains. As these models reason in symbolic representations, they can seamlessly translate game states into interpretable feedback for human-like player guidance. This paper introduces a hybrid qualitative model designed for Camelot Jr., a block-puzzle game that requires constructing multi-level bridges to connect two avatars stationed on separate towers. The game poses a challenge for the player, who must make platforms stable, plan their path, and ensure they use all the provided blocks. To handle the precise physics required by the domain, we integrate a mathematical center-of-mass stability logic to guide our qualitative solver. Our work facilitates spatial skill training in Camelot Jr. and contributes to the development of human-centric, explainable game-playing agents.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.07.14</span>
@@ -33210,21 +33210,6 @@
     <a href="archives/2026-05-11/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Accelerating Sharded Data Parallelism at Scale with Federated Learning</h3>
-  <p>The symbiotic scaling of artificial intelligence models and high-performance computing systems continually creates algorithmic challenges in their convergence. Foundation models (FMs) are a crucial example, requiring months-long training on thousands of cutting-edge GPUs. Sharded data parallelism (DP) is the dominant strategy to accelerate such computations by splitting data and models across multiple GPUs. However, it incurs prohibitive communication overhead when deployed at scale, particularly on multi-tier interconnects with heterogeneous performance. Inspired by the efficient communication principles of federated learning (FL), this work introduces two hybrid algorithms - FL+FSDP and FL+HSDP - interleaving sharded DP with FedAvg-style aggregations. Such approaches decouple large DP deployments into smaller, loosely-coupled federation groups, requiring minimal inter-group traffic while keeping the global batch size bounded by the groups&#x27; size. Formal analysis of communication costs and experimental validation prove their scalability and flexibility. A Llama3.1 8B pre-training on 512 A100 GPUs shows that, under identical hyperparameters, FL+FSDP and FL+HSDP achieve up to 8.04 faster data processing and 4.48 lower evaluation perplexity than their counterparts, demonstrating superior computational efficiency and improved model quality. These properties stem from reduced communication overhead and the bounded growth of the global batch size relative to the federation group size.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.09.17</span>
   <h3>Accurate Models of AMD Matrix Cores</h3>
   <p>Score: 60 | Comments: 7</p>
@@ -34935,6 +34920,21 @@
     <a href="archives/2026-07-22/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Apple detectives solved mystery of ancient tree and rewrote the history of fruit</h3>
+  <p>Score: 30 | Comments: 3</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.09.13</span>
   <h3>Apple iPod Engraver (2019)</h3>
   <p>Score: 112 | Comments: 20</p>
@@ -35383,21 +35383,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.03 → 2026.08.03</span>
     <a href="archives/2026-08-03/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Artificial intelligence now beats some of the best human forecasters</h3>
-  <p>Score: 111 | Comments: 95</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.08.12</span>
@@ -36017,7 +36002,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Bend – A language that blocks AI mistakes via proof, on CPU and GPU</h3>
-  <p>Score: 271 | Comments: 136</p>
+  <p>Score: 408 | Comments: 197</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -36422,7 +36407,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Bonsai 2 27B: Near-Lossless Compression in a 9x Smaller Footprint</h3>
-  <p>Score: 199 | Comments: 64</p>
+  <p>Score: 366 | Comments: 115</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -37037,7 +37022,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>CCC invites all model citizens to 40C3</h3>
-  <p>Score: 333 | Comments: 179</p>
+  <p>Score: 352 | Comments: 183</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -37513,21 +37498,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.06.23 → 2026.06.23</span>
     <a href="archives/2026-06-23/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Canto: A speech model built for the real world</h3>
-  <p>Score: 32 | Comments: 13</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.05.09</span>
@@ -38473,21 +38443,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.05 → 2026.08.05</span>
     <a href="archives/2026-08-05/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Cloudflare/Security-Audit-Skill</h3>
-  <p>Score: 193 | Comments: 36</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.07.10</span>
@@ -40560,6 +40515,21 @@
     <a href="archives/2026-06-11/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Diplodocus, Long Thought Exclusively American, Turns Up in Spain</h3>
+  <p>Score: 55 | Comments: 32</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.05.08</span>
   <h3>Dirtyfrag: Universal Linux LPE</h3>
   <p>Score: 681 | Comments: 277</p>
@@ -41083,6 +41053,21 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.07.09 → 2026.07.09</span>
     <a href="archives/2026-07-09/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>ERCPMP-Gx: Endoscopic Image and Video Dataset for Morphological, Histopathological, and Genomic Characterization of Colorectal Polyposis</h3>
+  <p>Hereditary polyposis syndromes can be precursor lesions to colorectal cancer and are associated with a broad spectrum of extracolonic tumors. Early identification and accurate classification of these syndromes are essential for timely diagnosis, individualized patient management, and targeted surveillance strategies for affected families. However, public endoscopic datasets are largely organized around the individual sporadic polyp, and none links the polyposis phenotype to histopathology and germline findings at the patient level. Here, we present ERCPMP-Gx, an endoscopic, histopathological, and genomic dataset developed to support the application of artificial intelligence (AI) in the recognition, characterization, and classification of colorectal polyposis. Most procedures were performed using the Olympus EVIS X1 system with white-light endoscopy (WLE), narrow-band imaging (NBI), magnifying NBI (M-NBI), and NBI with near focus modes, yielding 160 images and accompanying video clips. Approximately eighty percent of cases represent clinically and/or genetically confirmed hereditary polyposis syndromes (PG), including familial adenomatous polyposis (FAP), Peutz-Jeghers syndrome (PJS), juvenile polyposis syndrome (JPS), and ganglioneuroma syndrome (GNS), while the remaining twenty percent comprise non-hereditary polyps and polyp-mimicking lesions with overlapping morphological features (Non-PG), included to support differential classification. Each released record is linked, where available, to standardized endoscopic annotations, representative histopathology, and clinically reported germline findings, forming an AI-ready, patient-level annotation framework. The dataset is publicly accessible at Mendeley (https://doi.org/10.17632/nzyfc544bx.2). For the latest updates and further information, readers are referred to the DataBioX website: https://databiox.com.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.05.08</span>
@@ -41880,6 +41865,21 @@
     <a href="archives/2026-07-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>FAMOS: Feed-Forward 3D Articulation Modeling from Sparse Observations</h3>
+  <p>Modeling articulated objects from sparse monocular views is challenging because each observation reveals only partial geometry and motion evidence. Most feed-forward methods infer articulation from a single observation and therefore rely heavily on learned category-level shape priors. We present FAMOS, a feed-forward model that predicts movable-part segmentation and joint parameters from a sparse, unordered set of partial point clouds. Our model jointly reasons over multiple observations and naturally supports a variable number of inputs, including a single view. To aggregate articulation cues across observations, we introduce a Multi-state Articulation Transformer with alternating state-wise and global attention. We further propose an observed articulation span objective that supervises the motion range each part exhibits across the input observations, encouraging the model to leverage the full observation set. To overcome the limited scale and diversity of existing datasets, we introduce a procedural data generator that synthesizes self-annotated assets during training. Experiments on PartNet-Mobility, ACD, and ArtiCraft-10K demonstrate consistent improvements over both feed-forward and optimization-based baselines. Project page: https://kevinqu7.github.io/famos</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI × 电子</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.07.01</span>
   <h3>FARS: A Fully Automated Research System Deployed at Scale</h3>
   <p>Recent automated research systems show that language-model agents can generate hypotheses, run experiments, and write complete manuscripts, but most evidence still comes from selected examples, human-framed topics, or a few pre-defined research tasks. We present FARS (Fully Automated Research System), a fully automated AI-for-AI research system designed to operate across research topics at scale. FARS autonomously generates and advances projects through ideation, planning, experimentation, and writing, using stage-specific agents coordinated through a shared workspace that records proposals, code, logs, results, and manuscripts. In its first public deployment, FARS produced 166 complete research papers spanning 67 fine-grained AI/ML topics while preserving intermediate artifacts as an auditable corpus rather than a curated set of successes. We evaluate this corpus with 282 structured reviews from volunteer reviewers covering 140 papers, including overall ratings, sub-scores, integrity checks, and LLM-use disclosure. The reviews indicate that FARS can produce review-worthy and occasionally strong AI/ML research artifacts in a large-scale public deployment, while also exposing recurring failure modes in narrow experimental scope, methodological limitations, and integrity issues.</p>
@@ -42557,7 +42557,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Flet 1.0 – Build cross-platform apps in Python</h3>
-  <p>Score: 52 | Comments: 19</p>
+  <p>Score: 94 | Comments: 44</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -43590,21 +43590,6 @@
     <a href="archives/2026-04-22/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Generating Heterogeneous 3D Geological Microstructures from 2D Images via a Stable Diffusion-Adversarial Model</h3>
-  <p>Characterizing the physical properties of clay and cementitious materials matters across many fields, from materials science to geological waste disposal. Property simulation typically calls for 3D imaging, which is expensive, not always accessible, and technically limited for certain materials. Recent progress in deep generative models offers a way around this, reconstructing 3D volumes from the more easily acquired 2D images. Among GAN-based methods for 3D microstructure generation, SliceGAN has shown strong results for homogeneous isotropic and anisotropic systems. It struggles, however, to capture the finer detail of more complex heterogeneous microstructures, which motivates alternative generative frameworks. We introduce a hybrid approach that draws on the stability and generation quality of denoising diffusion models. Since no 3D ground truth is available, we replace the standard denoising loss with an adversarial loss, which yields a stable training process in our experiments. We show that the resulting model generates microstructures of varying complexity with minimal slice artefacts and close agreement with ground-truth phase fractions and structural descriptors.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.07.24</span>
   <h3>Generative AI floods and dilutes the market for books</h3>
   <p>Generative AI can produce book-length works of fiction at near-zero cost. These books are often dismissed as low-quality ``slop&#x27;&#x27; that buyers will ignore, and are assumed to carry little commercial weight. We test that assumption with full-text AI detection across 14,419 self-published genre-fiction books sold on Amazon from 2023 to 2026, matched to daily sales records through June 2026. None of these books disclose whether or not they contain AI-produced content. We find that books for which we detected substantial AI text ($&gt;$ 25\%) make up a large share of the catalog but a smaller share of sales. Even so, they reach commercial scale, winning a growing share of sales over time and taking more of the scarce top-rank positions once held by books with no detected AI text. Over this period, the number of books with observed sales in a quarter grew 19.2-fold, while quarterly revenue grew only 8.9-fold. The market therefore added selling books faster than it added revenue, and revenue per selling book fell across most genres. Books with no AI text lose the most ground in genres with high AI diffusion, and most of all where Kindle Unlimited availability is high. Among top-selling books, those with substantial AI text draw on more distinctive language from existing books than do books with no AI text; for these books overlap rises with revenue, a gradient we do not detect for books with no AI text. Generative AI can thus reshape a creative market through scale rather than quality. Our results bear directly on the market-effect question at the center of the fair use defense to copyright infringement.</p>
@@ -43633,6 +43618,21 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.09 → 2026.08.09</span>
     <a href="archives/2026-08-09/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>GeoAAC: Geometry-Based Adaptive Action Chunking from Denoising Trajectories in VLA Policies</h3>
+  <p>Action chunking is widely used for action generation and execution in Vision-Language-Action (VLA) policies, yet existing approaches commonly use a fixed action horizon. During a rollout, different task stages may require different levels of action continuity, control precision, and closed-loop feedback, making a fixed horizon unable to accommodate changing control requirements. We propose \textbf{GeoAAC}, a geometry-based adaptive action chunking method for flow-based VLA policies that adjusts the action horizon according to the reliability of the current action prediction. We show that the geometry of Flow Matching denoising trajectories provides process-level information for characterizing prediction reliability, with geometric variation across action prefixes remaining positively correlated with predictive uncertainty. GeoAAC uses this prefix-wise geometry to construct a horizon-wise geometric profile and adaptively determine the action horizon from a single generation without additional training. Experiments with GR00T N1.5 and π0.5 on LIBERO, LIBERO-Pro, RoboCasa365, and real-world manipulation tasks show consistent improvements over fixed-action-horizon baselines and existing adaptive methods, including up to 8.7 percentage points in simulation and an increase in average real-world success rate from 53.3\% to 74.4\%.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.07.09</span>
@@ -44985,6 +44985,21 @@
     <a href="archives/2026-07-21/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Hacking OpenAI</h3>
+  <p>Score: 238 | Comments: 74</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.08.21</span>
   <h3>Hacking with Claude on a $27 smart watch</h3>
   <p>Score: 78 | Comments: 44</p>
@@ -45118,6 +45133,21 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.05.21 → 2026.05.21</span>
     <a href="archives/2026-05-21/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Harm Laundering in GPT Models: Evidence That Gender Discrimination Is Transformed Rather Than Reduced Across Safety-Trained Generations</h3>
+  <p>Safety evaluations for large language models rely on surface-form classifiers that report declining harm scores across model generations. We provide evidence that this methodology is systematically incomplete: explicit discriminatory content is transformed rather than removed. We call this \emph{harm laundering}. Analysing 450,000 gender-directed completions across 15 models spanning GPT-2 through to GPT-5 (OpenAI GPT lineage; three demographic conditions), we show that sexual violence clusters prevalent in GPT-2 women-directed output disappear by GPT-4, while men-directed completions gain positive representational territory (caregiving, emotional range, ally identity) that women-directed completions do not. The pattern is most visible at GPT-5: Topic~5 (1,997~documents) frames breast cancer as a men&#x27;s rights debate, while zero equivalent clusters appear in women-directed output. Three independent classifiers score this content as non-toxic. Sentiment scores invert at GPT-4: early models demean women; later models over-correct. Topic diversity in women-directed completions falls 36\% relative to men at the GPT-4 alignment boundary (W/M~$= 0.58$, from $0.91$ at GPT-2). REGARD representational harm disparity correlates with release date ($ρ= +0.55$, $p = .034$) while Detoxify does not ($ρ= -0.23$, $p = .42$): toxicity scores fall as representational harm grows. We formalise harm laundering as a three-criteria test and provide a three-stage detection protocol applicable to any generative model. Within the OpenAI GPT lineage, toxicity score reduction is not a sufficient proxy for harm reduction.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.07.29</span>
@@ -45298,21 +45328,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.13 → 2026.08.13</span>
     <a href="archives/2026-08-13/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>High-Resolution Range Profile Classifiers Require Aspect-Angle Awareness</h3>
-  <p>We revisit High-Resolution Range Profile (HRRP) classification with aspect-angle conditioning. While prior work often assumes that aspect-angle information is incomplete during training or unavailable at inference, we study a setting where angles are available for all training samples and explicitly provided to the classifier. Using three datasets and a broad range of conditioning strategies and model architectures, we show that both single-profile and sequential classifiers benefit consistently from aspect-angle awareness, with an average accuracy gain of about 7% and improvements of up to 10%, depending on the model and dataset. In practice, aspect angles are not directly measured and must be estimated. We show that a causal Kalman filter can estimate them online with a median error of 5{\textdegree}, and that training and inference with estimated angles preserves most of the gains, supporting the proposed approach in realistic conditions.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.26</span>
@@ -45587,7 +45602,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>How GLM built its own inference infrastructure</h3>
-  <p>Score: 375 | Comments: 262</p>
+  <p>Score: 387 | Comments: 270</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -45782,7 +45797,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>How Uber Protects Against Retry Storms</h3>
-  <p>Score: 32 | Comments: 22</p>
+  <p>Score: 82 | Comments: 33</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -54300,6 +54315,21 @@
     <a href="archives/2026-08-27/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Paint-Anything: Unified Any-Color Control for Image Generation and Editing</h3>
+  <p>Professional design requires any-color control: the ability to specify an object&#x27;s target color with any 24-bit hex value for image generation and editing. Prior work has explored color generation, editing, and colorization, but often relies on dedicated color representations or specialized inference procedures. Advances in large language models offer a simpler starting point: even compact models can associate hex values with color semantics. We present Paint-Anything, which learns a shared hex-prompt interface for generation and editing through object-level color supervision. We develop a data pipeline that constructs Paint-500K from real images through object grounding, perceptual color labeling, and editing-pair synthesis. Since shadows make real-image labels only approximate colors, we complement this supervision with pure-color anchors whose pixels exactly match their paired hex values. These anchors are used only at high-noise timesteps, leaving low-noise training to natural images. We further introduce Any Color Benchmark (ACBench), comprising ACBench-T2I and ACBench-Edit, to measure object-level hex color fidelity across both tasks. On FLUX.2-4B, Paint-Anything improves ACBench-T2I and ACBench-Edit scores by 85.3% and 28.3%, respectively, relative to the base model, with ablations supporting the training recipe. It also achieves the highest average CompColor score among the compared methods.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.09.03</span>
   <h3>Paint.net 5.2 alpha now runs on Linux</h3>
   <p>Score: 172 | Comments: 135</p>
@@ -58202,7 +58232,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Sex, AI, and the Apocalypse</h3>
-  <p>Score: 155 | Comments: 140</p>
+  <p>Score: 188 | Comments: 193</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">rising</span>
@@ -59852,7 +59882,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>Show HN: Share your AI Setup, Learn from others</h3>
-  <p>Score: 182 | Comments: 93 | Text: I kept seeing engineers share what they were building with AI; however, I was always more curious about how they worked. Which agents did they use? What skills and tools had stuck or been thrown out the window? How did they manage longer-running tasks? So I built this with the hope we could have a</p>
+  <p>Score: 206 | Comments: 119 | Text: I kept seeing engineers share what they were building with AI; however, I was always more curious about how they worked. Which agents did they use? What skills and tools had stuck or been thrown out the window? How did they manage longer-running tasks? So I built this with the hope we could have a</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -61095,21 +61125,6 @@
     <a href="archives/2026-08-28/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>Structured Four-Stage Legal Translation: From Natural-Language Traffic Rules to PROLOG</h3>
-  <p>Traffic regulations are written for human interpretation and therefore rely on shared background knowledge and flexible phrasing, which inherently introduce ambiguity, context dependence, and semantic underspecification. These linguistic characteristics conflict with the precision required by computational reasoning engines such as Prolog, which demand explicit logical structure. This study evaluates two baseline translation approaches, Natural Language to Prolog ($NL\rightarrow Prolog$) and Logical English to Prolog ($LE\rightarrow Prolog$), and introduces a new reasoning-guided translation framework called Structured Four-Stage Legal Translation ($S4L\rightarrow Prolog$). The proposed S4L framework performs semantic role extraction, scene completion, logical mapping, and Prolog rule generation within a single guided prompt, enabling direct translation of raw traffic rules into executable logic without human intervention. A benchmark consisting of twenty real-world traffic rules was used to evaluate each approach in terms of syntactic validity, semantic correctness, and logical completeness. $S4L\rightarrow Prolog$ achieves the highest accuracy, correctly formalizing 75 percent of the rules, while $NL\rightarrow Prolog$ reaches 60 percent and $LE\rightarrow Prolog$ reaches 55 percent. Qualitative analysis further shows that S4L captures implicit causal relations, deontic modality, and exception structure more reliably than the baselines. These results demonstrate that structured reasoning prompts can substantially improve the reliability of natural-language-to-logic translation for legal and safety-critical applications.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.08.05</span>
   <h3>Structured Memory for Edge Language Models: Persistent Context and Corpus Retrieval via O(1) SSM State Injection</h3>
   <p>Retrieval-augmented generation (RAG) imposes a prefill cost proportional to retrieved context length, and -- with Transformer backbones -- a KV-cache that grows with each generated token. State-Space Models (SSMs) avoid the second cost by construction; we eliminate the first, collapsing prefill from $O(L_{context})$ to $O(1)$ per query. We introduce PRECOG (Pre-Computed Context Injection), a retrieval mechanism that exploits a property unique to SSMs: the fixed-size, position-agnostic recurrent hidden state is a complete summary of everything the model has read. PRECOG pre-encodes document corpora offline as SSM hidden states and injects the best-matching state directly at query time, bypassing in-context re-ingestion entirely. The same state-injection mechanism enables SMC (Structured Memory Consolidation): a hierarchical persistent memory with cognitive-domain clustering, an adjustable fidelity-vs-storage dial, and $O(1)$ session initialization, which consolidates short-term episodic states into long-term semantic memory and fuses both with retrieved corpus states at query time. We demonstrate the system on TENNs-LLM, a 1.2B-parameter gated-SSM language model with a 192 KB hidden state. PRECOG matches in-context RAG answer quality, reducing prefill latency from $\sim$27 s to $&lt;$6 ms on edge hardware -- a $\sim$4500$\times$ speedup that crosses the threshold from unusable to interactive. The mechanism is architecturally impossible for Transformer KV-caches, which are position-entangled and grow linearly with context length.</p>
@@ -61382,7 +61397,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>TSMC revealing details about next gen A14 node</h3>
-  <p>Score: 87 | Comments: 32 | Text: Abstract at IEDM website below ABSTRACT A14 NanoFlexTM Pro platform technology features the world’s smallest SRAM with a cell size &lt;0.017μm2 and highest SRAM macro density to date through dimensional ground rule scaling. Coupled with standard cell innovations, it delivers a full-node PPA impr</p>
+  <p>Score: 105 | Comments: 45 | Text: Abstract at IEDM website below ABSTRACT A14 NanoFlexTM Pro platform technology features the world’s smallest SRAM with a cell size &lt;0.017μm2 and highest SRAM macro density to date through dimensional ground rule scaling. Coupled with standard cell innovations, it delivers a full-node PPA impr</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -62207,7 +62222,7 @@
 </article><article class="archive-card">
   <span class="eyebrow">2026.09.18</span>
   <h3>The American Religion of Self-Storage Facilities</h3>
-  <p>Score: 188 | Comments: 328 | Text: https://archive.ph/F77tj</p>
+  <p>Score: 224 | Comments: 372 | Text: https://archive.ph/F77tj</p>
   <div class="archive-meta" style="margin-top:12px;">
     <span class="tag alt">AI/智能体</span>
     <span class="tag warm">new</span>
@@ -62848,21 +62863,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.07.05 → 2026.07.05</span>
     <a href="archives/2026-07-05/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>The Return of Sail Power: Cargo Ships Are Turning Back to the Wind</h3>
-  <p>Score: 178 | Comments: 124</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.05.05</span>
@@ -65070,21 +65070,6 @@
     <a href="archives/2026-08-05/">打开日报</a>
   </div>
 </article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>UFO: Chain-of-Evaluation for Omni-Condition Alignment in Multi-Modal Image Generation</h3>
-  <p>Multi-modal image generation, particularly subject-driven customization, has garnered growing attention in recent years. Despite the rapid advancement of generative models, their evaluation remains largely lagging. Existing methods, whether embedding-based or Multi-modal Large Language Model (MLLM)-based, evaluate alignment with each modal condition in isolation, which contradicts the simultaneous condition alignment objective of multi-modal image generation, leading to poor consistency with human judgments. To address this challenge, we propose UFO, the first unified framework for omni-condition alignment simultaneous evaluation. Specifically, UFO introduces a novel Atomized Chain-of-Evaluation paradigm, i.e., it first decomposes omni-condition alignment into a sequential chain of fine-grained, disentangled Atomic Evaluation Units (AEUs), categorizes them into distinct modality-relevance classes, and then employs general or dedicated functional calls for accurate verification of different AEU types. Experimental results demonstrate that UFO achieves the highest correlation with human evaluation preferences, delivering an average improvement of 15.25%. Furthermore, we present UFO-Bench, a dedicated benchmark designed to holistically evaluate the performance of existing customization models under the diverse mutual interactions of textual and visual conditions.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
-  </div>
-</article><article class="archive-card">
   <span class="eyebrow">2026.06.21</span>
   <h3>UHF X11: X11 Built for VisionOS and Apple Vision Pro</h3>
   <p>Score: 164 | Comments: 28</p>
@@ -66105,6 +66090,21 @@
     <a href="archives/2026-05-20/">打开日报</a>
   </div>
 </article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Warez: The Infrastructure and Aesthetics of Piracy Culture</h3>
+  <p>Score: 19 | Comments: 1</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
+  </div>
+</article><article class="archive-card">
   <span class="eyebrow">2026.08.26</span>
   <h3>Warnock: Harnessing GPU geometry amplification for vector graphics</h3>
   <p>Score: 37 | Comments: 2 | Text: Video: https://www.youtube.com/watch?v=PTD4yvGWgvA</p>
@@ -66853,21 +66853,6 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.10 → 2026.08.10</span>
     <a href="archives/2026-08-10/">打开日报</a>
-  </div>
-</article><article class="archive-card">
-  <span class="eyebrow">2026.09.18</span>
-  <h3>When Consistency Becomes Bias: Interviewer Effects in Semi-Structured Clinical Interviews</h3>
-  <p>Automatic depression detection from doctor-patient conversations has gained momentum thanks to the availability of public corpora and advances in language modeling. However, interpretability remains limited: strong performance is often reported without revealing what drives predictions. We analyze three datasets: ANDROIDS, DAIC-WOZ, E-DAIC and identify a systematic bias from interviewer prompts in semi-structured interviews. Models trained on interviewer turns exploit fixed prompts and positions to distinguish depressed from control subjects, often achieving high classification scores without using participant language. Restricting models to participant utterances distributes decision evidence more broadly and reflects genuine linguistic cues. While semi-structured protocols ensure consistency, including interviewer prompts inflates performance by leveraging script artifacts. Our results highlight a cross-dataset, architecture-agnostic bias and emphasize the need for analyses that localize decision evidence by time and speaker to ensure models learn from participants&#x27; language.</p>
-  <div class="archive-meta" style="margin-top:12px;">
-    <span class="tag alt">AI/智能体</span>
-    <span class="tag warm">new</span>
-    <span class="tag">low</span>
-    <span class="tag">自动版</span>
-  </div>
-  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
-  <div class="archive-footer">
-    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
-    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.04.20</span>
@@ -67633,6 +67618,21 @@
   <div class="archive-footer">
     <span>出现 1 次 · 2026.08.16 → 2026.08.16</span>
     <a href="archives/2026-08-16/">打开日报</a>
+  </div>
+</article><article class="archive-card">
+  <span class="eyebrow">2026.09.18</span>
+  <h3>Workspace Models: Lightweight Robotic Memory via Saliency-Driven Supervision</h3>
+  <p>Complex robotic manipulation tasks frequently require a long-term memory of past events and actions. As conditioning on full histories renders policies prone to spurious correlations and degrades performance, many approaches to policy memory involve compressing historical information through expensive VLM queries in-the-loop to process only task-salient information. In this paper, we propose an alternative approach in which computationally intensive VLM queries are made during train-time to learn a lightweight latent memory that can be efficiently queried at deployment time. Our representation, which we call the \textbf{workspace token}, is trained by (1) using a VLM to identify current and historical information necessary for completing a task, then (2) distilling these into the workspace token using a set-reconstruction decoder loss. In both simulation and hardware, we show that the workspace token can be used as a drop-in replacement for observations during deployment, enabling policies to solve memory-intensive tasks without the need for VLM reasoning in-the-loop. Interestingly, we found that workspace tokens are not only more lightweight but also lead to better policy performance.</p>
+  <div class="archive-meta" style="margin-top:12px;">
+    <span class="tag alt">AI/智能体</span>
+    <span class="tag warm">new</span>
+    <span class="tag">low</span>
+    <span class="tag">自动版</span>
+  </div>
+  <p class="subtle" style="margin-top:12px;">暂无交叉印证</p>
+  <div class="archive-footer">
+    <span>出现 1 次 · 2026.09.18 → 2026.09.18</span>
+    <a href="archives/2026-09-18/">打开日报</a>
   </div>
 </article><article class="archive-card">
   <span class="eyebrow">2026.06.10</span>
