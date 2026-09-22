@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-09-21T09:08:50.047909+08:00
+生成时间：2026-09-22T09:39:22.428105+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 160 个主题。
+- 本领域当前命中 162 个主题。
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - BenchMIRT: What are LLM benchmarks actually measuring? 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- BenchMIRT: What are LLM benchmarks actually measuring?：BenchMIRT: What are LLM benchmarks actually measuring? 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
@@ -51,22 +51,8 @@
 - 链接：https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/
 
 - 佐证：official | Broadening access to Skala creates a faster path to predictive DFT | https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/
-- 佐证：official | Echoverse: Deep, evolving environments for computer-use agents | https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
-
-### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
-
-- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
-- 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
-- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
+- 佐证：official | Improving synthesis prediction of small molecules at scale with RetroChimera | https://www.microsoft.com/en-us/research/blog/improving-synthesis-prediction-of-small-molecules-at-scale-with-retrochimera/
 
 ### BenchMIRT: What are LLM benchmarks actually measuring?
 - 主领域：ai-llm-agent
@@ -81,6 +67,20 @@
 - 佐证：official | Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL | https://huggingface.co/blog/asyncgrpo-lora-hfjobs
 - 佐证：official | Canadian Start-up smartARM Uses AI to Create Intuitive Bionic Prosthetics | https://about.fb.com/news/2026/09/canadian-start-up-smartarm-uses-ai-to-create-intuitive-bionic-prosthetics/
 - 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
+
+### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
+
+- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
+- 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
+- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
 ## 短期推演
 - 观察：Orchard: An open framework for scalable agentic AI 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
