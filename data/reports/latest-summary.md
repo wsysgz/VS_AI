@@ -1,18 +1,18 @@
 # 自动情报快报
 
-生成时间：2026-09-22T09:39:22.428105+08:00
+生成时间：2026-09-23T09:33:10.931210+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
 - 重点关注：Orchard: An open framework for scalable agentic AI
-- BenchMIRT: What are LLM benchmarks actually measuring?
+- Writing Rust code that's fast by asking agents to make the code faster
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 
 ## 关键洞察
 - Orchard: An open framework for scalable agentic AI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- BenchMIRT: What are LLM benchmarks actually measuring? 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Writing Rust code that's fast by asking agents to make the code faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
@@ -26,9 +26,9 @@
 ### 海外高亮信号
 - embedded：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor（来源：nvidia-embedded）
 - frontier-ai：Orchard: An open framework for scalable agentic AI（来源：microsoft-research）
-- frontier-ai：TicTacBench: Benchmarking Timing Closure Capabilities of Coding Agents（来源：arxiv-cs-ai）
-- frontier-ai：BenchMIRT: What are LLM benchmarks actually measuring?（来源：huggingface-blog）
 - compute-infra：Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4（来源：arm-news）
+- compute-infra：Arm introduces new AI-native compute platform built for agentic AI and mobile graphics（来源：arm-news）
+- compute-infra：The agentic era needs a computing platform everywhere – Arm is building it（来源：arm-news）
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4。
@@ -36,7 +36,7 @@
 - frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Orchard: An open framework for scalable agentic AI。
 
 ### 同轨对照
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 BenchMIRT: What are LLM benchmarks actually measuring?。
+- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 Orchard: An open framework for scalable agentic AI。
 
 ### 覆盖缺口
 - 暂无
@@ -46,15 +46,15 @@
 
 ## 重点主线
 - Orchard: An open framework for scalable agentic AI：Orchard: An open framework for scalable agentic AI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- BenchMIRT: What are LLM benchmarks actually measuring?：BenchMIRT: What are LLM benchmarks actually measuring? 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Writing Rust code that's fast by asking agents to make the code faster：Writing Rust code that's fast by asking agents to make the code faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 166 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 166 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 166 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 166 天 / 1 source(s) | repo | 5 related context
-- alibaba/MNN：rising / low / 已持续 166 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 167 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 167 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 167 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 167 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 167 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Orchard: An open framework for scalable agentic AI
@@ -71,19 +71,19 @@
 - 佐证：official | GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models | https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/
 - 佐证：official | Improving synthesis prediction of small molecules at scale with RetroChimera | https://www.microsoft.com/en-us/research/blog/improving-synthesis-prediction-of-small-molecules-at-scale-with-retrochimera/
 
-### BenchMIRT: What are LLM benchmarks actually measuring?
+### Writing Rust code that's fast by asking agents to make the code faster
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：BenchMIRT: What are LLM benchmarks actually measuring? 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Writing Rust code that's fast by asking agents to make the code faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：rising
+- 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/allenai/benchmirt
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://minimaxir.com/2026/09/agentic-iteration/
 
-- 佐证：official | Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL | https://huggingface.co/blog/asyncgrpo-lora-hfjobs
 - 佐证：official | Canadian Start-up smartARM Uses AI to Create Intuitive Bionic Prosthetics | https://about.fb.com/news/2026/09/canadian-start-up-smartarm-uses-ai-to-create-intuitive-bionic-prosthetics/
-- 佐证：official | Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps | https://huggingface.co/blog/grpo-with-trl-ifstruct
+- 佐证：official | TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor | https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
+- 佐证：official | A day in the life with personal AI agents: Intelligence that moves with you | https://www.qualcomm.com/news/onq/2026/09/personal-ai-agents-day-in-life
 
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
