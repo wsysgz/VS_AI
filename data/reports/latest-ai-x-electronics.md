@@ -1,9 +1,9 @@
 # AI × 电子信息
 
-生成时间：2026-09-25T09:34:04.123647+08:00
+生成时间：2026-09-26T09:37:31.641042+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/2中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
 - 本领域当前命中 18 个主题。
@@ -38,7 +38,7 @@
 
 ## 重点主题分析
 ## 短期推演
-- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Decoding ML Decision: An Agentic Reasoning Framework for Large-Scale Ranking System 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
