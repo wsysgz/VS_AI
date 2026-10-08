@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-10-07T10:26:40.392914+08:00
+生成时间：2026-10-08T10:44:42.784795+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- South Korea says AI agents appear to have been used to hack the country's banks
-- LLMs may have helped my RSI
+- 重点关注：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
+- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
+- Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method
 
 ## 关键洞察
+- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- South Korea says AI agents appear to have been used to hack the country's banks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLMs may have helped my RSI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -25,18 +25,18 @@
 
 ### 海外高亮信号
 - embedded：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor（来源：nvidia-embedded）
+- frontier-ai：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses（来源：microsoft-research）
+- frontier-ai：Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method（来源：arxiv-cs-ai）
 - compute-infra：Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4（来源：arm-news）
 - compute-infra：Arm introduces new AI-native compute platform built for agentic AI and mobile graphics（来源：arm-news）
-- compute-infra：The agentic era needs a computing platform everywhere – Arm is building it（来源：arm-news）
-- embedded：NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation（来源：nvidia-embedded）
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4。
 - embedded：国内 瑞芯微 × 面壁智能：完成 MiniCPM5 2B Day 0 原生适配，加速端侧 Agent 产业落地！；海外 TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 AdvSim2Real : Training Web Agents Against Adaptive Prompt Injection in a Web World Model。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses。
 
 ### 同轨对照
-- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 AdvSim2Real : Training Web Agents Against Adaptive Prompt Injection in a Web World Model。
+- frontier-ai：国内 ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More；海外 Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses。
 
 ### 覆盖缺口
 - 暂无
@@ -45,18 +45,32 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
+- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- South Korea says AI agents appear to have been used to hack the country's banks：South Korea says AI agents appear to have been used to hack the country's banks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLMs may have helped my RSI：LLMs may have helped my RSI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method：Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 181 天 / 1 source(s) | repo | 1 direct support | 4 related context
-- ollama/ollama：rising / low / 已持续 181 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 181 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 181 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 181 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 182 天 / 1 source(s) | repo | 1 direct support | 4 related context
+- langchain-ai/langgraph：rising / low / 已持续 182 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 182 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 182 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 182 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
+### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
+
+- 佐证：official | Offloaded inference for real-world physical AI robotics | https://www.microsoft.com/en-us/research/blog/offloaded-inference-for-real-world-physical-ai-robotics/
+- 佐证：official | One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact | https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/
+- 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
+
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -71,34 +85,22 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
-### South Korea says AI agents appear to have been used to hack the country's banks
+### Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：South Korea says AI agents appear to have been used to hack the country's banks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://www.reuters.com/world/south-koreas-lee-says-ai-appears-have-been-used-bank-hacks-2026-10-06/
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2609.35965v2
 
-- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
-- 佐证：official | Introducing Muse: The World’s First Personal AI Agent Built for Everyone | https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/
-- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
-
-### LLMs may have helped my RSI
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：LLMs may have helped my RSI 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
-- 链接：https://vaughanhilts.me/2026/10/05/llms-immensely-helped-my-rsi.html
-
-- 佐证：paper | Sherpa: Teaching LLMs to Teach Adaptively | https://arxiv.org/abs/2610.08778v1
+- 佐证：paper | Loop-Back Authority in LLM Agent Teams: A Paired Experiment on Flat and Hierarchical Coordination | https://arxiv.org/abs/2609.14767v2
+- 佐证：paper | RECAST: Learning to Compute the Right Context through Adaptive Evidence Routing | https://arxiv.org/abs/2610.10507v1
+- 佐证：paper | SciExam for ENSO: Can AI Agents Build Climate Models? | https://arxiv.org/abs/2610.10513v1
 
 ## 短期推演
-- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
