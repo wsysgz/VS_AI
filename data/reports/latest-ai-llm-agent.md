@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-10-09T11:00:11.979042+08:00
+生成时间：2026-10-09T11:04:33.515795+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 76 个主题。
+- 本领域当前命中 162 个主题。
 
 ## 关键洞察
-- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,41 +33,13 @@
 - 暂无
 
 ## 重点主线
-- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked：Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
-
-- 佐证：official | Offloaded inference for real-world physical AI robotics | https://www.microsoft.com/en-us/research/blog/offloaded-inference-for-real-world-physical-ai-robotics/
-- 佐证：official | One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact | https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/
-- 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
-
-### Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://pocketty.app/
-
-- 佐证：official | ERNIE 5.1 Officially Released! Topping Multiple Leaderboards — A Model That Writes Better and Understands You More | https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-- 佐证：official | The model that didn't exist, so you made it yourself | https://huggingface.co/blog/building-with-ml-intern
-- 佐证：paper | Caught in the Act: Probes Effectively Detect Sabotage and Catch Unverbalized Deception | https://arxiv.org/abs/2610.12445v1
-
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -82,8 +54,34 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
+### vllm-project/vllm
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 1 direct support | 4 related context
+- 链接：https://github.com/vllm-project/vllm
+
+- 佐证：paper | MAMHOI: Factorizing Scene-Aware Human-Object Interaction through Affordances | https://arxiv.org/abs/2610.12416v1
+
+### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
+
+- 佐证：official | Offloaded inference for real-world physical AI robotics | https://www.microsoft.com/en-us/research/blog/offloaded-inference-for-real-world-physical-ai-robotics/
+- 佐证：official | One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact | https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/
+- 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
+
 ## 短期推演
-- 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
