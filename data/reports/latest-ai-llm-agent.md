@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-10-10T10:28:29.304172+08:00
+生成时间：2026-10-11T09:59:11.850679+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 162 个主题。
+- 本领域当前命中 164 个主题。
 
 ## 关键洞察
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Show HN: Let your AI agents paint big arrows, boxes and text on your screen 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Five months treating bugs like patients and coding agents like a medical team 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -68,18 +68,15 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
-### Show HN: Let your AI agents paint big arrows, boxes and text on your screen
+### Five months treating bugs like patients and coding agents like a medical team
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Show HN: Let your AI agents paint big arrows, boxes and text on your screen 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Five months treating bugs like patients and coding agents like a medical team 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
-- 链接：https://github.com/franzenzenhofer/big-arrow-on-the-screen
-
-- 佐证：official | ERNIE-5.0 Tops LMArena Text Leaderboard as No.1 Chinese Model! | https://ernie.baidu.com/blog/posts/ernie-5.0-0110-release-on-lmarena/
-- 佐证：official | ERNIE-5.1-Preview Tops LMArena Text Leaderboard as No.1 Chinese Model! | https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://www.cockroachlabs.com/blog/experiment-running-hospital-code/
 
 ## 短期推演
 - 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
