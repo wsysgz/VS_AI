@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-10-13T11:37:30.128182+08:00
+生成时间：2026-10-14T09:57:44.837398+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
-- AI coding agents generate more code, but not more software
+- 重点关注：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
+- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents
+- Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents
 
 ## 关键洞察
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- AI coding agents generate more code, but not more software 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -45,32 +45,18 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- AI coding agents generate more code, but not more software：AI coding agents generate more code, but not more software 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents：Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 187 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 187 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 187 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 187 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 187 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 188 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 188 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 188 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 188 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 188 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
-
-- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
-- 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
-- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
-
 ### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -85,22 +71,32 @@
 - 佐证：official | One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact | https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/
 - 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
 
-### AI coding agents generate more code, but not more software
+### Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：AI coding agents generate more code, but not more software 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/
+- 交叉印证：1 source(s) | official | 3 direct support | 2 related context
+- 链接：https://about.fb.com/news/2026/10/introducing-muse-wonder-models/
 
-- 佐证：official | Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4 | https://newsroom.arm.com/news/arm-agi-cpu-neoverse-css-n4-agentic-ai
-- 佐证：official | Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents | https://about.fb.com/news/2026/10/introducing-muse-wonder-models/
-- 佐证：official | Offloaded inference for real-world physical AI robotics | https://www.microsoft.com/en-us/research/blog/offloaded-inference-for-real-world-physical-ai-robotics/
+- 佐证：official | Why Data Centers Are Such a Big Part of Meta’s AI Approach | https://about.fb.com/news/2026/10/meta-data-centers-ai-approach/
+- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
+- 佐证：official | Ultrafast Frontier Inference: Cerebras Deep Dive at Hot Chips 2026 | https://www.cerebras.ai/blog/ultrafast-frontier-inference-cerebras-deep-dive-at-hot-chips-2026
+
+### Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://news.ycombinator.com/item?id=50059096
 
 ## 短期推演
-- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
