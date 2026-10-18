@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报</h1>
+    <div class="meta">生成时间：2026-10-18T09:30:52.026795+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 177 条原始信息</span>
+      <span class="stat-pill">🎯 177 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">今日三条信号显示智能体生态正沿训练接入、平台分发与边缘推理三线推进，但均以厂商单方发布为主，价值仍需复现、留存和真实负载验证。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>微软研究院推出 Agent Lightning v1.0，试图把现有 agent harness 与强化学习训练解耦，降低 agent 改进成本。</li><li>Stack Overflow for Agents 借助 ChatGPT 插件获得早期注册与智能体创建增长，体现平台分发杠杆，但增长口径不一致且缺少留存与付费证据。</li><li>NVIDIA 在 Jetson AGX Thor 上以 TensorRT Edge-LLM 完成 MLPerf Edge Agentic 基准并宣称 6.4 倍加速，显示智能体推理向边缘迁移。</li><li>综合看，智能体竞争正从单点模型能力转向训练可接入性、分发渠道和边缘部署的工程化栈能力。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>智能体生态的竞争焦点正在从模型能力扩展到工程栈：训练接入、渠道分发和边缘推理分别对应可改进性、可触达性和可部署性。</li><li>Agentic RL 的真正瓶颈不是框架代码量，而是能否在真实 agent harness 中稳定抽象工具调用、上下文管理和决策状态。</li><li>平台分发可以制造早期增长曲线，但注册量、创建量与留存、付费之间不能直接划等号，需建立分口径的增长质量评估。</li><li>边缘智能体的价值不取决于单次基准加速，而取决于多步骤任务在功耗、内存、时延和功能安全约束下的综合表现。</li><li>三条信息中仅 Agent Lightning 置信度为中，其余为低；晨报应将其定位为方向性信号，而非已验证的行业结论。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>Agent Lightning：以轻量框架连接现有 agent 与 RL 训练</strong> 若接口抽象能覆盖真实工具、上下文和决策链，现有 agent 可在不重建的情况下被持续训练改进；当前关键风险是真实 harness 下的可观测性、状态稳定性和奖励信号设计。</li>
+<li><strong>Stack Overflow for Agents：ChatGPT 插件带来分发放大</strong> 平台插件可在早期显著放大注册和智能体创建行为，但标题中的三倍注册与证据中的最高十倍创建口径不一致，尚不能证明留存、付费和产品市场契合。</li>
+<li><strong>TensorRT Edge-LLM：边缘智能体推理取得基准亮点</strong> 6.4 倍加速若可复现，将降低车辆、机器人等边缘场景运行多步骤智能体的门槛；但单一厂商基准不等于真实负载落地，还需关注功耗、时延、可靠性和跨平台可移植性。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>vllm-project/vllm</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 192 天 · 1 source(s) | repo | 2 direct support | 3 related context</li><li><strong>langchain-ai/langgraph</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 192 天 · 1 source(s) | repo | 5 related context</li><li><strong>ollama/ollama</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 192 天 · 1 source(s) | repo | 5 related context</li><li><strong>alibaba/MNN</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 192 天 · 1 source(s) | repo | 5 related context</li><li><strong>pytorch/executorch</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 192 天 · 1 source(s) | repo | 5 related context</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses</h3>
+                  <span class="badge badge--medium">medium</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>降低现有 agent 接入 RL 训练的成本，与真实 harness 下训练所需的控制、可观测性和稳定性之间存在矛盾</p>
+                  <p><strong>核心洞察：</strong>Agent Lightning 的看点不是 3,500 行代码本身，而是试图把现有 agent harness 与 RL 训练解耦；其实际价值取决于接口抽象能否覆盖真实工具、上下文和决策复杂性，当前仍属厂商发布阶段的待验证方案。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 5 direct support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/" target="_blank" rel="noopener">One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact</a></li><li>official | <a href="https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/" target="_blank" rel="noopener">Forecasting space weather risks on power grids</a></li><li>official | <a href="https://www.microsoft.com/en-us/research/blog/introducing-quine-an-ai-research-system-designed-for-the-complexity-of-biology/" target="_blank" rel="noopener">Introducing Quine: An AI research system designed for the complexity of biology</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Stack Overflow for Agents triples signups with ChatGPT plugin</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>爆发式渠道增长与可持续产品价值验证不足之间的矛盾：ChatGPT 插件能迅速放大注册和智能体创建量，但现有证据只证明分发效果，尚不能证明留存、付费和长期产品价值。</p>
+                  <p><strong>核心洞察：</strong>这是一个典型的平台分发杠杆案例，但标题与证据中的增长口径不一致，10 倍增长更应理解为插件渠道带来的早期获客与创建行为放大，而非产品市场契合已被验证。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 1 direct support | 4 related context</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://openai.com/index/amp-beyond-coding" target="_blank" rel="noopener">Amp puts AI agents to work beyond code with OpenAI models</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://openai.com/index/stack-overflow-chatgpt-plugin" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>边缘智能体落地需要高性能低功耗推理能力，而边缘硬件资源有限；NVIDIA用TensorRT Edge-LLM与Jetson AGX Thor的软硬协同缓解这一矛盾，但当前证据只能证明基准性能，尚不能证明真实场景的普适落地能力。</p>
+                  <p><strong>核心洞察：</strong>这是NVIDIA将智能体推理栈从云端推向边缘的卡位信号，6.4倍是基准亮点而非大规模落地证明；应把结论限定为边缘智能体推理性能取得基准领先，后续需观察独立复现、真实负载和跨平台可用性。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 4 direct support | 1 related context</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/" target="_blank" rel="noopener">Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson</a></li><li>official | <a href="https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/" target="_blank" rel="noopener">NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation</a></li><li>official | <a href="https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/" target="_blank" rel="noopener">Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+  <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>未来1—3个月，Agent Lightning 获得第三方小规模复现与真实工具链试点，接口兼容性和奖励接入成本得到验证；Stack Overflow for Agents 公布留存、激活和付费等分口径数据，证明插件增长可转化为长期价值；TensorRT Edge-LLM 的 6.4 倍加速被独立基准或真实边缘负载部分复现，推动机器人、车辆等场景加快试点。概率约15%。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>未来1—3个月，三条信号均停留在厂商单方发布层面：Agent Lightning 在真实 harness 中暴露状态不可观测、工具调用不稳定和奖励信号难设计问题，试点受阻；Stack Overflow for Agents 的注册与创建增长无法转化为留存和付费，渠道依赖风险上升；NVIDIA 基准缺少独立复现，真实负载下功耗、时延和可靠性不达预期，边缘客户推迟采购。概率约25%。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>未来1—3个月，行业将这些发布视为方向性信号而非已验证结论：Agent Lightning 出现少量技术讨论和试验性适配，但大规模生产验证不足；Stack Overflow for Agents 的早期增长被理解为 ChatGPT 插件渠道放大，留存、付费和产品市场契合仍待观察；TensorRT Edge-LLM 的基准成绩获得关注，但独立复现和真实边缘部署案例有限。整体判断维持谨慎乐观，市场继续观望。概率约60%。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>是否有第三方独立复现 Agent Lightning 并披露真实 harness 兼容性、状态可观测性和奖励接入成本</li><li>Stack Overflow for Agents 能否公布激活率、留存率、付费转化和长期使用数据，并统一注册量与智能体创建量口径</li><li>TensorRT Edge-LLM 的 6.4 倍加速能否在独立基准或真实车辆、机器人多步骤任务中复现</li><li>边缘场景下功耗、内存、时延、可靠性和功能安全约束是否满足商用要求</li><li>企业客户对厂商单方发布证据的信任程度及试点采购意愿</li><li>三条信号是否出现更多交叉来源和竞品对比，而非仅依赖微软、OpenAI、NVIDIA 官方渠道</li></ul>
+        <p><strong>结论：</strong>短期看，三条信息共同指向智能体生态向训练接入、平台分发和边缘推理工程化推进，但当前证据以厂商单方发布为主，且存在增长口径不一致、基准未独立复现、真实负载未验证等限制。因此应将其定位为趋势信号，而非已验证的行业结论；后续关键不是发布本身，而是独立复现、真实 harness 适配、留存付费闭环和边缘真实负载数据。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>三条主题均主要依赖厂商官方博客或新闻，缺少第三方独立复现和交叉验证。</li><li>Agent Lightning 尚无大规模生产验证、基准对比和真实工具链适配数据。</li><li>Stack Overflow for Agents 仅有单一官方来源，且注册量与智能体创建量口径不一致，缺少留存、付费和长期价值数据。</li><li>TensorRT Edge-LLM 的 6.4 倍加速仅来自 NVIDIA 单方基准，缺少真实车辆、机器人场景部署和跨平台对比。</li><li>边缘性能数据与 agentic RL 框架的通用性判断均可能受厂商选择偏差影响。</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ 三条主题均主要依赖厂商官方博客或新闻，缺少第三方独立复现和交叉验证。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>对 Agent Lightning：优先验证其接口抽象在自有 agent 工具链中的兼容性、状态可观测性和奖励信号接入成本，再决定是否试点。</li><li>对平台增长案例：将注册量、智能体创建量、激活率、留存率和付费转化分口径跟踪，避免把渠道爆发误判为产品市场契合。</li><li>对边缘推理：在目标功耗、时延和可靠性约束下用真实多步骤任务复测 Jetson AGX Thor 与替代方案，并评估生态锁定风险。</li><li>在晨报推送中标注证据等级：将三条信息作为趋势信号呈现，等待独立复现或生产案例出现后再升级为高置信结论。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Show HN: Llmspeed – feel how fast a local LLM runs before you buy the hardware<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://llmspeed.dev/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Stack Overflow for Agents triples signups with ChatGPT plugin<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/stack-overflow-chatgpt-plugin" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Amp puts AI agents to work beyond code with OpenAI models<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/amp-beyond-coding" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://about.fb.com/news/2026/10/introducing-muse-wonder-models/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>MLExpert: Towards a Generalist Agentic Model for Autonomous Machine Learning Engineering<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.22344v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>AI agents are changing what CPU performance means<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://newsroom.arm.com/news/arm-agi-cpu-agentic-benchmarks" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>The agentic era needs a computing platform everywhere – Arm is building it<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://newsroom.arm.com/news/arm-everywhere-the-compute-platform-for-agentic-ai" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Arm introduces new AI-native compute platform built for agentic AI and mobile graphics<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://newsroom.arm.com/news/arm-css-for-mobile-2-agentic-ai-mobile-graphics" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Arm expands AI infrastructure for the agentic era with AGI CPU and Neoverse CSS N4<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://newsroom.arm.com/news/arm-agi-cpu-neoverse-css-n4-agentic-ai" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>STM32N6: Our very own NPU in the most powerful STM32 to inaugurate a new era of computing<span class="domain-tag">ai-x-electronics</span></td><td>2.5</td><td>1</td><td><a href="https://blog.st.com/stm32n6/" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>
