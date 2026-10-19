@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动情报快报</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2333; --border:#30363d;
+    --text:#e6edf3; --text2:#8b949e; --accent:#58a6ff; --green:#3fb950;
+    --orange:#d29922; --red:#f85149; --purple:#bc8cff; --radius:8px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  * { box-sizing:border-box;margin:0;padding:0; }
+  body { background:var(--bg);color:var(--text);line-height:1.6; }
+  .wrap { max-width:960px;margin:0 auto;padding:24px 20px 48px; }
+  header { text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px; }
+  header h1 { font-size:1.8em;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  header .meta { color:var(--text2);font-size:.9em;margin-top:8px; }
+  header .stats { display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  header .stat-pill { background:var(--bg3);padding:4px 14px;border-radius:20px;font-size:.85em;color:var(--text2);border:1px solid var(--border); }
+  .stage-badges { display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap; }
+  .stage-badge { background:var(--bg3);padding:3px 12px;border-radius:6px;font-size:.82em;border:1px solid var(--stage-color,#666);color:var(--text2); }
+  .section { margin-bottom:28px; }
+  .section-title { font-size:1.25em;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent); }
+  .judgment { font-size:1.35em;font-weight:700;text-align:center;padding:20px;background:var(--bg2);border-radius:var(--radius);border-left:4px solid var(--accent); }
+  .grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px; }
+  .card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px; }
+  .card h4 { color:var(--accent);margin-bottom:10px;font-size:.95em; }
+  .card ul { padding-left:18px;color:var(--text2); }
+  .card li { margin-bottom:4px; }
+  .signal-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s; }
+  .signal-card:hover { border-color:var(--accent); }
+  .signal-header { display:flex;justify-content:space-between;align-items:start;margin-bottom:10px; }
+  .signal-header h3 { font-size:1em;color:var(--text); }
+  .badge { font-size:.75em;padding:2px 10px;border-radius:12px;font-weight:600; }
+  .badge--high { background:#1a3a2a;color:var(--green); }
+  .badge--medium { background:#3a3020;color:var(--orange); }
+  .badge--low { background:#3a2220;color:var(--red); }
+  .signal-body p { margin:4px 0;color:var(--text2);font-size:.9em; }
+  .signal-link { display:inline-block;margin-top:10px;font-size:.85em;color:var(--accent);text-decoration:none; }
+  .signal-link:hover { text-decoration:underline; }
+  .forecast-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0; }
+  .forecast-card { background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px; }
+  .forecast-card h4 { font-size:.9em;margin-bottom:8px; }
+  .forecast-card--best { border-left:3px solid var(--green); }
+  .forecast-card--worst { border-left:3px solid var(--red); }
+  .forecast-card--likely { border-left:3px solid var(--accent); }
+  .forecast-card p { font-size:.88em;color:var(--text2); }
+  .risk-note { background:#3a2220;border:1px solid var(--red);border-radius:var(--radius);padding:12px 16px;margin-top:12px;color:#fdaebb;font-size:.9em; }
+  .domain-tag { display:inline-block;font-size:.72em;background:var(--bg3);color:var(--text2);padding:1px 8px;border-radius:10px;margin-left:8px; }
+  table.signals-table { width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em; }
+  .signals-table th,.signals-table td { padding:8px 12px;text-align:left;border-bottom:1px solid var(--border); }
+  .signals-table th { background:var(--bg3);color:var(--text2);font-weight:600;position:sticky;top:0; }
+  .signals-table tr:hover td { background:var(--bg2); }
+  footer { text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82em; }
+  @media(max-width:640px) { header h1 { font-size:1.4em; } .grid-2 { grid-template-columns:1fr; } .forecast-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>自动情报快报</h1>
+    <div class="meta">生成时间：2026-10-19T09:21:31.409633+08:00</div>
+    <div class="stats">
+      <span class="stat-pill">📡 176 条原始信息</span>
+      <span class="stat-pill">🎯 176 个主题</span>
+      <span class="stat-pill">📊 3 个重点分析</span>
+    </div>
+    <div class="stage-badges"><span class="stage-badge" style="--stage-color:#10b981">analysis: ok</span><span class="stage-badge" style="--stage-color:#10b981">summary: ok</span><span class="stage-badge" style="--stage-color:#10b981">forecast: ok</span></div>
+  </header>
+
+  <section id="judgment" class="section">
+    <div class="judgment">Agent 技术栈正沿推理优化、边缘部署、强化学习训练与混合推理架构四条线并行推进，但当前公开信号多为标题级、厂商宣称或社区热度，晨报应以低置信度跟踪、等待基准与复现。</div>
+  </section>
+
+  <section id="executive-summary" class="section">
+    <h2 class="section-title">执行摘要</h2>
+    <ul><li>本期四条线索共同指向 AI Agent 从单次问答走向多步骤任务闭环，竞争焦点扩展到推理框架、端侧算力、强化学习训练接口和推理架构。</li><li>vLLM 针对 Kimi K3 的优化与 NVIDIA 在 Jetson AGX Thor 上的 6.4 倍性能宣称，显示推理效率仍是核心卖点，但均缺少完整基线与独立验证。</li><li>微软 Agent Lightning 尝试以轻量连接层把现有 Agent 运行时接入强化学习训练，方向有工程价值，实际增益仍待跨真实执行环境实测。</li><li>Hybrid Reasoning Agents 在 Hacker News 获得高互动，反映“隐空间思考、文本行动”受关注，但论文细节和性能证据尚未进入当前材料。</li></ul>
+  </section>
+
+  <section id="key-insights" class="section">
+    <h2 class="section-title">关键洞察</h2>
+    <ul><li>Agent 竞争正在从“模型能力”扩展到“全栈工程能力”：推理服务、边缘平台、强化学习训练接口和推理架构需协同优化，单点性能数字不足以代表系统可用性。</li><li>当前信息呈现明显的“传播强度大于证据强度”：厂商数字和社区热度先行，基线与复现缺位；晨报应把结论分层为可验证事实、厂商宣称和待验证信号。</li><li>Agent Lightning 的潜在杠杆在接口标准化而非轻量代码量：能否跨异构真实执行环境提供可观测、可干预、可复用的训练连接，是其价值关键。</li><li>混合推理架构的核心矛盾是效率与可审计性的权衡；高讨论度表明方向重要，但只有实验数据、开源实现和复现结果才能证明调和成功。</li><li>vLLM 与 NVIDIA 两条线索均指向 Agent 时代的推理效率竞赛，但专用优化是否转化为通用行业收益，取决于独立基准和真实负载验证。</li></ul>
+  </section>
+
+  <section id="mainlines" class="section">
+    <h2 class="section-title">重点主线</h2>
+    <ul style="padding-left:20px;"><li><strong>推理服务：专用优化成为大模型部署的竞争前沿</strong> vLLM 博客线索显示框架厂商正围绕具体模型做深度优化；若细节成立，可能影响模型服务吞吐、时延和选型，但当前仅有标题与低热度 Hacker News 元数据，不能据此判断优化幅度或通用性。</li>
+<li><strong>边缘 Agent：端侧多步骤任务推动专用推理平台竞争</strong> NVIDIA 以 MLPerf Edge Agentic 和 6.4 倍数字强化 Jetson AGX Thor 的 Agent 推理定位，反映车辆、机器人等边缘场景的部署需求；但缺少基线、模型、精度、功耗和时延细节，应视为厂商占位信号。</li>
+<li><strong>Agent 强化学习：训练基础设施与运行时解耦成为新切入点</strong> Agent Lightning 的核心不是重造 Agent 框架，而是让现有工具、上下文和决策链路以低改造接入强化学习；若跨真实执行环境可复用，将降低训练门槛，否则 3500 行轻量标签意义有限。</li></ul>
+  </section>
+
+  <section id="memory" class="section">
+    <h2 class="section-title">跨日主线记忆</h2>
+    <ul style="padding-left:20px;"><li><strong>vllm-project/vllm</strong> <span class="domain-tag">verified</span> <span class="domain-tag">low</span> 已持续 193 天 · 1 source(s) | repo | 5 related context</li><li><strong>langchain-ai/langgraph</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 193 天 · 1 source(s) | repo | 5 related context</li><li><strong>ollama/ollama</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 193 天 · 1 source(s) | repo | 5 related context</li><li><strong>alibaba/MNN</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 193 天 · 1 source(s) | repo | 5 related context</li><li><strong>pytorch/executorch</strong> <span class="domain-tag">rising</span> <span class="domain-tag">low</span> 已持续 193 天 · 1 source(s) | repo | 5 related context</li></ul>
+  </section>
+
+  <section id="topics" class="section">
+    <h2 class="section-title">重点主题分析</h2>
+    <div class="signal-card">
+                <div class="signal-header">
+                  <h3>Hyper Optimizing Kimi K3 in vLLM</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>主题所指向的技术优化价值与当前可验证证据不足之间的矛盾</p>
+                  <p><strong>核心洞察：</strong>这是 vLLM 针对 Kimi K3 的工程优化文章线索，但现有证据只有低热度 HN 提交和零评论，尚不足以判断优化效果、通用性或行业影响，需等待正文细节与独立验证。</p>
+                  <p><strong>生命周期：</strong>new</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | community | 4 direct support | 1 related context</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://about.fb.com/news/2026/10/introducing-muse-wonder-models/" target="_blank" rel="noopener">Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents</a></li><li>official | <a href="https://developer.espressif.com/blog/2026/10/esp32-post-quantum-cryptography/" target="_blank" rel="noopener">Post-Quantum Cryptography on ESP32</a></li><li>official | <a href="https://www.qualcomm.com/news/onq/2026/10/personal-ai-wearables-consumer-survey" target="_blank" rel="noopener">The rise of Personal AI in wearables: What 12,000 consumers told us</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor</h3>
+                  <span class="badge badge--low">low</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>6.4倍性能提升的核心传播结论 vs 当前仅有标题级证据、缺少基线与评测细节</p>
+                  <p><strong>核心洞察：</strong>这是NVIDIA面向边缘Agent场景的平台占位信号：用MLPerf和6.4倍数字强化Jetson AGX Thor的推理优势，但在缺少基线、功耗和精度细节前，应视为厂商宣称而非可独立验证的行业结论。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 4 direct support | 1 related context</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/" target="_blank" rel="noopener">Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson</a></li><li>official | <a href="https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/" target="_blank" rel="noopener">NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation</a></li><li>official | <a href="https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/" target="_blank" rel="noopener">Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+<div class="signal-card">
+                <div class="signal-header">
+                  <h3>Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses</h3>
+                  <span class="badge badge--medium">medium</span>
+                </div>
+                <div class="signal-body">
+                  <p><strong>主领域：</strong>ai-llm-agent</p>
+                  <p><strong>主要矛盾：</strong>现有智能体运行框架的复杂耦合与强化学习训练所需可观测、可干预接口之间的矛盾；Agent Lightning 试图用轻量连接层解耦二者。</p>
+                  <p><strong>核心洞察：</strong>Agent Lightning 的核心价值不是再造Agent框架，而是把RL训练基础设施与现有Agent运行时解耦，以低改造接入真实harness；其实际影响取决于跨harness覆盖能力和可验证的训练增益，而非3500行的轻量标签。</p>
+                  <p><strong>生命周期：</strong>rising</p>
+                  <p><strong>风险等级：</strong>medium</p>
+                  <p><strong>交叉印证：</strong>1 source(s) | official | 5 direct support</p>
+                  <p><strong>佐证列表：</strong></p>
+                  <ul><li>official | <a href="https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/" target="_blank" rel="noopener">One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact</a></li><li>official | <a href="https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/" target="_blank" rel="noopener">Forecasting space weather risks on power grids</a></li><li>official | <a href="https://www.microsoft.com/en-us/research/blog/introducing-quine-an-ai-research-system-designed-for-the-complexity-of-biology/" target="_blank" rel="noopener">Introducing Quine: An AI research system designed for the complexity of biology</a></li></ul>
+                </div>
+                <a class="signal-link" href="https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/" target="_blank" rel="noopener">查看原文 →</a>
+              </div>
+  </section>
+
+  <section id="forecast" class="section">
+        <h2 class="section-title">📈 短期推演</h2>
+        <div class="forecast-grid">
+          <div class="forecast-card forecast-card--best"><h4>乐观情景</h4><p>未来1至3个月内，四条线索均出现可核验的原文、配置与基准细节：vLLM 公布 Kimi K3 优化的完整方法与可复现数据；NVIDIA 补充 6.4 倍提升的基线、模型、精度、功耗和时延条件并获第三方复现；Agent Lightning 在多个真实执行环境中展示稳定训练增益；HybridAgent 论文与代码给出可复现实验，社区关注转化为工程采用。</p></div>
+          <div class="forecast-card forecast-card--worst"><h4>悲观情景</h4><p>未来1至3个月内，关键材料仍停留在标题、厂商宣称或社区热度层面：vLLM 文章缺正文或日期/索引异常引发可信度问题，NVIDIA 6.4 倍数字缺少基线与独立验证却被二次传播，Agent Lightning 仅有轻量标签而无跨环境训练增益证据，HybridAgent 讨论热度高但无论文指标与复现，导致晨报误把传播强度当作技术结论。</p></div>
+          <div class="forecast-card forecast-card--likely"><h4>最可能情景</h4><p>未来1至3个月内，部分原文和补充材料会逐步出现，但独立基准与第三方复现仍有限：vLLM 可能披露部分优化细节，NVIDIA 可能补充若干评测配置但难获独立验证，Agent Lightning 会获得 GitHub 关注和早期试用但生产增益待证，HybridAgent 会因 HN 讨论和开源仓库获得更多关注但缺少系统性性能证据；整体维持低至中等置信度跟踪，不宜升级为已验证突破。</p></div>
+        </div>
+        <p><strong>关键变量：</strong></p>
+        <ul><li>vLLM 文章正文、发布日期与索引异常是否得到澄清，优化方法与性能数据是否公开</li><li>NVIDIA 6.4 倍提升的对比基线、模型、精度、功耗、时延和测试配置是否完整披露</li><li>四条线索是否出现独立第三方复现、生产案例或交叉验证</li><li>Agent Lightning 的跨真实 harness 覆盖能力、训练稳定性、样本效率与外部采用情况</li><li>HybridAgent 论文摘要、实验设置、性能指标及 togethercomputer/HybridAgent 仓库的可复现性</li><li>Hacker News 热度能否转化为持续技术讨论与工程采用，而非短期传播</li><li>厂商官方叙事与独立证据之间的差距是否缩小</li></ul>
+        <p><strong>结论：</strong>短期应把本期四条线索作为 Agent 技术栈的分层观察项而非确定性趋势：vLLM、NVIDIA、HybridAgent 因证据不足列为低置信度观察，Agent Lightning 列为中等置信度跟踪；只有出现完整基准、独立复现或生产案例后，才应上调结论。</p>
+      </section>
+
+  <section id="limitations" class="section">
+    <h2 class="section-title">局限性</h2>
+    <ul><li>四条线索中三条为低置信度：vLLM 仅有标题与 Hacker News 低热度元数据；NVIDIA 仅有单一摘要片段；Hybrid Reasoning Agents 仅有标题、热度和链接。</li><li>关键性能数字缺完整评测条件：NVIDIA 的 6.4 倍未给对比基线、模型、精度、功耗、时延和测试配置；vLLM 优化效果无正文数据。</li><li>Agent Lightning 虽置信度中等，但当前材料未提供基准数据、对比实验和第三方复现，训练增益与生产可用性仍待验证。</li><li>Hybrid Reasoning Agents 缺少论文摘要、实验设置和性能指标，Hacker News 热度不能替代技术有效性证据。</li><li>部分线索来自单一来源或官方叙事，存在选择性呈现和平台定位偏差，需交叉核验。</li></ul>
+  </section>
+
+  <p class="risk-note">⚠️ 四条线索中三条为低置信度：vLLM 仅有标题与 Hacker News 低热度元数据；NVIDIA 仅有单一摘要片段；Hybrid Reasoning Agents 仅有标题、热度和链接。</p>
+
+  <section id="actions" class="section">
+    <h2 class="section-title">行动建议</h2>
+    <ul><li>在晨报中对四条线索标注证据等级：vLLM、NVIDIA、Hybrid Reasoning Agents 列为低置信度观察项，Agent Lightning 列为中等置信度跟踪项。</li><li>优先补读原文、论文或官方文档，提取基线、模型、精度、功耗、时延、代码和复现条件；未补齐前避免使用“突破”“领先”等定性词。</li><li>对 NVIDIA 6.4 倍和 vLLM Kimi K3 优化设置验证触发条件：出现独立基准、第三方复现或生产案例后再升级结论。</li><li>跟踪 Agent Lightning 的跨真实执行环境覆盖、训练稳定性、样本效率和开源生态采用情况，评估其是否真正降低 Agent 强化学习门槛。</li><li>关注 togethercomputer/HybridAgent 仓库和后续论文实验，判断隐空间推理与文本行动混合架构是否具备可复现的性能与可解释性优势。</li><li>建议建立 Agent 技术栈四层跟踪表：推理服务、边缘部署、强化学习训练、推理架构，按周更新证据成熟度。</li></ul>
+  </section>
+
+  <section id="all-signals" class="section">
+    <h2 class="section-title">全部信号</h2>
+    <table class="signals-table"><thead><tr><th>信号</th><th>评分</th><th>证据数</th><th>来源</th></tr></thead><tbody><tr><td>Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor<span class="domain-tag">ai-llm-agent</span></td><td>3.3</td><td>1</td><td><a href="https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Hybrid Reasoning Agents: LLM agents that think in latent space, act through text<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.18861" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>I built a programming language that LLMs can&#x27;t use<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://blog.picheta.me/post/killswitch-lang/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Hyper Optimizing Kimi K3 in vLLM<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>If you don&#x27;t run your own LLM proxy, how do you know whats going on?<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://jrdsgl.com/if-you-dont-run-your-own-llm-proxy-how-the-fuck-do-you-even-know-whats-going-on/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>vllm-project/vllm<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Stack Overflow for Agents triples signups with ChatGPT plugin<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/stack-overflow-chatgpt-plugin" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Amp puts AI agents to work beyond code with OpenAI models<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://openai.com/index/amp-beyond-coding" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://about.fb.com/news/2026/10/introducing-muse-wonder-models/" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Robust Function Calling for LLM Agents Under Interface Drift<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.23342v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>AgentOnto: Ontology-Guided LLM Agents for Enterprise Data Analytics<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.23317v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>From Memory Hits to Answerable Evidence: Query-Conditioned Memory Compilation for Long-Term Agent Memory<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.23313v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>Self-Reflective Chain-of-Thought (SRCoT): Evidence-Based Text Generation via a Closed-Loop Retrieve--Reflect--Revise Pipeline on Edge LLMs<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.23311v1" target="_blank" rel="noopener">链接 →</a></td></tr><tr><td>MobileInject: Evaluating Reasoning-to-Action Security of MLLM-Based Mobile Agents under Cross-Modal Consistency Injection<span class="domain-tag">ai-llm-agent</span></td><td>2.5</td><td>1</td><td><a href="https://arxiv.org/abs/2610.23307v1" target="_blank" rel="noopener">链接 →</a></td></tr></tbody></table>
+  </section>
+
+  <footer>
+    <p>VS_AI 情报采集系统自动生成 · 数据来源：RSS / GitHub / 官方网站</p>
+  </footer>
+</div>
+</body>
+</html>
