@@ -1,18 +1,18 @@
 # 自动情报快报
 
-生成时间：2026-10-22T09:35:09.983722+08:00
+生成时间：2026-10-23T09:35:29.259541+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
 - 重点关注：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
-- Patch the Planet: global response coordination as agents uncover vulnerabilities
+- LLMs are making formal software verification feasible at a much larger scale
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 
 ## 关键洞察
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Patch the Planet: global response coordination as agents uncover vulnerabilities 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- LLMs are making formal software verification feasible at a much larger scale 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
@@ -46,15 +46,15 @@
 
 ## 重点主线
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Patch the Planet: global response coordination as agents uncover vulnerabilities：Patch the Planet: global response coordination as agents uncover vulnerabilities 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- LLMs are making formal software verification feasible at a much larger scale：LLMs are making formal software verification feasible at a much larger scale 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 196 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 196 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 196 天 / 1 source(s) | repo | 5 related context
-- alibaba/MNN：rising / low / 已持续 196 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 196 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 197 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 197 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 197 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 197 天 / 1 source(s) | repo | 5 related context
+- tenstorrent/tt-metal：rising / low / 已持续 197 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
@@ -67,23 +67,23 @@
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
 
+- 佐证：official | Flint-interactive: A language for creating interactive data visualizations | https://www.microsoft.com/en-us/research/blog/flint-interactive-a-language-for-creating-interactive-data-visualizations/
 - 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
-- 佐证：official | Introducing Quine: An AI research system designed for the complexity of biology | https://www.microsoft.com/en-us/research/blog/introducing-quine-an-ai-research-system-designed-for-the-complexity-of-biology/
 - 佐证：official | Proof-based general-purpose computing with Magnetar | https://www.microsoft.com/en-us/research/blog/proof-based-general-purpose-computing-with-magnetar/
 
-### Patch the Planet: global response coordination as agents uncover vulnerabilities
+### LLMs are making formal software verification feasible at a much larger scale
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Patch the Planet: global response coordination as agents uncover vulnerabilities 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：LLMs are making formal software verification feasible at a much larger scale 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | community | 4 direct support | 1 related context
-- 链接：https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/
+- 链接：https://www.anthropic.com/research/formal-verification
 
-- 佐证：official | Patch the Planet: global response coordination as agents uncover critical vulnerabilities | https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities
-- 佐证：official | ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform | https://openai.com/index/chatgpt-ads-expands-26-new-countries
-- 佐证：official | Cloudflare links vulnerability discovery to defense with OpenAI | https://openai.com/index/cloudflare-cyber
+- 佐证：official | Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses | https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
+- 佐证：official | Expanding the Cyber Verification Program | https://www.anthropic.com/news/cyber-verification-program
+- 佐证：official | MoE at Scale: Making Sparse Models Fast on Real Hardware | https://www.cerebras.ai/blog/moe-guide-scale
 
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
@@ -92,7 +92,7 @@
 - 置信度：low
 - 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
+- 交叉印证：1 source(s) | official | 4 direct support | 1 related context
 - 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
 
 - 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
