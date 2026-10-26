@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-10-25T09:13:57.837078+08:00
+生成时间：2026-10-26T09:13:56.058588+08:00
 
 ## 一句话判断
-本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
+本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/1中置信）。
 
 ## 执行摘要
 - 重点关注：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
+- A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis
 - vllm-project/vllm
-- Progressive disclosure in agents to make them 2.3x faster
 
 ## 关键洞察
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Progressive disclosure in agents to make them 2.3x faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -46,15 +46,15 @@
 
 ## 重点主线
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis：A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Progressive disclosure in agents to make them 2.3x faster：Progressive disclosure in agents to make them 2.3x faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 199 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 199 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 199 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 199 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 199 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 200 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 200 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 200 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 200 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 200 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
@@ -71,6 +71,18 @@
 - 佐证：official | Forecasting space weather risks on power grids | https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/
 - 佐证：official | Proof-based general-purpose computing with Magnetar | https://www.microsoft.com/en-us/research/blog/proof-based-general-purpose-computing-with-magnetar/
 
+### A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：A 10-year-old CNN outperforms frontier LLMs for skin cancer diagnosis 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
+- 链接：https://lynchlab.net/llm-skin-cancer
+
+- 佐证：official | Solving a 31-year-old grand challenge in mathematics – the KLS conjecture | https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/
+
 ### vllm-project/vllm
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -80,20 +92,6 @@
 - 风险等级：low
 - 交叉印证：1 source(s) | repo | 5 related context
 - 链接：https://github.com/vllm-project/vllm
-
-### Progressive disclosure in agents to make them 2.3x faster
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Progressive disclosure in agents to make them 2.3x faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 3 direct support | 2 related context
-- 链接：https://www.skyvern.com/blog/deleting-rag-from-our-web-agent-made-it-2-3x-faster/
-
-- 佐证：official | NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds | https://blog.st.com/nanoedge-ai-machine-learning/
-- 佐证：official | What will it take to bring humanoid robots into the real world? Read our experts’ insights | https://www.ti.com/about-ti/behind-chip/articles/what-will-it-take-to-bring-humanoid-robots-into-the-real-world-read-our-experts-insights.html
-- 佐证：paper | Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning | https://arxiv.org/abs/2610.31667v1
 
 ## 短期推演
 - 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
