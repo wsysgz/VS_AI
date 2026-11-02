@@ -1,6 +1,6 @@
 # 自动情报快报
 
-生成时间：2026-11-01T10:17:18.034359+08:00
+生成时间：2026-11-02T10:36:49.797956+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -8,12 +8,12 @@
 ## 执行摘要
 - 重点关注：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- vllm-project/vllm
+- AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy
 
 ## 关键洞察
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -26,9 +26,9 @@
 ### 海外高亮信号
 - embedded：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor（来源：nvidia-embedded）
 - frontier-ai：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses（来源：microsoft-research）
+- frontier-ai：From 1D Benchmarks to Complex 3D Geometries: Can Agents Reliably Specify Problems for Automated PDE Simulation?（来源：arxiv-cs-ai）
 - compute-infra：AI agents are changing what CPU performance means（来源：arm-news）
 - compute-infra：Arm introduces new AI-native compute platform built for agentic AI and mobile graphics（来源：arm-news）
-- compute-infra：The agentic era needs a computing platform everywhere – Arm is building it（来源：arm-news）
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 AI agents are changing what CPU performance means。
@@ -47,14 +47,14 @@
 ## 重点主线
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy：AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 206 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 206 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 206 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 206 天 / 1 source(s) | repo | 5 related context
-- alibaba/MNN：rising / low / 已持续 206 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 207 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 207 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 207 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 207 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 207 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
 ### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
@@ -85,15 +85,17 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
-### vllm-project/vllm
+### AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：AI agent swarms in Minecraft fail to build civilization, drown in bureaucracy 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
+- 链接：https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-agent-swarms-unleashed-in-minecraft-to-build-a-thriving-civilization-50-agent-teams-fail-after-falling-into-paralyzing-bureaucracy
+
+- 佐证：official | A day in the life with personal AI agents: Intelligence that moves with you | https://www.qualcomm.com/news/onq/2026/09/personal-ai-agents-day-in-life
 
 ## 短期推演
 - 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
