@@ -1,6 +1,6 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-11-03T12:01:14.084893+08:00
+生成时间：2026-11-03T11:59:32.552595+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -10,8 +10,8 @@
 
 ## 关键洞察
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Agentic backdoors via pretraining poisoning 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- LongCat-2.5: Native Multimodality for Agentic Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app：Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- LongCat-2.5: Native Multimodality for Agentic Tasks：LongCat-2.5: Native Multimodality for Agentic Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
@@ -54,32 +54,32 @@
 - 佐证：official | Flint-interactive: A language for creating interactive data visualizations | https://www.microsoft.com/en-us/research/blog/flint-interactive-a-language-for-creating-interactive-data-visualizations/
 - 佐证：official | Proof-based general-purpose computing with Magnetar | https://www.microsoft.com/en-us/research/blog/proof-based-general-purpose-computing-with-magnetar/
 
-### Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app
+### LongCat-2.5: Native Multimodality for Agentic Tasks
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Launch HN: Momentic (YC W24) – Agents that catch bugs by using your app 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：LongCat-2.5: Native Multimodality for Agentic Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
 - 交叉印证：1 source(s) | community | 2 direct support | 3 related context
-- 链接：https://momentic.ai/
+- 链接：https://longcat.ai/blog/longcat-2.5/
 
-- 佐证：paper | Mathematical Formulation and Comparative Performance Evaluation of Machine Learning Algorithms for Maize Land Suitability Prediction | https://arxiv.org/abs/2611.01239v1
-- 佐证：paper | OntoDoc: Automatically Generating Ontology Resource Descriptions | https://arxiv.org/abs/2611.01276v1
+- 佐证：official | Arm introduces new AI-native compute platform built for agentic AI and mobile graphics | https://newsroom.arm.com/news/arm-css-for-mobile-2-agentic-ai-mobile-graphics
+- 佐证：official | Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents | https://about.fb.com/news/2026/10/introducing-muse-wonder-models/
 
-### Agentic backdoors via pretraining poisoning
+### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Agentic backdoors via pretraining poisoning 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://arxiv.org/abs/2610.37741
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
 
-- 佐证：paper | Beyond fabrication: Misattributed numbers in papers written by AI research agents | https://arxiv.org/abs/2610.38691v2
-- 佐证：paper | OntoDoc: Automatically Generating Ontology Resource Descriptions | https://arxiv.org/abs/2611.01276v1
-- 佐证：paper | Understanding, Predicting, and Steering LLM Behavior via Representational Effective Theory | https://arxiv.org/abs/2605.09294v3
+- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
+- 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
+- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
 ## 短期推演
 - 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
