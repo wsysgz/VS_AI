@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-11-04T11:03:21.794918+08:00
+生成时间：2026-11-05T11:33:40.501811+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 167 个主题。
+- 本领域当前命中 78 个主题。
 
 ## 关键洞察
+- Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Basically no one is using AI agents for their DoorDash orders 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,13 +33,39 @@
 - 暂无
 
 ## 重点主线
-- Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding：Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Basically no one is using AI agents for their DoorDash orders：Basically no one is using AI agents for their DoorDash orders 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
+### Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 1 direct support | 4 related context
+- 链接：https://www.ricursive.com/ripple
+
+- 佐证：paper | ArcRAG: Agentic Compositional Retrieval over Knowledge Graphs | https://arxiv.org/abs/2611.06481v1
+
+### Basically no one is using AI agents for their DoorDash orders
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Basically no one is using AI agents for their DoorDash orders 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/
+
+- 佐证：official | Arm Holdings plc reports results for the second quarter of the fiscal year ending 2027 | https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-second-quarter-of-the-fiscal-year-ending-2027
+- 佐证：official | Arm welcomes favorable jury verdict in Qualcomm litigation | https://newsroom.arm.com/news/arm-qualcomm-legal-dispute
+- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
+
 ### Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -54,32 +80,8 @@
 - 佐证：official | Flint-interactive: A language for creating interactive data visualizations | https://www.microsoft.com/en-us/research/blog/flint-interactive-a-language-for-creating-interactive-data-visualizations/
 - 佐证：official | Proof-based general-purpose computing with Magnetar | https://www.microsoft.com/en-us/research/blog/proof-based-general-purpose-computing-with-magnetar/
 
-### Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://about.fb.com/news/2026/10/introducing-muse-wonder-models/
-
-- 佐证：official | Why Data Centers Are Such a Big Part of Meta’s AI Approach | https://about.fb.com/news/2026/10/meta-data-centers-ai-approach/
-- 佐证：official | Cirkit Designer: AI-powered ESP32 development with instruction-accurate simulation | https://developer.espressif.com/blog/2026/10/cirkit-esp32-s3-browser-simulation/
-- 佐证：official | ESP RainMaker Matter Fabric Support: A Complete Solution for Branded Ecosystems | https://developer.espressif.com/blog/2026/10/esp-rainmaker-matter-fabric/
-
-### vllm-project/vllm
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
-
 ## 短期推演
-- 观察：Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Ripple-65B Preview: U.S. Open-Weight SOTA on Agentic Coding 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
