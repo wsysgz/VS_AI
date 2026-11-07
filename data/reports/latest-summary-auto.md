@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-11-06T11:39:09.552075+08:00
+生成时间：2026-11-07T10:52:59.043747+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：Hungary: Communist-era files released, up to 60k former agents revealed
-- AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
+- 重点关注：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
+- vllm-project/vllm
+- GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents
 
 ## 关键洞察
-- Hungary: Communist-era files released, up to 60k former agents revealed 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -25,15 +25,15 @@
 
 ### 海外高亮信号
 - embedded：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor（来源：nvidia-embedded）
-- frontier-ai：AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation（来源：arxiv-cs-ai）
 - frontier-ai：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.（来源：huggingface-blog）
 - compute-infra：AI agents are changing what CPU performance means（来源：arm-news）
 - embedded：NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation（来源：nvidia-embedded）
+- embedded：NanoEdge AI: Their First Machine Learning Application on the STM32G4 Series Blew Our Minds（来源：st-blog）
 
 ### 赛道快照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 AI agents are changing what CPU performance means。
 - embedded：国内 瑞芯微 × 面壁智能：完成 MiniCPM5 2B Day 0 原生适配，加速端侧 Agent 产业落地！；海外 TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.。
 
 ### 同轨对照
 - compute-infra：国内 算能与清程极智达成战略合作，共筑自主可控大模型推理服务新生态；海外 How AlphaSense Uses Fast Inference to Make Agentic Research Interactive。
@@ -47,46 +47,18 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- Hungary: Communist-era files released, up to 60k former agents revealed：Hungary: Communist-era files released, up to 60k former agents revealed 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation：AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents：GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 211 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 211 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 211 天 / 1 source(s) | repo | 5 related context
-- alibaba/MNN：rising / low / 已持续 211 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 211 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 212 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 212 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 212 天 / 1 source(s) | repo | 5 related context
+- tenstorrent/tt-metal：rising / low / 已持续 212 天 / 1 source(s) | repo | 5 related context
+- pytorch/executorch：rising / low / 已持续 212 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### Hungary: Communist-era files released, up to 60k former agents revealed
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Hungary: Communist-era files released, up to 60k former agents revealed 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://www.euronews.com/2026/11/04/hungary-communist-era-files-opened-up-to-60000-former-agents-revealed
-
-- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
-- 佐证：official | Infineon at electronica 2026: Technology for the AI era, from data centers into robots and onto the road | https://www.infineon.com/press-release/2026/infpr202610-007
-- 佐证：official | It’s 2040. How are new devices helping decade-old 6G networks keep up with AI demand? | https://www.qualcomm.com/news/onq/2026/10/designing-6g-to-adapt-to-ai-demand
-
-### AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：AgentSelect: Benchmark for Narrative Query-to-Agent Recommendation 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2603.03761v2
-
-- 佐证：paper | CardioLM: A multilingual suite of small language models for the cardiology domain | https://arxiv.org/abs/2611.07940v1
-- 佐证：paper | TCSExam: Evaluating Frontier LLMs on the Full Range of TCS Research | https://arxiv.org/abs/2611.07962v1
-- 佐证：paper | A Behavioural Framework for Predicting and Understanding Loss of Control in Frontier Artificial Intelligence Systems | https://arxiv.org/abs/2611.07953v1
-
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -101,8 +73,31 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
+### vllm-project/vllm
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
+
+### GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：rising
+- 风险等级：medium
+- 交叉印证：1 source(s) | official | 2 direct support | 3 related context
+- 链接：https://openai.com/index/introducing-gpt-6-cyber
+
+- 佐证：official | Merge builds product and business tools with OpenAI technology | https://openai.com/index/merge-builds-with-openai
+- 佐证：official | Partnering with Hacktron to find vulnerabilities in OpenAI’s systems | https://openai.com/index/partnering-with-hacktron
+
 ## 短期推演
-- 观察：Hungary: Communist-era files released, up to 60k former agents revealed 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
