@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-11-10T12:43:43.361999+08:00
+生成时间：2026-11-10T12:47:12.083028+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks
-- TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
-- A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.
+- 重点关注：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
+- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks
+- vllm-project/vllm
 
 ## 关键洞察
-- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -49,32 +49,18 @@
 - 继续跟踪 frontier-ai 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - vllm-project/vllm：verified / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
-- langchain-ai/langgraph：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
 - ollama/ollama：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
 - tenstorrent/tt-metal：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 215 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks
-- 主领域：ai-x-electronics
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2611.11469v1
-
-- 佐证：official | Infineon redefines real-time compute and control for software-defined vehicles and Physical AI with new AURIX™ RC1 | https://www.infineon.com/press-release/2026/infpr202611-026
-- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
-- 佐证：paper | Explanation Design in Strategic Learning: Sufficient Explanations That Induce Non-harmful Responses | https://arxiv.org/abs/2502.04058v3
-
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -89,22 +75,32 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
-### A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.
+### RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks
+- 主领域：ai-x-electronics
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2611.11469v1
+
+- 佐证：official | Infineon redefines real-time compute and control for software-defined vehicles and Physical AI with new AURIX™ RC1 | https://www.infineon.com/press-release/2026/infpr202611-026
+- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
+- 佐证：paper | Explanation Design in Strategic Learning: Sufficient Explanations That Induce Non-harmful Responses | https://arxiv.org/abs/2502.04058v3
+
+### vllm-project/vllm
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：rising
-- 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/phonon-tts
-
-- 佐证：official | CWE-bench v2: More coverage, quality, and transparency | https://huggingface.co/blog/cwe-bench
-- 佐证：official | Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready | https://huggingface.co/blog/announcing-project-protostar
-- 佐证：official | Dharma Field Extractor: Any Document In, Structured Fields in JSON Out | https://huggingface.co/blog/Dharma-AI/dharma-field-extractor
+- 生命周期：verified
+- 风险等级：low
+- 交叉印证：1 source(s) | repo | 5 related context
+- 链接：https://github.com/vllm-project/vllm
 
 ## 短期推演
-- 观察：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
