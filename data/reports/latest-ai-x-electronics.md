@@ -1,6 +1,6 @@
 # AI × 电子信息
 
-生成时间：2026-11-10T12:47:12.083028+08:00
+生成时间：2026-11-11T10:50:17.111700+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -9,7 +9,6 @@
 - 本领域当前命中 15 个主题。
 
 ## 关键洞察
-- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
@@ -32,40 +31,25 @@
 - 暂无
 
 ## 重点主线
-- RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks
-- 主领域：ai-x-electronics
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：RealEmbedBench: Benchmarking LLMs on Real-World Application-Layer Embedded Software Tasks 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2611.11469v1
-
-- 佐证：official | Infineon redefines real-time compute and control for software-defined vehicles and Physical AI with new AURIX™ RC1 | https://www.infineon.com/press-release/2026/infpr202611-026
-- 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
-- 佐证：paper | Explanation Design in Strategic Learning: Sufficient Explanations That Induce Non-harmful Responses | https://arxiv.org/abs/2502.04058v3
-
 ### Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster
 - 主领域：ai-x-electronics
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
 - 核心洞察：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
 - 交叉印证：1 source(s) | official | 5 direct support
 - 链接：https://www.renesas.com/en/blogs/collaboration-deployment-how-renesas-and-canonical-help-you-ship-secure-edge-ai-faster
 
-- 佐证：official | Cult.fit builds operational muscle with Codex | https://openai.com/index/cultfit-builds-with-codex
 - 佐证：official | How Achieve More Power Less Space GAN | https://www.renesas.com/en/blogs/how-achieve-more-power-less-space-gan
 - 佐证：official | How Knowledge Distillation Brings AI Industrial Edge Devices | https://www.renesas.com/en/blogs/how-knowledge-distillation-brings-ai-industrial-edge-devices
+- 佐证：official | How Simplify Complex Industrial Equipment Design | https://www.renesas.com/en/blogs/how-simplify-complex-industrial-equipment-design
 
 ## 短期推演
 - 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。

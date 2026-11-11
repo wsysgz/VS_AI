@@ -1,6 +1,6 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-11-10T12:47:12.083028+08:00
+生成时间：2026-11-11T10:50:17.111700+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -10,7 +10,7 @@
 
 ## 关键洞察
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
@@ -34,7 +34,7 @@
 
 ## 重点主线
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives：Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
@@ -54,15 +54,18 @@
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 - 佐证：official | Post-Train NVIDIA Cosmos 3 Edge for On-Device Robot Control | https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-edge-for-on-device-robot-control/
 
-### vllm-project/vllm
+### Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 2 direct support | 3 related context
+- 链接：https://github.com/GoogleChrome/modern-web-guidance
+
+- 佐证：official | Introducing Businesses in ChatGPT | https://openai.com/index/introducing-businesses-chatgpt
+- 佐证：repo | ollama/ollama | https://github.com/ollama/ollama
 
 ### A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.
 - 主领域：ai-llm-agent
@@ -75,7 +78,7 @@
 - 链接：https://huggingface.co/blog/phonon-tts
 
 - 佐证：official | CWE-bench v2: More coverage, quality, and transparency | https://huggingface.co/blog/cwe-bench
-- 佐证：official | Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready | https://huggingface.co/blog/announcing-project-protostar
+- 佐证：official | Decision Models in Hugging Face | https://huggingface.co/blog/decision
 - 佐证：official | Dharma Field Extractor: Any Document In, Structured Fields in JSON Out | https://huggingface.co/blog/Dharma-AI/dharma-field-extractor
 
 ## 短期推演
