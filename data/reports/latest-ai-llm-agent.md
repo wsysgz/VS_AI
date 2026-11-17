@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-11-16T10:47:11.686588+08:00
+生成时间：2026-11-17T13:08:23.420243+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 71 个主题。
+- 本领域当前命中 158 个主题。
 
 ## 关键洞察
-- A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Running coding agents without handing them my credentials 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- IndustrialKnowEval: A Benchmark for Evaluating Multi-Level Industrial Knowledge in LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,53 +33,53 @@
 - 暂无
 
 ## 重点主线
-- A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Running coding agents without handing them my credentials：Running coding agents without handing them my credentials 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- IndustrialKnowEval: A Benchmark for Evaluating Multi-Level Industrial Knowledge in LLMs：IndustrialKnowEval: A Benchmark for Evaluating Multi-Level Industrial Knowledge in LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
-### A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.
+### Running coding agents without handing them my credentials
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Running coding agents without handing them my credentials 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：rising
+- 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 5 direct support
-- 链接：https://huggingface.co/blog/phonon-tts
+- 交叉印证：1 source(s) | community | 5 related context
+- 链接：https://blog.antonio.cx/running-agents-with-lend
 
-- 佐证：official | BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model | https://huggingface.co/blog/qvac/botpsy
-- 佐证：official | Build a Robot Pick-and-Place Simulation with SimReady Assets | https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place
-- 佐证：official | Decision Models in Hugging Face | https://huggingface.co/blog/decision
-
-### Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents
+### IndustrialKnowEval: A Benchmark for Evaluating Multi-Level Industrial Knowledge in LLMs
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：IndustrialKnowEval: A Benchmark for Evaluating Multi-Level Industrial Knowledge in LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：rising
+- 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | official | 3 direct support | 2 related context
-- 链接：https://about.fb.com/news/2026/10/introducing-muse-wonder-models/
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2611.20695v1
 
-- 佐证：official | Meta’s New Agreements Bring Clean Manufacturing to Data Center Supply Chains | https://about.fb.com/news/2026/11/meta-new-agreements-clean-manufacturing-data-center-supply-chains/
-- 佐证：official | Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson | https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/
-- 佐证：paper | Small Heads, Strong Decisions: A Controlled Study of Typed-Decision Models | https://arxiv.org/abs/2611.15592v2
+- 佐证：official | How Knowledge Distillation Brings AI Industrial Edge Devices | https://www.renesas.com/en/blogs/how-knowledge-distillation-brings-ai-industrial-edge-devices
+- 佐证：paper | GainCtrl: Predicting Remaining Gains for Efficient LLM Agent Execution | https://arxiv.org/abs/2611.20736v1
+- 佐证：paper | MemEmo: Evaluating Emotion in Memory Systems | https://arxiv.org/abs/2611.20733v1
 
-### vllm-project/vllm
+### Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：verified
-- 风险等级：low
-- 交叉印证：1 source(s) | repo | 5 related context
-- 链接：https://github.com/vllm-project/vllm
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 3 direct support | 2 related context
+- 链接：https://xusheng.dev/posts/windows-coding-agent-telemetry/
+
+- 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
+- 佐证：official | TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor | https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/
+- 佐证：paper | SpeCal: Spectral Calibration for Unsupervised RLVR | https://arxiv.org/abs/2611.20691v1
 
 ## 短期推演
-- 观察：A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks. 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
