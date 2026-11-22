@@ -1,6 +1,6 @@
 # AI × 电子信息
 
-生成时间：2026-11-21T12:07:15.387203+08:00
+生成时间：2026-11-22T11:14:32.094672+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
@@ -52,7 +52,7 @@
 - 佐证：official | How Simplify Complex Industrial Equipment Design | https://www.renesas.com/en/blogs/how-simplify-complex-industrial-equipment-design
 
 ## 短期推演
-- 观察：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
