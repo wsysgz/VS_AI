@@ -1,17 +1,17 @@
 # AI / 大模型 / Agent
 
-生成时间：2026-11-22T11:14:32.094672+08:00
+生成时间：2026-11-23T11:46:50.471843+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 154 个主题。
+- 本领域当前命中 158 个主题。
 
 ## 关键洞察
+- Localcode, open source agentic coding on your Mac with one command 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLMs can read and write executables byte by byte from a hex dump 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- Pandex – Official European Law for AI Agents, over MCP 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Agent swarm trying to solve P vs. NP 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -33,13 +33,27 @@
 - 暂无
 
 ## 重点主线
+- Localcode, open source agentic coding on your Mac with one command：Localcode, open source agentic coding on your Mac with one command 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLMs can read and write executables byte by byte from a hex dump：LLMs can read and write executables byte by byte from a hex dump 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
+### Localcode, open source agentic coding on your Mac with one command
+- 主领域：ai-llm-agent
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：Localcode, open source agentic coding on your Mac with one command 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | community | 4 direct support | 1 related context
+- 链接：https://github.com/mjwsolo/localcode
+
+- 佐证：official | Advancing Science Together: Highlights From the Open Source AI For Science Summit | https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/
+- 佐证：official | TokenEconomizer: Learning from Experience to Make AI Coding Agents More Efficient | https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient/
+- 佐证：repo | NVIDIA/TensorRT | https://github.com/NVIDIA/TensorRT
+
 ### TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -54,32 +68,18 @@
 - 佐证：official | Run Native DLA Inference in Python on NVIDIA Jetson AGX Orin Using cuDLA | https://developer.nvidia.com/blog/run-native-dla-inference-in-python-on-nvidia-jetson-agx-orin-using-cudla/
 - 佐证：official | NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation | https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/
 
-### LLMs can read and write executables byte by byte from a hex dump
+### Agent swarm trying to solve P vs. NP
 - 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：LLMs can read and write executables byte by byte from a hex dump 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Agent swarm trying to solve P vs. NP 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://sgiannopoulos.github.io/blog/machine-code-programming/
-
-- 佐证：repo | alibaba/MNN | https://github.com/alibaba/MNN
-- 佐证：repo | onnx/onnx | https://github.com/onnx/onnx
-- 佐证：repo | tenstorrent/tt-metal | https://github.com/tenstorrent/tt-metal
-
-### Pandex – Official European Law for AI Agents, over MCP
-- 主领域：ai-llm-agent
-- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：Pandex – Official European Law for AI Agents, over MCP 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- 置信度：low
-- 生命周期：new
-- 风险等级：medium
-- 交叉印证：1 source(s) | community | 3 related context
-- 链接：https://www.pandex.io
+- 交叉印证：1 source(s) | community | 2 related context
+- 链接：https://pequalnp.com/
 
 ## 短期推演
-- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Localcode, open source agentic coding on your Mac with one command 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
