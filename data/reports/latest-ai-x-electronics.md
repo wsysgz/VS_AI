@@ -1,14 +1,15 @@
 # AI × 电子信息
 
-生成时间：2026-11-24T15:00:59.901899+08:00
+生成时间：2026-11-25T13:29:05.705641+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 本领域当前命中 19 个主题。
+- 本领域当前命中 17 个主题。
 
 ## 关键洞察
+- AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
@@ -31,12 +32,27 @@
 - 暂无
 
 ## 重点主线
+- AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
 - 暂无
 
 ## 重点主题分析
+### AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design
+- 主领域：ai-x-electronics
+- 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
+- 核心洞察：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 置信度：low
+- 生命周期：new
+- 风险等级：medium
+- 交叉印证：1 source(s) | paper | 5 direct support
+- 链接：https://arxiv.org/abs/2611.33093v1
+
+- 佐证：paper | Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions | https://arxiv.org/abs/2611.33111v1
+- 佐证：paper | MetaFORGE: A Meta-Learning Framework for Harness Optimization in Automated Code Generation for Parallel Computing | https://arxiv.org/abs/2611.33119v1
+- 佐证：paper | OmniAct: One Policy, One Million Embodiments | https://arxiv.org/abs/2611.33158v1
+
 ### Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster
 - 主领域：ai-x-electronics
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
@@ -52,7 +68,7 @@
 - 佐证：official | How Simplify Complex Industrial Equipment Design | https://www.renesas.com/en/blogs/how-simplify-complex-industrial-equipment-design
 
 ## 短期推演
-- 观察：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
