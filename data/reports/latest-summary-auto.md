@@ -1,19 +1,19 @@
 # 自动情报快报
 
-生成时间：2026-11-25T13:29:05.705641+08:00
+生成时间：2026-11-26T13:25:56.332922+08:00
 
 ## 一句话判断
 本轮采集到 6 个主题，覆盖 0 个信息源（0高置信/0中置信）。
 
 ## 执行摘要
-- 重点关注：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design
+- 重点关注：Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs
 - vllm-project/vllm
-- LLM agents work for their parent companies, not for you
+- Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster
 
 ## 关键洞察
-- AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLM agents work for their parent companies, not for you 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 国内外对比
 ### 国内高亮信号
@@ -25,7 +25,7 @@
 
 ### 海外高亮信号
 - embedded：TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor（来源：nvidia-embedded）
-- frontier-ai：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design（来源：arxiv-cs-ai）
+- frontier-ai：$μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents（来源：arxiv-cs-ai）
 - embedded：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster（来源：renesas-blog）
 - compute-infra：Accelerating the agentic era: How Arm and ​​Google​ Cloud co-design​ infrastructure for TPU 8i Max（来源：arm-news）
 - compute-infra：Arm expands Arm Flexible Access and Arm Total Access portfolios with new Arm Cortex-M42 to accelerate edge AI innovation（来源：arm-news）
@@ -33,7 +33,7 @@
 ### 赛道快照
 - compute-infra：国内 共建RISC-V生态，算能获双项荣誉；海外 Accelerating the agentic era: How Arm and ​​Google​ Cloud co-design​ infrastructure for TPU 8i Max。
 - embedded：国内 瑞芯微 × 面壁智能：完成 MiniCPM5 2B Day 0 原生适配，加速端侧 Agent 产业落地！；海外 TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor。
-- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design。
+- frontier-ai：国内 Agent 新进展：跨 app、跨设备、更多玩法｜智谱 Agent OpenDay；海外 $μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents。
 
 ### 同轨对照
 - embedded：国内 瑞芯微 × 面壁智能：完成 MiniCPM5 2B Day 0 原生适配，加速端侧 Agent 产业落地！；海外 Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster。
@@ -45,31 +45,31 @@
 - 继续跟踪 embedded 的国内外同轨发布、生态采用与真实交付反馈。
 
 ## 重点主线
-- AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs：Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - vllm-project/vllm：vllm-project/vllm 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
-- LLM agents work for their parent companies, not for you：LLM agents work for their parent companies, not for you 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 
 ## 跨日主线记忆
-- vllm-project/vllm：verified / low / 已持续 230 天 / 1 source(s) | repo | 1 direct support | 4 related context
-- langchain-ai/langgraph：rising / low / 已持续 230 天 / 1 source(s) | repo | 5 related context
-- ollama/ollama：rising / low / 已持续 230 天 / 1 source(s) | repo | 5 related context
-- pytorch/executorch：rising / low / 已持续 230 天 / 1 source(s) | repo | 5 related context
-- tenstorrent/tt-metal：rising / low / 已持续 230 天 / 1 source(s) | repo | 5 related context
+- vllm-project/vllm：verified / low / 已持续 231 天 / 1 source(s) | repo | 5 related context
+- langchain-ai/langgraph：rising / low / 已持续 231 天 / 1 source(s) | repo | 5 related context
+- ollama/ollama：rising / low / 已持续 231 天 / 1 source(s) | repo | 5 related context
+- alibaba/MNN：rising / low / 已持续 231 天 / 1 source(s) | repo | 5 related context
+- tenstorrent/tt-metal：rising / low / 已持续 231 天 / 1 source(s) | repo | 5 related context
 
 ## 重点主题分析
-### AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design
-- 主领域：ai-x-electronics
+### Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs
+- 主领域：ai-llm-agent
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
 - 生命周期：new
 - 风险等级：medium
-- 交叉印证：1 source(s) | paper | 5 direct support
-- 链接：https://arxiv.org/abs/2611.33093v1
+- 交叉印证：1 source(s) | community | 5 direct support
+- 链接：https://jayd.ml/2026/11/14/rockbox-on-yp3.html
 
-- 佐证：paper | Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions | https://arxiv.org/abs/2611.33111v1
-- 佐证：paper | MetaFORGE: A Meta-Learning Framework for Harness Optimization in Automated Code Generation for Parallel Computing | https://arxiv.org/abs/2611.33119v1
-- 佐证：paper | OmniAct: One Policy, One Million Embodiments | https://arxiv.org/abs/2611.33158v1
+- 佐证：official | AI on Snapdragon is AI that moves with you | https://www.qualcomm.com/news/onq/2026/11/ai-on-snapdragon-agentic-age
+- 佐证：official | Adobe and Snapdragon: Your creativity supercharged by AI | https://www.qualcomm.com/news/onq/2026/11/adobe-apps-snapdragon-ai
+- 佐证：official | Advancing Science Together: Highlights From the Open Source AI for Science Summit | https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/
 
 ### vllm-project/vllm
 - 主领域：ai-llm-agent
@@ -78,27 +78,25 @@
 - 置信度：low
 - 生命周期：verified
 - 风险等级：low
-- 交叉印证：1 source(s) | repo | 1 direct support | 4 related context
+- 交叉印证：1 source(s) | repo | 5 related context
 - 链接：https://github.com/vllm-project/vllm
 
-- 佐证：paper | OmniAct: One Policy, One Million Embodiments | https://arxiv.org/abs/2611.33158v1
-
-### LLM agents work for their parent companies, not for you
-- 主领域：ai-llm-agent
+### Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster
+- 主领域：ai-x-electronics
 - 主要矛盾：信号可见度 vs 证据深度（证据=1，来源=1）
-- 核心洞察：LLM agents work for their parent companies, not for you 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
+- 核心洞察：Collaboration Deployment How Renesas And Canonical Help You Ship Secure Edge AI Faster 已在 1 个来源中出现，共 1 条相关信息。当前仍需更深入的证据核验与 AI 辅助分析。
 - 置信度：low
-- 生命周期：new
+- 生命周期：rising
 - 风险等级：medium
-- 交叉印证：1 source(s) | community | 5 direct support
-- 链接：https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/
+- 交叉印证：1 source(s) | official | 5 direct support
+- 链接：https://www.renesas.com/en/blogs/collaboration-deployment-how-renesas-and-canonical-help-you-ship-secure-edge-ai-faster
 
-- 佐证：official | AI on Snapdragon is AI that moves with you | https://www.qualcomm.com/news/onq/2026/11/ai-on-snapdragon-agentic-age
-- 佐证：official | Adobe and Snapdragon: Your creativity supercharged by AI | https://www.qualcomm.com/news/onq/2026/11/adobe-apps-snapdragon-ai
-- 佐证：official | Advancing Science Together: Highlights From the Open Source AI for Science Summit | https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/
+- 佐证：official | How Achieve More Power Less Space GAN | https://www.renesas.com/en/blogs/how-achieve-more-power-less-space-gan
+- 佐证：official | How Knowledge Distillation Brings AI Industrial Edge Devices | https://www.renesas.com/en/blogs/how-knowledge-distillation-brings-ai-industrial-edge-devices
+- 佐证：official | How Simplify Complex Industrial Equipment Design | https://www.renesas.com/en/blogs/how-simplify-complex-industrial-equipment-design
 
 ## 短期推演
-- 观察：AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
+- 观察：Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs 等主题将在未来数天内继续出现在多个信息源中，建议保持监控并关注官方后续发布。
 - 结论：本轮预测阶段已回退（无AI分析），结论基于规则模式匹配。启用 DeepSeek API 可获得更精准预测。
 
 ## 局限性
